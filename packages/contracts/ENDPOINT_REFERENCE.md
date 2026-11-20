@@ -11711,6 +11711,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** operation level: bearerAuth
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
 - `role`: string, required, 65 allowed values; see source
@@ -11737,6 +11739,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -11746,6 +11750,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11773,6 +11779,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -11782,6 +11790,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11805,12 +11815,16 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 
 **Response 404:** Target absent in the actor tenant
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -11821,6 +11835,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11854,6 +11870,8 @@ CEO only, same tenant, no self-modification. Both role and status are required. 
 
 **Authentication declared in source:** operation level: bearerSession
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
 - `role`: string, required, 64 allowed values; see source
@@ -11862,11 +11880,15 @@ Additional properties are rejected for this shape.
 
 **Response 200:** Successful operation
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `user`: object, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11874,11 +11896,15 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 403:** Role or tenant denied
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11886,17 +11912,23 @@ Additional properties are rejected for this shape.
 
 **Response 404:** Account unavailable in actor tenant
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
+Response headers: `Cache-Control`, `Retry-After`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -14681,6 +14713,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required
 Additional properties are rejected for this shape.
@@ -14709,6 +14743,8 @@ Content type `application/json`:
 Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -14720,6 +14756,8 @@ Additional properties are rejected for this shape.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required
 Additional properties are rejected for this shape.
@@ -14749,6 +14787,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -14758,6 +14798,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14783,6 +14825,8 @@ Additional properties are rejected for this shape.
 **Response 503:** Authentication service unavailable, including malformed database limiter results. No-store; no protected mutation or session issuance.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -14883,6 +14927,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required
 - `password`: string, required, minLength=1, write-only; never log
@@ -14921,6 +14967,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -14930,6 +14978,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14970,6 +15020,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -14979,6 +15031,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -15014,6 +15068,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -15023,6 +15079,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -15057,10 +15115,14 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -15102,11 +15164,15 @@ Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normali
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required, maxLength=254
 - `password`: string, required, minLength=1, write-only; never log
 
 **Response 200:** Successful operation
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `userId`: string, required
@@ -15117,11 +15183,15 @@ Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15129,11 +15199,15 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
+Response headers: `Cache-Control`, `Retry-After`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15213,11 +15287,15 @@ Idempotent without credentials. Deletes the presented token hash and clears the 
 
 **Response 200:** Successful operation
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `status`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15418,6 +15496,8 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 
@@ -15476,6 +15556,8 @@ Reads the current active user and unexpired session from PostgreSQL. Explicit in
 
 **Response 200:** Successful operation
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
@@ -15484,11 +15566,15 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15546,6 +15632,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** operation level: bearerAuth OR sessionCookie
 
+**Request body:** Optional. 
+
 **Request body — application/json:**
 No object fields; schema type: unspecified.
 
@@ -15566,6 +15654,8 @@ Additional properties are rejected for this shape.
 **Response 429:** Rate limit
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15592,6 +15682,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Read current session identity; this compatibility POST performs no mutation.
 
 **Authentication declared in source:** operation level: bearerAuth OR sessionCookie
+
+**Request body:** Optional. 
 
 **Request body — application/json:**
 No object fields; schema type: unspecified.
@@ -15626,6 +15718,8 @@ Reads the current active user and unexpired session from PostgreSQL. Explicit in
 
 **Response 200:** Successful operation
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
@@ -15634,11 +15728,15 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15752,6 +15850,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Authentication declared in source:** operation level: sessionBearer
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `password`: string, required, minLength=1, maxLength=72
 - `code`: string, required, pattern-constrained; see source
@@ -15847,6 +15947,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Authentication declared in source:** operation level: sessionBearer
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `elevationId`: string, required
 Additional properties are rejected for this shape.
@@ -15934,6 +16036,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: password_verified_mfa_replacement_challenge
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `challenge`: string, required, pattern-constrained; see source
@@ -16026,6 +16130,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Authentication declared in source:** operation level: sessionBearer
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `password`: string, required, minLength=1
 - `code`: string, required, pattern-constrained; see source
@@ -16115,6 +16221,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_mfa
 
 **Authentication declared in source:** operation level: sessionBearer
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `password`: string, required, minLength=1
@@ -16208,6 +16316,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: password_verified_mfa_replacement_challenge
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `challenge`: string, required, pattern-constrained; see source
@@ -16319,6 +16429,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Authentication declared in source:** operation level: sessionBearer
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `requestId`: string, required
 - `password`: string, required, minLength=1, maxLength=72
@@ -16409,6 +16521,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: elevated_code_admin_support_request
 
 **Authentication declared in source:** operation level: sessionBearer
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `elevationId`: string, required
@@ -16596,6 +16710,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Authentication declared in source:** operation level: sessionBearer
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `requestId`: string, required
 - `password`: string, required, minLength=1, maxLength=72
@@ -16684,6 +16800,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: approved_tenant_security_summary
 
 **Authentication declared in source:** operation level: sessionBearer
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `requestId`: string, required
@@ -17003,6 +17121,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** operation level: bearerAuth
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required
 - `password`: string, required
@@ -17029,6 +17149,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -17038,6 +17160,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -17065,6 +17189,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -17074,6 +17200,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -17097,12 +17225,16 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 
 **Response 409:** Account cannot be created
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -17113,6 +17245,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -17146,6 +17280,8 @@ No public registration. CEO and HR allowlists come from account-policy.json gene
 
 **Authentication declared in source:** operation level: bearerSession
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required, maxLength=254
 - `password`: string, required, minLength=12, maxLength=72, write-only; never log
@@ -17154,11 +17290,15 @@ Additional properties are rejected for this shape.
 
 **Response 201:** Successful operation
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `user`: object, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17166,11 +17306,15 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 403:** Role or tenant denied
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17178,17 +17322,23 @@ Additional properties are rejected for this shape.
 
 **Response 409:** Account cannot be created
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
+Response headers: `Cache-Control`, `Retry-After`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17245,6 +17395,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required
 - `code`: string, required
@@ -17276,6 +17428,8 @@ Content type `application/json`:
 Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -17287,6 +17441,8 @@ Additional properties are rejected for this shape.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `email`: string, required
 - `code`: string, required
@@ -17319,6 +17475,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -17328,6 +17486,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `email`: string, required
@@ -17356,6 +17516,8 @@ Additional properties are rejected for this shape.
 **Response 503:** Authentication service unavailable, including malformed database limiter results. No-store; no protected mutation or session issuance.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
@@ -19977,6 +20139,8 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `service_type`: string, required, minLength=1, maxLength=100
 - `preferred_date`: string, required, pattern-constrained; see source
@@ -20249,6 +20413,8 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `service_type`: string, required, minLength=1, maxLength=100
 - `preferred_date`: string, required, pattern-constrained; see source
@@ -20334,6 +20500,8 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `service_type`: string, required, minLength=1, maxLength=100
 - `preferred_date`: string, required, pattern-constrained; see source
@@ -20418,6 +20586,8 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `service_type`: string, required, minLength=1, maxLength=100
@@ -22137,11 +22307,15 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Response 400:** No body, query string or tenant override accepted
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, 1 allowed values; see source
 Additional properties are rejected for this shape.
 
 **Response 401:** Missing, invalid or expired session; inactive user or tenant
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: constrained value, required, 1 allowed values; see source
@@ -22149,11 +22323,15 @@ Additional properties are rejected for this shape.
 
 **Response 403:** Wrong role, or no effective assigned verified active branch
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, 2 allowed values; see source
 Additional properties are rejected for this shape.
 
 **Response 405:** GET only
+
+Response headers: `Cache-Control`, `Allow`.
 
 Content type `application/json`:
 - `error`: constrained value, required, 1 allowed values; see source
@@ -22161,17 +22339,23 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Configured source limiter denied
 
+Response headers: `Cache-Control`, `Retry-After`.
+
 Content type `application/json`:
 - `error`: constrained value, required, 1 allowed values; see source
 Additional properties are rejected for this shape.
 
 **Response 503:** Governance service unavailable, authorization database unavailable, or unsafe aggregate; no internal detail.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, 1 allowed values; see source
 Additional properties are rejected for this shape.
 
 **Response 200:** Count of distinct currently assigned active verified branches in the current director tenant. No appointment metric or identifiers.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `assignedVerifiedBranchCount`: integer, required, minimum=1, maximum=9007199254740991
@@ -28040,6 +28224,8 @@ The following repository documents match this exact HTTP method and path. Their 
 - `tenant` in query (optional)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `action`: constrained value, required, 3 allowed values; see source
 - `userId`: string, optional
@@ -28120,6 +28306,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 
 **Parameters:**
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `visitId`: string, required, minLength=1, maxLength=200
@@ -28205,6 +28393,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Parameters:**
 - `id` in path (required)
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 18 alternative input shapes; see source for conditional requirements.
@@ -28376,6 +28566,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Parameters:**
 - `idempotency-key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `staffId`: string, required, minLength=1, maxLength=200
 - `version`: integer, required, minimum=0, maximum=2147483646
@@ -28462,6 +28654,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 
 **Parameters:**
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 13 alternative input shapes; see source for conditional requirements.
@@ -28616,6 +28810,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 
 **Parameters:**
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
@@ -28819,6 +29015,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Parameters:**
 - `idempotency-key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
 - variant 1: `action`: constrained value, required, fixed value; see source
@@ -28921,6 +29119,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 
 **Parameters:**
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
@@ -29033,6 +29233,8 @@ Active tenant and governed care role required. Current clearance, assignment pur
 
 **Parameters:**
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
@@ -29366,6 +29568,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `leadId`: string, required
 - `ownerId`: string, required
@@ -29442,6 +29646,8 @@ The following repository documents match this exact HTTP method and path. Their 
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `version`: integer, required, minimum=1
 - `status`: string, required, 3 allowed values; see source
@@ -29517,6 +29723,8 @@ Tenant and source scoped. Managers assign active source-compatible owners. Speci
 **Parameters:**
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `ownerId`: string, required
@@ -29603,6 +29811,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `leadId`: string, required
 - `leadVersion`: integer, required, minimum=1
@@ -29679,6 +29889,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `name`: string, required, minLength=1, maxLength=150
@@ -29782,6 +29994,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `budgetCents`: integer, required, minimum=0, maximum=100000000
 - `spendCents`: integer, required, minimum=0, maximum=100000000
@@ -29881,6 +30095,8 @@ Owner/CEO in current tenant only. Requires a client campaign on a governed paid 
 **Parameters:**
 - `id` in path (required)
 - `idempotency-key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `version`: integer, required, minimum=0
@@ -29983,6 +30199,8 @@ The following repository documents match this exact HTTP method and path. Their 
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `version`: integer, required, minimum=1
 - `name`: string, required, minLength=1, maxLength=150
@@ -30062,6 +30280,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `canonicalId`: string, required
@@ -30227,6 +30447,8 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 - `key` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `name`: string, required, minLength=1, maxLength=150
 - `email`: string, required, maxLength=254
@@ -30310,6 +30532,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `kind`: constrained value, required, 4 allowed values; see source
@@ -30395,6 +30619,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `leadId`: string, required
 - `visitId`: string, required
@@ -30475,6 +30701,8 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `name`: string, required, minLength=1, maxLength=100
@@ -30565,6 +30793,8 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `active`: boolean, required
 - `version`: integer, required, minimum=1, maximum=2147483646
@@ -30647,6 +30877,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `pipeline`: constrained value, required, 2 allowed values; see source
@@ -30754,6 +30986,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Parameters:**
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `stage`: constrained value, required, 10 allowed values; see source
@@ -31047,6 +31281,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `leadId`: string, required
 - `businessKind`: constrained value, required, 3 allowed values; see source
@@ -31129,6 +31365,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `Idempotency-Key` in header (required)
 - `id` in path (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `version`: integer, required, minimum=1
@@ -31286,6 +31524,8 @@ The following repository documents match this exact HTTP method and path. Their 
 - `Idempotency-Key` in header (required)
 - `id` in path (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `version`: integer, required, minimum=1, maximum=2147483646
 - `decision`: constrained value, required, 2 allowed values; see source
@@ -31364,6 +31604,8 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `start`: string, required
@@ -31528,6 +31770,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `start`: string, required
 - `end`: string, required
@@ -31629,6 +31873,8 @@ Tenant/source scoped and append-only history. Owners and CEO/marketing may submi
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `action`: string, required, 5 allowed values; see source
 - `version`: integer, required, minimum=1, maximum=2147483647
@@ -31709,6 +31955,8 @@ Same-tenant current-session operation with version, idempotency, rate limit and 
 **Parameters:**
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 5 alternative input shapes; see source for conditional requirements.
@@ -31810,6 +32058,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `name`: string, required, minLength=1, maxLength=200
 - `ownerId`: string, required
@@ -31910,6 +32160,8 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `version`: integer, required, minimum=1, maximum=2147483647
 - `evidence`: string, required, minLength=1, maxLength=500
@@ -32006,6 +32258,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `specialty`: string, required, 6 allowed values; see source
@@ -32157,6 +32411,8 @@ Active explicit bearer session and governed administrator grants. Global central
 **Parameters:**
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `screen`: string, required
 - `platform`: constrained value, required, 6 allowed values; see source
@@ -32249,6 +32505,8 @@ Active explicit bearer session and governed administrator grants. Global central
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `version`: integer, required, minimum=1
 Additional properties are rejected for this shape.
@@ -32330,6 +32588,8 @@ Active explicit bearer session and governed administrator grants. Global central
 **Parameters:**
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `version`: integer, required, minimum=1
@@ -33116,6 +33376,8 @@ Central/platform global scope and governed screen grants required. CEO/tenant ad
 - `id` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `version`: integer, required, minimum=1, maximum=2147483646
 - `slug`: string, required, pattern-constrained; see source
@@ -33345,6 +33607,8 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `slug`: string, required, pattern-constrained; see source
@@ -33581,6 +33845,8 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 - `tenantId` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `role`: string, required
 - `email`: string, required, maxLength=254
@@ -33663,6 +33929,8 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 - `tenantId` in path (required)
 - `userId` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `role`: string, required
@@ -33899,6 +34167,8 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 - `tenantId` in path (required)
 - `Idempotency-Key` in header (required)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `label`: string, required, minLength=1, maxLength=150
 - `type`: constrained value, required, 3 allowed values; see source
@@ -33981,6 +34251,8 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 - `tenantId` in path (required)
 - `recordId` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `label`: string, required, minLength=1, maxLength=150
@@ -34384,6 +34656,8 @@ The following repository documents match this exact HTTP method and path. Their 
 **Parameters:**
 - `reportId` in path (required)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `locale`: constrained value, optional, 3 allowed values; see source
@@ -34793,6 +35067,8 @@ The following repository documents match this exact HTTP method and path. Their 
 - `taskOffset` in query (optional)
 - `status` in query (optional)
 - `Idempotency-Key` in header (required)
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `action`: constrained value, required, 11 allowed values; see source
@@ -39765,6 +40041,8 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Authentication declared in source:** operation level: nativeSession
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 4 alternative input shapes; see source for conditional requirements.
 - variant 1: `action`: constrained value, required, fixed value; see source
@@ -39796,23 +40074,59 @@ Content type `application/json`:
 - `id`: string, required, minLength=1, maxLength=200
 - `version`: integer, required, minimum=0
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16510"></a>
 
@@ -39865,6 +40179,8 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Authentication declared in source:** operation level: nativeSession
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
 - variant 1: `action`: constrained value, required, fixed value; see source
@@ -39912,23 +40228,59 @@ Content type `application/json`:
 - `id`: string, required, minLength=1, maxLength=200
 - `version`: integer, required, minimum=0
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16511"></a>
 
@@ -39981,6 +40333,8 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Authentication declared in source:** operation level: nativeSession
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
 - variant 1: `action`: constrained value, required, fixed value; see source
@@ -40005,23 +40359,59 @@ Content type `application/json`:
 - `id`: string, required, minLength=1, maxLength=200
 - `version`: integer, required, minimum=0
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16512"></a>
 
@@ -40089,23 +40479,59 @@ Content type `application/json`:
 - `nextAfter`: constrained value, required
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-857"></a>
 
@@ -40169,23 +40595,59 @@ Content type `application/json`:
 - `items`: array, required
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16509"></a>
 
@@ -40250,23 +40712,59 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 Content type `image/png`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16508"></a>
 
@@ -40319,6 +40817,8 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Authentication declared in source:** operation level: nativeSession
 
+**Request body:** Required. 
+
 **Request body — multipart/form-data:**
 - `action`: constrained value, required, fixed value; see source
 - `file`: string, required
@@ -40337,23 +40837,59 @@ Content type `application/json`:
 - `threadId`: string, required, minLength=1, maxLength=200
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 409:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 413:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Version, state or idempotency conflict. Do not retry mutations automatically.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 413:** Host request or media byte limit exceeded.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="family-messaging"></a>
 
@@ -40458,6 +40994,8 @@ Bind an explicitly selected conversation with explicit consent, a native session
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source
 - `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
@@ -40471,19 +41009,47 @@ Content type `application/json`:
 - `link`: object, required
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16541"></a>
 
@@ -40539,6 +41105,8 @@ Revoke the exact owner's SMS link using a fresh native session and current permi
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source
 Additional properties are rejected for this shape.
@@ -40549,19 +41117,47 @@ Content type `application/json`:
 - `revoked`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16539"></a>
 
@@ -40617,6 +41213,8 @@ Read the current signed-in owner's SMS conversation-link status. Provider delive
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
 Additional properties are rejected for this shape.
@@ -40631,19 +41229,47 @@ Additional properties are rejected for this shape.
 - variant 2: `link`: object, required
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="family-np"></a>
 
@@ -58719,6 +59345,8 @@ Proposed read semantics on the existing API794 identity; no handler, binding, ro
 
 **Authentication declared in source:** operation level: bearerAuth
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 2 alternative input shapes; see source for conditional requirements.
 - variant 1: `version`: constrained value, required, fixed value; see source
@@ -58735,6 +59363,8 @@ Additional properties are rejected for this shape.
 Additional properties are rejected for this shape.
 
 **Response 200:** Proposed scoped read result; no business mutation
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 2 alternative input shapes; see source for conditional requirements.
@@ -58790,6 +59420,8 @@ Content type `application/json`:
 Additional properties are rejected for this shape.
 
 **Response 429:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Response headers: `Retry-After`.
 
 Content type `application/json`:
 - `version`: constrained value, required, fixed value; see source
@@ -69260,6 +69892,8 @@ Verify the exact signed Twilio form and persist the inbound SMS before returning
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, maxLength=34, pattern-constrained; see source
 - `MessageSid`: string, required, maxLength=34, pattern-constrained; see source
@@ -69275,17 +69909,41 @@ Verify the exact signed Twilio form and persist the inbound SMS before returning
 Content type `text/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16533"></a>
 
@@ -69338,6 +69996,8 @@ Persist, deduplicate or quarantine signed delivery observations before returning
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `MessageSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69345,17 +70005,41 @@ Persist, deduplicate or quarantine signed delivery observations before returning
 
 **Response 204:** Callback durably accepted; no response body.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16530"></a>
 
@@ -69408,6 +70092,8 @@ Start ConversationRelay only for the canonical live call with current verified i
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69417,17 +70103,41 @@ Start ConversationRelay only for the canonical live call with current verified i
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16531"></a>
 
@@ -69480,6 +70190,8 @@ Return from the verified AI connection through its registered completion handler
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69489,17 +70201,41 @@ Return from the verified AI connection through its registered completion handler
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16524"></a>
 
@@ -69552,6 +70288,8 @@ Connect an authorized Voice SDK caller using the canonical provider call and cur
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69565,17 +70303,41 @@ Connect an authorized Voice SDK caller using the canonical provider call and cur
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16525"></a>
 
@@ -69628,6 +70390,8 @@ Handle busy/no-answer/failed dial outcomes using a previously reserved private v
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69638,17 +70402,41 @@ Handle busy/no-answer/failed dial outcomes using a previously reserved private v
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16523"></a>
 
@@ -69701,6 +70489,8 @@ Resolve 0 to configured reception, 1 to configured verified app pairing, or a pu
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69713,17 +70503,41 @@ Resolve 0 to configured reception, 1 to configured verified app pairing, or a pu
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16522"></a>
 
@@ -69776,6 +70590,8 @@ Return the four-digit extension/reception/AI menu for a signed incoming Twilio c
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69787,17 +70603,41 @@ Return the four-digit extension/reception/AI menu for a signed incoming Twilio c
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16528"></a>
 
@@ -69850,6 +70690,8 @@ Issue an app pairing code outside the model stream. This code is distinct from t
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69859,17 +70701,41 @@ Issue an app pairing code outside the model stream. This code is distinct from t
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16526"></a>
 
@@ -69922,6 +70788,8 @@ Validate voicemail recording completion against its reserved call/destination. T
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -69931,17 +70799,41 @@ Validate voicemail recording completion against its reserved call/destination. T
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16527"></a>
 
@@ -69994,6 +70886,8 @@ Verify the provider recording and enqueue an authorized private voicemail notifi
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -70003,17 +70897,41 @@ Verify the provider recording and enqueue an authorized private voicemail notifi
 
 **Response 204:** Callback durably accepted; no response body.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16532"></a>
 
@@ -70073,17 +70991,41 @@ Upgrade the exact signed WebSocket request. The relay rechecks canonical call, O
 
 **Response 101:** Switching Protocols. Original client WebSocket is returned; no HTTP response body. Subsequent relay frames are not described as ordinary REST responses.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 426:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 426:** WebSocket Upgrade required.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16529"></a>
 
@@ -70136,6 +71078,8 @@ Recheck the current app pairing/OTP state before proceeding to the verified agen
 
 **Authentication declared in source:** operation level: twilioSignature
 
+**Request body:** Required. 
+
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -70145,17 +71089,41 @@ Recheck the current app pairing/OTP state before proceeding to the verified agen
 Content type `application/xml`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 403:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 404:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 405:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 415:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
 
-**Response 503:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="family-user"></a>
 
@@ -70212,6 +71180,8 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Authentication declared in source:** operation level: bearerAuth
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1
 - `newPassword`: string, required
@@ -70236,6 +71206,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -70245,6 +71217,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Change own password after current-password verification; revoke all sessions and password resets. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1
@@ -70270,6 +71244,8 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
@@ -70279,6 +71255,8 @@ Additional properties are rejected for this shape.
 **Purpose / behavior from source:** Change own password after current-password verification; revoke all sessions and password resets.
 
 **Authentication declared in source:** operation level: bearerAuth
+
+**Request body:** Required. 
 
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1
@@ -70310,12 +71288,16 @@ Requires current password and active bearer session. New password must differ. W
 
 **Authentication declared in source:** operation level: bearerSession
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1, write-only; never log
 - `newPassword`: string, required, minLength=12, maxLength=72, write-only; never log
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful operation
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `status`: constrained value, required, fixed value; see source
@@ -70324,11 +71306,15 @@ Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
 
+Response headers: `Cache-Control`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -70336,11 +71322,15 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
+Response headers: `Cache-Control`, `Retry-After`.
+
 Content type `application/json`:
 - `error`: string, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -70439,13 +71429,15 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Authentication declared in source:** operation level: nativeBearer
 
+**Request body:** Required. 
+
 **Request body — application/json:**
-No object fields; schema type: unspecified.
+Reference requires explicit review; see source document.
 
 **Response 200:** Owned snapshot or original idempotent mutation receipt
 
 Content type `application/json`:
-No object fields; schema type: unspecified.
+Reference requires explicit review; see source document.
 
 **Response 400:** Invalid or unregistered data or scope override
 
@@ -70684,6 +71676,8 @@ Additional properties are rejected for this shape.
 **Response 429:** Source or mutation budget exceeded
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
+
+Response headers: `Cache-Control`.
 
 Content type `application/json`:
 - `error`: string, required
@@ -71633,6 +72627,8 @@ Assign a globally unique four-digit extension to an authorized active tenant/use
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `userId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
 Additional properties are rejected for this shape.
@@ -71650,19 +72646,47 @@ Content type `application/json`:
 - `version`: integer, required, minimum=1, maximum=9007199254740990
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16515"></a>
 
@@ -71718,6 +72742,8 @@ Publish or revoke an authorized extension at the exact current version. Re-read 
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `userId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
 - `version`: integer, required, minimum=1, maximum=9007199254740990
@@ -71737,19 +72763,47 @@ Content type `application/json`:
 - `version`: integer, required, minimum=1, maximum=9007199254740990
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16519"></a>
 
@@ -71805,6 +72859,8 @@ Submit the OTP in the authenticated app. A false verified result is not authenti
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `callSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `code`: string, required, minLength=1, maxLength=6, pattern-constrained; see source
@@ -71816,19 +72872,47 @@ Content type `application/json`:
 - `verified`: boolean, required
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16518"></a>
 
@@ -71884,6 +72968,8 @@ Bind the signed call pairing code to the current app session and send OTP to its
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `callSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 - `pairingCode`: string, required, minLength=1, maxLength=8, pattern-constrained; see source
@@ -71895,19 +72981,47 @@ Content type `application/json`:
 - `verificationRequested`: constrained value, required, fixed value; see source
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16521"></a>
 
@@ -71963,6 +73077,8 @@ Approve the exact unexpired digest in the authenticated app. It does not itself 
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `intentId`: string, required, minLength=1, maxLength=36, pattern-constrained; see source
 - `digest`: string, required, minLength=1, maxLength=64, pattern-constrained; see source
@@ -71975,19 +73091,47 @@ Content type `application/json`:
 - `expiresAt`: integer, required, minimum=1, maximum=9007199254740991
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16520"></a>
 
@@ -72043,6 +73187,8 @@ Read the exact server-owned task summary and digest for independent app confirma
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `intentId`: string, required, minLength=1, maxLength=36, pattern-constrained; see source
 Additional properties are rejected for this shape.
@@ -72056,19 +73202,47 @@ Content type `application/json`:
 - `expiresAt`: integer, required, minimum=1, maximum=9007199254740991
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16513"></a>
 
@@ -72124,6 +73298,8 @@ Issue a short-lived Voice SDK token for the current published destination. Token
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 No object fields; schema type: object.
 Additional properties are rejected for this shape.
@@ -72136,19 +73312,47 @@ Content type `application/json`:
 - `ttlSeconds`: integer, required, minimum=1, maximum=300
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16517"></a>
 
@@ -72204,6 +73408,8 @@ Download private bounded WAV audio after current owner/session checks before and
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `recordingSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 Additional properties are rejected for this shape.
@@ -72213,19 +73419,47 @@ Additional properties are rejected for this shape.
 Content type `audio/wav`:
 No object fields; schema type: string.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16516"></a>
 
@@ -72281,6 +73515,8 @@ Read metadata for a private recording owned by the current user and tenant. This
 **Parameters:**
 - `Origin` in header (optional)
 
+**Request body:** Required. 
+
 **Request body — application/json:**
 - `recordingSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
 Additional properties are rejected for this shape.
@@ -72293,19 +73529,47 @@ Content type `application/json`:
 - `extension`: string, required, minLength=1, maxLength=4, pattern-constrained; see source
 Additional properties are rejected for this shape.
 
-**Response 400:** See source response reference.
+**Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
-**Response 401:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 403:** See source response reference.
+**Response 401:** Missing, invalid or expired native session.
 
-**Response 404:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 405:** See source response reference.
+**Response 403:** Signature, origin, permission, current identity or resource scope denied.
 
-**Response 415:** See source response reference.
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
-**Response 503:** See source response reference.
+**Response 404:** Unregistered route, wrong origin, or scoped resource unavailable.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 405:** Wrong HTTP method. Inspect Allow header.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 415:** Unsupported content type or encoding.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Dependency or validation failure. A mutation may already have committed; reconcile before retry.
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="family-volunteer"></a>
 
