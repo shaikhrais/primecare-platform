@@ -14,7 +14,7 @@ for(const footer of ['static','sticky','hidden']){
  const p=defaultWorkspaceLayout(ids);Object.assign(p,{navigation,container,toolbar,toolbarStyle,scroll,footer});
  p.panels.note.dock=['left','right','top','bottom','floating','hidden'][profiles.length%6];
  p.panels.summary={dock:'floating',x:10000,y:10000,width:1200,height:1200};
- p.navigationWidth=profiles.length%2?160:400;p.maxWidth=profiles.length%2?960:1920;
+ p.navigationWidth=[64,160,400][profiles.length%3];p.maxWidth=profiles.length%2?960:1920;
  profiles.push(validateWorkspaceLayout(p,ids));
 }
 const root='packages/flutter_core/test/workspace/fixtures';

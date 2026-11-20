@@ -83,7 +83,8 @@ WorkspaceLayout _initial(Iterable<String> ids, WorkspaceLayout? initial, String?
   // Copy only presentation from the current actor's already-loaded native settings.
   // Never read or migrate the historical role-only pref_layout_* namespace.
   return switch (legacy) {
-    null || 'verticalLeft' || 'collapsed' => defaults,
+    null || 'verticalLeft' => defaults,
+    'collapsed' => defaults.patch({'navigationWidth': 64}),
     'verticalRight' => defaults.patch({'navigation': 'right'}),
     'horizontal' => defaults.patch({'navigation': 'top'}),
     _ => throw const FormatException('Unknown legacy layout style'),

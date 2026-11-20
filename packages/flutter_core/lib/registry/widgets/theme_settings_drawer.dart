@@ -1,3 +1,4 @@
+import '../../workspace/portal_workspace.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeSwitchListTile;
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
@@ -64,6 +65,8 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                 padding: const EdgeInsets.all(16.0),
                 children: [
                   const ThemeCenterPanel(),
+                  if (PortalWorkspaceScope.maybeOf(context) != null) const PortalLayoutEditor(),
+                  if (PortalWorkspaceScope.maybeOf(context) == null) ...[
                   // Section: Layout Styles
                   PrimeText(
                     'LAYOUT STYLE',
@@ -104,6 +107,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   ),
                   const SizedBox(height: 24),
 
+                  ],
                   // Section: Preset Colors
                   PrimeText(
                     'THEME PRESETS',

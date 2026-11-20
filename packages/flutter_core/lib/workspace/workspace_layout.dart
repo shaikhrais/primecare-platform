@@ -47,7 +47,7 @@ class WorkspaceLayout {
         _integer(p['y'], 0, 10000), _integer(p['width'], 180, 1200), _integer(p['height'], 120, 1200));
     }
     return WorkspaceLayout._(_choice(v['navigation'], ['left', 'right', 'top', 'bottom', 'hidden']),
-      _integer(v['navigationWidth'], 160, 400), _choice(v['toolbar'], ['top', 'bottom']),
+      (v['navigationWidth'] == 64 ? 64 : _integer(v['navigationWidth'], 160, 400)), _choice(v['toolbar'], ['top', 'bottom']),
       _choice(v['toolbarStyle'], ['sticky', 'static']), _choice(v['footer'], ['sticky', 'static', 'hidden']),
       _choice(v['container'], ['fullwidth', 'boxed', 'content']), _integer(v['maxWidth'], 960, 1920),
       _choice(v['scroll'], ['page', 'content']), panels);

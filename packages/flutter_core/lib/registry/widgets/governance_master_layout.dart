@@ -1,3 +1,5 @@
+import '../../workspace/portal_workspace.dart';
+import '../../providers/persistence_providers.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/prime_semantic_palette.dart';
@@ -53,7 +55,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final modules = application.getAuthorizedModules(activeRole);
     final tenant = application.tenant;
     final tier = ScreenBreakpoints.getTier(MediaQuery.of(context).size.width);
-    final isHandheld = ScreenBreakpoints.isHandheld(context);
+    final isHandheld = MediaQuery.sizeOf(context).width <= 1024;
 
     // Sync Governance Context to Telemetry
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -75,7 +77,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;
     final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;
-    final topbarSecondaryTextColor = readableThemeForeground(topbarBg, themeColors?.topbarTextColor ?? theme.hintColor);
 
     // Build horizontal nav row (used for LayoutStyle.horizontal)
     Widget buildHorizontalNav() {
@@ -99,18 +100,19 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: PrimeTextButton.icon(
-                style: PrimeTextButton.styleFrom(
-                  foregroundColor: textColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                ),
-                icon: PrimeIcon(module.icon, size: 16),
-                label: PrimeText(module.name),
-                onPressed: () {
-                  if (module.screens.isNotEmpty) {
-                    context.go(module.screens.first.route);
-                  }
-                },
+              child: PrimePopupMenuButton<String>(
+                tooltip: module.name,
+                onSelected: (route) => context.go(route),
+                itemBuilder: (context) => [
+                  for (final screen in module.screens)
+                    if (screen.requiredRole == null || screen.requiredRole == activeRole)
+                      PopupMenuItem(value: screen.route, child: PrimeText(screen.title)),
+                ],
+                child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(children: [PrimeIcon(module.icon, size: 16, color: textColor),
+                    const SizedBox(width: 8), PrimeText(module.name,
+                      style: TextStyle(color: textColor)),
+                    const SizedBox(width: 4), PrimeIcon(Icons.expand_more, size: 16, color: textColor)])),
               ),
             );
           },
@@ -118,100 +120,22 @@ class GovernanceMasterLayout extends ConsumerWidget {
       );
     }
 
-    // Build body layout based on style
-    Widget buildBody() {
-      if (settings.layoutStyle == LayoutStyle.horizontal) {
-        return Column(
-          children: [
-            buildHorizontalNav(),
-            Expanded(
-              child: Semantics(
-                label: 'data-cy:app-content-slot',
-                container: true,
-                child: KeyedSubtree(
-                  key: const Key('app-content-slot'),
-                  child: Container(
-                    color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    child: AppShellBoundary(child: child),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      }
-
-      final sidebarWidget = isHandheld
-          ? const SizedBox.shrink()
-          : (settings.layoutStyle == LayoutStyle.collapsed
-              ? _SidebarHoverWrapper(
-                  builder: (context, isHovered) => _buildSidebar(
-                    context,
-                    ref,
-                    theme,
-                    modules,
-                    tenant,
-                    tier,
-                    settings,
-                    collapsed: !isHovered,
-                  ),
-                )
-              : _buildSidebar(
-                  context,
-                  ref,
-                  theme,
-                  modules,
-                  tenant,
-                  tier,
-                  settings,
-                  collapsed: false,
-                ));
-
-      if (settings.layoutStyle == LayoutStyle.verticalRight) {
-        return Row(
-          children: [
-            Expanded(
-              child: Semantics(
-                label: 'data-cy:app-content-slot',
-                container: true,
-                child: KeyedSubtree(
-                  key: const Key('app-content-slot'),
-                  child: Container(
-                    color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    child: AppShellBoundary(child: child),
-                  ),
-                ),
-              ),
-            ),
-            sidebarWidget,
-          ],
-        );
-      }
-
-      // Default (verticalLeft)
-      return Row(
-        children: [
-          sidebarWidget,
-          Expanded(
-            child: Semantics(
-              label: 'data-cy:app-content-slot',
-              container: true,
-              child: KeyedSubtree(
-                key: const Key('app-content-slot'),
-                child: Container(
-                  color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                  child: AppShellBoundary(child: child),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
     final defaultPreset = tenant.tenantId == 'primecare_clinic' ? 'navyTealPalette' : 'default';
 
-    return Theme(
+    final auth = ref.watch(authProvider);
+    final preferences = ref.watch(sharedPreferencesProvider);
+    return PortalWorkspace(
+      key: ValueKey('${auth.isAuthenticated}:${auth.tenantId}:${auth.userId}:${activeRole.name}:${application.name}:${preferences != null}'),
+      scope: WorkspaceScope(
+        tenant: auth.tenantId ?? tenant.tenantId,
+        user: auth.userId ?? 'guest',
+        role: activeRole.name,
+        dataset: application.name,
+      ),
+      preferences: auth.isAuthenticated && preferences != null
+          ? SharedWorkspacePreferences(preferences) : null,
+      legacyLayoutStyle: settings.layoutStyle.name,
+      builder: (context, workspace) => Theme(
       data: theme,
       child: QuickAccessBoundary(
         userRole: GovernanceRole(activeRole),
@@ -225,7 +149,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
               key: const Key('app-shell'),
               child: PrimeScaffold(
                 endDrawer: ThemeSettingsDrawer(tenantDefaultPreset: defaultPreset),
-                drawer: isHandheld
+                drawer: isHandheld || workspace.current.navigation == 'hidden'
                     ? _buildSidebar(
                         context,
                         ref,
@@ -238,7 +162,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         isDrawer: true,
                       )
                     : null,
-                appBar: PreferredSize(
+                body: PrimeWorkspaceLayout(
+                  controller: workspace,
+                  navigationVisible: !isHandheld,
+                  horizontalNavigationExtent: 48,
+                  navigation: ['top', 'bottom'].contains(workspace.current.navigation)
+                      ? buildHorizontalNav()
+                      : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
+                          collapsed: workspace.current.navigationWidth == 64),
+                  toolbar: PreferredSize(
                   preferredSize: const Size.fromHeight(kToolbarHeight),
                   child: Semantics(
                     label: 'data-cy:app-topbar',
@@ -246,41 +178,14 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     child: KeyedSubtree(
                       key: const Key('app-topbar'),
                       child: PrimeAppBar(
+                        primary: false,
                         elevation: 0,
                         backgroundColor: topbarBg,
                         surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
                         iconTheme: IconThemeData(color: topbarIconColor),
-                        title: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: topbarIconColor.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: PrimeIcon(LucideIcons.shieldCheck, color: topbarIconColor),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                PrimeText(
-                                  tenant.name,
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: topbarTextColor,
-                                  ),
-                                ),
-                                PrimeText(
-                                  application.name,
-                                  style: theme.textTheme.labelSmall?.copyWith(
-                                    color: topbarSecondaryTextColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                        title: isHandheld ? null : PrimeText(tenant.name, maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleSmall?.copyWith(color: topbarTextColor)),
                         actions: [
                           GestureDetector(
                             onTap: () {
@@ -309,7 +214,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   children: [
                                     PrimeIcon(LucideIcons.user, size: 14, color: topbarTextColor),
                                     const SizedBox(width: 8),
-                                    PrimeText(
+                                    if (!isHandheld) PrimeText(
                                       activeRole.displayName,
                                       style: theme.textTheme.labelMedium?.copyWith(
                                         color: topbarTextColor,
@@ -318,39 +223,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                     ),
                                     const SizedBox(width: 4),
                                     PrimeIcon(LucideIcons.chevronDown, size: 12, color: topbarTextColor),
-                                    const SizedBox(width: 12),
-                                    Container(
-                                      width: 1,
-                                      height: 14,
-                                      color: topbarTextColor.withValues(alpha: 0.2),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Builder(
-                                      builder: (context) {
-                                        final govRole = GovernanceRole(activeRole);
-                                        return Row(
-                                          children: [
-                                            PrimeIcon(LucideIcons.layers, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
-                                            const SizedBox(width: 4),
-                                            PrimeText(
-                                              'Role Items: ${govRole.totalSidebarItems}',
-                                              style: theme.textTheme.labelSmall?.copyWith(
-                                                color: topbarTextColor.withValues(alpha: 0.8),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 12),
-                                            PrimeIcon(LucideIcons.appWindow, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
-                                            const SizedBox(width: 4),
-                                            PrimeText(
-                                              'App Total: ${govRole.totalAppSidebarItems}',
-                                              style: theme.textTheme.labelSmall?.copyWith(
-                                                color: topbarTextColor.withValues(alpha: 0.8),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                    ),
                                   ],
                                 ),
                               ),
@@ -516,12 +388,21 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     ),
                   ),
                 ),
-                body: buildBody(),
+                  footer: const PortalLayoutFooter(),
+                  main: Semantics(
+                    label: 'data-cy:app-content-slot',
+                    container: true,
+                    child: KeyedSubtree(key: const Key('app-content-slot'),
+                      child: AppShellBoundary(child: child)),
+                  ),
+                  panels: const {},
+                ),
               ),
             ),
           ),
         ),
       ),
+    ),
     );
   }
 
@@ -658,7 +539,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                 module: module,
                               );
 
-                          if (ScreenBreakpoints.isHandheld(context)) {
+                          if (isDrawer) {
                             Navigator.of(context).pop();
                           }
 
@@ -696,27 +577,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
       );
     }
     return sidebarContent;
-  }
-}
-
-class _SidebarHoverWrapper extends StatefulWidget {
-  final Widget Function(BuildContext context, bool isHovered) builder;
-  const _SidebarHoverWrapper({required this.builder});
-
-  @override
-  State<_SidebarHoverWrapper> createState() => _SidebarHoverWrapperState();
-}
-
-class _SidebarHoverWrapperState extends State<_SidebarHoverWrapper> {
-  bool _isHovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: widget.builder(context, _isHovered),
-    );
   }
 }
 
