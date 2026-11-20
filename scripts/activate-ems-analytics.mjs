@@ -19,7 +19,7 @@ async function main(){
  const base='https://api.cloudflare.com/client/v4/accounts/'+account;
  async function api(path,options={}){
   const response=await fetch(base+path,{...options,headers:{authorization:'Bearer '+token,...options.headers},redirect:'error',signal:AbortSignal.timeout(30000)});
-  const result=await response.json();if(!response.ok||result.success!==true)throw Error('Cloudflare activation request failed (HTTP '+response.status+')');return result.result;
+  const result=await response.json();if(!response.ok||result.success!==true){report.providerFailure={operation:path.includes('/versions?')?'version_list':path.includes('/versions/')?'version_detail':path.includes('/deployments')?'deployments':path.includes('/settings')?'settings':'secret',httpStatus:response.status};const error=Error('Cloudflare activation request failed (HTTP '+response.status+')');error.status=response.status;throw error;}return result.result;
  }
  // Validate the chosen reader with a query, before any settings or secret writes.
  const end=Math.floor((Date.now()-120000)/300000)*300000,date=n=>new Date(n).toISOString().slice(0,19).replace('T',' ');
@@ -41,7 +41,7 @@ async function main(){
   let output;try{output=execFileSync('node_modules/.bin/wrangler',['deploy','--config',file,'--keep-vars'],{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});}catch{throw Error('EMS '+key+' deployment failed; inspect live settings before retrying');}
   report.providerWrites++;
   const versionId=uploadedWorkerVersion(output);
-  const receipt=await verifyWorkerDeploymentEventually({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key].id,previousVersionId:previous[key].versions?.[0]?.version_id,allowIdempotent:true});
+  const receipt=await verifyWorkerDeploymentEventually({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key].id,previousVersionId:previous[key].versions?.[0]?.version_id,allowIdempotent:true,allowVersionListing:true});
   const after=await api('/workers/scripts/'+names[key]+'/settings');
   const allowed=key==='gateway'?['ENDPOINT_ANALYTICS','ENDPOINT_BODY_ANALYTICS','ENDPOINT_TRAFFIC_ENABLED']:['ENDPOINT_ANALYTICS_ACCOUNT_ID','ENDPOINT_ANALYTICS_READER_ROLE','ENDPOINT_ANALYTICS_READER_TENANT_ID','ENDPOINT_ANALYTICS_READ_TOKEN'];
   verifyUnchangedBindings(settings[key],after,allowed);if(key==='gateway'&&!after.bindings.some(b=>b.name==='ENDPOINT_BODY_ANALYTICS'&&b.type==='analytics_engine'&&b.dataset==='primecare_endpoint_body_v1'))throw Error('Response body dataset readback mismatch');report.workers.push({...receipt,unrelatedBindingsPreserved:true});

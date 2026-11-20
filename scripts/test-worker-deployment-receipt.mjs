@@ -20,3 +20,10 @@ test('idempotent publication requires explicit opt-in and the exact independentl
  const result=await verifyWorkerDeployment({...unchanged,allowIdempotent:true,previousVersionId:version});assert.equal(result.deploymentChanged,false);assert.equal(result.versionId,version);
  for(const extra of [{allowIdempotent:false,previousVersionId:version},{allowIdempotent:true,previousVersionId:old},{allowIdempotent:true},{allowIdempotent:'yes',previousVersionId:version}])await assert.rejects(()=>verifyWorkerDeployment({...unchanged,...extra}));
 });
+test('missing version detail accepts only explicit, independently listed exact active version',async()=>{
+ const make=(items,status=404)=>{const input=fixture();const oldApi=input.api;input.api=async path=>{if(path.endsWith('/versions?per_page=100'))return {items};if(path.includes('/versions/')){const error=Error('detail unavailable');error.status=status;throw error;}return oldApi(path);};return input;};
+ const r=await verifyWorkerDeployment({...make([{id:version}]),allowVersionListing:true});assert.equal(r.versionReadback,'listing');assert.equal(r.trafficPercent,100);
+ await assert.rejects(()=>verifyWorkerDeployment(make([{id:version}])));
+ for(const items of [[],[{id:old}],[{id:version},{id:version}]])await assert.rejects(()=>verifyWorkerDeployment({...make(items),allowVersionListing:true}));
+ await assert.rejects(()=>verifyWorkerDeployment({...make([{id:version}],403),allowVersionListing:true}));
+});
