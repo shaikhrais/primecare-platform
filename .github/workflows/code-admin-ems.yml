@@ -7,6 +7,14 @@ on:
       - 'cloudflare/workers/src/code-admin-ems*.ts'
       - 'cloudflare/workers/src/platform-administration.ts'
       - 'websites/typescript/src/code-admin-ems.ts'
+      - 'websites/typescript/src/ems-charts.ts'
+      - 'packages/primecare_ui/web/ems-*.ts'
+      - 'packages/primecare_ui/web/code-admin-ems.ts'
+      - 'scripts/build-ems-html.cjs'
+      - 'scripts/capture-live-ems.mjs'
+      - 'scripts/fixtures/platform-admin.mjs'
+      - 'packages/primecare_ui/web/endpoint-management-panel.ts'
+      - 'packages/domain/src/endpoint_traffic.ts'
       - 'websites/typescript/src/endpoint-management-panel.ts'
       - 'websites/typescript/src/endpoint-capacity.ts'
       - 'websites/typescript/src/platform-admin.ts'
@@ -55,7 +63,7 @@ jobs:
       - name: Validate exact read-only metadata registration and rollback
         run: python tools/governance-production/test_ems_registration.py
       - name: Test EMS API, dashboard, navigation and existing endpoint contracts
-        run: node --test scripts/test-worker-content-receipt.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-code-admin-ems.mjs scripts/test-code-admin-ems-panel.mjs scripts/test-platform-admin-navigation.mjs scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs
+        run: node --test scripts/test-worker-content-receipt.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-code-admin-ems.mjs scripts/test-code-admin-ems-panel.mjs scripts/test-ems-charts.mjs scripts/test-platform-admin-navigation.mjs scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs
       - name: Validate actual PostgreSQL authorization joins
         run: node --test scripts/test-code-admin-ems-postgres.mjs
         env:
@@ -63,7 +71,7 @@ jobs:
       - name: Check Worker and browser types
         run: |
           node_modules/.bin/tsc --noEmit --skipLibCheck --allowImportingTsExtensions --resolveJsonModule --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/code-admin-ems.ts
-          node_modules/.bin/tsc --noEmit --skipLibCheck --resolveJsonModule --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/code-admin-ems.ts websites/typescript/src/platform-admin.ts
+          node_modules/.bin/tsc --noEmit --skipLibCheck --allowImportingTsExtensions --resolveJsonModule --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/code-admin-ems.ts websites/typescript/src/platform-admin.ts
   register:
     if: github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
     needs: [verify, pilot_scope]
@@ -132,6 +140,13 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           npx wrangler pages deploy websites/typescript/dist/primecare-governance --project-name primecare-governance --branch main --commit-hash "$GITHUB_SHA"
           python3 -m tools.deployment.typescript_release verify-deploy websites/typescript/dist/primecare-governance primecare-governance
+      - name: Install Chromium for real deployed screenshots
+        run: npx playwright install --with-deps chromium
+      - name: Capture the deployed PrimeCare EMS on desktop tablet and mobile
+        env:
+          BOOTSTRAP_CODE_ADMIN_EMAIL: ${{ secrets.BOOTSTRAP_CODE_ADMIN_EMAIL }}
+          BOOTSTRAP_CODE_ADMIN_PASSWORD: ${{ secrets.BOOTSTRAP_CODE_ADMIN_PASSWORD }}
+        run: node scripts/capture-live-ems.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -139,4 +154,5 @@ jobs:
           path: |
             test-results/approved-code-admin-release/worker.json
             test-results/ems/release.json
+            test-results/ems/live-browser
           retention-days: 30

@@ -1,0 +1,2 @@
+/** Compatibility entry; all EMS widgets and charts are owned by the central UI library. */
+export {mountEmsCharts,PrimeEmsDashboardControls} from '../../../packages/primecare_ui/web/ems-charts';

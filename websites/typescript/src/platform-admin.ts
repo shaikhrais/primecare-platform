@@ -6,7 +6,7 @@ import {shellIcon} from './shell-icons';
 import {mountDemoCallHistory} from './admin-demo-calls';
 import {codeAdminPage,codeAdminNavigation,codeAdminDescription} from './code-admin-layout';
 import {mountAdminDashboard} from './admin-dashboard';
-import {mountCodeAdminEms,emsTitle} from './code-admin-ems';
+import {mountCodeAdminEms,emsTitle} from '../../../packages/primecare_ui/web/code-admin-ems';
 import {mountVapiAdmin} from './vapi-admin';
 import {mountExternalDialer,canUseExternalCalls} from './external-calls';
 import masterTenant from '../../../tools/governance-production/code-admin-root.json';

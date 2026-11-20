@@ -26,7 +26,7 @@ const fixtures = {
   './admin-demo-calls': 'export const mountDemoCallHistory=()=>{};',
   './code-admin-layout': 'export const codeAdminNavigation=v=>v; export const codeAdminDescription=()=>""; export const codeAdminPage=o=>`<div data-cy="code-admin-page-body">${o.content}</div>`;',
   './admin-dashboard': 'export const mountAdminDashboard=async(root,_gateway,_token,_locale,options)=>{globalThis.__adminFixture.dashboard=options;};',
-  './code-admin-ems': 'export const emsTitle=()=>"Endpoint management · EMS"; export const mountCodeAdminEms=(_r,_g,_t,_l,current)=>{globalThis.__adminFixture.mounts.push("ems");globalThis.__adminFixture.emsCurrent=current;return ()=>{globalThis.__adminFixture.emsDisposals=(globalThis.__adminFixture.emsDisposals??0)+1;};};',
+  '../../../packages/primecare_ui/web/code-admin-ems': 'export const emsTitle=()=>"Endpoint management · EMS"; export const mountCodeAdminEms=(_r,_g,_t,_l,current)=>{globalThis.__adminFixture.mounts.push("ems");globalThis.__adminFixture.emsCurrent=current;return ()=>{globalThis.__adminFixture.emsDisposals=(globalThis.__adminFixture.emsDisposals??0)+1;};};',
   './vapi-admin': 'export const mountVapiAdmin=()=>globalThis.__adminFixture.mounts.push("vapi");',
   './external-calls': 'export const canUseExternalCalls=async()=>{globalThis.__adminFixture.probes++;return globalThis.__adminFixture.probe();}; export const mountExternalDialer=(_g,_t,open)=>{if(open)globalThis.__adminFixture.mounts.push("dialer");};',
   './platform-bundle/controller': controller('BundleController', 'bundle', 'openTab(tab){this.tab=tab;} openWorkflow(item){this.tab=item.destination;}'),
@@ -57,7 +57,7 @@ function controller(name, kind, extra='') {
 }
 const built = await build({stdin: {contents: `export * from './websites/typescript/src/platform-admin'; export * from './packages/primecare_ui/web/screen-manager'; export * from './websites/typescript/src/managed-routes'; export * from './websites/typescript/src/screen-presentation';`, resolveDir: process.cwd()}, bundle: true, write: false, platform: 'node', format: 'esm',
   plugins: [{name: 'admin-peripherals', setup(builder) {
-    builder.onResolve({filter: /^\.\//}, args => args.importer.endsWith('/platform-admin.ts') && fixtures[args.path] ? {path: args.path, namespace: 'fixture'} : null);
+    builder.onResolve({filter: /^\.{1,2}\//}, args => args.importer.endsWith('/platform-admin.ts') && fixtures[args.path] ? {path: args.path, namespace: 'fixture'} : null);
     builder.onLoad({filter: /.*/, namespace: 'fixture'}, args => ({contents: fixtures[args.path], loader: 'js'}));
   }}]});
 globalThis.__adminControllerTypes=nestedControllers;

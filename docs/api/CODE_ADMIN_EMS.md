@@ -54,3 +54,38 @@ At the user's explicit request, when no `ENDPOINT_ANALYTICS_READ_TOKEN` GitHub s
 The separate `ENDPOINT_BODY_ANALYTICS` binding writes `primecare_endpoint_body_v1` completion events. Response streams count application bytes as pulled before gateway compression, without cloning, whole-body buffering or payload retention. Completed and interrupted bodies have separate counts and byte totals. Pre-encoded responses, WebSockets and event streams are excluded. HEAD/no-body responses record zero. Completion events never add to request counts and can fall in a different reporting window than request arrivals. These measurements exclude headers, edge encoding and billable network overhead. Existing declared-length metrics remain separate, with unknown sizes explicit.
 
 Deployment verification first matches the exact Wrangler-reported version. When provider version identities differ, an explicit alternate receipt compares all emitted executable/resource modules with hashes of the active Worker content, requires the latest listed version to equal the sole 100% active version, and rechecks that lineage afterward. The receipt records the active and Wrangler-reported IDs separately; it never claims those IDs match or grants workflow readiness credit. Unrelated bindings are still checked independently.
+
+## Activation receipt and remaining acceptance
+
+The [2026-11-20 activation run](https://github.com/shaikhrais/primecare-platform/actions/runs/44747123038) reported both governance and gateway deployed from `928639630d25c5c3d64108c3367b7058d206894f`, with independent version readback, all six telemetry configuration checks passing, response-body collection enabled, all 12 service health checks healthy, and six anonymous EMS reads denied. The activation receipt explicitly recorded live data pending ingestion. This supersedes the earlier missing-configuration preflight; it does not prove populated traffic reports or authenticated Code Admin acceptance.
+
+The capacity panel warns when `servingReleaseMatches` is false or missing. An otherwise valid reference benchmark remains labelled as a reference and must be repeated against the current release before it informs capacity planning. Even a matching reference does not certify full-system production capacity.
+
+The [live telemetry verification](https://github.com/shaikhrais/primecare-platform/actions/runs/44743298178) observed a completed five-minute report at `2026-11-20T13:52:37.636Z`: 13 sample-weighted gateway requests (about 0.043 requests/s), with 10 completed response bodies totalling 476 application bytes and no interrupted bodies. Counts, latency and body queries all returned HTTP 200. All 13 declared outbound lengths were unknown; streamed body measurements are separate and must not be confused with declared-length totals or billable network transfer. These observations establish populated production telemetry, not full-system throughput, current traffic or authenticated dashboard acceptance.
+
+## HTML5 charts
+
+The Code Admin EMS host now includes responsive SVG charts for readiness distribution, request rate, the six busiest observed operations, and HTTP status families. Each chart provides an expandable data table. Traffic uses the same validated report as the operation table. The request trend holds at most 24 distinct completed windows in memory, deduplicates refreshes, and breaks the line across missing windows. Unavailable traffic clears the charts and session history; exiting the host disposes it. No historical observations are invented or stored in browser persistence.
+
+Refresh EMS also refreshes traffic and service totals. The readiness selector filters the current inventory page, as labelled; endpoint search remains server-paginated. All three existing locales are supported. The production panel inherits the shared theme and existing authenticated APIs.
+
+
+## Central UI ownership
+
+`packages/primecare_ui/web/ems-charts.ts` owns the six metric widgets, accessible chart cards and session trend controls through `PrimeEmsDashboardControls`, using the shared `ThemeControlBase` lifecycle. `ems-dashboard-styles.ts` owns their presentation and installs one stylesheet per document. Colors, surfaces, typography, spacing and card shadows inherit the active central theme; there is no EMS palette or separate theme instance. The Code Admin host imports the central control group directly. The former website chart module is a compatibility export, and feature CSS has been removed from the website stylesheet.
+
+Traffic validation and calculations are owned by `packages/domain/src/endpoint_traffic.ts`; the website traffic module preserves its existing import API through a compatibility export. The EMS dashboard accepts data only from its authenticated APIs. Existing API authorization and reporting scopes remain owned by the EMS host and service.
+
+## API-only dashboard
+
+The synthetic standalone HTML and its generator have been removed. Code Admin EMS has no demo mode, simulated traffic or local report import. The central inventory control hides and disables file imports when mounted with the EMS API paths. Summary, endpoints, services, traffic, capacity and maintenance come from the six authenticated EMS reads. Missing or unavailable data remains explicitly unavailable or unmeasured. Synthetic fixtures are restricted to automated tests and are not bundled into the dashboard.
+
+`packages/primecare_ui/web/endpoint-management-panel.ts` also owns inventory search, paging, readiness filters and traffic display. The website module is only a compatibility export. The existing common API Health panel retains its separately scoped report-import feature; it is not enabled in Code Admin EMS.
+
+The complete EMS screen is now owned by `packages/primecare_ui/web/code-admin-ems.ts`. The administration host imports it directly, while the former website screen module preserves compatibility through a re-export. Central EMS styles also control buttons, form inputs, selects, focus treatment and tables through the scoped `data-pc-ems-dashboard` marker. The marker is removed on disposal. All six reporting reads retain bearer authentication and current-session ownership checks; no demo source or import control is available in this screen.
+
+## Compact dashboard composition
+
+The central EMS layout now uses a six-widget desktop row, a wide traffic trend next to readiness, and compact operational-status, namespace-traffic and HTTP-status panels. The status mix uses a stacked chart. Namespace traffic is explicitly grouped by the `/v1/{namespace}` prefix, with unmatched traffic retained; it is not a claim of independently measured service utilization. Busiest-operation details remain available in a collapsed disclosure. The endpoint table starts with eight operational columns, method/status badges and a detailed-column toggle. Capacity and maintenance are separate compact panels; no utilization gauge is inferred from an unmeasured or mismatched benchmark.
+
+The trend area follows only observed adjacent windows and retains gaps. It does not manufacture a 60-minute history or comparison series. Widget/row values remain projections of authenticated API reports. The latest source passed 32 focused checks, followed by five UI regressions after presentation changes, plus browser TypeScript checking. Internal static layout inspection covered the access-denied state; authenticated live browser acceptance remains outstanding. The generated design concept is a visual target, not acceptance evidence.
