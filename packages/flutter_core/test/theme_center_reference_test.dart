@@ -31,10 +31,10 @@ void main(){
         builder:(context,c)=>const Scaffold(body:Center(child:ThemeSettingsDrawer(tenantDefaultPreset:'default')))))));
     await tester.pumpAndSettle();
     expect(tester.getSize(find.byWidgetPredicate((w)=>w is Drawer)).width,380);
-    await tester.ensureVisible(find.text('Tabbed'));await tester.tap(find.text('Tabbed'));await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('Tabbed'),200,scrollable:find.byType(Scrollable).first);await tester.pumpAndSettle();await tester.tap(find.text('Tabbed'));await tester.pumpAndSettle();
     final container=ProviderScope.containerOf(tester.element(find.byType(ThemeSettingsDrawer)));
     expect(container.read(themeSettingsProvider).navigationStyle,'tabbed');
-    await tester.ensureVisible(find.byKey(const Key('palette-main')));await tester.tap(find.byKey(const Key('palette-main')));await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.byKey(const Key('palette-main')),200,scrollable:find.byType(Scrollable).first);await tester.pumpAndSettle();await tester.tap(find.byKey(const Key('palette-main')));await tester.pumpAndSettle();
     expect(find.text('Edit palette'),findsOneWidget);expect(find.text('Preview'),findsOneWidget);
     await tester.enterText(find.byKey(const Key('palette-color-primary')),'#112233');
     await tester.pump();await tester.tap(find.descendant(of:find.byType(Dialog),matching:find.text('Save')));await tester.pumpAndSettle();
