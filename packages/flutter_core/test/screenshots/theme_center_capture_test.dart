@@ -35,7 +35,7 @@ void main(){
   for(final view in [('desktop',1440.0,1000.0),('tablet',820.0,1180.0),('mobile',390.0,844.0)]){
     testWidgets('capture actual Dart Theme Center ${view.$1}',(tester)async{
       debugDefaultTargetPlatformOverride=view.$1=='desktop'?TargetPlatform.linux:TargetPlatform.android;
-      addTearDown(()=>debugDefaultTargetPlatformOverride=null);
+      try {
       tester.view.physicalSize=Size(view.$2,view.$3);tester.view.devicePixelRatio=1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       SharedPreferences.setMockInitialValues({'auth_preferred_language':'en'});final preferences=await SharedPreferences.getInstance();
@@ -50,6 +50,7 @@ void main(){
       await tester.scrollUntilVisible(layout,500,scrollable:find.byType(Scrollable).first);
       await tester.pumpAndSettle();expect(tester.takeException(),isNull);
       await expectLater(find.byKey(const Key('capture-panel')),matchesGoldenFile('captures/theme-layout-${view.$1}.png'));
+      } finally { debugDefaultTargetPlatformOverride=null; }
     });
   }
 }
