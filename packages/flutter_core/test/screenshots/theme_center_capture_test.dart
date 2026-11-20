@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,6 +34,8 @@ void main(){
   setUpAll(loadFonts);
   for(final view in [('desktop',1440.0,1000.0),('tablet',820.0,1180.0),('mobile',390.0,844.0)]){
     testWidgets('capture actual Dart Theme Center ${view.$1}',(tester)async{
+      debugDefaultTargetPlatformOverride=view.$1=='desktop'?TargetPlatform.linux:TargetPlatform.android;
+      addTearDown(()=>debugDefaultTargetPlatformOverride=null);
       tester.view.physicalSize=Size(view.$2,view.$3);tester.view.devicePixelRatio=1;
       addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
       SharedPreferences.setMockInitialValues({'auth_preferred_language':'en'});final preferences=await SharedPreferences.getInstance();
