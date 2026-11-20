@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/document-all-api-endpoints.yml'
       - 'scripts/api_documentation.py'
+      - 'scripts/reconcile-openapi-documentation.py'
       - 'scripts/export_governed_openapi.py'
       - 'scripts/test-api-documentation.py'
       - 'scripts/check-api-documentation.py'
@@ -58,7 +59,9 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: python scripts/export_governed_openapi.py
       - name: Verify complete endpoint documentation and source hashes
-        run: python scripts/check-api-documentation.py
+        run: |
+          python scripts/check-api-documentation.py
+          python scripts/reconcile-openapi-documentation.py
       - uses: actions/upload-artifact@v4
         with:
           name: complete-api-documentation
@@ -68,12 +71,13 @@ jobs:
             packages/contracts/ENDPOINT_REFERENCE.md
             packages/contracts/API_DOCUMENTATION_INDEX.md
             packages/contracts/api-documentation-coverage.json
+            docs/api/OPENAPI_OPERATION_RECONCILIATION.md
           retention-days: 30
       - name: Save generated documentation directly on unchanged main
         run: |
           git fetch origin main
           test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
-          git add packages/contracts/openapi.json packages/contracts/api-readiness.json packages/contracts/ENDPOINT_REFERENCE.md packages/contracts/API_DOCUMENTATION_INDEX.md packages/contracts/api-documentation-coverage.json
+          git add packages/contracts/openapi.json packages/contracts/api-readiness.json packages/contracts/ENDPOINT_REFERENCE.md packages/contracts/API_DOCUMENTATION_INDEX.md packages/contracts/api-documentation-coverage.json docs/api/OPENAPI_OPERATION_RECONCILIATION.md
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

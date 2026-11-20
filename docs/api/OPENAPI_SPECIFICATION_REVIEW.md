@@ -13,6 +13,8 @@ Baseline source commit: `152b6649d0744c7622818b6363fa5686f50a0516`. Counts use t
 
 The documentation exporter reads YAML and JSON, includes inherited security requirements and path parameters, and retains conflicting sources individually. Proposal labels remain visible. The contract-factory placeholders contribute zero endpoint documentation matches because their operation records explicitly require contract decisions.
 
+The [operation reconciliation](OPENAPI_OPERATION_RECONCILIATION.md) uses the newer generated catalog and lists every exact source-only operation with its specifications and comment review signals.
+
 ## Priority follow-through
 
 | Operation | Evidence | Remaining work |

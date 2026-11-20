@@ -81,6 +81,12 @@ class DocumentationTests(unittest.TestCase):
             self.assertEqual(len(index[('POST', '/v1/example')][0]['sha256']), 64)
             self.assertEqual(index[('POST', '/v1/example')][0]['file'], 'docs/api/fixture.openapi.json')
 
+    def test_security_comments_distinguish_alternatives_from_combined_schemes(self):
+        source = {'file': 'docs/auth-openapi.json', 'components': {}, 'operation': {},
+                  'security': [{}, {'bearer': []}, {'signedCookie': [], 'csrf': []}]}
+        comments = source_comments([source])
+        self.assertIn('no credentials OR bearer OR signedCookie AND csrf', comments)
+
     def test_yaml_path_parameters_and_security_inheritance(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

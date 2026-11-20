@@ -144,7 +144,7 @@ def source_comments(sources):
                         ('No security requirement is declared in this source.' if security is None else
                          'An explicit empty security requirement is declared; review the runtime before treating access as public.' if not security else
                          source.get('securityLevel', 'operation') + ' level: ' +
-                         '; '.join(', '.join(clean(k, 100) for k in item) or 'anonymous alternative' for item in security)))
+                         ' OR '.join(' AND '.join(clean(k, 100) for k in item) or 'no credentials' for item in security)))
         parameters = {(p.get('name'), p.get('in'), p.get('$ref')): p
                       for p in [*source.get('parameters', []), *operation.get('parameters', [])]}
         if parameters:
