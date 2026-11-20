@@ -24,7 +24,7 @@ class PrimePaletteMiniature extends StatelessWidget {
     if(schematic){
       final c=Theme.of(context).colorScheme;
       final base=Theme.of(context).scaffoldBackgroundColor;
-      final neutral=Color.lerp(base,Colors.white,c.brightness==Brightness.light?.4:.02)!;
+      final neutral=Color.lerp(base,Colors.white,c.brightness==Brightness.light ? .4 : .02)!;
       final highlight=c.secondary.withValues(alpha:.3);
       Color fill(String region)=>section==region?highlight:neutral;
       Color line(String region)=>section==region?highlight:c.outline;
