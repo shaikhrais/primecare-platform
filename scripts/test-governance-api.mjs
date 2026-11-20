@@ -209,3 +209,23 @@ test('readiness requires current evidence for the exact operation and release',a
   assert.equal(endpointReadiness([receipt,receipt])(1,receipt.api,receipt.releaseId,start),null);
   assert.equal(endpointReadiness([{...receipt,scopeChecksPassed:false}])(1,receipt.api,receipt.releaseId,start),null);
 });
+
+test('platform traffic additionally requires the explicitly configured reader role',async()=>{
+ const original=globalThis.fetch;let calls=0;
+ const config={ENDPOINT_ANALYTICS_READER_TENANT_ID:'tenant-a',ENDPOINT_ANALYTICS_READER_ROLE:'governance',ENDPOINT_ANALYTICS_ACCOUNT_ID:'a'.repeat(32),ENDPOINT_ANALYTICS_READ_TOKEN:'private-provider-token'};
+ globalThis.fetch=async()=>{calls++;return Response.json({data:[],rows:0});};
+ try{
+  const denied=await (await call('/api-service-status','?limit=100','ceo',{},'GET',config)).json();
+  assert.equal(denied.traffic.status,'denied');assert.equal(calls,0);
+  const wrongTenant=await (await call('/api-service-status','?limit=100','governance',{},'GET',{...config,ENDPOINT_ANALYTICS_READER_TENANT_ID:'other-tenant'})).json();
+  assert.equal(wrongTenant.traffic.status,'denied');assert.equal(calls,0);
+  const available=await (await call('/api-service-status','?limit=100','governance',{},'GET',config)).json();
+  assert.equal(available.traffic.status,'available');assert.equal(calls,2);
+  assert.equal(available.traffic.report.measurementKind,'sample_weighted_estimate');
+  assert.ok(!JSON.stringify(available).includes('private-provider-token'));
+  globalThis.fetch=async()=>new Response('private-provider-error',{status:503});
+  const unavailable=await (await call('/api-service-status','?limit=100','governance',{},'GET',config)).json();
+  assert.equal(unavailable.traffic.status,'unavailable');
+  assert.ok(!JSON.stringify(unavailable).includes('private-provider-error'));
+ }finally{globalThis.fetch=original;}
+});

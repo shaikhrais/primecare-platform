@@ -1,7 +1,7 @@
 type Bytes = {knownBytes:number;unknownRequests:number};
 type Traffic = {observedRequests:number; declaredRequestBytes:Bytes; declaredResponseBytes:Bytes; responseHeaderLatencyP95Ms:number; statusCounts?:Record<string,number>};
 type Report = {intervalSeconds:number; windowStartedAt:string; windowEndedAt:string;
-  observedRequests:number; endpoints:Array<Traffic & {endpoint:string}>};
+  observedRequests:number; measurementKind?:string; endpoints:Array<Traffic & {endpoint:string}>};
 
 const count = (n:unknown):n is number => typeof n==='number'&&Number.isSafeInteger(n)&&n>=0;
 
@@ -41,7 +41,7 @@ export function readTrafficReport(raw:unknown) {
     outboundBytes+=row.declaredResponseBytes.knownBytes;
   }
   if(!count(observedRequests)||observedRequests!==report.observedRequests||!count(inboundBytes)||!count(outboundBytes))throw Error('Invalid request total');
-  return {endpoints,start,end,failedRequests,successfulRequests,statusCoveredRequests,unknownInbound,unknownOutbound,observedRequests,inboundBytes,outboundBytes,requestsPerSecond:observedRequests/report.intervalSeconds,inboundBytesPerSecond:inboundBytes/report.intervalSeconds,outboundBytesPerSecond:outboundBytes/report.intervalSeconds,successfulRequestsPerSecond:successfulRequests/report.intervalSeconds};
+  return {measurementKind:report.measurementKind==='sample_weighted_estimate'?'sample_weighted_estimate':'retained_observations',endpoints,start,end,failedRequests,successfulRequests,statusCoveredRequests,unknownInbound,unknownOutbound,observedRequests,inboundBytes,outboundBytes,requestsPerSecond:observedRequests/report.intervalSeconds,inboundBytesPerSecond:inboundBytes/report.intervalSeconds,outboundBytesPerSecond:outboundBytes/report.intervalSeconds,successfulRequestsPerSecond:successfulRequests/report.intervalSeconds};
 }
 
 /** Missing status evidence stays unknown, including for legacy exports. */

@@ -1,3 +1,4 @@
+import {writeEndpointAnalytics,type EndpointAnalyticsDataset} from './endpoint-analytics';
 import inventory from './api-execution-inventory.json';
 
 const exact = new Set<string>();
@@ -31,11 +32,13 @@ function bodyBytes(message:Request|Response) {
 }
 
 /** Observe the forwarded response without consuming, cloning or buffering bodies. */
-export function recordEndpointTraffic(request:Request,response:Response|undefined,elapsedMs:number) {
+export function recordEndpointTraffic(request:Request,response:Response|undefined,elapsedMs:number,dataset?:EndpointAnalyticsDataset) {
   const route=endpoint(request.method,new URL(request.url).pathname);
-  console.log('primecare_endpoint_traffic_v1 '+JSON.stringify({
+  const event={
     endpoint:route,status:response?.status??null,latencyMs:Math.max(0,Math.round(elapsedMs)),
     declaredRequestBytes:bodyBytes(request),
     declaredResponseBytes:response?(request.method==='HEAD'?0:bodyBytes(response)):null,
-  }));
+  };
+  if(dataset){try{writeEndpointAnalytics(dataset,event);}catch{/* Observability cannot fail the business request. */}}
+  console.log('primecare_endpoint_traffic_v1 '+JSON.stringify(event));
 }

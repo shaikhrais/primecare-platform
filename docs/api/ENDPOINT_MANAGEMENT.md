@@ -46,7 +46,7 @@ python3 scripts/summarize-endpoint-traffic.py --interval-seconds 3600 \
   --window-ended-at 2026-11-20T15:00:00Z < endpoint-traffic.log > endpoint-traffic.json
 ```
 
-The report shows observed requests, observed requests per second, response status counts, error rate, p95 response latency, known bytes in each direction and the number of missing lengths. Retention or sampling can reduce the observed counts. Lengths represent declared body bytes and exclude headers, transport overhead and WebSocket traffic after the upgrade. Compressed or streaming responses may have unknown lengths. Transfer completion and billable network usage require edge metrics. Use **Open traffic report** in the API Health Dashboard to load this JSON and see whole-gateway observed totals alongside each operation’s traffic. The report stays in the current dashboard view and is read locally in the browser. Per-operation metrics use the exact method and path, so duplicate governance declarations may display the same operation’s numbers. The dashboard total counts each observed invocation once. Missing operation rows display a dash. Automatic log delivery is still pending.
+The report shows observed requests, observed requests per second, response status counts, error rate, p95 response latency, known bytes in each direction and the number of missing lengths. Retention or sampling can reduce the observed counts. Lengths represent declared body bytes and exclude headers, transport overhead and WebSocket traffic after the upgrade. Compressed or streaming responses may have unknown lengths. Transfer completion and billable network usage require edge metrics. Use **Open traffic report** in the API Health Dashboard to load this JSON and see whole-gateway observed totals alongside each operation’s traffic. The report stays in the current dashboard view and is read locally in the browser. Per-operation metrics use the exact method and path, so duplicate governance declarations may display the same operation’s numbers. The dashboard total counts each observed invocation once. Missing operation rows display a dash. A configured Analytics Engine integration can now deliver traffic automatically through the authenticated service summary; see Automatic traffic below. Manual imports remain available.
 
 ## Full-system capacity and efficiency
 
@@ -100,8 +100,33 @@ Imported traffic adds per-operation requests/second, HTTP 2xx counts, 5xx/except
 
 1. Deploy the reviewed gateway and dashboard versions through the existing release process.
 2. Configure gateway `ENDPOINT_TRAFFIC_ENABLED=1` and retained Workers Logs, then verify metadata events contain no caller data.
-3. Establish automated export and delivery through an authenticated, approved reporting channel; the current dashboard imports reports locally.
+3. Configure the Analytics Engine binding and authorized reader described below, or use local traffic imports until that connection is deployed.
 4. Record the deployed gateway and service versions, then run representative sustained load in a production-like environment with sanitized data. Capture database waits, Worker CPU, queues and provider limits alongside latency and errors.
 5. Import reviewed capacity evidence and compare only the same deployment and workload mix. Repeat after tuning the measured bottleneck.
 
 The source changes alone do not activate these production connections or establish whole-system capacity.
+
+
+## Automatic traffic
+
+The gateway can also write caller-free metric events to the `ENDPOINT_ANALYTICS` Analytics Engine binding while `ENDPOINT_TRAFFIC_ENABLED=1`. The dataset is `primecare_endpoint_traffic_v1`. The projection contains only the registered operation (or `unmatched`), HTTP status, gateway response latency, declared byte counts and missing-length indicators. It does not include tenant identifiers, request headers, query strings, bodies or credentials. Writes are non-blocking; a writer failure cannot change the business response. These events are best-effort observability, not billing records.
+
+The existing `GET /v1/governance/api-service-status` response now includes a separate `traffic` envelope. Existing authentication, tenant checks and inventory permission still apply. Remote usage access additionally requires an exact match to **both** `ENDPOINT_ANALYTICS_READER_ROLE` and `ENDPOINT_ANALYTICS_READER_TENANT_ID`. This is an explicit platform-wide reporting grant within the configured tenant. Inventory access alone does not expose usage from other tenants. Unconfigured, denied or unavailable usage reports leave inventory status accessible.
+
+The Governance Worker uses a server-only `ENDPOINT_ANALYTICS_READ_TOKEN` with Account Analytics Read permission and `ENDPOINT_ANALYTICS_ACCOUNT_ID` to query the fixed dataset. No provider token reaches the browser. The query uses a completed five-minute window with a two-minute ingestion allowance, weights counts and byte totals by `_sample_interval`, and computes weighted P95 latency. Responses are bounded and validated; duplicate groups, invalid totals and truncated results fail closed. Analytics estimates cannot prove exact invocation counts, completed transfers, billable usage or capacity. Sampling and event loss can affect accuracy. The dashboard labels these figures as estimates.
+
+The dashboard refreshes its summary and available traffic report every 60 seconds while visible. Local file import takes precedence over automatic reports until the file selection is cleared or the view is reopened. A failed automatic refresh clears earlier usage figures instead of displaying them as current. The report shows its actual observation window. Direct service calls remain outside gateway coverage.
+
+Prepare separate configurations for release review, using configuration files that already preserve the live bindings and settings:
+
+```sh
+node scripts/prepare-endpoint-analytics-config.mjs CONFIG_DIRECTORY ACCOUNT_ID READER_ROLE PLATFORM_TENANT_ID
+```
+
+This writes `gateway-analytics.jsonc` and `governance-analytics.jsonc` in the same directory. It preserves existing services, observability and variables, adds the dataset binding and opt-in flag, and configures the reader account, role and tenant. It does not deploy, change provider settings or handle secrets. Configure the read token through the approved secret mechanism. Review the additional binding against live settings and the existing release-preservation checks before deployment. Existing generic deploy configurations do not enable this integration automatically.
+
+Provider references: [Analytics Engine SQL API](https://developers.cloudflare.com/analytics/analytics-engine/sql-api/), [sampling](https://developers.cloudflare.com/analytics/analytics-engine/sampling/), [writing events](https://developers.cloudflare.com/workers/examples/analytics-engine/).
+
+Local verification: `node --test scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs`. The Analytics and capacity TypeScript unit tests require Node 24+; the bundled governance and gateway tests retain their existing esbuild dependency.
+
+Validation for the automatic-traffic change: 41 focused gateway, governance authorization, report parsing, capacity and config-preservation tests passed. Worker and browser TypeScript checks passed separately. A DOM smoke check verified automatic report rendering, readiness totals, clearing stale usage after an unavailable response, and stopping refresh after disposal. No live provider query, production deployment or full-system load test was performed.

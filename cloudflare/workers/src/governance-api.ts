@@ -1,3 +1,4 @@
+import {readEndpointAnalytics,type EndpointAnalyticsEnv} from './endpoint-analytics';
 import {screenText} from './screen-text';
 import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
@@ -158,7 +159,7 @@ function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
 /** Batched governance API: token and tenant checks precede metadata access.
  * Authorization derives from existing catalog authority or screen grants.
  * All reads use a read-only transaction and responses disable caching. */
-export async function governanceApi(request:Request,env:Env & {ENDPOINT_RELEASE_ID?:string},path:string,headers:HeadersInit):Promise<Response|null> {
+export async function governanceApi(request:Request,env:Env & EndpointAnalyticsEnv & {ENDPOINT_RELEASE_ID?:string},path:string,headers:HeadersInit):Promise<Response|null> {
   if(env.SERVICE_NAME!=='governance')return null;
   const liveText=await screenText(request,env,path,headers);if(liveText)return liveText;
   const binding=catalog.bindings.find(b=>b.path===path);if(!binding)return null;
@@ -196,7 +197,20 @@ export async function governanceApi(request:Request,env:Env & {ENDPOINT_RELEASE_
           const groups=pageProgressSummary(filterGovernanceRows(pageRows(),query));
           return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);
         }
-        if(path==='/api-service-status') {const groups=serviceVerificationSummary(filterGovernanceRows(execution.data,query),Date.now(),env.ENDPOINT_RELEASE_ID);return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);}
+        if(path==='/api-service-status') {
+          const groups=serviceVerificationSummary(filterGovernanceRows(execution.data,query),Date.now(),env.ENDPOINT_RELEASE_ID);
+          const result=paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance');
+          // Inventory permission alone does not grant platform-wide usage access.
+          let traffic:unknown={status:'not_configured'};
+          if(env.ENDPOINT_ANALYTICS_READER_ROLE&&env.ENDPOINT_ANALYTICS_READER_TENANT_ID){
+            traffic={status:'denied'};
+            if(actor.roles===env.ENDPOINT_ANALYTICS_READER_ROLE&&String(actor.tenant_id)===env.ENDPOINT_ANALYTICS_READER_TENANT_ID){
+              try{traffic={status:'available',report:await readEndpointAnalytics(env)};}
+              catch{traffic={status:'unavailable'};}
+            }
+          }
+          return json({...result,traffic},200,safe);
+        }
         if(path==='/api-verification-summary') {
           const groups=verificationSummary(filterGovernanceRows(execution.data,query));
           // Scope filters apply to operation records, not the aggregated group labels.

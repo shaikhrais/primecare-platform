@@ -47,3 +47,17 @@ test('the panel accepts timestamped rollups and rejects mismatched coverage',asy
   assert.throws(()=>readTrafficReport({...data,observedRequests:2}),/Invalid request total/);
   assert.throws(()=>readTrafficReport({...data,windowStartedAt:data.windowEndedAt}),/Invalid traffic interval/);
 });
+
+test('gateway sends only sanitized events to analytics and survives writer failure',async()=>{
+ const original=console.log;console.log=()=>{};
+ try{
+  const points=[];
+  const env={AUTH:{fetch:async()=>new Response('ok')},ENDPOINT_TRAFFIC_ENABLED:'1',ENDPOINT_ANALYTICS:{writeDataPoint(point){points.push(point);}}};
+  const request=()=>new Request('https://gateway.test/v1/auth/me?caller=secret',{headers:{authorization:'Bearer private'}});
+  assert.equal((await gateway.fetch(request(),env)).status,200);
+  assert.equal(points.length,1);
+  assert.doesNotMatch(JSON.stringify(points),/private|secret|caller/);
+  env.ENDPOINT_ANALYTICS.writeDataPoint=()=>{throw Error('provider failure');};
+  assert.equal(await (await gateway.fetch(request(),env)).text(),'ok');
+ }finally{console.log=original;}
+});

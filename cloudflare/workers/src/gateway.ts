@@ -1,4 +1,5 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
+import type {EndpointAnalyticsDataset} from './endpoint-analytics';
 import {recordEndpointTraffic} from './endpoint-traffic';
 import governedReadAliases from './governed-read-aliases.json';
 import externalCalls from '../../../tools/governance-production/external-call-registration.json';
@@ -15,7 +16,7 @@ interface Env {
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
 
-type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string};
+type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string; ENDPOINT_ANALYTICS?:EndpointAnalyticsDataset};
 
 const routes: Record<string, keyof Env> = {
   auth: 'AUTH', client: 'CLIENT', provider: 'PROVIDER', providers: 'PROVIDER',
@@ -163,7 +164,7 @@ export default {
       response=await gatewayHandler.fetch(request,env);
       return response;
     } finally {
-      try {recordEndpointTraffic(request,response,performance.now()-start);}
+      try {recordEndpointTraffic(request,response,performance.now()-start,env.ENDPOINT_ANALYTICS);}
       catch { /* Telemetry must not interfere with the API response. */ }
     }
   },

@@ -84,12 +84,23 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
       const response=await fetch(gateway+'/v1/governance/api-service-status?limit=100',{
         headers:{authorization:'Bearer '+token},cache:'no-store',signal:AbortSignal.any([summaryRequest.signal,AbortSignal.timeout(10000)])});
       if(!response.ok)throw Error();
-      const totals=readEndpointSummary(await response.json());
+      const payload=await response.json() as {traffic?:{status?:string;report?:unknown}};
+      const totals=readEndpointSummary(payload);
       if(!current()||summaryRequest.signal.aborted)return;
+      if(!localTraffic){
+        if(payload.traffic?.status==='available'){
+          try{traffic=readTrafficReport(payload.traffic.report);showTraffic();showCapacity();void load();}
+          catch{traffic=undefined;trafficStatus.textContent=invalidTraffic;showCapacity();void load();}
+        }else{
+          traffic=undefined;
+          const text={en:{denied:'Platform-wide traffic access is not granted to this role.',not_configured:'Live traffic reporting is not configured.',unavailable:'Live traffic reporting is unavailable.'},fr:{denied:'Accès au trafic global refusé pour ce rôle.',not_configured:'Rapport de trafic en direct non configuré.',unavailable:'Rapport de trafic en direct indisponible.'},es:{denied:'Acceso al tráfico global no autorizado para este rol.',not_configured:'Informe de tráfico en vivo sin configurar.',unavailable:'Informe de tráfico en vivo no disponible.'}}[locale];
+          trafficStatus.textContent=text[payload.traffic?.status as keyof typeof text]??text.not_configured;
+          showCapacity();void load();
+        }
+      }
       summary.textContent=[totals.operations,totals.ready,totals.blocked,totals.maintenance,totals.unverified].map((n,i)=>summaryText[i]+': '+n.toLocaleString(locale)).join(' · ');
-    }catch{if(current()&&!summaryRequest.signal.aborted)summary.textContent=summaryText[5];}
+    }catch{if(current()&&!summaryRequest.signal.aborted){summary.textContent=summaryText[5];if(!localTraffic){traffic=undefined;trafficStatus.textContent=summaryText[5];showCapacity();void load();}}}
   }
-  void loadSummary();
   const form=panel.querySelector('form')!, input=panel.querySelector('input')!;
   form.querySelector('span')!.textContent=searchLabel;
   form.querySelector('button')!.textContent=search;
@@ -102,6 +113,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   const trafficStatus=document.createElement('p');trafficStatus.setAttribute('role','status');
   form.before(trafficLabel,trafficStatus);
   let traffic:ReturnType<typeof readTrafficReport>|undefined;
+  let localTraffic=false;
   const capacityText={
     en:['Sustainable benchmark','Successful benchmark','requests/s','Measured','Expires','Observed average / benchmark','Average rate margin','Benchmark evidence','Interval averages and retained logs do not establish peak headroom. Confirm matching deployment and workload before comparison.','Invalid, expired or failing benchmark.'],
     fr:['Débit soutenu mesuré','Débit réussi mesuré','requêtes/s','Mesuré','Expiration','Moyenne observée / mesure','Marge du débit moyen','Preuve de mesure','Les moyennes et journaux conservés ne prouvent pas la marge de pointe. Confirmez la même version et charge avant comparaison.','Mesure invalide, expirée ou hors cible.'],
@@ -136,10 +148,20 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   let importVersion=0;
   const numbers=new Intl.NumberFormat(locale,{maximumFractionDigits:3});
   const efficiencyLabels={en:['Known inbound bytes/s','Known outbound bytes/s','Observed HTTP 2xx/s','HTTP status coverage','no response'],fr:['Octets entrants connus/s','Octets sortants connus/s','HTTP 2xx observés/s','Couverture des statuts HTTP','sans réponse'],es:['Bytes entrantes conocidos/s','Bytes salientes conocidos/s','HTTP 2xx observados/s','Cobertura de estados HTTP','sin respuesta']}[locale];
+  function showTraffic(){
+    if(!traffic)return;
+    const parsed=traffic;
+    const time=(value:number)=>new Date(value).toLocaleString(locale);
+    trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)} · ${unknownSizes}: ${numbers.format(parsed.unknownInbound)} / ${numbers.format(parsed.unknownOutbound)} · HTTP 2xx: ${numbers.format(parsed.successfulRequests)} · HTTP 5xx / ${efficiencyLabels[4]}: ${numbers.format(parsed.failedRequests)} · ${efficiencyLabels[3]}: ${numbers.format(parsed.statusCoveredRequests)} / ${numbers.format(parsed.observedRequests)} · ${efficiencyLabels[0]}: ${numbers.format(parsed.inboundBytesPerSecond)} · ${efficiencyLabels[1]}: ${numbers.format(parsed.outboundBytesPerSecond)} · ${efficiencyLabels[2]}: ${numbers.format(parsed.successfulRequestsPerSecond)}`;
+    const note=locale==='fr'?'Estimations pondérées par échantillonnage; trafic global de la passerelle.':locale==='es'?'Estimaciones ponderadas por muestreo; tráfico global de la puerta de enlace.':'Sample-weighted estimates; platform-wide gateway traffic.';
+    if(parsed.measurementKind==='sample_weighted_estimate')trafficStatus.textContent=note+' '+trafficStatus.textContent;
+  }
   showCapacity();
   trafficFile.onchange=async()=>{
     if(!current())return;
     const version=++importVersion,file=trafficFile.files?.[0];
+    localTraffic=Boolean(file);
+    if(!file){traffic=undefined;void loadSummary();return;}
     const active=()=>version===importVersion&&current();
     traffic=undefined;
     try {
@@ -147,8 +169,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
       const parsed=readTrafficReport(JSON.parse(await file.text()));
       if(!active())return;
       traffic=parsed;
-      const time=(value:number)=>new Date(value).toLocaleString(locale);
-      trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)} · ${unknownSizes}: ${numbers.format(parsed.unknownInbound)} / ${numbers.format(parsed.unknownOutbound)} · HTTP 2xx: ${numbers.format(parsed.successfulRequests)} · HTTP 5xx / ${efficiencyLabels[4]}: ${numbers.format(parsed.failedRequests)} · ${efficiencyLabels[3]}: ${numbers.format(parsed.statusCoveredRequests)} / ${numbers.format(parsed.observedRequests)} · ${efficiencyLabels[0]}: ${numbers.format(parsed.inboundBytesPerSecond)} · ${efficiencyLabels[1]}: ${numbers.format(parsed.outboundBytesPerSecond)} · ${efficiencyLabels[2]}: ${numbers.format(parsed.successfulRequestsPerSecond)}`;
+      showTraffic();
     }catch{if(active())trafficStatus.textContent=invalidTraffic;}
     if(active()){showCapacity();void load();}
   };
@@ -203,5 +224,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   back.onclick=()=>{if(offset>=limit){offset-=limit;void load();}};
   forward.onclick=()=>{offset+=limit;void load();};
   void load();
-  return ()=>{summaryRequest.abort();request?.abort();request=undefined;healthRequest?.abort();healthRequest=undefined;};
+  void loadSummary();
+  const summaryTimer=setInterval(()=>{if(current()&&!document.hidden)void loadSummary();},60000);
+  return ()=>{clearInterval(summaryTimer);summaryRequest.abort();request?.abort();request=undefined;healthRequest?.abort();healthRequest=undefined;};
 }
