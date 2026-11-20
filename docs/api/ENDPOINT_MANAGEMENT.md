@@ -42,10 +42,11 @@ The gateway records one metadata event per invocation when the release operator 
 Export only the `primecare_endpoint_traffic_v1` console message lines from a known interval. For a one-hour export, run:
 
 ```sh
-python3 scripts/summarize-endpoint-traffic.py --interval-seconds 3600 < endpoint-traffic.log
+python3 scripts/summarize-endpoint-traffic.py --interval-seconds 3600 \
+  --window-ended-at 2026-11-20T15:00:00Z < endpoint-traffic.log > endpoint-traffic.json
 ```
 
-The report shows observed requests, observed requests per second, response status counts, error rate, p95 response latency, known bytes in each direction and the number of missing lengths. Retention or sampling can reduce the observed counts. Lengths represent declared body bytes and exclude headers, transport overhead and WebSocket traffic after the upgrade. Compressed or streaming responses may have unknown lengths. Transfer completion and billable network usage require edge metrics. The dashboard has no automatic feed from these logs yet.
+The report shows observed requests, observed requests per second, response status counts, error rate, p95 response latency, known bytes in each direction and the number of missing lengths. Retention or sampling can reduce the observed counts. Lengths represent declared body bytes and exclude headers, transport overhead and WebSocket traffic after the upgrade. Compressed or streaming responses may have unknown lengths. Transfer completion and billable network usage require edge metrics. Use **Open traffic report** in the API Health Dashboard to load this JSON and see whole-gateway observed totals alongside each operation’s traffic. The report stays in the current dashboard view and is read locally in the browser. Per-operation metrics use the exact method and path, so duplicate governance declarations may display the same operation’s numbers. The dashboard total counts each observed invocation once. Missing operation rows display a dash. Automatic log delivery is still pending.
 
 ## Full-system capacity and efficiency
 

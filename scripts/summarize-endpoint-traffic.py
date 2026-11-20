@@ -1,6 +1,7 @@
 """Summarize exported PrimeCare gateway telemetry message lines."""
 import argparse
 from collections import Counter, defaultdict
+from datetime import datetime, timedelta, timezone
 import json
 from math import ceil
 import sys
@@ -36,7 +37,19 @@ def summarize(lines, interval_seconds):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--interval-seconds', type=int, required=True)
+    parser.add_argument('--window-ended-at', help='UTC end time of the exported log interval (ISO 8601)')
     args = parser.parse_args()
     if args.interval_seconds < 1:
         parser.error('--interval-seconds must be positive')
-    print(json.dumps(summarize(sys.stdin, args.interval_seconds), indent=2))
+    report = summarize(sys.stdin, args.interval_seconds)
+    if args.window_ended_at:
+        try:
+            end = datetime.fromisoformat(args.window_ended_at)
+            if end.utcoffset() != timedelta(0):
+                raise ValueError()
+            start = end - timedelta(seconds=args.interval_seconds)
+        except (ValueError, OverflowError):
+            parser.error('--window-ended-at must be a valid UTC timestamp')
+        report.update(windowStartedAt=start.astimezone(timezone.utc).isoformat(),
+                      windowEndedAt=end.astimezone(timezone.utc).isoformat())
+    print(json.dumps(report, indent=2))

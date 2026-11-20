@@ -1,3 +1,4 @@
+import {readTrafficReport} from './endpoint-traffic-report';
 type Locale = 'en' | 'fr' | 'es';
 const labels = {
   en: ['Endpoint management','Search endpoints','Search','Previous','Next','Loading endpoints…','No matching endpoints.','Endpoint inventory access denied.','Endpoint inventory unavailable.','Operation','Service','Implementation','Protection','Readiness','Maintenance','Offline HTTP result'],
@@ -41,6 +42,12 @@ export async function readEndpointServiceHealth(gateway:string, signal:AbortSign
   return services.map(([service,value])=>({service,healthy:value===true}));
 }
 
+const trafficLabels = {
+  en:['Open traffic report','Invalid traffic report.','Observed requests','Known inbound bytes','Known outbound bytes','Unknown sizes','P95 latency (ms)','observed requests/s'],
+  fr:['Ouvrir un rapport de trafic','Rapport de trafic invalide.','Requêtes observées','Octets entrants connus','Octets sortants connus','Tailles inconnues','Latence P95 (ms)','requêtes observées/s'],
+  es:['Abrir informe de tráfico','Informe de tráfico no válido.','Solicitudes observadas','Bytes entrantes conocidos','Bytes salientes conocidos','Tamaños desconocidos','Latencia P95 (ms)','solicitudes observadas/s'],
+} as const;
+
 export function mountEndpointManagement(panel:HTMLElement, gateway:string, token:string, locale:Locale, current:()=>boolean) {
   const [title,searchLabel,search,previous,next,loading,empty,denied,unavailable,...columns]=labels[locale];
   panel.innerHTML='<h2></h2><form><label><span></span> <input type="search" maxlength="200"></label> <button type="submit"></button></form><p role="status"></p><div class="table-scroll" tabindex="0"><table><thead><tr></tr></thead><tbody></tbody></table></div><button type="button"></button> <button type="button"></button>';
@@ -72,8 +79,32 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   form.querySelector('button')!.textContent=search;
   const status=form.nextElementSibling as HTMLElement; const table=panel.querySelector('table')!;
   const header=table.tHead!.rows[0], body=table.tBodies[0];
+  const [openTraffic,invalidTraffic,requests,inbound,outbound,unknownSizes,latency,rps]=trafficLabels[locale];
+  const trafficLabel=document.createElement('label');
+  const trafficFile=document.createElement('input');trafficFile.type='file';trafficFile.accept='.json,application/json';
+  trafficLabel.append(openTraffic+' ',trafficFile);
+  const trafficStatus=document.createElement('p');trafficStatus.setAttribute('role','status');
+  form.before(trafficLabel,trafficStatus);
+  let traffic:ReturnType<typeof readTrafficReport>|undefined;
+  let importVersion=0;
+  const numbers=new Intl.NumberFormat(locale,{maximumFractionDigits:3});
+  trafficFile.onchange=async()=>{
+    if(!current())return;
+    const version=++importVersion,file=trafficFile.files?.[0];
+    const active=()=>version===importVersion&&current();
+    traffic=undefined;
+    try {
+      if(!file||file.size>2_000_000)throw Error();
+      const parsed=readTrafficReport(JSON.parse(await file.text()));
+      if(!active())return;
+      traffic=parsed;
+      const time=(value:number)=>new Date(value).toLocaleString(locale);
+      trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)}`;
+    }catch{if(active())trafficStatus.textContent=invalidTraffic;}
+    if(active())void load();
+  };
   panel.querySelector('.table-scroll')!.setAttribute('aria-label',title);
-  for(const column of columns){
+  for(const column of [...columns,requests,inbound,outbound,latency]){
     const th=document.createElement('th'); th.scope='col'; th.textContent=column; header.append(th);
   }
   const [back,forward]=[...panel.querySelectorAll<HTMLButtonElement>('button[type="button"]')].filter(button=>button!==healthButton);
@@ -97,6 +128,11 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
       if(!Array.isArray(data.data)||!Number.isSafeInteger(data.pagination?.total)||data.pagination.total<0)throw Error();
       for(const row of data.data) {
         const cells=[row.api,row.service,...fields.map(key=>states[row.management?.[key]]?.[language]??states.unknown[language]),row.routingEvidence?.status?.toString()??states.unknown[language]];
+        const observed=traffic?.endpoints.get(row.api);
+        const size=(bytes:{knownBytes:number;unknownRequests:number})=>
+          numbers.format(bytes.knownBytes)+(bytes.unknownRequests?' · '+unknownSizes+': '+numbers.format(bytes.unknownRequests):'');
+        cells.push(...(observed?[numbers.format(observed.observedRequests),size(observed.declaredRequestBytes),
+          size(observed.declaredResponseBytes),numbers.format(observed.responseHeaderLatencyP95Ms)]:Array(4).fill('—')));
         const tr=body.insertRow();
         for(const cell of cells)tr.insertCell().textContent=cell??'';
         const window=row.management?.maintenanceWindow;

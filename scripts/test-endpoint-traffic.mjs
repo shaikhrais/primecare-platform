@@ -31,3 +31,19 @@ test('gateway telemetry is opt-in, excludes caller data and preserves responses'
     assert.equal(JSON.parse(rollup.stdout).endpoints[0].declaredResponseBytes.knownBytes,3);
   }finally{console.log=original;}
 });
+
+test('the panel accepts timestamped rollups and rejects mismatched coverage',async()=>{
+  const browser=await build({entryPoints:['websites/typescript/src/endpoint-traffic-report.ts'],
+    bundle:true,write:false,platform:'node',format:'esm'});
+  const {readTrafficReport}=await import('data:text/javascript;base64,'+Buffer.from(browser.outputFiles[0].text).toString('base64'));
+  const event={endpoint:'GET /v1/auth/me',status:401,latencyMs:15,declaredRequestBytes:0,declaredResponseBytes:null};
+  const rollup=spawnSync('python3',['scripts/summarize-endpoint-traffic.py','--interval-seconds','60',
+    '--window-ended-at','2026-11-20T15:00:00Z'],{input:prefix+JSON.stringify(event)+'\n',encoding:'utf8'});
+  assert.equal(rollup.status,0,rollup.stderr);
+  const data=JSON.parse(rollup.stdout);
+  const report=readTrafficReport(data);
+  assert.equal(report.requestsPerSecond,1/60);
+  assert.equal(report.endpoints.get(event.endpoint).declaredResponseBytes.unknownRequests,1);
+  assert.throws(()=>readTrafficReport({...data,observedRequests:2}),/Invalid request total/);
+  assert.throws(()=>readTrafficReport({...data,windowStartedAt:data.windowEndedAt}),/Invalid traffic interval/);
+});
