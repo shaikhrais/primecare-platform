@@ -60,5 +60,57 @@ export const spaceStyles=`
 .app-shell[data-space-managed] .ems-series-2{fill:var(--color-warning);stroke:var(--color-warning)}
 .app-shell[data-space-managed] .ems-series-3{fill:var(--color-info);stroke:var(--color-info)}
 .app-shell[data-space-managed] .ems-chart-card circle[fill=none]{fill:none}
+
+/* Page identity stays accessible without reserving a visible title zone. */
+.app-shell[data-space-managed] .workspace>main h1,.app-shell[data-space-managed] .topbar-title,.app-shell[data-space-managed] .code-admin-title-row{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;margin:0!important;padding:0!important;white-space:nowrap!important;border:0!important}
+.app-shell[data-space-managed] .code-admin-page-header{border:0;margin:0;padding:0;gap:0;min-height:0}
+.app-shell[data-space-managed] .code-admin-page-header:has(.approved-header-actions){margin-bottom:var(--pc-section-gap);justify-content:flex-end}
+.app-shell[data-space-managed] .screen-header>p:not(.notice){display:none}
+.app-shell[data-space-managed] .screen-header:not(:has(.notice)){margin:0;padding:0}
+.app-shell[data-space-managed]:not(.shell-content-only){grid-template-columns:216px minmax(0,1fr)}
+.app-shell[data-space-managed][data-sidebar-position=right]:not(.shell-content-only){grid-template-columns:minmax(0,1fr) 216px}
+.app-shell[data-space-managed]>aside{width:216px;min-width:0;height:var(--pc-viewport-height,100dvh);top:var(--pc-viewport-offset,0px)}
+.app-shell[data-space-managed]>aside .brand{height:56px;min-height:56px;padding:10px 16px;gap:9px}
+.app-shell[data-space-managed]>aside .brand>span:last-child{font-size:17px}
+.app-shell[data-space-managed]>aside>nav{padding:0 8px 8px}
+.app-shell[data-space-managed]>aside .code-admin-nav-group{margin:0 0 8px;padding:0}
+.app-shell[data-space-managed]>aside .code-admin-nav-group h2{margin:8px 10px 4px;line-height:1.4}
+.app-shell[data-space-managed]>aside nav a{min-height:36px;padding:7px 10px;gap:9px;font-size:12px;line-height:1.35}
+.app-shell[data-space-managed]>aside>.sidebar-role{min-height:52px;padding:10px 50px 10px 52px;font-size:10px}
+.app-shell[data-space-managed]>aside>.sidebar-role:before{left:14px;top:11px}
+.app-shell[data-space-managed] .app-footer{padding:8px 16px;font-size:11px;min-height:0}
+.app-shell[data-space-managed] .app-footer:empty{display:none}
+.app-shell[data-space-managed] .approved-sidebar-popover,.app-shell[data-space-managed] .approved-sidebar-popover button{background:var(--color-surface);color:var(--color-text);border-color:var(--color-border)}
+.app-shell[data-space-managed] .approved-sidebar-popover button:hover{background:var(--color-surface-soft)}
+.app-shell[data-space-managed] .approved-sidebar-popover .shell-icon{color:var(--color-text)}
+.app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar{height:56px;min-height:56px;padding:6px 16px;grid-template-columns:minmax(160px,1fr) auto;gap:10px;align-content:center}
+.app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar .global-search{grid-column:1;justify-self:start;width:min(360px,100%)}
+.app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar .shell-controls{grid-column:2}
+@media(min-width:1025px){
+ .app-shell[data-space-managed][data-navigation-mode=compact]:not(.shell-content-only){grid-template-columns:64px minmax(0,1fr)}
+ .app-shell[data-space-managed][data-sidebar-position=right][data-navigation-mode=compact]:not(.shell-content-only){grid-template-columns:minmax(0,1fr) 64px}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside{width:64px}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside .brand{padding:10px;justify-content:center}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside .brand>span:last-child,.app-shell[data-space-managed][data-navigation-mode=compact]>aside .code-admin-nav-group h2{display:none}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside nav a{font-size:0;gap:0;min-height:40px;justify-content:center;padding:8px}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside>.sidebar-role{font-size:0;padding:10px 0;min-height:52px}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside>.sidebar-role:after{display:none}
+ .app-shell[data-space-managed][data-navigation-mode=compact]>aside>.sidebar-role:before{display:none}
+ .app-shell[data-space-managed][data-navigation-mode=compact] .approved-sidebar-menu{right:10px;bottom:4px}
+ .app-shell[data-space-managed][data-navigation-mode=compact] .approved-sidebar-popover{position:fixed;left:64px;right:auto;top:calc(var(--pc-viewport-offset,0px) + var(--pc-viewport-height,100dvh) - 164px);bottom:auto}
+ .app-shell[data-space-managed][data-sidebar-position=right][data-navigation-mode=compact] .approved-sidebar-popover{left:auto;right:64px}
+}
+@media(max-width:1024px){
+ .app-shell[data-space-managed]:not(.shell-content-only){grid-template-columns:minmax(0,1fr)!important}
+ .app-shell[data-space-managed][data-navigation-mode]>aside{width:248px}
+ .app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar{grid-template-columns:44px minmax(0,1fr) auto}
+ .app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar .global-search{grid-column:2}
+ .app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar .shell-controls{grid-column:3}
+}
+@media(max-width:600px){
+ .app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar{height:104px;min-height:104px;grid-template-columns:44px minmax(0,1fr) 44px 58px;grid-template-rows:44px 44px;padding:8px 12px;gap:0 8px;align-content:space-between}
+ .app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar .shell-controls{display:contents}
+ .app-shell.approved-code-admin[data-space-managed]:has(.code-admin-layout) .topbar .topbar-tenant{grid-column:1/-1;grid-row:2}
+}
 @media(max-width:600px){.app-shell[data-space-managed]{--pc-page-gap:12px;--pc-card-pad:12px;--pc-section-gap:10px;--pc-title-size:20px;--pc-chart-height:166px}.app-shell[data-space-managed] .code-admin-title-row{flex-basis:auto}.app-shell[data-space-managed] .ems-widget>strong{font-size:calc(25px * var(--theme-font-scale,1))}.app-shell[data-space-managed] .ems-widget h3{min-height:28px;margin-bottom:6px}.app-shell[data-space-managed] .ems-chart-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:'trend trend' 'readiness readiness' 'services services' 'status status'}.app-shell[data-space-managed] .ems-readiness-card svg{height:var(--pc-chart-height)}.app-shell[data-space-managed] .ems-chart-card svg text:not(.ems-chart-total){font-size:calc(16px * var(--theme-font-scale,1))}.app-shell[data-space-managed] .ems-operational-card{display:none}.app-shell[data-space-managed] .ems-status-list{font-size:calc(11px * var(--theme-font-scale,1))}.app-shell[data-space-managed] .ems-observatory-toolbar{margin-bottom:8px}}
 `;

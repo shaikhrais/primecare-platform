@@ -3,6 +3,7 @@ export function bindSidebar(root:HTMLElement):void {
  const sidebar=root.querySelector<HTMLElement>('[data-cy="app-sidebar"]');
  const toggle=root.querySelector<HTMLButtonElement>('[data-cy="sidebar-toggle"]');
  const close=root.querySelector<HTMLButtonElement>('[data-cy="sidebar-close"]');
+ if(sidebar)for(const link of sidebar.querySelectorAll<HTMLAnchorElement>('nav a')){if(!link.hasAttribute('title'))link.title=link.textContent?.trim()??'';}
  if(!sidebar||!toggle||bound.has(sidebar))return;bound.add(sidebar);
  const shade=document.createElement('button');shade.type='button';shade.className='sidebar-backdrop';shade.dataset.cy='sidebar-backdrop';shade.tabIndex=-1;shade.setAttribute('aria-label',close?.getAttribute('aria-label')??'Close navigation');sidebar.parentElement!.append(shade);
  const setOpen=(open:boolean,returnFocus=true)=>{sidebar.classList.toggle('open',open);toggle.setAttribute('aria-expanded',String(open));if(open)close?.focus();else if(returnFocus)toggle.focus();};
