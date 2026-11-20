@@ -1,0 +1,42 @@
+name: Activate EMS analytics using existing GitHub secrets
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/activate-ems-analytics.mjs'
+      - 'scripts/ems-analytics-live-config.mjs'
+      - 'scripts/test-ems-analytics-live-config.mjs'
+      - '.github/workflows/activate-ems-analytics.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  pilot_scope:
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
+  activate:
+    needs: [pilot_scope]
+    if: github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
+    concurrency: {group: primecare-cloudflare-typescript-production, cancel-in-progress: false}
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - name: Verify configuration preservation and deployment provenance
+        run: node --test scripts/test-ems-analytics-live-config.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-ems-secret-capabilities.mjs scripts/test-endpoint-management-preflight.mjs
+      - name: Enable collection and the registered Code Admin reader without account or mail changes
+        run: node scripts/activate-ems-analytics.mjs
+        env:
+          EMS_ACTIVATE_ANALYTICS: '1'
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ENDPOINT_ANALYTICS_READ_TOKEN: ${{ secrets.ENDPOINT_ANALYTICS_READ_TOKEN }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ems-analytics-activation
+          path: test-results/endpoint-management/activation.json
+          retention-days: 14

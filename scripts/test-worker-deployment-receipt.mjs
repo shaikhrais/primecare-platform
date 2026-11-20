@@ -14,3 +14,4 @@ test('delayed provider propagation accepts only the exact version and fails clos
  const wrong=fixture((value,path)=>{if(value.deployments)value.deployments[0].versions[0].version_id=old;});
  await assert.rejects(()=>verifyWorkerDeploymentEventually(wrong,{attempts:3,wait:async()=>{}}));
 });
+test('gateway receipt requires its exact registered Worker name',async()=>{const r=await verifyWorkerDeployment({...fixture(),worker:'primecare-api-gateway',service:'gateway'});assert.equal(r.worker,'primecare-api-gateway');await assert.rejects(()=>verifyWorkerDeployment({...fixture(),worker:'primecare-gateway-api',service:'gateway'}));});

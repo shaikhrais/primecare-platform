@@ -6,7 +6,7 @@ export function uploadedWorkerVersion(output){
  return ids[0];
 }
 export async function verifyWorkerDeployment({api,worker,service,source,versionId,previousDeploymentId}){
- if(!/^[0-9a-f]{40}$/.test(source??'')||!uuid.test(versionId??'')||!uuid.test(previousDeploymentId??'')||!['auth','governance'].includes(service)||worker!=='primecare-'+service+'-api')throw Error('Exact deployment provenance required');
+ if(!/^[0-9a-f]{40}$/.test(source??'')||!uuid.test(versionId??'')||!uuid.test(previousDeploymentId??'')||!['auth','governance','gateway'].includes(service)||worker!==(service==='gateway'?'primecare-api-gateway':'primecare-'+service+'-api'))throw Error('Exact deployment provenance required');
  const base='/workers/scripts/'+worker;
  const check=raw=>{const active=raw?.deployments?.[0];if(!active||!uuid.test(active.id??'')||active.id===previousDeploymentId||!Number.isFinite(Date.parse(active.created_on))||active.versions?.length!==1||active.versions[0].version_id!==versionId||active.versions[0].percentage!==100)throw Error('Uploaded version is not the sole active deployment');return active;};
  const active=check(await api(base+'/deployments?per_page=1'));

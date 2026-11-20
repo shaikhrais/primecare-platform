@@ -42,3 +42,9 @@ The `Code Admin EMS APIs and registration` workflow follows the existing pilot r
 ## Validation
 
 Focused API, native PostgreSQL permission-join, metadata registration, navigation/session cleanup, dashboard rendering/pagination and existing endpoint regressions accompany the change. The SQL fixture can use a disposable PostgreSQL `ems_test` database; the explicit in-memory PostgreSQL engine is test-only and refuses production connection variables. Live telemetry activation, authenticated Code Admin acceptance and a representative full-system load test remain separate operational evidence.
+
+## Existing-secret activation
+
+The separately scoped `Activate EMS analytics using existing GitHub secrets` workflow resolves the existing registered Code Admin control tenant in a read-only database transaction, checks analytics access, preserves unrelated live Worker bindings, then publishes only governance and gateway with the analytics configuration. It follows the existing release-scope gate and verifies exact deployed versions and anonymous EMS denial. It creates no accounts, changes no role assignments and sends no email.
+
+At the user's explicit request, when no `ENDPOINT_ANALYTICS_READ_TOKEN` GitHub secret exists, activation uses the existing `CLOUDFLARE_API_TOKEN` after verifying its Analytics Engine read access. That credential stays encrypted on the governance Worker and is excluded from generated configs, logs and artifacts. A dedicated Analytics Read secret can replace it later. Collection and sampled reports do not establish full-system capacity or authenticated production acceptance. Missing control-tenant registration blocks activation before provider writes.
