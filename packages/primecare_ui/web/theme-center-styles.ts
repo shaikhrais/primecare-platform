@@ -3,8 +3,8 @@ export const themeCenterStyles = `
 body dialog.layout-customizer.prime-theme-center[data-prime-theme-center]{
  --color-surface:inherit;--color-text:inherit;--color-text-muted:inherit;
  --color-surface-text:inherit;--color-surface-muted:inherit;--color-border:inherit;
- position:fixed;inset:0 0 0 auto;margin:0;width:min(48rem,100vw);height:100dvh;
- max-width:100vw;max-height:100dvh;max-block-size:100dvh;box-sizing:border-box;overflow:auto;
+ position:fixed;inset:var(--pc-viewport-offset,0px) 0 auto auto;margin:0;width:min(48rem,100vw);height:var(--pc-viewport-height,100dvh);
+ max-width:100vw;max-height:var(--pc-viewport-height,100dvh);max-block-size:var(--pc-viewport-height,100dvh);box-sizing:border-box;overflow:auto;
  border:0;border-inline-start:1px solid var(--color-border);border-radius:0;
  padding:var(--spacing-lg,1.5rem);background:var(--color-surface);color:var(--color-text);
  font-family:var(--font-family,system-ui,sans-serif);box-shadow:none;
