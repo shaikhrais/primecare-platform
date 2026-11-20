@@ -1,0 +1,39 @@
+/** Capture the exported preview over isolated loopback HTTP, never production. */
+import {chromium} from '@playwright/test';
+import {createServer} from 'node:http';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import assert from 'node:assert/strict';
+const dir=resolve(process.argv[2]??'test-results/screen-preview');const html=await readFile(dir+'/PrimeCare_Interactive_Preview.html');
+await mkdir(dir+'/screenshots',{recursive:true});await mkdir(dir+'/video',{recursive:true});
+const server=createServer((req,res)=>{if(req.url==='/'||req.url?.startsWith('/?')){res.writeHead(200,{'content-type':'text/html','cache-control':'no-store'});res.end(html);}else{res.writeHead(404);res.end();}});server.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));const origin='http://127.0.0.1:'+server.address().port;
+const browser=await chromium.launch({headless:true});const external=[],errors=[],scan=[],screenshots=[];
+const context=await browser.newContext({viewport:{width:1440,height:1000},recordVideo:{dir:dir+'/video',size:{width:1440,height:1000}}});
+await context.route('**/*',async route=>{const url=route.request().url();if(/^https?:/.test(url)&&!url.startsWith(origin+'/')){external.push(url);await route.abort();}else await route.continue();});
+const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+const open=async(code)=>{await page.evaluate(async code=>{const done=window.PreviewHost.waitReady();window.PreviewHost.openScreen(code);return await done;},code);};
+const frame=()=>page.frames().find(f=>f!==page.mainFrame());
+try{
+ await page.goto(origin,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.querySelector('iframe')?.contentWindow?.PreviewFrame);await page.waitForFunction(()=>document.querySelector('iframe')?.contentDocument?.querySelector('.ems-widget'));
+ await frame().locator('[data-cy=ems-summary]').filter({hasText:'120'}).waitFor();
+ for(let i=0;i<5;i++){await page.locator('#advance').click();await page.waitForTimeout(120);}
+ const operations=frame().locator('.ems-widget-grid');assert.equal(await operations.locator('.ems-widget').count(),6);
+ assert.ok(await frame().locator('.ems-trend-line').count()>0,'real EMS chart must plot the synthetic traffic history');
+ for(const[name,width,height]of [['ems-desktop',1440,1000],['ems-tablet',820,1180],['ems-mobile',390,844]]){await page.setViewportSize({width,height});await page.waitForTimeout(200);await page.screenshot({path:dir+'/screenshots/'+name+'.png',fullPage:true});screenshots.push(name);}
+ await page.setViewportSize({width:1440,height:1000});
+ // Exercise a real form and round trip through the synthetic API adapter.
+ await open('preview-admin-tenants');await frame().locator('[data-cy=platform-tenant-form]').waitFor();
+ await frame().locator('[data-cy=platform-tenant-form] [name=name]').fill('Demo · Browser created');await frame().locator('[data-cy=platform-tenant-form] [name=slug]').fill('preview-browser-created');await frame().locator('[data-cy=platform-tenant-form] button').click();await frame().locator('[data-cy=platform-account-form]').waitFor({timeout:10000});
+ const admin=await page.evaluate(()=>window.PREVIEW_DATA.screens.filter(s=>s.kind==='admin').map(s=>s.code));
+ for(const code of admin){await open(code);if(['preview-admin-accounts','preview-admin-masters','preview-admin-audit'].includes(code)){const tenant=frame().locator('[data-cy=platform-topbar-tenant]');await tenant.selectOption('demo-org-1');await page.waitForTimeout(100);}await page.waitForTimeout(100);const info=await frame().evaluate(()=>({alert:document.querySelector('#app>[role=alert]')?.textContent??null,title:document.querySelector('h1')?.textContent??null}));scan.push({code,kind:'actual-renderer',...info});await page.screenshot({path:dir+'/screenshots/'+code+'.png',fullPage:true});screenshots.push(code);}
+ const registry=await page.evaluate(()=>window.PREVIEW_DATA.screens.filter(s=>s.kind==='registry').map(s=>({code:s.code,role:s.role})));
+ const roleShots=new Set();
+ for(const entry of registry){await open(entry.code);const info=await frame().evaluate(()=>({alert:document.querySelector('#app>[role=alert]')?.textContent??null,title:document.querySelector('h1')?.textContent??null}));scan.push({...entry,kind:'registry-template',...info});if(!roleShots.has(entry.role)){roleShots.add(entry.role);await page.screenshot({path:dir+'/screenshots/role-'+entry.role+'.png',fullPage:true});screenshots.push('role-'+entry.role);}if(process.env.PREVIEW_CAPTURE_ALL==='1'){await page.screenshot({path:dir+'/screenshots/screen-'+entry.code+'.png',fullPage:true});}}
+ // End the video on the fully populated EMS renderer.
+ await open('preview-admin-ems');await page.waitForTimeout(2000);
+ const snapshot=await page.evaluate(()=>window.PreviewHost.snapshot());
+ const report={sourceKind:'real_browser_of_exported_preview',synthetic:true,productionConnections:false,registeredPagesScanned:registry.length,actualAdminViewsScanned:admin.length,rolesCaptured:roleShots.size,screenshots,scan,pageErrors:errors,externalRequests:external,unsupportedApis:snapshot.runtime?.missingApis??[],observedAt:new Date().toISOString()};
+ await writeFile(dir+'/browser-report.json',JSON.stringify(report,null,2));
+ assert.equal(external.length,0,'preview attempted an external request');assert.equal(errors.length,0,'preview JavaScript errors');assert.equal(scan.filter(s=>s.alert||!s.title).length,0,'one or more screen renderers failed');
+ console.log('PREVIEW_BROWSER '+JSON.stringify({registeredPagesScanned:registry.length,actualAdminViewsScanned:admin.length,rolesCaptured:roleShots.size,screenshots:screenshots.length,externalRequests:external.length,pageErrors:errors.length,unsupportedApis:report.unsupportedApis}));
+}finally{await context.close();await browser.close();server.close();}

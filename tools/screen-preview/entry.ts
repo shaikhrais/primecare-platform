@@ -1,0 +1,33 @@
+import {renderPlatformAdmin} from '../../websites/typescript/src/platform-admin';
+import {installPortalPresentation} from '../../websites/typescript/src/screen-presentation';
+import {resolveManagedRoute} from '../../websites/typescript/src/managed-routes';
+import {mountRegisteredScreenPreview} from '../../packages/primecare_ui/web/registered-screen-preview';
+import {createDemoStore,demoApi,syntheticSession,apiOrigin,type PreviewEntry} from './data';
+declare global{interface Window{PreviewFrame:any;PreviewHost:any;__previewAssets:Record<string,string>;__previewTheme:Record<string,string>;__pcPreviewLocation:any;__pcPreviewHistory:any;__pcPreviewStorage:any;}}
+const store=createDemoStore(),fieldState=new Map<string,Record<string,string>>();let epoch=0;let current:PreviewEntry,scenario='populated',manager:any,root:HTMLElement,stop=()=>{};
+const memory=new Map<string,string>([['primecare_session',syntheticSession]]);
+const storage={getItem:(key:string)=>memory.get(key)??null,setItem:(key:string,value:string)=>{memory.set(key,String(value));},removeItem:(key:string)=>{memory.delete(key);},clear:()=>memory.clear(),key:(n:number)=>[...memory.keys()][n]??null,get length(){return memory.size;}};
+window.__pcPreviewStorage=storage;
+let virtualUrl=new URL('/platform/administration#ems',apiOrigin);
+const go=(url:string)=>{const target=new URL(url,virtualUrl);virtualUrl=target;window.parent.PreviewHost.navigatePath(target.pathname+target.search+target.hash);};
+window.__pcPreviewLocation={get pathname(){return virtualUrl.pathname;},get search(){return virtualUrl.search;},get hash(){return virtualUrl.hash;},get href(){return virtualUrl.href;},get origin(){return apiOrigin;},assign:go,replace:go,reload:()=>{void render(current,scenario);}};
+let historyState:any=null;
+window.__pcPreviewHistory={get state(){return historyState;},pushState:(state:any,_title:string,url:string)=>{historyState=state;virtualUrl=new URL(url,virtualUrl);window.parent.PreviewHost.changedPath(virtualUrl.pathname+virtualUrl.search+virtualUrl.hash);},replaceState:(state:any,_title:string,url:string)=>{historyState=state;if(url)virtualUrl=new URL(url,virtualUrl);},back:()=>window.parent.PreviewHost.previous(),forward:()=>window.parent.PreviewHost.next()};
+// Complete replacement: unsupported routes never fall through to a real network.
+window.fetch=async(input:RequestInfo|URL,init?:RequestInit)=>{const url=typeof input==='string'?input:input instanceof URL?input.href:input.url;const method=init?.method??(input instanceof Request?input.method:'GET');let body={};try{body=typeof init?.body==='string'?JSON.parse(init.body):{};}catch{}if(scenario==='loading')await new Promise(r=>setTimeout(r,700));const result=demoApi(store,url,method,body,scenario);if(method!=='GET')window.parent.PreviewHost.notice('SIMULATED '+method+' · Changes affect this preview only.');return Response.json(result.value,{status:result.status});};
+window.open=()=>null;
+const asset=(value:string)=>{if(value.startsWith('data:')||value.startsWith('blob:'))return value;let path:string;try{path=new URL(value,apiOrigin).pathname;}catch{return '';}return window.__previewAssets[path]??'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16"/%3E';};
+const media=new MutationObserver(()=>{for(const img of document.querySelectorAll<HTMLImageElement>('img')){if(img.hasAttribute('srcset'))img.removeAttribute('srcset');const value=img.getAttribute('src');if(value&&!value.startsWith('data:')&&!value.startsWith('blob:'))img.src=asset(value);}for(const source of document.querySelectorAll('source[srcset]'))source.removeAttribute('srcset');});media.observe(document.documentElement,{subtree:true,childList:true});
+document.addEventListener('click',event=>{const link=(event.target as Element)?.closest<HTMLAnchorElement>('a');if(!link||event.defaultPrevented||link.download||link.href.startsWith('blob:'))return;const href=link.getAttribute('href')??'';if(href.startsWith('#preview-screen=')){event.preventDefault();window.parent.PreviewHost.openScreen(decodeURIComponent(href.slice(16)));return;}if(href.startsWith('/')){event.preventDefault();go(href);}else if(/^https?:/.test(href)){event.preventDefault();window.parent.PreviewHost.notice('External navigation is disabled in the offline preview.');}});
+async function render(entry:PreviewEntry,mode:string){
+ const generation=++epoch;
+ stop();manager?.clearDashboardDialogs(root);window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:false}));root?.remove();
+ current=entry;scenario=mode;memory.set('primecare_session',syntheticSession);virtualUrl=new URL(entry.kind==='admin'?'/platform/administration#'+entry.view:entry.route,apiOrigin);root=document.createElement('div');root.id='app';document.body.append(root);
+ manager=installPortalPresentation(root,window.__previewTheme,apiOrigin);
+ try{if(entry.kind==='admin'){const registration=resolveManagedRoute('/platform/administration','');manager.registerScope('entry',[registration]);await manager.present(registration.id,registration.route,()=>renderPlatformAdmin(root,apiOrigin));}
+ else{const registration={id:'preview:'+entry.code,route:entry.route,kind:'feature' as const,adapter:'registry-preview'};manager.registerScope('preview',[registration]);manager.enter(registration.id,registration.route);stop=mountRegisteredScreenPreview(root,manager,registration,entry,code=>window.parent.PreviewHost.openScreen(code),window.parent.PreviewHost.related(entry.role),fieldState);}}
+ catch(error){const message=document.createElement('p');message.setAttribute('role','alert');message.textContent='Preview renderer unavailable: '+(error instanceof Error?error.message:'unknown');root.replaceChildren(message);}
+ await new Promise(r=>setTimeout(r,25));if(generation!==epoch)return;window.parent.PreviewHost.ready(entry.code,root.querySelector('[role=alert]')?.textContent??null);
+}
+window.PreviewFrame={render,advance(){store.tick++;root.querySelector<HTMLButtonElement>('[data-cy=ems-refresh]')?.click();},reset(){Object.assign(store,createDemoStore());fieldState.clear();memory.clear();void render(current,scenario);},snapshot(){return {entry:current?.code,scenario,missingApis:[...store.missing],requests:store.requests,simulated:true};}};
+window.parent.PreviewHost.frameReady();

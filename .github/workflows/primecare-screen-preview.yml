@@ -1,0 +1,35 @@
+name: Build isolated PrimeCare HTML5 preview and browser recordings
+on:
+  push:
+    branches: [main]
+    paths: ['tools/screen-preview/**', 'packages/primecare_ui/web/**', 'websites/typescript/src/**', 'cloudflare/workers/src/workspace-registry.json', 'packages/shared/src/solid-theme.json', '.github/workflows/primecare-screen-preview.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install isolated build and capture dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/preview-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 @playwright/test@1.60.0 @twilio/voice-sdk@2.18.5 typescript@5.9.3
+          ln -s "$RUNNER_TEMP/preview-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Check synthetic model and isolation rules
+        run: node --test tools/screen-preview/test.mjs
+      - name: Check preview source types
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --allowImportingTsExtensions --resolveJsonModule --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable tools/screen-preview/entry.ts packages/primecare_ui/web/registered-screen-preview.ts
+      - name: Export the HTML5 preview without production credentials
+        run: node tools/screen-preview/build.mjs
+      - name: Scan every registered screen and record actual browser screenshots and video
+        run: node tools/screen-preview/capture.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: primecare-isolated-preview
+          path: test-results/screen-preview
+          retention-days: 30
