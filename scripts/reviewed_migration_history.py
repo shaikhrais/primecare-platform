@@ -6,9 +6,16 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_complete_theme_settings(source,path):
+    return reverse_presentation_receipt(source,path,'theme-complete-replay.json')
+
 def before_portal_layout(source,path):
-    """Replay only the hash-pinned portal amendment for historical migration tests."""
-    manifest=ROOT/'scripts/portal-layout-replay.json'
+    source=before_complete_theme_settings(source,path)
+    return reverse_presentation_receipt(source,path,'portal-layout-replay.json')
+
+def reverse_presentation_receipt(source,path,filename):
+    """Replay only exact hash-pinned source changes; never bless arbitrary edits."""
+    manifest=ROOT/'scripts'/filename
     if not manifest.exists():return source
     doc=json.loads(manifest.read_text())
     if doc['version']!=1:raise AssertionError('Unsupported portal replay receipt')

@@ -1,3 +1,4 @@
+import '../../theme/portal_section_theme.dart';
 import '../../workspace/portal_workspace.dart';
 import '../../providers/persistence_providers.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;
@@ -65,7 +66,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     final settings = ref.watch(themeSettingsProvider);
 
-    final theme=applyPersonalThemeData(tenant.branding,settings.theme);
+    final theme=applyPortalSectionThemes(applyPersonalThemeData(tenant.branding,settings.theme), settings.sectionThemes);
 
     final themeColors = theme.extension<GovernanceThemeColors>();
 
@@ -133,6 +134,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
       legacyLayoutStyle: settings.layoutStyle.name,
       builder: (context, workspace) => PrimePortalTheme(
       data: theme,
+      customScrollbars: settings.customScrollbars,
       child: QuickAccessBoundary(
         userRole: GovernanceRole(activeRole),
         currentOffice: 'CORPORATE',
@@ -162,11 +164,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   controller: workspace,
                   navigationVisible: !isHandheld,
                   horizontalNavigationExtent: 48,
-                  navigation: ['top', 'bottom'].contains(workspace.current.navigation)
+                  navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)
                       ? buildHorizontalNav()
                       : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
-                          collapsed: workspace.current.navigationWidth == 64),
-                  toolbar: PreferredSize(
+                          collapsed: workspace.current.navigationWidth == 64)),
+                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PreferredSize(
                   preferredSize: const Size.fromHeight(kToolbarHeight),
                   child: Semantics(
                     label: 'data-cy:app-topbar',
@@ -384,7 +386,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     ),
                   ),
                 ),
-                  footer: const PortalLayoutFooter(),
+                  ),
+                  footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PortalLayoutFooter()),
                   main: Semantics(
                     label: 'data-cy:app-content-slot',
                     container: true,

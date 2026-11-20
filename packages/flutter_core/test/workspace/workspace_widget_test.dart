@@ -51,6 +51,21 @@ void main() {
     c.patch({'footer': 'hidden'});await tester.pump();expect(find.text('Existing footer'), findsNothing);
     c.patch({'footer': 'sticky', 'toolbarStyle': 'static'});await tester.pump();expect(tester.takeException(), isNull);
   });
+  testWidgets('toolbar below horizontal navigation preserves the main draft', (tester) async {
+    addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
+    final c=createController();addTearDown(c.dispose);await mount(tester,c);
+    await tester.enterText(find.byKey(const ValueKey('main-field')),'Keep draft');
+    for(final scroll in ['page','content']) {
+      for(final style in ['sticky','static']) {
+        c.patch({'navigation':'top','toolbar':'belowNavigation','toolbarStyle':style,'scroll':scroll});
+        await tester.pump();
+        expect(tester.getRect(find.text('Authorized navigation')).bottom,
+          lessThanOrEqualTo(tester.getRect(find.text('Existing toolbar')).top));
+        expect(find.text('Keep draft'),findsOneWidget);
+        expect(tester.takeException(),isNull);
+      }
+    }
+  });
   testWidgets('keyboard and pointer move resize dock and cancel as single history entries', (tester) async {
     addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
     final c = createController();addTearDown(c.dispose);await mount(tester, c);

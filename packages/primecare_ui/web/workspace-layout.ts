@@ -99,12 +99,12 @@ export class WorkspaceLayoutManager {
     root.style.setProperty('--pc-nav-width', p.navigationWidth + 'px'); root.style.setProperty('--pc-max-width', p.maxWidth + 'px');
     root.style.setProperty('--pc-footer-offset', p.toolbar === 'bottom' && p.toolbarStyle === 'sticky' ? this.slots.toolbar.getBoundingClientRect().height + 'px' : '0px');
     const before = p.toolbar === 'top' ? ['toolbar'] : [], after = p.toolbar === 'bottom' ? ['toolbar'] : [];
-    let rows = [...before, ...(p.navigation === 'top' ? ['nav'] : []), 'stage', ...(p.navigation === 'bottom' ? ['nav'] : []), 'footer', ...after];
+    let rows = [...before, ...(p.navigation === 'top' ? ['nav'] : []), ...(p.toolbar === 'belowNavigation' ? ['toolbar'] : []), 'stage', ...(p.navigation === 'bottom' ? ['nav'] : []), 'footer', ...after];
     const vertical = p.navigation === 'left' || p.navigation === 'right';
     root.style.gridTemplateColumns = vertical ? (p.navigation === 'left' ? 'var(--pc-nav-width) minmax(0,1fr)' : 'minmax(0,1fr) var(--pc-nav-width)') : 'minmax(0,1fr)';
     root.style.gridTemplateAreas = rows.map(row => '"' + (vertical ? (p.navigation === 'left' ? 'nav ' + row : row + ' nav') : row) + '"').join(' ');
     root.style.gridTemplateRows = rows.map(row => row === 'stage' ? 'minmax(0,1fr)' : 'auto').join(' ');
-    const ordered = [...(p.toolbar === 'top' ? [this.slots.toolbar] : []), ...(p.navigation === 'top' || vertical ? [this.slots.navigation] : []), this.stage, ...(p.navigation === 'bottom' ? [this.slots.navigation] : []), ...(this.slots.footer ? [this.slots.footer] : []), ...(p.toolbar === 'bottom' ? [this.slots.toolbar] : []), ...(p.navigation === 'hidden' ? [this.slots.navigation] : [])];
+    const ordered = [...(p.toolbar === 'top' ? [this.slots.toolbar] : []), ...(p.navigation === 'top' || vertical ? [this.slots.navigation] : []), ...(p.toolbar === 'belowNavigation' ? [this.slots.toolbar] : []), this.stage, ...(p.navigation === 'bottom' ? [this.slots.navigation] : []), ...(this.slots.footer ? [this.slots.footer] : []), ...(p.toolbar === 'bottom' ? [this.slots.toolbar] : []), ...(p.navigation === 'hidden' ? [this.slots.navigation] : [])];
     // CSS positions desktop slots; DOM order follows visual order for keyboard/mobile users.
     for (let i = 0; i < ordered.length; i++) if (root.children[i] !== ordered[i]) root.insertBefore(ordered[i], root.children[i] ?? null);
     const nav = this.slots.navigation; nav.style.height = vertical && !narrow ? (p.scroll === 'content' ? '100%' : '100dvh') : 'auto';

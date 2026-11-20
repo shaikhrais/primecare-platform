@@ -4,11 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/workspace/workspace_layout.dart';
 
 void main() {
-  test('360 web fixtures roundtrip through native with no lost settings', () {
+  test('540 web fixtures roundtrip through native with no lost settings', () {
     final fixture = jsonDecode(File('test/workspace/fixtures/web.json').readAsStringSync()) as Map<String, dynamic>;
     final ids = (fixture['panelIds'] as List<dynamic>).cast<String>();
     final profiles = fixture['profiles'] as List<dynamic>;
-    expect(profiles.length, 360);
+    expect(profiles.length, 540);
     final exports = <Map<String, Object>>[];
     for (final raw in profiles) {
       final p = WorkspaceLayout.fromJson(raw, ids);

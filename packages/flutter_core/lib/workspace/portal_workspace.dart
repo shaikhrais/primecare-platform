@@ -104,8 +104,19 @@ class PortalLayoutEditor extends StatelessWidget {
         onChanged: (v) { if (v != null) c.patch({field: v}); }));
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       const PrimeText('WORKSPACE LAYOUT'),
+      Wrap(spacing: 8, children: [
+        PrimeTextButton(onPressed: () => c.patch({'navigation':'left','navigationWidth':248,
+          'container':'content','maxWidth':1120,'toolbar':'top','toolbarStyle':'sticky','footer':'sticky','scroll':'page'}),
+          child: const PrimeText('Vertical')),
+        PrimeTextButton(onPressed: () => c.patch({'navigation':'top','container':'content','maxWidth':1120,
+          'toolbar':'belowNavigation','toolbarStyle':'static','footer':'sticky','scroll':'page'}),
+          child: const PrimeText('Horizontal · page')),
+        PrimeTextButton(onPressed: () => c.patch({'navigation':'top','container':'content','maxWidth':1120,
+          'toolbar':'belowNavigation','toolbarStyle':'static','footer':'sticky','scroll':'content'}),
+          child: const PrimeText('Horizontal · content')),
+      ]),
       choice('Navigation', 'navigation', layout.navigation, ['left','right','top','bottom','hidden']),
-      choice('Toolbar position', 'toolbar', layout.toolbar, ['top','bottom']),
+      choice('Toolbar position', 'toolbar', layout.toolbar, ['top','belowNavigation','bottom']),
       choice('Toolbar scrolling', 'toolbarStyle', layout.toolbarStyle, ['sticky','static']),
       choice('Footer', 'footer', layout.footer, ['sticky','static','hidden']),
       choice('Container', 'container', layout.container, ['fullwidth','boxed','content']),
@@ -176,8 +187,11 @@ class _LayoutImportDialogState extends State<_LayoutImportDialog> {
 class PrimePortalTheme extends StatelessWidget {
   final ThemeData data;
   final Widget child;
-  const PrimePortalTheme({super.key, required this.data, required this.child});
-  @override Widget build(BuildContext context) => Theme(data: data, child: child);
+  final bool? customScrollbars;
+  const PrimePortalTheme({super.key, required this.data, required this.child, this.customScrollbars});
+  @override Widget build(BuildContext context) => Theme(data: data,
+    child: customScrollbars == null ? child : ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: customScrollbars), child: child));
 }
 
 /// Horizontal navigation uses the same centrally themed label in every portal.

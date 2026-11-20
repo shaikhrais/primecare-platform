@@ -16,8 +16,9 @@ void main(){
   final a=container('actor-a','admin');addTearDown(a.dispose);final store=a.read(themeLibraryProvider.notifier);final theme=PersonalTheme(name:'My Navy',preset:'navyTealPalette',fontScale:1.25,colors:{'primary':'#ffffff'});
   final id=await store.save(theme);expect(a.read(themeLibraryProvider).single.theme.name,'My Navy');await store.rename(id,'Renamed');await store.duplicate(id,'Copy');expect(a.read(themeLibraryProvider).length,2);await expectLater(store.save(theme.named('Copy')),throwsStateError);
   await a.read(themeSettingsProvider.notifier).applyPersonalTheme(theme);await a.read(themeSettingsProvider.notifier).updateLayoutStyle(LayoutStyle.verticalRight);
-  final restarted=container('actor-a','admin');addTearDown(restarted.dispose);expect(restarted.read(themeLibraryProvider).length,2);expect(restarted.read(themeSettingsProvider).theme.fontScale,1.25);expect(restarted.read(themeSettingsProvider).layoutStyle,LayoutStyle.verticalRight);
-  final b=container('actor-b','admin');addTearDown(b.dispose);expect(b.read(themeLibraryProvider),isEmpty);expect(b.read(themeSettingsProvider).theme.colors,isEmpty);
+  await a.read(themeSettingsProvider.notifier).updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default',colors:{'surface':'#111827'}));
+  final restarted=container('actor-a','admin');addTearDown(restarted.dispose);expect(restarted.read(themeLibraryProvider).length,2);expect(restarted.read(themeSettingsProvider).theme.fontScale,1.25);expect(restarted.read(themeSettingsProvider).layoutStyle,LayoutStyle.verticalRight);expect(restarted.read(themeSettingsProvider).sectionThemes['footer']!.colors['surface'],'#111827');
+  final b=container('actor-b','admin');addTearDown(b.dispose);expect(b.read(themeLibraryProvider),isEmpty);expect(b.read(themeSettingsProvider).theme.colors,isEmpty);expect(b.read(themeSettingsProvider).sectionThemes,isEmpty);
   final role=container('actor-a','rmt');addTearDown(role.dispose);expect(role.read(themeLibraryProvider),isEmpty);
   final notifier=a.read(authProvider.notifier) as TestThemeAuth;notifier.switchUser(actor('actor-b','admin'));expect(a.read(themeLibraryProvider),isEmpty);expect(a.read(themeSettingsProvider).theme.colors,isEmpty);
   await restarted.read(themeLibraryProvider.notifier).remove(id);expect(restarted.read(themeLibraryProvider).length,1);

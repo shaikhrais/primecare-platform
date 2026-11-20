@@ -1,3 +1,4 @@
+import '../../theme/theme_center_complete_panel.dart';
 import '../../workspace/portal_workspace.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeSwitchListTile;
 import 'package:flutter_core/theme/theme_contrast.dart';
@@ -64,6 +65,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
                 children: [
+                  const ThemeCenterCompletePanel(),
                   const ThemeCenterPanel(),
                   if (PortalWorkspaceScope.maybeOf(context) != null) const PortalLayoutEditor(),
                   if (PortalWorkspaceScope.maybeOf(context) == null) ...[

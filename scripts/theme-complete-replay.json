@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "da5ac1e4d17e0bcfc72477872800e242480b88ff",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "e49cb68a9ef3001c80bfab11d0f7d85f7d0bf88b7b8263e1ab2be8dff53c2344",
+      "afterSha256": "9cc7588ee29ff358f4acddd5b7ffcffb8d2fc7e8df7612d42f7e1285441edb54",
+      "edits": [
+        {
+          "begin": 0,
+          "old": "",
+          "new": "import '../../theme/portal_section_theme.dart';\n"
+        },
+        {
+          "begin": 3222,
+          "old": "    final theme=applyPersonalThemeData(tenant.branding,settings.theme);\n",
+          "new": "    final theme=applyPortalSectionThemes(applyPersonalThemeData(tenant.branding,settings.theme), settings.sectionThemes);\n"
+        },
+        {
+          "begin": 6293,
+          "old": "",
+          "new": "      customScrollbars: settings.customScrollbars,\n"
+        },
+        {
+          "begin": 7435,
+          "old": "                  navigation: ['top', 'bottom'].contains(workspace.current.navigation)\n",
+          "new": "                  navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)\n"
+        },
+        {
+          "begin": 7659,
+          "old": "                          collapsed: workspace.current.navigationWidth == 64),\n                  toolbar: PreferredSize(\n",
+          "new": "                          collapsed: workspace.current.navigationWidth == 64)),\n                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PreferredSize(\n"
+        },
+        {
+          "begin": 20406,
+          "old": "                  footer: const PortalLayoutFooter(),\n",
+          "new": "                  ),\n                  footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PortalLayoutFooter()),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+      "beforeSha256": "242716d64fa3a797d24cc1827b64b8c7931e40f66c151db54e3ad0606245340c",
+      "afterSha256": "d03a0c79ece2cc923f26435351e8def5d4ec05b5257d5963b917be4ca9e156e7",
+      "edits": [
+        {
+          "begin": 0,
+          "old": "",
+          "new": "import '../../theme/theme_center_complete_panel.dart';\n"
+        },
+        {
+          "begin": 2743,
+          "old": "",
+          "new": "                  const ThemeCenterCompletePanel(),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+      "beforeSha256": "3155099f0bbaec5cee545cd45ef3e8fe27ed14be75aa167a39e61abc54c55015",
+      "afterSha256": "93d1abd8b3973655d34ab536a8a62f183d18ec5946c36873e7d9bffb55f873f8",
+      "edits": [
+        {
+          "begin": 10965,
+          "old": "",
+          "new": "        final belowNavigation = p.toolbar == 'belowNavigation';\n        final topNavigationOutside = p.scroll == 'content' || belowNavigation;\n        final toolAtTop = p.toolbar != 'bottom';\n"
+        },
+        {
+          "begin": 11296,
+          "old": "          if (!toolOutside && p.toolbar == 'top') toolbar(),\n          if (showNavigation && !contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),\n",
+          "new": "          if (!toolOutside && toolAtTop) toolbar(),\n          if (showNavigation && !topNavigationOutside && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),\n"
+        },
+        {
+          "begin": 11801,
+          "old": "          if (toolOutside && p.toolbar == 'top') toolbar(),\n          if (showNavigation && contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),\n",
+          "new": "          if (toolOutside && toolAtTop && !belowNavigation) toolbar(),\n          if (showNavigation && topNavigationOutside && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),\n          if (toolOutside && belowNavigation) toolbar(),\n"
+        }
+      ]
+    }
+  ]
+}

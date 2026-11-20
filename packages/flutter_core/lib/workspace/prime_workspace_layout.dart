@@ -164,21 +164,25 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
           else Row(crossAxisAlignment: CrossAxisAlignment.start, children: [dock('left'), Expanded(child: main()), dock('right')]),
           dock('bottom'), if (narrow) dock('floating'),
         ]);
+        final belowNavigation = p.toolbar == 'belowNavigation';
+        final topNavigationOutside = p.scroll == 'content' || belowNavigation;
+        final toolAtTop = p.toolbar != 'bottom';
         final contentScroll = p.scroll == 'content';
         final toolOutside = contentScroll || p.toolbarStyle == 'sticky';
         final footOutside = contentScroll || p.footer == 'sticky';
         final hasFooter = widget.footerVisible && widget.footer != null && p.footer != 'hidden';
         final scrollChildren = <Widget>[
-          if (!toolOutside && p.toolbar == 'top') toolbar(),
-          if (showNavigation && !contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
+          if (!toolOutside && toolAtTop) toolbar(),
+          if (showNavigation && !topNavigationOutside && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
           stage,
           if (showNavigation && !contentScroll && !vertical && p.navigation == 'bottom') navigation(),
           if (hasFooter && !footOutside) footer(),
           if (!toolOutside && p.toolbar == 'bottom') toolbar(),
         ];
         final body = Column(children: [
-          if (toolOutside && p.toolbar == 'top') toolbar(),
-          if (showNavigation && contentScroll && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
+          if (toolOutside && toolAtTop && !belowNavigation) toolbar(),
+          if (showNavigation && topNavigationOutside && ((!vertical && p.navigation == 'top') || narrow && ['left', 'right'].contains(p.navigation))) navigation(),
+          if (toolOutside && belowNavigation) toolbar(),
           Expanded(child: SingleChildScrollView(key: PageStorageKey('${widget.controller.scope.storageKey}:${p.scroll}'),
             child: Column(mainAxisSize: MainAxisSize.min, children: scrollChildren))),
           if (showNavigation && contentScroll && !vertical && p.navigation == 'bottom') navigation(),
