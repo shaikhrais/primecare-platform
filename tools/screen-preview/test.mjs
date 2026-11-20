@@ -19,3 +19,10 @@ test('offline shell blocks network and labels actual renderer versus metadata co
  const entry=await readFile('tools/screen-preview/entry.ts','utf8');assert.doesNotMatch(entry,/fetch\(.*apiOrigin/);assert.match(entry,/store\.missing/);assert.match(entry,/syntheticSession/);
  const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));assert.equal(new Set(registry.screens.map(s=>s.route)).size,registry.screens.length);
 });
+
+test('export preserves the embedded bundle without replacement-string corruption',async()=>{
+ const {mkdtemp,rm}=await import('node:fs/promises');const {tmpdir}=await import('node:os');const {execFileSync}=await import('node:child_process');const {Script}=await import('node:vm');
+ const dir=await mkdtemp(tmpdir()+'/primecare-preview-');
+ try{execFileSync(process.execPath,['tools/screen-preview/build.mjs',dir]);const html=await readFile(dir+'/PrimeCare_Interactive_Preview.html','utf8');const start=html.indexOf('window.PREVIEW_DATA=')+'window.PREVIEW_DATA='.length;const end=html.indexOf(';\nconst data=',start);assert.ok(end>start);const payload=JSON.parse(html.slice(start,end));assert.ok(payload.js.includes('$&'),'test the actual bundled replacement-token sequence');assert.doesNotMatch(payload.js,/__PREVIEW_PAYLOAD__/);assert.doesNotThrow(()=>new Script(payload.js));assert.equal(payload.screens.length,972);assert.equal(payload.manifest.productionConnections,false);
+ }finally{await rm(dir,{recursive:true,force:true});}
+});

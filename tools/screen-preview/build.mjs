@@ -16,7 +16,7 @@ const css=await readFile('websites/typescript/src/styles.css','utf8');
 const manifest={source:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),builtAt:new Date().toISOString(),synthetic:true,productionConnections:false,registeredScreenCount:screens.length,roleCount:new Set(screens.map(s=>s.role)).size,actualAdminViews:admin.length,entries:[...admin,...screens].map(({sections,...s})=>s),limitations:['Registry previews project registered sections with central components; they do not implement missing dedicated business workflows.','Unsupported API scenarios show unavailable and are logged.','All state is synthetic and memory-only; no production authentication, messaging, payments or provider actions.']};
 const js=bundle.outputFiles[0].text;const shell=await readFile('tools/screen-preview/shell.html','utf8');
 const payload=JSON.stringify({screens:[...admin,...screens],theme,assets,manifest,js,css}).replace(/</g,'\\u003c');
-const html=shell.replace('/*__PREVIEW_PAYLOAD__*/','window.PREVIEW_DATA='+payload+';');
+const html=shell.replace('/*__PREVIEW_PAYLOAD__*/',()=> 'window.PREVIEW_DATA='+payload+';');
 await writeFile(output+'/PrimeCare_Interactive_Preview.html',html);await writeFile(output+'/coverage.json',JSON.stringify(manifest,null,2));
 await writeFile(output+'/README.txt','Open PrimeCare_Interactive_Preview.html in a modern browser. It is entirely synthetic and offline. Use the screen/role search to browse all registered sections and actual Code Admin views. Export session coverage to see unsupported API contracts.\n');
 console.log(JSON.stringify({output,bytes:Buffer.byteLength(html),screens:screens.length,roles:manifest.roleCount,actualAdminViews:admin.length,productionConnections:false}));
