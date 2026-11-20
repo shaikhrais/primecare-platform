@@ -10,6 +10,8 @@ const states: Record<string, readonly [string,string,string]> = {
   partial:['Partial','Partiel','Parcial'],
   unknown:['Unknown','Inconnu','Desconocido'],
   permission_metadata_missing:['Permission metadata missing','Métadonnées de permission manquantes','Faltan metadatos de permisos'],
+  ready:['Ready','Prêt','Listo'],
+  verified_access_policy:['Access policy verified','Politique d’accès vérifiée','Política de acceso verificada'],
   unverified:['Unverified','Non vérifié','Sin verificar'],
   maintenance:['Maintenance','Maintenance','Mantenimiento'],
   active_maintenance:['Active maintenance','Maintenance en cours','Mantenimiento activo'],

@@ -146,7 +146,8 @@
                             "required": [
                               "blocked",
                               "maintenance",
-                              "unverified"
+                              "unverified",
+                              "ready"
                             ],
                             "properties": {
                               "blocked": {
@@ -158,6 +159,10 @@
                                 "minimum": 0
                               },
                               "unverified": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "ready": {
                                 "type": "integer",
                                 "minimum": 0
                               }

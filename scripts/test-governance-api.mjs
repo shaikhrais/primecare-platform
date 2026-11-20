@@ -192,3 +192,20 @@ test('endpoint maintenance follows the reviewed window and exact declaration',as
   assert.throws(()=>endpointMaintenance([{...window,id:2}],[operation]),/Invalid/);
   assert.throws(()=>endpointMaintenance([{...window,startsAt:'2026-12-01'}],[operation]),/canonical UTC/);
 });
+
+test('readiness requires current evidence for the exact operation and release',async()=>{
+  await build({entryPoints:['cloudflare/workers/src/endpoint-readiness.ts'],bundle:true,
+    platform:'node',format:'cjs',outfile:join(dir,'endpoint-readiness.cjs')});
+  const {endpointReadiness}=createRequire(import.meta.url)(join(dir,'endpoint-readiness.cjs'));
+  const receipt={id:1,api:'GET /v1/example',releaseId:'rollout-25',runId:'123',
+    verifiedAt:'2026-12-01T14:00:00.000Z',expiresAt:'2026-12-01T15:00:00.000Z',
+    successfulRequest:true,accessPolicyPassed:true,scopeChecksPassed:true};
+  const lookup=endpointReadiness([receipt]);
+  const start=Date.parse(receipt.verifiedAt),end=Date.parse(receipt.expiresAt);
+  assert.equal(lookup(1,receipt.api,receipt.releaseId,start).runId,'123');
+  for(const args of [[2,receipt.api,receipt.releaseId,start],[1,'POST /v1/example',receipt.releaseId,start],
+    [1,receipt.api,undefined,start],[1,receipt.api,'older',start],[1,receipt.api,receipt.releaseId,start-1],
+    [1,receipt.api,receipt.releaseId,end]])assert.equal(lookup(...args),null);
+  assert.equal(endpointReadiness([receipt,receipt])(1,receipt.api,receipt.releaseId,start),null);
+  assert.equal(endpointReadiness([{...receipt,scopeChecksPassed:false}])(1,receipt.api,receipt.releaseId,start),null);
+});

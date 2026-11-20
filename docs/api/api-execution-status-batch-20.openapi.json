@@ -120,7 +120,8 @@
                                 "type": "string",
                                 "enum": [
                                   "permission_metadata_missing",
-                                  "unverified"
+                                  "unverified",
+                                  "verified_access_policy"
                                 ]
                               },
                               "readiness": {
@@ -128,7 +129,8 @@
                                 "enum": [
                                   "blocked",
                                   "maintenance",
-                                  "unverified"
+                                  "unverified",
+                                  "ready"
                                 ]
                               },
                               "maintenance": {
@@ -141,7 +143,10 @@
                                 ]
                               },
                               "evidenceScope": {
-                                "const": "registered_operation_metadata"
+                                "enum": [
+                                  "registered_operation_metadata",
+                                  "reviewed_release_receipt"
+                                ]
                               },
                               "maintenanceWindow": {
                                 "type": "object",
@@ -170,6 +175,33 @@
                                     "type": "string",
                                     "minLength": 1,
                                     "maxLength": 200
+                                  }
+                                },
+                                "additionalProperties": false
+                              },
+                              "verificationEvidence": {
+                                "type": "object",
+                                "required": [
+                                  "releaseId",
+                                  "verifiedAt",
+                                  "expiresAt",
+                                  "runId"
+                                ],
+                                "properties": {
+                                  "releaseId": {
+                                    "type": "string"
+                                  },
+                                  "verifiedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "expiresAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "runId": {
+                                    "type": "string",
+                                    "pattern": "^[1-9][0-9]{0,19}$"
                                   }
                                 },
                                 "additionalProperties": false

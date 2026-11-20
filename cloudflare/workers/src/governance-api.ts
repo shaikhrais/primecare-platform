@@ -6,6 +6,8 @@ import execution from './api-execution-inventory.json';
 import routingEvidence from './endpoint-routing-evidence.json';
 import maintenanceWindows from './endpoint-maintenance-windows.json';
 import {endpointMaintenance} from './endpoint-maintenance';
+import {endpointReadiness} from './endpoint-readiness';
+import readinessReceipts from './endpoint-readiness-receipts.json';
 
 import registry from './workspace-registry.json';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -32,9 +34,10 @@ export function parseGovernanceQuery(url:URL):Query|null {
 const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
   lifecycle:p.lifecycle,productionReady:p.productionReady,blockers:p.blockers,pendingActions:p.pendingActions}));
 
+const readinessFor=endpointReadiness(readinessReceipts);
 let maintenanceLookup:ReturnType<typeof endpointMaintenance>|undefined;
 /** Management status reflects registered evidence. Screen grants never prove API protection. */
-function endpointManagement(row:RecordRow,now:number) {
+function endpointManagement(row:RecordRow,now:number,releaseId?:string) {
   const declaration=String(row.declaredImplementation);
   maintenanceLookup??=endpointMaintenance(maintenanceWindows,execution.data);
   const maintenanceWindow=maintenanceLookup(row.id,row.api,now);
@@ -44,20 +47,28 @@ function endpointManagement(row:RecordRow,now:number) {
   const implementation=row.verificationState==='blocked'||declaration==='blocked'?'blocked':
     declaration==='implemented'?'declared_implemented':declaration==='partial'?'partial':'unknown';
   const missing=row.missingContractFields as string[];
-  const protection=missing.includes('permission')?'permission_metadata_missing':'unverified';
+  const evidence=implementation==='declared_implemented'&&
+    !missing.some(field=>['permission','requestSchema','responseSchema'].includes(field))
+    ?readinessFor(row.id,row.api,releaseId,now):null;
+  const protection=missing.includes('permission')?'permission_metadata_missing':
+    evidence?'verified_access_policy':'unverified';
   const readiness=implementation==='blocked'?'blocked':
-    maintenance==='active_maintenance'||maintenance==='recorded_maintenance'?'maintenance':'unverified';
-  return {implementation,protection,readiness,maintenance,...(maintenanceWindow?{maintenanceWindow}:{}),evidenceScope:'registered_operation_metadata'};
+    maintenance==='active_maintenance'||maintenance==='recorded_maintenance'?'maintenance':
+    evidence?'ready':'unverified';
+  return {implementation,protection,readiness,maintenance,...(maintenanceWindow?{maintenanceWindow}:{}),
+    ...(evidence?{verificationEvidence:evidence}:{}),evidenceScope:evidence?'reviewed_release_receipt':'registered_operation_metadata'};
 }
 
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
-export function governanceRows(path:string, now=Date.now()):RecordRow[] {
-  if(path==='/api-execution-status')return execution.data.map(row=>({
-    ...row,management:endpointManagement(row,now),
-    routingEvidence:routingStatus.has(`${row.id} ${row.api}`)?{
-      status:routingStatus.get(`${row.id} ${row.api}`),sourceCommit:routingEvidence.sourceCommit,scope:routingEvidence.scope
-    }:null,
-  }));
+export function governanceRows(path:string, now=Date.now(), releaseId?:string):RecordRow[] {
+  if(path==='/api-execution-status')return execution.data.map(row=>{
+    const management=endpointManagement(row,now,releaseId);
+    const status=routingStatus.get(`${row.id} ${row.api}`);
+    return {...row,management,productionVerified:Boolean(management.verificationEvidence),
+      routingEvidence:status===undefined?null:{
+        status,sourceCommit:routingEvidence.sourceCommit,scope:routingEvidence.scope
+      }};
+  });
   const gaps:Record<string,string>={'/api-missing-permissions':'permission','/api-missing-request-schemas':'requestSchema','/api-missing-response-schemas':'responseSchema','/api-unlinked-screens':'screenLink'};
   if(gaps[path])return execution.data.filter(row=>row.missingContractFields.includes(gaps[path]));
   if(path==='/api-verification-summary')return verificationSummary(execution.data);
@@ -129,13 +140,13 @@ export function verificationSummary(rows:RecordRow[]):RecordRow[] {
       postgresVerified:false,productionVerified:false}];
   });
 }
-export function serviceVerificationSummary(rows:RecordRow[], now=Date.now()):RecordRow[] {
+export function serviceVerificationSummary(rows:RecordRow[], now=Date.now(), releaseId?:string):RecordRow[] {
  const services=['auth','client','provider','visit','notes','billing','scheduling','notification','verification','compliance','governance','franchise-reporting'];
  return [...services,'unassigned'].map(service=>{const group=rows.filter(row=>service==='unassigned'?!services.includes(String(row.service)):row.service===service);return {service,gatewayBound:service!=='unassigned',declaredOperations:group.length,managementStates:group.reduce<Record<string,number>>((counts,row)=>{
-   const {readiness}=endpointManagement(row,now);
+   const {readiness}=endpointManagement(row,now,releaseId);
    counts[readiness]=(counts[readiness]??0)+1;
    return counts;
- },{blocked:0,maintenance:0,unverified:0}),verificationStates:Object.fromEntries(['blocked','unit_fixtures_recorded','verification_pending'].map(state=>[state,group.filter(row=>row.verificationState===state).length])),contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),unmappedServiceLabels:[...new Set(group.map(row=>row.service))],evidenceScope:'registered_operation_metadata',postgresVerified:false,productionVerified:false};});
+ },{blocked:0,maintenance:0,unverified:0,ready:0}),verificationStates:Object.fromEntries(['blocked','unit_fixtures_recorded','verification_pending'].map(state=>[state,group.filter(row=>row.verificationState===state).length])),contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),unmappedServiceLabels:[...new Set(group.map(row=>row.service))],evidenceScope:'registered_operation_metadata',postgresVerified:false,productionVerified:false};});
 }
 function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
   const filtered=filterGovernanceRows(rows,query);
@@ -147,7 +158,7 @@ function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
 /** Batched governance API: token and tenant checks precede metadata access.
  * Authorization derives from existing catalog authority or screen grants.
  * All reads use a read-only transaction and responses disable caching. */
-export async function governanceApi(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
+export async function governanceApi(request:Request,env:Env & {ENDPOINT_RELEASE_ID?:string},path:string,headers:HeadersInit):Promise<Response|null> {
   if(env.SERVICE_NAME!=='governance')return null;
   const liveText=await screenText(request,env,path,headers);if(liveText)return liveText;
   const binding=catalog.bindings.find(b=>b.path===path);if(!binding)return null;
@@ -185,13 +196,13 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
           const groups=pageProgressSummary(filterGovernanceRows(pageRows(),query));
           return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);
         }
-        if(path==='/api-service-status') {const groups=serviceVerificationSummary(filterGovernanceRows(execution.data,query));return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);}
+        if(path==='/api-service-status') {const groups=serviceVerificationSummary(filterGovernanceRows(execution.data,query),Date.now(),env.ENDPOINT_RELEASE_ID);return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);}
         if(path==='/api-verification-summary') {
           const groups=verificationSummary(filterGovernanceRows(execution.data,query));
           // Scope filters apply to operation records, not the aggregated group labels.
           return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);
         }
-        return json(paginate(governanceRows(path),query,'registered_governance'),200,safe);
+        return json(paginate(governanceRows(path,Date.now(),env.ENDPOINT_RELEASE_ID),query,'registered_governance'),200,safe);
       }finally {await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Governance data unavailable'},503,safe);}

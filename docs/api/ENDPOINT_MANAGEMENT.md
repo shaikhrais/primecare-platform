@@ -7,7 +7,7 @@ Open **API Health Dashboard** at `/common/api-health-dashboard` from an authoriz
 | View | URL | Use |
 | --- | --- | --- |
 | Operation inventory | `GET /v1/governance/api-execution-status` | Search by method and path. Each row carries its governance ID, linked screens, verification evidence and management status. |
-| Service summary | `GET /v1/governance/api-service-status` | Count blocked, maintenance and unverified declarations by service. Filters apply before aggregation. |
+| Service summary | `GET /v1/governance/api-service-status` | Count ready, blocked, maintenance and unverified declarations by service. Filters apply before aggregation. |
 | Verification summary | `GET /v1/governance/api-verification-summary` | Review test stage and missing permission, schema and screen links. |
 
 The dashboard shows the historical **Offline HTTP result** when an observation matches both the declaration ID and the exact method and path. The response includes the audited commit and scope. The reviewed snapshot matches 1,156 of 1,485 declarations. Local 404s call for route reconciliation, and local 401s show that the unauthenticated request was denied. Both require separate production and authorization evidence before marking the operation ready.
@@ -18,8 +18,14 @@ The inventory defaults to 25 rows per page. Use `limit` (up to 100), `offset`, `
 | --- | --- |
 | Implementation | Blocked, partial, declared implemented, or unknown. An active registration by itself does not establish implementation. |
 | Protection | Permission metadata missing, or enforcement unverified. A permission key or linked role does not prove runtime authorization. |
-| Readiness | Blocked, recorded maintenance, or unverified. Verification requires endpoint-specific success, denial and production evidence. |
+| Readiness | Ready, blocked, recorded maintenance, or unverified. Verification requires endpoint-specific success, denial and production evidence. |
 | Maintenance | Recorded, scheduled, active, or unknown. A scheduled or active window includes its UTC times and reason. |
+
+### Readiness evidence
+
+Ready requires a declared implementation, complete permission and request/response metadata, and a current [reviewed release receipt](../../cloudflare/workers/src/endpoint-readiness-receipts.json). Each receipt must identify the exact `id` and `api`, `releaseId`, `verifiedAt`, `expiresAt` and GitHub Actions `runId`. It must record passing success, access-policy and scope checks. For a public endpoint, the access-policy and scope checks verify the declared public behavior and permitted projection. For a protected endpoint, they must verify denial and tenant or resource isolation.
+
+The release operator sets the Governance Worker binding `ENDPOINT_RELEASE_ID` to the independently verified identifier for the currently serving release, including its gateway and service versions. Clear the binding during a rollout or rollback until deployment identities can be verified again. The application matches the configured release ID against the receipt. Infrastructure still needs to supply an independent live identity check or a receipt publisher. Future-dated, expired or duplicate receipts do not grant readiness. Receipts expire within 24 hours. Active maintenance and blockers take precedence. The checked-in receipt list is empty.
 
 ### Maintenance windows
 
