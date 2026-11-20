@@ -4,6 +4,9 @@ import {sourceLimitAllowed} from './source-limit-result';
 import catalog from './governance-api-registry.json';
 import execution from './api-execution-inventory.json';
 import routingEvidence from './endpoint-routing-evidence.json';
+import maintenanceWindows from './endpoint-maintenance-windows.json';
+import {endpointMaintenance} from './endpoint-maintenance';
+
 import registry from './workspace-registry.json';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {overview,visiblePages,workspaceRoleCounts} from './workspace';
@@ -29,23 +32,28 @@ export function parseGovernanceQuery(url:URL):Query|null {
 const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
   lifecycle:p.lifecycle,productionReady:p.productionReady,blockers:p.blockers,pendingActions:p.pendingActions}));
 
+let maintenanceLookup:ReturnType<typeof endpointMaintenance>|undefined;
 /** Management status reflects registered evidence. Screen grants never prove API protection. */
-function endpointManagement(row:RecordRow) {
+function endpointManagement(row:RecordRow,now:number) {
   const declaration=String(row.declaredImplementation);
-  const maintenance=declaration==='maintenance'?'recorded_maintenance':'unknown';
+  maintenanceLookup??=endpointMaintenance(maintenanceWindows,execution.data);
+  const maintenanceWindow=maintenanceLookup(row.id,row.api,now);
+  const maintenance=maintenanceWindow?.status==='active'?'active_maintenance':
+    maintenanceWindow?.status==='scheduled'?'scheduled_maintenance':
+    declaration==='maintenance'?'recorded_maintenance':'unknown';
   const implementation=row.verificationState==='blocked'||declaration==='blocked'?'blocked':
     declaration==='implemented'?'declared_implemented':declaration==='partial'?'partial':'unknown';
   const missing=row.missingContractFields as string[];
   const protection=missing.includes('permission')?'permission_metadata_missing':'unverified';
-  const readiness=maintenance==='recorded_maintenance'?'maintenance':
-    implementation==='blocked'?'blocked':'unverified';
-  return {implementation,protection,readiness,maintenance,evidenceScope:'registered_operation_metadata'};
+  const readiness=implementation==='blocked'?'blocked':
+    maintenance==='active_maintenance'||maintenance==='recorded_maintenance'?'maintenance':'unverified';
+  return {implementation,protection,readiness,maintenance,...(maintenanceWindow?{maintenanceWindow}:{}),evidenceScope:'registered_operation_metadata'};
 }
 
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
-export function governanceRows(path:string):RecordRow[] {
+export function governanceRows(path:string, now=Date.now()):RecordRow[] {
   if(path==='/api-execution-status')return execution.data.map(row=>({
-    ...row,management:endpointManagement(row),
+    ...row,management:endpointManagement(row,now),
     routingEvidence:routingStatus.has(`${row.id} ${row.api}`)?{
       status:routingStatus.get(`${row.id} ${row.api}`),sourceCommit:routingEvidence.sourceCommit,scope:routingEvidence.scope
     }:null,
@@ -121,10 +129,10 @@ export function verificationSummary(rows:RecordRow[]):RecordRow[] {
       postgresVerified:false,productionVerified:false}];
   });
 }
-export function serviceVerificationSummary(rows:RecordRow[]):RecordRow[] {
+export function serviceVerificationSummary(rows:RecordRow[], now=Date.now()):RecordRow[] {
  const services=['auth','client','provider','visit','notes','billing','scheduling','notification','verification','compliance','governance','franchise-reporting'];
  return [...services,'unassigned'].map(service=>{const group=rows.filter(row=>service==='unassigned'?!services.includes(String(row.service)):row.service===service);return {service,gatewayBound:service!=='unassigned',declaredOperations:group.length,managementStates:group.reduce<Record<string,number>>((counts,row)=>{
-   const {readiness}=endpointManagement(row);
+   const {readiness}=endpointManagement(row,now);
    counts[readiness]=(counts[readiness]??0)+1;
    return counts;
  },{blocked:0,maintenance:0,unverified:0}),verificationStates:Object.fromEntries(['blocked','unit_fixtures_recorded','verification_pending'].map(state=>[state,group.filter(row=>row.verificationState===state).length])),contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),unmappedServiceLabels:[...new Set(group.map(row=>row.service))],evidenceScope:'registered_operation_metadata',postgresVerified:false,productionVerified:false};});

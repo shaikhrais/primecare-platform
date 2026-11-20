@@ -135,11 +135,44 @@
                                 "type": "string",
                                 "enum": [
                                   "recorded_maintenance",
-                                  "unknown"
+                                  "unknown",
+                                  "scheduled_maintenance",
+                                  "active_maintenance"
                                 ]
                               },
                               "evidenceScope": {
                                 "const": "registered_operation_metadata"
+                              },
+                              "maintenanceWindow": {
+                                "type": "object",
+                                "required": [
+                                  "status",
+                                  "startsAt",
+                                  "endsAt",
+                                  "reason"
+                                ],
+                                "properties": {
+                                  "status": {
+                                    "enum": [
+                                      "scheduled",
+                                      "active"
+                                    ]
+                                  },
+                                  "startsAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "endsAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "reason": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 200
+                                  }
+                                },
+                                "additionalProperties": false
                               }
                             },
                             "additionalProperties": false

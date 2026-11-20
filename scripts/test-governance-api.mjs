@@ -174,3 +174,21 @@ test('routing observations retain their offline scope and cannot establish readi
   assert.equal(row.productionVerified,false);
   assert.equal(row.management.readiness,'unverified');
 });
+
+test('endpoint maintenance follows the reviewed window and exact declaration',async()=>{
+  await build({entryPoints:['cloudflare/workers/src/endpoint-maintenance.ts'],bundle:true,
+    platform:'node',format:'cjs',outfile:join(dir,'endpoint-maintenance.cjs')});
+  const {endpointMaintenance}=createRequire(import.meta.url)(join(dir,'endpoint-maintenance.cjs'));
+  const operation={id:1,api:'GET /v1/example'};
+  const window={...operation,startsAt:'2026-12-01T14:00:00.000Z',
+    endsAt:'2026-12-01T15:00:00.000Z',reason:'Planned work'};
+  const lookup=endpointMaintenance([window],[operation]);
+  const start=Date.parse(window.startsAt),end=Date.parse(window.endsAt);
+  assert.equal(lookup(1,operation.api,start-1).status,'scheduled');
+  assert.equal(lookup(1,operation.api,start).status,'active');
+  assert.equal(lookup(1,operation.api,end),null);
+  assert.equal(lookup(1,'POST /v1/example',start),null);
+  assert.throws(()=>endpointMaintenance([window,window],[operation]),/Overlapping/);
+  assert.throws(()=>endpointMaintenance([{...window,id:2}],[operation]),/Invalid/);
+  assert.throws(()=>endpointMaintenance([{...window,startsAt:'2026-12-01'}],[operation]),/canonical UTC/);
+});

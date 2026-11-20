@@ -12,10 +12,12 @@ const states: Record<string, readonly [string,string,string]> = {
   permission_metadata_missing:['Permission metadata missing','Métadonnées de permission manquantes','Faltan metadatos de permisos'],
   unverified:['Unverified','Non vérifié','Sin verificar'],
   maintenance:['Maintenance','Maintenance','Mantenimiento'],
+  active_maintenance:['Active maintenance','Maintenance en cours','Mantenimiento activo'],
+  scheduled_maintenance:['Scheduled maintenance','Maintenance planifiée','Mantenimiento programado'],
   recorded_maintenance:['Recorded maintenance','Maintenance enregistrée','Mantenimiento registrado'],
 };
 const fields = ['implementation','protection','readiness','maintenance'] as const;
-type Endpoint = {api:string;service:string;management:Record<typeof fields[number],string>;routingEvidence?:{status:number}|null};
+type Endpoint = {api:string;service:string;management:Record<typeof fields[number],string>&{maintenanceWindow?:{startsAt:string;endsAt:string;reason:string}};routingEvidence?:{status:number}|null};
 
 export function mountEndpointManagement(panel:HTMLElement, gateway:string, token:string, locale:Locale, current:()=>boolean) {
   const [title,searchLabel,search,previous,next,loading,empty,denied,unavailable,...columns]=labels[locale];
@@ -53,6 +55,12 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
         const cells=[row.api,row.service,...fields.map(key=>states[row.management?.[key]]?.[language]??states.unknown[language]),row.routingEvidence?.status?.toString()??states.unknown[language]];
         const tr=body.insertRow();
         for(const cell of cells)tr.insertCell().textContent=cell??'';
+        const window=row.management?.maintenanceWindow;
+        if(window){
+          const dates=document.createElement('small');
+          dates.textContent=`${window.startsAt} – ${window.endsAt} · ${window.reason}`;
+          tr.cells[5].append(document.createElement('br'),dates);
+        }
       }
       table.hidden=data.data.length===0;
       status.textContent=data.data.length?`${offset+1}–${offset+data.data.length} / ${data.pagination.total}`:empty;
