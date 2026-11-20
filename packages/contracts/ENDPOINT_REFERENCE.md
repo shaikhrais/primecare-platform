@@ -11526,19 +11526,19 @@ Explicit bearer session; active CEO and matching tenant required. Passwords, tok
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `role` in query (optional)
-- `status` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `role` in query (optional) — string, 65 allowed values; see source
+- `status` in query (optional) — 2 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Tenant account list
 
 Content type `application/json`:
-- `users`: array, required
-- `assignableRoles`: array, required
+- `users`: array, items: object, required
+- `assignableRoles`: array, items: string, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query
@@ -11562,19 +11562,19 @@ Requires the existing active explicit CEO bearer session and matching non-null t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `role` in query (optional)
-- `status` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `role` in query (optional) — string, 65 allowed values; see source
+- `status` in query (optional) — 2 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Tenant account list
 
 Content type `application/json`:
-- `users`: array, required
-- `assignableRoles`: array, required
+- `users`: array, items: object, required
+- `assignableRoles`: array, items: string, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query
@@ -11598,19 +11598,19 @@ Explicit bearer session; active CEO and matching tenant required. Passwords, tok
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `role` in query (optional)
-- `status` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `role` in query (optional) — string, 65 allowed values; see source
+- `status` in query (optional) — 2 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Tenant account list
 
 Content type `application/json`:
-- `users`: array, required
-- `assignableRoles`: array, required
+- `users`: array, items: object, required
+- `assignableRoles`: array, items: string, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query
@@ -11634,19 +11634,19 @@ Explicit bearer session; active CEO and matching tenant required. Passwords, tok
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `role` in query (optional)
-- `status` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `role` in query (optional) — string, 65 allowed values; see source
+- `status` in query (optional) — 2 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Tenant account list
 
 Content type `application/json`:
-- `users`: array, required
-- `assignableRoles`: array, required
+- `users`: array, items: object, required
+- `assignableRoles`: array, items: string, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query
@@ -11714,9 +11714,9 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, pattern-constrained; see source
-- `role`: string, required, 65 allowed values; see source
-- `status`: constrained value, required, 2 allowed values; see source
+- `id`: string, pattern-constrained; see source, required
+- `role`: string, 65 allowed values; see source, required
+- `status`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
@@ -11739,10 +11739,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-rate-validation-batches-264-268.openapi.json](../../docs/api/auth-rate-validation-batches-264-268.openapi.json)
@@ -11754,9 +11754,9 @@ Additional properties are rejected for this shape.
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, pattern-constrained; see source
-- `role`: string, required, 65 allowed values; see source
-- `status`: constrained value, required, 2 allowed values; see source
+- `id`: string, pattern-constrained; see source, required
+- `role`: string, 65 allowed values; see source, required
+- `status`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
@@ -11779,10 +11779,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-result-validation-batches-259-263.openapi.json](../../docs/api/auth-result-validation-batches-259-263.openapi.json)
@@ -11794,9 +11794,9 @@ Additional properties are rejected for this shape.
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, pattern-constrained; see source
-- `role`: string, required, 65 allowed values; see source
-- `status`: constrained value, required, 2 allowed values; see source
+- `id`: string, pattern-constrained; see source, required
+- `role`: string, 65 allowed values; see source, required
+- `status`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
@@ -11815,7 +11815,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11824,10 +11824,10 @@ Content type `application/json`:
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -11839,9 +11839,9 @@ Additional properties are rejected for this shape.
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, pattern-constrained; see source
-- `role`: string, required, 71 allowed values; see source
-- `status`: constrained value, required, 2 allowed values; see source
+- `id`: string, pattern-constrained; see source, required
+- `role`: string, 71 allowed values; see source, required
+- `status`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
@@ -11873,14 +11873,14 @@ CEO only, same tenant, no self-modification. Both role and status are required. 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, pattern-constrained; see source
-- `role`: string, required, 64 allowed values; see source
-- `status`: constrained value, required, 2 allowed values; see source
+- `id`: string, pattern-constrained; see source, required
+- `role`: string, 64 allowed values; see source, required
+- `status`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `user`: object, required
@@ -11888,7 +11888,7 @@ Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11896,7 +11896,7 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11904,7 +11904,7 @@ Additional properties are rejected for this shape.
 
 **Response 403:** Role or tenant denied
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11912,7 +11912,7 @@ Additional properties are rejected for this shape.
 
 **Response 404:** Account unavailable in actor tenant
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11920,7 +11920,9 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
-Response headers: `Cache-Control`, `Retry-After`.
+Response headers: `Cache-Control` — fixed value; see source.
+
+Response headers: `Retry-After` — string. Seconds until next attempt
 
 Content type `application/json`:
 - `error`: string, required
@@ -11928,7 +11930,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -11987,17 +11989,17 @@ Projects only approved role, status and session-count fields. Arbitrary audit JS
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `userId` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `userId` in query (optional) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid fields or query
@@ -12044,17 +12046,17 @@ Requires the existing active explicit CEO bearer session and matching non-null t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `userId` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `userId` in query (optional) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid fields or query
@@ -12101,17 +12103,17 @@ Projects only approved role, status and session-count fields. Arbitrary audit JS
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `userId` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `userId` in query (optional) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid fields or query
@@ -12247,17 +12249,17 @@ Reads persisted account_created events only. Does not include password or manage
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `userId` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `userId` in query (optional) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -12305,17 +12307,17 @@ Requires the existing active explicit CEO bearer session and matching non-null t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `userId` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `userId` in query (optional) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -12363,17 +12365,17 @@ Reads persisted account_created events only. Does not include password or manage
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `userId` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `userId` in query (optional) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -12510,8 +12512,8 @@ Only approved account fields are returned. Self accounts have canModify=false. N
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -12519,7 +12521,7 @@ Only approved account fields are returned. Self accounts have canModify=false. N
 
 Content type `application/json`:
 - `user`: object, required
-- `assignableRoles`: array, required
+- `assignableRoles`: array, items: string, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid fields or query
@@ -12566,8 +12568,8 @@ Only approved account fields are returned. Self accounts have canModify=false. N
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -12575,7 +12577,7 @@ Only approved account fields are returned. Self accounts have canModify=false. N
 
 Content type `application/json`:
 - `user`: object, required
-- `assignableRoles`: array, required
+- `assignableRoles`: array, items: string, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid fields or query
@@ -12666,16 +12668,16 @@ CEO cannot revoke their own sessions through this endpoint. Target locking seria
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `revokedSessions`: integer, required, minimum=0
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `revokedSessions`: integer, minimum=0, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid fields or query
@@ -12722,16 +12724,16 @@ Requires the existing active explicit CEO bearer session and matching non-null t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `revokedSessions`: integer, required, minimum=0
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `revokedSessions`: integer, minimum=0, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid fields or query
@@ -12822,19 +12824,19 @@ Sessions expose dates only, never token hashes. Requires an active explicit bear
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `includeExpired` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `includeExpired` in query (optional) — boolean
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `sessions`: array, required
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid fields or query
@@ -12881,19 +12883,19 @@ Requires the existing active explicit CEO bearer session and matching non-null t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `includeExpired` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `includeExpired` in query (optional) — boolean
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `sessions`: array, required
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid fields or query
@@ -12940,19 +12942,19 @@ Sessions expose dates only, never token hashes. Requires an active explicit bear
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `userId` in path (required)
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `includeExpired` in query (optional)
-- `X-Tenant-Id` in header (optional)
+- `userId` in path (required) — string, maxLength=200, pattern-constrained; see source
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `includeExpired` in query (optional) — boolean
+- `X-Tenant-Id` in header (optional) — string. If present, must exactly match the authenticated tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `sessions`: array, required
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid fields or query
@@ -14744,10 +14746,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-delivery-work-package.openapi.json](../../docs/api/auth-delivery-work-package.openapi.json)
@@ -14787,10 +14789,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-rate-validation-batches-264-268.openapi.json](../../docs/api/auth-rate-validation-batches-264-268.openapi.json)
@@ -14826,10 +14828,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 <a id="api-7"></a>
@@ -14931,7 +14933,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Request body — application/json:**
 - `email`: string, required
-- `password`: string, required, minLength=1, write-only; never log
+- `password`: string, minLength=1, write-only; never log, required
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
@@ -14939,7 +14941,7 @@ Content type `application/json`:
 - `userId`: string, required
 - `role`: string, required
 - `token`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
 
@@ -14967,10 +14969,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-delivery-work-package.openapi.json](../../docs/api/auth-delivery-work-package.openapi.json)
@@ -14983,15 +14985,15 @@ Additional properties are rejected for this shape.
 
 **Request body — application/json:**
 - `email`: string, required
-- `password`: string, required, minLength=1, write-only; never log
+- `password`: string, minLength=1, write-only; never log, required
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `role`: string, required, minLength=1, maxLength=200
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `role`: string, minLength=1, maxLength=200, required
 - `token`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
@@ -15020,10 +15022,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-rate-validation-batches-264-268.openapi.json](../../docs/api/auth-rate-validation-batches-264-268.openapi.json)
@@ -15036,7 +15038,7 @@ Additional properties are rejected for this shape.
 
 **Request body — application/json:**
 - `email`: string, required
-- `password`: string, required, minLength=1, write-only; never log
+- `password`: string, minLength=1, write-only; never log, required
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
@@ -15044,7 +15046,7 @@ Content type `application/json`:
 - `userId`: string, required
 - `role`: string, required
 - `token`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
 
@@ -15068,10 +15070,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-result-validation-batches-259-263.openapi.json](../../docs/api/auth-result-validation-batches-259-263.openapi.json)
@@ -15084,15 +15086,15 @@ Additional properties are rejected for this shape.
 
 **Request body — application/json:**
 - `email`: string, required
-- `password`: string, required, minLength=1, write-only; never log
+- `password`: string, minLength=1, write-only; never log, required
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `role`: string, required, minLength=1, maxLength=200
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `role`: string, minLength=1, maxLength=200, required
 - `token`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
@@ -15115,17 +15117,17 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-session-tenant.openapi.json](../../docs/api/auth-session-tenant.openapi.json)
@@ -15141,19 +15143,19 @@ Additional properties are rejected for this shape.
 Content type `application/json`:
 3 alternative input shapes; see source for conditional requirements.
 - variant 1: `role`: string, required
-- variant 1: `status`: constrained value, required, fixed value; see source
-- variant 1: `token`: string, required, pattern-constrained; see source
+- variant 1: `status`: fixed value; see source, required
+- variant 1: `token`: string, pattern-constrained; see source, required
 - variant 1: `userId`: string, required
-- variant 1: `tenantId`: string, optional, minLength=1, maxLength=200, pattern-constrained; see source
+- variant 1: `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
 Additional properties are rejected for this shape.
-- variant 2: `challenge`: string, required, pattern-constrained; see source
-- variant 2: `purpose`: constrained value, required, fixed value; see source
-- variant 2: `setupKey`: string, required, pattern-constrained; see source
-- variant 2: `status`: constrained value, required, fixed value; see source
+- variant 2: `challenge`: string, pattern-constrained; see source, required
+- variant 2: `purpose`: fixed value; see source, required
+- variant 2: `setupKey`: string, pattern-constrained; see source, required
+- variant 2: `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 3: `challenge`: string, required, pattern-constrained; see source
-- variant 3: `purpose`: constrained value, required, fixed value; see source
-- variant 3: `status`: constrained value, required, fixed value; see source
+- variant 3: `challenge`: string, pattern-constrained; see source, required
+- variant 3: `purpose`: fixed value; see source, required
+- variant 3: `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/auth-openapi.json](../../docs/auth-openapi.json)
@@ -15167,23 +15169,23 @@ Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normali
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `email`: string, required, maxLength=254
-- `password`: string, required, minLength=1, write-only; never log
+- `email`: string, maxLength=254, required
+- `password`: string, minLength=1, write-only; never log, required
 
 **Response 200:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `userId`: string, required
 - `role`: string, required
-- `token`: string, required, pattern-constrained; see source
-- `status`: constrained value, required, fixed value; see source
+- `token`: string, pattern-constrained; see source, required
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15191,7 +15193,7 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15199,7 +15201,9 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
-Response headers: `Cache-Control`, `Retry-After`.
+Response headers: `Cache-Control` — fixed value; see source.
+
+Response headers: `Retry-After` — string. Seconds until next attempt
 
 Content type `application/json`:
 - `error`: string, required
@@ -15207,7 +15211,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15272,7 +15276,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Response 200:** Signed out
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/auth-openapi.json](../../docs/auth-openapi.json)
@@ -15287,15 +15291,15 @@ Idempotent without credentials. Deletes the presented token hash and clears the 
 
 **Response 200:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15481,9 +15485,9 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Response 200:** Successful existing handler response
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `roles`: string, required, minLength=1, maxLength=200
-- `status`: constrained value, required, fixed value; see source
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `roles`: string, minLength=1, maxLength=200, required
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -15496,7 +15500,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15514,8 +15518,8 @@ Content type `application/json`:
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
-- `status`: constrained value, required, fixed value; see source
-- `tenantId`: string, optional, minLength=1, maxLength=200, pattern-constrained; see source
+- `status`: fixed value; see source, required
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -15531,7 +15535,7 @@ Additional properties are rejected for this shape.
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -15556,17 +15560,17 @@ Reads the current active user and unexpired session from PostgreSQL. Explicit in
 
 **Response 200:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15574,7 +15578,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15635,14 +15639,14 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body:** Optional. 
 
 **Request body — application/json:**
-No object fields; schema type: unspecified.
+Schema: type unspecified.
 
 **Response 200:** Successful existing handler response
 
 Content type `application/json`:
-- `userId`: string, required, maxLength=200, pattern-constrained; see source
-- `roles`: string, required, minLength=1, maxLength=200
-- `status`: constrained value, required, fixed value; see source
+- `userId`: string, maxLength=200, pattern-constrained; see source, required
+- `roles`: string, minLength=1, maxLength=200, required
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -15655,7 +15659,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15673,8 +15677,8 @@ Content type `application/json`:
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
-- `status`: constrained value, required, fixed value; see source
-- `tenantId`: string, optional, minLength=1, maxLength=200, pattern-constrained; see source
+- `status`: fixed value; see source, required
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -15686,14 +15690,14 @@ Additional properties are rejected for this shape.
 **Request body:** Optional. 
 
 **Request body — application/json:**
-No object fields; schema type: unspecified.
+Schema: type unspecified.
 
 **Response 200:** Successful existing handler response
 
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -15718,17 +15722,17 @@ Reads the current active user and unexpired session from PostgreSQL. Explicit in
 
 **Response 200:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15736,7 +15740,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -15796,10 +15800,10 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Content type `application/json`:
 - `role`: string, required
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 - `token`: string, required
 - `userId`: string, required
-- `tenantId`: string, optional, minLength=1, maxLength=200, pattern-constrained; see source
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
 Additional properties are rejected for this shape.
 
 <a id="api-16501"></a>
@@ -15853,20 +15857,20 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `password`: string, required, minLength=1, maxLength=72
-- `code`: string, required, pattern-constrained; see source
-- `reason`: string, required, minLength=10, maxLength=500
-- `scope`: array, required, minItems=1, maxItems=1
-- `seconds`: integer, required, minimum=1, maximum=900
+- `password`: string, minLength=1, maxLength=72, required
+- `code`: string, pattern-constrained; see source, required
+- `reason`: string, minLength=10, maxLength=500, required
+- `scope`: array, minItems=1, maxItems=1, unique items, required
+- `seconds`: integer, minimum=1, maximum=900, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `elevationId`: string, required
-- `expiresAt`: string, required
-- `scope`: array, required, minItems=1, maxItems=1
+- `status`: fixed value; see source, required
+- `elevationId`: string, format uuid, required
+- `expiresAt`: string, format date-time, required
+- `scope`: array, minItems=1, maxItems=1, unique items, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -15950,13 +15954,13 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `elevationId`: string, required
+- `elevationId`: string, format uuid, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16040,16 +16044,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `challenge`: string, required, pattern-constrained; see source
-- `recoveryCode`: string, required, pattern-constrained; see source
+- `challenge`: string, pattern-constrained; see source, required
+- `recoveryCode`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `challenge`: string, required, pattern-constrained; see source
-- `setupKey`: string, required, pattern-constrained; see source
+- `status`: fixed value; see source, required
+- `challenge`: string, pattern-constrained; see source, required
+- `setupKey`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16133,15 +16137,15 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `password`: string, required, minLength=1
-- `code`: string, required, pattern-constrained; see source
+- `password`: string, minLength=1, required
+- `code`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `recoveryCodes`: array, required, minItems=10, maxItems=10
+- `status`: fixed value; see source, required
+- `recoveryCodes`: array, minItems=10, maxItems=10, items: string, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16225,16 +16229,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `password`: string, required, minLength=1
-- `code`: string, required, pattern-constrained; see source
+- `password`: string, minLength=1, required
+- `code`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `challenge`: string, required, pattern-constrained; see source
-- `setupKey`: string, required, pattern-constrained; see source
+- `status`: fixed value; see source, required
+- `challenge`: string, pattern-constrained; see source, required
+- `setupKey`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16320,17 +16324,17 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `challenge`: string, required, pattern-constrained; see source
-- `code`: string, required, pattern-constrained; see source
+- `challenge`: string, pattern-constrained; see source, required
+- `code`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `token`: string, required, pattern-constrained; see source
+- `status`: fixed value; see source, required
+- `token`: string, pattern-constrained; see source, required
 - `userId`: string, required
-- `role`: constrained value, required, fixed value; see source
+- `role`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16374,11 +16378,11 @@ Content type `application/json`:
 **Response 200:** Authenticated operation response
 
 Content type `application/json`:
-- `role`: constrained value, required, fixed value; see source
-- `status`: constrained value, required, fixed value; see source
-- `token`: string, required, pattern-constrained; see source
+- `role`: fixed value; see source, required
+- `status`: fixed value; see source, required
+- `token`: string, pattern-constrained; see source, required
 - `userId`: string, required
-- `tenantId`: string, optional, minLength=1, maxLength=200, pattern-constrained; see source
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
 Additional properties are rejected for this shape.
 
 <a id="api-16505"></a>
@@ -16432,16 +16436,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `requestId`: string, required
-- `password`: string, required, minLength=1, maxLength=72
+- `requestId`: string, format uuid, required
+- `password`: string, minLength=1, maxLength=72, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `requestId`: string, required
-- `expiresAt`: string, required
+- `status`: fixed value; see source, required
+- `requestId`: string, format uuid, required
+- `expiresAt`: string, format date-time, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16525,25 +16529,25 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `elevationId`: string, required
-- `tenantId`: string, required
-- `ticket`: string, required, minLength=1, maxLength=100
-- `reason`: string, required, minLength=10, maxLength=500
-- `scope`: array, required, minItems=1, maxItems=1
-- `seconds`: integer, required, minimum=1, maximum=900
+- `elevationId`: string, format uuid, required
+- `tenantId`: string, format uuid, required
+- `ticket`: string, minLength=1, maxLength=100, required
+- `reason`: string, minLength=10, maxLength=500, required
+- `scope`: array, minItems=1, maxItems=1, unique items, required
+- `seconds`: integer, minimum=1, maximum=900, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `requestId`: string, required
-- `requesterId`: string, required
-- `tenantId`: string, required
-- `ticket`: string, required, minLength=1, maxLength=100
-- `reason`: string, required, minLength=10, maxLength=500
-- `scope`: array, required, minItems=1, maxItems=1
-- `expiresAt`: string, required
-- `state`: constrained value, required, 3 allowed values; see source
+- `requestId`: string, format uuid, required
+- `requesterId`: string, format uuid, required
+- `tenantId`: string, format uuid, required
+- `ticket`: string, minLength=1, maxLength=100, required
+- `reason`: string, minLength=10, maxLength=500, required
+- `scope`: array, minItems=1, maxItems=1, unique items, required
+- `expiresAt`: string, format date-time, required
+- `state`: 3 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16629,7 +16633,7 @@ The following repository documents match this exact HTTP method and path. Their 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `requests`: array, required, maxItems=50
+- `requests`: array, maxItems=50, items: object, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16713,14 +16717,14 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `requestId`: string, required
-- `password`: string, required, minLength=1, maxLength=72
+- `requestId`: string, format uuid, required
+- `password`: string, minLength=1, maxLength=72, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -16804,16 +16808,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `requestId`: string, required
+- `requestId`: string, format uuid, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated operation result
 
 Content type `application/json`:
-- `tenantId`: string, required
-- `activeAccounts`: integer, required, minimum=0
-- `activeSessions`: integer, required, minimum=0
-- `enrolledAuthenticators`: integer, required, minimum=0
+- `tenantId`: string, format uuid, required
+- `activeAccounts`: integer, minimum=0, required
+- `activeSessions`: integer, minimum=0, required
+- `enrolledAuthenticators`: integer, minimum=0, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid request
@@ -17126,7 +17130,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body — application/json:**
 - `email`: string, required
 - `password`: string, required
-- `role`: string, required, 65 allowed values; see source
+- `role`: string, 65 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Successful existing handler response
@@ -17149,10 +17153,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-rate-validation-batches-264-268.openapi.json](../../docs/api/auth-rate-validation-batches-264-268.openapi.json)
@@ -17166,7 +17170,7 @@ Additional properties are rejected for this shape.
 **Request body — application/json:**
 - `email`: string, required
 - `password`: string, required
-- `role`: string, required, 65 allowed values; see source
+- `role`: string, 65 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Successful existing handler response
@@ -17189,10 +17193,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-result-validation-batches-259-263.openapi.json](../../docs/api/auth-result-validation-batches-259-263.openapi.json)
@@ -17206,7 +17210,7 @@ Additional properties are rejected for this shape.
 **Request body — application/json:**
 - `email`: string, required
 - `password`: string, required
-- `role`: string, required, 65 allowed values; see source
+- `role`: string, 65 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Successful existing handler response
@@ -17225,7 +17229,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17234,10 +17238,10 @@ Content type `application/json`:
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -17251,7 +17255,7 @@ Additional properties are rejected for this shape.
 **Request body — application/json:**
 - `email`: string, required
 - `password`: string, required
-- `role`: string, required, 71 allowed values; see source
+- `role`: string, 71 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Successful existing handler response
@@ -17283,14 +17287,14 @@ No public registration. CEO and HR allowlists come from account-policy.json gene
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `email`: string, required, maxLength=254
-- `password`: string, required, minLength=12, maxLength=72, write-only; never log
-- `role`: string, required, 64 allowed values; see source
+- `email`: string, format email, maxLength=254, required
+- `password`: string, minLength=12, maxLength=72, write-only; never log, required
+- `role`: string, 64 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `user`: object, required
@@ -17298,7 +17302,7 @@ Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17306,7 +17310,7 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17314,7 +17318,7 @@ Additional properties are rejected for this shape.
 
 **Response 403:** Role or tenant denied
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17322,7 +17326,7 @@ Additional properties are rejected for this shape.
 
 **Response 409:** Account cannot be created
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17330,7 +17334,9 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
-Response headers: `Cache-Control`, `Retry-After`.
+Response headers: `Cache-Control` — fixed value; see source.
+
+Response headers: `Retry-After` — string. Seconds until next attempt
 
 Content type `application/json`:
 - `error`: string, required
@@ -17338,7 +17344,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -17400,14 +17406,14 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body — application/json:**
 - `email`: string, required
 - `code`: string, required
-- `newPassword`: string, required, minLength=12, write-only; never log
+- `newPassword`: string, minLength=12, write-only; never log, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
 
@@ -17429,10 +17435,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-delivery-work-package.openapi.json](../../docs/api/auth-delivery-work-package.openapi.json)
@@ -17446,14 +17452,14 @@ Additional properties are rejected for this shape.
 **Request body — application/json:**
 - `email`: string, required
 - `code`: string, required
-- `newPassword`: string, required, minLength=12, write-only; never log
+- `newPassword`: string, minLength=12, write-only; never log, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
 
@@ -17475,10 +17481,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-rate-validation-batches-264-268.openapi.json](../../docs/api/auth-rate-validation-batches-264-268.openapi.json)
@@ -17492,14 +17498,14 @@ Additional properties are rejected for this shape.
 **Request body — application/json:**
 - `email`: string, required
 - `code`: string, required
-- `newPassword`: string, required, minLength=12, write-only; never log
+- `newPassword`: string, minLength=12, write-only; never log, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Existing handler success; account recovery remains enumeration resistant.
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 
 **Response 400:** Existing authentication/recovery error; no new authority or contract registration.
 
@@ -17517,10 +17523,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 <a id="api-3"></a>
@@ -20137,15 +20143,15 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `service_type`: string, required, minLength=1, maxLength=100
-- `preferred_date`: string, required, pattern-constrained; see source
-- `preferred_time`: ['string', 'null'], optional, pattern-constrained; see source
-- `notes`: ['string', 'null'], optional, maxLength=2000
+- `service_type`: string, minLength=1, maxLength=100, required
+- `preferred_date`: string, format date-time, pattern-constrained; see source, required
+- `preferred_time`: string or null, pattern-constrained; see source, optional
+- `notes`: string or null, maxLength=2000, optional
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20222,7 +20228,7 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `requestId` in path (required)
+- `requestId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -20255,7 +20261,7 @@ Active explicit bearer session, one client profile owned through client_profiles
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `requestId` in path (required)
+- `requestId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -20330,8 +20336,8 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
-- `requestId` in path (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
+- `requestId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -20411,15 +20417,15 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `service_type`: string, required, minLength=1, maxLength=100
-- `preferred_date`: string, required, pattern-constrained; see source
-- `preferred_time`: ['string', 'null'], optional, pattern-constrained; see source
-- `notes`: ['string', 'null'], optional, maxLength=2000
+- `service_type`: string, minLength=1, maxLength=100, required
+- `preferred_date`: string, format date-time, pattern-constrained; see source, required
+- `preferred_time`: string or null, pattern-constrained; see source, optional
+- `notes`: string or null, maxLength=2000, optional
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20498,15 +20504,15 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `service_type`: string, required, minLength=1, maxLength=100
-- `preferred_date`: string, required, pattern-constrained; see source
-- `preferred_time`: ['string', 'null'], optional, pattern-constrained; see source
-- `notes`: ['string', 'null'], optional, maxLength=2000
+- `service_type`: string, minLength=1, maxLength=100, required
+- `preferred_date`: string, format date-time, pattern-constrained; see source, required
+- `preferred_time`: string or null, pattern-constrained; see source, optional
+- `notes`: string or null, maxLength=2000, optional
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20585,15 +20591,15 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `service_type`: string, required, minLength=1, maxLength=100
-- `preferred_date`: string, required, pattern-constrained; see source
-- `preferred_time`: ['string', 'null'], optional, pattern-constrained; see source
-- `notes`: ['string', 'null'], optional, maxLength=2000
+- `service_type`: string, minLength=1, maxLength=100, required
+- `preferred_date`: string, format date-time, pattern-constrained; see source, required
+- `preferred_time`: string or null, pattern-constrained; see source, optional
+- `notes`: string or null, maxLength=2000, optional
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20668,15 +20674,15 @@ Active explicit bearer session, unique owned client profile and matching tenant 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `consents`: array, required, maxItems=100
+- `consents`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -21344,15 +21350,15 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `invoices`: array, required
+- `invoices`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -21600,15 +21606,15 @@ Active explicit bearer session, unique owned client profile and matching tenant 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `authorizations`: array, required, maxItems=100
+- `authorizations`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -21949,15 +21955,15 @@ Active explicit bearer session, one client profile owned through client_profiles
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Validated owner-scoped data
 
 Content type `application/json`:
-- `visits`: array, required
+- `visits`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -21984,15 +21990,15 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `visits`: array, required
+- `visits`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -22307,58 +22313,62 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Response 400:** No body, query string or tenant override accepted
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, 1 allowed values; see source
+- `error`: 1 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 401:** Missing, invalid or expired session; inactive user or tenant
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, 1 allowed values; see source
+- `error`: 1 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 403:** Wrong role, or no effective assigned verified active branch
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, 2 allowed values; see source
+- `error`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 405:** GET only
 
-Response headers: `Cache-Control`, `Allow`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
+
+Response headers: `Allow` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, 1 allowed values; see source
+- `error`: 1 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 429:** Configured source limiter denied
 
-Response headers: `Cache-Control`, `Retry-After`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
+
+Response headers: `Retry-After` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, 1 allowed values; see source
+- `error`: 1 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Governance service unavailable, authorization database unavailable, or unsafe aggregate; no internal detail.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, 1 allowed values; see source
+- `error`: 1 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Count of distinct currently assigned active verified branches in the current director tenant. No appointment metric or identifiers.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — string, 1 allowed values; see source.
 
 Content type `application/json`:
-- `assignedVerifiedBranchCount`: integer, required, minimum=1, maximum=9007199254740991
+- `assignedVerifiedBranchCount`: integer, minimum=1, maximum=9007199254740991, required
 Additional properties are rejected for this shape.
 
 <a id="api-1205"></a>
@@ -27970,19 +27980,19 @@ Active bearer session and tenant required. Existing inventory authority required
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -28049,24 +28059,24 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `offset` in query (optional)
-- `case` in query (optional)
-- `view` in query (optional)
-- `staffingOffset` in query (optional)
-- `staff` in query (optional)
-- `seriesOffset` in query (optional)
-- `timeOffset` in query (optional)
-- `handoverOffset` in query (optional)
-- `followupOffset` in query (optional)
-- `followupView` in query (optional)
-- `followupOwner` in query (optional)
-- `workloadOffset` in query (optional)
-- `workloadQuery` in query (optional)
-- `rosterQuery` in query (optional)
-- `visitQuery` in query (optional)
-- `visitOffset` in query (optional)
-- `sourceQuery` in query (optional)
-- `sourceOffset` in query (optional)
+- `offset` in query (optional) — integer, minimum=0, maximum=1000000
+- `case` in query (optional) — string, format uuid
+- `view` in query (optional) — 5 allowed values; see source
+- `staffingOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `staff` in query (optional) — string, minLength=1, maxLength=200
+- `seriesOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `timeOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `handoverOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `followupOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `followupView` in query (optional) — 7 allowed values; see source
+- `followupOwner` in query (optional) — string, minLength=1, maxLength=200
+- `workloadOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `workloadQuery` in query (optional) — string, maxLength=100
+- `rosterQuery` in query (optional) — string, maxLength=100
+- `visitQuery` in query (optional) — string, maxLength=100
+- `visitOffset` in query (optional) — integer, minimum=0, maximum=1000000
+- `sourceQuery` in query (optional) — string, maxLength=100
+- `sourceOffset` in query (optional) — integer, minimum=0, maximum=1000000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -28074,9 +28084,9 @@ Active tenant and governed care role required. Current clearance, assignment pur
 
 Content type `application/json`:
 - `detail`: constrained value, required
-- `cases`: array, required, maxItems=25
-- `people`: array, required, maxItems=200
-- `visits`: array, required, maxItems=100
+- `cases`: array, maxItems=25, items: object, required
+- `people`: array, maxItems=200, required
+- `visits`: array, maxItems=100, required
 - `staffing`: object, required
 - `visitPicker`: object, required
 - `schedules`: object, required
@@ -28149,7 +28159,7 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenant` in query (optional)
+- `tenant` in query (optional) — string. Central administrators only: select an active tenant; tenant admins cannot cross their tenant.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -28221,19 +28231,19 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenant` in query (optional)
-- `Idempotency-Key` in header (required)
+- `tenant` in query (optional) — string. Central administrators only: select an active tenant; tenant admins cannot cross their tenant.
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `action`: constrained value, required, 3 allowed values; see source
+- `action`: 3 allowed values; see source, required
 - `userId`: string, optional
-- `startsOn`: string, optional
-- `endsOn`: ['string', 'null'], optional
-- `reason`: string, optional, minLength=10, maxLength=1000
-- `id`: string, optional
-- `version`: integer, optional, minimum=1
+- `startsOn`: string, format date, optional
+- `endsOn`: string or null, optional
+- `reason`: string, minLength=10, maxLength=1000, optional
+- `id`: string, format uuid, optional
+- `version`: integer, minimum=1, optional
 Additional properties are rejected for this shape.
 
 **Response 200:** Tenant-scoped assignments and audit; primary role preserved
@@ -28305,22 +28315,22 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `visitId`: string, required, minLength=1, maxLength=200
-- `nurseId`: string, required, minLength=1, maxLength=200
-- `supervisorId`: string, required, minLength=1, maxLength=200
-- `workerId`: string, required, minLength=1, maxLength=200
-- `evidence`: string, required, minLength=1, maxLength=2000
+- `visitId`: string, minLength=1, maxLength=200, required
+- `nurseId`: string, minLength=1, maxLength=200, required
+- `supervisorId`: string, minLength=1, maxLength=200, required
+- `workerId`: string, minLength=1, maxLength=200, required
+- `evidence`: string, minLength=1, maxLength=2000, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -28391,109 +28401,109 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `idempotency-key` in header (required)
+- `id` in path (required) — string, format uuid
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 18 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `assessment`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `risks`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `escalation`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `consentEvidence`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `consentChecked`: constrained value, required, fixed value; see source
-- variant 1: `validUntil`: string, required
-- variant 1: `tasks`: array, required, minItems=1, maxItems=20
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `assessment`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `risks`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `escalation`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `consentEvidence`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `consentChecked`: fixed value; see source, required
+- variant 1: `validUntil`: string, format date-time, required
+- variant 1: `tasks`: array, minItems=1, maxItems=20, items: object, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 4: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 4: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 5: `action`: constrained value, required, fixed value; see source
-- variant 5: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 5: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 5: `action`: fixed value; see source, required
+- variant 5: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 5: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 6: `action`: constrained value, required, fixed value; see source
-- variant 6: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 6: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 6: `consentChecked`: constrained value, required, fixed value; see source
+- variant 6: `action`: fixed value; see source, required
+- variant 6: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 6: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 6: `consentChecked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 7: `action`: constrained value, required, fixed value; see source
-- variant 7: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 7: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 7: `taskId`: string, required
-- variant 7: `outcome`: constrained value, required, 4 allowed values; see source
+- variant 7: `action`: fixed value; see source, required
+- variant 7: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 7: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 7: `taskId`: string, format uuid, required
+- variant 7: `outcome`: 4 allowed values; see source, required
 Additional properties are rejected for this shape.
-- variant 8: `action`: constrained value, required, fixed value; see source
-- variant 8: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 8: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 8: `action`: fixed value; see source, required
+- variant 8: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 8: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 9: `action`: constrained value, required, fixed value; see source
-- variant 9: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 9: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 9: `eventId`: string, required
+- variant 9: `action`: fixed value; see source, required
+- variant 9: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 9: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 9: `eventId`: string, format uuid, required
 Additional properties are rejected for this shape.
-- variant 10: `action`: constrained value, required, fixed value; see source
-- variant 10: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 10: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 10: `action`: fixed value; see source, required
+- variant 10: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 10: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 11: `action`: constrained value, required, fixed value; see source
-- variant 11: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 11: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 11: `action`: fixed value; see source, required
+- variant 11: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 11: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 12: `action`: constrained value, required, fixed value; see source
-- variant 12: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 12: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 12: `nurseId`: string, required, pattern-constrained; see source
-- variant 12: `supervisorId`: string, required, pattern-constrained; see source
-- variant 12: `workerId`: string, required, pattern-constrained; see source
+- variant 12: `action`: fixed value; see source, required
+- variant 12: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 12: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 12: `nurseId`: string, pattern-constrained; see source, required
+- variant 12: `supervisorId`: string, pattern-constrained; see source, required
+- variant 12: `workerId`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 13: `action`: constrained value, required, fixed value; see source
-- variant 13: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 13: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 13: `action`: fixed value; see source, required
+- variant 13: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 13: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 14: `action`: constrained value, required, fixed value; see source
-- variant 14: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 14: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 14: `action`: fixed value; see source, required
+- variant 14: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 14: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 15: `action`: constrained value, required, fixed value; see source
-- variant 15: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 15: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 15: `reason`: constrained value, required, 5 allowed values; see source
+- variant 15: `action`: fixed value; see source, required
+- variant 15: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 15: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 15: `reason`: 5 allowed values; see source, required
 Additional properties are rejected for this shape.
-- variant 16: `action`: constrained value, required, fixed value; see source
-- variant 16: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 16: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 16: `action`: fixed value; see source, required
+- variant 16: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 16: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 17: `action`: constrained value, required, fixed value; see source
-- variant 17: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 17: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 17: `startsAt`: string, required
-- variant 17: `durationMinutes`: integer, required, minimum=15, maximum=720
-- variant 17: `confirmed`: constrained value, required, fixed value; see source
+- variant 17: `action`: fixed value; see source, required
+- variant 17: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 17: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 17: `startsAt`: string, format date-time, required
+- variant 17: `durationMinutes`: integer, minimum=15, maximum=720, required
+- variant 17: `confirmed`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 18: `action`: constrained value, required, fixed value; see source
-- variant 18: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 18: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 18: `confirmed`: constrained value, required, fixed value; see source
+- variant 18: `action`: fixed value; see source, required
+- variant 18: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 18: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 18: `confirmed`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -28564,25 +28574,25 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `staffId`: string, required, minLength=1, maxLength=200
-- `version`: integer, required, minimum=0, maximum=2147483646
-- `status`: constrained value, required, 2 allowed values; see source
-- `expiresOn`: string, required
-- `registration`: string, required, minLength=1, maxLength=100
-- `evidence`: string, required, minLength=1, maxLength=2000
-- `checked`: constrained value, required, fixed value; see source
+- `staffId`: string, minLength=1, maxLength=200, required
+- `version`: integer, minimum=0, maximum=2147483646, required
+- `status`: 2 allowed values; see source, required
+- `expiresOn`: string, format date, required
+- `registration`: string, minLength=1, maxLength=100, required
+- `evidence`: string, minLength=1, maxLength=2000, required
+- `checked`: fixed value; see source, required
 - `profile`: object, optional
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -28653,92 +28663,92 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 13 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 1: `caseId`: string, required
-- variant 1: `category`: constrained value, required, 8 allowed values; see source
-- variant 1: `ownerId`: string, required, minLength=1, maxLength=200
-- variant 1: `dueAt`: string, required
-- variant 1: `prerequisiteIds`: array, optional, maxItems=5
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 1: `caseId`: string, format uuid, required
+- variant 1: `category`: 8 allowed values; see source, required
+- variant 1: `ownerId`: string, minLength=1, maxLength=200, required
+- variant 1: `dueAt`: string, format date-time, required
+- variant 1: `prerequisiteIds`: array, maxItems=5, unique items, items: string, optional
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 2: `id`: string, required
-- variant 2: `version`: integer, required, minimum=1, maximum=49
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 2: `id`: string, format uuid, required
+- variant 2: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 3: `id`: string, required
-- variant 3: `version`: integer, required, minimum=1, maximum=49
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 3: `id`: string, format uuid, required
+- variant 3: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 4: `id`: string, required
-- variant 4: `version`: integer, required, minimum=1, maximum=49
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 4: `id`: string, format uuid, required
+- variant 4: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 5: `action`: constrained value, required, fixed value; see source
-- variant 5: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 5: `id`: string, required
-- variant 5: `version`: integer, required, minimum=1, maximum=49
-- variant 5: `checked`: constrained value, required, fixed value; see source
+- variant 5: `action`: fixed value; see source, required
+- variant 5: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 5: `id`: string, format uuid, required
+- variant 5: `version`: integer, minimum=1, maximum=49, required
+- variant 5: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 6: `action`: constrained value, required, fixed value; see source
-- variant 6: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 6: `id`: string, required
-- variant 6: `version`: integer, required, minimum=1, maximum=49
+- variant 6: `action`: fixed value; see source, required
+- variant 6: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 6: `id`: string, format uuid, required
+- variant 6: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 7: `action`: constrained value, required, fixed value; see source
-- variant 7: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 7: `id`: string, required
-- variant 7: `version`: integer, required, minimum=1, maximum=49
-- variant 7: `ownerId`: string, required, minLength=1, maxLength=200
-- variant 7: `dueAt`: string, required
+- variant 7: `action`: fixed value; see source, required
+- variant 7: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 7: `id`: string, format uuid, required
+- variant 7: `version`: integer, minimum=1, maximum=49, required
+- variant 7: `ownerId`: string, minLength=1, maxLength=200, required
+- variant 7: `dueAt`: string, format date-time, required
 Additional properties are rejected for this shape.
-- variant 8: `action`: constrained value, required, fixed value; see source
-- variant 8: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 8: `id`: string, required
-- variant 8: `version`: integer, required, minimum=1, maximum=49
+- variant 8: `action`: fixed value; see source, required
+- variant 8: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 8: `id`: string, format uuid, required
+- variant 8: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 9: `action`: constrained value, required, fixed value; see source
-- variant 9: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 9: `id`: string, required
-- variant 9: `version`: integer, required, minimum=1, maximum=49
-- variant 9: `dueAt`: string, required
+- variant 9: `action`: fixed value; see source, required
+- variant 9: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 9: `id`: string, format uuid, required
+- variant 9: `version`: integer, minimum=1, maximum=49, required
+- variant 9: `dueAt`: string, format date-time, required
 Additional properties are rejected for this shape.
-- variant 10: `action`: constrained value, required, fixed value; see source
-- variant 10: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 10: `id`: string, required
-- variant 10: `version`: integer, required, minimum=1, maximum=49
+- variant 10: `action`: fixed value; see source, required
+- variant 10: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 10: `id`: string, format uuid, required
+- variant 10: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 11: `action`: constrained value, required, fixed value; see source
-- variant 11: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 11: `id`: string, required
-- variant 11: `version`: integer, required, minimum=1, maximum=49
-- variant 11: `checked`: constrained value, required, fixed value; see source
+- variant 11: `action`: fixed value; see source, required
+- variant 11: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 11: `id`: string, format uuid, required
+- variant 11: `version`: integer, minimum=1, maximum=49, required
+- variant 11: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 12: `action`: constrained value, required, fixed value; see source
-- variant 12: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 12: `id`: string, required
-- variant 12: `version`: integer, required, minimum=1, maximum=49
+- variant 12: `action`: fixed value; see source, required
+- variant 12: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 12: `id`: string, format uuid, required
+- variant 12: `version`: integer, minimum=1, maximum=49, required
 Additional properties are rejected for this shape.
-- variant 13: `action`: constrained value, required, fixed value; see source
-- variant 13: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 13: `id`: string, required
-- variant 13: `version`: integer, required, minimum=1, maximum=49
-- variant 13: `prerequisiteId`: string, required
-- variant 13: `checked`: constrained value, required, fixed value; see source
+- variant 13: `action`: fixed value; see source, required
+- variant 13: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 13: `id`: string, format uuid, required
+- variant 13: `version`: integer, minimum=1, maximum=49, required
+- variant 13: `prerequisiteId`: string, format uuid, required
+- variant 13: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -28809,56 +28819,56 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 1: `sourceCaseId`: string, required
-- variant 1: `targetCaseId`: string, required
-- variant 1: `summary`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 1: `outstanding`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 1: `precautions`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 1: `sourceCaseId`: string, format uuid, required
+- variant 1: `targetCaseId`: string, format uuid, required
+- variant 1: `summary`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 1: `outstanding`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 1: `precautions`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 2: `id`: string, required
-- variant 2: `version`: integer, required, minimum=1, maximum=20
-- variant 2: `summary`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 2: `outstanding`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 2: `precautions`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 2: `id`: string, format uuid, required
+- variant 2: `version`: integer, minimum=1, maximum=20, required
+- variant 2: `summary`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 2: `outstanding`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 2: `precautions`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 3: `id`: string, required
-- variant 3: `version`: integer, required, minimum=1, maximum=20
-- variant 3: `checked`: constrained value, required, fixed value; see source
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 3: `id`: string, format uuid, required
+- variant 3: `version`: integer, minimum=1, maximum=20, required
+- variant 3: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 4: `id`: string, required
-- variant 4: `version`: integer, required, minimum=1, maximum=20
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 4: `id`: string, format uuid, required
+- variant 4: `version`: integer, minimum=1, maximum=20, required
 Additional properties are rejected for this shape.
-- variant 5: `action`: constrained value, required, fixed value; see source
-- variant 5: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 5: `id`: string, required
-- variant 5: `version`: integer, required, minimum=1, maximum=20
-- variant 5: `checked`: constrained value, required, fixed value; see source
+- variant 5: `action`: fixed value; see source, required
+- variant 5: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 5: `id`: string, format uuid, required
+- variant 5: `version`: integer, minimum=1, maximum=20, required
+- variant 5: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 6: `action`: constrained value, required, fixed value; see source
-- variant 6: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
-- variant 6: `id`: string, required
-- variant 6: `version`: integer, required, minimum=1, maximum=20
-- variant 6: `checked`: constrained value, required, fixed value; see source
+- variant 6: `action`: fixed value; see source, required
+- variant 6: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+- variant 6: `id`: string, format uuid, required
+- variant 6: `version`: integer, minimum=1, maximum=20, required
+- variant 6: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -29013,41 +29023,41 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `sourceVisitId`: string, required, minLength=1, maxLength=200
-- variant 1: `localStart`: string, required, pattern-constrained; see source
-- variant 1: `timeZone`: constrained value, required, 2 allowed values; see source
-- variant 1: `count`: integer, required, minimum=1, maximum=12
-- variant 1: `intervalWeeks`: integer, required, minimum=1, maximum=4
-- variant 1: `durationMinutes`: integer, required, minimum=15, maximum=720
-- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `sourceVisitId`: string, minLength=1, maxLength=200, required
+- variant 1: `localStart`: string, pattern-constrained; see source, required
+- variant 1: `timeZone`: 2 allowed values; see source, required
+- variant 1: `count`: integer, minimum=1, maximum=12, required
+- variant 1: `intervalWeeks`: integer, minimum=1, maximum=4, required
+- variant 1: `durationMinutes`: integer, minimum=15, maximum=720, required
+- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `sourceVisitId`: string, required, minLength=1, maxLength=200
-- variant 2: `localStart`: string, required, pattern-constrained; see source
-- variant 2: `timeZone`: constrained value, required, 2 allowed values; see source
-- variant 2: `count`: integer, required, minimum=1, maximum=12
-- variant 2: `intervalWeeks`: integer, required, minimum=1, maximum=4
-- variant 2: `durationMinutes`: integer, required, minimum=15, maximum=720
-- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 2: `confirmed`: constrained value, required, fixed value; see source
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `sourceVisitId`: string, minLength=1, maxLength=200, required
+- variant 2: `localStart`: string, pattern-constrained; see source, required
+- variant 2: `timeZone`: 2 allowed values; see source, required
+- variant 2: `count`: integer, minimum=1, maximum=12, required
+- variant 2: `intervalWeeks`: integer, minimum=1, maximum=4, required
+- variant 2: `durationMinutes`: integer, minimum=15, maximum=720, required
+- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 2: `confirmed`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `visitId`: string, required, minLength=1, maxLength=200
-- variant 3: `updatedAt`: string, required
-- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `visitId`: string, minLength=1, maxLength=200, required
+- variant 3: `updatedAt`: string, format date-time, required
+- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -29118,50 +29128,50 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `staffId`: string, required, minLength=1, maxLength=200
-- variant 1: `startsAt`: string, required
-- variant 1: `endsAt`: string, required
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `staffId`: string, minLength=1, maxLength=200, required
+- variant 1: `startsAt`: string, format date-time, required
+- variant 1: `endsAt`: string, format date-time, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 2: `staffId`: string, required, minLength=1, maxLength=200
-- variant 2: `startsAt`: string, required
-- variant 2: `endsAt`: string, required
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 2: `staffId`: string, minLength=1, maxLength=200, required
+- variant 2: `startsAt`: string, format date-time, required
+- variant 2: `endsAt`: string, format date-time, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 3: `id`: string, required
-- variant 3: `version`: integer, required, minimum=1, maximum=3
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 3: `id`: string, format uuid, required
+- variant 3: `version`: integer, minimum=1, maximum=3, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 4: `id`: string, required
-- variant 4: `version`: integer, required, minimum=1, maximum=3
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 4: `id`: string, format uuid, required
+- variant 4: `version`: integer, minimum=1, maximum=3, required
 Additional properties are rejected for this shape.
-- variant 5: `action`: constrained value, required, fixed value; see source
-- variant 5: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 5: `id`: string, required
-- variant 5: `version`: integer, required, minimum=1, maximum=3
+- variant 5: `action`: fixed value; see source, required
+- variant 5: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 5: `id`: string, format uuid, required
+- variant 5: `version`: integer, minimum=1, maximum=3, required
 Additional properties are rejected for this shape.
-- variant 6: `action`: constrained value, required, fixed value; see source
-- variant 6: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 6: `id`: string, required
-- variant 6: `version`: integer, required, minimum=1, maximum=3
+- variant 6: `action`: fixed value; see source, required
+- variant 6: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 6: `id`: string, format uuid, required
+- variant 6: `version`: integer, minimum=1, maximum=3, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-- `id`: string, required
-- `version`: integer, required, minimum=1, maximum=3
+- `id`: string, format uuid, required
+- `version`: integer, minimum=1, maximum=3, required
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -29232,37 +29242,37 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `idempotency-key` in header (required)
+- `idempotency-key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `caseId`: string, required
-- variant 1: `version`: integer, required, minimum=0, maximum=49
-- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 1: `actualStart`: string, required
-- variant 1: `actualEnd`: string, required
-- variant 1: `breakMinutes`: integer, required, minimum=0, maximum=1440
-- variant 1: `attested`: constrained value, required, fixed value; see source
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `caseId`: string, format uuid, required
+- variant 1: `version`: integer, minimum=0, maximum=49, required
+- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 1: `actualStart`: string, format date-time, required
+- variant 1: `actualEnd`: string, format date-time, required
+- variant 1: `breakMinutes`: integer, minimum=0, maximum=1440, required
+- variant 1: `attested`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `caseId`: string, required
-- variant 2: `version`: integer, required, minimum=0, maximum=49
-- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
-- variant 2: `checked`: constrained value, required, fixed value; see source
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `caseId`: string, format uuid, required
+- variant 2: `version`: integer, minimum=0, maximum=49, required
+- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+- variant 2: `checked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `caseId`: string, required
-- variant 3: `version`: integer, required, minimum=0, maximum=49
-- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `caseId`: string, format uuid, required
+- variant 3: `version`: integer, minimum=0, maximum=49, required
+- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -29468,12 +29478,12 @@ Current active tenant-scoped session and governed role policy. Owner/CEO control
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `offset` in query (optional)
-- `q` in query (optional)
-- `pipeline` in query (optional)
-- `stage` in query (optional)
-- `source` in query (optional)
-- `owner` in query (optional)
+- `offset` in query (optional) — integer, minimum=0, maximum=9999999
+- `q` in query (optional) — string, maxLength=100. Server-validated lead-list filter; never expands staff assignment scope
+- `pipeline` in query (optional) — string, 2 allowed values; see source. Server-validated lead-list filter; never expands staff assignment scope
+- `stage` in query (optional) — string, maxLength=100. Server-validated lead-list filter; never expands staff assignment scope
+- `source` in query (optional) — string, 7 allowed values; see source. Server-validated lead-list filter; never expands staff assignment scope
+- `owner` in query (optional) — string, maxLength=100. Server-validated lead-list filter; never expands staff assignment scope
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -29485,37 +29495,37 @@ Content type `application/json`:
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16457"></a>
 
@@ -29566,16 +29576,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `leadId`: string, required
-- `ownerId`: string, required
-- `startsAt`: string, required
-- `duration`: integer, required, minimum=15, maximum=180
-- `notes`: string, required, minLength=1, maxLength=500
+- `leadId`: string, format uuid, required
+- `ownerId`: string, format uuid, required
+- `startsAt`: string, format date-time, required
+- `duration`: integer, minimum=15, maximum=180, required
+- `notes`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Saved
@@ -29643,15 +29653,15 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1
-- `status`: string, required, 3 allowed values; see source
-- `notes`: string, required, minLength=1, maxLength=500
+- `version`: integer, minimum=1, required
+- `status`: string, 3 allowed values; see source, required
+- `notes`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Saved
@@ -29721,29 +29731,29 @@ Tenant and source scoped. Managers assign active source-compatible owners. Speci
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid. Campaign UUID
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `ownerId`: string, required
-- `audience`: string, required, minLength=1, maxLength=1000
-- `offer`: string, required, minLength=1, maxLength=1000
-- `creative`: string, required, minLength=1, maxLength=3000
-- `landingUrl`: string, required, maxLength=2000
-- `pipeline`: string, required, 2 allowed values; see source
-- `targetLeads`: integer, required, minimum=1, maximum=1000000
-- `start`: string, required
-- `end`: string, required
-- `version`: integer, required, minimum=0, maximum=2147483647
+- `ownerId`: string, format uuid, required
+- `audience`: string, minLength=1, maxLength=1000, required
+- `offer`: string, minLength=1, maxLength=1000, required
+- `creative`: string, minLength=1, maxLength=3000, required
+- `landingUrl`: string, maxLength=2000, required
+- `pipeline`: string, 2 allowed values; see source, required
+- `targetLeads`: integer, minimum=1, maximum=1000000, required
+- `start`: string, format date, required
+- `end`: string, format date, required
+- `version`: integer, minimum=0, maximum=2147483647, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Draft saved
 
 Content type `application/json`:
-- `id`: string, required
-- `version`: integer, required, minimum=1
+- `id`: string, format uuid, required
+- `version`: integer, minimum=1, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid planning fields, date range, URL or owner
@@ -29809,16 +29819,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `leadId`: string, required
-- `leadVersion`: integer, required, minimum=1
-- `outcome`: string, required, 6 allowed values; see source
-- `notes`: string, required, minLength=1, maxLength=500
-- `dueAt`: ['string', 'null'], required
+- `leadId`: string, format uuid, required
+- `leadVersion`: integer, minimum=1, required
+- `outcome`: string, 6 allowed values; see source, required
+- `notes`: string, minLength=1, maxLength=500, required
+- `dueAt`: string or null, format date-time, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Saved
@@ -29888,57 +29898,57 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `name`: string, required, minLength=1, maxLength=150
-- `source`: constrained value, required, 7 allowed values; see source
-- `reference`: string, required, minLength=1, maxLength=500
-- `budgetCents`: integer, required, minimum=0, maximum=100000000
-- `spendCents`: integer, required, minimum=0, maximum=100000000
+- `name`: string, minLength=1, maxLength=150, required
+- `source`: 7 allowed values; see source, required
+- `reference`: string, minLength=1, maxLength=500, required
+- `budgetCents`: integer, minimum=0, maximum=100000000, required
+- `spendCents`: integer, minimum=0, maximum=100000000, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16452"></a>
 
@@ -29991,56 +30001,56 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `budgetCents`: integer, required, minimum=0, maximum=100000000
-- `spendCents`: integer, required, minimum=0, maximum=100000000
-- `version`: integer, required, minimum=1, maximum=2147483647
+- `budgetCents`: integer, minimum=0, maximum=100000000, required
+- `spendCents`: integer, minimum=0, maximum=100000000, required
+- `version`: integer, minimum=1, maximum=2147483647, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16478"></a>
 
@@ -30093,59 +30103,59 @@ Owner/CEO in current tenant only. Requires a client campaign on a governed paid 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `idempotency-key` in header (required)
+- `id` in path (required) — string, format uuid
+- `idempotency-key` in header (required) — string
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=0
-- `briefVersion`: integer, required, minimum=1
-- `clientSlots`: integer, required, minimum=0, maximum=1000
-- `expiresAt`: string, required
-- `evidence`: string, required, minLength=1, maxLength=500
+- `version`: integer, minimum=0, required
+- `briefVersion`: integer, minimum=1, required
+- `clientSlots`: integer, minimum=0, maximum=1000, required
+- `expiresAt`: string, format date-time, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Appended confirmation version
 
 Content type `application/json`:
-- `id`: string, optional
+- `id`: string, format uuid, optional
 - `version`: integer, optional
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16459"></a>
 
@@ -30196,24 +30206,24 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1
-- `name`: string, required, minLength=1, maxLength=150
-- `email`: string, required, maxLength=254
-- `phone`: string, required, maxLength=40
-- `evidence`: string, required, minLength=1, maxLength=500
+- `version`: integer, minimum=1, required
+- `name`: string, minLength=1, maxLength=150, required
+- `email`: string, maxLength=254, required
+- `phone`: string, maxLength=40, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Saved
 
 Content type `application/json`:
-- `id`: string, required
-- `version`: integer, required, minimum=1
+- `id`: string, format uuid, required
+- `version`: integer, minimum=1, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid fields or nonmatching candidate
@@ -30279,25 +30289,25 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `canonicalId`: string, required
-- `duplicateId`: string, required
-- `canonicalVersion`: integer, required, minimum=1
-- `duplicateVersion`: integer, required, minimum=1
-- `reviewVersion`: integer, required, minimum=0
-- `decision`: string, required, 2 allowed values; see source
-- `evidence`: string, required, minLength=1, maxLength=500
+- `canonicalId`: string, format uuid, required
+- `duplicateId`: string, format uuid, required
+- `canonicalVersion`: integer, minimum=1, required
+- `duplicateVersion`: integer, minimum=1, required
+- `reviewVersion`: integer, minimum=0, required
+- `decision`: string, 2 allowed values; see source, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Saved
 
 Content type `application/json`:
-- `id`: string, required
-- `version`: integer, required, minimum=1
+- `id`: string, format uuid, required
+- `version`: integer, minimum=1, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid fields or nonmatching candidate
@@ -30365,7 +30375,7 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Parameters:**
-- `key` in path (required)
+- `key` in path (required) — string, pattern-constrained; see source. Manager-created public shareable link key
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -30387,9 +30397,9 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 
 Content type `application/json`:
 - `name`: string, required
-- `pipeline`: constrained value, required, 2 allowed values; see source
+- `pipeline`: 2 allowed values; see source, required
 - `consentVersion`: string, required
-- `routingMode`: constrained value, optional, 2 allowed values; see source
+- `routingMode`: 2 allowed values; see source, optional
 - `sharingConsentVersion`: string, optional
 Additional properties are rejected for this shape.
 
@@ -30444,22 +30454,22 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 **Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Parameters:**
-- `key` in path (required)
-- `Idempotency-Key` in header (required)
+- `key` in path (required) — string, pattern-constrained; see source. Manager-created public shareable link key
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `name`: string, required, minLength=1, maxLength=150
-- `email`: string, required, maxLength=254
-- `phone`: string, required, maxLength=40
-- `consent`: constrained value, required, fixed value; see source
-- `consentVersion`: constrained value, required, fixed value; see source
-- `website`: constrained value, required, fixed value; see source
-- `postalCode`: string, optional, maxLength=7
-- `service`: constrained value, optional, 2 allowed values; see source
-- `sharingConsent`: constrained value, optional, fixed value; see source
-- `sharingConsentVersion`: constrained value, optional, fixed value; see source
+- `name`: string, minLength=1, maxLength=150, required
+- `email`: string, maxLength=254, required
+- `phone`: string, maxLength=40, required
+- `consent`: fixed value; see source, required
+- `consentVersion`: fixed value; see source, required
+- `website`: fixed value; see source, required
+- `postalCode`: string, maxLength=7, optional
+- `service`: 2 allowed values; see source, optional
+- `sharingConsent`: fixed value; see source, optional
+- `sharingConsentVersion`: fixed value; see source, optional
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input or forbidden tenant/header fields
@@ -30479,7 +30489,7 @@ Additional properties are rejected for this shape.
 **Response 202:** Generic receipt (including repeat enquiries)
 
 Content type `application/json`:
-- `accepted`: constrained value, required, fixed value; see source
+- `accepted`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 <a id="api-16475"></a>
@@ -30531,19 +30541,19 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `kind`: constrained value, required, 4 allowed values; see source
-- `reference`: string, required, minLength=1, maxLength=100
-- `amountCents`: integer, required, minimum=1, maximum=1000000000
-- `date`: string, required
-- `leadId`: ['string', 'null'], required
-- `invoiceId`: ['string', 'null'], required
-- `category`: ['string', 'null'], required
-- `evidence`: string, required, minLength=1, maxLength=500
+- `kind`: 4 allowed values; see source, required
+- `reference`: string, minLength=1, maxLength=100, required
+- `amountCents`: integer, minimum=1, maximum=1000000000, required
+- `date`: string, format date, required
+- `leadId`: string or null, format uuid, required
+- `invoiceId`: string or null, format uuid, required
+- `category`: string or null, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful read or update
@@ -30617,14 +30627,14 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `leadId`: string, required
-- `visitId`: string, required
-- `evidence`: string, required, minLength=1, maxLength=500
+- `leadId`: string, format uuid, required
+- `visitId`: string, format uuid, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful read or update
@@ -30700,18 +30710,18 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `name`: string, required, minLength=1, maxLength=100
-- `pipeline`: constrained value, required, 2 allowed values; see source
-- `ownerId`: string, required
+- `name`: string, minLength=1, maxLength=100, required
+- `pipeline`: 2 allowed values; see source, required
+- `ownerId`: string, format uuid, required
 - `campaignId`: constrained value, required
-- `source`: constrained value, optional, 3 allowed values; see source
-- `attribution`: string, optional, maxLength=200
-- `routingMode`: constrained value, optional, 2 allowed values; see source
+- `source`: 3 allowed values; see source, optional
+- `attribution`: string, maxLength=200, optional
+- `routingMode`: 2 allowed values; see source, optional
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input or forbidden tenant/header fields
@@ -30735,7 +30745,7 @@ Additional properties are rejected for this shape.
 **Response 201:** Versioned link mutation
 
 Content type `application/json`:
-- `id`: string, required
+- `id`: string, format uuid, required
 - `version`: integer, required
 Additional properties are rejected for this shape.
 
@@ -30790,14 +30800,14 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 - `active`: boolean, required
-- `version`: integer, required, minimum=1, maximum=2147483646
+- `version`: integer, minimum=1, maximum=2147483646, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input or forbidden tenant/header fields
@@ -30821,7 +30831,7 @@ Additional properties are rejected for this shape.
 **Response 200:** Versioned link mutation
 
 Content type `application/json`:
-- `id`: string, required
+- `id`: string, format uuid, required
 - `version`: integer, required
 Additional properties are rejected for this shape.
 
@@ -30876,62 +30886,62 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `pipeline`: constrained value, required, 2 allowed values; see source
-- `name`: string, required, minLength=1, maxLength=150
-- `email`: string, optional, maxLength=254
-- `phone`: string, optional, maxLength=40
-- `source`: constrained value, required, 7 allowed values; see source
-- `reference`: string, required, minLength=1, maxLength=500
-- `contactBasis`: constrained value, required, 3 allowed values; see source
-- `campaignId`: ['string', 'null'], optional
-- `ownerId`: ['string', 'null'], optional
-- `dueAt`: ['string', 'null'], optional
+- `pipeline`: 2 allowed values; see source, required
+- `name`: string, minLength=1, maxLength=150, required
+- `email`: string, maxLength=254, optional
+- `phone`: string, maxLength=40, optional
+- `source`: 7 allowed values; see source, required
+- `reference`: string, minLength=1, maxLength=500, required
+- `contactBasis`: 3 allowed values; see source, required
+- `campaignId`: string or null, format uuid, optional
+- `ownerId`: string or null, format uuid, optional
+- `dueAt`: string or null, format date-time, optional
 Additional properties are rejected for this shape.
 
 **Response 201:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16450"></a>
 
@@ -30984,58 +30994,58 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `stage`: constrained value, required, 10 allowed values; see source
-- `version`: integer, required, minimum=1, maximum=2147483647
-- `ownerId`: ['string', 'null'], required
-- `dueAt`: ['string', 'null'], required
-- `evidence`: string, required, minLength=1, maxLength=500
+- `stage`: 10 allowed values; see source, required
+- `version`: integer, minimum=1, maximum=2147483647, required
+- `ownerId`: string or null, format uuid, required
+- `dueAt`: string or null, format date-time, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16476"></a>
 
@@ -31088,51 +31098,51 @@ Owner, CEO or tenant administrator in the current active tenant only. Recalculat
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `month` in query (optional)
-- `locale` in query (optional)
+- `month` in query (optional) — string, pattern-constrained; see source. UTC calendar month, 2000-01 through current month; defaults to current month
+- `locale` in query (optional) — string, 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Nonbillable proposal statement
 
 Content type `application/json`:
-- `id`: constrained value, required, fixed value; see source
-- `rows`: array, required
+- `id`: fixed value; see source, required
+- `rows`: array, items: object, required
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16477"></a>
 
@@ -31185,50 +31195,50 @@ Owner, CEO or tenant administrator in the current active tenant only. Recalculat
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `month` in query (optional)
-- `locale` in query (optional)
+- `month` in query (optional) — string, pattern-constrained; see source. UTC calendar month, 2000-01 through current month; defaults to current month
+- `locale` in query (optional) — string, 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Nonbillable proposal statement
 
 Content type `application/pdf`:
-No object fields; schema type: string.
+Schema: string, format binary.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16472"></a>
 
@@ -31279,17 +31289,17 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `leadId`: string, required
-- `businessKind`: constrained value, required, 3 allowed values; see source
-- `identityChecked`: constrained value, required, fixed value; see source
-- `agreementChecked`: constrained value, required, fixed value; see source
-- `insuranceChecked`: constrained value, required, fixed value; see source
-- `evidence`: string, required, minLength=1, maxLength=500
+- `leadId`: string, format uuid, required
+- `businessKind`: 3 allowed values; see source, required
+- `identityChecked`: fixed value; see source, required
+- `agreementChecked`: fixed value; see source, required
+- `insuranceChecked`: fixed value; see source, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful read or update
@@ -31363,14 +31373,14 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
-- `id` in path (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
+- `id` in path (required) — string, format uuid
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1
-- `evidence`: string, required, minLength=1, maxLength=500
+- `version`: integer, minimum=1, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful read or update
@@ -31444,9 +31454,9 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `start` in query (optional)
-- `end` in query (optional)
-- `locale` in query (optional)
+- `start` in query (optional) — string, format date
+- `end` in query (optional) — string, format date
+- `locale` in query (optional) — 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -31521,15 +31531,15 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
-- `id` in path (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
+- `id` in path (required) — string, format uuid
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1, maximum=2147483646
-- `decision`: constrained value, required, 2 allowed values; see source
-- `evidence`: string, required, minLength=1, maxLength=500
+- `version`: integer, minimum=1, maximum=2147483646, required
+- `decision`: 2 allowed values; see source, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful read or update
@@ -31603,16 +31613,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `start`: string, required
-- `end`: string, required
-- `locale`: constrained value, required, 3 allowed values; see source
-- `to`: string, required, maxLength=254
-- `confirmed`: constrained value, required, fixed value; see source
+- `start`: string, format date, required
+- `end`: string, format date, required
+- `locale`: 3 allowed values; see source, required
+- `to`: string, format email, maxLength=254, required
+- `confirmed`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful read or update
@@ -31686,16 +31696,16 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `start` in query (optional)
-- `end` in query (optional)
-- `locale` in query (optional)
+- `start` in query (optional) — string, format date
+- `end` in query (optional) — string, format date
+- `locale` in query (optional) — 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Localized landscape PDF
 
 Content type `application/pdf`:
-No object fields; schema type: string.
+Schema: string, format binary.
 
 **Response 201:** Created
 
@@ -31768,56 +31778,56 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `start`: string, required
-- `end`: string, required
-- `version`: integer, required, minimum=0
+- `start`: string, format date, required
+- `end`: string, format date, required
+- `version`: integer, minimum=0, required
 - `targets`: object, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16462"></a>
 
@@ -31870,15 +31880,15 @@ Tenant/source scoped and append-only history. Owners and CEO/marketing may submi
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid. Campaign UUID
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `action`: string, required, 5 allowed values; see source
-- `version`: integer, required, minimum=1, maximum=2147483647
-- `evidence`: string, required, minLength=1, maxLength=1000
+- `action`: string, 5 allowed values; see source, required
+- `version`: integer, minimum=1, maximum=2147483647, required
+- `evidence`: string, minLength=1, maxLength=1000, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid planning fields, date range, URL or owner
@@ -31898,8 +31908,8 @@ Additional properties are rejected for this shape.
 **Response 201:** Draft saved
 
 Content type `application/json`:
-- `id`: string, required
-- `version`: integer, required, minimum=1
+- `id`: string, format uuid, required
+- `version`: integer, minimum=1, required
 Additional properties are rejected for this shape.
 
 <a id="api-16463"></a>
@@ -31953,35 +31963,35 @@ Same-tenant current-session operation with version, idempotency, rate limit and 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid. Task UUID
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 5 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 1: `evidence`: string, required, minLength=1, maxLength=500
-- variant 1: `ownerId`: string, required
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 1: `evidence`: string, minLength=1, maxLength=500, required
+- variant 1: `ownerId`: string, format uuid, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 2: `evidence`: string, required, minLength=1, maxLength=500
-- variant 2: `dueAt`: string, required
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 2: `evidence`: string, minLength=1, maxLength=500, required
+- variant 2: `dueAt`: string, format date-time, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 3: `evidence`: string, required, minLength=1, maxLength=500
-- variant 3: `priority`: string, required, 4 allowed values; see source
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 3: `evidence`: string, minLength=1, maxLength=500, required
+- variant 3: `priority`: string, 4 allowed values; see source, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 4: `evidence`: string, required, minLength=1, maxLength=500
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 4: `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
-- variant 5: `action`: constrained value, required, fixed value; see source
-- variant 5: `version`: integer, required, minimum=1, maximum=2147483646
-- variant 5: `evidence`: string, required, minLength=1, maxLength=500
+- variant 5: `action`: fixed value; see source, required
+- variant 5: `version`: integer, minimum=1, maximum=2147483646, required
+- variant 5: `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid planning fields, date range, URL or owner
@@ -32001,7 +32011,7 @@ Additional properties are rejected for this shape.
 **Response 201:** Draft saved
 
 Content type `application/json`:
-- `id`: string, required
+- `id`: string, format uuid, required
 - `version`: integer, required
 Additional properties are rejected for this shape.
 
@@ -32056,55 +32066,55 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `name`: string, required, minLength=1, maxLength=200
-- `ownerId`: string, required
-- `dueAt`: string, required
+- `name`: string, minLength=1, maxLength=200, required
+- `ownerId`: string, format uuid, required
+- `dueAt`: string, format date-time, required
 Additional properties are rejected for this shape.
 
 **Response 201:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16454"></a>
 
@@ -32157,55 +32167,55 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1, maximum=2147483647
-- `evidence`: string, required, minLength=1, maxLength=500
+- `version`: integer, minimum=1, maximum=2147483647, required
+- `evidence`: string, minLength=1, maxLength=500, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 400:** Invalid fields
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 401:** Invalid session
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 403:** Role or scope denied
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 404:** Record or route not found
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 409:** Duplicate, stale version or incompatible retry
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 429:** Rate limited
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 503:** Schema, storage or connection unavailable
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 <a id="api-16455"></a>
 
@@ -32256,14 +32266,14 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `specialty`: string, required, 6 allowed values; see source
-- `version`: integer, required, minimum=0
+- `specialty`: string, 6 allowed values; see source, required
+- `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Saved
@@ -32409,22 +32419,22 @@ Active explicit bearer session and governed administrator grants. Global central
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 - `screen`: string, required
-- `platform`: constrained value, required, 6 allowed values; see source
-- `width`: integer, required, minimum=280, maximum=7680
-- `height`: integer, required, minimum=240, maximum=4320
-- `scale`: number, required, minimum=1, maximum=4
-- `locale`: constrained value, required, 3 allowed values; see source
+- `platform`: 6 allowed values; see source, required
+- `width`: integer, minimum=280, maximum=7680, required
+- `height`: integer, minimum=240, maximum=4320, required
+- `scale`: number, minimum=1, maximum=4, required
+- `locale`: 3 allowed values; see source, required
 - `build`: string, required
 - `theme`: string, required
 - `layout`: string, required
 - `image`: string, required
-- `redacted`: constrained value, required, fixed value; see source
+- `redacted`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Scoped result or recorded human decision
@@ -32502,13 +32512,13 @@ Active explicit bearer session and governed administrator grants. Global central
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1
+- `version`: integer, minimum=1, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Scoped result or recorded human decision
@@ -32586,17 +32596,17 @@ Active explicit bearer session and governed administrator grants. Global central
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1
-- `decision`: constrained value, required, 3 allowed values; see source
-- `evidence`: string, required, minLength=1, maxLength=1500
-- `imageDigest`: string, required, pattern-constrained; see source
-- `reviewed`: constrained value, required, fixed value; see source
+- `version`: integer, minimum=1, required
+- `decision`: 3 allowed values; see source, required
+- `evidence`: string, minLength=1, maxLength=1500, required
+- `imageDigest`: string, pattern-constrained; see source, required
+- `reviewed`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Scoped result or recorded human decision
@@ -32674,14 +32684,14 @@ Active explicit bearer session and governed administrator grants. Global central
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
+- `id` in path (required) — string, format uuid
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Authenticated PNG evidence
 
 Content type `image/png`:
-No object fields; schema type: string.
+Schema: string, format binary.
 
 **Response 201:** New screenshot revision
 
@@ -32758,19 +32768,19 @@ Existing active bearer session, matching tenant and catalog organization/screen 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -32795,19 +32805,19 @@ Existing active bearer session, matching tenant and catalog organization/screen 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -32876,19 +32886,19 @@ Existing active bearer session, matching tenant and catalog organization/screen 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -32913,19 +32923,19 @@ Existing active bearer session, matching tenant and catalog organization/screen 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -32992,19 +33002,19 @@ Active bearer session and tenant required. Existing inventory authority required
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -33071,19 +33081,19 @@ Active bearer session and tenant required. Existing inventory authority required
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -33150,19 +33160,19 @@ Active bearer session and tenant required. Existing inventory authority required
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -33373,16 +33383,16 @@ Central/platform global scope and governed screen grants required. CEO/tenant ad
 **Authentication declared in source:** operation level: session
 
 **Parameters:**
-- `id` in path (required)
-- `Idempotency-Key` in header (required)
+- `id` in path (required) — string, format uuid
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `version`: integer, required, minimum=1, maximum=2147483646
-- `slug`: string, required, pattern-constrained; see source
-- `name`: string, required, minLength=1, maxLength=150
-- `password`: string, required, minLength=12, maxLength=72, write-only; never log
+- `version`: integer, minimum=1, maximum=2147483646, required
+- `slug`: string, pattern-constrained; see source, required
+- `name`: string, minLength=1, maxLength=150, required
+- `password`: string, minLength=12, maxLength=72, write-only; never log, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Scoped reviewed records
@@ -33452,18 +33462,18 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** document level: bearer
 
 **Parameters:**
-- `search` in query (optional)
-- `filter` in query (optional)
-- `offset` in query (optional)
+- `search` in query (optional) — string, maxLength=100
+- `filter` in query (optional) — 4 allowed values; see source
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Counts and scoped tenants from one repeatable-read snapshot
 
 Content type `application/json`:
-- `scope`: constrained value, required, 2 allowed values; see source
+- `scope`: 2 allowed values; see source, required
 - `source`: object, required
-- `tenants`: array, required, maxItems=25
+- `tenants`: array, maxItems=25, items: object, required
 - `summary`: object, required
 - `pagination`: object, required
 
@@ -33606,13 +33616,13 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `Idempotency-Key` in header (required)
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `slug`: string, required, pattern-constrained; see source
-- `name`: string, required, minLength=1, maxLength=150
+- `slug`: string, pattern-constrained; see source, required
+- `name`: string, minLength=1, maxLength=150, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Read, update or replay
@@ -33688,7 +33698,7 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -33765,7 +33775,7 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -33842,15 +33852,15 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
-- `Idempotency-Key` in header (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 - `role`: string, required
-- `email`: string, required, maxLength=254
-- `password`: string, required, minLength=12, maxLength=72, write-only; never log
+- `email`: string, format email, maxLength=254, required
+- `password`: string, minLength=12, maxLength=72, write-only; never log, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Read, update or replay
@@ -33926,15 +33936,15 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
-- `userId` in path (required)
-- `Idempotency-Key` in header (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
+- `userId` in path (required) — string, pattern-constrained; see source
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
 - `role`: string, required
-- `status`: constrained value, required, 2 allowed values; see source
+- `status`: 2 allowed values; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Read, update or replay
@@ -34010,7 +34020,7 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -34087,7 +34097,7 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -34164,15 +34174,15 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
-- `Idempotency-Key` in header (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `label`: string, required, minLength=1, maxLength=150
-- `type`: constrained value, required, 3 allowed values; see source
-- `code`: string, required, pattern-constrained; see source
+- `label`: string, minLength=1, maxLength=150, required
+- `type`: 3 allowed values; see source, required
+- `code`: string, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Read, update or replay
@@ -34248,16 +34258,16 @@ Active platform_admin bearer session only. Tenant identifiers are explicit path 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `tenantId` in path (required)
-- `recordId` in path (required)
-- `Idempotency-Key` in header (required)
+- `tenantId` in path (required) — string, pattern-constrained; see source
+- `recordId` in path (required) — string, pattern-constrained; see source
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `label`: string, required, minLength=1, maxLength=150
-- `status`: constrained value, required, 2 allowed values; see source
-- `version`: integer, required, minimum=1
+- `label`: string, minLength=1, maxLength=150, required
+- `status`: 2 allowed values; see source, required
+- `version`: integer, minimum=1, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Read, update or replay
@@ -34495,14 +34505,14 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `locale` in query (optional)
+- `locale` in query (optional) — 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Report, catalog, PDF or accepted replay
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 202:** Email provider accepted; not inbox delivery
 
@@ -34573,17 +34583,17 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `reportId` in path (required)
-- `locale` in query (optional)
-- `search` in query (optional)
-- `readiness` in query (optional)
+- `reportId` in path (required) — 3 allowed values; see source
+- `locale` in query (optional) — 3 allowed values; see source
+- `search` in query (optional) — string, maxLength=100
+- `readiness` in query (optional) — 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Report, catalog, PDF or accepted replay
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 202:** Email provider accepted; not inbox delivery
 
@@ -34654,25 +34664,25 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `reportId` in path (required)
-- `Idempotency-Key` in header (required)
+- `reportId` in path (required) — 3 allowed values; see source
+- `Idempotency-Key` in header (required) — string, pattern-constrained; see source
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `locale`: constrained value, optional, 3 allowed values; see source
-- `search`: string, optional, maxLength=100
-- `readiness`: constrained value, optional, 3 allowed values; see source
-- `to`: string, required, maxLength=254
-- `confirmed`: constrained value, required, fixed value; see source
-- `subject`: string, optional, maxLength=150
-- `message`: string, optional, maxLength=1000
+- `locale`: 3 allowed values; see source, optional
+- `search`: string, maxLength=100, optional
+- `readiness`: 3 allowed values; see source, optional
+- `to`: string, format email, maxLength=254, required
+- `confirmed`: fixed value; see source, required
+- `subject`: string, maxLength=150, optional
+- `message`: string, maxLength=1000, optional
 Additional properties are rejected for this shape.
 
 **Response 200:** Report, catalog, PDF or accepted replay
 
 Content type `application/json`:
-No object fields; schema type: object.
+Schema: object.
 
 **Response 202:** Email provider accepted; not inbox delivery
 
@@ -34743,17 +34753,17 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `reportId` in path (required)
-- `locale` in query (optional)
-- `search` in query (optional)
-- `readiness` in query (optional)
+- `reportId` in path (required) — 3 allowed values; see source
+- `locale` in query (optional) — 3 allowed values; see source
+- `search` in query (optional) — string, maxLength=100
+- `readiness` in query (optional) — 3 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Report, catalog, PDF or accepted replay
 
 Content type `application/pdf`:
-No object fields; schema type: string.
+Schema: string, format binary.
 
 **Response 202:** Email provider accepted; not inbox delivery
 
@@ -34826,19 +34836,19 @@ Active bearer session and tenant required. Existing inventory authority required
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -34905,19 +34915,19 @@ Active bearer session and tenant required. Existing inventory authority required
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
-- `search` in query (optional)
-- `app` in query (optional)
-- `role` in query (optional)
-- `screen` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
+- `search` in query (optional) — string, maxLength=200
+- `app` in query (optional) — string, maxLength=40
+- `role` in query (optional) — string, maxLength=80
+- `screen` in query (optional) — string, maxLength=200
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Paginated result
 
 Content type `application/json`:
-- `data`: array, required
+- `data`: array, items: object, required
 - `pagination`: object, required
 - `source`: object, required
 
@@ -34983,12 +34993,12 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `dataset` in query (optional)
-- `tenant` in query (optional)
-- `search` in query (optional)
-- `flowOffset` in query (optional)
-- `taskOffset` in query (optional)
-- `status` in query (optional)
+- `dataset` in query (optional) — 2 allowed values; see source
+- `tenant` in query (optional) — string
+- `search` in query (optional) — string, maxLength=100
+- `flowOffset` in query (optional) — integer, minimum=0, maximum=100000
+- `taskOffset` in query (optional) — integer, minimum=0, maximum=100000
+- `status` in query (optional) — 7 allowed values; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -35060,21 +35070,21 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `dataset` in query (optional)
-- `tenant` in query (optional)
-- `search` in query (optional)
-- `flowOffset` in query (optional)
-- `taskOffset` in query (optional)
-- `status` in query (optional)
-- `Idempotency-Key` in header (required)
+- `dataset` in query (optional) — 2 allowed values; see source
+- `tenant` in query (optional) — string
+- `search` in query (optional) — string, maxLength=100
+- `flowOffset` in query (optional) — integer, minimum=0, maximum=100000
+- `taskOffset` in query (optional) — integer, minimum=0, maximum=100000
+- `status` in query (optional) — 7 allowed values; see source
+- `Idempotency-Key` in header (required) — string, minLength=16, maxLength=100
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `action`: constrained value, required, 11 allowed values; see source
+- `action`: 11 allowed values; see source, required
 - `id`: string, optional
-- `version`: integer, optional, minimum=1
-- `workspaceVersion`: integer, optional, minimum=1
+- `version`: integer, minimum=1, optional
+- `workspaceVersion`: integer, minimum=1, optional
 - `value`: object, optional
 Additional properties are rejected for this shape.
 
@@ -35146,7 +35156,7 @@ The following repository documents match this exact HTTP method and path. Their 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `screen` in query (optional)
+- `screen` in query (optional) — string, pattern-constrained; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -35154,7 +35164,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Content type `application/json`:
 - `identity`: object, required
-- `screens`: array, required
+- `screens`: array, items: object, required
 - `overview`: object, required
 
 **Response 400:** Invalid query
@@ -40045,34 +40055,34 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Request body — application/json:**
 4 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `businessReference`: string, required, minLength=1, maxLength=200
-- variant 1: `id`: string, required, minLength=1, maxLength=200
-- variant 1: `key`: string, required, minLength=1, maxLength=200
-- variant 1: `members`: array, required, minItems=2
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `businessReference`: string, minLength=1, maxLength=200, required
+- variant 1: `id`: string, minLength=1, maxLength=200, required
+- variant 1: `key`: string, minLength=1, maxLength=200, required
+- variant 1: `members`: array, minItems=2, unique items, items: string, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `id`: string, required, minLength=1, maxLength=200
-- variant 2: `key`: string, required, minLength=1, maxLength=200
-- variant 2: `pictureIds`: array, optional
-- variant 2: `text`: string, required, maxLength=20000
-- variant 2: `version`: integer, required, minimum=0
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `id`: string, minLength=1, maxLength=200, required
+- variant 2: `key`: string, minLength=1, maxLength=200, required
+- variant 2: `pictureIds`: array, unique items, items: string, optional
+- variant 2: `text`: string, maxLength=20000, required
+- variant 2: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `id`: string, required, minLength=1, maxLength=200
-- variant 3: `key`: string, required, minLength=1, maxLength=200
-- variant 3: `sequence`: integer, required, minimum=0
-- variant 3: `version`: integer, required, minimum=0
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `id`: string, minLength=1, maxLength=200, required
+- variant 3: `key`: string, minLength=1, maxLength=200, required
+- variant 3: `sequence`: integer, minimum=0, required
+- variant 3: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `id`: string, required, minLength=1, maxLength=200
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `id`: string, minLength=1, maxLength=200, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
 Content type `application/json`:
-- `id`: string, required, minLength=1, maxLength=200
-- `version`: integer, required, minimum=0
+- `id`: string, minLength=1, maxLength=200, required
+- `version`: integer, minimum=0, required
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -40183,50 +40193,50 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `callId`: string, required, minLength=1, maxLength=200
-- variant 1: `id`: string, required, minLength=1, maxLength=200
-- variant 1: `key`: string, required, minLength=1, maxLength=200
-- variant 1: `recipientId`: string, required, minLength=1, maxLength=200
-- variant 1: `version`: integer, required, minimum=0
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `callId`: string, minLength=1, maxLength=200, required
+- variant 1: `id`: string, minLength=1, maxLength=200, required
+- variant 1: `key`: string, minLength=1, maxLength=200, required
+- variant 1: `recipientId`: string, minLength=1, maxLength=200, required
+- variant 1: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `callId`: string, required, minLength=1, maxLength=200
-- variant 2: `id`: string, required, minLength=1, maxLength=200
-- variant 2: `key`: string, required, minLength=1, maxLength=200
-- variant 2: `version`: integer, required, minimum=0
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `callId`: string, minLength=1, maxLength=200, required
+- variant 2: `id`: string, minLength=1, maxLength=200, required
+- variant 2: `key`: string, minLength=1, maxLength=200, required
+- variant 2: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `callId`: string, required, minLength=1, maxLength=200
-- variant 3: `id`: string, required, minLength=1, maxLength=200
-- variant 3: `key`: string, required, minLength=1, maxLength=200
-- variant 3: `version`: integer, required, minimum=0
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `callId`: string, minLength=1, maxLength=200, required
+- variant 3: `id`: string, minLength=1, maxLength=200, required
+- variant 3: `key`: string, minLength=1, maxLength=200, required
+- variant 3: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 4: `action`: constrained value, required, fixed value; see source
-- variant 4: `callId`: string, required, minLength=1, maxLength=200
-- variant 4: `id`: string, required, minLength=1, maxLength=200
-- variant 4: `key`: string, required, minLength=1, maxLength=200
-- variant 4: `version`: integer, required, minimum=0
+- variant 4: `action`: fixed value; see source, required
+- variant 4: `callId`: string, minLength=1, maxLength=200, required
+- variant 4: `id`: string, minLength=1, maxLength=200, required
+- variant 4: `key`: string, minLength=1, maxLength=200, required
+- variant 4: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 5: `action`: constrained value, required, fixed value; see source
-- variant 5: `callId`: string, required, minLength=1, maxLength=200
-- variant 5: `id`: string, required, minLength=1, maxLength=200
-- variant 5: `key`: string, required, minLength=1, maxLength=200
-- variant 5: `version`: integer, required, minimum=0
+- variant 5: `action`: fixed value; see source, required
+- variant 5: `callId`: string, minLength=1, maxLength=200, required
+- variant 5: `id`: string, minLength=1, maxLength=200, required
+- variant 5: `key`: string, minLength=1, maxLength=200, required
+- variant 5: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 6: `action`: constrained value, required, fixed value; see source
-- variant 6: `callId`: string, required, minLength=1, maxLength=200
-- variant 6: `id`: string, required, minLength=1, maxLength=200
-- variant 6: `key`: string, required, minLength=1, maxLength=200
+- variant 6: `action`: fixed value; see source, required
+- variant 6: `callId`: string, minLength=1, maxLength=200, required
+- variant 6: `id`: string, minLength=1, maxLength=200, required
+- variant 6: `key`: string, minLength=1, maxLength=200, required
 - variant 6: `signal`: object, required
-- variant 6: `version`: integer, required, minimum=0
+- variant 6: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
 Content type `application/json`:
-- `id`: string, required, minLength=1, maxLength=200
-- `version`: integer, required, minimum=0
+- `id`: string, minLength=1, maxLength=200, required
+- `version`: integer, minimum=0, required
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -40337,27 +40347,27 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `id`: string, required, minLength=1, maxLength=200
-- variant 1: `key`: string, required, minLength=1, maxLength=200
-- variant 1: `subject`: string, required, minLength=1, maxLength=200
-- variant 1: `text`: string, required, minLength=1
-- variant 1: `to`: string, required
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `id`: string, minLength=1, maxLength=200, required
+- variant 1: `key`: string, minLength=1, maxLength=200, required
+- variant 1: `subject`: string, minLength=1, maxLength=200, required
+- variant 1: `text`: string, minLength=1, required
+- variant 1: `to`: string, format email, required
 Additional properties are rejected for this shape.
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `id`: string, required, minLength=1, maxLength=200
-- variant 2: `key`: string, required, minLength=1, maxLength=190
-- variant 2: `version`: integer, required, minimum=0
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `id`: string, minLength=1, maxLength=200, required
+- variant 2: `key`: string, minLength=1, maxLength=190, required
+- variant 2: `version`: integer, minimum=0, required
 Additional properties are rejected for this shape.
-- variant 3: `action`: constrained value, required, fixed value; see source
-- variant 3: `id`: string, required, minLength=1, maxLength=200
+- variant 3: `action`: fixed value; see source, required
+- variant 3: `id`: string, minLength=1, maxLength=200, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
 Content type `application/json`:
-- `id`: string, required, minLength=1, maxLength=200
-- `version`: integer, required, minimum=0
+- `id`: string, minLength=1, maxLength=200, required
+- `version`: integer, minimum=0, required
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -40465,17 +40475,17 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `after` in query (optional)
-- `direction` in query (required)
-- `limit` in query (optional)
-- `mailboxId` in query (optional)
+- `after` in query (optional) — string, minLength=1, maxLength=200. Registered query parameter. Duplicate parameters are rejected.
+- `direction` in query (required). Registered query parameter. Duplicate parameters are rejected.
+- `limit` in query (optional) — integer, minimum=1, maximum=100. Decimal query value parsed as integer by the adapter.
+- `mailboxId` in query (optional) — string, minLength=1, maxLength=200. Required when direction=inbound; forbidden when direction=outbound. See x-query-schema for the complete cross-parameter contract.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
 Content type `application/json`:
-- `items`: array, required, maxItems=100
+- `items`: array, maxItems=100, items: object, required
 - `nextAfter`: constrained value, required
 Additional properties are rejected for this shape.
 
@@ -40585,14 +40595,14 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `limit` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100. Decimal query value parsed as integer by the adapter.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
 Content type `application/json`:
-- `items`: array, required
+- `items`: array, items: object, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -40701,16 +40711,16 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `action` in query (required)
-- `pictureId` in query (required)
-- `threadId` in query (required)
+- `action` in query (required) — fixed value; see source. Registered query parameter. Duplicate parameters are rejected.
+- `pictureId` in query (required) — string, minLength=1, maxLength=200. Registered query parameter. Duplicate parameters are rejected.
+- `threadId` in query (required) — string, minLength=1, maxLength=200. Registered query parameter. Duplicate parameters are rejected.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Authorized private PNG image.
 
 Content type `image/png`:
-No object fields; schema type: string.
+Schema: string, format binary.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -40820,21 +40830,21 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Request body:** Required. 
 
 **Request body — multipart/form-data:**
-- `action`: constrained value, required, fixed value; see source
-- `file`: string, required
-- `mediaType`: constrained value, required, 2 allowed values; see source
-- `threadId`: string, required, minLength=1, maxLength=200
+- `action`: fixed value; see source, required
+- `file`: string, format binary, required
+- `mediaType`: 2 allowed values; see source, required
+- `threadId`: string, minLength=1, maxLength=200, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
 Content type `application/json`:
-- `id`: string, required, minLength=1, maxLength=200
-- `mediaType`: constrained value, required, 2 allowed values; see source
-- `size`: integer, required, minimum=1
-- `status`: constrained value, required, fixed value; see source
-- `tenantId`: string, required, minLength=1, maxLength=200
-- `threadId`: string, required, minLength=1, maxLength=200
+- `id`: string, minLength=1, maxLength=200, required
+- `mediaType`: 2 allowed values; see source, required
+- `size`: integer, minimum=1, required
+- `status`: fixed value; see source, required
+- `tenantId`: string, minLength=1, maxLength=200, required
+- `threadId`: string, minLength=1, maxLength=200, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -40992,20 +41002,20 @@ Bind an explicitly selected conversation with explicit consent, a native session
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source
-- `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
-- `consent`: constrained value, required, fixed value; see source
+- `id`: string, format uuid, minLength=36, maxLength=36, pattern-constrained; see source, required
+- `conversationId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
+- `consent`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `linked`: constrained value, required, fixed value; see source
+- `linked`: fixed value; see source, required
 - `link`: object, required
 Additional properties are rejected for this shape.
 
@@ -41103,18 +41113,18 @@ Revoke the exact owner's SMS link using a fresh native session and current permi
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `id`: string, required, minLength=36, maxLength=36, pattern-constrained; see source
+- `id`: string, format uuid, minLength=36, maxLength=36, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `revoked`: constrained value, required, fixed value; see source
+- `revoked`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -41211,21 +41221,21 @@ Read the current signed-in owner's SMS conversation-link status. Provider delive
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `conversationId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+- `conversationId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
 2 alternative input shapes; see source for conditional requirements.
-- variant 1: `linked`: constrained value, required, fixed value; see source
+- variant 1: `linked`: fixed value; see source, required
 Additional properties are rejected for this shape.
-- variant 2: `linked`: constrained value, required, fixed value; see source
+- variant 2: `linked`: fixed value; see source, required
 - variant 2: `link`: object, required
 Additional properties are rejected for this shape.
 
@@ -43662,15 +43672,15 @@ Read-only compatibility route to /v1/auth/me/adl-log-records. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `logs`: array, required, maxItems=100
+- `logs`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -44015,15 +44025,15 @@ Read-only compatibility route to /v1/auth/me/notifications. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `notifications`: array, required
+- `notifications`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -44049,15 +44059,15 @@ Read-only compatibility route to /v1/auth/me/notifications. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `notifications`: array, required
+- `notifications`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -44083,15 +44093,15 @@ Read-only compatibility route to /v1/auth/me/notifications. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `notifications`: array, required
+- `notifications`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -44117,15 +44127,15 @@ Read-only compatibility route to /v1/auth/me/notifications. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `notifications`: array, required, maxItems=100
+- `notifications`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -44243,15 +44253,15 @@ Read-only compatibility route to /v1/auth/me/audit-event-records. This returns t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -44370,15 +44380,15 @@ Read-only compatibility route to /v1/provider/availability-overrides. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `overrides`: array, required
+- `overrides`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -44404,15 +44414,15 @@ Read-only compatibility route to /v1/provider/availability-overrides. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `overrides`: array, required
+- `overrides`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -44438,15 +44448,15 @@ Read-only compatibility route to /v1/provider/availability-overrides. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `overrides`: array, required, maxItems=100
+- `overrides`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -44609,15 +44619,15 @@ Read-only compatibility route to /v1/auth/me/behavior-note-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required, maxItems=100
+- `records`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -44735,15 +44745,15 @@ Read-only compatibility route to /v1/auth/me/authored-post-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned projected metadata
 
 Content type `application/json`:
-- `posts`: array, required
+- `posts`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -44863,15 +44873,15 @@ Read-only compatibility route to /v1/client/bookings. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `bookings`: array, required
+- `bookings`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -44897,15 +44907,15 @@ Read-only compatibility route to /v1/client/bookings. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `bookings`: array, required
+- `bookings`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -44931,15 +44941,15 @@ Read-only compatibility route to /v1/client/bookings. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `bookings`: array, required
+- `bookings`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -44965,15 +44975,15 @@ Read-only compatibility route to /v1/client/bookings. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `bookings`: array, required
+- `bookings`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -45048,15 +45058,15 @@ Read-only compatibility route to /v1/client/booking-requests. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `requests`: array, required
+- `requests`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -45082,15 +45092,15 @@ Read-only compatibility route to /v1/client/booking-requests. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `requests`: array, required
+- `requests`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -45116,15 +45126,15 @@ Read-only compatibility route to /v1/client/booking-requests. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `requests`: array, required
+- `requests`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -45150,15 +45160,15 @@ Read-only compatibility route to /v1/client/booking-requests. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `requests`: array, required
+- `requests`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -45366,15 +45376,15 @@ Read-only compatibility route to /v1/client/care-feedback. This returns the cano
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `feedback`: array, required, maxItems=100
+- `feedback`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -45447,15 +45457,15 @@ Read-only compatibility route to /v1/auth/me/authored-care-plan-records. This re
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `plans`: array, required
+- `plans`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -45528,15 +45538,15 @@ Read-only compatibility route to /v1/auth/me/care-plan-follow-up-records. This r
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required
+- `records`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -45699,15 +45709,15 @@ Read-only compatibility route to /v1/client/insurance-claim-records. This return
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `claims`: array, required, maxItems=100
+- `claims`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -46036,15 +46046,15 @@ Read-only compatibility route to /v1/auth/me/assessment-records. This returns th
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `assessments`: array, required
+- `assessments`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -46432,15 +46442,15 @@ Read-only compatibility route to /v1/client/consents. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `consents`: array, required, maxItems=100
+- `consents`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -46785,15 +46795,15 @@ Read-only compatibility route to /v1/auth/me/activities. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `activities`: array, required
+- `activities`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -46819,15 +46829,15 @@ Read-only compatibility route to /v1/auth/me/activities. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `activities`: array, required
+- `activities`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -46853,15 +46863,15 @@ Read-only compatibility route to /v1/auth/me/activities. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `activities`: array, required, maxItems=100
+- `activities`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -46936,15 +46946,15 @@ Read-only compatibility route to /v1/auth/me/audit-signoff-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `signoffs`: array, required
+- `signoffs`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -46970,15 +46980,15 @@ Read-only compatibility route to /v1/auth/me/audit-signoff-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `signoffs`: array, required
+- `signoffs`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -47051,15 +47061,15 @@ Read-only compatibility route to /v1/auth/me/daily-entry-records. This returns t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `entries`: array, required, maxItems=100
+- `entries`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -47537,15 +47547,15 @@ Read-only compatibility route to /v1/client/family-links. This returns the canon
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `links`: array, required, maxItems=100
+- `links`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -47618,15 +47628,15 @@ Read-only compatibility route to /v1/client/family-notification-records. This re
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `notifications`: array, required
+- `notifications`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -47743,15 +47753,15 @@ Read-only compatibility route to /v1/client/feedback. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `feedback`: array, required, maxItems=100
+- `feedback`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -48514,15 +48524,15 @@ Read-only compatibility route to /v1/auth/me/health-ids. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `healthIds`: array, required, maxItems=100
+- `healthIds`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -48822,15 +48832,15 @@ Read-only compatibility route to /v1/auth/me/reported-incident-records. This ret
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `incidents`: array, required
+- `incidents`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -48856,15 +48866,15 @@ Read-only compatibility route to /v1/auth/me/reported-incident-records. This ret
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `incidents`: array, required
+- `incidents`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -48982,15 +48992,15 @@ Read-only compatibility route to /v1/auth/me/infection-control-records. This ret
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required, maxItems=100
+- `records`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -49288,15 +49298,15 @@ Read-only compatibility route to /v1/client/inventory-item-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned projected metadata
 
 Content type `application/json`:
-- `items`: array, required
+- `items`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -49369,15 +49379,15 @@ Read-only compatibility route to /v1/client/invoices. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `invoices`: array, required
+- `invoices`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -49496,15 +49506,15 @@ Read-only compatibility route to /v1/auth/me/device-events. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -49530,15 +49540,15 @@ Read-only compatibility route to /v1/auth/me/device-events. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -49564,15 +49574,15 @@ Read-only compatibility route to /v1/auth/me/device-events. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `events`: array, required, maxItems=100
+- `events`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -50185,15 +50195,15 @@ Read-only compatibility route to /v1/client/medication-administration-records. T
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned projected metadata
 
 Content type `application/json`:
-- `entries`: array, required
+- `entries`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -50448,15 +50458,15 @@ Read-only compatibility route to /v1/auth/me/medication-reconciliation-records. 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `reconciliations`: array, required
+- `reconciliations`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -50482,15 +50492,15 @@ Read-only compatibility route to /v1/auth/me/medication-reconciliation-records. 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `reconciliations`: array, required
+- `reconciliations`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -50563,15 +50573,15 @@ Read-only compatibility route to /v1/auth/me/authored-message-records. This retu
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `messages`: array, required
+- `messages`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -50643,15 +50653,15 @@ Read-only compatibility route to /v1/client/conversation-threads. This returns t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `threads`: array, required, maxItems=100
+- `threads`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -50724,15 +50734,15 @@ Read-only compatibility route to /v1/provider/mileage-logs. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `logs`: array, required, maxItems=100
+- `logs`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -50805,15 +50815,15 @@ Read-only compatibility route to /v1/auth/me/mobility-records. This returns the 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required, maxItems=100
+- `records`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -52371,15 +52381,15 @@ Read-only compatibility route to /v1/auth/me/narrative-note-records. This return
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required, maxItems=100
+- `records`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -52452,15 +52462,15 @@ Read-only compatibility route to /v1/auth/me/nutrition-records. This returns the
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required, maxItems=100
+- `records`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -52893,15 +52903,15 @@ Read-only compatibility route to /v1/client/alert-records. This returns the cano
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `alerts`: array, required, maxItems=100
+- `alerts`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -53109,15 +53119,15 @@ Read-only compatibility route to /v1/client/payments. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned metadata or status groups
 
 Content type `application/json`:
-- `payments`: array, required
+- `payments`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -53189,15 +53199,15 @@ Read-only compatibility route to /v1/provider/payouts. This returns the canonica
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `payouts`: array, required, maxItems=100
+- `payouts`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -53272,15 +53282,15 @@ Read-only compatibility route to /v1/auth/me/authored-review-records. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `reviews`: array, required
+- `reviews`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -53306,15 +53316,15 @@ Read-only compatibility route to /v1/auth/me/authored-review-records. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `reviews`: array, required
+- `reviews`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -53566,15 +53576,15 @@ Read-only compatibility route to /v1/client/prescription-records. This returns t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `prescriptions`: array, required, maxItems=100
+- `prescriptions`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -53739,15 +53749,15 @@ Read-only compatibility route to /v1/provider/availability. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `availability`: array, required
+- `availability`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -53773,15 +53783,15 @@ Read-only compatibility route to /v1/provider/availability. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `availability`: array, required
+- `availability`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -53807,15 +53817,15 @@ Read-only compatibility route to /v1/provider/availability. This returns the can
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `availability`: array, required
+- `availability`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -53890,15 +53900,15 @@ Read-only compatibility route to /v1/provider/documents. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `documents`: array, required
+- `documents`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -53924,15 +53934,15 @@ Read-only compatibility route to /v1/provider/documents. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `documents`: array, required
+- `documents`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -53958,15 +53968,15 @@ Read-only compatibility route to /v1/provider/documents. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `documents`: array, required
+- `documents`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid query/body
@@ -53992,15 +54002,15 @@ Read-only compatibility route to /v1/provider/documents. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `documents`: array, required
+- `documents`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -54149,15 +54159,15 @@ Read-only compatibility route to /v1/auth/me/shift-logs. This returns the canoni
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `logs`: array, required, maxItems=100
+- `logs`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -54230,15 +54240,15 @@ Read-only compatibility route to /v1/auth/me/vital-sign-records. This returns th
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `records`: array, required, maxItems=100
+- `records`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -54311,15 +54321,15 @@ Read-only compatibility route to /v1/client/purchase-order-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned projected metadata
 
 Content type `application/json`:
-- `orders`: array, required
+- `orders`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -55247,15 +55257,15 @@ Read-only compatibility route to /v1/client/service-authorizations. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `authorizations`: array, required, maxItems=100
+- `authorizations`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -55328,15 +55338,15 @@ Read-only compatibility route to /v1/provider/shift-assignment-records. This ret
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `assignments`: array, required, maxItems=100
+- `assignments`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -55409,15 +55419,15 @@ Read-only compatibility route to /v1/provider/handover-records. This returns the
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `handovers`: array, required, maxItems=100
+- `handovers`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -55580,15 +55590,15 @@ Read-only compatibility route to /v1/auth/me/group-memberships. This returns the
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `memberships`: array, required, maxItems=100
+- `memberships`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -55663,15 +55673,15 @@ Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `tasks`: array, required
+- `tasks`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -55697,15 +55707,15 @@ Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `tasks`: array, required
+- `tasks`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -55731,15 +55741,15 @@ Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `tasks`: array, required
+- `tasks`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -55765,15 +55775,15 @@ Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `tasks`: array, required
+- `tasks`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -55936,15 +55946,15 @@ Read-only compatibility route to /v1/auth/me/supervision-records. This returns t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `logs`: array, required
+- `logs`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -56287,15 +56297,15 @@ Read-only compatibility route to /v1/auth/me/survey-submissions. This returns th
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `submissions`: array, required, maxItems=100
+- `submissions`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -56458,15 +56468,15 @@ Read-only compatibility route to /v1/auth/me/system-event-records. This returns 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -56720,15 +56730,15 @@ Read-only compatibility route to /v1/auth/me/technical-audit-records. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `audits`: array, required
+- `audits`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -56754,15 +56764,15 @@ Read-only compatibility route to /v1/auth/me/technical-audit-records. This retur
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `audits`: array, required
+- `audits`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -56835,15 +56845,15 @@ Read-only compatibility route to /v1/auth/me/telehealth-records. This returns th
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `sessions`: array, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -57095,15 +57105,15 @@ Read-only compatibility route to /v1/provider/timesheets. This returns the canon
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `timesheets`: array, required, maxItems=100
+- `timesheets`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57176,15 +57186,15 @@ Read-only compatibility route to /v1/provider/timesheet-items. This returns the 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned item metadata or stored status groups
 
 Content type `application/json`:
-- `items`: array, required
+- `items`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57257,15 +57267,15 @@ Read-only compatibility route to /v1/provider/training-assignment-records. This 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `assignments`: array, required, maxItems=100
+- `assignments`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57383,15 +57393,15 @@ Read-only compatibility route to /v1/auth/me/ledger-event-records. This returns 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned projected metadata
 
 Content type `application/json`:
-- `events`: array, required
+- `events`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57554,15 +57564,15 @@ Read-only compatibility route to /v1/auth/me/devices. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `devices`: array, required, maxItems=100
+- `devices`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57755,15 +57765,15 @@ Read-only compatibility route to /v1/client/visits. This returns the canonical o
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owner data
 
 Content type `application/json`:
-- `visits`: array, required
+- `visits`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57836,15 +57846,15 @@ Read-only compatibility route to /v1/provider/visit-check-events. This returns t
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `events`: array, required, maxItems=100
+- `events`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57917,15 +57927,15 @@ Read-only compatibility route to /v1/provider/authored-checklist-records. This r
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `checklists`: array, required, maxItems=100
+- `checklists`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -57998,15 +58008,15 @@ Read-only compatibility route to /v1/provider/visit-matches. This returns the ca
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `matches`: array, required, maxItems=100
+- `matches`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -58079,15 +58089,15 @@ Read-only compatibility route to /v1/provider/authored-visit-note-records. This 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `notes`: array, required, maxItems=100
+- `notes`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -58160,15 +58170,15 @@ Read-only compatibility route to /v1/client/patient-vital-records. This returns 
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Owned projected metadata
 
 Content type `application/json`:
-- `observations`: array, required
+- `observations`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -58241,15 +58251,15 @@ Read-only compatibility route to /v1/client/waitlist. This returns the canonical
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected owned metadata
 
 Content type `application/json`:
-- `entries`: array, required, maxItems=100
+- `entries`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -58414,15 +58424,15 @@ Read-only compatibility route to /v1/auth/me/wellness-pulses. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `pulses`: array, required
+- `pulses`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -58448,15 +58458,15 @@ Read-only compatibility route to /v1/auth/me/wellness-pulses. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `pulses`: array, required
+- `pulses`: array, items: object, required
 - `pagination`: object, required
 
 **Response 400:** Invalid ID/query/body
@@ -58482,15 +58492,15 @@ Read-only compatibility route to /v1/auth/me/wellness-pulses. This returns the c
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Projected own records or status groups
 
 Content type `application/json`:
-- `pulses`: array, required, maxItems=100
+- `pulses`: array, maxItems=100, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -59349,37 +59359,37 @@ Proposed read semantics on the existing API794 identity; no handler, binding, ro
 
 **Request body — application/json:**
 2 alternative input shapes; see source for conditional requirements.
-- variant 1: `version`: constrained value, required, fixed value; see source
-- variant 1: `locale`: string, required, 3 allowed values; see source
-- variant 1: `action`: constrained value, required, fixed value; see source
-- variant 1: `query`: string, required, maxLength=100, pattern-constrained; see source
-- variant 1: `offset`: integer, required, minimum=0, maximum=100000
-- variant 1: `limit`: integer, required, minimum=1, maximum=100
+- variant 1: `version`: fixed value; see source, required
+- variant 1: `locale`: string, 3 allowed values; see source, required
+- variant 1: `action`: fixed value; see source, required
+- variant 1: `query`: string, maxLength=100, pattern-constrained; see source, required
+- variant 1: `offset`: integer, minimum=0, maximum=100000, required
+- variant 1: `limit`: integer, minimum=1, maximum=100, required
 Additional properties are rejected for this shape.
-- variant 2: `version`: constrained value, required, fixed value; see source
-- variant 2: `locale`: string, required, 3 allowed values; see source
-- variant 2: `action`: constrained value, required, fixed value; see source
-- variant 2: `articleId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+- variant 2: `version`: fixed value; see source, required
+- variant 2: `locale`: string, 3 allowed values; see source, required
+- variant 2: `action`: fixed value; see source, required
+- variant 2: `articleId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Proposed scoped read result; no business mutation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source. Must be no-store
 
 Content type `application/json`:
 2 alternative input shapes; see source for conditional requirements.
-- variant 1: `version`: constrained value, required, fixed value; see source
-- variant 1: `locale`: string, required, 3 allowed values; see source
-- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `version`: fixed value; see source, required
+- variant 1: `locale`: string, 3 allowed values; see source, required
+- variant 1: `action`: fixed value; see source, required
 - variant 1: `scope`: object, required
-- variant 1: `items`: array, required, maxItems=100
-- variant 1: `offset`: integer, required, minimum=0, maximum=100000
-- variant 1: `limit`: integer, required, minimum=1, maximum=100
-- variant 1: `total`: integer, required, minimum=0, maximum=9007199254740991
+- variant 1: `items`: array, maxItems=100, items: object, required
+- variant 1: `offset`: integer, minimum=0, maximum=100000, required
+- variant 1: `limit`: integer, minimum=1, maximum=100, required
+- variant 1: `total`: integer, minimum=0, maximum=9007199254740991, required
 Additional properties are rejected for this shape.
-- variant 2: `version`: constrained value, required, fixed value; see source
-- variant 2: `locale`: string, required, 3 allowed values; see source
-- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `version`: fixed value; see source, required
+- variant 2: `locale`: string, 3 allowed values; see source, required
+- variant 2: `action`: fixed value; see source, required
 - variant 2: `scope`: object, required
 - variant 2: `article`: object, required
 Additional properties are rejected for this shape.
@@ -59387,51 +59397,51 @@ Additional properties are rejected for this shape.
 **Response 400:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
 **Response 401:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
 **Response 403:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
 **Response 404:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
 **Response 409:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
 **Response 429:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
-Response headers: `Retry-After`.
+Response headers: `Retry-After` — string, pattern-constrained; see source.
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
 **Response 503:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
 Content type `application/json`:
-- `version`: constrained value, required, fixed value; see source
+- `version`: fixed value; see source, required
 - `error`: object, required
 Additional properties are rejected for this shape.
 
@@ -69895,19 +69905,19 @@ Verify the exact signed Twilio form and persist the inbound SMS before returning
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, maxLength=34, pattern-constrained; see source
-- `MessageSid`: string, required, maxLength=34, pattern-constrained; see source
-- `From`: string, required, maxLength=16, pattern-constrained; see source
-- `To`: string, required, maxLength=16, pattern-constrained; see source
-- `Body`: string, required, maxLength=1600, pattern-constrained; see source
-- `NumMedia`: constrained value, required, 11 allowed values; see source
-- `MessagingServiceSid`: string, optional, maxLength=34, pattern-constrained; see source
-- `OptOutType`: constrained value, optional, 3 allowed values; see source
+- `AccountSid`: string, maxLength=34, pattern-constrained; see source, required
+- `MessageSid`: string, maxLength=34, pattern-constrained; see source, required
+- `From`: string, maxLength=16, pattern-constrained; see source, required
+- `To`: string, maxLength=16, pattern-constrained; see source, required
+- `Body`: string, maxLength=1600, pattern-constrained; see source, required
+- `NumMedia`: 11 allowed values; see source, required
+- `MessagingServiceSid`: string, maxLength=34, pattern-constrained; see source, optional
+- `OptOutType`: 3 allowed values; see source, optional
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `text/xml`:
-No object fields; schema type: string.
+Schema: string, fixed value; see source.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -69999,9 +70009,9 @@ Persist, deduplicate or quarantine signed delivery observations before returning
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `MessageSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `MessageStatus`: string, required, minLength=1, maxLength=32
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `MessageSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `MessageStatus`: string, minLength=1, maxLength=32, required
 
 **Response 204:** Callback durably accepted; no response body.
 
@@ -70095,13 +70105,13 @@ Start ConversationRelay only for the canonical live call with current verified i
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70193,13 +70203,13 @@ Return from the verified AI connection through its registered completion handler
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70291,17 +70301,17 @@ Connect an authorized Voice SDK caller using the canonical provider call and cur
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallerExtension`: string, required, minLength=1, maxLength=4, pattern-constrained; see source
-- `TargetExtension`: string, required, minLength=1, maxLength=4, pattern-constrained; see source
-- `From`: string, required, maxLength=80, pattern-constrained; see source
-- `Direction`: constrained value, required, fixed value; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallerExtension`: string, minLength=1, maxLength=4, pattern-constrained; see source, required
+- `TargetExtension`: string, minLength=1, maxLength=4, pattern-constrained; see source, required
+- `From`: string, maxLength=80, pattern-constrained; see source, required
+- `Direction`: fixed value; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70393,14 +70403,14 @@ Handle busy/no-answer/failed dial outcomes using a previously reserved private v
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `DialCallStatus`: string, required, minLength=1, maxLength=32
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `DialCallStatus`: string, minLength=1, maxLength=32, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70492,16 +70502,16 @@ Resolve 0 to configured reception, 1 to configured verified app pairing, or a pu
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `Digits`: string, optional, maxLength=4
-- `To`: string, required, maxLength=16, pattern-constrained; see source
-- `Direction`: constrained value, required, fixed value; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `Digits`: string, maxLength=4, optional
+- `To`: string, maxLength=16, pattern-constrained; see source, required
+- `Direction`: fixed value; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70593,15 +70603,15 @@ Return the four-digit extension/reception/AI menu for a signed incoming Twilio c
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `To`: string, required, maxLength=16, pattern-constrained; see source
-- `Direction`: constrained value, required, fixed value; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `To`: string, maxLength=16, pattern-constrained; see source, required
+- `Direction`: fixed value; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70693,13 +70703,13 @@ Issue an app pairing code outside the model stream. This code is distinct from t
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70791,13 +70801,13 @@ Validate voicemail recording completion against its reserved call/destination. T
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -70889,11 +70899,11 @@ Verify the provider recording and enqueue an authorized private voicemail notifi
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `RecordingSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `RecordingStatus`: constrained value, required, fixed value; see source
-- `RecordingDuration`: string, required, minLength=1, maxLength=3, pattern-constrained; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `RecordingSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `RecordingStatus`: fixed value; see source, required
+- `RecordingDuration`: string, minLength=1, maxLength=3, pattern-constrained; see source, required
 
 **Response 204:** Callback durably accepted; no response body.
 
@@ -70985,7 +70995,7 @@ Upgrade the exact signed WebSocket request. The relay rechecks canonical call, O
 **Authentication declared in source:** operation level: twilioSignature
 
 **Parameters:**
-- `Upgrade` in header (required)
+- `Upgrade` in header (required) — string, fixed value; see source
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -71081,13 +71091,13 @@ Recheck the current app pairing/OTP state before proceeding to the verified agen
 **Request body:** Required. 
 
 **Request body — application/x-www-form-urlencoded:**
-- `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `CallSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/xml`:
-No object fields; schema type: string.
+Schema: string, minLength=1, maxLength=32768.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -71183,15 +71193,15 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `currentPassword`: string, required, minLength=1
+- `currentPassword`: string, minLength=1, required
 - `newPassword`: string, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -71206,10 +71216,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/auth-rate-validation-batches-264-268.openapi.json](../../docs/api/auth-rate-validation-batches-264-268.openapi.json)
@@ -71221,15 +71231,15 @@ Additional properties are rejected for this shape.
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `currentPassword`: string, required, minLength=1
+- `currentPassword`: string, minLength=1, required
 - `newPassword`: string, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -71244,10 +71254,10 @@ Additional properties are rejected for this shape.
 
 **Response 413:** Payload exceeds 50,000 wire bytes.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `error`: constrained value, required, fixed value; see source
+- `error`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -71259,15 +71269,15 @@ Additional properties are rejected for this shape.
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `currentPassword`: string, required, minLength=1
+- `currentPassword`: string, minLength=1, required
 - `newPassword`: string, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful existing handler response
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input
@@ -71291,22 +71301,22 @@ Requires current password and active bearer session. New password must differ. W
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `currentPassword`: string, required, minLength=1, write-only; never log
-- `newPassword`: string, required, minLength=12, maxLength=72, write-only; never log
+- `currentPassword`: string, minLength=1, write-only; never log, required
+- `newPassword`: string, minLength=12, maxLength=72, write-only; never log, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful operation
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
-- `status`: constrained value, required, fixed value; see source
-- `reauthenticationRequired`: constrained value, required, fixed value; see source
+- `status`: fixed value; see source, required
+- `reauthenticationRequired`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed or invalid input
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -71314,7 +71324,7 @@ Additional properties are rejected for this shape.
 
 **Response 401:** Missing/invalid session or credentials
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -71322,7 +71332,9 @@ Additional properties are rejected for this shape.
 
 **Response 429:** Authentication attempts exhausted
 
-Response headers: `Cache-Control`, `Retry-After`.
+Response headers: `Cache-Control` — fixed value; see source.
+
+Response headers: `Retry-After` — string. Seconds until next attempt
 
 Content type `application/json`:
 - `error`: string, required
@@ -71330,7 +71342,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Service unavailable; details withheld
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -71555,8 +71567,8 @@ Active explicit bearer session and matching non-null tenant required. Booking au
 **Response 200:** Success
 
 Content type `application/json`:
-- `revokedSessions`: integer, required, minimum=0
-- `status`: constrained value, required, fixed value; see source
+- `revokedSessions`: integer, minimum=0, required
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid query/body
@@ -71584,8 +71596,8 @@ Active explicit bearer session and matching tenant required. User identity is de
 **Response 200:** Success
 
 Content type `application/json`:
-- `revokedSessions`: integer, required, minimum=0
-- `status`: constrained value, required, fixed value; see source
+- `revokedSessions`: integer, minimum=0, required
+- `status`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid query/body
@@ -71653,15 +71665,15 @@ Active explicit bearer session and matching tenant required. User identity is de
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `sessions`: array, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -71677,7 +71689,7 @@ Additional properties are rejected for this shape.
 
 **Response 503:** Source unavailable or malformed projected result; details withheld.
 
-Response headers: `Cache-Control`.
+Response headers: `Cache-Control` — fixed value; see source.
 
 Content type `application/json`:
 - `error`: string, required
@@ -71691,15 +71703,15 @@ Active explicit bearer session and matching non-null tenant required. Booking au
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `sessions`: array, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -71724,15 +71736,15 @@ Active explicit bearer session and matching tenant required. User identity is de
 **Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
-- `limit` in query (optional)
-- `offset` in query (optional)
+- `limit` in query (optional) — integer, minimum=1, maximum=100
+- `offset` in query (optional) — integer, minimum=0, maximum=100000
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
 **Response 200:** Success
 
 Content type `application/json`:
-- `sessions`: array, required
+- `sessions`: array, items: object, required
 - `pagination`: object, required
 Additional properties are rejected for this shape.
 
@@ -72625,25 +72637,25 @@ Assign a globally unique four-digit extension to an authorized active tenant/use
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `userId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+- `userId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `extension`: string, required, minLength=1, maxLength=4, pattern-constrained; see source
-- `tenantId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
-- `userId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+- `extension`: string, minLength=1, maxLength=4, pattern-constrained; see source, required
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
+- `userId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
 - `published`: boolean, required
 - `active`: boolean, required
 - `tenantActive`: boolean, required
 - `userActive`: boolean, required
-- `version`: integer, required, minimum=1, maximum=9007199254740990
+- `version`: integer, minimum=1, maximum=9007199254740990, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -72740,27 +72752,27 @@ Publish or revoke an authorized extension at the exact current version. Re-read 
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `userId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
-- `version`: integer, required, minimum=1, maximum=9007199254740990
+- `userId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
+- `version`: integer, minimum=1, maximum=9007199254740990, required
 - `published`: boolean, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `extension`: string, required, minLength=1, maxLength=4, pattern-constrained; see source
-- `tenantId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
-- `userId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+- `extension`: string, minLength=1, maxLength=4, pattern-constrained; see source, required
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
+- `userId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
 - `published`: boolean, required
 - `active`: boolean, required
 - `tenantActive`: boolean, required
 - `userActive`: boolean, required
-- `version`: integer, required, minimum=1, maximum=9007199254740990
+- `version`: integer, minimum=1, maximum=9007199254740990, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -72857,13 +72869,13 @@ Submit the OTP in the authenticated app. A false verified result is not authenti
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `callSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `code`: string, required, minLength=1, maxLength=6, pattern-constrained; see source
+- `callSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `code`: string, minLength=1, maxLength=6, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
@@ -72966,19 +72978,19 @@ Bind the signed call pairing code to the current app session and send OTP to its
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `callSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `pairingCode`: string, required, minLength=1, maxLength=8, pattern-constrained; see source
+- `callSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `pairingCode`: string, minLength=1, maxLength=8, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `verificationRequested`: constrained value, required, fixed value; see source
+- `verificationRequested`: fixed value; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -73075,20 +73087,20 @@ Approve the exact unexpired digest in the authenticated app. It does not itself 
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `intentId`: string, required, minLength=1, maxLength=36, pattern-constrained; see source
-- `digest`: string, required, minLength=1, maxLength=64, pattern-constrained; see source
+- `intentId`: string, minLength=1, maxLength=36, pattern-constrained; see source, required
+- `digest`: string, minLength=1, maxLength=64, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `approved`: constrained value, required, fixed value; see source
-- `expiresAt`: integer, required, minimum=1, maximum=9007199254740991
+- `approved`: fixed value; see source, required
+- `expiresAt`: integer, minimum=1, maximum=9007199254740991, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -73185,21 +73197,21 @@ Read the exact server-owned task summary and digest for independent app confirma
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `intentId`: string, required, minLength=1, maxLength=36, pattern-constrained; see source
+- `intentId`: string, minLength=1, maxLength=36, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `intentId`: string, required, minLength=1, maxLength=36, pattern-constrained; see source
-- `summary`: string, required, minLength=1, maxLength=1000
-- `digest`: string, required, minLength=1, maxLength=64, pattern-constrained; see source
-- `expiresAt`: integer, required, minimum=1, maximum=9007199254740991
+- `intentId`: string, minLength=1, maxLength=36, pattern-constrained; see source, required
+- `summary`: string, minLength=1, maxLength=1000, required
+- `digest`: string, minLength=1, maxLength=64, pattern-constrained; see source, required
+- `expiresAt`: integer, minimum=1, maximum=9007199254740991, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -73296,20 +73308,20 @@ Issue a short-lived Voice SDK token for the current published destination. Token
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-No object fields; schema type: object.
+Schema: object.
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `token`: string, required, minLength=1, maxLength=16384
-- `identity`: string, required, minLength=1, maxLength=200
-- `ttlSeconds`: integer, required, minimum=1, maximum=300
+- `token`: string, minLength=1, maxLength=16384, required
+- `identity`: string, minLength=1, maxLength=200, required
+- `ttlSeconds`: integer, minimum=1, maximum=300, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -73406,18 +73418,18 @@ Download private bounded WAV audio after current owner/session checks before and
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `recordingSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `recordingSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Private bounded RIFF/WAVE audio; never a public Twilio recording URL.
 
 Content type `audio/wav`:
-No object fields; schema type: string.
+Schema: string.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -73513,20 +73525,20 @@ Read metadata for a private recording owned by the current user and tenant. This
 **Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
-- `Origin` in header (optional)
+- `Origin` in header (optional) — string, format uri. If present, must exactly match the API origin or a configured approved app origin. Cross-site cookie-only requests cannot authorize this operation.
 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `recordingSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
+- `recordingSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-- `recordingSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `callSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
-- `extension`: string, required, minLength=1, maxLength=4, pattern-constrained; see source
+- `recordingSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `callSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
+- `extension`: string, minLength=1, maxLength=4, pattern-constrained; see source, required
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
