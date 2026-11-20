@@ -27,6 +27,7 @@ on:
       - 'tools/governance-production/ems_registration.py'
       - 'tools/governance-production/test_ems_registration.py'
       - '.github/workflows/code-admin-ems.yml'
+      - '.github/workflows/endpoint-management-tests.yml'
   workflow_dispatch:
 permissions:
   contents: read

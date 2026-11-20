@@ -10,6 +10,8 @@ on:
       - 'scripts/test-governance-api.mjs'
       - 'tools/endpoint-capacity/**'
       - 'packages/shared/src/endpoint-management/**'
+      - 'packages/domain/src/endpoint_traffic.ts'
+      - 'packages/primecare_ui/web/endpoint-management-panel.ts'
       - '.github/workflows/endpoint-management-tests.yml'
   push:
     branches: [main]
@@ -22,6 +24,8 @@ on:
       - 'scripts/test-governance-api.mjs'
       - 'tools/endpoint-capacity/**'
       - 'packages/shared/src/endpoint-management/**'
+      - 'packages/domain/src/endpoint_traffic.ts'
+      - 'packages/primecare_ui/web/endpoint-management-panel.ts'
       - '.github/workflows/endpoint-management-tests.yml'
 permissions:
   contents: read
@@ -42,7 +46,7 @@ jobs:
         run: node --test scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-preflight.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-endpoint-body-traffic.mjs scripts/test-governance-api.mjs
       - name: Type-check Workers and dashboard separately
         run: |
-          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/gateway.ts cloudflare/workers/src/governance-api.ts
-          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/endpoint-management-panel.ts
+          node_modules/.bin/tsc --noEmit --skipLibCheck --allowImportingTsExtensions --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/gateway.ts cloudflare/workers/src/governance-api.ts
+          node_modules/.bin/tsc --noEmit --skipLibCheck --allowImportingTsExtensions --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/endpoint-management-panel.ts
       - name: Validate load harness syntax without sending traffic
         run: node --check tools/endpoint-capacity/load-test.js
