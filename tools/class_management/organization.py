@@ -245,10 +245,17 @@ def classify(row):
     )
     return {
         "uiCategory": "ui.screen"
-        if role == "screen"
+        if role == "screen" and not row.get("abstract")
         else "ui.basecomponent"
-        if role == "ui_component"
+        if role == "ui_component" or (role == "screen" and row.get("abstract"))
         else None,
+        "uiCategoryEvidence": "Abstract screen base; not a concrete screen."
+        if role == "screen" and row.get("abstract")
+        else "Concrete screen/page candidate; route unverified."
+        if role == "screen"
+        else "Widget/component declaration; reuse not proven."
+        if role == "ui_component"
+        else "Supporting role outside the screen/base-component split.",
         "primaryType": primary,
         "primaryTypeLabel": PRIMARY_TYPES[primary][0],
         "primaryTypeEvidence": primary_evidence,
@@ -262,7 +269,7 @@ def classify(row):
         "architecturalRoleLabel": ROLE_LABELS[role],
         "classificationStatus": "inferred_needs_review",
         "classificationEvidence": evidence,
-        "classificationVersion": 6,
+        "classificationVersion": 7,
         "usageScope": "test" if test else "source",
         "runtimeReadiness": "not_assessed",
     }

@@ -154,6 +154,11 @@ class OrganizationTest(unittest.TestCase):
             "test",
         )
 
+    def test_abstract_screen_bases_are_not_concrete_screens(self):
+        result = classify(self.row(name="GovernedScreen", abstract=True))
+        self.assertEqual(result["uiCategory"], "ui.basecomponent")
+        self.assertIn("Abstract", result["uiCategoryEvidence"])
+
     def test_generated_location_is_a_hint_not_verified_generation(self):
         value = classify(
             self.row(
@@ -162,7 +167,7 @@ class OrganizationTest(unittest.TestCase):
         )
         self.assertEqual(value["sourceOrigin"], "generated_path_hint")
         self.assertTrue(value["isGeneratedPathHint"])
-        self.assertEqual(value["classificationVersion"], 6)
+        self.assertEqual(value["classificationVersion"], 7)
         self.assertEqual(classify(self.row())["sourceOrigin"], "unmarked_source")
 
     def test_api_client_and_platform_module_are_distinct(self):

@@ -20,6 +20,7 @@ ATTRIBUTES = {
     "libraryStatus": "manifest_declared, source_group_only or not_in_package_library",
     "sourceOrigin": "Test, external scope, generated path hint or unmarked source",
     "isGeneratedPathHint": "Path-based hint only; not proof of source generation",
+    "uiCategoryEvidence": "Why a concrete screen, abstract base or widget is classified this way",
     "uiCategory": "ui.screen or ui.basecomponent; other roles are not forced into either",
     "architecturalRole": "Screen, section, widget, controller, model, repository, service, etc.; inferred",
     "managerId": "Declared architecture ownership group",

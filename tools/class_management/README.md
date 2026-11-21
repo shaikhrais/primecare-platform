@@ -80,3 +80,5 @@ The catalog and production sync-event metadata preserve the hierarchy. The write
 ## UI split (version 6)
 
 uiCategory separates `ui.screen` (screen/page/view candidates) from `ui.basecomponent` (widget/component declarations). Sections, controllers, view models and lifecycle states retain their detailed architecture roles and do not inflate either count. Primary types remain UI/API/Test/Packages. Central UI declarations remain in Packages. Library and directory tables and CSVs show both counts excluding Test fixtures; Test records retain their logical UI category for explicit filtering. Widget naming is not proof of cross-feature reuse and a screen declaration is not a verified route.
+
+Version 7 refines ui.screen to exclude abstract screen bases. Abstract screen base declarations belong to ui.basecomponent and carry uiCategoryEvidence explaining that distinction. Supporting roles remain outside both, and per-library counts still exclude Test fixtures. These are source-level classifications rather than accepted business routes.
