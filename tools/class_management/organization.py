@@ -28,35 +28,41 @@ ROLE_LABELS = {
 
 
 PRIMARY_TYPES = {
-    "ui": ("UI", "Screens, sections, widgets, UI state, navigation and theme."),
-    "api": (
-        "API & services",
-        "API clients, backend routes and service/transport adapters; not an endpoint count.",
+    "ui": (
+        "UI",
+        "Application screens, widgets, state and presentation outside central packages.",
     ),
-    "data": ("Data", "Models, DTOs, repositories and language contracts."),
-    "application": ("Application", "Application and platform module composition."),
-    "platform": ("Platform", "Managers, registries and configuration."),
+    "api": (
+        "API",
+        "Application API clients, backend services, routes and adapters outside central packages.",
+    ),
     "test": (
         "Test",
-        "Declarations in test/fixture source, regardless of their detailed role.",
+        "Test and fixture declarations across all applications and libraries.",
     ),
-    "tooling": ("Tooling", "Non-test scanners, generators and maintenance scripts."),
-    "external": ("External", "Declared vendor/generated dependency ownership scope."),
-    "other": ("Needs review", "No supported primary type rule matched."),
+    "packages": (
+        "Packages",
+        "All central/shared package libraries plus data, platform, tooling and supporting classes.",
+    ),
 }
 
 
 def primary_type(role, app_class, test):
     if test:
-        return "test", "Test/fixture source takes precedence over architecture role."
-    if app_class == "external":
-        return "external", "Declared external source scope."
-    if app_class == "tooling":
-        return "tooling", "Non-test tooling source location."
-    if role in {"model", "repository", "data_contract"}:
-        return "data", "Data architecture role."
-    if role in {"api_client", "api_route", "service"}:
-        return "api", "API/service architecture role."
+        return (
+            "test",
+            "Test/fixture source takes precedence; library membership is retained separately.",
+        )
+    if app_class in {"shared_package", "external", "tooling"}:
+        return (
+            "packages",
+            "Central/shared library, dependency or supporting tooling scope.",
+        )
+    if app_class == "backend" or role in {"api_client", "api_route", "service"}:
+        return (
+            "api",
+            "Backend or application API/service evidence outside central packages.",
+        )
     if role in {
         "screen",
         "section",
@@ -67,14 +73,11 @@ def primary_type(role, app_class, test):
         "navigation",
         "theme",
     }:
-        return "ui", "Presentation architecture role."
-    if role == "module":
-        return "application", "Application/platform composition role."
-    if role in {"manager", "configuration"}:
-        return "platform", "Management/configuration role."
-    if app_class == "backend":
-        return "api", "Backend source location; detailed role still unresolved."
-    return "other", "No supported primary type evidence; manual review required."
+        return "ui", "Application presentation evidence outside central packages."
+    return (
+        "packages",
+        "Supporting model, contract, module, platform or unresolved code; inspect its detailed classification.",
+    )
 
 
 def classify(row):
@@ -254,7 +257,7 @@ def classify(row):
         "architecturalRoleLabel": ROLE_LABELS[role],
         "classificationStatus": "inferred_needs_review",
         "classificationEvidence": evidence,
-        "classificationVersion": 3,
+        "classificationVersion": 4,
         "usageScope": "test" if test else "source",
         "runtimeReadiness": "not_assessed",
     }

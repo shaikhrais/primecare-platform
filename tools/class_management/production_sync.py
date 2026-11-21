@@ -11,6 +11,7 @@ from urllib.parse import urlsplit, unquote
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalog import ROOT, canonical, digest, validate_master, owner
 from organization import classify
+from libraries import library_binding
 
 SQL_PATH = Path(__file__).parent / "sql/001_class_registry.sql"
 PIN_PATH = ROOT / "tools/governance-production/production-pin.json"
@@ -55,6 +56,11 @@ def validate_catalog(value, master, production=False):
         if row["managerId"] != owner(master, row["path"]):
             raise ValueError("Class owner differs from master scope")
         ids.add(row["id"])
+        if any(
+            row.get(key) != item
+            for key, item in library_binding(row, value.get("libraries", [])).items()
+        ):
+            raise ValueError("Class library binding differs from manifest inventory")
         if any(row.get(key) != item for key, item in classify(row).items()):
             raise ValueError("Class organization differs from source rules")
         if (
@@ -251,14 +257,31 @@ class ClassRegistryStore:
                         "classes": len(observed),
                         "businessDataWrites": False,
                         "approvals": 0,
+                        "libraryInventory": value.get("libraries", []),
                     }
                 ),
             ),
         )
+        library_readback = self.db.execute(
+            "SELECT metadata->'libraryInventory' FROM "
+            + self.table("class_registry_events")
+            + " WHERE scan_id=%s AND source_commit=%s AND event_kind='metadata_sync'",
+            (scan_id, value["sourceCommit"]),
+        ).fetchall()
+        if library_readback != [(value.get("libraries", []),)]:
+            raise ValueError("Library inventory read-back mismatch")
         return {
             "scanId": scan_id,
             "sourceCommit": value["sourceCommit"],
             "classes": len(observed),
+            "manifestLibraries": sum(
+                item["status"] == "manifest_declared"
+                for item in value.get("libraries", [])
+            ),
+            "sourceGroupsWithoutManifest": sum(
+                item["status"] == "source_group_only"
+                for item in value.get("libraries", [])
+            ),
             "databaseStatus": "present_verified_readback",
             "reviewApprovals": 0,
             "businessDataWrites": False,

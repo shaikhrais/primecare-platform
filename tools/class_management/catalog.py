@@ -7,6 +7,7 @@ Name/body/description overlaps are review candidates, never automatic merge orde
 import argparse, ast, collections, hashlib, json, re, subprocess
 from pathlib import Path
 from organization import classify
+from libraries import discover_libraries, library_binding
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
@@ -152,7 +153,8 @@ def python_inventory(root):
     }
 
 
-def assemble(config, inventories, commit, dirty):
+def assemble(config, inventories, commit, dirty, libraries=None):
+    libraries = libraries or []
     managers = validate_master(config)
     rows = []
     diagnostics = []
@@ -181,6 +183,7 @@ def assemble(config, inventories, commit, dirty):
             )
             row["databaseStatus"] = "unknown"
             row.update(classify(row))
+            row.update(library_binding(row, libraries))
             if row.get("sourceDescription"):
                 row["sourceDescription"] = row["sourceDescription"][:4000]
             rows.append(row)
@@ -281,6 +284,7 @@ def assemble(config, inventories, commit, dirty):
             for i in inventories
         },
         "managers": config["managers"],
+        "libraries": libraries,
         "classes": rows,
         "baseClasses": sorted(bases.values(), key=lambda x: x["id"]),
         "findings": findings,
@@ -324,6 +328,7 @@ def main():
         ],
         commit,
         dirty,
+        discover_libraries(args.root),
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(canonical(result))

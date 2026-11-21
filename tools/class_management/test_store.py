@@ -132,6 +132,26 @@ class StoreTest(unittest.TestCase):
         self.assertEqual(self.count("class_registry_events"), 1)
         self.assertEqual(self.count("class_registry_reviews"), 0)
 
+    def test_library_inventory_is_persisted_and_read_back(self):
+        import tempfile
+        from libraries import discover_libraries
+        from catalog import assemble
+        from test_catalog import inventory
+
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            directory = root / "packages/core"
+            directory.mkdir(parents=True)
+            (directory / "pubspec.yaml").write_text("name: fixture_core\n")
+            libraries = discover_libraries(root)
+            data = assemble(MASTER, [inventory()], "a" * 40, False, libraries)
+            receipt = self.store.sync(data, MASTER)
+            self.assertEqual(receipt["manifestLibraries"], 1)
+            self.assertEqual(
+                self.store.snapshot(data, receipt)["classes"][0]["libraryName"],
+                "fixture_core",
+            )
+
     def test_manifest_mismatch_is_rejected_before_extension_ddl(self):
         self.db.execute(
             "UPDATE " + self.schema + ".govt_source_manifest SET manifest_sha256=%s",

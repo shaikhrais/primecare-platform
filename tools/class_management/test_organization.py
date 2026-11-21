@@ -80,9 +80,9 @@ class OrganizationTest(unittest.TestCase):
         for name, expected in [
             ("DashboardScreen", "ui"),
             ("DashboardApi", "api"),
-            ("BookingModel", "data"),
-            ("AppModule", "application"),
-            ("Settings", "platform"),
+            ("BookingModel", "packages"),
+            ("AppModule", "packages"),
+            ("Settings", "packages"),
         ]:
             result = classify(
                 self.row(
@@ -107,7 +107,29 @@ class OrganizationTest(unittest.TestCase):
                 baseName="object",
             )
         )
-        self.assertEqual(value["primaryType"], "tooling")
+        self.assertEqual(value["primaryType"], "packages")
+
+    def test_exact_four_types_and_central_ui_libraries_stay_packages(self):
+        from organization import PRIMARY_TYPES
+
+        self.assertEqual(set(PRIMARY_TYPES), {"ui", "api", "test", "packages"})
+        value = classify(
+            self.row(
+                name="PrimeCard",
+                path="packages/primecare_ui/lib/card.dart",
+                managerId="ui",
+            )
+        )
+        self.assertEqual(value["primaryType"], "packages")
+        self.assertEqual(value["architecturalRole"], "ui_component")
+        value = classify(
+            self.row(
+                name="PrimeCard",
+                path="packages/primecare_ui/test/card_test.dart",
+                managerId="ui",
+            )
+        )
+        self.assertEqual(value["primaryType"], "test")
 
     def test_generated_location_is_a_hint_not_verified_generation(self):
         value = classify(
@@ -117,7 +139,7 @@ class OrganizationTest(unittest.TestCase):
         )
         self.assertEqual(value["sourceOrigin"], "generated_path_hint")
         self.assertTrue(value["isGeneratedPathHint"])
-        self.assertEqual(value["classificationVersion"], 3)
+        self.assertEqual(value["classificationVersion"], 4)
         self.assertEqual(classify(self.row())["sourceOrigin"], "unmarked_source")
 
     def test_api_client_and_platform_module_are_distinct(self):

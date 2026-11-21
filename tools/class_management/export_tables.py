@@ -10,8 +10,12 @@ from organization import ROLE_LABELS, PRIMARY_TYPES, classify
 ATTRIBUTES = {
     "name": "Actual qualified declaration name",
     "kind": "AST kind: class, enum, mixin or interface",
-    "primaryType": "Primary category: UI, API, Data, Application, Platform, Test, Tooling, External or review",
-    "primaryTypeEvidence": "Reason for primary category; tests and tooling override detail role",
+    "primaryType": "Exactly UI, API, Test or Packages; detailed roles remain independent",
+    "primaryTypeEvidence": "Reason for primary category; tests override central-library membership",
+    "libraryId": "Source-manifest library identity, if available",
+    "libraryName": "Declared library name or explicitly unmanifested source group",
+    "libraryPath": "Library source directory",
+    "libraryStatus": "manifest_declared, source_group_only or not_in_package_library",
     "sourceOrigin": "Test, external scope, generated path hint or unmarked source",
     "isGeneratedPathHint": "Path-based hint only; not proof of source generation",
     "architecturalRole": "Screen, section, widget, controller, model, repository, service, etc.; inferred",
@@ -59,6 +63,41 @@ def export(value, output):
     output.mkdir(parents=True, exist_ok=True)
     rows = [dict(row, **classify(row)) for row in value["classes"]]
     roles = collections.Counter(row["architecturalRole"] for row in rows)
+    libraries = value.get("libraries", [])
+    library_rows = []
+    for library in libraries:
+        members = [row for row in rows if row.get("libraryId") == library["id"]]
+        library_rows.append(
+            {
+                "libraryId": library["id"],
+                "name": library["name"],
+                "path": library["path"],
+                "status": library["status"],
+                "manifestCount": len(library["manifests"]),
+                "declarations": len(members),
+                **{
+                    key: sum(row["primaryType"] == key for row in members)
+                    for key in PRIMARY_TYPES
+                },
+            }
+        )
+    write_csv(
+        output / "libraries.csv",
+        [
+            "libraryId",
+            "name",
+            "path",
+            "status",
+            "manifestCount",
+            "declarations",
+            "ui",
+            "api",
+            "test",
+            "packages",
+        ],
+        library_rows,
+    )
+
     owners = collections.Counter(row["managerId"] for row in rows)
     managers = value["managers"]
     by_id = {m["id"]: m for m in managers}
@@ -232,13 +271,19 @@ def export(value, output):
     ]
     primary_lines += [
         "",
-        "Tests and non-test tooling take precedence over detailed architecture roles. Primary-type counts are mutually exclusive. Generated path hints are a separate source-origin dimension; they must not be added to primary-type totals.",
+        "Tests take precedence; all other central/shared library declarations use Packages. Primary-type counts are mutually exclusive. Generated path hints are a separate source-origin dimension; they must not be added to primary-type totals.",
         "",
     ]
     insertion = lines.index("## Managers")
     lines[insertion:insertion] = primary_lines
     (output / "Class-Organization.md").write_text("\n".join(lines))
     summary = {
+        "manifestLibraries": sum(
+            row["status"] == "manifest_declared" for row in libraries
+        ),
+        "sourceGroupsWithoutManifest": sum(
+            row["status"] == "source_group_only" for row in libraries
+        ),
         "sourceCommit": value["sourceCommit"],
         "scanId": value["scanId"],
         "classes": len(rows),
