@@ -18,6 +18,7 @@ ATTRIBUTES = {
     "appName": "Application/website directory name; null for shared/backend/tooling classes",
     "sourceContainer": "Source package, application, service or tool container",
     "usageScope": "source or test; separate from architectural role",
+    "classificationVersion": "Version of the deterministic organization rules",
     "classificationStatus": "Inferred labels require review",
     "classificationEvidence": "Explainable matching name/path/base rule",
     "baseName": "Declared base type, resolution tracked separately",

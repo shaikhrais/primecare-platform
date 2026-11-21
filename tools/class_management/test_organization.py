@@ -76,6 +76,30 @@ class OrganizationTest(unittest.TestCase):
             "other",
         )
 
+    def test_api_client_and_platform_module_are_distinct(self):
+        self.assertEqual(
+            classify(self.row(name="SchedulerApi", baseName="Object"))[
+                "architecturalRole"
+            ],
+            "api_client",
+        )
+        self.assertEqual(
+            classify(self.row(name="GovernanceModule", baseName="PlatformModule"))[
+                "architecturalRole"
+            ],
+            "module",
+        )
+        self.assertEqual(
+            classify(
+                self.row(
+                    name="RegistryTest",
+                    path="tools/class_management/test_registry.py",
+                    baseName="unittest.TestCase",
+                )
+            )["architecturalRole"],
+            "test_support",
+        )
+
     def test_declaration_kind_is_independent_of_role(self):
         self.assertEqual(
             classify(self.row(name="States", kind="enum"))["architecturalRole"],

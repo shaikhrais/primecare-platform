@@ -13,6 +13,8 @@ ROLE_LABELS = {
     "model": "Models / DTOs / entities",
     "repository": "Repositories",
     "service": "Services / clients / adapters",
+    "api_client": "API client classes",
+    "module": "Application / platform modules",
     "api_route": "API routes / handlers",
     "navigation": "Navigation / routes",
     "theme": "Theme / design tokens",
@@ -68,7 +70,12 @@ def classify(row):
         ),
         (
             "test_support",
-            name.startswith(("Mock", "Fake", "Stub")) and test,
+            (
+                name.startswith(("Mock", "Fake", "Stub"))
+                or name.endswith(("Test", "Tests"))
+                or base in {"TestCase", "Fake"}
+            )
+            and test,
             "Test scope and fake/mock/stub name.",
         ),
         (
@@ -139,6 +146,16 @@ def classify(row):
             "Widget base or UI-component name in UI scope.",
         ),
         (
+            "api_client",
+            bool(re.search(r"(Api|API)$", name)),
+            "API client suffix; not an API route or endpoint acceptance claim.",
+        ),
+        (
+            "module",
+            name.endswith("Module") or base == "PlatformModule",
+            "Application/platform module suffix or base.",
+        ),
+        (
             "service",
             bool(
                 re.search(r"(Service|Client|Adapter|Gateway|Transport|Channel)$", name)
@@ -169,7 +186,7 @@ def classify(row):
         "architecturalRoleLabel": ROLE_LABELS[role],
         "classificationStatus": "inferred_needs_review",
         "classificationEvidence": evidence,
-        "classificationVersion": 1,
+        "classificationVersion": 2,
         "usageScope": "test" if test else "source",
         "runtimeReadiness": "not_assessed",
     }
