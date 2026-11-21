@@ -10,6 +10,7 @@ from urllib.parse import urlsplit, unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalog import ROOT, canonical, digest, validate_master, owner
+from organization import classify
 
 SQL_PATH = Path(__file__).parent / "sql/001_class_registry.sql"
 PIN_PATH = ROOT / "tools/governance-production/production-pin.json"
@@ -54,6 +55,8 @@ def validate_catalog(value, master, production=False):
         if row["managerId"] != owner(master, row["path"]):
             raise ValueError("Class owner differs from master scope")
         ids.add(row["id"])
+        if any(row.get(key) != item for key, item in classify(row).items()):
+            raise ValueError("Class organization differs from source rules")
         if (
             row.get("databaseStatus") != "unknown"
             or row.get("reviewStatus") != "needs_review"

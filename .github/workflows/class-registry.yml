@@ -73,6 +73,7 @@ jobs:
           node tools/class_management/scan-typescript.mjs "$GITHUB_WORKSPACE" /tmp/classes-typescript.json
           python tools/class_management/catalog.py --dart /tmp/classes-dart.json --typescript /tmp/classes-typescript.json --output /tmp/classes-catalog.json
           python tools/class_management/render_dashboard.py --catalog /tmp/classes-catalog.json --output /tmp/class-dashboard.html
+          python tools/class_management/export_tables.py --catalog /tmp/classes-catalog.json --output /tmp/class-source-tables
       - uses: actions/upload-artifact@v4
         with:
           name: class-registry-source-${{ github.sha }}
@@ -80,6 +81,7 @@ jobs:
           path: |
             /tmp/classes-catalog.json
             /tmp/class-dashboard.html
+            /tmp/class-source-tables/
   production:
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'sync-production'))
     needs: verify
@@ -111,6 +113,7 @@ jobs:
         run: |
           python tools/class_management/production_sync.py --catalog /tmp/class-registry-source/classes-catalog.json --receipt /tmp/class-registry-production-receipt.json --snapshot /tmp/class-registry-production.json
           python tools/class_management/render_dashboard.py --catalog /tmp/class-registry-production.json --output /tmp/class-registry-production-dashboard.html
+          python tools/class_management/export_tables.py --catalog /tmp/class-registry-production.json --output /tmp/class-production-tables
       - uses: actions/upload-artifact@v4
         with:
           name: class-registry-production-${{ github.sha }}
@@ -119,3 +122,4 @@ jobs:
             /tmp/class-registry-production-receipt.json
             /tmp/class-registry-production.json
             /tmp/class-registry-production-dashboard.html
+            /tmp/class-production-tables/

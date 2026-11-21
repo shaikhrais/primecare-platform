@@ -6,6 +6,7 @@ Name/body/description overlaps are review candidates, never automatic merge orde
 
 import argparse, ast, collections, hashlib, json, re, subprocess
 from pathlib import Path
+from organization import classify
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
@@ -179,6 +180,7 @@ def assemble(config, inventories, commit, dirty):
                 else "missing"
             )
             row["databaseStatus"] = "unknown"
+            row.update(classify(row))
             if row.get("sourceDescription"):
                 row["sourceDescription"] = row["sourceDescription"][:4000]
             rows.append(row)
