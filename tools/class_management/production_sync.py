@@ -11,7 +11,7 @@ from urllib.parse import urlsplit, unquote
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from catalog import ROOT, canonical, digest, validate_master, owner
 from organization import classify
-from libraries import library_binding
+from libraries import library_binding, build_subpackages
 
 SQL_PATH = Path(__file__).parent / "sql/001_class_registry.sql"
 PIN_PATH = ROOT / "tools/governance-production/production-pin.json"
@@ -44,6 +44,10 @@ def validate_catalog(value, master, production=False):
         raise ValueError("Source commit required")
     if value.get("managers") != master["managers"]:
         raise ValueError("Catalog manager declarations differ")
+    if value.get("subpackages", []) != build_subpackages(
+        value["classes"], value.get("libraries", [])
+    ):
+        raise ValueError("Subpackage hierarchy differs from source directories")
     managers = {m["id"] for m in master["managers"]}
     ids = set()
     for row in value["classes"]:
@@ -258,6 +262,7 @@ class ClassRegistryStore:
                         "businessDataWrites": False,
                         "approvals": 0,
                         "libraryInventory": value.get("libraries", []),
+                        "subpackageInventory": value.get("subpackages", []),
                     }
                 ),
             ),
@@ -270,10 +275,21 @@ class ClassRegistryStore:
         ).fetchall()
         if library_readback != [(value.get("libraries", []),)]:
             raise ValueError("Library inventory read-back mismatch")
+        modules = self.db.execute(
+            "SELECT metadata->'subpackageInventory' FROM "
+            + self.table("class_registry_events")
+            + " WHERE scan_id=%s AND source_commit=%s AND event_kind='metadata_sync'",
+            (scan_id, value["sourceCommit"]),
+        ).fetchall()
+        if modules != [(value.get("subpackages", []),)]:
+            raise ValueError("Subpackage inventory read-back mismatch")
         return {
             "scanId": scan_id,
             "sourceCommit": value["sourceCommit"],
             "classes": len(observed),
+            "subpackageDirectories": sum(
+                node["depth"] > 0 for node in value.get("subpackages", [])
+            ),
             "manifestLibraries": sum(
                 item["status"] == "manifest_declared"
                 for item in value.get("libraries", [])

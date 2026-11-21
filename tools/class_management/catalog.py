@@ -7,7 +7,7 @@ Name/body/description overlaps are review candidates, never automatic merge orde
 import argparse, ast, collections, hashlib, json, re, subprocess
 from pathlib import Path
 from organization import classify
-from libraries import discover_libraries, library_binding
+from libraries import discover_libraries, library_binding, build_subpackages
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
@@ -285,6 +285,7 @@ def assemble(config, inventories, commit, dirty, libraries=None):
         },
         "managers": config["managers"],
         "libraries": libraries,
+        "subpackages": build_subpackages(rows, libraries),
         "classes": rows,
         "baseClasses": sorted(bases.values(), key=lambda x: x["id"]),
         "findings": findings,

@@ -12,6 +12,8 @@ ATTRIBUTES = {
     "kind": "AST kind: class, enum, mixin or interface",
     "primaryType": "Exactly UI, API, Test or Packages; detailed roles remain independent",
     "primaryTypeEvidence": "Reason for primary category; tests override central-library membership",
+    "subpackageId": "Class source-directory identity within its library",
+    "subpackagePath": "Actual library-relative directory, not a separate published package",
     "libraryId": "Source-manifest library identity, if available",
     "libraryName": "Declared library name or explicitly unmanifested source group",
     "libraryPath": "Library source directory",
@@ -62,6 +64,24 @@ def write_csv(path, fields, rows):
 def export(value, output):
     output.mkdir(parents=True, exist_ok=True)
     rows = [dict(row, **classify(row)) for row in value["classes"]]
+    nodes = value.get("subpackages", [])
+    write_csv(
+        output / "subpackages.csv",
+        [
+            "id",
+            "libraryId",
+            "parentId",
+            "name",
+            "relativePath",
+            "path",
+            "depth",
+            "directDeclarations",
+            "totalDeclarations",
+            "packages",
+            "test",
+        ],
+        nodes,
+    )
     roles = collections.Counter(row["architecturalRole"] for row in rows)
     libraries = value.get("libraries", [])
     library_rows = []
@@ -70,6 +90,7 @@ def export(value, output):
         library_rows.append(
             {
                 "libraryId": library["id"],
+                "parentLibraryId": library.get("parentLibraryId"),
                 "name": library["name"],
                 "path": library["path"],
                 "status": library["status"],
@@ -85,6 +106,7 @@ def export(value, output):
         output / "libraries.csv",
         [
             "libraryId",
+            "parentLibraryId",
             "name",
             "path",
             "status",
@@ -278,6 +300,7 @@ def export(value, output):
     lines[insertion:insertion] = primary_lines
     (output / "Class-Organization.md").write_text("\n".join(lines))
     summary = {
+        "subpackageDirectories": sum(node["depth"] > 0 for node in nodes),
         "manifestLibraries": sum(
             row["status"] == "manifest_declared" for row in libraries
         ),

@@ -139,7 +139,7 @@ class OrganizationTest(unittest.TestCase):
         )
         self.assertEqual(value["sourceOrigin"], "generated_path_hint")
         self.assertTrue(value["isGeneratedPathHint"])
-        self.assertEqual(value["classificationVersion"], 4)
+        self.assertEqual(value["classificationVersion"], 5)
         self.assertEqual(classify(self.row())["sourceOrigin"], "unmarked_source")
 
     def test_api_client_and_platform_module_are_distinct(self):

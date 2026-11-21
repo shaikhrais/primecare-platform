@@ -257,7 +257,7 @@ def classify(row):
         "architecturalRoleLabel": ROLE_LABELS[role],
         "classificationStatus": "inferred_needs_review",
         "classificationEvidence": evidence,
-        "classificationVersion": 4,
+        "classificationVersion": 5,
         "usageScope": "test" if test else "source",
         "runtimeReadiness": "not_assessed",
     }
