@@ -86,6 +86,38 @@ class LibraryTest(unittest.TestCase):
             )["subpackageId"],
         )
 
+    def test_ui_directory_counts_exclude_test_fixtures(self):
+        library = {
+            "id": "lib",
+            "path": "packages/ui",
+            "pathPrefix": "packages/ui/",
+            "name": "ui",
+            "status": "manifest_declared",
+        }
+        rows = []
+        for name, category, primary in [
+            ("screen", "ui.screen", "packages"),
+            ("card", "ui.basecomponent", "packages"),
+            ("test_screen", "ui.screen", "test"),
+        ]:
+            path = "packages/ui/lib/src/" + name + ".dart"
+            rows.append(
+                dict(
+                    path=path,
+                    uiCategory=category,
+                    primaryType=primary,
+                    **library_binding({"path": path}, [library]),
+                )
+            )
+        node = next(
+            node
+            for node in build_subpackages(rows, [library])
+            if node["relativePath"] == "."
+        )
+        self.assertEqual(node["uiScreens"], 1)
+        self.assertEqual(node["uiBaseComponents"], 1)
+        self.assertEqual(node["totalDeclarations"], 3)
+
     def test_invalid_manifest_does_not_become_a_fake_library(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

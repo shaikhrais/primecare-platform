@@ -151,6 +151,8 @@ def build_subpackages(rows, libraries):
                 "path": library["path"] + ("/" + relative if parts else ""),
                 "depth": len(parts),
                 "directDeclarations": 0,
+                "uiScreens": 0,
+                "uiBaseComponents": 0,
                 "totalDeclarations": 0,
                 "packages": 0,
                 "test": 0,
@@ -169,6 +171,11 @@ def build_subpackages(rows, libraries):
             rel = PurePosixPath(*parts[:level]).as_posix() if level else "."
             node = ensure(library, rel)
             node["totalDeclarations"] += 1
+            if row["primaryType"] != "test":
+                if row.get("uiCategory") == "ui.screen":
+                    node["uiScreens"] += 1
+                if row.get("uiCategory") == "ui.basecomponent":
+                    node["uiBaseComponents"] += 1
             if level == len(parts):
                 node["directDeclarations"] += 1
             if row["primaryType"] in {"packages", "test"}:

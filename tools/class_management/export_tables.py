@@ -20,6 +20,7 @@ ATTRIBUTES = {
     "libraryStatus": "manifest_declared, source_group_only or not_in_package_library",
     "sourceOrigin": "Test, external scope, generated path hint or unmarked source",
     "isGeneratedPathHint": "Path-based hint only; not proof of source generation",
+    "uiCategory": "ui.screen or ui.basecomponent; other roles are not forced into either",
     "architecturalRole": "Screen, section, widget, controller, model, repository, service, etc.; inferred",
     "managerId": "Declared architecture ownership group",
     "parentManagerId": "Parent of the owning manager",
@@ -75,6 +76,8 @@ def export(value, output):
             "relativePath",
             "path",
             "depth",
+            "uiScreens",
+            "uiBaseComponents",
             "directDeclarations",
             "totalDeclarations",
             "packages",
@@ -96,6 +99,16 @@ def export(value, output):
                 "status": library["status"],
                 "manifestCount": len(library["manifests"]),
                 "declarations": len(members),
+                "uiScreens": sum(
+                    row.get("uiCategory") == "ui.screen"
+                    and row["primaryType"] != "test"
+                    for row in members
+                ),
+                "uiBaseComponents": sum(
+                    row.get("uiCategory") == "ui.basecomponent"
+                    and row["primaryType"] != "test"
+                    for row in members
+                ),
                 **{
                     key: sum(row["primaryType"] == key for row in members)
                     for key in PRIMARY_TYPES
@@ -112,6 +125,8 @@ def export(value, output):
             "status",
             "manifestCount",
             "declarations",
+            "uiScreens",
+            "uiBaseComponents",
             "ui",
             "api",
             "test",

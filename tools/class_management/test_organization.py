@@ -131,6 +131,29 @@ class OrganizationTest(unittest.TestCase):
         )
         self.assertEqual(value["primaryType"], "test")
 
+    def test_ui_screens_and_base_components_exclude_supporting_roles(self):
+        self.assertEqual(classify(self.row())["uiCategory"], "ui.screen")
+        self.assertEqual(
+            classify(
+                self.row(
+                    name="PrimeCard",
+                    path="packages/primecare_ui/lib/card.dart",
+                    managerId="ui",
+                )
+            )["uiCategory"],
+            "ui.basecomponent",
+        )
+        for name in ["DashboardSection", "DashboardController", "DashboardModel"]:
+            self.assertIsNone(classify(self.row(name=name))["uiCategory"])
+        self.assertEqual(
+            classify(
+                self.row(
+                    name="DashboardScreen", path="packages/ui/test/screen_test.dart"
+                )
+            )["primaryType"],
+            "test",
+        )
+
     def test_generated_location_is_a_hint_not_verified_generation(self):
         value = classify(
             self.row(
@@ -139,7 +162,7 @@ class OrganizationTest(unittest.TestCase):
         )
         self.assertEqual(value["sourceOrigin"], "generated_path_hint")
         self.assertTrue(value["isGeneratedPathHint"])
-        self.assertEqual(value["classificationVersion"], 5)
+        self.assertEqual(value["classificationVersion"], 6)
         self.assertEqual(classify(self.row())["sourceOrigin"], "unmarked_source")
 
     def test_api_client_and_platform_module_are_distinct(self):

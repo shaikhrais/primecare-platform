@@ -244,6 +244,11 @@ def classify(row):
         else "unmarked_source"
     )
     return {
+        "uiCategory": "ui.screen"
+        if role == "screen"
+        else "ui.basecomponent"
+        if role == "ui_component"
+        else None,
         "primaryType": primary,
         "primaryTypeLabel": PRIMARY_TYPES[primary][0],
         "primaryTypeEvidence": primary_evidence,
@@ -257,7 +262,7 @@ def classify(row):
         "architecturalRoleLabel": ROLE_LABELS[role],
         "classificationStatus": "inferred_needs_review",
         "classificationEvidence": evidence,
-        "classificationVersion": 5,
+        "classificationVersion": 6,
         "usageScope": "test" if test else "source",
         "runtimeReadiness": "not_assessed",
     }
