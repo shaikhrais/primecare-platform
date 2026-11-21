@@ -76,6 +76,50 @@ class OrganizationTest(unittest.TestCase):
             "other",
         )
 
+    def test_primary_type_groups_preserve_detailed_role(self):
+        for name, expected in [
+            ("DashboardScreen", "ui"),
+            ("DashboardApi", "api"),
+            ("BookingModel", "data"),
+            ("AppModule", "application"),
+            ("Settings", "platform"),
+        ]:
+            result = classify(
+                self.row(
+                    name=name,
+                    baseName="StatelessWidget" if expected == "ui" else "Object",
+                )
+            )
+            self.assertEqual(result["primaryType"], expected)
+            self.assertTrue(result["architecturalRole"])
+        value = classify(
+            self.row(
+                name="DashboardScreen", path="apps/client/test/dashboard_test.dart"
+            )
+        )
+        self.assertEqual(value["primaryType"], "test")
+        self.assertEqual(value["architecturalRole"], "screen")
+        value = classify(
+            self.row(
+                name="Parser",
+                path="tools/class_management/parser.py",
+                managerId="tooling",
+                baseName="object",
+            )
+        )
+        self.assertEqual(value["primaryType"], "tooling")
+
+    def test_generated_location_is_a_hint_not_verified_generation(self):
+        value = classify(
+            self.row(
+                path="apps/client/lib/generated_screens/dashboard/dashboard_screen.dart"
+            )
+        )
+        self.assertEqual(value["sourceOrigin"], "generated_path_hint")
+        self.assertTrue(value["isGeneratedPathHint"])
+        self.assertEqual(value["classificationVersion"], 3)
+        self.assertEqual(classify(self.row())["sourceOrigin"], "unmarked_source")
+
     def test_api_client_and_platform_module_are_distinct(self):
         self.assertEqual(
             classify(self.row(name="SchedulerApi", baseName="Object"))[

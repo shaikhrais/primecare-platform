@@ -24,6 +24,18 @@ class TableExportTest(unittest.TestCase):
                     sum(int(row["count"]) for row in csv.DictReader(file)), len(rows)
                 )
 
+    def test_primary_counts_and_nested_counts_reconcile(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            value = catalog()
+            export(value, root)
+            for filename in ["primary-types.csv", "types-and-classifications.csv"]:
+                with (root / filename).open(encoding="utf-8-sig") as file:
+                    self.assertEqual(
+                        sum(int(row["count"]) for row in csv.DictReader(file)),
+                        len(value["classes"]),
+                    )
+
     def test_csv_text_cannot_become_a_spreadsheet_formula(self):
         for text in ["=1+2", "+2", "-3", "@SUM(A1)", "\t=1", "\r=2"]:
             self.assertTrue(safe(text).startswith("'"))

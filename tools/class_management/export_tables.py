@@ -5,11 +5,15 @@ import collections
 import csv
 import json
 from pathlib import Path
-from organization import ROLE_LABELS, classify
+from organization import ROLE_LABELS, PRIMARY_TYPES, classify
 
 ATTRIBUTES = {
     "name": "Actual qualified declaration name",
     "kind": "AST kind: class, enum, mixin or interface",
+    "primaryType": "Primary category: UI, API, Data, Application, Platform, Test, Tooling, External or review",
+    "primaryTypeEvidence": "Reason for primary category; tests and tooling override detail role",
+    "sourceOrigin": "Test, external scope, generated path hint or unmarked source",
+    "isGeneratedPathHint": "Path-based hint only; not proof of source generation",
     "architecturalRole": "Screen, section, widget, controller, model, repository, service, etc.; inferred",
     "managerId": "Declared architecture ownership group",
     "parentManagerId": "Parent of the owning manager",
@@ -81,6 +85,31 @@ def export(value, output):
         (row["appClass"], row["appName"] or "", row["sourceContainer"]) for row in rows
     )
     write_csv(output / "all-class-attributes.csv", list(ATTRIBUTES), rows)
+    write_csv(
+        output / "primary-types.csv",
+        ["primaryType", "label", "count", "description"],
+        [
+            {
+                "primaryType": key,
+                "label": labels[0],
+                "count": sum(row["primaryType"] == key for row in rows),
+                "description": labels[1],
+            }
+            for key, labels in PRIMARY_TYPES.items()
+        ],
+    )
+    pairs = collections.Counter(
+        (row["primaryType"], row["architecturalRole"]) for row in rows
+    )
+    write_csv(
+        output / "types-and-classifications.csv",
+        ["primaryType", "architecturalRole", "count"],
+        [
+            {"primaryType": key[0], "architecturalRole": key[1], "count": count}
+            for key, count in sorted(pairs.items())
+        ],
+    )
+
     write_csv(
         output / "managers.csv",
         ["manager", "parent", "directClasses", "includingChildren", "purpose"],
@@ -191,12 +220,31 @@ def export(value, output):
         "Recommended review order: unknown roles; ambiguous screen candidates; duplicated sections/components; unresolved bases; missing purpose/rationale. Confirm imports, runtime registration and behavior before merging or moving classes.",
         "",
     ]
+    primary_lines = [
+        "## Primary types",
+        "",
+        "| Primary type | Count | What it includes |",
+        "|---|---:|---|",
+    ]
+    primary_lines += [
+        f"| {labels[0]} | {sum(row['primaryType'] == key for row in rows):,} | {labels[1]} |"
+        for key, labels in PRIMARY_TYPES.items()
+    ]
+    primary_lines += [
+        "",
+        "Tests and non-test tooling take precedence over detailed architecture roles. Primary-type counts are mutually exclusive. Generated path hints are a separate source-origin dimension; they must not be added to primary-type totals.",
+        "",
+    ]
+    insertion = lines.index("## Managers")
+    lines[insertion:insertion] = primary_lines
     (output / "Class-Organization.md").write_text("\n".join(lines))
     summary = {
         "sourceCommit": value["sourceCommit"],
         "scanId": value["scanId"],
         "classes": len(rows),
         "roles": dict(roles),
+        "primaryTypes": dict(collections.Counter(row["primaryType"] for row in rows)),
+        "sourceOrigins": dict(collections.Counter(row["sourceOrigin"] for row in rows)),
         "managers": dict(owners),
         "appClasses": dict(collections.Counter(row["appClass"] for row in rows)),
     }

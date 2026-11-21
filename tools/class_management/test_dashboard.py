@@ -26,6 +26,20 @@ class DashboardTest(unittest.TestCase):
         self.assertIn("reviewed:false", html)
         self.assertNotIn("innerHTML", html)
 
+    def test_source_tokens_are_data_not_template_substitutions(self):
+        value = catalog()
+        value["classes"][0]["sourceDescription"] = (
+            "__PRIMARY_TYPES__ __THEME__ __DARK_THEME__"
+        )
+        html = render(value)
+        embedded = re.search(
+            r'<script id="catalog" type="application/json">(.*?)</script>', html, re.S
+        ).group(1)
+        self.assertEqual(json.loads(embedded), value)
+        self.assertIn("Types & classifications", html)
+        self.assertIn("What drives the total?", html)
+        self.assertIn('id="primaryType"', html)
+
     def test_dashboard_javascript_parses(self):
         html = render(catalog())
         script = re.findall(r"<script>(.*?)</script>", html, re.S)[0]

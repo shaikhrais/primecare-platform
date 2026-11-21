@@ -27,6 +27,56 @@ ROLE_LABELS = {
 }
 
 
+PRIMARY_TYPES = {
+    "ui": ("UI", "Screens, sections, widgets, UI state, navigation and theme."),
+    "api": (
+        "API & services",
+        "API clients, backend routes and service/transport adapters; not an endpoint count.",
+    ),
+    "data": ("Data", "Models, DTOs, repositories and language contracts."),
+    "application": ("Application", "Application and platform module composition."),
+    "platform": ("Platform", "Managers, registries and configuration."),
+    "test": (
+        "Test",
+        "Declarations in test/fixture source, regardless of their detailed role.",
+    ),
+    "tooling": ("Tooling", "Non-test scanners, generators and maintenance scripts."),
+    "external": ("External", "Declared vendor/generated dependency ownership scope."),
+    "other": ("Needs review", "No supported primary type rule matched."),
+}
+
+
+def primary_type(role, app_class, test):
+    if test:
+        return "test", "Test/fixture source takes precedence over architecture role."
+    if app_class == "external":
+        return "external", "Declared external source scope."
+    if app_class == "tooling":
+        return "tooling", "Non-test tooling source location."
+    if role in {"model", "repository", "data_contract"}:
+        return "data", "Data architecture role."
+    if role in {"api_client", "api_route", "service"}:
+        return "api", "API/service architecture role."
+    if role in {
+        "screen",
+        "section",
+        "ui_component",
+        "widget_state",
+        "view_model",
+        "controller",
+        "navigation",
+        "theme",
+    }:
+        return "ui", "Presentation architecture role."
+    if role == "module":
+        return "application", "Application/platform composition role."
+    if role in {"manager", "configuration"}:
+        return "platform", "Management/configuration role."
+    if app_class == "backend":
+        return "api", "Backend source location; detailed role still unresolved."
+    return "other", "No supported primary type evidence; manual review required."
+
+
 def classify(row):
     """Use ordered name/path/base evidence, never claim a route or behavior is verified."""
     path = PurePosixPath(row["path"])
@@ -177,7 +227,25 @@ def classify(row):
         if matches:
             role, evidence = candidate, reason
             break
+    primary, primary_evidence = primary_type(role, app_class, test)
+    generated_hint = any(
+        part in {"generated", "generated_screens", "gen"} for part in parts
+    ) or path.name.endswith((".g.dart", ".freezed.dart"))
+    origin = (
+        "test"
+        if test
+        else "external_scope"
+        if app_class == "external"
+        else "generated_path_hint"
+        if generated_hint
+        else "unmarked_source"
+    )
     return {
+        "primaryType": primary,
+        "primaryTypeLabel": PRIMARY_TYPES[primary][0],
+        "primaryTypeEvidence": primary_evidence,
+        "sourceOrigin": origin,
+        "isGeneratedPathHint": generated_hint,
         "appClass": app_class,
         "isAppClass": app_class in {"application", "website"},
         "appName": container if app_class in {"application", "website"} else None,
@@ -186,7 +254,7 @@ def classify(row):
         "architecturalRoleLabel": ROLE_LABELS[role],
         "classificationStatus": "inferred_needs_review",
         "classificationEvidence": evidence,
-        "classificationVersion": 2,
+        "classificationVersion": 3,
         "usageScope": "test" if test else "source",
         "runtimeReadiness": "not_assessed",
     }
