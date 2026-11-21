@@ -1,0 +1,50 @@
+# PrimeCare class management
+
+This module builds one source inventory with declared architecture managers and a master base-class index. It discovers real AST declarations in Dart, TypeScript/JavaScript and Python. It does not change Flutter inheritance, grant access, invent a business screen, or automatically merge similar classes.
+
+## Ownership model
+
+`master_registry.json` declares one root manager, parent managers, purpose and source-directory ownership scopes. Longest matching scope owns each observed declaration. The generated catalog is the master declaration index; IDs use language + SHA-256 of source path and qualified class name. Moving a file changes identity; moving a declaration within a file normally does not. Anonymous JavaScript closures can have unstable identities and are marked accordingly.
+
+`MasterClassManager` validates the hierarchy. `MasterBaseClassManager` rejects duplicate base declarations. A class links to its source manager and parent manager. Base classes link only through explicit source bindings or declared external SDK targets. Ambiguous imports remain unresolved; this tool does not pretend an AST scan is type resolution. `implements`, mixin and secondary Python-base names are inventory metadata, not fully resolved manager links yet.
+
+Human purpose/rationale proposals can be placed in `descriptions` under the class ID with the exact current `sourceSha256`. Stale descriptions fail validation. These are unapproved source proposals. Source comments remain separate from verified explanations. `baseBindings` maps class IDs to actual base declaration IDs; bindings need code review and currently do not prove import resolution.
+
+## Database and review status
+
+The additive SQL migration creates nine `govt_class_registry_*` relations inside the existing pinned production governance schema. The manifest and migration hash must match before DDL. The writer requires `CLASS_REGISTRY_WRITES=1`, a clean committed inventory and the existing `PRODUCTION_DATABASE_URL` GitHub Actions secret. It verifies the pinned Prisma PostgreSQL host with full TLS certificate checks. There is no SQLite or demo-data fallback.
+
+| Status | Meaning |
+|---|---|
+| `unknown` | Source was scanned; no authenticated production read-back exists. |
+| `present_current` | The production transaction read back this scan's class/source hash. |
+| `needs_review` | Automated discovery has not approved class meaning or design. |
+| `no_review` | Production has no human metadata review for the class. |
+| `stale_review` | A human review exists for an older source hash. |
+| `needs_resolution` | A base name still needs an explicit verified binding. |
+
+Automated sync never inserts or approves human reviews. It preserves observations, events and reviews and never deletes declarations based on a missing or partial scan. No business rows, role grants or runtime app registration are changed. A class recorded in the database is not proof that its implementation works.
+
+## Run locally
+
+Use Dart 3.11 / Flutter 3.41.5, TypeScript 5.9.3 and Python 3.12. Install the Dart package and the existing `tools/governance-production/requirements.txt` for PostgreSQL tests/sync. Set `CLASS_REGISTRY_TYPESCRIPT` to the installed TypeScript compiler module.
+
+```sh
+dart pub get --directory tools/class_management
+dart run tools/class_management/bin/scan.dart "$PWD" /tmp/classes-dart.json
+node tools/class_management/scan-typescript.mjs "$PWD" /tmp/classes-typescript.json
+python tools/class_management/catalog.py --dart /tmp/classes-dart.json --typescript /tmp/classes-typescript.json --output /tmp/classes-catalog.json
+python tools/class_management/render_dashboard.py --catalog /tmp/classes-catalog.json --output /tmp/class-dashboard.html
+```
+
+The HTML is a downloadable, read-only engineering audit artifact. It supports search, manager/language/review filters, pagination, class details, overlap review and source-bound purpose proposal downloads. It is not a deployed PrimeCare Dart dashboard or a production-authorized app route. It has no authenticated API or database write button. Native app hosting, permission registration, localization and shared Dart component rendering remain separate work.
+
+## CI and production execution
+
+`.github/workflows/class-registry.yml` tests parsers and real PostgreSQL 16 transactions before scanning current source. Main pushes synchronize only the allowlisted class metadata extension after an exact current-main check. Manual `observe` runs do not write; manual `sync-production` requires an exact main SHA. Production receipts are emitted only after successful commit and include zero review approvals. Source and production-read-back dashboards are distinct artifacts. Main changing while the job prepares its source causes the write gate to fail and requires a current run.
+
+Tests cover invalid hierarchies, scopes, real versus commented declarations, source identity, partial scans, spoofed status, pinned schema/manifest/migration checks, transaction idempotency, SQL cycle enforcement, human-review preservation, stale review status, dashboard script escaping and JavaScript syntax. Local PGlite is a PostgreSQL-compatible fixture, not evidence of a live production sync; native PostgreSQL CI and production receipts are reported separately.
+
+## Known limits
+
+Only the seven configured source roots and three supported languages are covered. Generated/vendor/test declarations are retained so that coverage is explicit. Invalid source is reported as partial coverage. Dynamic factories and external dependencies are not fully inventoried. Source-scope managers express architecture responsibility, not verified human ownership. Similarity groups are review candidates, including legitimate test and generated repetitions. There is no automatic class deletion, inheritance rewrite, component merge, review approval or app deployment.

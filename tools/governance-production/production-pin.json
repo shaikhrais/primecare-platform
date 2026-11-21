@@ -2099,5 +2099,25 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "accountAssignments": false
+  },
+  "classRegistryWriter": {
+    "optInVariable": "CLASS_REGISTRY_WRITES",
+    "migrationSha256": "543706637e6bfcdb8c9bf403486ea9143fccf1395dd2a8485706a8f57b9e57e6",
+    "tables": [
+      "class_registry_meta",
+      "class_registry_managers",
+      "class_registry_scans",
+      "class_registry_classes",
+      "class_registry_bases",
+      "class_registry_observations",
+      "class_registry_findings",
+      "class_registry_reviews",
+      "class_registry_events"
+    ],
+    "schemaChanges": true,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false,
+    "reviewApprovals": false
   }
 }

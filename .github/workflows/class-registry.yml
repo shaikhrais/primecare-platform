@@ -1,0 +1,119 @@
+name: Class management registry
+on:
+  push:
+    branches: [main]
+    paths: ['apps/**', 'packages/**', 'services/**', 'tools/**', 'scripts/**', 'cloudflare/**', 'websites/**', '.github/workflows/class-registry.yml']
+  pull_request:
+    paths: ['tools/class_management/**', 'tools/governance-production/production-pin.json', '.github/workflows/class-registry.yml']
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Observe source or synchronize approved production class metadata
+        type: choice
+        options: [observe, sync-production]
+        default: observe
+      expected_main:
+        description: Required exact current main SHA for manual production synchronization
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: class-registry-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: class_registry
+          POSTGRES_PASSWORD: isolated-class-fixture
+          POSTGRES_DB: class_registry_test
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install pinned scanner and PostgreSQL dependencies
+        run: |
+          dart pub get --directory tools/class_management
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/class-registry-node --ignore-scripts --no-audit --no-fund typescript@5.9.3
+      - name: Verify master registry and AST discovery
+        working-directory: tools/class_management
+        run: dart test
+      - name: Verify TypeScript AST identities
+        env:
+          CLASS_REGISTRY_TYPESCRIPT: /tmp/class-registry-node/node_modules/typescript/lib/typescript.js
+        run: node --test tools/class_management/test_typescript.mjs
+      - name: Verify class metadata validation and native PostgreSQL transactions
+        env:
+          CLASS_REGISTRY_TEST_DATABASE_URL: postgresql://class_registry:isolated-class-fixture@localhost:5432/class_registry_test
+        run: python -m unittest discover -s tools/class_management -p 'test_*.py'
+      - name: Inventory actual source classes
+        env:
+          CLASS_REGISTRY_TYPESCRIPT: /tmp/class-registry-node/node_modules/typescript/lib/typescript.js
+        run: |
+          dart run tools/class_management/bin/scan.dart "$GITHUB_WORKSPACE" /tmp/classes-dart.json
+          node tools/class_management/scan-typescript.mjs "$GITHUB_WORKSPACE" /tmp/classes-typescript.json
+          python tools/class_management/catalog.py --dart /tmp/classes-dart.json --typescript /tmp/classes-typescript.json --output /tmp/classes-catalog.json
+          python tools/class_management/render_dashboard.py --catalog /tmp/classes-catalog.json --output /tmp/class-dashboard.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: class-registry-source-${{ github.sha }}
+          retention-days: 30
+          path: |
+            /tmp/classes-catalog.json
+            /tmp/class-dashboard.html
+  production:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'sync-production'))
+    needs: verify
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: class-registry-source-${{ github.sha }}
+          path: /tmp/class-registry-source
+      - name: Require exact current main before metadata writes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_MAIN: ${{ inputs.expected_main }}
+        run: python tools/class_management/check_main.py
+      - name: Synchronize class metadata and verify production read-back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLASS_REGISTRY_WRITES: '1'
+        run: |
+          python tools/class_management/production_sync.py --catalog /tmp/class-registry-source/classes-catalog.json --receipt /tmp/class-registry-production-receipt.json --snapshot /tmp/class-registry-production.json
+          python tools/class_management/render_dashboard.py --catalog /tmp/class-registry-production.json --output /tmp/class-registry-production-dashboard.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: class-registry-production-${{ github.sha }}
+          retention-days: 90
+          path: |
+            /tmp/class-registry-production-receipt.json
+            /tmp/class-registry-production.json
+            /tmp/class-registry-production-dashboard.html

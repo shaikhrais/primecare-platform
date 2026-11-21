@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "managers": [
+    {
+      "id": "master",
+      "parentId": null,
+      "purpose": "Own the project class catalog, hierarchy validation and review backlog."
+    },
+    {
+      "id": "presentation",
+      "parentId": "master",
+      "purpose": "Own shared presentation contracts and theme composition."
+    },
+    {
+      "id": "foundation",
+      "parentId": "presentation",
+      "purpose": "Own single shared primitives and SDK delegation."
+    },
+    {
+      "id": "ui",
+      "parentId": "presentation",
+      "purpose": "Own reusable UI composition and existing feature presentation."
+    },
+    {
+      "id": "theme",
+      "parentId": "presentation",
+      "purpose": "Own palette, layout, typography and appearance persistence contracts."
+    },
+    {
+      "id": "core",
+      "parentId": "master",
+      "purpose": "Own shared application infrastructure and source governance."
+    },
+    {
+      "id": "apps",
+      "parentId": "master",
+      "purpose": "Own portal composition and application entry points."
+    },
+    {
+      "id": "services",
+      "parentId": "master",
+      "purpose": "Own backend transport and service classes."
+    },
+    {
+      "id": "tooling",
+      "parentId": "master",
+      "purpose": "Own source scanners, generators and development tooling."
+    },
+    {
+      "id": "shared",
+      "parentId": "master",
+      "purpose": "Own cross-package code without a more specific declared scope."
+    },
+    {
+      "id": "external",
+      "parentId": "master",
+      "purpose": "Track external language and framework base declarations without claiming vendor code ownership."
+    }
+  ],
+  "scopes": [
+    {
+      "prefix": "packages/database/generated/client/runtime/",
+      "manager": "external"
+    },
+    {
+      "prefix": "packages/primecare_ui_foundation/lib/",
+      "manager": "foundation"
+    },
+    {
+      "prefix": "packages/primecare_ui/lib/src/theme/",
+      "manager": "theme"
+    },
+    {
+      "prefix": "packages/flutter_core/lib/theme/",
+      "manager": "theme"
+    },
+    {
+      "prefix": "packages/primecare_ui/lib/",
+      "manager": "ui"
+    },
+    {
+      "prefix": "packages/flutter_core/lib/",
+      "manager": "core"
+    },
+    {
+      "prefix": "packages/",
+      "manager": "shared"
+    },
+    {
+      "prefix": "apps/",
+      "manager": "apps"
+    },
+    {
+      "prefix": "services/",
+      "manager": "services"
+    },
+    {
+      "prefix": "cloudflare/",
+      "manager": "services"
+    },
+    {
+      "prefix": "websites/",
+      "manager": "apps"
+    },
+    {
+      "prefix": "tools/",
+      "manager": "tooling"
+    },
+    {
+      "prefix": "scripts/",
+      "manager": "tooling"
+    }
+  ],
+  "externalBases": [
+    "Object",
+    "Enum",
+    "StatelessWidget",
+    "StatefulWidget",
+    "State",
+    "ConsumerWidget",
+    "ConsumerStatefulWidget",
+    "ConsumerState",
+    "HookWidget",
+    "HookConsumerWidget",
+    "StateNotifier",
+    "Notifier",
+    "AsyncNotifier",
+    "AutoDisposeNotifier",
+    "AutoDisposeAsyncNotifier",
+    "ChangeNotifier",
+    "ValueNotifier",
+    "Widget",
+    "InheritedWidget",
+    "InheritedNotifier",
+    "Card",
+    "TextFormField",
+    "LinearProgressIndicator",
+    "CircularProgressIndicator",
+    "TextButton",
+    "FilledButton",
+    "ElevatedButton",
+    "OutlinedButton",
+    "Drawer",
+    "Scaffold",
+    "AppBar",
+    "IconButton",
+    "ListTile",
+    "DropdownButton",
+    "DropdownButtonFormField",
+    "PopupMenuButton",
+    "FilterChip",
+    "TabBar",
+    "DataTable",
+    "CheckboxListTile",
+    "RadioListTile",
+    "SwitchListTile",
+    "Slider",
+    "Checkbox",
+    "ChoiceChip",
+    "AlertDialog",
+    "FloatingActionButton",
+    "ThemeExtension",
+    "ConsumerStatefulElement",
+    "ProviderObserver",
+    "Exception",
+    "Error",
+    "DiagnosticableTree",
+    "Diagnosticable",
+    "SimpleAstVisitor"
+  ],
+  "descriptions": {},
+  "baseBindings": {}
+}

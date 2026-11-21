@@ -1,0 +1,11 @@
+name: primecare_class_management
+description: AST-based source ownership and production class governance tooling.
+publish_to: none
+environment:
+  sdk: ^3.11.0
+dependencies:
+  analyzer: 10.0.1
+  crypto: 3.0.7
+  path: 1.9.1
+dev_dependencies:
+  test: 1.30.0
