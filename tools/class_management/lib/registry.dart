@@ -24,7 +24,8 @@ class MasterClassManager {
     if (roots.length != 1)
       throw FormatException('Exactly one master manager required');
     for (final entry in entries) {
-      if (entry.id.isEmpty || entry.purpose.trim().isEmpty) {
+      if (!RegExp(r'^[a-z][a-z0-9-]{0,63}$').hasMatch(entry.id) ||
+          entry.purpose.trim().isEmpty) {
         throw FormatException('Manager identity and purpose required');
       }
       final visited = <String>{};
@@ -39,7 +40,11 @@ class MasterClassManager {
       }
     }
     for (final rule in rules) {
-      if (!managers.containsKey(rule.manager) || rule.prefix.contains('..')) {
+      if (!managers.containsKey(rule.manager) ||
+          rule.prefix.isEmpty ||
+          rule.prefix.startsWith('/') ||
+          !rule.prefix.endsWith('/') ||
+          rule.prefix.split('/').contains('..')) {
         throw FormatException('Invalid manager scope');
       }
     }
@@ -97,10 +102,12 @@ class BaseClassDeclaration {
 
 /// Master index of base classes, including explicit external SDK targets.
 class MasterBaseClassManager {
-  final Map<String, BaseClassDeclaration> declarations = {};
+  final Map<String, BaseClassDeclaration> _declarations = {};
+  Map<String, BaseClassDeclaration> get declarations =>
+      Map.unmodifiable(_declarations);
   void declare(BaseClassDeclaration value) {
-    if (declarations.containsKey(value.id))
+    if (_declarations.containsKey(value.id))
       throw FormatException('Duplicate base declaration');
-    declarations[value.id] = value;
+    _declarations[value.id] = value;
   }
 }

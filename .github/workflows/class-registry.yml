@@ -54,7 +54,9 @@ jobs:
           npm install --prefix /tmp/class-registry-node --ignore-scripts --no-audit --no-fund typescript@5.9.3
       - name: Verify master registry and AST discovery
         working-directory: tools/class_management
-        run: dart test
+        run: |
+          dart test
+          dart analyze
       - name: Verify TypeScript AST identities
         env:
           CLASS_REGISTRY_TYPESCRIPT: /tmp/class-registry-node/node_modules/typescript/lib/typescript.js

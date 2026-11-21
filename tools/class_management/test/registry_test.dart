@@ -108,6 +108,7 @@ void main() {
       'external_declared',
     );
     registry.declare(base);
+    expect(() => registry.declarations.clear(), throwsUnsupportedError);
     expect(() => registry.declare(base), throwsFormatException);
   });
 }
