@@ -21,6 +21,7 @@ try{
   const origin='http://127.0.0.1:'+server.address().port;
   await page.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
   await page.goto(origin+'/?enable-semantics=true');
+  assert.match(await page.locator('[data-cy=kitchen-sink-root]').evaluate(el=>getComputedStyle(el).fontFamily),/Inter|system-ui|sans-serif/);
   const captures=path.join(root,'artifacts/kitchen-sink-visual');await fs.mkdir(captures,{recursive:true});
   for(const [device,width,height] of [['desktop',1440,1000],['tablet',820,1180],['mobile',390,844]]){
     await page.setViewportSize({width,height});
