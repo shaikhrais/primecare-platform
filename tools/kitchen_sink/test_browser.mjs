@@ -21,6 +21,16 @@ try{
   const origin='http://127.0.0.1:'+server.address().port;
   await page.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
   await page.goto(origin+'/?enable-semantics=true');
+  const captures=path.join(root,'artifacts/kitchen-sink-visual');await fs.mkdir(captures,{recursive:true});
+  for(const [device,width,height] of [['desktop',1440,1000],['tablet',820,1180],['mobile',390,844]]){
+    await page.setViewportSize({width,height});
+    for(const theme of ['light','dark']){
+      if((await page.locator('[data-cy=kitchen-sink-root]').getAttribute('data-theme'))!==theme)await page.locator('[data-cy=ks-theme]').click();
+      await page.screenshot({path:path.join(captures,device+'-'+theme+'.png'),fullPage:true,animations:'disabled'});
+    }
+  }
+  await page.setViewportSize({width:1280,height:900});
+  if((await page.locator('[data-cy=kitchen-sink-root]').getAttribute('data-theme'))==='dark')await page.locator('[data-cy=ks-theme]').click();
   const cy=id=>page.locator('[data-cy="'+id+'"]');
   await cy('ks-results').waitFor();assert.equal(await cy('ks-results').textContent(),'36 / 36');
   assert.equal(await page.locator('[data-cy^="ks-story-"]').count(),36);
