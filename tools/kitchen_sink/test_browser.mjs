@@ -31,9 +31,12 @@ try{
       assert.ok(palette.every(Boolean),'all six chart palette roles must resolve');
       const line=page.locator('[data-cy=ks-preview-line] svg polyline');assert.equal(await line.count(),6);
       const strokes=await line.evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).stroke));
+      const keys=page.locator('[data-cy=ks-preview-line] [data-widget-legend] [data-widget-swatch]');assert.equal(await keys.count(),6);assert.deepEqual(await keys.evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).borderBlockStartColor)),strokes);assert.equal(await keys.first().getAttribute('aria-hidden'),'true');
       assert.equal(new Set(strokes).size,6,'series must retain six distinct visible theme colors');assert.ok(strokes.every(color=>color!=='none'&&color!=='rgba(0, 0, 0, 0)'));
       assert.equal(await page.locator('[data-cy=ks-preview-bar] svg rect').count(),18);
       assert.equal(await page.locator('[data-cy=ks-preview-donut] svg circle').count(),6);
+      const sliceColors=await page.locator('[data-cy=ks-preview-donut] svg circle').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).stroke));assert.deepEqual(await page.locator('[data-cy=ks-preview-donut] tbody [data-widget-swatch]').evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).backgroundColor)),sliceColors);
+      assert.deepEqual(await keys.evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).borderBlockStartStyle)),['solid','dashed','solid','dashed','solid','dashed']);
       for(const kind of ['line','area']){
         assert.equal(await page.locator('[data-cy=ks-preview-'+kind+'] svg').evaluate(svg=>{const box=svg.viewBox.baseVal;return [...svg.querySelectorAll('circle')].every(dot=>{const x=dot.cx.baseVal.value,y=dot.cy.baseVal.value,r=dot.r.baseVal.value;return x-r>=box.x&&y-r>=box.y&&x+r<=box.x+box.width&&y+r<=box.y+box.height;});}),true,'endpoint markers must fit inside the '+kind+' drawing bounds');
       }
@@ -46,6 +49,15 @@ try{
       await page.screenshot({path:path.join(captures,device+'-'+theme+'.png'),fullPage:true,animations:'disabled'});
     }
   }
+  for(const direction of ['ltr','rtl']){
+    await page.locator('[data-cy=kitchen-sink-root]').evaluate((el,direction)=>el.dir=direction,direction);
+    await page.setViewportSize({width:390,height:844});
+    const table=page.locator('[data-cy=ks-preview-line] [data-widget-table]');
+    const context=await table.evaluate(el=>{const header=el.querySelector('tbody th'),before=header.getBoundingClientRect();el.scrollLeft=getComputedStyle(el).direction==='rtl'?-120:120;const after=header.getBoundingClientRect();return {moved:Math.abs(el.scrollLeft)>0,anchored:Math.abs(before.x-after.x)<2};});
+    assert.deepEqual(context,{moved:true,anchored:true},direction+' category labels must stay visible during horizontal scroll');
+    await page.locator('[data-cy=ks-preview-line]').screenshot({path:path.join(captures,'chart-mobile-'+direction+'.png'),animations:'disabled'});
+  }
+  await page.locator('[data-cy=kitchen-sink-root]').evaluate(el=>el.removeAttribute('dir'));
   const assetRegistry=JSON.parse(await fs.readFile(path.join(root,'packages/primecare_ui/assets/original/registry.json'),'utf8'));
   const assetKeys=Object.keys(assetRegistry.assets).sort();
   assert.deepEqual((await page.locator('[data-cy^="ks-asset-"] figcaption').allTextContents()).sort(),assetKeys);
