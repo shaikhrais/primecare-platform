@@ -47,7 +47,7 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
   }
   owners.set(root, dispose); root.dataset.pcKitchenSink = instance; root.dataset.theme = options.theme ?? 'light';
   if (options.bridgeTheme) {
-    const aliases: Record<string,string> = {'--color-primary':'var(--pc-primary)', '--color-on-primary':'var(--pc-text-on-primary)',
+    const aliases: Record<string,string> = {'--color-primary':'var(--pc-primary)', '--color-secondary':'var(--pc-secondary)', '--color-info':'var(--pc-info)', '--color-on-primary':'var(--pc-text-on-primary)',
       '--color-text':'var(--pc-text-primary)', '--color-text-muted':'var(--pc-text-secondary)', '--color-border':'var(--pc-border-primary)',
       '--color-background':'var(--pc-bg-secondary)', '--color-surface':'var(--pc-surface-card)', '--color-error':'var(--pc-error)',
       '--color-success':'var(--pc-success)', '--color-warning':'var(--pc-warning)', '--radius-md':'var(--pc-radius-md)',
@@ -86,7 +86,8 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
       const kit = new PrimeDashboardWidgets(host,scope,locale); cleanup.push(() => kit.dispose());
       if (story.id === 'metric') host.append(kit.metric(labels.status,24,words[locale].demo,'-'+scope));
       else host.append(kit.chart({kind:story.id as 'line'|'area'|'bar'|'donut',title:story.titles[locale],
-        categories:[labels.optionOne,labels.optionTwo,labels.status],series:[{id:'demo',label:words[locale].demo,values:[12,18,9]}]},
+        categories:story.id==='donut'?Array.from({length:6},(_,i)=>`${words[locale].demo} ${i+1}`):[labels.optionOne,labels.optionTwo,labels.status],
+        series:story.id==='donut'?[{id:'demo',label:words[locale].demo,values:[12,18,9,14,7,11]}]:[[12,18,9],[9,7,15],[4,12,6],[18,4,14],[5,9,12],[8,14,3]].map((values,i)=>({id:'demo-'+i,label:`${words[locale].demo} ${i+1}`,values}))},
         {width:420,height:220,stroke:2},'-'+scope));
       return;
     }

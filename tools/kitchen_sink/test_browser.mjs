@@ -27,6 +27,13 @@ try{
     await page.setViewportSize({width,height});
     for(const theme of ['light','dark']){
       if((await page.locator('[data-cy=kitchen-sink-root]').getAttribute('data-theme'))!==theme)await page.locator('[data-cy=ks-theme]').click();
+      const palette=await page.locator('[data-cy=kitchen-sink-root]').evaluate(el=>['primary','secondary','success','warning','error','info'].map(key=>getComputedStyle(el).getPropertyValue('--color-'+key).trim()));
+      assert.ok(palette.every(Boolean),'all six chart palette roles must resolve');
+      const line=page.locator('[data-cy=ks-preview-line] svg polyline');assert.equal(await line.count(),6);
+      const strokes=await line.evaluateAll(nodes=>nodes.map(el=>getComputedStyle(el).stroke));
+      assert.equal(new Set(strokes).size,6,'series must retain six distinct visible theme colors');assert.ok(strokes.every(color=>color!=='none'&&color!=='rgba(0, 0, 0, 0)'));
+      assert.equal(await page.locator('[data-cy=ks-preview-bar] svg rect').count(),18);
+      assert.equal(await page.locator('[data-cy=ks-preview-donut] svg circle').count(),6);
       await page.screenshot({path:path.join(captures,device+'-'+theme+'.png'),fullPage:true,animations:'disabled'});
     }
   }
@@ -46,6 +53,12 @@ try{
   await page.locator('[data-cy=ks-assets] summary').click();
   await page.setViewportSize({width:1280,height:900});
   if((await page.locator('[data-cy=kitchen-sink-root]').getAttribute('data-theme'))==='dark')await page.locator('[data-cy=ks-theme]').click();
+  await page.locator('[data-cy=ks-preview-line] [aria-pressed]').first().click();
+  assert.equal(await page.locator('[data-cy=ks-preview-line] svg polyline').count(),5);
+  await page.locator('[data-cy=ks-preview-line] [aria-pressed]').first().click();
+  assert.equal(await page.locator('[data-cy=ks-preview-line] svg polyline').count(),6);
+  await page.locator('[data-cy=ks-preview-line]').screenshot({path:path.join(captures,'chart-line.png'),animations:'disabled'});
+  await page.locator('[data-cy=ks-preview-donut]').screenshot({path:path.join(captures,'chart-donut.png'),animations:'disabled'});
   const cy=id=>page.locator('[data-cy="'+id+'"]');
   await cy('ks-results').waitFor();assert.equal(await cy('ks-results').textContent(),'36 / 36');
   assert.equal(await page.locator('[data-cy^="ks-story-"]').count(),36);

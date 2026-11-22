@@ -15,6 +15,7 @@
   /* Brand */
   --pc-primary: #00897b;
   --pc-primary-dark: #004d40;
+  --pc-secondary: var(--pc-primary-dark);
   --pc-accent: #c2ffd9;
   --pc-text-on-primary: #ffffff;
 
@@ -118,6 +119,7 @@
 
 /* ── Dark theme ────────────────────────────────────────────────────────── */
 [data-theme="dark"] {
+  --pc-secondary: var(--pc-text-secondary);
   --pc-bg-primary: #0F172A;
   --pc-bg-secondary: #1E293B;
   --pc-bg-tertiary: #334155;
