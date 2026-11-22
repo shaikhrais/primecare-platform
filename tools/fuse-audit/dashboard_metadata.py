@@ -4,6 +4,8 @@ This report contains registrations only, never patient/business rows or credenti
 No write adapter, mutation flag or SQL supplied by a caller is accepted.
 """
 import argparse
+import collections
+import hashlib
 import datetime
 import json
 import re
@@ -79,7 +81,15 @@ def inspect(db):
         registered_kinds.append(dict(apiId=api['id'], requestSchemaReadable=readable, declaredKinds=kinds))
     api_matches = len(apis) == 1 and all(apis[0][key] == preference[expected] for key, expected in [('path','path'),('method','method'),('service_name','service'),('permission_key','permissionKey')]) and apis[0]['auth_required'] == 1
     candidates = rows(db, 'SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE LOWER(screen_code) LIKE ? OR LOWER(screen_code) LIKE ? OR LOWER(screen_code) LIKE ? OR LOWER(screen_code) LIKE ? ORDER BY id LIMIT 200', ('%analytics%', '%project%', '%finance%', '%crypto%'))
-    return dict(contracts=contracts, preferenceApi=dict(expectedId=preference['apiId'], registrations=apis, matchesSourceContract=api_matches, registeredRequestKindDeclarations=registered_kinds),
+    catalogue = json.loads((ROOT / 'packages/primecare_ui/catalogs/developer-catalogue.json').read_text())
+    assets = json.loads((ROOT / 'packages/primecare_ui/assets/original/registry.json').read_text())
+    checks = []
+    for feature in catalogue['features']:
+        for entry in feature.get('sources', []):
+            path = (ROOT / entry['path']).resolve()
+            present = path.is_relative_to(ROOT) and path.is_file()
+            checks.append(dict(feature=feature['id'], path=entry['path'], present=present, matchesRecordedHash=present and hashlib.sha256(path.read_bytes()).hexdigest() == entry['sha256']))
+    return dict(developerCatalogue=dict(featureCount=len(catalogue['features']), recordedDispositions=dict(collections.Counter(f['disposition'] for f in catalogue['features'])), fullReferenceParity=catalogue['fullReferenceParity'], runtimeActivated=catalogue['runtimeActivated'], appWideAdoptionVerified=catalogue['appWideAdoptionVerified'], sourceChecks=checks), canonicalAssetCatalogue=dict(assetCount=len(assets['assets']), categories=dict(collections.Counter(a['category'] for a in assets['assets'].values()))), contracts=contracts, preferenceApi=dict(expectedId=preference['apiId'], registrations=apis, matchesSourceContract=api_matches, registeredRequestKindDeclarations=registered_kinds),
         dashboardScreenCandidates=candidates, candidateLimit=200, candidateListMayBeTruncated=len(candidates) == 200,
         sourcePersistenceAdapter=dict(path='packages/shared/src/dashboard-widgets/session.ts', contract='Host-provided port required; this audit does not test an HTTP adapter.'), sourcePreferenceKinds=sorted({kind for branch in preference['requestSchema'].get('oneOf', []) for kind in ([branch.get('properties', {}).get('kind', {}).get('const')] + branch.get('properties', {}).get('kind', {}).get('enum', [])) if isinstance(kind, str)}),
         limitations=['Registration is not proof of deployment, authorization enforcement, business data binding or visual acceptance.',

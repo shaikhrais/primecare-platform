@@ -45,6 +45,8 @@ class ReadinessTests(unittest.TestCase):
         self.assertTrue(result['preferenceApi']['matchesSourceContract'])
         self.assertTrue(result['contracts']['dashboard-pages']['registeredHosts'][0]['matchesContract'])
         self.assertNotIn('productionReady', result)
+        self.assertFalse(result['developerCatalogue']['fullReferenceParity'])
+        self.assertFalse(result['developerCatalogue']['appWideAdoptionVerified'])
         self.assertIn('theme', result['sourcePreferenceKinds'])
         self.assertNotIn('dashboard', result['sourcePreferenceKinds'])
         self.assertTrue(all(sql.startswith('SELECT ') for sql in db.statements))
