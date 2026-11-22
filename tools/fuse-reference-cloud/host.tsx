@@ -12,7 +12,9 @@ import layouts from './components/theme-layouts/themeLayoutConfigs';
 import SettingsPanel from './components/theme-layouts/components/configurator/SettingsPanel';
 import RootThemeProvider from './contexts/RootThemeProvider';
 import MainThemeProvider from './contexts/MainThemeProvider';
-const initial=_.merge({},defaultSettings,{layout:{style:'layout1',config:layouts.layout1.defaults}},settingsConfig);
+const requestedLayout=new URLSearchParams(location.search).get('layout');
+const layout=requestedLayout==='layout2'||requestedLayout==='layout3'?requestedLayout:'layout1';
+const initial=_.merge({},defaultSettings,settingsConfig,{layout:{style:layout,config:layouts[layout].defaults}});
 if(new URLSearchParams(location.search).get('mode')==='dark')initial.theme={main:themes.defaultDark,navbar:themes.defaultDark,toolbar:themes.defaultDark,footer:themes.defaultDark};
 function Reference(){
  const [data,setData]=useState(initial);

@@ -6,6 +6,22 @@ on:
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
+  live:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Read current portal stamps and verify static assets
+        run: python tools/fuse-reference-cloud/live_manifest.py artifacts/live-portals.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: current-live-portal-integrity
+          path: artifacts/live-portals.json
+          retention-days: 30
   reference:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -42,8 +58,10 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
         working-directory: packages/flutter_core
-      - name: Render PrimeCare shared Dart panel for direct comparison
-        run: flutter test --update-goldens test/screenshots/theme_center_capture_test.dart --reporter expanded
+      - name: Prepare all three native layout families
+        run: python3 tools/fuse-reference-cloud/prepare_layout_capture.py packages/flutter_core/test/screenshots/generated_layout_capture_test.dart
+      - name: Render PrimeCare shared Dart panels for direct comparison
+        run: flutter test --update-goldens test/screenshots/generated_layout_capture_test.dart --reporter expanded
         working-directory: packages/flutter_core
       - uses: actions/upload-artifact@v4
         if: always()
