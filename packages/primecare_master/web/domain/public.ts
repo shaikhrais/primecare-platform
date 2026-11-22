@@ -1,2 +1,2 @@
 // Generated gateway. Do not copy implementation here.
-export * from "../../../domain/src/index.ts";
+export * from "../../../domain/src/index";

@@ -1,10 +1,10 @@
-import {requireScreenManager,showScreenConfigurationError} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
-import {clearLayoutCustomizer} from "../../../packages/primecare_master/web/primecare_ui/web/layout-customizer.ts";
+import {requireScreenManager,showScreenConfigurationError} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
+import {clearLayoutCustomizer} from "../../../packages/primecare_master/web/primecare_ui/web/layout-customizer";
 import {resolveManagedRoute} from './managed-routes';
 import {FormDraft} from './form-draft';
 import {DashboardMediaLook} from './media-look';
-import {registry} from "../../../packages/primecare_master/web/shared/src/look/manager.ts";
-import daylight from "../../../packages/primecare_master/web/shared/src/growth/registry.json.ts";
+import {registry} from "../../../packages/primecare_master/web/shared/src/look/manager";
+import daylight from "../../../packages/primecare_master/web/shared/src/growth/registry.json";
 import {renderShell,bindShell} from './shell';
 import {escapeHtml as esc} from './workspace';
 /** Presentation-only client. Review state and eligibility come from the API. */

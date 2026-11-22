@@ -1,6 +1,6 @@
 import {BaseSessionClient} from './infrastructure/http/base-session-client';
 import {signOut} from './auth-client';
-import catalog from "../../../packages/primecare_master/web/shared/src/maintenance.json.ts";
+import catalog from "../../../packages/primecare_master/web/shared/src/maintenance.json";
 
 // Server messages can be unregistered; preserve the existing fallback in that case.
 const serverMessages:Readonly<Partial<Record<string,string>>>=catalog.serverMessages;

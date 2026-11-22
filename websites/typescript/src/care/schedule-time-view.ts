@@ -1,7 +1,7 @@
-import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract";
 import {esc,type T} from '../growth/forms';
 import {input,memo,select,check} from './views';
-import {pairedPaginationMarkup} from "../../../../packages/primecare_master/web/primecare_ui/web/paired-pagination.ts";
+import {pairedPaginationMarkup} from "../../../../packages/primecare_master/web/primecare_ui/web/paired-pagination";
 
 export function schedulesView(t:T,data:any,preview:any){
  const s=data.schedules;if(!s?.canManage)return '';

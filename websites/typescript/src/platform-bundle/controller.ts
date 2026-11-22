@@ -1,7 +1,7 @@
 import {focusInWorkspace} from '../focus';
 import {BundleHistoryController} from './history-controller';
 import {attentionPanel} from './attention-panel';
-import {registry,type BundleData,type BundleLocale,type AttentionData,type AttentionItem} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract.ts";
+import {registry,type BundleData,type BundleLocale,type AttentionData,type AttentionItem} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract";
 import {BundleClient,fileContent} from './client';
 import {bundlePanel} from './panel';
 import {FormDraft} from '../form-draft';

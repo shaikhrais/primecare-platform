@@ -1,5 +1,5 @@
-import {guardedJson} from "../../../../packages/primecare_master/web/shared/src/guarded-json.ts";
-import catalog from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json.ts";
+import {guardedJson} from "../../../../packages/primecare_master/web/shared/src/guarded-json";
+import catalog from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json";
 /** Uses existing API16578 only. Token checks also surround JSON decoding. No mutation or retry. */
 export function dashboardPageTransport(origin:string, token:string, dataset:'live'|'demo', currentToken:()=>string|null, fetcher:typeof fetch=fetch) {
  const base=new URL(origin);

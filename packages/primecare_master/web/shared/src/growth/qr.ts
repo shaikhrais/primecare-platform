@@ -1,2 +1,2 @@
 // Generated gateway. Do not copy implementation here.
-export * from "../../../../../shared/src/growth/qr.ts";
+export * from "../../../../../shared/src/growth/qr";

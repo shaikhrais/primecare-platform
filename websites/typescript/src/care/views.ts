@@ -1,4 +1,4 @@
-import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract";
 import {esc,type T} from '../growth/forms';
 
 export const select=(t:T,key:string,label:string,name:string,options:{id:string;label:string}[],value='')=>`<label>${t(label)}<select name="${name}" required data-cy="${key}"><option value="">${t('choose')}</option>${options.map(o=>`<option value="${esc(o.id)}" ${o.id===value?'selected':''}>${esc(o.label)}</option>`).join('')}</select></label>`;

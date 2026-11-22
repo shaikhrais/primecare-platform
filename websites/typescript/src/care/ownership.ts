@@ -1,4 +1,4 @@
-import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
 import {resolveManagedRoute} from '../managed-routes';
 
 const owners=new WeakMap<HTMLElement,CareOwnership>();

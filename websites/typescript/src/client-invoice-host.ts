@@ -1,5 +1,5 @@
-import {PrimeClientInvoices,ClientInvoices} from "../../../packages/primecare_master/web/primecare_ui/web/client-invoices.ts";
-import metadata from "../../../packages/primecare_master/web/primecare_ui/catalogs/client-invoices.registration.json.ts";
+import {PrimeClientInvoices,ClientInvoices} from "../../../packages/primecare_master/web/primecare_ui/web/client-invoices";
+import metadata from "../../../packages/primecare_master/web/primecare_ui/catalogs/client-invoices.registration.json";
 /** Only the already server-filtered client-profile page may own this optional read view. */
 export function mountClientInvoices(root:HTMLElement,options:{gateway:string;token:string;page:{code:string;route:string};identity:{userId:string;role:string};locale:'en'|'fr'|'es';isCurrent:()=>boolean;fetcher?:typeof fetch}):()=>void{
  const {gateway,token,locale,isCurrent,fetcher}=options,page={...options.page},identity={...options.identity};

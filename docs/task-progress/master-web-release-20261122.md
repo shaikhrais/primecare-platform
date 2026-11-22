@@ -34,3 +34,9 @@ acceptance for the exact candidate commit in Chromium, Firefox and WebKit before
 calling the existing website publisher. Browser fixture acceptance and live
 source/asset verification are separate evidence; neither certifies every signed-in
 business process. GitHub Actions results are authoritative for publication status.
+
+Compatibility follow-up: master TypeScript specifiers keep the existing
+extensionless style, including the generated re-exports. The Vapi compiler
+configuration therefore needs no relaxed flags, and the existing theme preference
+host lifecycle fixture continues to intercept the same module names. This fixes
+TS5097 and lifecycle fixture export failures found by the first CI candidate.

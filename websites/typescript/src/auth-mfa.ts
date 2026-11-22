@@ -1,4 +1,4 @@
-import catalog from "../../../packages/primecare_master/web/shared/src/auth-mfa.json.ts";
+import catalog from "../../../packages/primecare_master/web/shared/src/auth-mfa.json";
 export type MfaChallenge = {challenge:string;purpose:'enroll'|'verify';setupKey?:string};
 /** Present a password-verified challenge in memory only. No seed/token storage. */
 export function requestMfa(parent:HTMLElement,challenge:MfaChallenge,locale:'en'|'fr'|'es',verify:(code:string)=>Promise<string>,signal?:AbortSignal,discard?:(token:string)=>Promise<void>):Promise<string> {

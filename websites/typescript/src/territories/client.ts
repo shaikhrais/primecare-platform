@@ -1,4 +1,4 @@
-import registry from "../../../../packages/primecare_master/web/shared/src/territories/registry.json.ts";
+import registry from "../../../../packages/primecare_master/web/shared/src/territories/registry.json";
 export type Territory={id:string;number:number;code:string;name:string;fsas:string[];seniors65:number;population:number;status:'available'|'sold'|'reserve';canSell:boolean;version:number;allocation:null|{tenantId:string;tenantName:string;services:string[];reference:string;recordedAt:string}};
 export type Board={canManage:boolean;source:typeof registry.source;territories:Territory[];tenants:{id:string;name:string;slug:string}[];summary:Record<'available'|'sold'|'reserve',{count:number;seniors65:number}>};
 export class TerritoryClient{

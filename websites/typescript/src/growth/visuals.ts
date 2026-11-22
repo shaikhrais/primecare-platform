@@ -1,6 +1,6 @@
 import {focusInWorkspace} from '../focus';
 import {BaseMediaLook} from '../media-look';
-import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract";
 import {esc,type T} from './forms';
 export function icon(name:keyof typeof registry.visual.icons,id?:string){return new BaseMediaLook().icon(name,id?'growth-icon-'+id:undefined);}
 export function hero(t:T,data:any){return `<section class="growth-hero" data-cy="growth-hero"><div class="growth-hero-copy"><p class="eyebrow">${t(data.scopeKey??'scope')}</p><h1>${t('title')}</h1><p class="growth-intro">${t('hero_description')}</p><span class="growth-period">${icon('calendar')} ${esc(data.plan.start)} — ${esc(data.plan.end)} UTC</span></div>${new BaseMediaLook().image('care',{className:'growth-hero-image',testId:'growth-care-image',alt:t('care_image_alt'),priority:true})}</section>`;}

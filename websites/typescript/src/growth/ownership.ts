@@ -1,5 +1,5 @@
-import {requireScreenManager,ScreenConfigurationError,showScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
-import {clearLayoutCustomizer} from "../../../../packages/primecare_master/web/primecare_ui/web/layout-customizer.ts";
+import {requireScreenManager,ScreenConfigurationError,showScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
+import {clearLayoutCustomizer} from "../../../../packages/primecare_master/web/primecare_ui/web/layout-customizer";
 import {resolveManagedRoute} from '../managed-routes';
 
 const owners=new WeakMap<HTMLElement,()=>void>();

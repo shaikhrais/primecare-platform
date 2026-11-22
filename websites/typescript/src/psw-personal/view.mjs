@@ -1,8 +1,8 @@
 
-import PLAN from "../../../../packages/primecare_master/web/shared/src/psw-personal/catalog.json.ts";
+import PLAN from "../../../../packages/primecare_master/web/shared/src/psw-personal/catalog.json";
 import {seedPersonal as seed} from "../../../../packages/primecare_master/web/shared/src/psw-personal/core.mjs";
 import {renderCare} from '../care/dashboard';
-import {carePersonalMetricsMarkup} from "../../../../packages/primecare_master/web/primecare_ui/web/care-workspace-controls.ts";
+import {carePersonalMetricsMarkup} from "../../../../packages/primecare_master/web/primecare_ui/web/care-workspace-controls";
 export async function renderPersonalView(root,gateway,initial,api,{owner,clinical}){
 const active=()=>owner.current(),wait=()=>owner.whenActive(),dialogs=new Map();let readEpoch=0,activeSave,commandScope;
 if(!active())return;

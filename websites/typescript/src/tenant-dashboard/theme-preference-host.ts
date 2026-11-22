@@ -1,8 +1,8 @@
-import {themeLibraryAbsent} from "../../../../packages/primecare_master/web/primecare_ui/web/theme-restore-storage.ts";
-import {PreferenceSyncClient,PreferenceFailure} from "../../../../packages/primecare_master/web/shared/src/preference-sync/client.ts";
-import {preferenceHttpTransport,preferenceStorageCache} from "../../../../packages/primecare_master/web/shared/src/preference-sync/transport.ts";
-import {mountTenantThemeMigration} from "../../../../packages/primecare_master/web/primecare_ui/web/advanced-theme-tenant-control.ts";
-import {mountTenantThemeRestore} from "../../../../packages/primecare_master/web/primecare_ui/web/advanced-theme-tenant-restore-control.ts";
+import {themeLibraryAbsent} from "../../../../packages/primecare_master/web/primecare_ui/web/theme-restore-storage";
+import {PreferenceSyncClient,PreferenceFailure} from "../../../../packages/primecare_master/web/shared/src/preference-sync/client";
+import {preferenceHttpTransport,preferenceStorageCache} from "../../../../packages/primecare_master/web/shared/src/preference-sync/transport";
+import {mountTenantThemeMigration} from "../../../../packages/primecare_master/web/primecare_ui/web/advanced-theme-tenant-control";
+import {mountTenantThemeRestore} from "../../../../packages/primecare_master/web/primecare_ui/web/advanced-theme-tenant-restore-control";
 
 type Options={gateway:string;token:string;locale:'en'|'fr'|'es';tenantId:string;userId:string;dataset:'live'|'demo';isCurrent:()=>boolean;whenActive?:()=>Promise<boolean>};
 /** Mount the registered controls only when the owned preference service is available. */

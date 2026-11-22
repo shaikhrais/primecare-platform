@@ -37,7 +37,7 @@ export function references(source, filename) {
 }
 
 function gatewaySource(entry) {
-  const relative = slash(path.relative(path.dirname(entry.gateway), entry.target));
+  const relative = slash(path.relative(path.dirname(entry.gateway), entry.target)).replace(/\.tsx?$/, '');
   const spec = JSON.stringify(relative.startsWith('.') ? relative : './' + relative);
   if (entry.target.endsWith('.json')) return `// Generated gateway; JSON remains owned by its original package.\nimport value from ${spec};\nexport default value;\n`;
   return `// Generated gateway. Do not copy implementation here.\nexport * from ${spec};\n` +
@@ -94,9 +94,15 @@ export function check({write = false} = {}) {
         const target = resolve(file, ref.uri);
         if (!target?.startsWith('packages/')) continue;
         if (target.startsWith(master + '/')) {
+          const registeredTarget = ['', '.ts', '.tsx', '.mjs', '.js']
+            .map(suffix => target + suffix).find(candidate => registered.has(candidate));
           if (!publicConsumer) violations.push(`${file}: private package imports master`);
-          else if (!registered.has(target) && ![`${master}/src/index.mjs`, `${master}/src/catalog.mjs`].includes(target))
+          else if (!registeredTarget && ![`${master}/src/index.mjs`, `${master}/src/catalog.mjs`].includes(target))
             violations.push(`${file}: unregistered master entry ${target}`);
+          if (publicConsumer && /\.tsx?$/.test(ref.uri)) {
+            if (!write) violations.push(`${file}: preserve extensionless TypeScript import compatibility`);
+            edits.push({...ref, replacement: JSON.stringify(ref.uri.replace(/\.tsx?$/, ''))});
+          }
           imports++;
           continue;
         }
@@ -107,6 +113,7 @@ export function check({write = false} = {}) {
         if (!write) violations.push(`${file}: direct internal import ${ref.uri}`);
         let relative = slash(path.relative(path.dirname(file), gateways.get(actual)));
         if (!relative.startsWith('.')) relative = './' + relative;
+        relative = relative.replace(/\.tsx?$/, '');
         edits.push({...ref, replacement: JSON.stringify(relative)});
       }
       if (publicConsumer) consumers++;

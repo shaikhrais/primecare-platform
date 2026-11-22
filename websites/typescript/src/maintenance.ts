@@ -1,7 +1,7 @@
 import {renderShell,bindShell} from './shell';
 import {MaintenanceClient} from './maintenance-client';
 import {maintenanceOwner} from './maintenance-ownership';
-import catalog from "../../../packages/primecare_master/web/shared/src/maintenance.json.ts";
+import catalog from "../../../packages/primecare_master/web/shared/src/maintenance.json";
 const escape=(value:unknown)=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 
 export async function renderMaintenance(root:HTMLElement,gateway:string){

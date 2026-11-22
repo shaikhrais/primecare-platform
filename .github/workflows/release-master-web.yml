@@ -1,4 +1,5 @@
 name: Release master-connected web portals
+# Preserve the existing extensionless TypeScript compiler and fixture contracts.
 on:
   push:
     branches: [main]
@@ -26,6 +27,12 @@ jobs:
           python tools/package_master/catalog.py --check
           python -m unittest tools.package_master.test_catalog
           node --test tools/package_master/test_web_boundary.mjs packages/primecare_package_base/test/registry.test.mjs
+      - name: Preserve existing compiler options and theme lifecycle fixtures
+        run: |
+          node_modules/.bin/tsc -p websites/typescript/tsconfig.vapi-admin.json
+          npm install --prefix "$RUNNER_TEMP/master-compatibility" --ignore-scripts --no-audit --no-fund linkedom@0.18.12
+          test -e node_modules/linkedom || ln -s "$RUNNER_TEMP/master-compatibility/node_modules/linkedom" node_modules/linkedom
+          node --test scripts/test-preference-tenant-theme-host-lifecycle.mjs
   browser:
     needs: master
     runs-on: ubuntu-24.04

@@ -1,4 +1,4 @@
-import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract";
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 export class CareHttpError extends Error {constructor(readonly status:number,message:string){super(message);}}
 export class CareClient extends BaseSessionClient {

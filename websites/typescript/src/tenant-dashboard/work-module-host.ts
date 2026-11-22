@@ -1,7 +1,7 @@
-import {PrimeWorkModule,WorkModuleSession} from "../../../../packages/primecare_master/web/primecare_ui/web/work-modules.ts";
-import {TenantTaskModulePort} from "../../../../packages/primecare_master/web/shared/src/work-modules/tenant-task-adapter.ts";
+import {PrimeWorkModule,WorkModuleSession} from "../../../../packages/primecare_master/web/primecare_ui/web/work-modules";
+import {TenantTaskModulePort} from "../../../../packages/primecare_master/web/shared/src/work-modules/tenant-task-adapter";
 import {tenantTaskModuleTransport} from './work-module-transport';
-import {WorkFailure,type WorkModule} from "../../../../packages/primecare_master/web/domain/src/work_modules.ts";
+import {WorkFailure,type WorkModule} from "../../../../packages/primecare_master/web/domain/src/work_modules";
 export type TenantWorkHost={blocked:()=>boolean;dispose:()=>void;syncControls:()=>void};
 const hosts=new WeakMap<HTMLElement,TenantWorkHost>();
 export function clearTenantWorkHost(root:HTMLElement){hosts.get(root)?.dispose();}

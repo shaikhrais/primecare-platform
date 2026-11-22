@@ -1,4 +1,4 @@
-import registry from "../../../../packages/primecare_master/web/shared/src/tenant-operations.json.ts";
+import registry from "../../../../packages/primecare_master/web/shared/src/tenant-operations.json";
 export type OperationsLocale='en'|'fr'|'es';
 export type Destination='accounts'|'masters'|'territories';
 export type TenantRow={id:string;name:string;slug:string;status:'active'|'inactive'|'unknown';counts:Record<'accounts'|'administrators'|'locations'|'categories'|'territories'|'seniors65',number>;checks:{key:string;labelKey:string;present:boolean}[];issues:string[];actions:Destination[]};

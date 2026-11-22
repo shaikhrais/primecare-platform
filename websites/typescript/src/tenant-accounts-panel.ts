@@ -1,5 +1,5 @@
 import {accountMutationMarkup,bindAccountMutation} from './account-mutations-panel';
-import catalog from "../../../packages/primecare_master/web/shared/src/tenant-account-reads.json.ts";
+import catalog from "../../../packages/primecare_master/web/shared/src/tenant-account-reads.json";
 import {TenantAccountsClient,type ReadMode} from './tenant-accounts-client';
 import {TenantAccountsController} from './tenant-accounts-controller';
 const escape=(v:unknown)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));

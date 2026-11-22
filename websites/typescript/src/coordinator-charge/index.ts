@@ -1,8 +1,8 @@
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
-import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
 import {resolveManagedRoute} from '../managed-routes';
 import {chargeView,chargeStyles} from "../../../../packages/primecare_master/web/shared/src/coordinator-charge/view.mjs";
-import catalog from "../../../../packages/primecare_master/web/shared/src/coordinator-charge/catalog.json.ts";
+import catalog from "../../../../packages/primecare_master/web/shared/src/coordinator-charge/catalog.json";
 import {renderShell,bindShell} from '../shell';
 
 const chargeRenders=new WeakMap<HTMLElement,()=>void>();

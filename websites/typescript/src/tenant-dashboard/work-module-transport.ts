@@ -1,7 +1,7 @@
-import {guardedJson} from "../../../../packages/primecare_master/web/shared/src/guarded-json.ts";
-import catalog from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json.ts";
-import {WorkFailure} from "../../../../packages/primecare_master/web/domain/src/work_modules.ts";
-import type {TenantTaskTransport} from "../../../../packages/primecare_master/web/shared/src/work-modules/tenant-task-adapter.ts";
+import {guardedJson} from "../../../../packages/primecare_master/web/shared/src/guarded-json";
+import catalog from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json";
+import {WorkFailure} from "../../../../packages/primecare_master/web/domain/src/work_modules";
+import type {TenantTaskTransport} from "../../../../packages/primecare_master/web/shared/src/work-modules/tenant-task-adapter";
 const maxReplyBytes=1048576;
 /** Optional API16578/16579 adapter. Captured session checks cover the complete streamed reply. */
 export function tenantTaskModuleTransport(origin:string,token:string,fetcher:typeof fetch=fetch):TenantTaskTransport {

@@ -1,4 +1,4 @@
-import type {ScreenRegistration} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import type {ScreenRegistration} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
 
 const owners = new WeakMap<Document, PortalDocumentScroll>();
 

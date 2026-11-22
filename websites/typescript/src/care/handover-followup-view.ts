@@ -1,5 +1,5 @@
 import {prerequisitePicker,dependenciesView} from './dependency-view';
-import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract";
 import {esc,type T} from '../growth/forms';
 import {select,input,memo,check} from './views';
 const note=(t:T,id:string,label:string,name:string,value='')=>memo(t,id,label,name,value).replace('maxlength="2000"','maxlength="1000"');

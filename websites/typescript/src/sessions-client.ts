@@ -1,5 +1,5 @@
 import {BaseSessionClient} from './infrastructure/http/base-session-client';
-import policy from "../../../packages/primecare_master/web/shared/src/account-sessions.json.ts";
+import policy from "../../../packages/primecare_master/web/shared/src/account-sessions.json";
 export class SessionRequestError extends Error {constructor(readonly status:number){super('session_request_failed');}}
 export type SessionRow={created_at:string;expires_at:string;current:boolean};
 export type SessionPage={sessions:SessionRow[];pagination:{limit:number;offset:number;total:number;hasMore:boolean}};

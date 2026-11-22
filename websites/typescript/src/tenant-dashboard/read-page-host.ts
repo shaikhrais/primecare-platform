@@ -1,11 +1,11 @@
-import {PrimeApplicationModule,ApplicationProfilePort,WorkModuleSession} from "../../../../packages/primecare_master/web/primecare_ui/web/application-modules.ts";
-import {renderDashboardProjection} from "../../../../packages/primecare_master/web/primecare_ui/web/dashboard-pages.ts";
-import {renderRecordPage} from "../../../../packages/primecare_master/web/primecare_ui/web/record-pages.ts";
+import {PrimeApplicationModule,ApplicationProfilePort,WorkModuleSession} from "../../../../packages/primecare_master/web/primecare_ui/web/application-modules";
+import {renderDashboardProjection} from "../../../../packages/primecare_master/web/primecare_ui/web/dashboard-pages";
+import {renderRecordPage} from "../../../../packages/primecare_master/web/primecare_ui/web/record-pages";
 import {projectDashboard,validateDashboardResponseScope} from "../../../../packages/primecare_master/web/shared/src/dashboard-pages/projection.mjs";
 import {projectRecordPage} from "../../../../packages/primecare_master/web/shared/src/dashboard-pages/record-pages.mjs";
-import application from "../../../../packages/primecare_master/web/primecare_ui/catalogs/application-modules.registration.json.ts";
+import application from "../../../../packages/primecare_master/web/primecare_ui/catalogs/application-modules.registration.json";
 import contract from '../../../../tools/governance-production/dashboard-pages-contract.json';
-import tenant from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json.ts";
+import tenant from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json";
 export type TenantReadHost={dispose:()=>void;syncControls:()=>void};
 /** Optional registered read views of this response; no new route, query or business mutation. */
 export function mountTenantReadHost(root:HTMLElement,options:{gateway:string;token:string;data:any;params:URLSearchParams;locale:'en'|'fr'|'es';isCurrent:()=>boolean;whenActive:()=>Promise<boolean>}):TenantReadHost|null {

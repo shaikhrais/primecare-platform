@@ -1,2 +1,2 @@
 // Generated gateway. Do not copy implementation here.
-export * from "../../../../primecare_ui/web/managed-workspace-sections.ts";
+export * from "../../../../primecare_ui/web/managed-workspace-sections";

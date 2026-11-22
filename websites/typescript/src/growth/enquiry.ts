@@ -1,8 +1,8 @@
-import {requireScreenManager,showScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import {requireScreenManager,showScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
 import {resolveManagedRoute} from '../managed-routes';
-import {mountPresentationLayout} from "../../../../packages/primecare_master/web/primecare_ui/web/layout-customizer.ts";
+import {mountPresentationLayout} from "../../../../packages/primecare_master/web/primecare_ui/web/layout-customizer";
 import {createScreenTextBinding,screenLocale} from '../screen-text-binding';
-import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract";
 import {EnquiryClient} from './enquiry-client';
 import {esc,formValues} from './forms';
 const owners=new WeakMap<HTMLElement,()=>void>();

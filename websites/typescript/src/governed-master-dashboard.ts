@@ -1,6 +1,6 @@
-import {MasterDashboard} from "../../../packages/primecare_master/web/primecare_ui/web/master-dashboard.ts";
-import {requireMasterDashboard} from "../../../packages/primecare_master/web/primecare_ui/web/dashboard-render-policy.ts";
-import {ScreenConfigurationError,type ScreenManager} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import {MasterDashboard} from "../../../packages/primecare_master/web/primecare_ui/web/master-dashboard";
+import {requireMasterDashboard} from "../../../packages/primecare_master/web/primecare_ui/web/dashboard-render-policy";
+import {ScreenConfigurationError,type ScreenManager} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager";
 import {resolveManagedRoute} from './managed-routes';
 
 export type GovernedDashboardPage = Readonly<{code:string;name:string;route:string;renderer:string}>;

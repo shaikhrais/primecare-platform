@@ -1,2 +1,2 @@
 // Generated gateway. Do not copy implementation here.
-export * from "../../../../primecare_ui/web/dashboard-pages.ts";
+export * from "../../../../primecare_ui/web/dashboard-pages";

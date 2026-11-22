@@ -1,5 +1,5 @@
 import type {MfaChallenge} from './auth-mfa';
-import mfaCatalog from "../../../packages/primecare_master/web/shared/src/auth-mfa.json.ts";
+import mfaCatalog from "../../../packages/primecare_master/web/shared/src/auth-mfa.json";
 /** Transport for the existing governed /v1/auth/login endpoint. */
 export async function login(gateway: string, email: string, password: string,
   send: typeof fetch = fetch, completeMfa?: (challenge:MfaChallenge)=>Promise<string>): Promise<string> {

@@ -1,5 +1,5 @@
 import {icon} from './visuals';
-import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract";
 import {esc,formValues,type T} from './forms';
 import type {GrowthClient} from './client';
 export function searchView(t:T,data:any){
