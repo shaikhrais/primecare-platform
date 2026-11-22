@@ -25,7 +25,8 @@ class Metadata:
         if not sql.startswith('SELECT '):
             raise AssertionError('Only SELECT metadata reads are expected')
         if 'FROM api_endpoints' in sql:
-            return Cursor(['id','path','method','service_name','auth_required','permission_key'], [(777,'/v1/user/preferences','POST','auth',1,self.permission)])
+            assert 'route_path AS path' in sql and 'http_method AS method' in sql
+            return Cursor(['id','path','method','service_name','auth_required','permission_key','request_schema'], [(777,'/v1/user/preferences','POST','auth',1,self.permission,'{"oneOf":[{"properties":{"kind":{"const":"theme"}}}]}')])
         if 'FROM role_screen_permissions' in sql:
             return Cursor(['role_id'], [(7,)])
         if 'FROM screen_components' in sql:
@@ -47,6 +48,11 @@ class ReadinessTests(unittest.TestCase):
         self.assertIn('theme', result['sourcePreferenceKinds'])
         self.assertNotIn('dashboard', result['sourcePreferenceKinds'])
         self.assertTrue(all(sql.startswith('SELECT ') for sql in db.statements))
+    def test_schema_declarations_do_not_export_full_schema_or_infer_validation(self):
+        result = audit.inspect(Metadata())
+        self.assertEqual(result['preferenceApi']['registeredRequestKindDeclarations'], [{'apiId':777,'requestSchemaReadable':True,'declaredKinds':['theme']}])
+        self.assertNotIn('request_schema', result['preferenceApi']['registrations'][0])
+        self.assertEqual(audit.kind_declarations('unknown reference'), ([], False))
     def test_diagnostics_retain_only_stable_reader_codes(self):
         self.assertEqual(audit.safe_diagnostic(audit.GovernanceReadError('Production governance connection failed: read-only-snapshot / planLimitReached')), {'phase':'read-only-snapshot','code':'planLimitReached'})
         self.assertEqual(audit.safe_diagnostic(audit.GovernanceReadError('Production governance query failed: 42703')), {'phase':'query','code':'42703'})

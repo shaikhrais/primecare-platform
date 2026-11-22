@@ -33,6 +33,30 @@ def rows(db, sql, parameters=()):
     return [dict(zip(keys, row)) for row in cursor.fetchall()]
 
 
+def kind_declarations(schema):
+    if isinstance(schema, str):
+        try:
+            schema = json.loads(schema)
+        except (ValueError, TypeError):
+            return [], False
+    if not isinstance(schema, dict):
+        return [], False
+    kinds = set()
+    def visit(node):
+        if not isinstance(node, dict):
+            return
+        field = node.get('properties', {}).get('kind', {})
+        if isinstance(field, dict):
+            for value in [field.get('const'), *field.get('enum', [])]:
+                if isinstance(value, str):
+                    kinds.add(value)
+        for key in ['oneOf', 'anyOf', 'allOf']:
+            for branch in node.get(key, []):
+                visit(branch)
+    visit(schema)
+    return sorted(kinds), True
+
+
 def inspect(db):
     contracts = {}
     for family in ['dashboard-pages', 'dashboard-widgets']:
@@ -48,10 +72,14 @@ def inspect(db):
         contracts[family] = dict(expectedHost=host, registeredHosts=hosts,
             businessBindings=contract.get('businessBindings'), runtimeActivationContract=contract.get('runtimeActivation'))
     preference = json.loads((ROOT / 'tools/governance-production/preference-sync-contract.json').read_text())
-    apis = rows(db, 'SELECT id,path,method,service_name,auth_required,permission_key FROM api_endpoints WHERE id=?', (preference['apiId'],))
+    apis = rows(db, 'SELECT id,route_path AS path,http_method AS method,service_name,auth_required,permission_key,request_schema FROM api_endpoints WHERE id=?', (preference['apiId'],))
+    registered_kinds = []
+    for api in apis:
+        kinds, readable = kind_declarations(api.pop('request_schema', None))
+        registered_kinds.append(dict(apiId=api['id'], requestSchemaReadable=readable, declaredKinds=kinds))
     api_matches = len(apis) == 1 and all(apis[0][key] == preference[expected] for key, expected in [('path','path'),('method','method'),('service_name','service'),('permission_key','permissionKey')]) and apis[0]['auth_required'] == 1
     candidates = rows(db, 'SELECT id,screen_code,route_path,actual_file_path,active FROM screens WHERE LOWER(screen_code) LIKE ? OR LOWER(screen_code) LIKE ? OR LOWER(screen_code) LIKE ? OR LOWER(screen_code) LIKE ? ORDER BY id LIMIT 200', ('%analytics%', '%project%', '%finance%', '%crypto%'))
-    return dict(contracts=contracts, preferenceApi=dict(expectedId=preference['apiId'], registrations=apis, matchesSourceContract=api_matches),
+    return dict(contracts=contracts, preferenceApi=dict(expectedId=preference['apiId'], registrations=apis, matchesSourceContract=api_matches, registeredRequestKindDeclarations=registered_kinds),
         dashboardScreenCandidates=candidates, candidateLimit=200, candidateListMayBeTruncated=len(candidates) == 200,
         sourcePersistenceAdapter=dict(path='packages/shared/src/dashboard-widgets/session.ts', contract='Host-provided port required; this audit does not test an HTTP adapter.'), sourcePreferenceKinds=sorted({kind for branch in preference['requestSchema'].get('oneOf', []) for kind in ([branch.get('properties', {}).get('kind', {}).get('const')] + branch.get('properties', {}).get('kind', {}).get('enum', [])) if isinstance(kind, str)}),
         limitations=['Registration is not proof of deployment, authorization enforcement, business data binding or visual acceptance.',
