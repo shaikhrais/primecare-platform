@@ -64,6 +64,8 @@ void main(){
       final layout=find.byKey(const Key('theme-settings-palette'));
       await tester.scrollUntilVisible(layout,500,scrollable:find.byType(Scrollable).first);
       await tester.pumpAndSettle();expect(tester.takeException(),isNull);
+      await Scrollable.ensureVisible(tester.element(layout),alignment:0);
+      await tester.pumpAndSettle();
       await expectLater(find.byKey(const Key('capture-panel')),matchesGoldenFile('captures/theme-center-${view.$1}$suffix.png'));
       if(view.$1=='desktop'){
         await tester.tap(find.byKey(const Key('palette-main')));await tester.pumpAndSettle();

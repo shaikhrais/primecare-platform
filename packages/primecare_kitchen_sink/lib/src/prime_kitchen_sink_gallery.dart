@@ -394,7 +394,7 @@ class _PrimeKitchenSinkGalleryState extends State<PrimeKitchenSinkGallery> {
                   for (final raw
                       in (kitchenSinkCatalog['references'] as List)
                           .cast<Map<String, dynamic>>())
-                    ListTile(
+                    PrimeListTile(
                       title: PrimeText(raw['id'] as String),
                       subtitle: PrimeText(
                         '${raw['mapped'] == true ? text('mapped') : text('unmapped')} · ${text('pending')}',
