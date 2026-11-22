@@ -1,0 +1,52 @@
+name: Verify deployed master web release
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-master-live.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      EXPECTED_SOURCE: 12ec8b021b249d5eea50fc8e81f2ef095612c4a3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 12ec8b021b249d5eea50fc8e81f2ef095612c4a3
+      - name: Require exact-source browser, master and publication receipts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const repo = {owner: context.repo.owner, repo: context.repo.repo};
+            for (const run_id of [45058806040, 45058806088]) {
+              const {data: run} = await github.rest.actions.getWorkflowRun({...repo, run_id});
+              if (run.head_sha !== process.env.EXPECTED_SOURCE || run.conclusion !== 'success') {
+                throw Error('Expected-source browser or publisher receipt failed: ' + run_id);
+              }
+            }
+            const {data: masterRun} = await github.rest.actions.getWorkflowRun({...repo, run_id: 45058806038});
+            if (masterRun.head_sha !== process.env.EXPECTED_SOURCE) throw Error('Master check source mismatch');
+            const {data: {jobs}} = await github.rest.actions.listJobsForWorkflowRun({...repo, run_id: 45058806038, per_page: 100});
+            if (!jobs.some(job => job.name === 'master' && job.conclusion === 'success')) {
+              throw Error('Master boundary and compatibility checks did not pass');
+            }
+            core.info('Exact-source master checks, three-browser acceptance and nine-portal publisher passed.');
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify all nine live source stamps and exact asset hashes
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          for project in $(python3 -c 'import json; print(" ".join(json.load(open("websites/typescript/projects.json"))))'); do
+            python3 -m tools.deployment.typescript_release live "$project" "$EXPECTED_SOURCE" --record "test-results/master-live/${project}.json"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-master-live-release
+          path: test-results/master-live
+          if-no-files-found: error
+          retention-days: 90

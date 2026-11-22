@@ -40,3 +40,20 @@ extensionless style, including the generated re-exports. The Vapi compiler
 configuration therefore needs no relaxed flags, and the existing theme preference
 host lifecycle fixture continues to intercept the same module names. This fixes
 TS5097 and lifecycle fixture export failures found by the first CI candidate.
+
+## Publication reconciliation
+
+The existing automatic business-plan publisher deployed the corrected source
+`12ec8b021b249d5eea50fc8e81f2ef095612c4a3` to all nine portals in run
+https://github.com/shaikhrais/primecare-platform/actions/runs/45058806088.
+Its publication job reported all nine completed Pages deployments and the live
+business-planning authentication denial check passed. Three-browser acceptance
+passed for the same source in run 45058806040. The dedicated master check passed
+in run 45058806038; that wrapper's baseline check correctly stopped its second
+publication because the prior live source had already changed.
+
+`verify-master-live.yml` reconciles these receipts and independently checks each
+live source stamp and exact asset hashes against the already published source.
+It contains no publication step, production credentials or database writes.
+The complete workflow result and retained nine live stamps determine whether
+post-publication verification succeeded.
