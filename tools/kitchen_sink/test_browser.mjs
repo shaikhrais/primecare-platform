@@ -34,6 +34,11 @@ try{
       assert.equal(new Set(strokes).size,6,'series must retain six distinct visible theme colors');assert.ok(strokes.every(color=>color!=='none'&&color!=='rgba(0, 0, 0, 0)'));
       assert.equal(await page.locator('[data-cy=ks-preview-bar] svg rect').count(),18);
       assert.equal(await page.locator('[data-cy=ks-preview-donut] svg circle').count(),6);
+      for(const kind of ['line','area','bar','donut']){
+        const fit=await page.locator('[data-cy=ks-preview-'+kind+']').evaluate(host=>{const chart=host.querySelector('figure'),svg=host.querySelector('svg'),table=host.querySelector('[data-widget-table]');return {hostFits:host.scrollWidth<=host.clientWidth,chartFits:chart.getBoundingClientRect().width<=host.clientWidth+1,svgFits:svg.getBoundingClientRect().width<=host.clientWidth+1,tableKeyboard:table?.getAttribute('tabindex')==='0'};});
+        assert.deepEqual(fit,{hostFits:true,chartFits:true,svgFits:true,tableKeyboard:true},kind+' chart must fit while its table owns horizontal scrolling');
+      }
+
       await page.screenshot({path:path.join(captures,device+'-'+theme+'.png'),fullPage:true,animations:'disabled'});
     }
   }

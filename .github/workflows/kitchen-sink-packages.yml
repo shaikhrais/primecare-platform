@@ -6,6 +6,8 @@ on:
       - 'packages/primecare_kitchen_sink*/**'
       - 'packages/primecare_master/**'
       - 'tools/kitchen_sink/**'
+      - 'packages/primecare_ui/web/dashboard-widgets.ts'
+      - 'packages/domain/src/theme.css'
       - 'examples/kitchen_sink_flutter/**'
       - '.github/workflows/kitchen-sink-packages.yml'
   workflow_dispatch:
@@ -30,6 +32,7 @@ jobs:
           node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --lib ES2022,DOM,DOM.Iterable packages/primecare_master/web/kitchen-sink.ts
           node tools/kitchen_sink/build.mjs
           node_modules/.bin/playwright install --with-deps chromium
+          node scripts/test-dashboard-widgets-browser.mjs
           node tools/kitchen_sink/test_browser.mjs
       - uses: actions/upload-artifact@v4
         with:
