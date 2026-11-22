@@ -55,7 +55,11 @@ try{
     const table=page.locator('[data-cy=ks-preview-line] [data-widget-table]');
     const context=await table.evaluate(el=>{const header=el.querySelector('tbody th'),before=header.getBoundingClientRect();el.scrollLeft=getComputedStyle(el).direction==='rtl'?-120:120;const after=header.getBoundingClientRect();return {moved:Math.abs(el.scrollLeft)>0,anchored:Math.abs(before.x-after.x)<2};});
     assert.deepEqual(context,{moved:true,anchored:true},direction+' category labels must stay visible during horizontal scroll');
-    await page.locator('[data-cy=ks-preview-line]').screenshot({path:path.join(captures,'chart-mobile-'+direction+'.png'),animations:'disabled'});
+    const card=page.locator('[data-cy=ks-preview-line]');
+    const cardHeight=await card.evaluate(el=>el.getBoundingClientRect().height);
+    await page.setViewportSize({width:390,height:Math.ceil(cardHeight+200)});
+    await card.evaluate(el=>el.scrollIntoView({block:'end',behavior:'instant'}));
+    await card.screenshot({path:path.join(captures,'chart-mobile-'+direction+'.png'),animations:'disabled'});
   }
   await page.locator('[data-cy=kitchen-sink-root]').evaluate(el=>el.removeAttribute('dir'));
   const assetRegistry=JSON.parse(await fs.readFile(path.join(root,'packages/primecare_ui/assets/original/registry.json'),'utf8'));
