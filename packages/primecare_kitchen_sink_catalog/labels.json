@@ -28,7 +28,9 @@
       "data": "Data",
       "charts": "Charts"
     },
-    "webOnly": "Interactive example available in the web showcase"
+    "webOnly": "Interactive example available in the web showcase",
+    "assets": "Shared asset gallery",
+    "assetNote": "Canonical PrimeCare assets; keys below are developer metadata."
   },
   "fr": {
     "title": "Catalogue des composants",
@@ -59,7 +61,9 @@
       "data": "Données",
       "charts": "Graphiques"
     },
-    "webOnly": "Exemple interactif disponible dans le catalogue web"
+    "webOnly": "Exemple interactif disponible dans le catalogue web",
+    "assets": "Galerie des ressources partagées",
+    "assetNote": "Ressources canoniques PrimeCare ; les clés sont des métadonnées techniques."
   },
   "es": {
     "title": "Catálogo de componentes",
@@ -90,6 +94,8 @@
       "data": "Datos",
       "charts": "Gráficos"
     },
-    "webOnly": "Ejemplo interactivo disponible en el catálogo web"
+    "webOnly": "Ejemplo interactivo disponible en el catálogo web",
+    "assets": "Galería de recursos compartidos",
+    "assetNote": "Recursos canónicos de PrimeCare; las claves son metadatos técnicos."
   }
 }

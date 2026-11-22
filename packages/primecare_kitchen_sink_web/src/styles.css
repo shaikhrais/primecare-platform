@@ -15,3 +15,8 @@
 @media (prefers-reduced-motion:reduce) {[data-pc-kitchen-sink] * {scroll-behavior:auto;animation:none;transition:none}}
 
 [data-pc-kitchen-sink] :is(button,input,select,textarea) {font-family:inherit}
+
+[data-pc-kitchen-sink] [data-cy=ks-assets-grid] {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:var(--spacing-md)}
+[data-pc-kitchen-sink] [data-cy^=ks-asset-] {margin:0;padding:var(--spacing-md);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md);display:grid;justify-items:center;min-inline-size:0;background:var(--color-surface)}
+[data-pc-kitchen-sink] [data-cy^=ks-asset-] svg {max-inline-size:100%;color:var(--color-text)}
+[data-pc-kitchen-sink] [data-cy^=ks-asset-] figcaption {overflow-wrap:anywhere}

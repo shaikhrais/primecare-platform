@@ -1,3 +1,4 @@
+import 'package:flutter_core/original_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_core/component_catalogue.dart';
 import 'package:flutter_core/data_controls.dart';
@@ -388,6 +389,36 @@ class _PrimeKitchenSinkGalleryState extends State<PrimeKitchenSinkGallery> {
                   ),
                 ),
               if (visible.isEmpty) PrimeText(text('none')),
+              ExpansionTile(
+                key: const Key('ks-assets'),
+                title: PrimeText(
+                  '${text('assets')} (${originalAssetNames.length})',
+                ),
+                children: [
+                  PrimeText(text('assetNote')),
+                  Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+                    children: [
+                      for (final name in originalAssetNames)
+                        SizedBox(
+                          width: 144,
+                          child: Column(
+                            children: [
+                              PrimeOriginalAsset(
+                                name,
+                                key: Key('ks-asset-$name'),
+                                width: 120,
+                                height: 96,
+                              ),
+                              PrimeText(name),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
               ExpansionTile(
                 title: PrimeText(text('reference')),
                 children: [

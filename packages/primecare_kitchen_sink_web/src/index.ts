@@ -1,3 +1,4 @@
+import {originalAssetNames, originalAssetInfo, originalAssetElement} from '../../primecare_ui/web/original-asset-view';
 import {PrimeComponentFactory, type CatalogueLocale} from '../../primecare_ui/web/component-catalogue';
 import {PrimeDataControls} from '../../primecare_ui/web/data-controls';
 import {PrimeDashboardWidgets} from '../../primecare_ui/web/dashboard-widgets';
@@ -144,6 +145,14 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
     }
     const references=node('details',undefined,'ks-references');references.append(node('summary',`${w.reference} · ${kitchenSinkCatalog.references.length}`));
     for(const reference of kitchenSinkCatalog.references){const row=node('section');row.append(node('h3',reference.id),node('p',`${reference.mapped?w.mapped:w.unmapped} · ${w.pending}`),node('code',reference.web??reference.flutter??reference.id),node('p',reference.scope));references.append(row);}root.append(references);
+    const assets=node('details',undefined,'ks-assets');assets.append(node('summary',`${w.assets} (${originalAssetNames.length})`),node('p',w.assetNote));
+    const assetGrid=node('div',undefined,'ks-assets-grid');
+    for(const key of originalAssetNames){
+      const info=originalAssetInfo(key),figure=node('figure',undefined,'ks-asset-'+key);
+      figure.append(originalAssetElement(key,{width:info.category==='icon'?48:160,height:96,decorative:true,suffix:'-'+instance,document:doc}),node('figcaption',key));
+      assetGrid.append(figure);
+    }
+    assets.append(assetGrid);root.append(assets);
     const packages=node('details',undefined,'ks-packages');packages.append(node('summary',w.packages));
     const table=node('table'), head=node('tr');for(const label of [w.owner,w.dependencies,w.hosting])head.append(node('th',label));table.append(head);
     for(const entry of packageCatalog.packages){const row=node('tr');for(const text of [entry.path,entry.dependencies.join(', ')||'—',entry.hosting])row.append(node('td',text));table.append(row);}packages.append(table);root.append(packages);

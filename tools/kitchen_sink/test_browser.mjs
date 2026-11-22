@@ -30,6 +30,20 @@ try{
       await page.screenshot({path:path.join(captures,device+'-'+theme+'.png'),fullPage:true,animations:'disabled'});
     }
   }
+  const assetRegistry=JSON.parse(await fs.readFile(path.join(root,'packages/primecare_ui/assets/original/registry.json'),'utf8'));
+  const assetKeys=Object.keys(assetRegistry.assets).sort();
+  assert.deepEqual((await page.locator('[data-cy^="ks-asset-"] figcaption').allTextContents()).sort(),assetKeys);
+  assert.equal(await page.locator('[data-cy^="ks-asset-"] svg[aria-hidden="true"]').count(),assetKeys.length);
+  await page.locator('[data-cy=ks-assets] summary').click();
+  for(const [device,width,height] of [['desktop',1440,1000],['mobile',390,844]]){
+    await page.setViewportSize({width,height});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true);
+    for(const theme of ['light','dark']){
+      if((await page.locator('[data-cy=kitchen-sink-root]').getAttribute('data-theme'))!==theme)await page.locator('[data-cy=ks-theme]').click();
+      await page.locator('[data-cy=ks-assets]').screenshot({path:path.join(captures,'assets-'+device+'-'+theme+'.png'),animations:'disabled'});
+    }
+  }
+  await page.locator('[data-cy=ks-assets] summary').click();
   await page.setViewportSize({width:1280,height:900});
   if((await page.locator('[data-cy=kitchen-sink-root]').getAttribute('data-theme'))==='dark')await page.locator('[data-cy=ks-theme]').click();
   const cy=id=>page.locator('[data-cy="'+id+'"]');
@@ -62,5 +76,5 @@ try{
     return {clean,result,restored:root.children.length===0};
   });
   assert.deepEqual(result,{clean:true,result:'36 / 36',restored:true});assert.deepEqual(errors,[]);
-  console.log('PASS: 36 real component previews, unique IDs, actions, draft/search/locale retention, theme, modal, mobile overflow, teardown and remount. Local synthetic examples only.');
+  console.log('PASS: all canonical asset previews with desktop/mobile light/dark captures, 36 real component previews, unique IDs, actions, draft/search/locale retention, theme, modal, mobile overflow, teardown and remount. Local synthetic examples only.');
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
