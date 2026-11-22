@@ -1,9 +1,9 @@
-import {requireScreenManager,showScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
+import {requireScreenManager,showScreenConfigurationError} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 import {resolveManagedRoute} from './managed-routes';
 import {liveScreenText} from './screen-text';
 import {createScreenTextBinding} from './screen-text-binding';
-import policy from '../../../packages/shared/src/auth-recovery.json';
-import catalog from '../../../packages/primecare_ui/lib/src/localization/screens/auth.json';
+import policy from "../../../packages/primecare_master/web/shared/src/auth-recovery.json.ts";
+import catalog from "../../../packages/primecare_master/web/primecare_ui/lib/src/localization/screens/auth.json.ts";
 import {BaseMediaLook,applyMediaTokens} from './media-look';
 export class RecoveryError extends Error {constructor(readonly status:number){super('recovery_failed');}}
 export async function recoverAccount(gateway:string,mode:'forgot'|'reset',body:Record<string,string>,send:typeof fetch=fetch):Promise<void>{

@@ -1,4 +1,4 @@
-import {services,minutes,validDate} from '../../../../packages/shared/src/psw-workspace/schedule-core.mjs';
+import {services,minutes,validDate} from "../../../../packages/primecare_master/web/shared/src/psw-workspace/schedule-core.mjs";
 const object=(v:any)=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const text=(v:any)=>typeof v==='string';
 const strings=(v:any)=>Array.isArray(v)&&v.every(text);

@@ -1,5 +1,5 @@
 import {SessionsClient,SessionRequestError,type SessionPage} from './sessions-client';
-import policy from '../../../packages/shared/src/account-sessions.json';
+import policy from "../../../packages/primecare_master/web/shared/src/account-sessions.json.ts";
 export type SessionsState={busy:'loading'|'revoking'|null;message:'loading'|'revoking'|'load_failed'|'revoke_failed'|'changed'|null;confirming:boolean;page:SessionPage};
 export type SessionEnvironment={current:()=>string|null;clear:()=>void;locale:()=>string;redirect:(url:string)=>void};
 const browserEnvironment:SessionEnvironment={current:()=>sessionStorage.getItem('primecare_session'),clear:()=>sessionStorage.removeItem('primecare_session'),locale:()=>document.documentElement.lang,redirect:url=>location.assign(url)};

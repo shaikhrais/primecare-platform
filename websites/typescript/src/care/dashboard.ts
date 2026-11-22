@@ -1,7 +1,7 @@
 import type {CareOwnership} from './ownership';
 import {captureDrafts,restoreDrafts,type FormDrafts} from './form-drafts';
 import {workloadView} from './workload-view';
-import {registry} from '../../../../packages/shared/src/care/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract.ts";
 import {renderShell,bindShell} from '../shell';
 import {BaseMediaLook} from '../media-look';
 import {esc,formValues,type T} from '../growth/forms';

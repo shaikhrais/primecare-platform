@@ -1,4 +1,4 @@
-import type {BundleHistory,HistoryTarget,BundleLocale} from '../../../../packages/shared/src/platform-bundle/contract';
+import type {BundleHistory,HistoryTarget,BundleLocale} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract.ts";
 import {escapeHtml as esc} from '../workspace';
 import {bundleText} from './panel';
 

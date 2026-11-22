@@ -1,7 +1,7 @@
 import {growthOwner,guardGrowthBindings} from './ownership';
 import {growthScope,growthReflected,validateGrowth,validateGrowthReport,type GrowthReceipt} from './recovery';
 import {bindMarketingStatement} from './marketing-statement';
-import lookRegistry from '../../../../packages/shared/src/look/registry.json';
+import lookRegistry from "../../../../packages/primecare_master/web/shared/src/look/registry.json.ts";
 import {businessView,bindBusiness} from './business';
 import {alertsView,performanceView,bindPerformance} from './reporting';
 import {intakeView,bindIntake} from './intake';
@@ -10,14 +10,14 @@ import {hero,icon,marketingImage,sectionNavigation,bindSectionNavigation} from '
 import {briefsView,bindBriefs} from './briefs';
 import {searchView,contactView,duplicatesView,bindContacts} from './contacts';
 import {operationsView,bindOperations} from './operations';
-import {registry,stages,type Pipeline} from '../../../../packages/shared/src/growth/contract';
-import {requireScreenManager} from '../../../../packages/primecare_ui/web/screen-manager';
-import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
-import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
+import {registry,stages,type Pipeline} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
+import {requireScreenManager} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import {MasterDashboard} from "../../../../packages/primecare_master/web/primecare_ui/web/master-dashboard.ts";
+import {requireMasterDashboard} from "../../../../packages/primecare_master/web/primecare_ui/web/dashboard-render-policy.ts";
 import {resolveManagedRoute} from '../managed-routes';
 import {renderShell,bindShell,type ShellContent} from '../shell';
 import {dashboardActivated} from '../dashboard-activation';
-import {growthDashboardStateMarkup,growthMetricMarkup} from '../../../../packages/primecare_ui/web/growth-dashboard-controls';
+import {growthDashboardStateMarkup,growthMetricMarkup} from "../../../../packages/primecare_master/web/primecare_ui/web/growth-dashboard-controls.ts";
 import {GrowthClient} from './client';
 import {esc,growthForms,formValues,due,money,type T} from './forms';
 class FounderGrowthMasterDashboard extends MasterDashboard {}

@@ -1,9 +1,9 @@
-import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from '../../../../packages/primecare_ui/web/screen-manager';
+import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 import {resolveManagedRoute} from '../managed-routes';
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 import {renderShell,bindShell} from '../shell';
-import {normalizePatch} from '../../../../packages/shared/src/business-plans/template-learning.mjs';
-import {FAMILIES} from '../../../../packages/shared/src/business-plans/template-families.mjs';
+import {normalizePatch} from "../../../../packages/primecare_master/web/shared/src/business-plans/template-learning.mjs";
+import {FAMILIES} from "../../../../packages/primecare_master/web/shared/src/business-plans/template-families.mjs";
 const esc=(x:unknown)=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 // Authentication effects belong to the current renderer, never a stale response.
 class PlanClient extends BaseSessionClient{

@@ -1,6 +1,6 @@
-import {enquiryUrl,qrSymbol} from '../../../../packages/shared/src/growth/qr';
+import {enquiryUrl,qrSymbol} from "../../../../packages/primecare_master/web/shared/src/growth/qr.ts";
 import {esc,formValues,type T} from './forms';
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 import type {GrowthClient} from './client';
 export function intakeView(t:T,data:any){
  if(!data.canManageIntake)return '';

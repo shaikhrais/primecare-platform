@@ -1,4 +1,4 @@
-import {mountVoiceOtpPanel,type VoiceOtpAppSession} from '../../../packages/shared/src/communications/voice-otp-app.mjs';
+import {mountVoiceOtpPanel,type VoiceOtpAppSession} from "../../../packages/primecare_master/web/shared/src/communications/voice-otp-app.mjs";
 
 export function voicePairingMarkup():string {
  return '<section class="section operations-board" data-cy="voice-pairing"><h2>Verify your current call</h2><p>Keep your call connected. Use the call reference and pairing code provided by the secure call instructions. Enter SMS codes here only; never speak them to the AI.</p><form data-cy="voice-pairing-open"><label>Call reference<input name="callSid" required pattern="CA[a-fA-F0-9]{32}" maxlength="34" autocomplete="off" spellcheck="false"></label><button type="submit">Continue verification</button></form><div data-cy="voice-pairing-flow"></div><button type="button" data-cy="voice-pairing-close" hidden>Close verification</button><p role="status" data-cy="voice-pairing-status"></p></section>';

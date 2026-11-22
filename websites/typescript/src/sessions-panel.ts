@@ -1,4 +1,4 @@
-import policy from '../../../packages/shared/src/account-sessions.json';
+import policy from "../../../packages/primecare_master/web/shared/src/account-sessions.json.ts";
 import {SessionsClient} from './sessions-client';
 import {SessionsController} from './sessions-controller';
 const escape=(value:unknown)=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));

@@ -1,0 +1,26 @@
+{
+  "name": "@primecare/master",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.mjs"
+    },
+    "./catalog": {
+      "types": "./src/catalog.d.ts",
+      "import": "./src/catalog.mjs"
+    },
+    "./web/*": "./web/*"
+  },
+  "dependencies": {
+    "@primecare/contracts": "1.0.0",
+    "@primecare/database": "1.0.0",
+    "@primecare/domain": "1.0.0",
+    "@primecare/infrastructure": "1.0.0",
+    "@primecare/messaging": "1.0.0",
+    "@primecare/package-base": "1.0.0",
+    "@primecare/security": "1.0.0"
+  }
+}

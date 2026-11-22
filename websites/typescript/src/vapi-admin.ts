@@ -1,4 +1,4 @@
-import templates from '../../../packages/shared/src/vapi-agent-templates.json';
+import templates from "../../../packages/primecare_master/web/shared/src/vapi-agent-templates.json.ts";
 type Agent={id:string;name:string;prompt:string;firstMessage:string;toolIds:string[]};
 type Tool={id:string;name:string;type:string;credentialConfigured:boolean};
 type Catalog={key:string;name:string;enabled:boolean};

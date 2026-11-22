@@ -1,5 +1,5 @@
 import {focusInWorkspace} from '../focus';
-import type {BundleHistory,HistoryTarget,BundleLocale} from '../../../../packages/shared/src/platform-bundle/contract';
+import type {BundleHistory,HistoryTarget,BundleLocale} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract.ts";
 import {BundleClient} from './client';
 import {historyPanel} from './history-panel';
 

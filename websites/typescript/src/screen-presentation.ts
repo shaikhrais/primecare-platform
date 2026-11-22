@@ -1,10 +1,10 @@
-import {mountPresentationLayout,clearLayoutCustomizer} from '../../../packages/primecare_ui/web/layout-customizer';
-import solidTheme from '../../../packages/shared/src/solid-theme.json';
+import {mountPresentationLayout,clearLayoutCustomizer} from "../../../packages/primecare_master/web/primecare_ui/web/layout-customizer.ts";
+import solidTheme from "../../../packages/primecare_master/web/shared/src/solid-theme.json.ts";
 import {PortalDocumentScroll} from './document-scroll';
-import {ShellEnvironment} from '../../../packages/primecare_ui/web/shell-environment';
+import {ShellEnvironment} from "../../../packages/primecare_master/web/primecare_ui/web/shell-environment.ts";
 import {applyMediaTokens} from './media-look';
 import {liveScreenText} from './screen-text';
-import {ScreenManager, installScreenManager, assertScreenManagerAvailable} from '../../../packages/primecare_ui/web/screen-manager';
+import {ScreenManager, installScreenManager, assertScreenManagerAvailable} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 
 /** Bridge existing DOM renderers without replacing their business or account-scoped layouts.
  * Shell renderers retain renderShell/bindShell and their BaseLayoutManager/Theme Center.

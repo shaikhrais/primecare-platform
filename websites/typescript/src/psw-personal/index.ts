@@ -1,6 +1,6 @@
 import {ownCareRoute,type CareOwnership} from '../care/ownership';
 import {LiveCareClient} from '../care/live-client';
-import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from '../../../../packages/primecare_ui/web/screen-manager';
+import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 import {resolveManagedRoute} from '../managed-routes';
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 import {renderPersonalView} from './view.mjs';

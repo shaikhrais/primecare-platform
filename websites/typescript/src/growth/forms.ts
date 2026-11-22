@@ -1,4 +1,4 @@
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 export const esc=(v:unknown)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export type T=(key:string)=>string;
 export function growthForms(t:T,data:any){

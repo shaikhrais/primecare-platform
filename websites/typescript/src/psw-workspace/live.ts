@@ -2,7 +2,7 @@ import {renderCare} from '../care/dashboard';
 import {careUnavailable,type PSWClient} from './index';
 import type {CareOwnership} from '../care/ownership';
 import {LiveCareClient} from '../care/live-client';
-import {careScheduleToolbarMarkup} from '../../../../packages/primecare_ui/web/care-workspace-controls';
+import {careScheduleToolbarMarkup} from "../../../../packages/primecare_master/web/primecare_ui/web/care-workspace-controls.ts";
 const esc=(s:unknown)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const add=(s:string,n:number)=>new Date(Date.parse(s+'T12:00:00Z')+n*864e5).toISOString().slice(0,10);

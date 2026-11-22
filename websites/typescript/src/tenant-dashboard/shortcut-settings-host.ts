@@ -1,10 +1,10 @@
-import {PrimeApplicationShortcuts,ApplicationShortcutEditor} from '../../../../packages/primecare_ui/web/application-shortcuts';
-import {ApplicationSettingsPort} from '../../../../packages/shared/src/application-modules/settings-port';
-import {preferenceHttpTransport,preferenceStorageCache} from '../../../../packages/shared/src/preference-sync/transport';
-import {PreferenceFailure} from '../../../../packages/shared/src/preference-sync/client';
-import {validateDashboardResponseScope} from '../../../../packages/shared/src/dashboard-pages/projection.mjs';
-import destinations from '../../../../packages/primecare_ui/catalogs/application-shortcuts.destinations.json';
-import application from '../../../../packages/primecare_ui/catalogs/application-modules.registration.json';
+import {PrimeApplicationShortcuts,ApplicationShortcutEditor} from "../../../../packages/primecare_master/web/primecare_ui/web/application-shortcuts.ts";
+import {ApplicationSettingsPort} from "../../../../packages/primecare_master/web/shared/src/application-modules/settings-port.ts";
+import {preferenceHttpTransport,preferenceStorageCache} from "../../../../packages/primecare_master/web/shared/src/preference-sync/transport.ts";
+import {PreferenceFailure} from "../../../../packages/primecare_master/web/shared/src/preference-sync/client.ts";
+import {validateDashboardResponseScope} from "../../../../packages/primecare_master/web/shared/src/dashboard-pages/projection.mjs";
+import destinations from "../../../../packages/primecare_master/web/primecare_ui/catalogs/application-shortcuts.destinations.json.ts";
+import application from "../../../../packages/primecare_master/web/primecare_ui/catalogs/application-modules.registration.json.ts";
 export type TenantShortcutHost={blocked:()=>boolean;syncControls:()=>void;dispose:()=>void};
 /** Pilot uses existing active role-screen permissions; API777 still authorizes every read/write. */
 export function mountTenantShortcutHost(root:HTMLElement,options:{gateway:string;token:string;data:any;params:URLSearchParams;locale:'en'|'fr'|'es';isCurrent:()=>boolean;whenActive:()=>Promise<boolean>;lock:(blocked:boolean)=>void;invalidated:()=>void}):TenantShortcutHost|null {

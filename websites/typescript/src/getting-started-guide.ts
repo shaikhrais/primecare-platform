@@ -1,4 +1,4 @@
-import guide from '../../../packages/shared/src/getting-started-guide.json';
+import guide from "../../../packages/primecare_master/web/shared/src/getting-started-guide.json.ts";
 const escape=(v:string)=>v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 /** Read-only learning: no account mutations, permission changes or completion credits. */
 export function gettingStartedGuide(onDashboard?:()=>void):HTMLElement {

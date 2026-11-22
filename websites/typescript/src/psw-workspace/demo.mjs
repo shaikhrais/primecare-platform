@@ -1,4 +1,4 @@
-import {services,minutes,time,addDate,validDate,shiftFor,validateVisit,planBooking,suggestSlots,seedState} from '../../../../packages/shared/src/psw-workspace/schedule-core.mjs';
+import {services,minutes,time,addDate,validDate,shiftFor,validateVisit,planBooking,suggestSlots,seedState} from "../../../../packages/primecare_master/web/shared/src/psw-workspace/schedule-core.mjs";
 export async function renderDemoPSW(root,gateway,first,api,owner){
 const active=()=>owner.current(),wait=()=>owner.whenActive(),dialogs=new Map(),dialogContexts=new WeakMap(),bindings=new WeakMap(),downloads=new Map(),attempts=new Map();
 let readEpoch=0,commandScope,activeSave,lastCommand,toastElement;

@@ -1,4 +1,4 @@
-import {registry,type BundleData,type BundleLocale} from '../../../../packages/shared/src/platform-bundle/contract';
+import {registry,type BundleData,type BundleLocale} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract.ts";
 import {escapeHtml as esc} from '../workspace';
 import {DashboardMediaLook} from '../media-look';
 export const bundleText=(locale:BundleLocale,key:string)=>(registry.locales[locale] as Record<string,string>)[key]??key;

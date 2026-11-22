@@ -1,0 +1,6 @@
+name: primecare_package_base
+description: Dependency-free package contracts and explicit local or remote host binding.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3

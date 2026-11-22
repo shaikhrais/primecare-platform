@@ -1,0 +1,11 @@
+{
+  "name": "@primecare/package-base",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {"types": "./src/index.d.ts", "import": "./src/index.mjs"},
+    "./catalog": {"types": "./src/catalog.d.ts", "import": "./src/catalog.g.mjs"}
+  },
+  "scripts": {"test": "node --test test/registry.test.mjs"}
+}

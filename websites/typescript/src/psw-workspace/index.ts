@@ -6,11 +6,11 @@ import {renderDemoPSW} from './demo.mjs';
 import {renderLivePSW} from './live';
 import {pswStyles} from './styles';
 import {demoSnapshot,demoScope} from './demo-snapshot';
-import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
-import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
-import {requireScreenManager,showScreenConfigurationError} from '../../../../packages/primecare_ui/web/screen-manager';
+import {MasterDashboard} from "../../../../packages/primecare_master/web/primecare_ui/web/master-dashboard.ts";
+import {requireMasterDashboard} from "../../../../packages/primecare_master/web/primecare_ui/web/dashboard-render-policy.ts";
+import {requireScreenManager,showScreenConfigurationError} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 import {resolveManagedRoute} from '../managed-routes';
-import careRegistry from '../../../../packages/shared/src/care/registry.json';
+import careRegistry from "../../../../packages/primecare_master/web/shared/src/care/registry.json.ts";
 export class PSWClient extends BaseSessionClient {
  protected endpoint='/v1/governance/care/workspace';
  constructor(gateway:string,token:string,readonly tenant=''){super(gateway,token);}

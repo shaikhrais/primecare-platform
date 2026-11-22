@@ -1,4 +1,4 @@
-import {registry,type BundleData,type AttentionData,type HistoryTarget,type BundleHistory} from '../../../../packages/shared/src/platform-bundle/contract';
+import {registry,type BundleData,type AttentionData,type HistoryTarget,type BundleHistory} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract.ts";
 export class BundleClient{
  private keys=new Map<string,string>();
  constructor(private gateway:string,private token:string){}

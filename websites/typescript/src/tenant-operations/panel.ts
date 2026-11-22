@@ -1,4 +1,4 @@
-import registry from '../../../../packages/shared/src/tenant-operations.json';
+import registry from "../../../../packages/primecare_master/web/shared/src/tenant-operations.json.ts";
 import {escapeHtml as esc} from '../workspace';
 import type {Overview,Filters,OperationsLocale} from './client';
 export const operationsText=(locale:OperationsLocale,key:string)=>(registry.locales[locale] as Record<string,string>)[key]??key;

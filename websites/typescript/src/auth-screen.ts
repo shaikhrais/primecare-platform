@@ -1,12 +1,12 @@
-import {requireScreenManager,showScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
+import {requireScreenManager,showScreenConfigurationError} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 import {resolveManagedRoute} from './managed-routes';
-import adminEntryRoutes from '../../../packages/shared/src/admin-entry-routes.json';
+import adminEntryRoutes from "../../../packages/primecare_master/web/shared/src/admin-entry-routes.json.ts";
 import {requestMfa} from './auth-mfa';
 import {authenticate,revokeProvisionalSession,verifyMfa} from './auth-client';
 import {liveScreenText} from './screen-text';
-import recovery from '../../../packages/shared/src/auth-recovery.json';
+import recovery from "../../../packages/primecare_master/web/shared/src/auth-recovery.json.ts";
 import {EntryMediaLook,applyMediaTokens} from './media-look';
-import catalog from '../../../packages/primecare_ui/lib/src/localization/screens/auth.json';
+import catalog from "../../../packages/primecare_master/web/primecare_ui/lib/src/localization/screens/auth.json.ts";
 import {renderShell} from './shell';
 
 const owners = new WeakMap<HTMLElement, () => void>();

@@ -1,5 +1,5 @@
 import {BaseSessionClient} from './infrastructure/http/base-session-client';
-import catalog from '../../../packages/shared/src/tenant-account-reads.json';
+import catalog from "../../../packages/primecare_master/web/shared/src/tenant-account-reads.json.ts";
 export class TenantAccountError extends Error{constructor(readonly status:number){super('account_read_failed');}}
 export type AccountRow={id:string;email:string;roles:string|null;status:string|null;updated_at:string|null;canModify:boolean};
 export type PageInfo={limit:number;offset:number;total:number;hasMore:boolean};

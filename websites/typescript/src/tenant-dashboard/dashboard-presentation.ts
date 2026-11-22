@@ -1,7 +1,7 @@
-import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
-import type {DashboardDialogOptions} from '../../../../packages/primecare_ui/web/dashboard-dialog-manager';
-import type {ScreenManager,ScreenRegistration} from '../../../../packages/primecare_ui/web/screen-manager';
-import catalog from '../../../../packages/shared/src/tenant-dashboard/catalog.json';
+import {MasterDashboard} from "../../../../packages/primecare_master/web/primecare_ui/web/master-dashboard.ts";
+import type {DashboardDialogOptions} from "../../../../packages/primecare_master/web/primecare_ui/web/dashboard-dialog-manager.ts";
+import type {ScreenManager,ScreenRegistration} from "../../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
+import catalog from "../../../../packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json.ts";
 
 /** Only the existing dashboard configuration; behavior is inherited. */
 export class TenantAdminDashboard extends MasterDashboard {

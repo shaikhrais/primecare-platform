@@ -1,4 +1,4 @@
-import policy from '../../../packages/shared/src/admin-form-draft.json';
+import policy from "../../../packages/primecare_master/web/shared/src/admin-form-draft.json.ts";
 
 type Snapshot={id:string;baseline:string;values:Record<string,string>};
 /** Unsaved presentation values, scoped by the caller and never written to storage. */

@@ -1,2 +1,2 @@
 /** Compatibility entry; the core UI package owns this component. */
-export * from '../../../packages/primecare_ui/web/sidebar';
+export * from "../../../packages/primecare_master/web/primecare_ui/web/sidebar.ts";

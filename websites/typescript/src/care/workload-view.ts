@@ -1,4 +1,4 @@
-import {registry} from '../../../../packages/shared/src/care/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/care/contract.ts";
 import {esc,type T} from '../growth/forms';
 import {input} from './views';
 

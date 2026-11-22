@@ -1,4 +1,4 @@
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 import {esc,formValues,type T} from './forms';
 import type {GrowthClient} from './client';
 import {downloadGrowthPdf,type GrowthCleanup} from './download';

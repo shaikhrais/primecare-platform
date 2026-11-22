@@ -1,4 +1,4 @@
-import {registry,type AttentionData,type BundleLocale} from '../../../../packages/shared/src/platform-bundle/contract';
+import {registry,type AttentionData,type BundleLocale} from "../../../../packages/primecare_master/web/shared/src/platform-bundle/contract.ts";
 import {escapeHtml as esc} from '../workspace';
 import {bundleText} from './panel';
 export function attentionPanel(data:AttentionData|null,locale:BundleLocale,query:{kind:string;search:string}){

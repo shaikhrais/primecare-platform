@@ -1,5 +1,5 @@
-import registry from '../../../../packages/shared/src/territories/registry.json';
-import geometry from '../../../../packages/shared/src/territories/map.json';
+import registry from "../../../../packages/primecare_master/web/shared/src/territories/registry.json.ts";
+import geometry from "../../../../packages/primecare_master/web/shared/src/territories/map.json.ts";
 import {escapeHtml as esc} from '../workspace';
 import type {Board,Territory} from './client';
 export type TerritoryLocale='en'|'fr'|'es';

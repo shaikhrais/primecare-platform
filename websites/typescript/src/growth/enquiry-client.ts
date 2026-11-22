@@ -1,4 +1,4 @@
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 export class EnquiryClient{
  private key=crypto.randomUUID();private fingerprint='';
  constructor(readonly gateway:string,readonly publicKey:string){}

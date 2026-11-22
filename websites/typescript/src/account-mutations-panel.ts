@@ -1,4 +1,4 @@
-import catalog from '../../../packages/shared/src/account-mutations.json';
+import catalog from "../../../packages/primecare_master/web/shared/src/account-mutations.json.ts";
 import {AccountMutationsClient,creationActor} from './account-mutations-client';
 import type {AccountRow} from './tenant-accounts-client';
 const escape=(v:unknown)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));

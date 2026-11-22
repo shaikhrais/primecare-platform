@@ -1,4 +1,4 @@
-import type {ScreenRegistration} from '../../../packages/primecare_ui/web/screen-manager';
+import type {ScreenRegistration} from "../../../packages/primecare_master/web/primecare_ui/web/screen-manager.ts";
 
 /** These are adapters for the existing main.ts dispatcher, not new governance records. */
 export type RouteAdapter = 'forgot' | 'reset' | 'enquiry' | 'look' | 'tenant' | 'coordinator' |

@@ -1,4 +1,4 @@
-import {CommunicationResourceBase} from '../../../packages/shared/src/communications/adapter-base.mjs';
+import {CommunicationResourceBase} from "../../../packages/primecare_master/web/shared/src/communications/adapter-base.mjs";
 /** Permission probe only. Tracks are always stopped; the call SDK owns call audio. */
 export class MicrophoneAccess extends CommunicationResourceBase {
  private stream:MediaStream|null=null;

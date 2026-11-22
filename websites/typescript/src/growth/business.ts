@@ -1,5 +1,5 @@
 import {marketingStatementView} from './marketing-statement';
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 import {esc,formValues,money,type T} from './forms';
 import type {GrowthClient} from './client';
 export function businessView(t:T,b:any,moneyText:(n:unknown)=>string,statement:any=null,statementMonth:string|undefined=undefined,locale='en'){

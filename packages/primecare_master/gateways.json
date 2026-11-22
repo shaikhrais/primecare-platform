@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "gateways": [
+    {
+      "gateway": "packages/primecare_master/web/contracts/public.ts",
+      "target": "packages/contracts/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/database/public.ts",
+      "target": "packages/database/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/domain/public.ts",
+      "target": "packages/domain/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/domain/src/endpoint_traffic.ts",
+      "target": "packages/domain/src/endpoint_traffic.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/domain/src/work_modules.ts",
+      "target": "packages/domain/src/work_modules.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/infrastructure/public.ts",
+      "target": "packages/infrastructure/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/messaging/public.ts",
+      "target": "packages/messaging/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/catalogs/application-modules.registration.json.ts",
+      "target": "packages/primecare_ui/catalogs/application-modules.registration.json",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/catalogs/application-shortcuts.destinations.json.ts",
+      "target": "packages/primecare_ui/catalogs/application-shortcuts.destinations.json",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/catalogs/client-invoices.registration.json.ts",
+      "target": "packages/primecare_ui/catalogs/client-invoices.registration.json",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/lib/src/localization/screens/auth.json.ts",
+      "target": "packages/primecare_ui/lib/src/localization/screens/auth.json",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/lib/src/localization/screens/workspace.json.ts",
+      "target": "packages/primecare_ui/lib/src/localization/screens/workspace.json",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/advanced-theme-tenant-control.ts",
+      "target": "packages/primecare_ui/web/advanced-theme-tenant-control.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/advanced-theme-tenant-restore-control.ts",
+      "target": "packages/primecare_ui/web/advanced-theme-tenant-restore-control.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/application-modules.ts",
+      "target": "packages/primecare_ui/web/application-modules.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/application-shortcuts.ts",
+      "target": "packages/primecare_ui/web/application-shortcuts.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/care-workspace-controls.ts",
+      "target": "packages/primecare_ui/web/care-workspace-controls.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/client-invoices.ts",
+      "target": "packages/primecare_ui/web/client-invoices.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/code-admin-ems.ts",
+      "target": "packages/primecare_ui/web/code-admin-ems.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/dashboard-dialog-manager.ts",
+      "target": "packages/primecare_ui/web/dashboard-dialog-manager.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/dashboard-pages.ts",
+      "target": "packages/primecare_ui/web/dashboard-pages.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/dashboard-render-policy.ts",
+      "target": "packages/primecare_ui/web/dashboard-render-policy.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/ems-charts.ts",
+      "target": "packages/primecare_ui/web/ems-charts.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/endpoint-management-panel.ts",
+      "target": "packages/primecare_ui/web/endpoint-management-panel.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/growth-dashboard-controls.ts",
+      "target": "packages/primecare_ui/web/growth-dashboard-controls.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/icons.ts",
+      "target": "packages/primecare_ui/web/icons.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/layout-customizer.ts",
+      "target": "packages/primecare_ui/web/layout-customizer.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/layout-manager.ts",
+      "target": "packages/primecare_ui/web/layout-manager.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/managed-workspace-sections.ts",
+      "target": "packages/primecare_ui/web/managed-workspace-sections.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/master-dashboard.ts",
+      "target": "packages/primecare_ui/web/master-dashboard.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/media-look.ts",
+      "target": "packages/primecare_ui/web/media-look.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/navigation.ts",
+      "target": "packages/primecare_ui/web/navigation.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/paired-pagination.ts",
+      "target": "packages/primecare_ui/web/paired-pagination.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/record-pages.ts",
+      "target": "packages/primecare_ui/web/record-pages.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/screen-manager.ts",
+      "target": "packages/primecare_ui/web/screen-manager.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/shell-environment.ts",
+      "target": "packages/primecare_ui/web/shell-environment.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/shell.ts",
+      "target": "packages/primecare_ui/web/shell.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/sidebar.ts",
+      "target": "packages/primecare_ui/web/sidebar.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/tenant-dashboard-presentation.ts",
+      "target": "packages/primecare_ui/web/tenant-dashboard-presentation.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/theme-center.ts",
+      "target": "packages/primecare_ui/web/theme-center.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/theme-library.ts",
+      "target": "packages/primecare_ui/web/theme-library.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/theme-manager.ts",
+      "target": "packages/primecare_ui/web/theme-manager.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/theme-restore-storage.ts",
+      "target": "packages/primecare_ui/web/theme-restore-storage.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/primecare_ui/web/work-modules.ts",
+      "target": "packages/primecare_ui/web/work-modules.ts",
+      "language": "web",
+      "packageName": "primecare_ui",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/security/public.ts",
+      "target": "packages/security/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/account-mutations.json.ts",
+      "target": "packages/shared/src/account-mutations.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/account-sessions.json.ts",
+      "target": "packages/shared/src/account-sessions.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/admin-entry-routes.json.ts",
+      "target": "packages/shared/src/admin-entry-routes.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/admin-form-draft.json.ts",
+      "target": "packages/shared/src/admin-form-draft.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/application-modules/settings-port.ts",
+      "target": "packages/shared/src/application-modules/settings-port.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/auth-mfa.json.ts",
+      "target": "packages/shared/src/auth-mfa.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/auth-recovery.json.ts",
+      "target": "packages/shared/src/auth-recovery.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/business-plans/policy.mjs",
+      "target": "packages/shared/src/business-plans/policy.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/business-plans/template-families.mjs",
+      "target": "packages/shared/src/business-plans/template-families.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/business-plans/template-learning.mjs",
+      "target": "packages/shared/src/business-plans/template-learning.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/care/contract.ts",
+      "target": "packages/shared/src/care/contract.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/care/registry.json.ts",
+      "target": "packages/shared/src/care/registry.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/communications/adapter-base.mjs",
+      "target": "packages/shared/src/communications/adapter-base.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/communications/audio-session.mjs",
+      "target": "packages/shared/src/communications/audio-session.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/communications/call-events.mjs",
+      "target": "packages/shared/src/communications/call-events.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/communications/phone-number.mjs",
+      "target": "packages/shared/src/communications/phone-number.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/communications/voice-otp-app.mjs",
+      "target": "packages/shared/src/communications/voice-otp-app.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/coordinator-charge/catalog.json.ts",
+      "target": "packages/shared/src/coordinator-charge/catalog.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/coordinator-charge/view.mjs",
+      "target": "packages/shared/src/coordinator-charge/view.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/dashboard-pages/projection.mjs",
+      "target": "packages/shared/src/dashboard-pages/projection.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/dashboard-pages/record-pages.mjs",
+      "target": "packages/shared/src/dashboard-pages/record-pages.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/endpoint-management/capacity.mjs",
+      "target": "packages/shared/src/endpoint-management/capacity.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/getting-started-guide.json.ts",
+      "target": "packages/shared/src/getting-started-guide.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/growth/contract.ts",
+      "target": "packages/shared/src/growth/contract.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/growth/qr.ts",
+      "target": "packages/shared/src/growth/qr.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/growth/registry.json.ts",
+      "target": "packages/shared/src/growth/registry.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/guarded-json.ts",
+      "target": "packages/shared/src/guarded-json.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/help-reader/http.ts",
+      "target": "packages/shared/src/help-reader/http.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/help-reader/operational-effects.ts",
+      "target": "packages/shared/src/help-reader/operational-effects.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/help-reader/operational-policy.json.ts",
+      "target": "packages/shared/src/help-reader/operational-policy.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/help-reader/postgres-store.ts",
+      "target": "packages/shared/src/help-reader/postgres-store.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/help-reader/protocol.ts",
+      "target": "packages/shared/src/help-reader/protocol.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/look/manager.ts",
+      "target": "packages/shared/src/look/manager.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/look/registry.json.ts",
+      "target": "packages/shared/src/look/registry.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/maintenance.json.ts",
+      "target": "packages/shared/src/maintenance.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/platform-bundle/contract.ts",
+      "target": "packages/shared/src/platform-bundle/contract.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/preference-sync/client.ts",
+      "target": "packages/shared/src/preference-sync/client.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/preference-sync/transport.ts",
+      "target": "packages/shared/src/preference-sync/transport.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/psw-personal/catalog.json.ts",
+      "target": "packages/shared/src/psw-personal/catalog.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/psw-personal/core.mjs",
+      "target": "packages/shared/src/psw-personal/core.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/psw-workspace/schedule-core.mjs",
+      "target": "packages/shared/src/psw-workspace/schedule-core.mjs",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/solid-theme.json.ts",
+      "target": "packages/shared/src/solid-theme.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/tenant-account-reads.json.ts",
+      "target": "packages/shared/src/tenant-account-reads.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/tenant-dashboard/catalog.json.ts",
+      "target": "packages/shared/src/tenant-dashboard/catalog.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/tenant-dashboard/preference-draft.ts",
+      "target": "packages/shared/src/tenant-dashboard/preference-draft.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/tenant-operations.json.ts",
+      "target": "packages/shared/src/tenant-operations.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/territories/map.json.ts",
+      "target": "packages/shared/src/territories/map.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/territories/registry.json.ts",
+      "target": "packages/shared/src/territories/registry.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/vapi-agent-templates.json.ts",
+      "target": "packages/shared/src/vapi-agent-templates.json",
+      "language": "web",
+      "defaultExport": true
+    },
+    {
+      "gateway": "packages/primecare_master/web/shared/src/work-modules/tenant-task-adapter.ts",
+      "target": "packages/shared/src/work-modules/tenant-task-adapter.ts",
+      "language": "web",
+      "defaultExport": false
+    }
+  ]
+}

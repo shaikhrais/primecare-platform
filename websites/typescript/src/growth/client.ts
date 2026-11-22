@@ -1,4 +1,4 @@
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 export class GrowthClient extends BaseSessionClient {
  constructor(gateway:string,token:string,private readonly ownerManaged=false){super(gateway,token);}

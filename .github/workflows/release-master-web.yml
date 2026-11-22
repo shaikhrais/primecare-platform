@@ -1,0 +1,78 @@
+name: Release master-connected web portals
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/release-master-web.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: primecare-master-web-release
+  cancel-in-progress: false
+jobs:
+  master:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          pip install PyYAML==6.0.3
+          python tools/package_master/catalog.py --check
+          python -m unittest tools.package_master.test_catalog
+          node --test tools/package_master/test_web_boundary.mjs packages/primecare_package_base/test/registry.test.mjs
+  browser:
+    needs: master
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Require successful browser acceptance for this exact commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 70); do
+            payload="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/runs" -f head_sha="$GITHUB_SHA" -f per_page=100)"
+            run="$(jq -c '[.workflow_runs[] | select(.name == "Current-account password browser acceptance" and .head_sha == env.GITHUB_SHA and .event == "push")] | sort_by(.created_at) | last // {}' <<<"$payload")"
+            status="$(jq -r '.status // "waiting"' <<<"$run")"
+            conclusion="$(jq -r '.conclusion // "waiting"' <<<"$run")"
+            if [ "$conclusion" = success ]; then exit 0; fi
+            if [ "$status" = completed ]; then echo "Browser acceptance failed: $conclusion" >&2; exit 1; fi
+            echo "Waiting for exact-source browser acceptance ($attempt/70): $status"
+            sleep 15
+          done
+          echo 'No successful exact-source browser acceptance' >&2
+          exit 1
+  baseline:
+    needs: master
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify and retain all nine previous live releases
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          for project in $(python3 -c 'import json; print(" ".join(json.load(open("websites/typescript/projects.json"))))'); do
+            python3 -m tools.deployment.typescript_release live "$project" 19ed9f8071abca3e02e7b2bf18b542a351c3d640 --record "test-results/master-previous-live/${project}.json"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: master-previous-live-identities
+          path: test-results/master-previous-live
+          if-no-files-found: error
+          retention-days: 90
+  publish:
+    needs: [browser, baseline]
+    uses: ./.github/workflows/deploy-typescript-websites.yml
+    with:
+      confirm: DEPLOY
+    secrets: inherit

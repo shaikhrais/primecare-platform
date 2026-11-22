@@ -1,6 +1,6 @@
 import {MicrophoneAccess,microphoneHelp} from './microphone-access';
 import {Device,Call} from '@twilio/voice-sdk';
-import {CommunicationResourceBase} from '../../../packages/shared/src/communications/adapter-base.mjs';
+import {CommunicationResourceBase} from "../../../packages/primecare_master/web/shared/src/communications/adapter-base.mjs";
 import {BaseSessionClient} from './infrastructure/http/base-session-client';
 class ExternalCallFailure extends Error{
  constructor(readonly status:number,readonly reference:string|undefined){super('Calling request failed');}

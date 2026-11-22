@@ -1,5 +1,5 @@
 import {BaseSessionClient} from './infrastructure/http/base-session-client';
-import catalog from '../../../packages/shared/src/account-mutations.json';
+import catalog from "../../../packages/primecare_master/web/shared/src/account-mutations.json.ts";
 import type {AccountRow} from './tenant-accounts-client';
 export class AccountMutationError extends Error{constructor(readonly status:number){super('account_mutation_failed');}}
 export type CreatedAccount={id:string;email:string;roles:string;status:string;tenant_id:string};

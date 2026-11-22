@@ -1,5 +1,5 @@
 import {icon} from './visuals';
-import {registry} from '../../../../packages/shared/src/growth/contract';
+import {registry} from "../../../../packages/primecare_master/web/shared/src/growth/contract.ts";
 import {esc,due,formValues,type T} from './forms';
 import {GrowthClient} from './client';
 export function operationsView(t:T,data:any){
