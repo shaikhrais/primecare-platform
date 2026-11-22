@@ -1,0 +1,26 @@
+name: Validate dashboard preference contract candidate
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/architecture/proposals/dashboard-preferences-v1/**'
+      - 'tools/dashboard-preference-proposal/**'
+      - '.github/workflows/dashboard-preference-proposal.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install isolated validation dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/dashboard-contract-tests" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 ajv@8.17.1 linkedom@0.18.12
+          ln -s "$RUNNER_TEMP/dashboard-contract-tests/node_modules" node_modules
+      - name: Validate candidate and retain existing runtime boundaries
+        run: node --test tools/dashboard-preference-proposal/test.mjs scripts/test-dashboard-widgets-model.mjs scripts/test-dashboard-widgets-lifecycle.mjs scripts/test-dashboard-pages-session.mjs

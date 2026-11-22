@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:primecare:proposal:dashboard-preferences:v1:response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "scope",
+    "kind",
+    "resource",
+    "revision",
+    "document"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "scope": {
+      "$ref": "urn:primecare:proposal:dashboard-preferences:v1:shared#/definitions/scope"
+    },
+    "kind": {
+      "const": "dashboard"
+    },
+    "resource": {
+      "$ref": "urn:primecare:proposal:dashboard-preferences:v1:shared#/definitions/resource"
+    },
+    "revision": {
+      "$ref": "urn:primecare:proposal:dashboard-preferences:v1:shared#/definitions/revision"
+    },
+    "document": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "urn:primecare:proposal:dashboard-preferences:v1:shared#/definitions/layout"
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "revision": {
+            "const": 0
+          }
+        },
+        "required": [
+          "revision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "document": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}
