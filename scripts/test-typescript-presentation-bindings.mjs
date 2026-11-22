@@ -17,6 +17,7 @@ class Element {
  addEventListener(){}removeEventListener(){}focus(){this.ownerDocument.activeElement=this;}remove(){this.isConnected=false;}contains(node){return node===this||this.children.includes(node);}
  querySelector(selector){if(selector==='.app-shell')return this.shell??null;if(selector==='[data-cy=appearance-open]')return this.existingOpener??null;return this.lookup?.get(selector)??null;}
  querySelectorAll(selector){if(selector==='[data-screen-catalog][data-screen-text]')return this.leaves??[];return [];}
+ append(...children){this.children.push(...children);}
  get childNodes(){return this.children;}
  get firstElementChild(){return this.children[0]??null;}
  get innerHTML(){return this.html??'';}
@@ -35,7 +36,7 @@ class Element {
 }
 let id=0;
 function fixture(locale='en'){
- const storage=new Map(),reads=[];const doc={};doc.documentElement=new Element(doc);doc.documentElement.lang=locale;doc.body=new Element(doc);doc.createElement=()=>new Element(doc);
+ const storage=new Map(),reads=[];const doc={querySelector:()=>null};doc.head=new Element(doc);doc.documentElement=new Element(doc);doc.documentElement.lang=locale;doc.body=new Element(doc);doc.createElement=()=>new Element(doc);
  const observers=[],events=new Map();class Observer{constructor(callback){this.callback=callback;observers.push(this);}observe(){}disconnect(){this.disconnected=true;}}
  doc.defaultView={MutationObserver:Observer,addEventListener:(name,fn)=>{const listeners=events.get(name)??new Set();listeners.add(fn);events.set(name,listeners);},removeEventListener:(name,fn)=>events.get(name)?.delete(fn)};
  const root=new Element(doc),gateway='https://fixture-'+(++id)+'.invalid';const store=api.liveScreenText(gateway);
