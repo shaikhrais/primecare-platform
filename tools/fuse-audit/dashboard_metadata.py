@@ -15,6 +15,18 @@ sys.path.insert(0, str(ROOT / 'tools/governance-production'))
 from production_reader import connect, GovernanceReadError
 
 
+class TracedMetadata:
+    def __init__(self, db, report):
+        self.db, self.report = db, report
+        self.count = 0
+    def execute(self, sql, parameters=()):
+        self.count += 1
+        match = re.search(r'FROM ([a-z_]+)', sql)
+        table = match[1] if match else 'unknown'
+        self.report['lastMetadataRead'] = dict(table=table, queryIndex=self.count)
+        return self.db.execute(sql, parameters)
+
+
 def rows(db, sql, parameters=()):
     cursor = db.execute(sql, parameters)
     keys = [column[0] for column in cursor.description]
@@ -67,7 +79,8 @@ def main():
     report = dict(sourceCommit=args.source_commit, observedAtUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(), readOnly=True)
     try:
         with connect() as db:
-            report.update(inspect(db))
+            report['logicalSchemaColumns'] = {name:[column['name'] for column in db.tables[name]['columns']] for name in ['screens','role_screen_permissions','screen_components','api_endpoints']}
+            report.update(inspect(TracedMetadata(db, report)))
             report['manifestSha256'] = db.pin['manifestSha256']
         report['status'] = 'metadata_readback_complete'
         result = 0
