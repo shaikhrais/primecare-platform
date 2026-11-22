@@ -1,0 +1,40 @@
+name: Read current Fuse dashboard registration readiness
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/fuse-audit/dashboard_metadata.py'
+      - 'tools/fuse-audit/test_dashboard_metadata.py'
+      - '.github/workflows/fuse-dashboard-readiness.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install existing read adapter dependencies
+        run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/dashboard-readiness" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/dashboard-readiness/node_modules" node_modules
+      - name: Verify metadata-only audit behavior
+        run: python tools/fuse-audit/test_dashboard_metadata.py
+      - name: Read pinned production metadata snapshot
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/fuse-audit/dashboard_metadata.py --output artifacts/dashboard-readiness/metadata.json --source-commit "$GITHUB_SHA"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: current-dashboard-registration-readiness
+          path: artifacts/dashboard-readiness
+          retention-days: 30
