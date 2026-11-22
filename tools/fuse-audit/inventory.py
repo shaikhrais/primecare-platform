@@ -25,3 +25,14 @@ with zipfile.ZipFile(a.archive) as z:
  report=dict(schemaVersion=1,referenceArchive=a.archive.name,referenceSha256=sha(a.archive.read_bytes()),assetCount=len(assets),assetBytes=sum(x['size'] for x in assets),exactByteMatches=sum(bool(x['exactMatches']) for x in assets),extensions=dict(collections.Counter(pathlib.Path(x['source']).suffix for x in assets)),assets=assets,referenceViewSourceCandidates=views,limitations=['No exact match does not establish absence of an original equivalent.','Source candidates are not a verified route list.','The supplied skeleton contains no dashboard application source; a dashboard template image is not a working dashboard.','No full-view visual parity or signed-in business acceptance is established by this inventory.'])
  (a.output/'Fuse_Asset_Readiness.json').write_text(json.dumps(report,indent=2)+'\n')
  print(json.dumps({k:v for k,v in report.items() if k not in ['assets','referenceViewSourceCandidates']}))
+
+# Source presence and recorded acceptance are intentionally separate.
+catalog=json.loads((root/'packages/primecare_ui/catalogs/developer-catalogue.json').read_text())
+checks=[]
+for feature in catalog['features']:
+ sources=[]
+ for entry in feature.get('sources',[]):
+  path=root/entry['path'];present=path.is_file()
+  sources.append(dict(path=entry['path'],presentNow=present,sameAsCatalogueHash=present and sha(path.read_bytes())==entry.get('sha256')))
+ checks.append(dict(id=feature['id'],recordedDisposition=feature.get('disposition'),sources=sources,remaining=feature.get('remaining',[]),freshVisualAcceptance=False))
+(a.output/'All_72_Component_Source_Checks.json').write_text(json.dumps(checks,indent=2)+'\n')
