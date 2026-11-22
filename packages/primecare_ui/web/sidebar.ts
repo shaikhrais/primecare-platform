@@ -1,5 +1,7 @@
 export function keepCurrentSidebarItemVisible(sidebar:HTMLElement|null):void {
-if(sidebar)requestAnimationFrame(()=>{if(!sidebar.isConnected)return;const nav=sidebar.querySelector<HTMLElement>('nav'),active=nav?.querySelector<HTMLElement>('a[aria-current=page]');if(!nav||!active)return;const bounds=nav.getBoundingClientRect(),item=active.getBoundingClientRect();if(!bounds.height)return;if(item.bottom>bounds.bottom)nav.scrollTop+=item.bottom-bounds.bottom+8;else if(item.top<bounds.top)nav.scrollTop+=item.top-bounds.top-8;});
+// Schedule against the sidebar's own window; nonvisual documents have no frame scheduler.
+const view=sidebar?.ownerDocument.defaultView;
+if(sidebar&&typeof view?.requestAnimationFrame==='function')view.requestAnimationFrame(()=>{if(!sidebar.isConnected)return;const nav=sidebar.querySelector<HTMLElement>('nav'),active=nav?.querySelector<HTMLElement>('a[aria-current=page]');if(!nav||!active)return;const bounds=nav.getBoundingClientRect(),item=active.getBoundingClientRect();if(!bounds.height)return;if(item.bottom>bounds.bottom)nav.scrollTop+=item.bottom-bounds.bottom+8;else if(item.top<bounds.top)nav.scrollTop+=item.top-bounds.top-8;});
 }
 const bound=new WeakSet<HTMLElement>();
 export function bindSidebar(root:HTMLElement):void {

@@ -135,12 +135,12 @@ class Element {
   dataset={};innerHTML='';children=[];lang='';dir='';
   constructor(doc){this.ownerDocument=doc;}
   getAttribute(key){return this.attrs.get(key)??null;} setAttribute(key,value){this.attrs.set(key,value);}removeAttribute(key){this.attrs.delete(key);}
-  replaceChildren(...children){this.children=children;this.innerHTML='';}contains(el){return el===this||this.children.includes(el);}
+  replaceChildren(...children){this.children=children;this.innerHTML='';}append(...children){this.children.push(...children);}contains(el){return el===this||this.children.includes(el);}
   scrollTo(){}addEventListener(){}removeEventListener(){}querySelectorAll(){return [];}querySelector(){return null;}
 }
 function browser(path,styles=true) {
   const values=new Map(); const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value),removeItem:key=>values.delete(key)};
-  const doc={};doc.documentElement=new Element(doc);doc.body=new Element(doc);doc.createElement=()=>new Element(doc);
+  const doc={};doc.documentElement=new Element(doc);doc.head=new Element(doc);doc.body=new Element(doc);doc.createElement=()=>new Element(doc);
   const root=new Element(doc);doc.querySelector=selector=>selector==='#app'?root:null;
   const events=new Map();
   doc.defaultView={addEventListener(name,callback){if(!events.has(name))events.set(name,new Set());events.get(name).add(callback);},removeEventListener(name,callback){events.get(name)?.delete(callback);},dispatchEvent(event){for(const callback of [...events.get(event.type)??[]])callback(event);this['on'+event.type]?.(event);},getComputedStyle:()=>({getPropertyValue:key=>key==='--primecare-responsive-styles'?(styles?'1':''):doc.documentElement.style.getPropertyValue(key)})};
