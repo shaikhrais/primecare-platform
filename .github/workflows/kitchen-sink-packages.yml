@@ -27,6 +27,8 @@ jobs:
         with: {python-version: '3.12'}
       - run: |
           npm ci --ignore-scripts --no-audit --no-fund
+          npm install --prefix "$RUNNER_TEMP/kitchen-sink-test-tools" --ignore-scripts --no-audit --no-fund linkedom@0.18.12
+          test -e node_modules/linkedom || ln -s "$RUNNER_TEMP/kitchen-sink-test-tools/node_modules/linkedom" node_modules/linkedom
           pip install PyYAML==6.0.3
           python tools/kitchen_sink/generate.py --check
           python tools/package_master/catalog.py --check
