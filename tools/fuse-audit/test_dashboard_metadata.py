@@ -47,6 +47,10 @@ class ReadinessTests(unittest.TestCase):
         self.assertIn('theme', result['sourcePreferenceKinds'])
         self.assertNotIn('dashboard', result['sourcePreferenceKinds'])
         self.assertTrue(all(sql.startswith('SELECT ') for sql in db.statements))
+    def test_diagnostics_retain_only_stable_reader_codes(self):
+        self.assertEqual(audit.safe_diagnostic(audit.GovernanceReadError('Production governance connection failed: read-only-snapshot / planLimitReached')), {'phase':'read-only-snapshot','code':'planLimitReached'})
+        self.assertEqual(audit.safe_diagnostic(audit.GovernanceReadError('Production governance query failed: 42703')), {'phase':'query','code':'42703'})
+        self.assertEqual(audit.safe_diagnostic(RuntimeError('postgres://private:secret@example.test')), {'phase':'adapter','code':'unavailable'})
     def test_permission_mismatch_does_not_match_source_contract(self):
         result = audit.inspect(Metadata(permission='different_permission'))
         self.assertFalse(result['preferenceApi']['matchesSourceContract'])

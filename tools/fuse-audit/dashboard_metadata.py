@@ -6,12 +6,13 @@ No write adapter, mutation flag or SQL supplied by a caller is accepted.
 import argparse
 import datetime
 import json
+import re
 from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools/governance-production'))
-from production_reader import connect
+from production_reader import connect, GovernanceReadError
 
 
 def rows(db, sql, parameters=()):
@@ -46,6 +47,18 @@ def inspect(db):
                      'This snapshot reads governance metadata only; no signed-in business workflow was exercised.'])
 
 
+def safe_diagnostic(error):
+    if isinstance(error, GovernanceReadError):
+        message = str(error)
+        match = re.fullmatch(r'Production governance connection failed: ([a-z-]+) / ([A-Za-z0-9_]+)', message)
+        if match:
+            return dict(phase=match[1], code=match[2])
+        match = re.fullmatch(r'Production governance query failed: ([A-Za-z0-9_]+)', message)
+        if match:
+            return dict(phase='query', code=match[1])
+    return dict(phase='adapter', code='unavailable')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
@@ -60,7 +73,7 @@ def main():
         result = 0
     except Exception as error:
         # Never serialize a driver exception, environment or connection URL.
-        report.update(status='metadata_readback_failed', errorType=type(error).__name__)
+        report.update(status='metadata_readback_failed', errorType=type(error).__name__, diagnostic=safe_diagnostic(error))
         result = 1
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + '\n')
