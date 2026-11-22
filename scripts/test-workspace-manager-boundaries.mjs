@@ -107,7 +107,7 @@ async function browser({role = 'ceo', path, locale = 'en', data} = {}) {
   const values = new Map([['primecare_session', token]]);
   const storage = {getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: key => values.delete(key)};
   const doc = {baseURI: 'https://fixture.invalid' + path + '?enable-semantics=true'};
-  doc.documentElement = new Element(doc); doc.documentElement.lang = locale; doc.createElement = () => new Element(doc);
+  doc.head = new Element(doc);doc.documentElement = new Element(doc); doc.documentElement.lang = locale; doc.createElement = () => new Element(doc);
   const root = new Element(doc), assigned = [], replaced = [], pushes = [], historyReplacements = [], requests = [];
   let reloads = 0;
   const setUrl = target => {

@@ -115,7 +115,7 @@ test('connection loss after a dispatched mutation preserves its uncertain retry 
 function bridgeFixture(){
  const f=browser({installManager:false}),doc=f.root.ownerDocument;
  const style=()=>{const values=new Map();return {scrollbarColor:'',getPropertyValue:k=>values.get(k)??'',setProperty:(k,v)=>values.set(k,v),removeProperty:k=>values.delete(k)};};
- f.root.style=style();doc.documentElement.style=style();doc.body=doc.createElement('body');doc.body.style=style();
+ doc.querySelector=selector=>selector==='#app'?f.root:null;f.root.style=style();doc.documentElement.style=style();doc.body=doc.createElement('body');doc.body.style=style();
  f.root.classList.add=()=>{};doc.documentElement.classList.add=()=>{};let responsive=true;
  doc.defaultView=window;window.getComputedStyle=()=>({getPropertyValue:k=>k==='--primecare-responsive-styles'?(responsive?'1':''):doc.documentElement.style.getPropertyValue(k)});globalThis.getComputedStyle=window.getComputedStyle;
  f.manager=installPortalPresentation(f.root,{'--color-primary':'#006b68'},'https://gateway.invalid');f.setResponsive=value=>responsive=value;return f;

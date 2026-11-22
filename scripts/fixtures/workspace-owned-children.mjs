@@ -113,7 +113,7 @@ async function browser({role = 'ceo', path, locale = 'en', data, entry=true} = {
   const values = new Map([['primecare_session', token]]);
   const storage = {getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: key => values.delete(key)};
   const doc = {baseURI: 'https://fixture.invalid' + path + '?enable-semantics=true'};
-  doc.documentElement = new Element(doc); doc.documentElement.lang = locale; doc.createElement = () => new Element(doc);
+  doc.head = new Element(doc);doc.documentElement = new Element(doc); doc.documentElement.lang = locale; doc.createElement = () => new Element(doc);
   const root = new Element(doc), assigned = [], replaced = [], pushes = [], historyReplacements = [], requests = [];
   let reloads = 0;
   const setUrl = target => {
@@ -148,7 +148,7 @@ export {browser,serverData,client,Element};
 
 const adaptWorkspaceDocument=(root,doc,view)=>{
  const style=()=>{const values=new Map();return {scrollbarColor:'',getPropertyValue:k=>values.get(k)??'',setProperty:(k,v)=>values.set(k,v),removeProperty:k=>values.delete(k)};};
- root.style=style();doc.documentElement.style=style();doc.body=doc.createElement('body');doc.body.style=style();root.id='app';root.parentElement=doc.body;root.parentNode=doc.body;
+ doc.head.append=(...children)=>doc.head.children.push(...children);root.style=style();doc.documentElement.style=style();doc.body=doc.createElement('body');doc.body.style=style();root.id='app';root.parentElement=doc.body;root.parentNode=doc.body;
  root.contains=node=>node===root||node===root.shell||[...root.controls.values()].includes(node);root.scrollTo=()=>{};
  doc.querySelector=selector=>selector==='#app'?root:null;doc.defaultView=view;view.location=globalThis.location;view.history=globalThis.history;view.history.scrollRestoration='auto';
  const failures={responsive:false};view.getComputedStyle=()=>({getPropertyValue:k=>k==='--primecare-responsive-styles'?(failures.responsive?'0':'1'):doc.documentElement.style.getPropertyValue(k)});globalThis.getComputedStyle=view.getComputedStyle;

@@ -11,8 +11,9 @@ const stubs={
  '../shell': `export const renderShell=(root,o)=>{root.renderCount++;root.innerHTML='<div data-cy="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';};export const bindShell=(root,_title,_locale,_scope,entries)=>root.entries=entries();`,
  '../shell-icons': `export const shellIcon=()=>'';`,
 };
+stubs['./shell']=stubs['../shell']+`export const shellMarkup=o=>'<div data-cy="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';`;
 const built=await build({stdin:{contents:`export * from './websites/typescript/src/tenant-dashboard/index';export * from './packages/primecare_ui/web/screen-manager';export * from './websites/typescript/src/managed-routes';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'esm',plugins:[{name:'tenant-entry-peripherals',setup(b){
- b.onResolve({filter:/^\.\.?\//},a=>a.importer.endsWith('/tenant-dashboard/index.ts')&&stubs[a.path]?{path:a.path,namespace:'fixture'}:null);
+ b.onResolve({filter:/^\.\.?\//},a=>(a.importer.endsWith('/tenant-dashboard/index.ts')||a.importer.endsWith('/web/master-dashboard.ts'))&&stubs[a.path]?{path:a.path,namespace:'fixture'}:null);
  b.onLoad({filter:/.*/,namespace:'fixture'},a=>({contents:stubs[a.path],loader:'js'}));
 }}]});
 const client=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
@@ -22,15 +23,15 @@ class Element {
  constructor(doc,tag='div'){this.ownerDocument=doc;this.tagName=tag.toUpperCase();}
  get isConnected(){return this===this.ownerDocument.body||!!this.parentElement?.isConnected;}
  setAttribute(k,v){v=String(v);this.attrs.set(k,v);if(k.startsWith('data-'))this.dataset[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=v;if(k==='value')this.value=v;if(k==='disabled')this.disabled=true;}
- getAttribute(k){return this.attrs.get(k)??null;}removeAttribute(k){this.attrs.delete(k);}
+ hasAttribute(k){return this.attrs.has(k);}getAttribute(k){return this.attrs.get(k)??null;}removeAttribute(k){this.attrs.delete(k);}
  append(...els){for(const el of els){el.remove?.();el.parentElement=this;this.children.push(el);}}
  prepend(el){el.remove();el.parentElement=this;this.children.unshift(el);}
  remove(){if(this.parentElement){this.parentElement.children=this.parentElement.children.filter(x=>x!==this);this.parentElement=null;}}
  replaceChildren(...els){for(const el of this.children)el.parentElement=null;this.children=[];this._html='';this.textContent='';this.append(...els);}
- contains(el){return this===el||this.children.some(c=>c.contains(el));}get firstElementChild(){return this.children[0]??null;}
+ contains(el){return this===el||this.children.some(c=>c.contains(el));}get firstElementChild(){return this.children[0]??null;}get content(){return this;}
  set innerHTML(html){this.replaceChildren();this._html=html;const stack=[this];for(const token of html.matchAll(/<\/?[a-z][^>]*>|[^<]+/gi)){const t=token[0];if(t.startsWith('</')){if(stack.length>1)stack.pop();continue;}if(!t.startsWith('<')){stack.at(-1).textContent+=decode(t);continue;}const tag=t.match(/^<([a-z0-9-]+)/i)?.[1];if(!tag)continue;const el=new Element(this.ownerDocument,tag);for(const a of t.slice(tag.length+1,-1).matchAll(/([\w-]+)(?:=(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g))el.setAttribute(a[1],decode(a[2]??a[3]??a[4]??''));stack.at(-1).append(el);if(!['input','br','hr','img','meta','link'].includes(tag)&&!t.endsWith('/>'))stack.push(el);}}
  get innerHTML(){return this._html??'';}
- matches(s){if(s.includes(','))return s.split(',').some(value=>this.matches(value.trim()));const tag=s.match(/^[a-z][a-z0-9-]*/i)?.[0];if(tag&&tag.toUpperCase()!==this.tagName)return false;for(const a of s.matchAll(/\[([\w-]+)(?:=["']?([^\]"']+)["']?)?\]/g)){if(!this.attrs.has(a[1]))return false;if(a[2]!==undefined&&this.attrs.get(a[1])!==a[2])return false;}return true;}
+ matches(s){const has=s.match(/^(.+):has\((.+)\)$/);if(has)return this.matches(has[1])&&!!this.querySelector(has[2]);if(s.includes(','))return s.split(',').some(value=>this.matches(value.trim()));const tag=s.match(/^[a-z][a-z0-9-]*/i)?.[0];if(tag&&tag.toUpperCase()!==this.tagName)return false;for(const a of s.matchAll(/\[([\w-]+)(?:=["']?([^\]"']+)["']?)?\]/g)){if(!this.attrs.has(a[1]))return false;if(a[2]!==undefined&&this.attrs.get(a[1])!==a[2])return false;}return true;}
  querySelectorAll(s){const parts=s.split(/\s+/);const all=[];const visit=n=>{for(const c of n.children){if(c.matches(parts.at(-1))&&(parts.length===1||c.parentElement?.closest(parts.slice(0,-1).join(' '))))all.push(c);visit(c);}};visit(this);return all;}
  querySelector(s){return this.querySelectorAll(s)[0]??null;}closest(s){return this.matches(s)?this:this.parentElement?.closest(s)??null;}
  addEventListener(n,cb){if(!this.listeners.has(n))this.listeners.set(n,new Set());this.listeners.get(n).add(cb);}removeEventListener(n,cb){this.listeners.get(n)?.delete(cb);}
@@ -55,7 +56,7 @@ const settle=async()=>{for(let i=0;i<16;i++)await Promise.resolve();await new Pr
 const fire=async(node,event='click')=>{assert.ok(node,'Missing control');node.dispatch(event);await settle();};
 const deferred=()=>{let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return{promise,resolve,reject};};
 
-test('missing tenant entry registration rejects before an authorized read',async()=>{const f=fixture();f.manager.registerScope('entry',[]);await f.render();assert.match(f.error(),/Missing registration/);assert.equal(f.requests.length,0);});
+test('missing tenant entry registration rejects before an authorized read',async()=>{const f=fixture();f.manager.registerScope('entry',[]);await f.render();assert.match(f.error(),/Missing (?:dashboard )?registration/);assert.equal(f.requests.length,0);});
 test('hash navigation rechecks presentation before replacing the current shell',async()=>{const f=fixture();await f.render();delete f.services.language;await fire(f.control('tenant-nav-tasks'));assert.match(f.error(),/Missing language/);assert.equal(f.root.renderCount,1);assert.equal(f.pushes.length,0);});
 test('late tenant read cannot draw after presentation connection loss',async()=>{const f=fixture(),d=deferred();f.respond=()=>d.promise;const work=f.render();delete f.services.responsive;d.resolve(Response.json(f.data));await work;assert.match(f.error(),/Missing responsive/);assert.equal(f.root.renderCount,0);});
 

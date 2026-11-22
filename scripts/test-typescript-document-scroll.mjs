@@ -36,7 +36,7 @@ function fixture(path='/one?enable-semantics=true', {embedded=false}={}) {
   const events = new Map(), values = new Map(), document = {}, scrolls = [];
   const storage = {getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)};
   let location = new URL(path,'https://portal.invalid'), responsive = true, viewport = {top:620,left:36};
-  document.documentElement = new Element(document);document.body = new Element(document);document.documentElement.append(document.body);
+  document.head = new Element(document);document.documentElement = new Element(document);document.body = new Element(document);document.documentElement.append(document.body);
   document.createElement = ()=>new Element(document);document.scrollingElement = document.documentElement;
   const root = new Element(document);root.setAttribute('id','app');document.body.append(root);
   let canonical = root;
