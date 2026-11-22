@@ -1,0 +1,391 @@
+{
+  "version": 1,
+  "kind": "verified_metadata_export",
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "2ef7db11b519d04569aca0b100c209e2c8697c3f6c8fb2a7c1aed50951d437da",
+  "source": {
+    "commit": "517d66b0201ea773a6bb5b45a2389de6c3ef42ba",
+    "runId": 41255604301,
+    "jobId": 124698079577
+  },
+  "host": {
+    "screenId": 2534,
+    "screenCode": "tenant_admin_command_center"
+  },
+  "controls": [
+    {
+      "key": "button",
+      "testId": "component-catalogue-button",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.button",
+      "controlId": 634
+    },
+    {
+      "key": "input",
+      "testId": "component-catalogue-input",
+      "componentCode": "prime_text_field",
+      "resourceKey": "componentCatalogue.input",
+      "controlId": 635
+    },
+    {
+      "key": "select",
+      "testId": "component-catalogue-select",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "componentCatalogue.select",
+      "controlId": 636
+    },
+    {
+      "key": "checkbox",
+      "testId": "component-catalogue-checkbox",
+      "componentCode": "prime_checkbox_web",
+      "resourceKey": "componentCatalogue.checkbox",
+      "controlId": 637
+    },
+    {
+      "key": "menu",
+      "testId": "component-catalogue-menu",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.menu",
+      "controlId": 638
+    },
+    {
+      "key": "menuItem",
+      "testId": "component-catalogue-menu-item",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.menuItem",
+      "controlId": 639
+    },
+    {
+      "key": "tabs",
+      "testId": "component-catalogue-tabs",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.tabs",
+      "controlId": 640
+    },
+    {
+      "key": "tabOne",
+      "testId": "component-catalogue-tab-one",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.tabOne",
+      "controlId": 641
+    },
+    {
+      "key": "tabTwo",
+      "testId": "component-catalogue-tab-two",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.tabTwo",
+      "controlId": 642
+    },
+    {
+      "key": "accordion",
+      "testId": "component-catalogue-accordion",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.accordion",
+      "controlId": 643
+    },
+    {
+      "key": "badge",
+      "testId": "component-catalogue-badge",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.badge",
+      "controlId": 644
+    },
+    {
+      "key": "card",
+      "testId": "component-catalogue-card",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.card",
+      "controlId": 645
+    },
+    {
+      "key": "dialog",
+      "testId": "component-catalogue-dialog",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.dialog",
+      "controlId": 646
+    },
+    {
+      "key": "drawer",
+      "testId": "component-catalogue-drawer",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.drawer",
+      "controlId": 647
+    },
+    {
+      "key": "close",
+      "testId": "component-catalogue-close",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.close",
+      "controlId": 648
+    },
+    {
+      "key": "tooltip",
+      "testId": "component-catalogue-tooltip",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.tooltip",
+      "controlId": 649
+    },
+    {
+      "key": "tooltipTrigger",
+      "testId": "component-catalogue-tooltip-trigger",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.tooltipTrigger",
+      "controlId": 650
+    },
+    {
+      "key": "form",
+      "testId": "component-catalogue-form",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.form",
+      "controlId": 651
+    },
+    {
+      "key": "loading",
+      "testId": "component-catalogue-loading",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.loading",
+      "controlId": 652
+    },
+    {
+      "key": "splash",
+      "testId": "component-catalogue-splash",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.splash",
+      "controlId": 653
+    },
+    {
+      "key": "empty",
+      "testId": "component-catalogue-empty",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.empty",
+      "controlId": 654
+    },
+    {
+      "key": "error",
+      "testId": "component-catalogue-error",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.error",
+      "controlId": 655
+    },
+    {
+      "key": "toast",
+      "testId": "component-catalogue-toast",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.toast",
+      "controlId": 656
+    },
+    {
+      "key": "confirm",
+      "testId": "component-catalogue-confirm",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.confirm",
+      "controlId": 657
+    },
+    {
+      "key": "cancel",
+      "testId": "component-catalogue-cancel",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.cancel",
+      "controlId": 658
+    },
+    {
+      "key": "countdown",
+      "testId": "component-catalogue-countdown",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.countdown",
+      "controlId": 659
+    },
+    {
+      "key": "code",
+      "testId": "component-catalogue-code",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.code",
+      "controlId": 660
+    },
+    {
+      "key": "copy",
+      "testId": "component-catalogue-copy",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.copy",
+      "controlId": 661
+    },
+    {
+      "key": "preview",
+      "testId": "component-catalogue-preview",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.preview",
+      "controlId": 662
+    },
+    {
+      "key": "retry",
+      "testId": "component-catalogue-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.retry",
+      "controlId": 663
+    },
+    {
+      "key": "status",
+      "testId": "component-catalogue-status",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.status",
+      "controlId": 664
+    },
+    {
+      "key": "radio",
+      "testId": "component-catalogue-radio",
+      "componentCode": "prime_radio",
+      "resourceKey": "componentCatalogue.radio",
+      "controlId": 665
+    },
+    {
+      "key": "switch",
+      "testId": "component-catalogue-switch",
+      "componentCode": "prime_switch",
+      "resourceKey": "componentCatalogue.switch",
+      "controlId": 666
+    },
+    {
+      "key": "multiline",
+      "testId": "component-catalogue-multiline",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "componentCatalogue.multiline",
+      "controlId": 667
+    }
+  ],
+  "locales": {
+    "en": {
+      "button": "Action",
+      "input": "Text value",
+      "select": "Choose an option",
+      "checkbox": "Enable option",
+      "menu": "Open menu",
+      "menuItem": "Menu action",
+      "tabs": "Sections",
+      "tabOne": "First section",
+      "tabTwo": "Second section",
+      "accordion": "Show details",
+      "badge": "Status badge",
+      "card": "Content card",
+      "dialog": "Open dialog",
+      "drawer": "Open drawer",
+      "close": "Close",
+      "tooltip": "Additional information",
+      "tooltipTrigger": "Show information",
+      "form": "Responsive form",
+      "loading": "Loading",
+      "splash": "Preparing workspace",
+      "empty": "No content available",
+      "error": "Unable to load content",
+      "toast": "Notice",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "countdown": "Time remaining",
+      "code": "Source code",
+      "copy": "Copy code",
+      "preview": "Component preview",
+      "retry": "Retry",
+      "status": "Status",
+      "optionOne": "First option",
+      "optionTwo": "Second option",
+      "required": "This value is required",
+      "success": "Action completed",
+      "actionError": "Unable to complete action",
+      "copied": "Code copied",
+      "copyError": "Unable to copy code",
+      "finished": "Time has expired",
+      "radio": "Choose one option",
+      "switch": "Toggle option",
+      "multiline": "Multiline value"
+    },
+    "fr": {
+      "button": "Action",
+      "input": "Valeur texte",
+      "select": "Choisir une option",
+      "checkbox": "Activer l’option",
+      "menu": "Ouvrir le menu",
+      "menuItem": "Action du menu",
+      "tabs": "Sections",
+      "tabOne": "Première section",
+      "tabTwo": "Deuxième section",
+      "accordion": "Afficher les détails",
+      "badge": "Badge d’état",
+      "card": "Carte de contenu",
+      "dialog": "Ouvrir la boîte de dialogue",
+      "drawer": "Ouvrir le panneau",
+      "close": "Fermer",
+      "tooltip": "Informations supplémentaires",
+      "tooltipTrigger": "Afficher les informations",
+      "form": "Formulaire adaptatif",
+      "loading": "Chargement",
+      "splash": "Préparation de l’espace de travail",
+      "empty": "Aucun contenu disponible",
+      "error": "Impossible de charger le contenu",
+      "toast": "Avis",
+      "confirm": "Confirmer",
+      "cancel": "Annuler",
+      "countdown": "Temps restant",
+      "code": "Code source",
+      "copy": "Copier le code",
+      "preview": "Aperçu du composant",
+      "retry": "Réessayer",
+      "status": "État",
+      "optionOne": "Première option",
+      "optionTwo": "Deuxième option",
+      "required": "Cette valeur est obligatoire",
+      "success": "Action terminée",
+      "actionError": "Impossible de terminer cette action",
+      "copied": "Code copié",
+      "copyError": "Impossible de copier le code",
+      "finished": "Le délai est écoulé",
+      "radio": "Choisir une seule option",
+      "switch": "Basculer l’option",
+      "multiline": "Valeur multiligne"
+    },
+    "es": {
+      "button": "Acción",
+      "input": "Valor de texto",
+      "select": "Elegir una opción",
+      "checkbox": "Activar opción",
+      "menu": "Abrir menú",
+      "menuItem": "Acción de menú",
+      "tabs": "Secciones",
+      "tabOne": "Primera sección",
+      "tabTwo": "Segunda sección",
+      "accordion": "Mostrar detalles",
+      "badge": "Insignia de estado",
+      "card": "Tarjeta de contenido",
+      "dialog": "Abrir diálogo",
+      "drawer": "Abrir panel",
+      "close": "Cerrar",
+      "tooltip": "Información adicional",
+      "tooltipTrigger": "Mostrar información",
+      "form": "Formulario adaptable",
+      "loading": "Cargando",
+      "splash": "Preparando espacio de trabajo",
+      "empty": "No hay contenido disponible",
+      "error": "No se pudo cargar el contenido",
+      "toast": "Aviso",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "countdown": "Tiempo restante",
+      "code": "Código fuente",
+      "copy": "Copiar código",
+      "preview": "Vista previa del componente",
+      "retry": "Reintentar",
+      "status": "Estado",
+      "optionOne": "Primera opción",
+      "optionTwo": "Segunda opción",
+      "required": "Este valor es obligatorio",
+      "success": "Acción completada",
+      "actionError": "No se pudo completar la acción",
+      "copied": "Código copiado",
+      "copyError": "No se pudo copiar el código",
+      "finished": "El tiempo ha terminado",
+      "radio": "Elegir una opción",
+      "switch": "Alternar opción",
+      "multiline": "Valor multilínea"
+    }
+  },
+  "humanReviewApproved": false,
+  "runtimeActivated": false
+}

@@ -1,0 +1,25 @@
+name: primecare_kitchen_sink
+description: Developer-only Flutter showcase composed from existing shared PrimeCare components.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_core:
+    path: ../flutter_core
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  primecare_kitchen_sink_catalog:
+    path: ../primecare_kitchen_sink_catalog
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+# Root-only native test dependency resolution; consumers retain their own hook settings.
+hooks:
+  user_defines:
+    sqlite3:
+      source: system

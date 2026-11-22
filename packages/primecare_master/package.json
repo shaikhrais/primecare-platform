@@ -12,7 +12,10 @@
       "types": "./src/catalog.d.ts",
       "import": "./src/catalog.mjs"
     },
-    "./web/*": "./web/*"
+    "./web/*": "./web/*",
+    "./kitchen-sink": "./web/kitchen-sink.ts",
+    "./kitchen-sink.css": "./web/kitchen-sink.css",
+    "./kitchen-sink-theme.css": "./web/kitchen-sink-theme.css"
   },
   "dependencies": {
     "@primecare/contracts": "1.0.0",
@@ -21,6 +24,8 @@
     "@primecare/infrastructure": "1.0.0",
     "@primecare/messaging": "1.0.0",
     "@primecare/package-base": "1.0.0",
-    "@primecare/security": "1.0.0"
+    "@primecare/security": "1.0.0",
+    "@primecare/kitchen-sink-catalog": "1.0.0",
+    "@primecare/kitchen-sink-web": "1.0.0"
   }
 }

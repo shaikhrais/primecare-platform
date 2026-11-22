@@ -607,6 +607,18 @@
       "target": "packages/shared/src/work-modules/tenant-task-adapter.ts",
       "language": "web",
       "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/kitchen-sink.ts",
+      "target": "packages/primecare_kitchen_sink_web/src/index.ts",
+      "language": "web",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/kitchen-sink-catalog.ts",
+      "target": "packages/primecare_kitchen_sink_catalog/src/index.ts",
+      "language": "web",
+      "defaultExport": false
     }
   ]
 }

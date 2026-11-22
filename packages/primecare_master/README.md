@@ -18,3 +18,14 @@ Flutter apps and Dart service hosts are not part of this publication. Their full
 master-only migration remains in the integration checkpoint until its independent
 migration and release checks pass. Existing production API Workers remain the
 portals' backend.
+
+
+## Developer kitchen-sink entry points
+
+The master now forwards the three private kitchen-sink packages. Use
+`@primecare/master/kitchen-sink` in browser build hosts and
+`package:primecare_master/kitchen_sink.dart` in the Flutter example host. Shared
+factory names and canonical types are retained. The Dart manifest is currently a
+Flutter developer profile; existing service-host migration is still pending.
+See [package structure](../../docs/architecture/package-structure.md) for all 20
+source packages, 13 service hosts, ownership and the dependency direction.

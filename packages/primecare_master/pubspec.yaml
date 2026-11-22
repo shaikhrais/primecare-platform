@@ -1,0 +1,11 @@
+name: primecare_master
+description: Public PrimeCare entry with composition and scoped developer Flutter showcase exports.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_package_base:
+    path: ../primecare_package_base
+  primecare_kitchen_sink:
+    path: ../primecare_kitchen_sink

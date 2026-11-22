@@ -130,15 +130,72 @@
       "hosting": "library-only"
     },
     {
-      "id": "primecare_master",
-      "path": "packages/primecare_master",
+      "id": "primecare_kitchen_sink",
+      "path": "packages/primecare_kitchen_sink",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_kitchen_sink"
+      ],
+      "dependencies": [
+        "flutter_core",
+        "primecare_kitchen_sink_catalog",
+        "primecare_ui_foundation"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_kitchen_sink_catalog",
+      "path": "packages/primecare_kitchen_sink_catalog",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "package.json",
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "@primecare/kitchen-sink-catalog",
+        "primecare_kitchen_sink_catalog"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_kitchen_sink_web",
+      "path": "packages/primecare_kitchen_sink_web",
       "kind": "library",
       "contractVersion": 1,
       "manifests": [
         "package.json"
       ],
       "declaredNames": [
-        "@primecare/master"
+        "@primecare/kitchen-sink-web"
+      ],
+      "dependencies": [
+        "domain",
+        "primecare_kitchen_sink_catalog",
+        "primecare_package_base"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_master",
+      "path": "packages/primecare_master",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "package.json",
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "@primecare/master",
+        "primecare_master"
       ],
       "dependencies": [
         "contracts",
@@ -146,6 +203,9 @@
         "domain",
         "infrastructure",
         "messaging",
+        "primecare_kitchen_sink",
+        "primecare_kitchen_sink_catalog",
+        "primecare_kitchen_sink_web",
         "primecare_package_base",
         "security"
       ],

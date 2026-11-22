@@ -1,0 +1,15 @@
+{
+  "name": "@primecare/kitchen-sink-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "dependencies": {
+    "@primecare/kitchen-sink-catalog": "1.0.0",
+    "@primecare/package-base": "1.0.0",
+    "@primecare/domain": "1.0.0"
+  }
+}

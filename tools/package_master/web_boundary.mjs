@@ -76,8 +76,12 @@ export function check({write = false} = {}) {
     const name = [...names.keys()].find(name => uri === name || uri.startsWith(name + '/'));
     if (!name) throw new Error(`Unknown internal package: ${uri}`);
     const directory = names.get(name), suffix = uri.slice(name.length).replace(/^\//, '');
-    if (suffix) return `${directory}/${suffix}`;
     const manifest = JSON.parse(fs.readFileSync(path.join(root, directory, 'package.json')));
+    if (suffix) {
+      const scoped = manifest.exports?.['./' + suffix];
+      const target = typeof scoped === 'string' ? scoped : scoped?.import;
+      return path.posix.normalize(`${directory}/${target || suffix}`);
+    }
     const entry = manifest.exports?.['.'];
     return path.posix.normalize(`${directory}/${typeof entry === 'string' ? entry : entry?.import || manifest.module || manifest.main || 'index.ts'}`);
   }

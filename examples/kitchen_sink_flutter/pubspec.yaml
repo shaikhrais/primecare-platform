@@ -1,0 +1,13 @@
+name: primecare_kitchen_sink_example
+description: Local developer host consuming internal PrimeCare code through master only.
+publish_to: none
+version: 1.0.0
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  primecare_master:
+    path: ../../packages/primecare_master
+flutter:
+  uses-material-design: true

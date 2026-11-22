@@ -1,0 +1,15 @@
+[data-pc-kitchen-sink] {font:inherit;color:var(--color-text);background:var(--color-background);padding:var(--spacing-lg);min-inline-size:0}
+[data-pc-kitchen-sink] [data-cy=ks-toolbar] {display:flex;flex-wrap:wrap;gap:var(--spacing-sm);align-items:center;position:sticky;inset-block-start:0;z-index:1;background:var(--color-surface);padding:var(--spacing-md);border-radius:var(--radius-md)}
+[data-pc-kitchen-sink] [data-cy=ks-toolbar] :is(input,select,button) {font:inherit;min-block-size:var(--control-min-height);min-inline-size:0;max-inline-size:100%;background:var(--color-surface);color:var(--color-text);padding:var(--spacing-sm);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md)}
+[data-pc-kitchen-sink] [data-cy=ks-search] {flex:1}
+[data-pc-kitchen-sink] [data-cy=ks-grid] {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(var(--spacing-unit)*42)),1fr));gap:var(--spacing-lg);padding-block:var(--spacing-lg)}
+[data-pc-kitchen-sink] .ks-story {min-inline-size:0;background:var(--color-surface);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md);padding:var(--spacing-md)}
+[data-pc-kitchen-sink] .ks-story[hidden] {display:none}
+[data-pc-kitchen-sink] .ks-preview {display:grid;gap:var(--spacing-sm);padding-block:var(--spacing-md);min-inline-size:0;overflow:auto}
+[data-pc-kitchen-sink] :is(code,pre,td) {overflow-wrap:anywhere;white-space:pre-wrap}
+[data-pc-kitchen-sink] details {padding-block:var(--spacing-md)}
+[data-pc-kitchen-sink] summary {cursor:pointer;min-block-size:var(--control-min-height)}
+[data-pc-kitchen-sink] table {border-collapse:collapse;width:100%;text-align:start}
+[data-pc-kitchen-sink] :is(th,td) {border-block-end:var(--border-width) solid var(--color-border);padding:var(--spacing-sm);text-align:start}
+[data-pc-kitchen-sink] :focus-visible {outline:var(--border-width) solid var(--color-primary);outline-offset:var(--spacing-sm)}
+@media (prefers-reduced-motion:reduce) {[data-pc-kitchen-sink] * {scroll-behavior:auto;animation:none;transition:none}}

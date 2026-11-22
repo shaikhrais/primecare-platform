@@ -1,0 +1,6 @@
+name: primecare_kitchen_sink_catalog
+description: Generated developer-only stories and original component metadata snapshots.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3

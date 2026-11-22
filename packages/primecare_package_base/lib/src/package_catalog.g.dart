@@ -43,9 +43,24 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     dependencies: ["database"],
   ),
   PackageDescriptor(
+    id: 'primecare_kitchen_sink', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["flutter_core", "primecare_kitchen_sink_catalog", "primecare_ui_foundation"],
+  ),
+  PackageDescriptor(
+    id: 'primecare_kitchen_sink_catalog', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: [],
+  ),
+  PackageDescriptor(
+    id: 'primecare_kitchen_sink_web', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["domain", "primecare_kitchen_sink_catalog", "primecare_package_base"],
+  ),
+  PackageDescriptor(
     id: 'primecare_master', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_package_base", "security"],
+    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_package_base", "security"],
   ),
   PackageDescriptor(
     id: 'primecare_models', kind: PackageKind.library,

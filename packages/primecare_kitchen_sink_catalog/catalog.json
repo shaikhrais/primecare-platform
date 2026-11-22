@@ -1,0 +1,1408 @@
+{
+  "schemaVersion": 1,
+  "previewOnly": true,
+  "vendorSourceCopied": false,
+  "fullReferenceParity": false,
+  "labels": {
+    "en": {
+      "title": "Component kitchen sink",
+      "search": "Find a component",
+      "all": "All components",
+      "source": "Usage and owner",
+      "preview": "Interactive examples",
+      "reference": "Fuse-inspired reference map",
+      "packages": "Package structure",
+      "note": "Developer preview · synthetic local data · no business APIs",
+      "pending": "Full acceptance pending",
+      "mapped": "Shared implementation mapped",
+      "unmapped": "No audited shared mapping",
+      "theme": "Light / dark",
+      "language": "Language",
+      "none": "No matching components",
+      "owner": "Owner",
+      "dependencies": "Dependencies",
+      "hosting": "Hosting",
+      "demo": "Local example",
+      "variants": "States and variants",
+      "categories": {
+        "actions": "Actions",
+        "forms": "Forms",
+        "content": "Content",
+        "overlays": "Overlays",
+        "feedback": "Feedback",
+        "data": "Data",
+        "charts": "Charts"
+      },
+      "webOnly": "Interactive example available in the web showcase"
+    },
+    "fr": {
+      "title": "Catalogue des composants",
+      "search": "Rechercher un composant",
+      "all": "Tous les composants",
+      "source": "Utilisation et propriétaire",
+      "preview": "Exemples interactifs",
+      "reference": "Références inspirées de Fuse",
+      "packages": "Structure des packages",
+      "note": "Aperçu développeur · données locales fictives · aucune API métier",
+      "pending": "Validation complète en attente",
+      "mapped": "Implémentation partagée identifiée",
+      "unmapped": "Aucune correspondance partagée auditée",
+      "theme": "Clair / sombre",
+      "language": "Langue",
+      "none": "Aucun composant correspondant",
+      "owner": "Propriétaire",
+      "dependencies": "Dépendances",
+      "hosting": "Hébergement",
+      "demo": "Exemple local",
+      "variants": "États et variantes",
+      "categories": {
+        "actions": "Actions",
+        "forms": "Formulaires",
+        "content": "Contenu",
+        "overlays": "Fenêtres",
+        "feedback": "États",
+        "data": "Données",
+        "charts": "Graphiques"
+      },
+      "webOnly": "Exemple interactif disponible dans le catalogue web"
+    },
+    "es": {
+      "title": "Catálogo de componentes",
+      "search": "Buscar un componente",
+      "all": "Todos los componentes",
+      "source": "Uso y propietario",
+      "preview": "Ejemplos interactivos",
+      "reference": "Referencias inspiradas en Fuse",
+      "packages": "Estructura de paquetes",
+      "note": "Vista de desarrollo · datos locales ficticios · sin API de negocio",
+      "pending": "Aceptación completa pendiente",
+      "mapped": "Implementación compartida identificada",
+      "unmapped": "Sin correspondencia compartida auditada",
+      "theme": "Claro / oscuro",
+      "language": "Idioma",
+      "none": "No hay componentes coincidentes",
+      "owner": "Responsable",
+      "dependencies": "Dependencias",
+      "hosting": "Alojamiento",
+      "demo": "Ejemplo local",
+      "variants": "Estados y variantes",
+      "categories": {
+        "actions": "Acciones",
+        "forms": "Formularios",
+        "content": "Contenido",
+        "overlays": "Ventanas",
+        "feedback": "Estados",
+        "data": "Datos",
+        "charts": "Gráficos"
+      },
+      "webOnly": "Ejemplo interactivo disponible en el catálogo web"
+    }
+  },
+  "stories": [
+    {
+      "id": "button",
+      "category": "actions",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Action",
+        "fr": "Action",
+        "es": "Acción"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.button",
+      "flutterSymbol": "PrimeComponentKit.button",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "menu",
+      "category": "actions",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Open menu",
+        "fr": "Ouvrir le menu",
+        "es": "Abrir menú"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.menu",
+      "flutterSymbol": "PrimeComponentKit.menu",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "tooltip",
+      "category": "actions",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Additional information",
+        "fr": "Informations supplémentaires",
+        "es": "Información adicional"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.tooltip",
+      "flutterSymbol": "PrimeComponentKit.tooltip",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "input",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Text value",
+        "fr": "Valeur texte",
+        "es": "Valor de texto"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.field",
+      "flutterSymbol": "PrimeComponentKit.field",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "multiline",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Multiline value",
+        "fr": "Valeur multiligne",
+        "es": "Valor multilínea"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.field",
+      "flutterSymbol": "PrimeComponentKit.field",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "select",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Choose an option",
+        "fr": "Choisir une option",
+        "es": "Elegir una opción"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.select",
+      "flutterSymbol": "PrimeComponentKit.select",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "checkbox",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Enable option",
+        "fr": "Activer l’option",
+        "es": "Activar opción"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.boolean",
+      "flutterSymbol": "PrimeComponentKit.boolean",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "switch",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Toggle option",
+        "fr": "Basculer l’option",
+        "es": "Alternar opción"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.boolean",
+      "flutterSymbol": "PrimeComponentKit.boolean",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "radio",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Choose one option",
+        "fr": "Choisir une seule option",
+        "es": "Elegir una opción"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.radio",
+      "flutterSymbol": "PrimeComponentKit.radio",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "form",
+      "category": "forms",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Responsive form",
+        "fr": "Formulaire adaptatif",
+        "es": "Formulario adaptable"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.form",
+      "flutterSymbol": "PrimeComponentKit.form",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "card",
+      "category": "content",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Content card",
+        "fr": "Carte de contenu",
+        "es": "Tarjeta de contenido"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.card",
+      "flutterSymbol": "PrimeComponentKit.card",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "badge",
+      "category": "content",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Status badge",
+        "fr": "Badge d’état",
+        "es": "Insignia de estado"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.badge",
+      "flutterSymbol": "PrimeComponentKit.badge",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "tabs",
+      "category": "content",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Sections",
+        "fr": "Sections",
+        "es": "Secciones"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.tabs",
+      "flutterSymbol": "PrimeComponentKit.tabs",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "accordion",
+      "category": "content",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Show details",
+        "fr": "Afficher les détails",
+        "es": "Mostrar detalles"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.accordion",
+      "flutterSymbol": "PrimeComponentKit.accordion",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "code",
+      "category": "content",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Source code",
+        "fr": "Code source",
+        "es": "Código fuente"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.code",
+      "flutterSymbol": "PrimeCodePreview",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "preview",
+      "category": "content",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Component preview",
+        "fr": "Aperçu du composant",
+        "es": "Vista previa del componente"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.preview",
+      "flutterSymbol": "PrimeComponentKit.preview",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "dialog",
+      "category": "overlays",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Open dialog",
+        "fr": "Ouvrir la boîte de dialogue",
+        "es": "Abrir diálogo"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.modal",
+      "flutterSymbol": "PrimeCatalogueModal",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "drawer",
+      "category": "overlays",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Open drawer",
+        "fr": "Ouvrir le panneau",
+        "es": "Abrir panel"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.modal",
+      "flutterSymbol": "PrimeCatalogueModal",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "toast",
+      "category": "overlays",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Notice",
+        "fr": "Avis",
+        "es": "Aviso"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.feedback",
+      "flutterSymbol": "PrimeComponentKit.feedback",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "loading",
+      "category": "feedback",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Loading",
+        "fr": "Chargement",
+        "es": "Cargando"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.state",
+      "flutterSymbol": "PrimeComponentKit.state",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "splash",
+      "category": "feedback",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Preparing workspace",
+        "fr": "Préparation de l’espace de travail",
+        "es": "Preparando espacio de trabajo"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.state",
+      "flutterSymbol": "PrimeComponentKit.state",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "empty",
+      "category": "feedback",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "No content available",
+        "fr": "Aucun contenu disponible",
+        "es": "No hay contenido disponible"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.state",
+      "flutterSymbol": "PrimeComponentKit.state",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "error",
+      "category": "feedback",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Unable to load content",
+        "fr": "Impossible de charger le contenu",
+        "es": "No se pudo cargar el contenido"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.state",
+      "flutterSymbol": "PrimeComponentKit.state",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "countdown",
+      "category": "feedback",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Time remaining",
+        "fr": "Temps restant",
+        "es": "Tiempo restante"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.countdown",
+      "flutterSymbol": "PrimeCountdown",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "async",
+      "category": "feedback",
+      "family": "component-catalogue",
+      "titles": {
+        "en": "Loading",
+        "fr": "Chargement",
+        "es": "Cargando"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/component-catalogue.ts",
+      "webSymbol": "PrimeComponentFactory.asyncRegion",
+      "flutterSymbol": "PrimeAsyncBoundary",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/component_catalogue.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "table",
+      "category": "data",
+      "family": "data-controls",
+      "titles": {
+        "en": "Data table",
+        "fr": "Tableau de données",
+        "es": "Tabla de datos"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/data-controls.ts",
+      "webSymbol": "PrimeDataControls.table",
+      "flutterSymbol": "PrimeVirtualTable",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/data_controls.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "date",
+      "category": "data",
+      "family": "data-controls",
+      "titles": {
+        "en": "Date",
+        "fr": "Date",
+        "es": "Fecha"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/data-controls.ts",
+      "webSymbol": "PrimeDataControls.field",
+      "flutterSymbol": "PrimeDataKit.field",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/data_controls.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "time",
+      "category": "data",
+      "family": "data-controls",
+      "titles": {
+        "en": "Time",
+        "fr": "Heure",
+        "es": "Hora"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/data-controls.ts",
+      "webSymbol": "PrimeDataControls.field",
+      "flutterSymbol": "PrimeDataKit.field",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/data_controls.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "number",
+      "category": "data",
+      "family": "data-controls",
+      "titles": {
+        "en": "Number",
+        "fr": "Nombre",
+        "es": "Número"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/data-controls.ts",
+      "webSymbol": "PrimeDataControls.field",
+      "flutterSymbol": "PrimeDataKit.field",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/data_controls.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "mask",
+      "category": "data",
+      "family": "data-controls",
+      "titles": {
+        "en": "Formatted value",
+        "fr": "Valeur formatée",
+        "es": "Valor con formato"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/data-controls.ts",
+      "webSymbol": "PrimeDataControls.field",
+      "flutterSymbol": "PrimeDataKit.field",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/data_controls.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "autocomplete",
+      "category": "data",
+      "family": "data-controls",
+      "titles": {
+        "en": "Search options",
+        "fr": "Rechercher des options",
+        "es": "Buscar opciones"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/data-controls.ts",
+      "webSymbol": "PrimeDataControls.autocomplete",
+      "flutterSymbol": "web-only",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/data_controls.dart",
+      "webPreview": true,
+      "flutterPreview": false,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "line",
+      "category": "charts",
+      "family": "dashboard-widgets",
+      "titles": {
+        "en": "Chart · line",
+        "fr": "Graphique · line",
+        "es": "Gráfico · line"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "webSymbol": "PrimeDashboardWidgets.chart",
+      "flutterSymbol": "PrimeChart",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/dashboard_widgets.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "area",
+      "category": "charts",
+      "family": "dashboard-widgets",
+      "titles": {
+        "en": "Chart · area",
+        "fr": "Graphique · area",
+        "es": "Gráfico · area"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "webSymbol": "PrimeDashboardWidgets.chart",
+      "flutterSymbol": "PrimeChart",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/dashboard_widgets.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "bar",
+      "category": "charts",
+      "family": "dashboard-widgets",
+      "titles": {
+        "en": "Chart · bar",
+        "fr": "Graphique · bar",
+        "es": "Gráfico · bar"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "webSymbol": "PrimeDashboardWidgets.chart",
+      "flutterSymbol": "PrimeChart",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/dashboard_widgets.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "donut",
+      "category": "charts",
+      "family": "dashboard-widgets",
+      "titles": {
+        "en": "Chart · donut",
+        "fr": "Graphique · donut",
+        "es": "Gráfico · donut"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "webSymbol": "PrimeDashboardWidgets.chart",
+      "flutterSymbol": "PrimeChart",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/dashboard_widgets.dart",
+      "webPreview": true,
+      "flutterPreview": true,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    },
+    {
+      "id": "metric",
+      "category": "charts",
+      "family": "dashboard-widgets",
+      "titles": {
+        "en": "Metric",
+        "fr": "Indicateur",
+        "es": "Indicador"
+      },
+      "owner": "packages/primecare_ui",
+      "webSource": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "webSymbol": "PrimeDashboardWidgets.metric",
+      "flutterSymbol": "web-only",
+      "flutterOwner": "packages/flutter_core",
+      "flutterSource": "packages/flutter_core/lib/dashboard_widgets.dart",
+      "webPreview": true,
+      "flutterPreview": false,
+      "exampleKind": "local-synthetic",
+      "productionAcceptance": "not-inferred"
+    }
+  ],
+  "references": [
+    {
+      "id": "core.FuseAuthProvider",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseAuthorization",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseCountdown",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Absolute deadline; expiry once; scoped disposal"
+    },
+    {
+      "id": "core.FuseDialog",
+      "recordedDisposition": "blocked",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Owned modal, confirmation and focus return"
+    },
+    {
+      "id": "core.FuseExample",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Caller-created preview; no dynamic source execution"
+    },
+    {
+      "id": "core.FuseHighlight",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Literal code tokens and copy; no HTML execution"
+    },
+    {
+      "id": "core.FuseLayout",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseLoading",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Loading state using the active shared theme"
+    },
+    {
+      "id": "core.FuseNavigation",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FusePageCarded",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/page-template.ts",
+      "flutter": "packages/primecare_ui/lib/page_template.dart",
+      "scope": "Carded page slots, authorized breadcrumbs and responsive sidebars; host activation remains separate"
+    },
+    {
+      "id": "core.FusePageSimple",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/page-template.ts",
+      "flutter": "packages/primecare_ui/lib/page_template.dart",
+      "scope": "Simple page slots and route-controlled chrome; host activation remains separate"
+    },
+    {
+      "id": "core.FuseScrollbars",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseSearch",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseSettings",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseShortcuts",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseSidePanel",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseSplashScreen",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Splash variant of scoped loading state"
+    },
+    {
+      "id": "core.FuseSuspense",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/component-catalogue.ts",
+      "flutter": "packages/primecare_ui/lib/component_catalogue.dart",
+      "scope": "Owned asynchronous loading/error/empty/content states"
+    },
+    {
+      "id": "core.FuseSvgIcon",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseTheme",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.FuseThemeSelector",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.Link",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.NavLinkAdapter",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "core.withRouter",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.layout-families",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.docking",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.native-docking",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/workspace-layout.ts",
+      "flutter": "packages/primecare_ui/lib/workspace.dart",
+      "scope": "Shared dock/move/resize geometry and state-preserving slots; native host/device binding remains open"
+    },
+    {
+      "id": "capability.per-route",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.horizontal-menus",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/workspace-navigation.ts",
+      "flutter": "packages/primecare_ui/lib/workspace_navigation.dart",
+      "scope": "Authorized nested horizontal menus and keyboard entry; host routes/grants remain external"
+    },
+    {
+      "id": "capability.tabbed-rail",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/workspace-navigation.ts",
+      "flutter": "packages/primecare_ui/lib/workspace_navigation.dart",
+      "scope": "Selected icon rail presentation; vendor-specific tab variants are not asserted"
+    },
+    {
+      "id": "capability.fold-pin",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.region-palettes",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.palette-shades",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.schema-forms",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/advanced-theme-editor.ts",
+      "flutter": "packages/primecare_ui/lib/advanced_theme.dart",
+      "scope": "Allowlisted conditional appearance schema, scoped preview/import/library; source availability is not full adoption"
+    },
+    {
+      "id": "capability.settings-code",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.cloud-preferences",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/preference-sync.ts",
+      "flutter": "packages/primecare_ui/lib/preference_sync.dart",
+      "scope": "Actor-bound preference read/save/retry/conflict protocol; API777 host/grant/deployed acceptance remains open"
+    },
+    {
+      "id": "capability.quick-panel",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/shell-utilities.ts",
+      "flutter": "packages/primecare_ui/lib/shell_utilities.dart",
+      "scope": "Owned event/note/settings slots; unbound and denied adapters stay unavailable"
+    },
+    {
+      "id": "capability.favourites",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/shell-utilities.ts",
+      "flutter": "packages/primecare_ui/lib/shell_utilities.dart",
+      "scope": "Current authorized destination selection with scoped preference recovery; no saved grant authority"
+    },
+    {
+      "id": "capability.fullscreen",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/shell-environment.ts",
+      "flutter": "packages/primecare_ui/lib/shell_utilities.dart",
+      "scope": "Browser-confirmed fullscreen; native requires an injected approved port and has no default OS implementation"
+    },
+    {
+      "id": "capability.rtl",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.base-widgets",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.tables-editors",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/data-controls.ts",
+      "flutter": "packages/primecare_ui/lib/data_controls.dart",
+      "scope": "Virtual table, structured editor and upload factories; specialized widgets and business/picker/storage adapters remain open"
+    },
+    {
+      "id": "capability.charts-widgets",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_widgets.dart",
+      "scope": "Shared charts and configurable widget grid; business sources, persistence and advanced chart families remain open"
+    },
+    {
+      "id": "capability.assets",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "capability.verification",
+      "recordedDisposition": "blocked",
+      "mapped": false,
+      "web": null,
+      "flutter": null,
+      "scope": "Source presence is not full business/runtime/review acceptance"
+    },
+    {
+      "id": "app.calendar",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/work-modules.ts",
+      "flutter": "packages/primecare_ui/lib/work_modules.dart",
+      "scope": "42-day month and task reschedule actions; standalone events, recurrence and native host acceptance remain open"
+    },
+    {
+      "id": "app.contacts",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/work-modules.ts",
+      "flutter": "packages/primecare_ui/lib/work_modules.dart",
+      "scope": "Read-only task directory projection; contact CRUD and standalone contact contracts remain unbound"
+    },
+    {
+      "id": "app.tasks",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/work-modules.ts",
+      "flutter": "packages/primecare_ui/lib/work_modules.dart",
+      "scope": "Existing tenant-task actions through approved ports; durable restart recovery and native host/device acceptance remain open"
+    },
+    {
+      "id": "app.notes",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/work-modules.ts",
+      "flutter": "packages/primecare_ui/lib/work_modules.dart",
+      "scope": "Task-backed body editing only; standalone notes contracts, durable restart and host acceptance remain open"
+    },
+    {
+      "id": "app.scrumboard",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/work-modules.ts",
+      "flutter": "packages/primecare_ui/lib/work_modules.dart",
+      "scope": "Task-backed board lanes and server-authorized transitions; standalone board contracts and host acceptance remain open"
+    },
+    {
+      "id": "app.mailbox",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/communication-modules.ts",
+      "flutter": "packages/primecare_ui/lib/communication_modules.dart",
+      "scope": "Owned outbound and quarantined inbound read projections only; full mailbox composition, provider delivery and host acceptance remain open"
+    },
+    {
+      "id": "app.messenger",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/communication-modules.ts",
+      "flutter": "packages/primecare_ui/lib/communication_modules.dart",
+      "scope": "Existing member-bound message read/send/mark-read operations; full messenger and production identity reconciliation remain open"
+    },
+    {
+      "id": "app.notifications",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/communication-modules.ts",
+      "flutter": "packages/primecare_ui/lib/communication_modules.dart",
+      "scope": "Registered shared collection template only; notification business adapter remains unbound and unavailable"
+    },
+    {
+      "id": "app.file-manager",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/communication-modules.ts",
+      "flutter": "packages/primecare_ui/lib/communication_modules.dart",
+      "scope": "Message attachment references only; binary upload/download/storage and full file-manager contracts remain open"
+    },
+    {
+      "id": "app.academy",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/application-modules.ts",
+      "flutter": "packages/primecare_ui/lib/application_modules.dart",
+      "scope": "Registered collection slot only; learning adapter and business contract remain unbound and unavailable"
+    },
+    {
+      "id": "app.e-commerce",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/application-modules.ts",
+      "flutter": "packages/primecare_ui/lib/application_modules.dart",
+      "scope": "Registered collection slot only; purchase/catalogue/payment business adapters remain unbound and unavailable"
+    },
+    {
+      "id": "app.ai-image-generator",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/application-modules.ts",
+      "flutter": "packages/primecare_ui/lib/application_modules.dart",
+      "scope": "Registered collection slot only; generation provider and business adapter remain unbound and unavailable"
+    },
+    {
+      "id": "app.profile",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/application-modules.ts",
+      "flutter": "packages/primecare_ui/lib/application_modules.dart",
+      "scope": "Authenticated self-profile read projection only; sensitive account mutations and host/device acceptance remain separate"
+    },
+    {
+      "id": "app.settings",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/application-modules.ts",
+      "flutter": "packages/primecare_ui/lib/application_modules.dart",
+      "scope": "Shortcut preference editing over existing scoped CAS/receipt protocol; full settings and host/recovery acceptance remain open"
+    },
+    {
+      "id": "app.help-center",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/application-modules.ts",
+      "flutter": "packages/primecare_ui/lib/application_modules.dart",
+      "scope": "Registered collection slot only; help knowledge/support business adapter remains unbound and unavailable"
+    },
+    {
+      "id": "dashboard.project",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/dashboard-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Authorized tenant task-count projection only; complete project dashboard, host and persistence acceptance remain open"
+    },
+    {
+      "id": "dashboard.analytics",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/dashboard-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Authorized operations count projection with explicit missing values; full analytics dashboard and host acceptance remain open"
+    },
+    {
+      "id": "dashboard.finance",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/dashboard-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Shared metric renderer only; finance projection returns unavailable without an approved business source"
+    },
+    {
+      "id": "dashboard.crypto",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/dashboard-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Shared metric renderer only; crypto projection returns unavailable without an approved business source"
+    },
+    {
+      "id": "page.invoice",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/supporting-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Registered supporting-page slot only; invoices and billing adapter remain unavailable"
+    },
+    {
+      "id": "page.pricing",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/supporting-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Registered supporting-page slot only; price catalogue and billing adapter remain unavailable"
+    },
+    {
+      "id": "page.activities",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/record-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Bounded authorized tenant audit-event projection only; full activity history and host acceptance remain open"
+    },
+    {
+      "id": "page.search",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/record-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Search of bounded authorized task/workflow response only; complete tenant-wide search remains open"
+    },
+    {
+      "id": "page.authentication",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/supporting-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Supporting-page unavailable slot only; actual authentication belongs to existing governed identity hosts"
+    },
+    {
+      "id": "page.coming-soon",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/supporting-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Localized static presentation only; authorized host registration and deployment remain separate"
+    },
+    {
+      "id": "page.maintenance",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/supporting-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Localized static status only; no operational service availability mutation"
+    },
+    {
+      "id": "page.error",
+      "recordedDisposition": "missing",
+      "mapped": true,
+      "web": "packages/primecare_ui/web/supporting-pages.ts",
+      "flutter": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "scope": "Localized static status only; actual route error recovery and host policy remain separate"
+    }
+  ],
+  "sources": {
+    "packages/primecare_ui/catalogs/developer-catalogue.json": "4c131ff6d0bed196e0e0e3edf5154c2d0137483ab97d5ff49e25be81a05c785e",
+    "scripts/shared-skeleton-equivalents.json": "9d19f242757b4e4b5cafc19786b63cb6ef95d9acac40d18e415d412199287ec2",
+    "packages/primecare_ui/catalogs/component-catalogue.registration.json": "7236e7957a0407217254c1d0e1c1bb92b2d2ea45a6e8e78c731b1ea6e1354398",
+    "packages/primecare_ui/catalogs/data-controls.registration.json": "db7d7796cafa7d47fbe3988fa1500e7c208ccaa76f88af31a8e28c2a00b0ee14",
+    "packages/primecare_ui/catalogs/dashboard-widgets.registration.json": "9cda2aead0c9f49e5509c45b4ec62af88e3c51857ebe0648752fb303c023a243"
+  }
+}
