@@ -28,10 +28,19 @@ try{
    const path = sidebarCase === 'selected' ? '/example' : '/';
    await page.goto(`http://127.0.0.1:4317${path}?${params}`,{waitUntil:'networkidle'});
    await page.locator('#fuse-layout').waitFor({timeout:15000});await page.evaluate(()=>document.fonts.ready);
-   await page.addStyleTag({content:'*,*::before,*::after{animation:none!important;transition:none!important}'});
    if (sidebarCase === 'drawer') {
-    await page.locator('.MuiDrawer-paper').filter({has:page.getByLabel('Example',{exact:true})}).waitFor({timeout:8000});
+    // Layout 1 mounts its existing mobile sidebar toggle as the leading toolbar button.
+    await page.locator('#fuse-toolbar button').first().click({timeout:8000});
+    const drawer = page.locator('.MuiDrawer-paper').filter({
+     has: page.getByLabel('Example', {exact:true}),
+    });
+    await drawer.waitFor({timeout:8000});
+    await page.waitForFunction(() => [...document.querySelectorAll('.MuiDrawer-paper')].some(el => {
+     const bounds = el.getBoundingClientRect();
+     return el.querySelector('[aria-label="Example"]') && Math.abs(bounds.left) < 1;
+    }), null, {timeout: 8000});
    }
+   await page.addStyleTag({content:'*,*::before,*::after{animation:none!important;transition:none!important}'});
    if (sidebarCase === 'folded') {
     await page.locator('#fuse-navbar-side-panel').waitFor({timeout:8000});
    }
