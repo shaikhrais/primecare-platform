@@ -135,35 +135,50 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 ),
                 Flexible(
                   flex: 3,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: PrimeShellMetrics.horizontalNavigationPadding,
-                    itemCount: modules.length,
-                    itemBuilder: (context, index) {
-                      final module = modules[index];
-                      return Padding(
-                        padding: PrimeShellMetrics.horizontalNavigationItemPadding,
-                        child: PrimePopupMenuButton<String>(
-                          tooltip: module.name,
-                          onSelected: (route) => context.go(route),
-                          itemBuilder: (context) => [
-                            for (final screen in module.screens)
-                              if (screen.requiredRole == null ||
-                                  screen.requiredRole == activeRole)
-                                PopupMenuItem(
-                                  value: screen.route,
-                                  child: PrimeText(screen.title),
+                  child: PrimePortalTheme(
+                    data: PrimeShellMetrics.navigationInteractionTheme(
+                      navbarTheme,
+                      readableThemeForeground(background, navbarTheme.colorScheme.onSurface),
+                    ),
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        padding: PrimeShellMetrics.horizontalNavigationPadding,
+                        itemCount: modules.length,
+                        itemBuilder: (context, index) {
+                          final module = modules[index];
+                          return Padding(
+                            padding: PrimeShellMetrics.horizontalNavigationItemPadding,
+                            child: Center(
+                              child: SizedBox(
+                                height: PrimeShellMetrics.sidebarRowHeight,
+                                child: PrimePopupMenuButton<String>(
+                                  borderRadius: PrimeShellMetrics.navigationItemRadius,
+                                  tooltip: module.name,
+                                  onSelected: (route) => context.go(route),
+                                  itemBuilder: (context) => [
+                                    for (final screen in module.screens)
+                                      if (screen.requiredRole == null ||
+                                          screen.requiredRole == activeRole)
+                                        PopupMenuItem(
+                                          value: screen.route,
+                                          child: PrimeText(screen.title),
+                                        ),
+                                  ],
+                                  child: PrimePortalNavigationLabel(
+                                    icon: module.icon,
+                                    label: module.name,
+                                    color: foreground,
+                                  ),
                                 ),
-                          ],
-                          child: PrimePortalNavigationLabel(
-                            icon: module.icon,
-                            label: module.name,
-                            color: foreground,
-                          ),
-                        ),
-                      );
-                    },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -511,9 +526,10 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
     final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
+    final contrastInk = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);
     final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(
       background: sidebarBg,
-      foreground: readableThemeForeground(sidebarBg, theme.colorScheme.onSurface),
+      foreground: contrastInk,
       brightness: theme.brightness,
     );
     final sidebarSelectedTextColor = readableThemeForeground(
@@ -624,6 +640,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         ),
                         selected: isSelected,
                         selectedTileColor: sidebarSelectedTileColor,
+                        hoverColor: PrimeShellMetrics.navigationHoverInk(contrastInk),
+                        focusColor: PrimeShellMetrics.navigationFocusInk(contrastInk),
                         leading: collapsed ? null : icon,
                         title: collapsed
                             ? Semantics(

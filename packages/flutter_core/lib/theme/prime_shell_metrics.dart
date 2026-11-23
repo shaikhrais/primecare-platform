@@ -36,6 +36,20 @@ abstract final class PrimeShellMetrics {
     background,
   );
 
+  static Color navigationHoverInk(Color contrastInk) =>
+      contrastInk.withValues(alpha: 0.06);
+
+  static Color navigationFocusInk(Color contrastInk) =>
+      contrastInk.withValues(alpha: 0.12);
+
+  static ThemeData navigationInteractionTheme(
+    ThemeData theme,
+    Color contrastInk,
+  ) => theme.copyWith(
+    hoverColor: navigationHoverInk(contrastInk),
+    focusColor: navigationFocusInk(contrastInk),
+  );
+
   static BoxDecoration sidebarDecoration({
     required Color background,
     required Color divider,
@@ -59,6 +73,7 @@ abstract final class PrimeShellMetrics {
   static const sidebarGap = 8.0;
   static const sidebarRowSpacing = 4.0;
   static const sidebarCorner = 6.0;
+  static const navigationItemRadius = BorderRadius.all(Radius.circular(sidebarCorner));
   static const sidebarFontSize = 13.0;
   static const sidebarBrandFontSize = 18.0;
   static const sidebarSloganFontSize = 11.0;

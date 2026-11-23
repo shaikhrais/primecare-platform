@@ -140,3 +140,17 @@ also saves its hover and keyboard focus views alongside the open menu. The four
 sidebar fixtures already save these states. This extends diagnostic comparison
 coverage. The reference and tenant fixtures still have different content and
 the reference navbar link has no matching popup.
+
+## Navigation hover and focus visibility
+
+PrimeCare sidebar hover and focus ink now derives from the same readable palette
+foreground as the selected row. This keeps light-mode hover visible against the
+sidebar surface in the expanded, folded, right and mobile variants. The horizontal
+navbar paints the same interaction ink above the bar background and confines it
+to the rounded menu trigger. Existing routes, permissions and saved layouts are
+unchanged.
+
+The folded reference capture now requests the Example destination, as the native
+fixture also starts on its selected destination. The fixtures retain their
+different accounts and menu content. The two forms of navigation still require
+review and R01–R05 remain IN PROGRESS.

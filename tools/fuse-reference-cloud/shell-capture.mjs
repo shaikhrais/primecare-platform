@@ -66,7 +66,7 @@ try{
    const params = new URLSearchParams({layout,mode,surface:'shell'});
    if (sidebarCase) params.set('sidebarCase',sidebarCase);
    params.set('enable-semantics','true');
-   const path = ['selected', 'right', 'drawer'].includes(sidebarCase) ? '/example' : '/';
+   const path = ['selected', 'folded', 'right', 'drawer'].includes(sidebarCase) ? '/example' : '/';
    await page.goto(`http://127.0.0.1:4317${path}?${params}`,{waitUntil:'networkidle'});
    await page.locator('#fuse-layout').waitFor({timeout:15000});await page.evaluate(()=>document.fonts.ready);
    if (sidebarCase === 'drawer') {
