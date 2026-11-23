@@ -95,7 +95,7 @@ class PrimeThemeCenter extends ConsumerWidget {
             ]),
             PrimeSettingsGroup(label:'Toolbar',children:[
               toggle('Display',p.toolbar!='hidden',(v)=>display('toolbar',v,p.toolbar,horizontal?'belowNavigation':'top')),
-              if(horizontal)choices('Position',(p.toolbar=='hidden'?settings.hiddenChrome['toolbar']:p.toolbar)??'top',{'top':'Above','belowNavigation':'Below','bottom':'Bottom'},(v)=>position('toolbar',p.toolbar,v)),
+              if(horizontal)choices('Position',(p.toolbar=='hidden'?settings.hiddenChrome['toolbar']:p.toolbar)??'top',{'top':'Above','belowNavigation':'Below',if(p.toolbar=='bottom'||p.toolbar=='hidden'&&settings.hiddenChrome['toolbar']=='bottom')'bottom':'Bottom'},(v)=>position('toolbar',p.toolbar,v)),
               choices('Style',p.toolbarStyle,{'sticky':'Fixed','static':'Static'},(v)=>patch({'toolbarStyle':v}),last:true),
             ]),
             PrimeSettingsGroup(label:'Footer',children:[
@@ -136,6 +136,7 @@ class PrimeThemeCenter extends ConsumerWidget {
             }),child:const PrimeText('Use main palette for all sections')),
           ]),
           if(p!=null)ExpansionTile(title:const PrimeText('Advanced layout'),tilePadding:EdgeInsets.zero,children:[
+            if(horizontal)choices('Position',(p.toolbar=='hidden'?settings.hiddenChrome['toolbar']:p.toolbar)??'top',{'top':'Above','belowNavigation':'Below','bottom':'Bottom'},(v)=>position('toolbar',p.toolbar,v)),
             choices('Scroll',p.scroll,{'page':'Page','content':'Content'},(v)=>patch({'scroll':v})),
             PrimeText('Navigation width · ${p.navigationWidth}px'),
             PrimeSlider(value:p.navigationWidth.clamp(160,400).toDouble(),min:160,max:400,divisions:24,onChanged:p.navigationWidth==64?null:(v)=>patch({'navigationWidth':v.round()})),

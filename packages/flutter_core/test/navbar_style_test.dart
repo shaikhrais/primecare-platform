@@ -75,6 +75,15 @@ void main(){
     expect(container.read(themeSettingsProvider).navbarStyle,'static');expect(workspace.current.toolbarStyle,'sticky');
     await tester.tap(find.descendant(of:group,matching:find.text('Fixed')));await tester.pumpAndSettle();
     expect(container.read(themeSettingsProvider).navbarStyle,'fixed');expect(workspace.current.toolbarStyle,'sticky');
+    // The Fuse baseline has Above/Below; retain the extra Bottom option in Advanced.
+    expect(find.text('Bottom'),findsNothing);
+    await tester.scrollUntilVisible(find.text('Advanced layout'),400,scrollable:find.byType(Scrollable).first);
+    await tester.tap(find.text('Advanced layout'));await tester.pumpAndSettle();
+    final advanced=find.ancestor(of:find.text('Advanced layout'),matching:find.byType(ExpansionTile));
+    await tester.ensureVisible(find.descendant(of:advanced,matching:find.text('Bottom')));
+    await tester.tap(find.descendant(of:advanced,matching:find.text('Bottom')));await tester.pumpAndSettle();
+    expect(workspace.current.toolbar,'bottom');
+    expect(container.read(themeSettingsProvider).navbarStyle,'fixed');
     expect(tester.takeException(),isNull);
   });
 
