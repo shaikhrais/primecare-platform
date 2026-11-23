@@ -327,3 +327,25 @@ The current native toolbar still lacks the registered native host contracts for
 fullscreen, navigation search, navigation shortcuts and the Quick Panel
 bookmark. Those controls are BLOCKED; they were not rendered as decorative or
 nonfunctional buttons. R01–R05 therefore remain IN PROGRESS, not MATCHED.
+
+## Sidebar account placement continuation
+
+The existing authorized account trigger now follows the complete Fuse shell
+placement instead of appearing in every toolbar. Expanded, folded and right
+desktop navigation render it at the sidebar footer. The mobile drawer includes
+the same footer, while horizontal and hidden-navigation layouts retain the
+toolbar trigger. The menu still uses the existing role-switch, maintenance gate
+and logout handlers; no account, route, role, API or resource authority changed.
+
+The expanded footer shows the active role, information control and upward
+chevron beside the avatar. The folded footer keeps the compact avatar treatment.
+Shared shell metrics own the divider, padding and spacing. Twenty-eight full-host
+and sidebar render cases, 19 exact replay checks and the 32-test shared UI/theme
+boundary suite pass locally. The screen-style unit suite also passes; its local
+git comparison command cannot run against the checkout's absent historical
+baseline object and remains a CI verification item.
+
+This corrects a visible R01-R04 placement discrepancy but is not full-render
+acceptance. R01-R05 remain IN PROGRESS pending aligned reference/native account
+state, interaction review and complete side-by-side/overlay inspection. R06-R25
+remain NOT MATCHED and demo work remains blocked.

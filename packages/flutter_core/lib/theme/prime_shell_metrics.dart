@@ -69,6 +69,9 @@ abstract final class PrimeShellMetrics {
     color: foreground,
     fontWeight: FontWeight.w600,
   );
+  static const sidebarAccountGap = 12.0;
+  static EdgeInsets sidebarAccountPadding(bool compact) => compact ? const EdgeInsets.symmetric(vertical:16) : const EdgeInsets.fromLTRB(16,16,12,16);
+  static BoxDecoration sidebarAccountDecoration(ThemeData theme) => BoxDecoration(border:Border(top:BorderSide(color:theme.dividerColor.withValues(alpha:0.12))));
   static BoxDecoration sidebarToggleDecoration(ThemeData theme) => BoxDecoration(
     border: Border.all(color: theme.colorScheme.outlineVariant),
     borderRadius: navigationItemRadius,

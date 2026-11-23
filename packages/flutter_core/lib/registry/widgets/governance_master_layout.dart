@@ -389,99 +389,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             PrimeToolbarTextScale(foreground: topbarIconColor),
                           if (horizontal && !isHandheld)
                             PortalLayoutSaveButton(tooltip: themeCenterText(context, 'save')),
-                          const SizedBox(width: 8),
-                          Semantics(
-                            label: 'data-cy:topbar-user-menu',
-                            container: true,
-                            child: KeyedSubtree(
-                              key: const Key('topbar-user-menu'),
-                              child: PrimePopupMenuButton<String>(
-                                offset: const Offset(0, 48),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide(color: theme.dividerColor),
-                                ),
-                                tooltip: 'User Functions',
-                                child: Container(
-                                  margin: PrimeShellMetrics.toolbarAccountMargin,
-                                  padding: PrimeShellMetrics.toolbarAccountPadding,
-                                  decoration: PrimeShellMetrics.toolbarAccountDecoration(theme),
-                                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                                    CircleAvatar(
-                                      radius: PrimeShellMetrics.toolbarAccountAvatarRadius,
-                                      backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
-                                      child: PrimeText(activeRole.displayName.characters.first.toUpperCase(),
-                                        style: PrimeShellMetrics.toolbarAccountAvatarTextStyle(theme, topbarTextColor)),
-                                    ),
-                                    if (!isHandheld) ...[
-                                      const SizedBox(width: 8),
-                                      PrimeText(activeRole.displayName,
-                                        style: PrimeShellMetrics.toolbarAccountRoleTextStyle(theme, topbarTextColor)),
-                                      const SizedBox(width: 6),
-                                      PrimeIcon(LucideIcons.info, size: 15, color: topbarIconColor),
-                                    ],
-                                    const SizedBox(width: 4),
-                                    PrimeIcon(LucideIcons.chevronDown, size: 14, color: topbarIconColor),
-                                  ]),
-                                ),
-                                onSelected: (value) {
-                                  if (value == 'switch-role') {
-                                    showDialog<void>(context: context,
-                                      barrierColor: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),
-                                      builder: (context) => _RoleSwitcherDialog(activeRole: activeRole, ref: ref));
-                                  }
-                                  if (value == 'maintenance') context.go('/maintenance/configuration');
-                                  if (value == 'logout') {
-                                    ref.read(authProvider.notifier).logout();
-                                  }
-                                },
-                                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                  PopupMenuItem<String>(
-                                    enabled: false,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        PrimeText(
-                                          ref.watch(authProvider).userName ?? 'System User',
-                                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                                        ),
-                                        PrimeText(
-                                          ref.watch(authProvider).role ?? 'Guest',
-                                          style: theme.textTheme.labelSmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuItem<String>(value: 'switch-role', child: Row(children: [
-                                    PrimeIcon(LucideIcons.users, size: 18, color: topbarIconColor),
-                                    const SizedBox(width: 12),
-                                    const PrimeText('Switch role'),
-                                  ])),
-                                  if (['ceo', 'maintenance'].contains(ref.watch(authProvider).role))
-                                    const PopupMenuItem<String>(value: 'maintenance', child: PrimeText('IT maintenance')),
-                                  const PopupMenuDivider(),
-                                  PopupMenuItem<String>(
-                                    value: 'logout',
-                                    child: Semantics(
-                                      label: 'data-cy:topbar-logout-button',
-                                      container: false,
-                                      child: KeyedSubtree(
-                                        key: const Key('topbar-logout-button'),
-                                        child: Row(
-                                          children: [
-                                            PrimeIcon(LucideIcons.logOut, size: 18, color: theme.colorScheme.error),
-                                            const SizedBox(width: 12),
-                                            PrimeText(tr('login_button'), style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error)),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
+                          if (horizontal || isHandheld || position == 'hidden') ...[
+                            const SizedBox(width: 8),
+                            _buildAccountMenu(context,ref,theme,textColor:topbarTextColor,iconColor:topbarIconColor,compact:isHandheld),
+                            const SizedBox(width: 8),
+                          ],
                           if (!isHandheld && position == 'right')
                             PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor),
                         ],
@@ -510,6 +422,19 @@ class GovernanceMasterLayout extends ConsumerWidget {
       ),
     ),
     );
+  }
+
+  Widget _buildAccountMenu(BuildContext context,WidgetRef ref,ThemeData theme,{required Color textColor,required Color iconColor,required bool compact,bool sidebar=false}) {
+    final semanticsId=sidebar?'sidebar-user-menu':'topbar-user-menu',logoutId=sidebar?'sidebar-logout-button':'topbar-logout-button',account=ref.watch(authProvider);
+    final avatar=CircleAvatar(radius:PrimeShellMetrics.toolbarAccountAvatarRadius,backgroundColor:theme.colorScheme.primary.withValues(alpha:0.1),child:PrimeText(activeRole.displayName.characters.first.toUpperCase(),style:PrimeShellMetrics.toolbarAccountAvatarTextStyle(theme,textColor)));
+    final trigger=sidebar?Container(width:double.infinity,padding:PrimeShellMetrics.sidebarAccountPadding(compact),decoration:PrimeShellMetrics.sidebarAccountDecoration(theme),child:Row(mainAxisAlignment:compact?MainAxisAlignment.center:MainAxisAlignment.start,children:[avatar,if(!compact)...[const SizedBox(width:PrimeShellMetrics.sidebarAccountGap),Expanded(child:PrimeText(activeRole.displayName,overflow:TextOverflow.ellipsis,style:PrimeShellMetrics.toolbarAccountRoleTextStyle(theme,textColor))),PrimeIcon(LucideIcons.info,size:18,color:iconColor),const SizedBox(width:12),PrimeIcon(LucideIcons.chevronUp,size:16,color:iconColor)]])):Container(margin:PrimeShellMetrics.toolbarAccountMargin,padding:PrimeShellMetrics.toolbarAccountPadding,decoration:PrimeShellMetrics.toolbarAccountDecoration(theme),child:Row(mainAxisSize:MainAxisSize.min,children:[avatar,if(!compact)...[const SizedBox(width:8),PrimeText(activeRole.displayName,style:PrimeShellMetrics.toolbarAccountRoleTextStyle(theme,textColor)),const SizedBox(width:6),PrimeIcon(LucideIcons.info,size:15,color:iconColor)],const SizedBox(width:4),PrimeIcon(LucideIcons.chevronDown,size:14,color:iconColor)]));
+    return Semantics(label:'data-cy:$semanticsId',container:true,child:KeyedSubtree(key:Key(semanticsId),child:PrimePopupMenuButton<String>(offset:sidebar?Offset.zero:const Offset(0,48),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(12),side:BorderSide(color:theme.dividerColor)),tooltip:'User Functions',child:trigger,onSelected:(value){if(value=='switch-role')showDialog<void>(context:context,barrierColor:Theme.of(context).colorScheme.scrim.withValues(alpha:0.5),builder:(context)=>_RoleSwitcherDialog(activeRole:activeRole,ref:ref));if(value=='maintenance')context.go('/maintenance/configuration');if(value=='logout')ref.read(authProvider.notifier).logout();},itemBuilder:(context)=><PopupMenuEntry<String>>[
+      PopupMenuItem<String>(enabled:false,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[PrimeText(account.userName??'System User',style:theme.textTheme.bodyMedium?.copyWith(fontWeight:FontWeight.bold)),PrimeText(account.role??'Guest',style:theme.textTheme.labelSmall)])),
+      PopupMenuItem<String>(value:'switch-role',child:Row(children:[PrimeIcon(LucideIcons.users,size:18,color:iconColor),const SizedBox(width:12),const PrimeText('Switch role')])),
+      if(['ceo','maintenance'].contains(account.role))const PopupMenuItem<String>(value:'maintenance',child:PrimeText('IT maintenance')),
+      const PopupMenuDivider(),
+      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.logOut,size:18,color:theme.colorScheme.error),const SizedBox(width:12),PrimeText(tr('login_button'),style:theme.textTheme.bodyMedium?.copyWith(color:theme.colorScheme.error))])))),
+    ])));
   }
 
   Widget _buildSidebar(
@@ -721,6 +646,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
               );
             },
           )),
+          _buildAccountMenu(context,ref,theme,textColor:sidebarTextColor,iconColor:sidebarIconColor,compact:collapsed,sidebar:true),
           ])),
         ),
       ),

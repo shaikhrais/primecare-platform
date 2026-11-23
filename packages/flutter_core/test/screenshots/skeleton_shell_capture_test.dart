@@ -93,7 +93,8 @@ void main(){
    final workspace=PortalWorkspaceScope.maybeOf(tester.element(find.byKey(const Key('app-shell'))))!;
    workspace.patch({'navigation':family=='1'?'left':'top','toolbar':family=='1'?'top':'belowNavigation','toolbarStyle':family=='1'?'sticky':'static','scroll':family=='3'?'content':'page','footer':'sticky'});
    await tester.pumpAndSettle();expect(tester.takeException(),isNull);
-   final avatar=find.descendant(of:find.byKey(const Key('topbar-user-menu')),matching:find.byType(CircleAvatar));
+   final accountKey=family=='1'&&view.$1=='desktop'?const Key('sidebar-user-menu'):const Key('topbar-user-menu');
+   final avatar=find.descendant(of:find.byKey(accountKey),matching:find.byType(CircleAvatar));
    expect(avatar,findsOneWidget);
    expect(tester.widget<CircleAvatar>(avatar).foregroundImage,isNull);
    expect(tester.widget<CircleAvatar>(avatar).child,isNotNull);
@@ -105,6 +106,8 @@ void main(){
     expect(find.text('PrimeCare'),findsOneWidget,reason:'The navbar owns the brand; the toolbar must not duplicate it');
     expect(find.text('Home service'),findsOneWidget);
     expect(find.byTooltip('Text scale'),findsOneWidget,reason:'Fuse Layout 1 exposes text size in the desktop toolbar');
+    expect(find.byKey(const Key('sidebar-user-menu')),findsOneWidget,reason:'The vertical Fuse account trigger belongs at the sidebar footer');
+    expect(find.byKey(const Key('topbar-user-menu')),findsNothing,reason:'Desktop vertical layout must not duplicate the account in the toolbar');
     expect(find.text(PlatformRole.admin.displayName),findsOneWidget,reason:'Role and account share one Fuse-style menu trigger');
     final sidebar=find.byKey(const Key('app-sidebar'));
     final surface=tester.widget<Container>(find.descendant(of:sidebar,matching:find.byType(Container)).first);
