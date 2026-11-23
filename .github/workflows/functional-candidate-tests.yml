@@ -9,7 +9,7 @@ concurrency:
   group: functional-candidate-${{ github.sha }}
   cancel-in-progress: false
 env:
-  CANDIDATE_SHA: 0db20fb75f3c974b12af97042df42596c52be0c8
+  CANDIDATE_SHA: 80cfa0b527f47f1e93afb3a7ef56445bef92e7de
 jobs:
   browser-postgres:
     name: Browser and PostgreSQL (${{ matrix.suite }})
@@ -65,7 +65,7 @@ jobs:
           python3 - <<'PY'
           import json,os,pathlib,subprocess,time
           groups={
-            'work':['test-work-modules-calendar','test-work-modules-lifecycle','test-work-modules-scope','test-work-modules-receipts','test-work-modules-transport','test-work-modules','test-tenant-work-host-lifecycle','test-work-modules-browser','test-tenant-work-module-host'],
+            'work':['test-shell-utilities-view-lifecycle','test-shell-utilities-model','test-shell-utilities-adapters','test-shell-utilities-browser','test-work-modules-calendar','test-work-modules-lifecycle','test-work-modules-scope','test-work-modules-receipts','test-work-modules-transport','test-work-modules','test-tenant-work-host-lifecycle','test-work-modules-browser','test-tenant-work-module-host'],
             'communication':['test-communication-modules-transport','test-communication-module-cancellation','test-communication-module-query-lifecycle','test-communication-modules','test-communication-modules-browser'],
             'applications':['test-application-modules-transport','test-application-modules-settings-lifecycle','test-application-modules','test-application-modules-browser','test-dashboard-pages-integration','test-dashboard-pages-browser'],
             'business':['test-care-delivery','test-growth-reporting','test-look-manager']
@@ -132,5 +132,5 @@ jobs:
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: Native feature model and widget acceptance
-        run: flutter test test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/preference_sync --reporter expanded
+        run: flutter test test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/preference_sync test/shell_utilities --reporter expanded
         working-directory: packages/flutter_core
