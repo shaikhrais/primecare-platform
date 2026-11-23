@@ -7,6 +7,7 @@ import '../providers/persistence_providers.dart';
 import '../registry/widgets/theme_center_panel.dart';
 import '../workspace/portal_workspace.dart';
 import 'personal_theme.dart';
+import 'navbar_style_text_generated.dart';
 import 'prime_palette_editor.dart';
 import 'prime_theme_center_style.dart';
 import 'theme_center_catalog_generated.dart';
@@ -33,6 +34,8 @@ class PrimeThemeCenter extends ConsumerWidget {
     final matchedCombinations=themeCenterColorCombinations.entries.where((entry)=>settings.theme.colors.isEmpty&&entry.value['main']==settings.theme.preset&&['navbar','toolbar','footer'].every((part)=>entry.value[part]==(settings.sectionThemes[part]??settings.theme).preset&&(settings.sectionThemes[part]??settings.theme).colors.isEmpty));
     final selectedCombination=matchedCombinations.isEmpty?null:matchedCombinations.first.key;
     final auth=ref.watch(authProvider),owner=themeAccountScope(ref.read(authProvider));
+    final navbarSession=notifier.bindAccount();
+    final navbarText=navbarStyleText[Localizations.localeOf(context).languageCode]??navbarStyleText['en']!;
     final horizontal=['top','bottom'].contains(p?.navigation)||p?.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal;
     final family=c==null?(settings.layoutStyle==LayoutStyle.horizontal?'2':'1'):horizontal?(p!.scroll=='content'?'3':'2'):'1';
     void patch(Map<String,Object?> value){if(c!=null)c.patch(value);}
@@ -78,7 +81,9 @@ class PrimeThemeCenter extends ConsumerWidget {
             ],
           if(p!=null)...[
             PrimeSettingsGroup(label:'Navbar',children:[
-              toggle('Display',p.navigation!='hidden',(v)=>display('navigation',v,p.navigation,horizontal?'top':settings.layoutStyle==LayoutStyle.verticalRight?'right':'left'),last:horizontal),
+              toggle('Display',p.navigation!='hidden',(v)=>display('navigation',v,p.navigation,horizontal?'top':settings.layoutStyle==LayoutStyle.verticalRight?'right':'left')),
+              if(horizontal&&p.navigation!='bottom')Semantics(key:const Key('theme-navbar-style'),identifier:'theme-navbar-style',label:navbarText['label'],container:true,child:
+                choices(navbarText['style']!,settings.navbarStyle??(p.scroll=='content'||p.toolbar=='belowNavigation'?'fixed':'static'),{'fixed':navbarText['fixed']!,'static':navbarText['static']!},(v)=>_run(context,()=>navbarSession.updateNavbarStyle(v)),last:true)),
               if(!horizontal)...[
                 choices('Position',(p.navigation=='hidden'?settings.hiddenChrome['navigation']:p.navigation)=='right'?'right':'left',{'left':'Left','right':'Right'},(v)=>_run(context,()async{
                   if(p.navigation=='hidden'){await notifier.rememberChrome('navigation',v);}else{patch({'navigation':v});}

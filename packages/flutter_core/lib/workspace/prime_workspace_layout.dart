@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/services.dart';
 import 'workspace_controller.dart';
 import 'workspace_layout.dart';
+import 'navbar_scroll_header.dart';
 
 /// Labels must come from the host's registered, localized resources.
 class WorkspaceHandleLabels {
@@ -23,12 +24,15 @@ class PrimeWorkspaceLayout extends StatefulWidget {
   final double toolbarExtent, footerExtent, horizontalNavigationExtent;
   final double? navigationVisualWidth;
   final bool navigationVisible, toolbarVisible, footerVisible;
+  final String? navbarStyle;
   PrimeWorkspaceLayout({super.key, required this.controller, required this.navigation,
     required this.toolbar, required this.main, this.footer, required Map<String, Widget> panels,
     Map<String, WorkspaceHandleLabels> handleLabels = const {}, this.toolbarExtent = 56,
     this.footerExtent = 48, this.horizontalNavigationExtent = 144, this.navigationVisualWidth,
-    this.navigationVisible = true, this.toolbarVisible = true, this.footerVisible = true})
-      : panels = Map.unmodifiable(panels), handleLabels = Map.unmodifiable(handleLabels);
+    this.navigationVisible = true, this.toolbarVisible = true, this.footerVisible = true, this.navbarStyle})
+      : panels = Map.unmodifiable(panels), handleLabels = Map.unmodifiable(handleLabels) {
+    if(navbarStyle!=null&&!['fixed','static'].contains(navbarStyle))throw ArgumentError('Invalid navbar style');
+  }
   @override State<PrimeWorkspaceLayout> createState() => _PrimeWorkspaceLayoutState();
 }
 
@@ -157,14 +161,15 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
           return SizedBox(width: dockWidth, child: Column(mainAxisSize: MainAxisSize.min,
             children: [for (final id in ids) _panel(id, viewport, narrow, width: dockWidth)]));
         }
-        Widget main() => SizedBox(height: mainHeight, child: Align(alignment: Alignment.topCenter,
+        Widget main([double? height]) => SizedBox(height: height??mainHeight, child: Align(alignment: Alignment.topCenter,
           child: ConstrainedBox(constraints: BoxConstraints(maxWidth: p.container == 'content' ? p.maxWidth.toDouble() : double.infinity),
             child: SizedBox.expand(child: _slot('main', widget.main)))));
-        final stage = Column(mainAxisSize: MainAxisSize.min, children: [dock('top'),
-          if (narrow) ...[dock('left'), main(), dock('right')]
-          else Row(crossAxisAlignment: CrossAxisAlignment.start, children: [dock('left'), Expanded(child: main()), dock('right')]),
+        Widget stageFor([double? height]) => Column(mainAxisSize: MainAxisSize.min, children: [dock('top'),
+          if (narrow) ...[dock('left'), main(height), dock('right')]
+          else Row(crossAxisAlignment: CrossAxisAlignment.start, children: [dock('left'), Expanded(child: main(height)), dock('right')]),
           dock('bottom'), if (narrow) dock('floating'),
         ]);
+        final stage=stageFor();
         final belowNavigation = p.toolbar == 'belowNavigation';
         final topNavigationOutside = p.scroll == 'content' || belowNavigation;
         final toolAtTop = p.toolbar != 'bottom';
@@ -190,9 +195,35 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
           if (hasFooter && footOutside) footer(),
           if (toolOutside && p.toolbar == 'bottom') toolbar(),
         ]);
-        final shell = vertical ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Widget shell = vertical ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           if (p.navigation == 'left') navigation(), Expanded(child: body), if (p.navigation == 'right') navigation(),
         ]) : body;
+        if(widget.navbarStyle!=null&&showNavigation&&!vertical&&p.navigation=='top') {
+          final bars=<NavbarChromeBar>[
+            if(showToolbar&&toolAtTop&&!belowNavigation)NavbarChromeBar(id:'toolbar',child:toolbar(),extent:toolHeight,fixed:toolOutside),
+            NavbarChromeBar(id:'navbar',child:navigation(),extent:navHeight,fixed:widget.navbarStyle=='fixed'),
+            if(showToolbar&&belowNavigation)NavbarChromeBar(id:'toolbar',child:toolbar(),extent:toolHeight,fixed:toolOutside),
+          ];
+          final header=NavbarScrollHeader(bars);
+          shell=Column(children:[
+            Expanded(child:NestedScrollView(
+              key:ValueKey('navbar-scroll:${widget.controller.scope.storageKey}:${p.scroll}'),
+              headerSliverBuilder:(context,innerScrolled)=>[
+                SliverPersistentHeader(pinned:header.minExtent>0,delegate:header),
+              ],
+              body:LayoutBuilder(builder:(context,bodyConstraints){
+                final staticFooter=hasFooter&&!footOutside;
+                final staticBottomToolbar=showToolbar&&p.toolbar=='bottom'&&!toolOutside;
+                final height=math.max(0.0,bodyConstraints.maxHeight-(staticFooter?footHeight:0)-(staticBottomToolbar?toolHeight:0));
+                return SingleChildScrollView(primary:false,child:Column(mainAxisSize:MainAxisSize.min,children:[
+                  stageFor(height),if(staticFooter)footer(),if(staticBottomToolbar)toolbar(),
+                ]));
+              }),
+            )),
+            if(hasFooter&&footOutside)footer(),
+            if(showToolbar&&p.toolbar=='bottom'&&toolOutside)toolbar(),
+          ]);
+        }
         Widget floating(String id) {
           final panel = p.panels[id]!;
           final w = math.min(panel.width.toDouble(), viewport.width), h = math.min(panel.height.toDouble(), viewport.height);

@@ -162,6 +162,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     : null,
                 body: PrimeWorkspaceRecovery(show: workspace.current.toolbar == 'hidden', child: PrimeWorkspaceLayout(
                   controller: workspace,
+                  navbarStyle: settings.navbarStyle,
                   navigationVisible: !isHandheld,
                   horizontalNavigationExtent: 48,
                   navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)

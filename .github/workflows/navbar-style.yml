@@ -11,6 +11,7 @@ on:
       - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
       - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
       - 'packages/flutter_core/lib/workspace/prime_workspace_layout.dart'
+      - 'packages/flutter_core/lib/workspace/navbar_scroll_header.dart'
       - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
 permissions: {contents: read}
 concurrency:
