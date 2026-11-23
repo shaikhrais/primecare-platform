@@ -222,7 +222,9 @@ class PrimeSidebarFoldButton extends StatelessWidget {
       container: true,
       expanded: !folded,
       child: Center(
-        child: PrimeIconButton(
+        child: DecoratedBox(
+          decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),
+          child: PrimeIconButton(
           icon: PrimeIcon(
             icon,
             size: PrimeShellMetrics.sidebarIconExtent,
@@ -239,6 +241,7 @@ class PrimeSidebarFoldButton extends StatelessWidget {
                 ? controller.expandedNavigationWidth
                 : PrimeShellMetrics.foldedNavigationMarker,
           }),
+          ),
         ),
       ),
     );
@@ -306,6 +309,33 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
     final foldedSelection = PrimeShellMetrics.sidebarSelectionFill(
       background: foldedSurface, foreground: ink, brightness: theme.brightness,
     );
+    Widget foldedAction(PrimeNavigationTab tab, bool current) {
+      final icon = PrimeIcon(
+        tab.icon,
+        size: PrimeShellMetrics.sidebarIconExtent,
+        color: readableThemeForeground(
+          current ? foldedSelection : foldedSurface,
+          sidebar?.sidebarIconColor ?? ink,
+        ),
+      );
+      if (tab.entries.length == 1) {
+        final entry = tab.entries.single;
+        return PrimeIconButton(
+          tooltip: entry.label,
+          icon: icon,
+          onPressed: entry.onPressed,
+        );
+      }
+      return PrimePopupMenuButton<int>(
+        tooltip: tab.label,
+        icon: icon,
+        itemBuilder: (context) => [
+          for (var j = 0; j < tab.entries.length; j++)
+            PopupMenuItem(value: j, child: PrimeText(tab.entries[j].label)),
+        ],
+        onSelected: (j) => tab.entries[j].onPressed(),
+      );
+    }
     return LayoutBuilder(builder: (context, limits) {
       final folded = limits.maxWidth <= 96;
       return Row(children: [
@@ -317,7 +347,12 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
             for (var i = 0; i < widget.tabs.length; i++)
               Semantics(
                 container: folded,
-                label: folded ? widget.tabs[i].label : null,
+                label: folded
+                    ? (widget.tabs[i].entries.length == 1
+                        ? widget.tabs[i].entries.single.label
+                        : widget.tabs[i].label)
+                    : null,
+                link: folded && widget.tabs[i].entries.length == 1,
                 selected: i == selected,
                 child: folded
                     ? Stack(
@@ -333,22 +368,7 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
                                 dimension: PrimeShellMetrics.sidebarRowHeight,
                               ),
                             ),
-                          PrimePopupMenuButton<int>(
-                            tooltip: widget.tabs[i].label,
-                            icon: PrimeIcon(
-                              widget.tabs[i].icon,
-                              size: PrimeShellMetrics.sidebarIconExtent,
-                              color: readableThemeForeground(
-                                i == selected ? foldedSelection : foldedSurface,
-                                sidebar?.sidebarIconColor ?? ink,
-                              ),
-                            ),
-                            itemBuilder: (context) => [
-                              for (var j = 0; j < widget.tabs[i].entries.length; j++)
-                                PopupMenuItem(value: j, child: PrimeText(widget.tabs[i].entries[j].label)),
-                            ],
-                            onSelected: (j) => widget.tabs[i].entries[j].onPressed(),
-                          ),
+                          foldedAction(widget.tabs[i], i == selected),
                         ],
                       )
                     : Container(

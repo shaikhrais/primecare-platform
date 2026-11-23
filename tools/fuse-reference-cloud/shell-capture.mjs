@@ -1,8 +1,19 @@
 /** Full original skeleton, not a settings-panel substitute or business acceptance. */
 import {chromium} from 'playwright';
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {resolve} from 'node:path';
 const output=resolve(process.argv[2]);await mkdir(output,{recursive:true});
+const fixtureBytes = process.argv[3] ? await readFile(process.argv[3]) : null;
+const fixture = fixtureBytes ? JSON.parse(fixtureBytes) : null;
+if (fixture && (fixture.version !== 1 || fixture.fixtureOnly !== true ||
+    Object.keys(fixture.account ?? {}).sort().join(',') !== 'displayName,role' ||
+    !fixture.account.displayName || !fixture.account.role || fixture.language !== 'en' ||
+    fixture.entries?.length !== 1 || !fixture.entries[0].label ||
+    !/^\/[a-z0-9/-]+$/.test(fixture.entries[0].route))) {
+ throw new Error('Expected a single populated route from the isolated native navigation fixture');
+}
+const fixtureSha256 = fixtureBytes ? createHash('sha256').update(fixtureBytes).digest('hex') : null;
 const browser=await chromium.launch({headless:true});const results=[];
 const cases = [];
 const devices = [['desktop',1440,1000],['tablet',820,1180],['mobile',390,844]];
@@ -15,11 +26,16 @@ for (const mode of ['light','dark']) {
   cases.push({layout:'layout1',device,width,height,mode,sidebarCase});
  }
 }
-async function captureNavigationInteraction(page, id, sidebarCase) {
- const entry = page.locator('a[href$="/example"]:visible');
+if (fixture) {
+ cases.push(...cases.filter(item => item.sidebarCase ||
+  (item.layout === 'layout2' && item.device === 'desktop'))
+  .map(item => ({...item, dataSet: 'shared-navigation'})));
+}
+async function captureNavigationInteraction(page, id, sidebarCase, route) {
+ const entry = page.locator(`a[href$="${route}"]:visible`);
  const candidateCount = await entry.count();
  if (candidateCount !== 1) {
-  return {status:'unavailable', reason:'Expected one visible Example link', candidateCount};
+  return {status:'unavailable', reason:'Expected one visible fixture navigation link', candidateCount};
  }
  const initial = await entry.evaluate(element => ({
   href: element.getAttribute('href'),
@@ -40,7 +56,7 @@ async function captureNavigationInteraction(page, id, sidebarCase) {
  if (await entry.evaluate(element => element.matches(':hover'))) {
   states.hover = {status:'captured',file:await screenshot('hover')};
  } else {
-  states.hover = {status:'unavailable',reason:'Example link did not enter hover state'};
+  states.hover = {status:'unavailable',reason:'The navigation link did not enter hover state'};
  }
  await page.mouse.move(0,0);
  const focused = () => entry.evaluate(element => element === document.activeElement);
@@ -56,7 +72,7 @@ async function captureNavigationInteraction(page, id, sidebarCase) {
    await page.waitForURL(url => url.pathname === initial.href && url.href !== before, {timeout:2500});
    if (sidebarCase === 'drawer') {
     const drawer = page.locator('.MuiDrawer-paper').filter({
-     has: page.getByLabel('Example', {exact:true}),
+     has: page.locator(`a[href$="${route}"]`),
     });
     await drawer.waitFor({state:'hidden',timeout:2500});
    }
@@ -71,35 +87,38 @@ async function captureNavigationInteraction(page, id, sidebarCase) {
   }
 
  } else {
-  states.focus = {status:'unavailable',reason:'Example link was not reached by Tab within 30 stops'};
+  states.focus = {status:'unavailable',reason:'The navigation link was not reached by Tab within 30 stops'};
  }
  return {status:'observed',entry:initial,states};
 }
 
 try{
- for (const {layout,device,width,height,mode,sidebarCase} of cases) {
+ for (const {layout,device,width,height,mode,sidebarCase,dataSet} of cases) {
   const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});const errors=[],external=[];
+  const shared = dataSet === 'shared-navigation';
+  if (shared) await page.addInitScript(data => { window.__primecareNavigationFixture = data; }, fixture);
+  const route = shared ? fixture.entries[0].route : '/example';
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',route=>{const url=new URL(route.request().url());if(!['127.0.0.1','localhost'].includes(url.hostname)&&!['data:','blob:'].includes(url.protocol)){external.push(url.origin);return route.abort();}return route.continue();});
-  const id=`${layout}-${device}-${mode}${sidebarCase ? '-' + sidebarCase : ''}`;
+  const id=`${layout}-${device}-${mode}${sidebarCase ? '-' + sidebarCase : ''}${shared ? '-shared-navigation' : ''}`;
   try{
    const params = new URLSearchParams({layout,mode,surface:'shell'});
    if (sidebarCase) params.set('sidebarCase',sidebarCase);
    params.set('enable-semantics','true');
-   const path = ['selected', 'folded', 'right', 'drawer'].includes(sidebarCase) ? '/example' : '/';
+   const path = sidebarCase ? route : '/';
    await page.goto(`http://127.0.0.1:4317${path}?${params}`,{waitUntil:'networkidle'});
    await page.locator('#fuse-layout').waitFor({timeout:15000});await page.evaluate(()=>document.fonts.ready);
    if (sidebarCase === 'drawer') {
     // Layout 1 mounts its existing mobile sidebar toggle as the leading toolbar button.
     await page.locator('#fuse-toolbar button').first().click({timeout:8000});
     const drawer = page.locator('.MuiDrawer-paper').filter({
-     has: page.getByLabel('Example', {exact:true}),
+     has: page.locator(`a[href$="${route}"]`),
     });
     await drawer.waitFor({timeout:8000});
-    await page.waitForFunction(() => [...document.querySelectorAll('.MuiDrawer-paper')].some(el => {
+    await page.waitForFunction(href => [...document.querySelectorAll('.MuiDrawer-paper')].some(el => {
      const bounds = el.getBoundingClientRect();
-     return el.querySelector('[aria-label="Example"]') && Math.abs(bounds.left) < 1;
-    }), null, {timeout: 8000});
+     return el.querySelector(`a[href$="${href}"]`) && Math.abs(bounds.left) < 1;
+    }), route, {timeout: 8000});
    }
    await page.addStyleTag({content:'*,*::before,*::after{animation:none!important;transition:none!important}'});
    if (sidebarCase === 'folded') {
@@ -114,17 +133,26 @@ try{
    let interaction = null;
    if (sidebarCase || (layout === 'layout2' && device === 'desktop')) {
     try {
-     interaction = await captureNavigationInteraction(page,id,sidebarCase);
+     interaction = await captureNavigationInteraction(page,id,sidebarCase,route);
     } catch (error) {
      interaction = {status:'unavailable',reason:String(error)};
     }
    }
    if(errors.length)throw new Error('Original shell page errors: '+errors.join('; '));
    if(external.length)throw new Error('External requests blocked: '+[...new Set(external)].join(', '));
-   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,interaction,errors,external,identity:'isolated guest reference; no authenticated production session',visualAcceptance:false});
+   if (shared && (interaction?.entry?.href !== route ||
+       interaction.entry.language !== fixture.language ||
+       interaction.entry.scroll.some(value => value !== 0) ||
+       (sidebarCase !== 'folded' && interaction.entry.label !== fixture.entries[0].label))) {
+    throw new Error('Shared navigation fixture route, label, locale or scroll did not reach the original renderer');
+   }
+   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,interaction,errors,external,
+    dataSet:dataSet??'original-guest',fixtureSha256:shared?fixtureSha256:null,
+    identity:shared?'same isolated role and presented navigation as native; no production session':'isolated guest reference; no production session',
+    visualAcceptance:false});
   }catch(error){await page.screenshot({path:resolve(output,`FAILED-${id}.png`),fullPage:false}).catch(()=>{});results.push({id,status:'failed',error:String(error),errors,external,visualAcceptance:false});}
   finally{await page.close();}
  }
 }finally{await browser.close();await writeFile(resolve(output,'shell-measurements.json'),JSON.stringify({source:process.env.GITHUB_SHA??null,cases:results,fullShellVisualAcceptance:false,nativeComparisonComplete:false},null,2));}
 if(results.length!==cases.length||results.some(x=>x.status!=='captured'))throw new Error('Full-shell reference capture incomplete; inspect shell-measurements.json');
-console.log(`Captured ${cases.length} original guest shell cases. Visual acceptance remains open.`);
+console.log(`Captured ${cases.length} cases using the original shell renderer. Visual acceptance remains open.`);

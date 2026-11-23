@@ -224,3 +224,23 @@ brand display. A single authorized destination shows selection with the
 navbar accent and retains one-step activation. Existing controls continue
 to use the active PrimeCare account and permission data. No catalogue change
 or saved layout migration is involved.
+
+## Shared navigation capture
+
+The native renderer exports the role, locale and already-filtered navigation
+from its existing isolated shell fixture. Additional Fuse cases use that
+same presentation input through the original navigation provider. The
+original guest and Example cases remain in the capture set. The shared cases
+must show the expected route, label where visible, locale and initial scroll
+before their frames enter comparison. No production session or grant is
+issued by either fixture.
+
+The desktop minimize control has a visible boundary in both themes. A
+single authorized destination in the folded tabbed rail now activates once
+with Enter and exposes its destination name and link semantics. Multi-entry
+tabs keep their chooser. Horizontal navigation controls use the shared 48px
+row inside the existing 64px navbar.
+
+R01–R05 remain IN PROGRESS. Shared fixture inputs resolve the previous
+navigation-label discrepancy for diagnostic comparison. Differences in
+brand, account controls and full view behavior still require review.

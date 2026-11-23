@@ -53,11 +53,13 @@ void main(){
    FlutterError.onError=(details){if(details.library=='image resource service'){resourceErrors.add(details.exception.runtimeType.toString());}else{previous?.call(details);}};
    addTearDown(()=>FlutterError.onError=previous);
    final compareNavbar = family == '2' && view.$1 == 'desktop';
+   final application = ShellCaptureApplication();
+   const role = PlatformRole.admin;
    Widget shell(Widget child) => RepaintBoundary(
     key: const Key('full-shell-proof'),
     child: GovernanceMasterLayout(
-     application: ShellCaptureApplication(),
-     activeRole: PlatformRole.admin,
+     application: application,
+     activeRole: role,
      child: child,
     ),
    );
@@ -107,6 +109,31 @@ void main(){
    }
    expect(resourceErrors,isEmpty,reason:'The deliberate failed-image path must show the user fallback without an unhandled image error');
    Directory('test/screenshots/shell-captures').createSync(recursive:true);final id='layout$family-${view.$1}-$mode';
+   if (compareNavbar && mode == 'light') {
+    final account = container.read(authProvider);
+    final activeContext = tester.element(find.byKey(const Key('app-shell')));
+    final entries = [
+     for (final module in application.getAuthorizedModules(role))
+      for (final screen in module.screens)
+       if (screen.requiredRole == null || screen.requiredRole == role) {
+        'route': screen.route,
+        'label': screen.title,
+        'icon': screen.icon == LucideIcons.star ? 'lucide:star' : null,
+       },
+    ];
+    expect(entries, hasLength(1));
+    expect(account.isAuthenticated, isTrue);
+    expect(account.role, role.name);
+    File('test/screenshots/shell-captures/navigation-fixture.json').writeAsStringSync(
+     jsonEncode({
+      'version': 1,
+      'fixtureOnly': true,
+      'account': {'role': role.name, 'displayName': role.displayName},
+      'language': Localizations.localeOf(activeContext).languageCode,
+      'entries': entries,
+     }),
+    );
+   }
    Map<String,double>? barBox(bool top){final f=find.byWidgetPredicate((w)=>w is PrimeShellBarFrame&&w.top==top);if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
    Map<String,double>? box(String key){final f=find.byKey(Key(key));if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
    File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':barBox(false),'toolbarInner':box('app-topbar'),'footer':barBox(true),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'existing registered /tenant-dashboard route sample; fixture-only policy and synthetic account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));
@@ -126,6 +153,7 @@ void main(){
     try {
      final triggerFinder = find.ancestor(of: moduleLabel, matching: find.byType(TextButton));
      expect(triggerFinder, findsOneWidget);
+     expect(tester.getSize(triggerFinder).height, PrimeShellMetrics.horizontalNavigationRowHeight);
      final link = find.ancestor(of: triggerFinder, matching: find.byWidgetPredicate(
       (widget) => widget is Semantics && widget.properties.link == true,
      ));

@@ -89,7 +89,7 @@ jobs:
             packages/flutter_core/test/screenshots/sidebar-state-captures
           retention-days: 14
       - name: Capture original full-shell reference separately from settings
-        run: node tools/fuse-reference-cloud/shell-capture.mjs "$GITHUB_WORKSPACE/artifacts/fuse-shell-reference"
+        run: node tools/fuse-reference-cloud/shell-capture.mjs "$GITHUB_WORKSPACE/artifacts/fuse-shell-reference" "$GITHUB_WORKSPACE/packages/flutter_core/test/screenshots/shell-captures/navigation-fixture.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

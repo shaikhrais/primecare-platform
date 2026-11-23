@@ -128,7 +128,7 @@ void main() {
               findsOneWidget,
             );
             final trigger = find.descendant(
-              of: rail, matching: find.byWidgetPredicate((w) => w is PopupMenuButton<int>),
+              of: rail, matching: find.byType(IconButton),
             );
             final semantics = find.ancestor(
               of: trigger,
@@ -137,11 +137,19 @@ void main() {
               ),
             );
             expect(tester.getSemantics(semantics).label, contains('Tenant dashboard'));
+            expect(tester.getSemantics(semantics).hasFlag(SemanticsFlag.isLink), isTrue);
             final proof = find.byKey(const Key('sidebar-overlay-proof'));
             Future<void> captureTabbed(String phase) => expectLater(
               proof, matchesGoldenFile('sidebar-state-captures/folded-tabbed-$mode-$phase.png'),
             );
             await captureTabbed('baseline');
+            final pointer = await tester.createGesture(kind: PointerDeviceKind.mouse);
+            await pointer.addPointer(location: const Offset(1, 1));
+            await pointer.moveTo(tester.getCenter(trigger));
+            await tester.pumpAndSettle();
+            await captureTabbed('hover');
+            await pointer.removePointer();
+            await tester.pumpAndSettle();
             final triggerElement = tester.element(trigger);
             bool focused() {
               var found = false;
@@ -156,18 +164,22 @@ void main() {
               await tester.pump();
             }
             expect(focused(), isTrue);
-            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-            await tester.pumpAndSettle();
-            final item = find.widgetWithText(PopupMenuItem<int>, 'Tenant dashboard');
-            expect(item, findsOneWidget);
-            await captureTabbed('menu-open');
+            await captureTabbed('focus');
             final before = navigationAttempts;
-            await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
             await tester.sendKeyEvent(LogicalKeyboardKey.enter);
             await tester.pumpAndSettle();
             expect(navigationAttempts, greaterThan(before));
-            expect(item, findsNothing);
+            expect(find.widgetWithText(PopupMenuItem<int>, 'Tenant dashboard'), findsNothing);
             await captureTabbed('activated');
+            File('test/screenshots/sidebar-state-captures/folded-tabbed-$mode.json')
+                .writeAsStringSync(jsonEncode({
+                  'mode': mode,
+                  'variant': 'tabbed',
+                  'navigationWidth': 48,
+                  'directDestination': true,
+                  'route': router.routeInformationProvider.value.uri.path,
+                  'fixtureOnly': true,
+                }));
             return;
           }
           if (state == 'mobile') {

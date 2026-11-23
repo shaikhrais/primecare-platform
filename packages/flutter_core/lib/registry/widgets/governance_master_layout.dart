@@ -160,7 +160,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             padding: PrimeShellMetrics.horizontalNavigationItemPadding,
                             child: Center(
                               child: SizedBox(
-                                height: PrimeShellMetrics.sidebarRowHeight,
+                                height: PrimeShellMetrics.horizontalNavigationRowHeight,
                                 child: screen != null ? Semantics(
                                   container: true,
                                   link: true,
