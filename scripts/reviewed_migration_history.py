@@ -6,7 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_toolbar_shared_tokens(source,path):
+    return reverse_presentation_receipt(
+        source,path,'toolbar-shared-tokens-replay.json'
+    )
+
 def before_full_render_toolbar_actions(source,path):
+    source=before_toolbar_shared_tokens(source,path)
     return reverse_presentation_receipt(
         source,path,'full-render-toolbar-actions-replay.json'
     )

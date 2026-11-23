@@ -47,6 +47,28 @@ abstract final class PrimeShellMetrics {
   static const mobileDrawerWidth = 280.0;
   static const sidebarToggleSize = 32.0;
   static const sidebarToggleOutlineSize = 28.0;
+  static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 8);
+  static const toolbarAccountPadding = EdgeInsets.fromLTRB(6, 4, 10, 4);
+  static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));
+  static const toolbarAccountAvatarRadius = 16.0;
+  static BoxDecoration toolbarAccountDecoration(ThemeData theme) => BoxDecoration(
+    border: Border.all(color: theme.dividerColor),
+    borderRadius: toolbarAccountRadius,
+  );
+  static TextStyle? toolbarAccountAvatarTextStyle(
+    ThemeData theme,
+    Color foreground,
+  ) => theme.textTheme.labelLarge?.copyWith(
+    color: foreground,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle? toolbarAccountRoleTextStyle(
+    ThemeData theme,
+    Color foreground,
+  ) => theme.textTheme.labelMedium?.copyWith(
+    color: foreground,
+    fontWeight: FontWeight.w600,
+  );
   static BoxDecoration sidebarToggleDecoration(ThemeData theme) => BoxDecoration(
     border: Border.all(color: theme.colorScheme.outlineVariant),
     borderRadius: navigationItemRadius,

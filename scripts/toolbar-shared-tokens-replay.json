@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "reason": "Move toolbar account trigger dimensions and typography into shared presentation metrics after the screen-style boundary rejected local values.",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "2e9011a2fc5b335961972301bc080894332e3c77faa0435615e5b3f9c79f21b3",
+      "afterSha256": "2aa168565600e279dad73c8ef3e77aac9f989d2309985f9a125b11cea88aceaf",
+      "edits": [
+        {
+          "begin": 2391,
+          "old": "",
+          "new": "const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 8);\n  static const toolbarAccountPadding = EdgeInsets.fromLTRB(6, 4, 10, 4);\n  static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));\n  static const toolbarAccountAvatarRadius = 16.0;\n  static BoxDecoration toolbarAccountDecoration(ThemeData theme) => BoxDecoration(\n    border: Border.all(color: theme.dividerColor),\n    borderRadius: toolbarAccountRadius,\n  );\n  static TextStyle? toolbarAccountAvatarTextStyle(\n    ThemeData theme,\n    Color foreground,\n  ) => theme.textTheme.labelLarge?.copyWith(\n    color: foreground,\n    fontWeight: FontWeight.w700,\n  );\n  static TextStyle? toolbarAccountRoleTextStyle(\n    ThemeData theme,\n    Color foreground,\n  ) => theme.textTheme.labelMedium?.copyWith(\n    color: foreground,\n    fontWeight: FontWeight.w600,\n  );\n  static "
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "332d2b87c4d2de4df269832236b10de8e9cafe57cb0af13016c1920b1a2d1168",
+      "afterSha256": "8c298eb87b7b5b687d8b464092b63ac457cf41013d5f1d5a6cf6c960f06324ea",
+      "edits": [
+        {
+          "begin": 21933,
+          "old": "const EdgeInsets.symmetric(vertical: 8),\n                                  padding: const EdgeInsets.fromLTRB(6, 4, 10, 4),\n                                  decoration: BoxDecoration(\n                                    border: Border.all(color: theme.dividerColor),\n                                    borderRadius: BorderRadius.circular(24),\n                                  ),\n                                  child: Row(mainAxisSize: MainAxisSize.min, children: [\n                                    CircleAvatar(\n                                      radius: 16,\n                                      backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),\n                                      child: PrimeText(activeRole.displayName.characters.first.toUpperCase(),\n                                        style: theme.textTheme.labelLarge?.copyWith(color: topbarTextColor, fontWeight: FontWeight.w700)),\n                                    ),\n                                    if (!isHandheld) ...[\n                                      const SizedBox(width: 8),\n                                      PrimeText(activeRole.displayName, style: theme.textTheme.labelMedium?.copyWith(\n                                        color: topbarTextColor, fontWeight: FontWeight.w600",
+          "new": "PrimeShellMetrics.toolbarAccountMargin,\n                                  padding: PrimeShellMetrics.toolbarAccountPadding,\n                                  decoration: PrimeShellMetrics.toolbarAccountDecoration(theme),\n                                  child: Row(mainAxisSize: MainAxisSize.min, children: [\n                                    CircleAvatar(\n                                      radius: PrimeShellMetrics.toolbarAccountAvatarRadius,\n                                      backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),\n                                      child: PrimeText(activeRole.displayName.characters.first.toUpperCase(),\n                                        style: PrimeShellMetrics.toolbarAccountAvatarTextStyle(theme, topbarTextColor)),\n                                    ),\n                                    if (!isHandheld) ...[\n                                      const SizedBox(width: 8),\n                                      PrimeText(activeRole.displayName,\n                                        style: PrimeShellMetrics.toolbarAccountRoleTextStyle(theme, topbarTextColor"
+        }
+      ]
+    }
+  ]
+}

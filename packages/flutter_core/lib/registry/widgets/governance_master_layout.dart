@@ -403,23 +403,20 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                 ),
                                 tooltip: 'User Functions',
                                 child: Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 8),
-                                  padding: const EdgeInsets.fromLTRB(6, 4, 10, 4),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: theme.dividerColor),
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
+                                  margin: PrimeShellMetrics.toolbarAccountMargin,
+                                  padding: PrimeShellMetrics.toolbarAccountPadding,
+                                  decoration: PrimeShellMetrics.toolbarAccountDecoration(theme),
                                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                                     CircleAvatar(
-                                      radius: 16,
+                                      radius: PrimeShellMetrics.toolbarAccountAvatarRadius,
                                       backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                                       child: PrimeText(activeRole.displayName.characters.first.toUpperCase(),
-                                        style: theme.textTheme.labelLarge?.copyWith(color: topbarTextColor, fontWeight: FontWeight.w700)),
+                                        style: PrimeShellMetrics.toolbarAccountAvatarTextStyle(theme, topbarTextColor)),
                                     ),
                                     if (!isHandheld) ...[
                                       const SizedBox(width: 8),
-                                      PrimeText(activeRole.displayName, style: theme.textTheme.labelMedium?.copyWith(
-                                        color: topbarTextColor, fontWeight: FontWeight.w600)),
+                                      PrimeText(activeRole.displayName,
+                                        style: PrimeShellMetrics.toolbarAccountRoleTextStyle(theme, topbarTextColor)),
                                       const SizedBox(width: 6),
                                       PrimeIcon(LucideIcons.info, size: 15, color: topbarIconColor),
                                     ],
