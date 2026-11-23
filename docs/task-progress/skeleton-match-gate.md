@@ -20,3 +20,10 @@ exercise the advanced Bottom action and verify navbar independence.
 
 Local validation: 22 targeted behavior tests plus 18 layout/device/mode capture cases
 passed, producing 42 fresh native PNGs. Full skeleton visual acceptance remains open.
+
+Second correction: the registered host now uses the reference shell bar metrics:
+horizontal navbar 64px; toolbar/footer 64px from 768px, 48px below. Explicit
+PrimeAppBar height and PreferredSize agree with the outer slot. Shared renderer
+defaults and persisted layouts are unchanged. Four geometry tests at 390, 767,
+768 and 1440px plus existing workspace/navbar checks pass (28 tests total).
+Full-shell reference/native screenshot acceptance is still pending.

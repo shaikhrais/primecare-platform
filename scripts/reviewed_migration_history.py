@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_shell_metrics(source,path):
+    return reverse_presentation_receipt(source,path,'skeleton-shell-metrics-replay.json')
+
 def before_navbar_style(source,path):
+    source=before_shell_metrics(source,path)
     source=reverse_presentation_receipt(source,path,'theme-option-label-replay.json')
     return reverse_presentation_receipt(source,path,'navbar-style-replay.json')
 

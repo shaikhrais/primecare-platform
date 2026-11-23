@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "e41bb1f9128571e839a5be45ded1e75adffd7bfd",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "c3cd6f3d771393fc437e9b39464a880ed959d4967a1e0ea86e7ab9a3f622e9ed",
+      "afterSha256": "47bd8431b3173adbd71b2e8bb3d17c668926161003d1256f7ebd0e470999972b",
+      "edits": [
+        {
+          "begin": 48,
+          "old": "",
+          "new": "import '../../theme/prime_shell_metrics.dart';\n"
+        },
+        {
+          "begin": 2976,
+          "old": "",
+          "new": "    final shellBarHeight = PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width);\n"
+        },
+        {
+          "begin": 7663,
+          "old": "                  horizontalNavigationExtent: 48,\n",
+          "new": "                  horizontalNavigationExtent: PrimeShellMetrics.horizontalNavbarHeight,\n                  toolbarExtent: shellBarHeight,\n                  footerExtent: shellBarHeight,\n"
+        },
+        {
+          "begin": 8299,
+          "old": "                  preferredSize: const Size.fromHeight(kToolbarHeight),\n",
+          "new": "                  preferredSize: Size.fromHeight(shellBarHeight),\n"
+        },
+        {
+          "begin": 8628,
+          "old": "",
+          "new": "                        toolbarHeight: shellBarHeight,\n"
+        }
+      ]
+    }
+  ]
+}

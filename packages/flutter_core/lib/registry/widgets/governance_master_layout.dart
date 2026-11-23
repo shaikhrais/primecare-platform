@@ -1,4 +1,5 @@
 import '../../theme/portal_section_theme.dart';
+import '../../theme/prime_shell_metrics.dart';
 import '../../workspace/portal_workspace.dart';
 import '../../providers/persistence_providers.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;
@@ -56,6 +57,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final tenant = application.tenant;
     final tier = ScreenBreakpoints.getTier(MediaQuery.of(context).size.width);
     final isHandheld = MediaQuery.sizeOf(context).width <= 1024;
+    final shellBarHeight = PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width);
 
     // Sync Governance Context to Telemetry
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -164,7 +166,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   controller: workspace,
                   navbarStyle: settings.navbarStyle,
                   navigationVisible: !isHandheld,
-                  horizontalNavigationExtent: 48,
+                  horizontalNavigationExtent: PrimeShellMetrics.horizontalNavbarHeight,
+                  toolbarExtent: shellBarHeight,
+                  footerExtent: shellBarHeight,
                   navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)
                       ? buildHorizontalNav()
                       : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
@@ -172,13 +176,14 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: Builder(builder: (context) {
                   final theme = Theme.of(context);
                   return PreferredSize(
-                  preferredSize: const Size.fromHeight(kToolbarHeight),
+                  preferredSize: Size.fromHeight(shellBarHeight),
                   child: Semantics(
                     label: 'data-cy:app-topbar',
                     container: true,
                     child: KeyedSubtree(
                       key: const Key('app-topbar'),
                       child: PrimeAppBar(
+                        toolbarHeight: shellBarHeight,
                         primary: false,
                         elevation: 0,
                         backgroundColor: topbarBg,
