@@ -171,6 +171,7 @@ void main() {
             return;
           }
           if (state == 'mobile') {
+            expect(find.byType(PrimeSidebarFoldButton), findsNothing);
             final trigger = find.byType(DrawerButton);
             expect(trigger, findsOneWidget);
             await tester.tap(trigger);
@@ -301,6 +302,36 @@ void main() {
               isFalse,
             );
           await capture('activated');
+          if (state == 'left' || state == 'right') {
+            workspace.patch({'navigationWidth': 312});
+            await tester.pumpAndSettle();
+            final toggle = find.byType(PrimeSidebarFoldButton);
+            expect(toggle, findsOneWidget);
+            final toggleElement = tester.element(toggle);
+            bool toggleFocused() {
+              var found = false;
+              FocusManager.instance.primaryFocus?.context?.visitAncestorElements((e) {
+                found = e == toggleElement;
+                return !found;
+              });
+              return found;
+            }
+            for (var i = 0; i < 20 && !toggleFocused(); i++) {
+              await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+              await tester.pump();
+            }
+            expect(toggleFocused(), isTrue);
+            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+            await tester.pumpAndSettle();
+            expect(workspace.current.navigationWidth, 64);
+            expect(tester.getSize(sidebar).width, 48);
+            await capture('toggle-folded');
+            expect(toggleFocused(), isTrue);
+            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+            await tester.pumpAndSettle();
+            expect(workspace.current.navigationWidth, 312);
+            expect(tester.getSize(sidebar).width, 312);
+          }
           File('$path/$id.json').writeAsStringSync(
             jsonEncode({
               'case': id,
@@ -312,6 +343,7 @@ void main() {
               'boxes': boxes,
               'states': ['selected', 'hover', 'focus', 'activated'],
               'drawerClosedOnActivation': state == 'mobile' ? true : null,
+              if (state == 'left' || state == 'right') 'toggleRestoredWidth': 312,
               'fixtureOnly': true,
               'referenceAligned': false,
               'visualAcceptance': false,

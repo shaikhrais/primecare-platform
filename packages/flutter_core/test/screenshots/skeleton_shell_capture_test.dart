@@ -114,8 +114,14 @@ void main(){
    if (compareNavbar) {
     final moduleLabel = find.text('Tenant dashboard');
     final brand = find.text('PrimeCare').first;
+    expect(find.text('PrimeCare'), findsOneWidget);
     expect(tester.getTopLeft(brand).dy, lessThan(64));
     expect(tester.getCenter(moduleLabel).dx, greaterThan(view.$2 / 2));
+    final toolbar = tester.getRect(find.byKey(const Key('app-topbar')));
+    expect(toolbar.left, 192);
+    expect(toolbar.right, 1248);
+    expect(tester.getTopLeft(find.byType(PrimeHorizontalChrome).first).dx, 0);
+    expect(find.byType(PrimeSidebarFoldButton), findsNothing);
     final semantics = tester.ensureSemantics();
     try {
      final triggerFinder = find.ancestor(of: moduleLabel, matching: find.byType(TextButton));

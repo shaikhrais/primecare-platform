@@ -102,18 +102,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
           background: background,
           divider: colors?.sidebarDividerColor,
         ),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: PrimeShellMetrics.horizontalContentWidth,
-            ),
-            child: Row(
+        child: PrimeHorizontalChrome(
+          background: background,
+          child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-                  child: Padding(
-                    padding: PrimeShellMetrics.sidebarHeaderPadding(false),
-                    child: Row(
+                  child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const PrimeOriginalAsset(
@@ -137,7 +132,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           ),
                         ),
                       ],
-                    ),
                   ),
                 ),
                 Flexible(
@@ -152,16 +146,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        padding: PrimeShellMetrics.horizontalNavigationPadding,
                         itemCount: navigation.length,
                         itemBuilder: (context, index) {
                           final MapEntry(key: module, value: screens) = navigation[index];
                           final screen = screens.length == 1 ? screens.single : null;
                           final selected = screen != null &&
                               GoRouter.maybeOf(context)?.routeInformationProvider.value.uri.path == screen.route;
-                          final selectedBackground = navbarTheme.colorScheme.primaryContainer;
+                          final selectedBackground = navbarTheme.colorScheme.secondary;
                           final labelColor = selected
-                              ? readableThemeForeground(selectedBackground, navbarTheme.colorScheme.onPrimaryContainer)
+                              ? readableThemeForeground(selectedBackground, navbarTheme.colorScheme.onSecondary)
                               : foreground;
                           return Padding(
                             padding: PrimeShellMetrics.horizontalNavigationItemPadding,
@@ -212,7 +205,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 ),
               ],
             ),
-          ),
         ),
       );
     }
@@ -283,7 +275,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         )),
                   toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PrimeShellBarFrame(bordered:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal,child: Builder(builder: (context) {
                   final theme = Theme.of(context);
-                  return PreferredSize(
+                  final position = workspace.current.navigation;
+                  final horizontal = position == 'top' || position == 'bottom';
+                  final toolbar = PreferredSize(
                   preferredSize: Size.fromHeight(shellBarHeight),
                   child: Semantics(
                     label: 'data-cy:app-topbar',
@@ -294,10 +288,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         toolbarHeight: shellBarHeight,
                         primary: false,
                         elevation: 0,
+                        leading: !isHandheld && position == 'left'
+                            ? PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor)
+                            : null,
                         backgroundColor: topbarBg,
                         surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
                         iconTheme: IconThemeData(color: topbarIconColor),
-                        title: isHandheld ? null : PrimeText(tenant.name, maxLines: 1,
+                        title: isHandheld || horizontal ? null : PrimeText(tenant.name, maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.titleSmall?.copyWith(color: topbarTextColor)),
                         actions: [
@@ -499,11 +496,16 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             ),
                           ),
                           const SizedBox(width: 8),
+                          if (!isHandheld && position == 'right')
+                            PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor),
                         ],
                       ),
                     ),
                   ),
                 );
+                  return horizontal && !isHandheld
+                      ? PrimeHorizontalChrome(background: topbarBg, child: toolbar)
+                      : toolbar;
                   })),
                   ),
                   footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PrimeShellBarFrame(top:true,child:PortalLayoutFooter())),

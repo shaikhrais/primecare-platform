@@ -5,6 +5,8 @@ import 'package:primecare_ui_foundation/primecare_ui_foundation.dart';
 import '../theme/app_theme.dart' show GovernanceThemeColors;
 import '../theme/prime_shell_metrics.dart';
 import '../theme/theme_contrast.dart';
+import '../theme/theme_center_options.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'workspace_controller.dart';
 export 'workspace_controller.dart';
 export 'workspace_preferences.dart';
@@ -196,6 +198,51 @@ class PrimePortalTheme extends StatelessWidget {
   @override Widget build(BuildContext context) => Theme(data: data,
     child: customScrollbars == null ? child : ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: customScrollbars), child: child));
+}
+
+/// The toolbar shortcut uses the same reversible fold setting as the editor.
+class PrimeSidebarFoldButton extends StatelessWidget {
+  final WorkspaceController controller;
+  final Color foreground;
+  const PrimeSidebarFoldButton({
+    super.key,
+    required this.controller,
+    required this.foreground,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final folded = controller.current.navigationWidth ==
+        PrimeShellMetrics.foldedNavigationMarker;
+    final leading = controller.current.navigation == 'left';
+    final icon = leading
+        ? (folded ? LucideIcons.panelLeftOpen : LucideIcons.panelLeftClose)
+        : (folded ? LucideIcons.panelRightOpen : LucideIcons.panelRightClose);
+    return Semantics(
+      container: true,
+      expanded: !folded,
+      child: Center(
+        child: PrimeIconButton(
+          icon: PrimeIcon(
+            icon,
+            size: PrimeShellMetrics.sidebarIconExtent,
+            color: foreground,
+          ),
+          tooltip: themeCenterOption(context, 'color.sidebar'),
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints.tightFor(
+            width: PrimeShellMetrics.sidebarToggleSize,
+            height: PrimeShellMetrics.sidebarToggleSize,
+          ),
+          onPressed: () => controller.patch({
+            'navigationWidth': folded
+                ? controller.expandedNavigationWidth
+                : PrimeShellMetrics.foldedNavigationMarker,
+          }),
+        ),
+      ),
+    );
+  }
 }
 
 /// Horizontal navigation uses the same centrally themed label in every portal.

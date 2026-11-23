@@ -4,7 +4,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
-      "afterSha256": "4165c5ac3df82c21764f68f547bf807e647e2ab399929d316acb8673ce70f230",
+      "afterSha256": "efdf4f07f4a7bd3e1fced0ba0e1c5c6002720fe4f57409f4798bbe980c10262b",
       "edits": [
         {
           "begin": 1393,
@@ -17,14 +17,29 @@
           "new": "    final navigation = <MapEntry<PlatformModule, List<PrimeCareScreen>>>[];\n    for (final module in application.getAuthorizedModules(activeRole)) {\n      final screens = module.screens.where(\n        (screen) => screen.requiredRole == null || screen.requiredRole == activeRole,\n      ).toList();\n      if (screens.isNotEmpty) navigation.add(MapEntry(module, screens));\n    }\n"
         },
         {
-          "begin": 6998,
-          "old": "                        itemCount: modules.length,\n",
+          "begin": 4731,
+          "old": "        child: Center(\n          child: ConstrainedBox(\n            constraints: const BoxConstraints(\n              maxWidth: PrimeShellMetrics.horizontalContentWidth,\n            ),\n            child: Row(\n",
+          "new": "        child: PrimeHorizontalChrome(\n          background: background,\n          child: Row(\n"
+        },
+        {
+          "begin": 5056,
+          "old": "                  child: Padding(\n                    padding: PrimeShellMetrics.sidebarHeaderPadding(false),\n                    child: Row(\n",
+          "new": "                  child: Row(\n"
+        },
+        {
+          "begin": 6296,
+          "old": "                    ),\n",
+          "new": ""
+        },
+        {
+          "begin": 6918,
+          "old": "                        padding: PrimeShellMetrics.horizontalNavigationPadding,\n                        itemCount: modules.length,\n",
           "new": "                        itemCount: navigation.length,\n"
         },
         {
           "begin": 7105,
           "old": "                          final module = modules[index];\n",
-          "new": "                          final MapEntry(key: module, value: screens) = navigation[index];\n                          final screen = screens.length == 1 ? screens.single : null;\n                          final selected = screen != null &&\n                              GoRouter.maybeOf(context)?.routeInformationProvider.value.uri.path == screen.route;\n                          final selectedBackground = navbarTheme.colorScheme.primaryContainer;\n                          final labelColor = selected\n                              ? readableThemeForeground(selectedBackground, navbarTheme.colorScheme.onPrimaryContainer)\n                              : foreground;\n"
+          "new": "                          final MapEntry(key: module, value: screens) = navigation[index];\n                          final screen = screens.length == 1 ? screens.single : null;\n                          final selected = screen != null &&\n                              GoRouter.maybeOf(context)?.routeInformationProvider.value.uri.path == screen.route;\n                          final selectedBackground = navbarTheme.colorScheme.secondary;\n                          final labelColor = selected\n                              ? readableThemeForeground(selectedBackground, navbarTheme.colorScheme.onSecondary)\n                              : foreground;\n"
         },
         {
           "begin": 7458,
@@ -37,6 +52,11 @@
           "new": "                                    for (final screen in screens)\n                                      PopupMenuItem(\n                                        value: screen.route,\n                                        child: PrimeText(screen.title),\n                                      ),\n"
         },
         {
+          "begin": 8851,
+          "old": "          ),\n",
+          "new": ""
+        },
+        {
           "begin": 10555,
           "old": "                        modules,\n",
           "new": "                        navigation,\n"
@@ -45,6 +65,31 @@
           "begin": 12126,
           "old": "                          modules, tenant, tier, settings,\n",
           "new": "                          navigation, tenant, tier, settings,\n"
+        },
+        {
+          "begin": 12794,
+          "old": "                  return PreferredSize(\n",
+          "new": "                  final position = workspace.current.navigation;\n                  final horizontal = position == 'top' || position == 'bottom';\n                  final toolbar = PreferredSize(\n"
+        },
+        {
+          "begin": 13290,
+          "old": "",
+          "new": "                        leading: !isHandheld && position == 'left'\n                            ? PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor)\n                            : null,\n"
+        },
+        {
+          "begin": 13517,
+          "old": "                        title: isHandheld ? null : PrimeText(tenant.name, maxLines: 1,\n",
+          "new": "                        title: isHandheld || horizontal ? null : PrimeText(tenant.name, maxLines: 1,\n"
+        },
+        {
+          "begin": 25572,
+          "old": "",
+          "new": "                          if (!isHandheld && position == 'right')\n                            PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor),\n"
+        },
+        {
+          "begin": 25687,
+          "old": "",
+          "new": "                  return horizontal && !isHandheld\n                      ? PrimeHorizontalChrome(background: topbarBg, child: toolbar)\n                      : toolbar;\n"
         },
         {
           "begin": 26404,
@@ -91,12 +136,17 @@
     {
       "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
       "beforeSha256": "2037d762ddf2dc7c202eafe9eb5ebb5620fb390899d6f6482e7ee8f56059a8a4",
-      "afterSha256": "7492ea5504a3b88ce0630f56ed30eb33e046514b27fc7e22f073d9321d9c4d2c",
+      "afterSha256": "9d7549c5057b158eab0534ad765c2e9a44ec8e7aded522c372fd434e7d9986e0",
       "edits": [
         {
           "begin": 182,
           "old": "",
-          "new": "import '../theme/app_theme.dart' show GovernanceThemeColors;\nimport '../theme/prime_shell_metrics.dart';\nimport '../theme/theme_contrast.dart';\n"
+          "new": "import '../theme/app_theme.dart' show GovernanceThemeColors;\nimport '../theme/prime_shell_metrics.dart';\nimport '../theme/theme_contrast.dart';\nimport '../theme/theme_center_options.dart';\nimport 'package:lucide_icons_flutter/lucide_icons.dart';\n"
+        },
+        {
+          "begin": 11297,
+          "old": "",
+          "new": "/// The toolbar shortcut uses the same reversible fold setting as the editor.\nclass PrimeSidebarFoldButton extends StatelessWidget {\n  final WorkspaceController controller;\n  final Color foreground;\n  const PrimeSidebarFoldButton({\n    super.key,\n    required this.controller,\n    required this.foreground,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final folded = controller.current.navigationWidth ==\n        PrimeShellMetrics.foldedNavigationMarker;\n    final leading = controller.current.navigation == 'left';\n    final icon = leading\n        ? (folded ? LucideIcons.panelLeftOpen : LucideIcons.panelLeftClose)\n        : (folded ? LucideIcons.panelRightOpen : LucideIcons.panelRightClose);\n    return Semantics(\n      container: true,\n      expanded: !folded,\n      child: Center(\n        child: PrimeIconButton(\n          icon: PrimeIcon(\n            icon,\n            size: PrimeShellMetrics.sidebarIconExtent,\n            color: foreground,\n          ),\n          tooltip: themeCenterOption(context, 'color.sidebar'),\n          padding: EdgeInsets.zero,\n          constraints: const BoxConstraints.tightFor(\n            width: PrimeShellMetrics.sidebarToggleSize,\n            height: PrimeShellMetrics.sidebarToggleSize,\n          ),\n          onPressed: () => controller.patch({\n            'navigationWidth': folded\n                ? controller.expandedNavigationWidth\n                : PrimeShellMetrics.foldedNavigationMarker,\n          }),\n        ),\n      ),\n    );\n  }\n}\n\n"
         },
         {
           "begin": 11502,
@@ -123,8 +173,18 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
-      "afterSha256": "1ddd58e58193d3c30f816ef2b5e5ef23350f7354dbc9d510186144855b7ccc82",
+      "afterSha256": "ab75650f29d5e6084ecc128177d5c1322268740aaeaa5e2bc40e77b64a7952b7",
       "edits": [
+        {
+          "begin": 297,
+          "old": "  static const horizontalContentWidth = 1088.0;\n",
+          "new": "  static const horizontalContentWidth = 1120.0;\n  static const horizontalDesktopBreakpoint = 1280.0;\n  static const horizontalChromeInset = EdgeInsets.symmetric(horizontal: 32);\n"
+        },
+        {
+          "begin": 1101,
+          "old": "",
+          "new": "  static const sidebarToggleSize = 32.0;\n"
+        },
         {
           "begin": 1570,
           "old": "    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),\n",
@@ -139,6 +199,11 @@
           "begin": 3859,
           "old": "      fontWeight:brand?FontWeight.w700:selected?FontWeight.w600:FontWeight.normal,color:color);\n",
           "new": "      fontWeight:brand?FontWeight.w700:selected?FontWeight.w500:FontWeight.normal,color:color);\n"
+        },
+        {
+          "begin": 4256,
+          "old": "",
+          "new": "}\n\n/// Keeps horizontal bars full bleed and aligns their controls to one column.\nclass PrimeHorizontalChrome extends StatelessWidget {\n  final Color background;\n  final Widget child;\n  const PrimeHorizontalChrome({\n    super.key,\n    required this.background,\n    required this.child,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final desktop = MediaQuery.sizeOf(context).width >=\n        PrimeShellMetrics.horizontalDesktopBreakpoint;\n    return ColoredBox(\n      color: background,\n      child: Center(\n        child: ConstrainedBox(\n          constraints: const BoxConstraints(\n            maxWidth: PrimeShellMetrics.horizontalContentWidth,\n          ),\n          child: Padding(\n            padding: desktop ? PrimeShellMetrics.horizontalChromeInset : EdgeInsets.zero,\n            child: child,\n          ),\n        ),\n      ),\n    );\n  }\n"
         }
       ]
     }

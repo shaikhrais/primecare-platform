@@ -209,3 +209,18 @@ cases. Existing saved layout formats, routes, metadata and grants are unchanged.
 The capture suite exercises slide and tabbed folded cases in both themes.
 The Fuse guest and PrimeCare tenant fixture still contain different menu data.
 R01–R05 remain IN PROGRESS. Demo work remains blocked.
+
+## Sidebar minimize control and horizontal chrome
+
+The desktop toolbar exposes the existing sidebar fold setting beside the
+left or right rail. The control uses the registered localized Sidebar label
+and announces its expanded state. Tab and Enter fold to the existing saved
+marker and restore the former width. The mobile toolbar keeps its drawer
+button. Keyboard captures verify restoration of a custom 312px width.
+
+The horizontal navbar and toolbar keep their edge-to-edge backgrounds and
+align their contents within a shared centered column. The navbar owns the
+brand display. A single authorized destination shows selection with the
+navbar accent and retains one-step activation. Existing controls continue
+to use the active PrimeCare account and permission data. No catalogue change
+or saved layout migration is involved.
