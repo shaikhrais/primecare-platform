@@ -6,7 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_menu_geometry(source,path):
+    return reverse_presentation_receipt(
+        source,path,'account-menu-geometry-replay.json'
+    )
+
 def before_account_menu_fuse_state(source,path):
+    source=before_account_menu_geometry(source,path)
     return reverse_presentation_receipt(
         source,path,'account-menu-fuse-state-replay.json'
     )

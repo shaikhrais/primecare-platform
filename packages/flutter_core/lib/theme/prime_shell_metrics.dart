@@ -12,16 +12,31 @@ abstract final class PrimeShellMetrics {
   static const _flagFrenchRed = Color(0xffef4135);
   static const _flagSpanishRed = Color(0xffaa151b);
   static const _flagSpanishYellow = Color(0xfff1bf00);
-  static Map<String, Color> languageFlagPalette(String language) => switch (language) {
-    'fr' => const {'primary': _flagFrenchBlue, 'accent': _flagFrenchRed, 'onPrimary': _flagWhite},
-    'es' => const {'primary': _flagSpanishRed, 'accent': _flagSpanishYellow, 'onPrimary': _flagWhite},
-    _ => const {'primary': _flagUsNavy, 'accent': _flagUsRed, 'onPrimary': _flagWhite},
-  };
+  static Map<String, Color> languageFlagPalette(String language) =>
+      switch (language) {
+        'fr' => const {
+          'primary': _flagFrenchBlue,
+          'accent': _flagFrenchRed,
+          'onPrimary': _flagWhite,
+        },
+        'es' => const {
+          'primary': _flagSpanishRed,
+          'accent': _flagSpanishYellow,
+          'onPrimary': _flagWhite,
+        },
+        _ => const {
+          'primary': _flagUsNavy,
+          'accent': _flagUsRed,
+          'onPrimary': _flagWhite,
+        },
+      };
   static const desktopBreakpoint = 960.0;
   static const horizontalContentWidth = 1120.0;
   static const horizontalDesktopBreakpoint = 1280.0;
   static const horizontalChromeInset = EdgeInsets.symmetric(horizontal: 32);
-  static const horizontalNavigationPadding = EdgeInsets.symmetric(horizontal: 16);
+  static const horizontalNavigationPadding = EdgeInsets.symmetric(
+    horizontal: 16,
+  );
   static const horizontalNavigationItemPadding = EdgeInsets.zero;
   static BoxDecoration horizontalNavigationDecoration(
     ThemeData theme, {
@@ -30,7 +45,9 @@ abstract final class PrimeShellMetrics {
   }) => BoxDecoration(
     color: background,
     border: Border(
-      bottom: BorderSide(color: divider ?? theme.dividerColor.withValues(alpha: 0.1)),
+      bottom: BorderSide(
+        color: divider ?? theme.dividerColor.withValues(alpha: 0.1),
+      ),
     ),
   );
 
@@ -47,21 +64,38 @@ abstract final class PrimeShellMetrics {
   static const mobileDrawerWidth = 280.0;
   static const sidebarToggleSize = 32.0;
   static const sidebarToggleOutlineSize = 28.0;
-  static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 8);
-  static const toolbarAccountPadding = EdgeInsets.fromLTRB(6, 4, 10, 4);
+  static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 14);
+  static const toolbarAccountHeight = 36.0;
+  static const toolbarAccountPadding = EdgeInsets.symmetric(horizontal: 4);
   static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));
-  static const accountMenuRadius = BorderRadius.all(Radius.circular(4));
-  static const accountMenuConstraints = BoxConstraints(minWidth: 128, maxWidth: 280);
+  static const accountMenuRadius = BorderRadius.all(Radius.circular(8));
+  static const accountMenuConstraints = BoxConstraints(
+    minWidth: 128,
+    maxWidth: 280,
+  );
+  static const accountMenuDesktopItemHeight = 32.0;
+  static const accountMenuMobileItemHeight = 48.0;
+  static const accountMenuPadding = EdgeInsets.zero;
+  static const accountMenuIconExtent = 16.0;
+  static const accountMenuIconGap = 8.0;
   static const toolbarAccountAvatarRadius = 16.0;
-  static Color accountAvatarBackground(ThemeData theme) => theme.colorScheme.primary.withValues(alpha:0.1);
-  static ShapeBorder accountMenuShape(ThemeData theme) => RoundedRectangleBorder(
+  static const sidebarAccountAvatarRadius = 20.0;
+  static const sidebarAccountHeight = 56.0;
+  static const foldedAccountHeight = 40.0;
+  static const sidebarAccountMargin = EdgeInsets.all(12);
+  // The sidebar's one-pixel content divider leaves 47 logical pixels inside
+  // the folded rail. The asymmetric inset preserves Fuse's 40px trigger.
+  static const foldedAccountMargin = EdgeInsets.fromLTRB(4, 8, 3, 8);
+  static Color accountAvatarBackground(ThemeData theme) =>
+      theme.colorScheme.primary.withValues(alpha: 0.1);
+  static const ShapeBorder accountMenuShape = RoundedRectangleBorder(
     borderRadius: accountMenuRadius,
-    side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.12)),
   );
-  static BoxDecoration toolbarAccountDecoration(ThemeData theme) => BoxDecoration(
-    border: Border.all(color: theme.dividerColor),
-    borderRadius: toolbarAccountRadius,
-  );
+  static BoxDecoration toolbarAccountDecoration(ThemeData theme) =>
+      BoxDecoration(
+        border: Border.all(color: theme.dividerColor),
+        borderRadius: toolbarAccountRadius,
+      );
   static TextStyle? toolbarAccountAvatarTextStyle(
     ThemeData theme,
     Color foreground,
@@ -77,12 +111,33 @@ abstract final class PrimeShellMetrics {
     fontWeight: FontWeight.w600,
   );
   static const sidebarAccountGap = 12.0;
-  static EdgeInsets sidebarAccountPadding(bool compact) => compact ? const EdgeInsets.symmetric(vertical:16) : const EdgeInsets.fromLTRB(16,16,12,16);
-  static BoxDecoration sidebarAccountDecoration(ThemeData theme) => BoxDecoration(border:Border(top:BorderSide(color:theme.dividerColor.withValues(alpha:0.12))));
-  static BoxDecoration sidebarToggleDecoration(ThemeData theme) => BoxDecoration(
-    border: Border.all(color: theme.colorScheme.outlineVariant),
-    borderRadius: navigationItemRadius,
-  );
+  static const sidebarAccountInfoExtent = 24.0;
+  static const sidebarAccountArrowExtent = 13.0;
+  static const sidebarAccountActionGap = 8.0;
+  static EdgeInsets sidebarAccountPadding(bool compact) =>
+      compact ? EdgeInsets.zero : const EdgeInsets.symmetric(horizontal: 8);
+  static EdgeInsets sidebarAccountOuterPadding(bool compact) =>
+      compact ? foldedAccountMargin : sidebarAccountMargin;
+  static double sidebarAccountButtonHeight(bool compact) =>
+      compact ? foldedAccountHeight : sidebarAccountHeight;
+  static Offset accountMenuOffset({
+    required bool sidebar,
+    required bool compact,
+    required bool mobile,
+    required bool trailing,
+  }) {
+    if (!sidebar) return const Offset(-3, 0);
+    if (trailing) return const Offset(-4, 0);
+    if (mobile) return const Offset(234, 0);
+    if (compact) return const Offset(40, 0);
+    return const Offset(255, 0);
+  }
+
+  static BoxDecoration sidebarToggleDecoration(ThemeData theme) =>
+      BoxDecoration(
+        border: Border.all(color: theme.colorScheme.outlineVariant),
+        borderRadius: navigationItemRadius,
+      );
   static const foldedHeaderExtent = 56.0;
   static const foldedNavigationTopGap = 4.0;
   static const foldedRowPadding = EdgeInsets.fromLTRB(8, 0, 8, 4);
@@ -174,7 +229,9 @@ abstract final class PrimeShellMetrics {
   static const sidebarCorner = 6.0;
   static const foldedSidebarCorner = 8.0;
   static const sidebarFocusOutlineWidth = 1.0;
-  static const navigationItemRadius = BorderRadius.all(Radius.circular(sidebarCorner));
+  static const navigationItemRadius = BorderRadius.all(
+    Radius.circular(sidebarCorner),
+  );
 
   static RoundedRectangleBorder sidebarDestinationShape(
     ThemeData theme, {
@@ -197,16 +254,54 @@ abstract final class PrimeShellMetrics {
   static const sidebarBrandFontSize = 18.0;
   static const sidebarSloganFontSize = 11.0;
   static const sidebarBrandLineGap = 2.0;
-  static const sidebarRowPadding = EdgeInsets.fromLTRB(sidebarRowInset,0,sidebarRowInset,sidebarRowSpacing);
-  static EdgeInsets sidebarHeaderPadding(bool collapsed) => EdgeInsets.symmetric(horizontal:collapsed?0:sidebarHeaderInset);
-  static TextStyle? sidebarTextStyle(ThemeData theme,{required String family,required double scale,required Color color,bool brand=false,bool slogan=false,bool selected=false}) {
-    final source=slogan?theme.textTheme.bodySmall:brand?theme.textTheme.titleSmall:theme.textTheme.bodyMedium;
-    return source?.copyWith(fontFamily:family=='system'?PrimeThemeCenterStyle.fontFamily:family,fontSize:(slogan?sidebarSloganFontSize:brand?sidebarBrandFontSize:sidebarFontSize)*scale,height:1,
-      fontWeight:brand?FontWeight.w700:selected?FontWeight.w500:FontWeight.normal,color:color);
+  static const sidebarRowPadding = EdgeInsets.fromLTRB(
+    sidebarRowInset,
+    0,
+    sidebarRowInset,
+    sidebarRowSpacing,
+  );
+  static EdgeInsets sidebarHeaderPadding(bool collapsed) =>
+      EdgeInsets.symmetric(horizontal: collapsed ? 0 : sidebarHeaderInset);
+  static TextStyle? sidebarTextStyle(
+    ThemeData theme, {
+    required String family,
+    required double scale,
+    required Color color,
+    bool brand = false,
+    bool slogan = false,
+    bool selected = false,
+  }) {
+    final source = slogan
+        ? theme.textTheme.bodySmall
+        : brand
+        ? theme.textTheme.titleSmall
+        : theme.textTheme.bodyMedium;
+    return source?.copyWith(
+      fontFamily: family == 'system'
+          ? PrimeThemeCenterStyle.fontFamily
+          : family,
+      fontSize:
+          (slogan
+              ? sidebarSloganFontSize
+              : brand
+              ? sidebarBrandFontSize
+              : sidebarFontSize) *
+          scale,
+      height: 1,
+      fontWeight: brand
+          ? FontWeight.w700
+          : selected
+          ? FontWeight.w500
+          : FontWeight.normal,
+      color: color,
+    );
   }
-  static double barHeight(double viewportWidth) => viewportWidth >= desktopBreakpoint ? 64 : 48;
-  static double toolbarExtent(double width, {required bool horizontal}) => barHeight(width)+(horizontal?dividerExtent:0);
-  static double footerExtent(double width) => barHeight(width)+dividerExtent;
+
+  static double barHeight(double viewportWidth) =>
+      viewportWidth >= desktopBreakpoint ? 64 : 48;
+  static double toolbarExtent(double width, {required bool horizontal}) =>
+      barHeight(width) + (horizontal ? dividerExtent : 0);
+  static double footerExtent(double width) => barHeight(width) + dividerExtent;
 }
 
 /// Keeps horizontal bars full bleed and aligns their controls to one column.
@@ -221,7 +316,8 @@ class PrimeHorizontalChrome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final desktop = MediaQuery.sizeOf(context).width >=
+    final desktop =
+        MediaQuery.sizeOf(context).width >=
         PrimeShellMetrics.horizontalDesktopBreakpoint;
     return ColoredBox(
       color: background,
@@ -231,7 +327,9 @@ class PrimeHorizontalChrome extends StatelessWidget {
             maxWidth: PrimeShellMetrics.horizontalContentWidth,
           ),
           child: Padding(
-            padding: desktop ? PrimeShellMetrics.horizontalChromeInset : EdgeInsets.zero,
+            padding: desktop
+                ? PrimeShellMetrics.horizontalChromeInset
+                : EdgeInsets.zero,
             child: child,
           ),
         ),
@@ -244,11 +342,29 @@ class PrimeHorizontalChrome extends StatelessWidget {
 class PrimeShellBarFrame extends StatelessWidget {
   final Widget child;
   final bool top, bordered;
-  const PrimeShellBarFrame({super.key,required this.child,this.top=false,this.bordered=true});
-  @override Widget build(BuildContext context) {
-    if(!bordered)return child;
-    final side=BorderSide(color:Theme.of(context).dividerColor,width:PrimeShellMetrics.dividerExtent);
-    return DecoratedBox(decoration:BoxDecoration(border:top?Border(top:side):Border(bottom:side)),
-      child:Padding(padding:top?const EdgeInsets.only(top:PrimeShellMetrics.dividerExtent):const EdgeInsets.only(bottom:PrimeShellMetrics.dividerExtent),child:child));
+  const PrimeShellBarFrame({
+    super.key,
+    required this.child,
+    this.top = false,
+    this.bordered = true,
+  });
+  @override
+  Widget build(BuildContext context) {
+    if (!bordered) return child;
+    final side = BorderSide(
+      color: Theme.of(context).dividerColor,
+      width: PrimeShellMetrics.dividerExtent,
+    );
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: top ? Border(top: side) : Border(bottom: side),
+      ),
+      child: Padding(
+        padding: top
+            ? const EdgeInsets.only(top: PrimeShellMetrics.dividerExtent)
+            : const EdgeInsets.only(bottom: PrimeShellMetrics.dividerExtent),
+        child: child,
+      ),
+    );
   }
 }

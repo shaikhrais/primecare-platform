@@ -389,3 +389,47 @@ The licensed component audit still records 4,701 sources, 55 families and 1,187
 named examples. These are implementation and discovery checks, not visual
 acceptance. R01–R05 remain IN PROGRESS; R06–R25 remain NOT MATCHED and demo work
 remains blocked.
+
+## Account trigger and popover geometry review
+
+The R01–R05 account trigger now uses the exact visible source variants: a 56px
+vertical trigger with a 40px avatar, a 40px folded trigger, and a 36px horizontal
+trigger with a 32px avatar. The popover uses an 8px radius, a 128px minimum
+width, zero internal menu padding, a 16px common Lucide sign-out icon and an 8px
+icon gap. Desktop rows are 32px high; the mobile row is 48px high. The complete
+native frames keep the registered PrimeCare name and smaller Home service slogan.
+
+The following origins are asserted from the complete 1440x1000 desktop and
+390x844 mobile captures, after opening the real account menu:
+
+| Task | Reference trigger | Native trigger | Reference menu | Native menu | Status |
+|---|---|---|---|---|---|
+| R01 | `12,932 255x56` | `12,932 255x56` | `267,932 128x31.5` | `267,932 128x32` | IN PROGRESS |
+| R02 | `4,952 40x40` | `4,952 40x40` | `44,952 128x31.5` | `44,952 128x32` | IN PROGRESS |
+| R03 | `1173,932 255x56` | `1173,932 255x56` | `1296,932 128x31.5` | `1296,932 128x32` | IN PROGRESS |
+| R04 | `12,776 256x56` | `12,776 255x56` | `246,776 128x48` | `254,776 128x48` | IN PROGRESS |
+| R05 | `1113.484,78 134.516x36` | `1108.08,78 139.92x36` | `1117,114 128x31.5` | `1117,114 128x32` | IN PROGRESS |
+
+R04 remains visibly different because the native drawer divider consumes one
+pixel of trigger width and Flutter's popup route preserves an 8px screen-edge
+clamp. The source paper ends 16px from the right edge. The native test capture's
+elevation shadow is also disabled because the deterministic golden renderer
+paints the SDK shadow as a solid black outline rather than the source's subtle
+MUI shadow; runtime shadow equivalence remains open. These differences are
+recorded blockers, not accepted tolerances.
+
+R05's trigger is right-aligned to the same x=1248 content edge and its menu
+origin matches the source, but the native active-role label makes the trigger
+about 5.4px wider than the source account fixture. That remains a visible text
+and trigger-width mismatch.
+
+Source identities reviewed for this geometry pass:
+
+| Source | SHA-256 |
+|---|---|
+| Fuse `UserMenu.tsx` | `97d42175449187df285f3a876e24fbc84c64ae91ff443bf44c0f234e91ca22af` |
+| Fuse `FuseDefaultSettings.ts` | `5153b458e2c932b63c2c041e121cee94887b22f6fcee6dff8604b0e4a0473db5` |
+
+This is measured component progress inside complete frames. It is not a
+whole-view match claim. R01–R05 remain IN PROGRESS; R06–R25 remain NOT MATCHED,
+and demo work remains blocked.

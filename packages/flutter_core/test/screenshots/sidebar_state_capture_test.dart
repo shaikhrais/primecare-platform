@@ -27,7 +27,13 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(loadFonts);
   for (final mode in ['light', 'dark'])
-    for (final state in ['left', 'folded', 'right', 'mobile', 'folded-tabbed']) {
+    for (final state in [
+      'left',
+      'folded',
+      'right',
+      'mobile',
+      'folded-tabbed',
+    ]) {
       testWidgets('populated sidebar $state $mode selected hover focus', (
         tester,
       ) async {
@@ -55,7 +61,9 @@ void main() {
               .updatePreset(mode == 'dark' ? 'defaultDark' : 'default');
           final tabbed = state == 'folded-tabbed';
           if (tabbed) {
-            await c.read(themeSettingsProvider.notifier).updateNavigationStyle('tabbed');
+            await c
+                .read(themeSettingsProvider.notifier)
+                .updateNavigationStyle('tabbed');
           }
           await c
               .read(themeSettingsProvider.notifier)
@@ -126,26 +134,42 @@ void main() {
             expect(tester.getSize(rail).width, 48);
             expect(workspace.current.navigationWidth, 64);
             expect(
-              find.descendant(of: rail, matching: find.byType(PrimeOriginalAsset)),
+              find.descendant(
+                of: rail,
+                matching: find.byType(PrimeOriginalAsset),
+              ),
               findsOneWidget,
             );
             final trigger = find.descendant(
-              of: rail, matching: find.byType(IconButton),
+              of: rail,
+              matching: find.byType(IconButton),
             );
             final semantics = find.ancestor(
               of: trigger,
               matching: find.byWidgetPredicate(
-                (w) => w is Semantics && w.properties.label == 'Tenant dashboard',
+                (w) =>
+                    w is Semantics && w.properties.label == 'Tenant dashboard',
               ),
             );
-            expect(tester.getSemantics(semantics).label, contains('Tenant dashboard'));
-            expect(tester.getSemantics(semantics).hasFlag(SemanticsFlag.isLink), isTrue);
+            expect(
+              tester.getSemantics(semantics).label,
+              contains('Tenant dashboard'),
+            );
+            expect(
+              tester.getSemantics(semantics).hasFlag(SemanticsFlag.isLink),
+              isTrue,
+            );
             final proof = find.byKey(const Key('sidebar-overlay-proof'));
             Future<void> captureTabbed(String phase) => expectLater(
-              proof, matchesGoldenFile('sidebar-state-captures/folded-tabbed-$mode-$phase.png'),
+              proof,
+              matchesGoldenFile(
+                'sidebar-state-captures/folded-tabbed-$mode-$phase.png',
+              ),
             );
             await captureTabbed('baseline');
-            final pointer = await tester.createGesture(kind: PointerDeviceKind.mouse);
+            final pointer = await tester.createGesture(
+              kind: PointerDeviceKind.mouse,
+            );
             await pointer.addPointer(location: const Offset(1, 1));
             await pointer.moveTo(tester.getCenter(trigger));
             await tester.pumpAndSettle();
@@ -155,12 +179,14 @@ void main() {
             final triggerElement = tester.element(trigger);
             bool focused() {
               var found = false;
-              FocusManager.instance.primaryFocus?.context?.visitAncestorElements((element) {
-                found = element == triggerElement;
-                return !found;
-              });
+              FocusManager.instance.primaryFocus?.context
+                  ?.visitAncestorElements((element) {
+                    found = element == triggerElement;
+                    return !found;
+                  });
               return found;
             }
+
             for (var i = 0; i < 20 && !focused(); i++) {
               await tester.sendKeyEvent(LogicalKeyboardKey.tab);
               await tester.pump();
@@ -171,24 +197,36 @@ void main() {
             await tester.sendKeyEvent(LogicalKeyboardKey.enter);
             await tester.pumpAndSettle();
             expect(navigationAttempts, greaterThan(before));
-            expect(find.widgetWithText(PopupMenuItem<int>, 'Tenant dashboard'), findsNothing);
+            expect(
+              find.widgetWithText(PopupMenuItem<int>, 'Tenant dashboard'),
+              findsNothing,
+            );
             await captureTabbed('activated');
-            File('test/screenshots/sidebar-state-captures/folded-tabbed-$mode.json')
-                .writeAsStringSync(jsonEncode({
-                  'mode': mode,
-                  'variant': 'tabbed',
-                  'navigationWidth': 48,
-                  'directDestination': true,
-                  'route': router.routeInformationProvider.value.uri.path,
-                  'fixtureOnly': true,
-                }));
+            File(
+              'test/screenshots/sidebar-state-captures/folded-tabbed-$mode.json',
+            ).writeAsStringSync(
+              jsonEncode({
+                'mode': mode,
+                'variant': 'tabbed',
+                'navigationWidth': 48,
+                'directDestination': true,
+                'route': router.routeInformationProvider.value.uri.path,
+                'fixtureOnly': true,
+              }),
+            );
             return;
           }
           if (state == 'mobile') {
             expect(find.byType(PrimeSidebarFoldButton), findsNothing);
             final trigger = find.byType(PrimeSidebarDrawerButton);
             expect(trigger, findsOneWidget);
-            expect(find.descendant(of: trigger, matching: find.byIcon(LucideIcons.panelLeft)), findsOneWidget);
+            expect(
+              find.descendant(
+                of: trigger,
+                matching: find.byIcon(LucideIcons.panelLeft),
+              ),
+              findsOneWidget,
+            );
             await tester.tap(trigger);
             await tester.pumpAndSettle();
           }
@@ -256,30 +294,87 @@ void main() {
           await capture('selected');
           final accountTrigger = find.byKey(const Key('sidebar-user-menu'));
           expect(accountTrigger, findsOneWidget);
+          final accountTriggerRect = tester.getRect(accountTrigger);
+          expect(accountTriggerRect.width, state == 'folded' ? 40 : 255);
+          expect(
+            accountTriggerRect.height,
+            state == 'folded'
+                ? PrimeShellMetrics.foldedAccountHeight
+                : PrimeShellMetrics.sidebarAccountHeight,
+          );
           expect(
             find.descendant(of: sidebar, matching: accountTrigger),
             findsOneWidget,
-            reason: 'Vertical account actions must stay inside the sidebar or drawer',
+            reason:
+                'Vertical account actions must stay inside the sidebar or drawer',
           );
           await tester.tap(accountTrigger);
           await tester.pumpAndSettle();
-          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
+          expect(
+            find.widgetWithText(PopupMenuItem<String>, 'Switch role'),
+            findsNothing,
+          );
           expect(find.text('Sign out'), findsOneWidget);
+          final signOutItem = find.widgetWithText(
+            PopupMenuItem<String>,
+            'Sign out',
+          );
+          expect(
+            tester.getSize(signOutItem).height,
+            state == 'mobile'
+                ? PrimeShellMetrics.accountMenuMobileItemHeight
+                : PrimeShellMetrics.accountMenuDesktopItemHeight,
+          );
+          final accountMenuSurface = find.byWidgetPredicate(
+            (widget) =>
+                widget is Material &&
+                widget.shape == PrimeShellMetrics.accountMenuShape,
+            description: 'account menu Material surface',
+          );
+          expect(accountMenuSurface, findsOneWidget);
+          final accountMenuRect = tester.getRect(accountMenuSurface);
+          expect(
+            accountMenuRect.width,
+            PrimeShellMetrics.accountMenuConstraints.minWidth,
+          );
+          expect(
+            accountMenuRect.height,
+            state == 'mobile'
+                ? PrimeShellMetrics.accountMenuMobileItemHeight
+                : PrimeShellMetrics.accountMenuDesktopItemHeight,
+          );
+          final expectedAccountMenuOrigin = switch (state) {
+            'left' => const Offset(267, 932),
+            'folded' => const Offset(44, 952),
+            'right' => const Offset(1296, 932),
+            // Flutter's PopupMenuRoute preserves its 8 px safe screen edge.
+            // Fuse is at x=246, so R04 remains IN PROGRESS at x=254.
+            'mobile' => const Offset(254, 776),
+            _ => throw StateError('Unhandled account menu state: $state'),
+          };
+          expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);
+          boxes['accountTrigger'] = box(accountTrigger);
+          boxes['accountMenu'] = box(accountMenuSurface);
           await expectLater(
             find.byKey(const Key('sidebar-overlay-proof')),
-            matchesGoldenFile('sidebar-state-captures/$id-account-menu-open.png'),
+            matchesGoldenFile(
+              'sidebar-state-captures/$id-account-menu-open.png',
+            ),
           );
           await tester.sendKeyEvent(LogicalKeyboardKey.escape);
           await tester.pumpAndSettle();
           expect(find.text('Sign out'), findsNothing);
-          final selectedShape = tester.widget<ListTile>(item).shape
-              as RoundedRectangleBorder;
+          final selectedShape =
+              tester.widget<ListTile>(item).shape as RoundedRectangleBorder;
           expect(selectedShape.side, BorderSide.none);
-          expect(selectedShape.borderRadius, BorderRadius.circular(
-            state == 'folded'
-                ? PrimeShellMetrics.foldedSidebarCorner
-                : PrimeShellMetrics.sidebarCorner,
-          ));
+          expect(
+            selectedShape.borderRadius,
+            BorderRadius.circular(
+              state == 'folded'
+                  ? PrimeShellMetrics.foldedSidebarCorner
+                  : PrimeShellMetrics.sidebarCorner,
+            ),
+          );
           final mouse = await tester.createGesture(
             kind: PointerDeviceKind.mouse,
           );
@@ -311,16 +406,21 @@ void main() {
           );
           await tester.pumpAndSettle();
           await capture('focus');
-          final focusedShape = tester.widget<ListTile>(item).shape
-              as RoundedRectangleBorder;
+          final focusedShape =
+              tester.widget<ListTile>(item).shape as RoundedRectangleBorder;
           if (state == 'folded') {
             expect(focusedShape.side, BorderSide.none);
           } else {
-            expect(focusedShape.side.width,
-                PrimeShellMetrics.sidebarFocusOutlineWidth);
-            expect(focusedShape.side.color, mode == 'dark'
-                ? Colors.white.withValues(alpha: 0.12)
-                : const Color(0xffd1d5db));
+            expect(
+              focusedShape.side.width,
+              PrimeShellMetrics.sidebarFocusOutlineWidth,
+            );
+            expect(
+              focusedShape.side.color,
+              mode == 'dark'
+                  ? Colors.white.withValues(alpha: 0.12)
+                  : const Color(0xffd1d5db),
+            );
           }
           expect(tester.takeException(), isNull);
           final beforeActivation = navigationAttempts;
@@ -359,16 +459,24 @@ void main() {
             await tester.pumpAndSettle();
             final toggle = find.byType(PrimeSidebarFoldButton);
             expect(toggle, findsOneWidget);
-            expect(find.descendant(of: toggle, matching: find.byIcon(LucideIcons.panelLeft)), findsOneWidget);
+            expect(
+              find.descendant(
+                of: toggle,
+                matching: find.byIcon(LucideIcons.panelLeft),
+              ),
+              findsOneWidget,
+            );
             final toggleElement = tester.element(toggle);
             bool toggleFocused() {
               var found = false;
-              FocusManager.instance.primaryFocus?.context?.visitAncestorElements((e) {
-                found = e == toggleElement;
-                return !found;
-              });
+              FocusManager.instance.primaryFocus?.context
+                  ?.visitAncestorElements((e) {
+                    found = e == toggleElement;
+                    return !found;
+                  });
               return found;
             }
+
             for (var i = 0; i < 20 && !toggleFocused(); i++) {
               await tester.sendKeyEvent(LogicalKeyboardKey.tab);
               await tester.pump();
@@ -377,7 +485,13 @@ void main() {
             await tester.sendKeyEvent(LogicalKeyboardKey.enter);
             await tester.pumpAndSettle();
             expect(workspace.current.navigationWidth, 64);
-            expect(find.descendant(of: toggle, matching: find.byIcon(LucideIcons.panelLeft)), findsOneWidget);
+            expect(
+              find.descendant(
+                of: toggle,
+                matching: find.byIcon(LucideIcons.panelLeft),
+              ),
+              findsOneWidget,
+            );
             expect(tester.getSize(sidebar).width, 48);
             await capture('toggle-folded');
             expect(toggleFocused(), isTrue);
@@ -395,10 +509,17 @@ void main() {
               'keyboardActivation': true,
               'sloganVisible': state != 'folded',
               'boxes': boxes,
-              'states': ['selected', 'account-menu-open', 'hover', 'focus', 'activated'],
+              'states': [
+                'selected',
+                'account-menu-open',
+                'hover',
+                'focus',
+                'activated',
+              ],
               'accountMenuAuthorized': true,
               'drawerClosedOnActivation': state == 'mobile' ? true : null,
-              if (state == 'left' || state == 'right') 'toggleRestoredWidth': 312,
+              if (state == 'left' || state == 'right')
+                'toggleRestoredWidth': 312,
               'fixtureOnly': true,
               'referenceAligned': false,
               'visualAcceptance': false,
