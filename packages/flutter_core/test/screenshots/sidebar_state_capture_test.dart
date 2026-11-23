@@ -95,7 +95,10 @@ void main() {
           await tester.pumpWidget(
             UncontrolledProviderScope(
               container: c,
-              child: MaterialApp.router(routerConfig: router),
+              child: MaterialApp.router(
+                routerConfig: router,
+                debugShowCheckedModeBanner: false,
+              ),
             ),
           );
           await tester.pumpAndSettle();
@@ -146,6 +149,10 @@ void main() {
             isTrue,
           );
           expect(tester.getSemantics(item).label, contains('Tenant dashboard'));
+          if (state == 'folded') {
+            expect(tester.getRect(item).top, 60);
+            expect(tester.getRect(item).height, 32);
+          }
           expect(
             find.descendant(of: sidebar, matching: find.text('Home service')),
             state == 'folded' ? findsNothing : findsOneWidget,

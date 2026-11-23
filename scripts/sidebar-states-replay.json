@@ -5,7 +5,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "c299fc74874c8240244e267519ad5bb914ba9ceede5e0ace473341232c46e542",
-      "afterSha256": "1f58bab569f6a52606bcce040a1708a310706d32f79a69fac188abf808d518e3",
+      "afterSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
       "edits": [
         {
           "begin": 132,
@@ -60,7 +60,7 @@
         {
           "begin": 24399,
           "old": "    final sidebarSelectedIconColor = themeColors?.sidebarSelectedIconColor ?? sidebarSelectedTextColor;\n    final sidebarSelectedTileColor = themeColors?.sidebarSelectedTileColor ?? theme.primaryColor.withValues(alpha: 0.05);\n",
-          "new": "    final contrastInk = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);\n    final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(\n      background: sidebarBg,\n      foreground: contrastInk,\n      brightness: theme.brightness,\n    );\n    final sidebarSelectedTextColor = readableThemeForeground(\n      sidebarSelectedTileColor, themeColors?.sidebarSelectedTextColor ?? sidebarTextColor,\n    );\n    final sidebarSelectedIconColor = readableThemeForeground(\n      sidebarSelectedTileColor, themeColors?.sidebarSelectedIconColor ?? sidebarIconColor,\n    );\n"
+          "new": "    final sloganColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurfaceVariant);\n    final contrastInk = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);\n    final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(\n      background: sidebarBg,\n      foreground: contrastInk,\n      brightness: theme.brightness,\n    );\n    final sidebarSelectedTextColor = readableThemeForeground(\n      sidebarSelectedTileColor, themeColors?.sidebarSelectedTextColor ?? sidebarTextColor,\n    );\n    final sidebarSelectedIconColor = readableThemeForeground(\n      sidebarSelectedTileColor, themeColors?.sidebarSelectedIconColor ?? sidebarIconColor,\n    );\n"
         },
         {
           "begin": 24738,
@@ -74,13 +74,8 @@
         },
         {
           "begin": 25484,
-          "old": "          child: Column(children:[\n",
-          "new": "          // Keep row ink above the opaque sidebar decoration.\n          child: Material(type:MaterialType.transparency,child:Column(children:[\n"
-        },
-        {
-          "begin": 25661,
-          "old": "              padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n",
-          "new": "              padding:PrimeShellMetrics.sidebarHeaderPadding(collapsed),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n"
+          "old": "          child: Column(children:[\n            ConstrainedBox(constraints:BoxConstraints(minHeight:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width)),child:Padding(\n              padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n",
+          "new": "          // Keep row ink above the opaque sidebar decoration.\n          child: Material(type:MaterialType.transparency,child:Column(children:[\n            ConstrainedBox(\n              constraints: BoxConstraints(\n                minHeight: collapsed\n                    ? PrimeShellMetrics.foldedHeaderExtent\n                    : PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),\n              ),child:Padding(\n              padding:PrimeShellMetrics.sidebarHeaderPadding(collapsed),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n"
         },
         {
           "begin": 26281,
@@ -90,7 +85,12 @@
         {
           "begin": 26773,
           "old": "                    style:theme.textTheme.bodySmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarSloganFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:theme.colorScheme.onSurfaceVariant)),\n",
-          "new": "                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:theme.colorScheme.onSurfaceVariant,slogan:true)),\n"
+          "new": "                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:sloganColor,slogan:true)),\n"
+        },
+        {
+          "begin": 27137,
+          "old": "",
+          "new": "            if (collapsed) const SizedBox(height: PrimeShellMetrics.foldedNavigationTopGap),\n"
         },
         {
           "begin": 29113,
@@ -106,6 +106,11 @@
           "begin": 29395,
           "old": "                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),\n",
           "new": "                      padding: collapsed\n                          ? PrimeShellMetrics.foldedRowPadding\n                          : PrimeShellMetrics.sidebarRowPadding,\n"
+        },
+        {
+          "begin": 29836,
+          "old": "                        contentPadding: const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarGap),\n",
+          "new": "                        contentPadding: PrimeShellMetrics.sidebarRowContentPadding(collapsed),\n"
         },
         {
           "begin": 30238,
@@ -137,7 +142,7 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "b71c414aa2e7ab49edd37b8e3fd08a5188818a7c02b2d633525d2fc5825c8f3e",
-      "afterSha256": "4dde7f7bf551d98cafce16121193718dc013866174138315357acc0023786d45",
+      "afterSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
       "edits": [
         {
           "begin": 40,
@@ -152,7 +157,7 @@
         {
           "begin": 349,
           "old": "",
-          "new": "  // The persisted profile continues to use 64 as its folded marker.\n  static const foldedNavigationMarker = 64;\n  static const foldedNavigationWidth = 48.0;\n  static const mobileDrawerWidth = 280.0;\n  static const foldedRowPadding = EdgeInsets.fromLTRB(4, 0, 4, 4);\n\n  static Color sidebarSelectionFill({\n    required Color background,\n    required Color foreground,\n    required Brightness brightness,\n  }) => Color.alphaBlend(\n    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),\n    background,\n  );\n\n  static Color navigationHoverInk(Color contrastInk) =>\n      contrastInk.withValues(alpha: 0.06);\n\n  static Color navigationFocusInk(Color contrastInk) =>\n      contrastInk.withValues(alpha: 0.12);\n\n  static ThemeData navigationInteractionTheme(\n    ThemeData theme,\n    Color contrastInk,\n  ) => theme.copyWith(\n    hoverColor: navigationHoverInk(contrastInk),\n    focusColor: navigationFocusInk(contrastInk),\n  );\n\n  static BoxDecoration sidebarDecoration({\n    required Color background,\n    required Color divider,\n    required bool onTrailingSide,\n    required TextDirection direction,\n  }) {\n    final border = BorderSide(color: divider);\n    final borderOnRight = onTrailingSide == (direction == TextDirection.rtl);\n    return BoxDecoration(\n      color: background,\n      border: borderOnRight ? Border(right: border) : Border(left: border),\n    );\n  }\n\n"
+          "new": "  // The persisted profile continues to use 64 as its folded marker.\n  static const foldedNavigationMarker = 64;\n  static const foldedNavigationWidth = 48.0;\n  static const mobileDrawerWidth = 280.0;\n  static const foldedHeaderExtent = 56.0;\n  static const foldedNavigationTopGap = 4.0;\n  static const foldedRowPadding = EdgeInsets.fromLTRB(8, 0, 8, 4);\n  static EdgeInsets sidebarRowContentPadding(bool folded) => folded\n      ? EdgeInsets.zero\n      : const EdgeInsets.symmetric(horizontal: sidebarGap);\n\n  static Color sidebarSelectionFill({\n    required Color background,\n    required Color foreground,\n    required Brightness brightness,\n  }) => Color.alphaBlend(\n    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),\n    background,\n  );\n\n  static Color navigationHoverInk(Color contrastInk) =>\n      contrastInk.withValues(alpha: 0.06);\n\n  static Color navigationFocusInk(Color contrastInk) =>\n      contrastInk.withValues(alpha: 0.12);\n\n  static ThemeData navigationInteractionTheme(\n    ThemeData theme,\n    Color contrastInk,\n  ) => theme.copyWith(\n    hoverColor: navigationHoverInk(contrastInk),\n    focusColor: navigationFocusInk(contrastInk),\n  );\n\n  static BoxDecoration sidebarDecoration({\n    required Color background,\n    required Color divider,\n    required bool onTrailingSide,\n    required TextDirection direction,\n  }) {\n    final border = BorderSide(color: divider);\n    final borderOnRight = onTrailingSide == (direction == TextDirection.rtl);\n    return BoxDecoration(\n      color: background,\n      border: borderOnRight ? Border(right: border) : Border(left: border),\n    );\n  }\n\n"
         },
         {
           "begin": 697,

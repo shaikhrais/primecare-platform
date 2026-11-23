@@ -526,6 +526,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
     final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
+    final sloganColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurfaceVariant);
     final contrastInk = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);
     final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(
       background: sidebarBg,
@@ -559,7 +560,12 @@ class GovernanceMasterLayout extends ConsumerWidget {
           ),
           // Keep row ink above the opaque sidebar decoration.
           child: Material(type:MaterialType.transparency,child:Column(children:[
-            ConstrainedBox(constraints:BoxConstraints(minHeight:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width)),child:Padding(
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: collapsed
+                    ? PrimeShellMetrics.foldedHeaderExtent
+                    : PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),
+              ),child:Padding(
               padding:PrimeShellMetrics.sidebarHeaderPadding(collapsed),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[
                 const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),
                 if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[
@@ -567,9 +573,10 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:sidebarTextColor,brand:true)),
                   const SizedBox(height:PrimeShellMetrics.sidebarBrandLineGap),
                   PrimeText(themeCenterOption(context,'brand.slogan'),maxLines:1,overflow:TextOverflow.ellipsis,
-                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:theme.colorScheme.onSurfaceVariant,slogan:true)),
+                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:sloganColor,slogan:true)),
                 ]))],
               ]))),
+            if (collapsed) const SizedBox(height: PrimeShellMetrics.foldedNavigationTopGap),
             Expanded(child:ListView.builder(
             padding: EdgeInsets.zero,
             itemCount: modules.length,
@@ -634,7 +641,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       child: PrimeListTile(
                         dense: true,
                         minTileHeight:PrimeShellMetrics.sidebarRowHeight,minVerticalPadding:0,minLeadingWidth:PrimeShellMetrics.sidebarIconExtent,horizontalTitleGap:PrimeShellMetrics.sidebarGap,
-                        contentPadding: const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarGap),
+                        contentPadding: PrimeShellMetrics.sidebarRowContentPadding(collapsed),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(PrimeShellMetrics.sidebarCorner),
                         ),

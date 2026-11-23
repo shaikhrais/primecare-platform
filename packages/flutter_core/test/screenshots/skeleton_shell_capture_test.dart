@@ -57,6 +57,7 @@ void main(){
      child: RepaintBoundary(
       key: const Key('shell-overlay-proof'),
       child: MaterialApp(
+       debugShowCheckedModeBanner: false,
        home: RepaintBoundary(
         key: const Key('full-shell-proof'),
         child: GovernanceMasterLayout(
@@ -147,6 +148,7 @@ void main(){
      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
      await tester.pumpAndSettle();
      expect(item, findsNothing);
+     expect(keyboardFocused(), isTrue, reason: 'Closing the navbar menu restores trigger focus');
     } finally {
      semantics.dispose();
     }

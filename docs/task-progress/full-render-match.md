@@ -154,3 +154,16 @@ The folded reference capture now requests the Example destination, as the native
 fixture also starts on its selected destination. The fixtures retain their
 different accounts and menu content. The two forms of navigation still require
 review and R01–R05 remain IN PROGRESS.
+
+## Folded alignment and navigation accessibility
+
+The folded PrimeCare rail now positions its brand mark and first item four pixels
+higher in the reviewed desktop viewport. A compact, centered row preserves the
+existing route label and keyboard semantics. The saved folded marker and rendered
+rail width remain the same.
+
+The expanded sidebar, right sidebar and mobile drawer resolve the Home service
+text foreground against the actual sidebar surface. The existing registered
+wording, brand hierarchy and destination data remain in place. The screenshot
+fixture disables its debug ribbon, and the horizontal module menu check verifies
+keyboard focus returns to the trigger after Escape. R01–R05 remain IN PROGRESS.

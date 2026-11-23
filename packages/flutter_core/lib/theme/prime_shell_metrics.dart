@@ -25,7 +25,12 @@ abstract final class PrimeShellMetrics {
   static const foldedNavigationMarker = 64;
   static const foldedNavigationWidth = 48.0;
   static const mobileDrawerWidth = 280.0;
-  static const foldedRowPadding = EdgeInsets.fromLTRB(4, 0, 4, 4);
+  static const foldedHeaderExtent = 56.0;
+  static const foldedNavigationTopGap = 4.0;
+  static const foldedRowPadding = EdgeInsets.fromLTRB(8, 0, 8, 4);
+  static EdgeInsets sidebarRowContentPadding(bool folded) => folded
+      ? EdgeInsets.zero
+      : const EdgeInsets.symmetric(horizontal: sidebarGap);
 
   static Color sidebarSelectionFill({
     required Color background,
