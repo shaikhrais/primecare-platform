@@ -2,6 +2,13 @@ import re,subprocess,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 class ThemeWorkflowCommandsTest(unittest.TestCase):
+ def test_blueprint_smoke_changes_trigger_both_event_filters(self):
+  text=(ROOT/'.github/workflows/theme-center.yml').read_text()
+  paths=re.findall(r'paths:\s*\[(.*?)\]',text,re.S)
+  self.assertEqual(len(paths),2)
+  for event_paths in paths:
+   self.assertIn("'apps/primecare_enterprise_blueprint/test/widget_test.dart'",event_paths)
+
  def test_capture_fixtures_are_separate_from_baseline_verification(self):
   text=(ROOT/'.github/workflows/theme-center.yml').read_text()
   self.assertIn('flutter test test --exclude-tags visual-capture',text)

@@ -56,3 +56,8 @@ test still expected the old visible drawer title. It now asserts Theme Settings
 after opening the existing Theme Center action, retaining counter-state and
 personal-theme application checks. The corrected app smoke case passes locally.
 This changes only the test expectation, not the application title or behavior.
+
+The app smoke file was absent from the main push filters, so its test-only
+update did not launch the suite. Both event filters now include that exact file;
+a workflow-command regression guard checks this. The application renderer is
+unchanged by these test and CI corrections.
