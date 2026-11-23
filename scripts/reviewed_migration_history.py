@@ -6,7 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_full_render_navigation_focus(source,path):
+    return reverse_presentation_receipt(
+        source,path,'full-render-navigation-focus-replay.json'
+    )
+
 def before_shared_navigation_render(source,path):
+    source=before_full_render_navigation_focus(source,path)
     source=reverse_presentation_receipt(source,path,'shell-utility-loading-replay.json')
     return reverse_presentation_receipt(source,path,'shared-navigation-render-replay.json')
 

@@ -9,7 +9,7 @@ abstract final class PrimeShellMetrics {
   static const horizontalDesktopBreakpoint = 1280.0;
   static const horizontalChromeInset = EdgeInsets.symmetric(horizontal: 32);
   static const horizontalNavigationPadding = EdgeInsets.symmetric(horizontal: 16);
-  static const horizontalNavigationItemPadding = EdgeInsets.symmetric(horizontal: 4);
+  static const horizontalNavigationItemPadding = EdgeInsets.zero;
   static BoxDecoration horizontalNavigationDecoration(
     ThemeData theme, {
     required Color background,
@@ -24,6 +24,9 @@ abstract final class PrimeShellMetrics {
   static const horizontalNavbarHeight = 64.0;
   static const horizontalNavigationRowHeight = 48.0;
   static const horizontalDestinationPaintHeight = 36.0;
+  static const horizontalDestinationFontSize = 12.0;
+  static const horizontalDestinationLineHeight = 20.0 / 12.0;
+  static const horizontalDestinationLetterSpacing = 0.462890625;
   static const expandedNavigationWidth = 280;
   // The persisted profile continues to use 64 as its folded marker.
   static const foldedNavigationMarker = 64;
@@ -60,6 +63,7 @@ abstract final class PrimeShellMetrics {
   static ButtonStyle horizontalDestinationStyle({
     required Color foreground,
     required Color? selectedBackground,
+    required Brightness brightness,
   }) => ButtonStyle(
     padding: const WidgetStatePropertyAll(EdgeInsets.zero),
     minimumSize: const WidgetStatePropertyAll(
@@ -70,24 +74,20 @@ abstract final class PrimeShellMetrics {
     ),
     tapTargetSize: MaterialTapTargetSize.padded,
     shape: const WidgetStatePropertyAll(
-      RoundedRectangleBorder(borderRadius: navigationItemRadius),
+      RoundedRectangleBorder(borderRadius: BorderRadius.zero),
     ),
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       if (selectedBackground != null) return selectedBackground;
       if (states.contains(WidgetState.pressed) ||
           states.contains(WidgetState.focused)) {
-        return navigationFocusInk(foreground);
+        return brightness == Brightness.dark
+            ? Colors.white.withValues(alpha: 0.06)
+            : Colors.black.withValues(alpha: 0.05);
       }
       if (states.contains(WidgetState.hovered)) {
-        return navigationHoverInk(foreground);
-      }
-      return null;
-    }),
-    side: WidgetStateProperty.resolveWith((states) {
-      if (selectedBackground != null &&
-          (states.contains(WidgetState.focused) ||
-              states.contains(WidgetState.pressed))) {
-        return BorderSide(color: foreground);
+        return brightness == Brightness.dark
+            ? Colors.white.withValues(alpha: 0.05)
+            : Colors.black.withValues(alpha: 0.04);
       }
       return null;
     }),
@@ -127,7 +127,27 @@ abstract final class PrimeShellMetrics {
   static const sidebarGap = 8.0;
   static const sidebarRowSpacing = 4.0;
   static const sidebarCorner = 6.0;
+  static const foldedSidebarCorner = 8.0;
+  static const sidebarFocusOutlineWidth = 1.0;
   static const navigationItemRadius = BorderRadius.all(Radius.circular(sidebarCorner));
+
+  static RoundedRectangleBorder sidebarDestinationShape(
+    ThemeData theme, {
+    required bool folded,
+    required bool keyboardFocused,
+  }) => RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(
+      folded ? foldedSidebarCorner : sidebarCorner,
+    ),
+    side: keyboardFocused && !folded
+        ? BorderSide(
+            color: theme.brightness == Brightness.dark
+                ? Colors.white.withValues(alpha: 0.12)
+                : const Color(0xffd1d5db),
+            width: sidebarFocusOutlineWidth,
+          )
+        : BorderSide.none,
+  );
   static const sidebarFontSize = 13.0;
   static const sidebarBrandFontSize = 18.0;
   static const sidebarSloganFontSize = 11.0;

@@ -17,6 +17,7 @@ import 'package:flutter_core/registry/platform_role.dart';
 import 'package:flutter_core/registry/widgets/governance_master_layout.dart';
 import 'package:flutter_core/theme/theme_settings_provider.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
+import 'package:flutter_core/theme/prime_shell_metrics.dart';
 import 'package:flutter_core/workspace/portal_workspace.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'theme_center_capture_test.dart' show loadFonts, CaptureAuth;
@@ -253,6 +254,14 @@ void main() {
           }
 
           await capture('selected');
+          final selectedShape = tester.widget<ListTile>(item).shape
+              as RoundedRectangleBorder;
+          expect(selectedShape.side, BorderSide.none);
+          expect(selectedShape.borderRadius, BorderRadius.circular(
+            state == 'folded'
+                ? PrimeShellMetrics.foldedSidebarCorner
+                : PrimeShellMetrics.sidebarCorner,
+          ));
           final mouse = await tester.createGesture(
             kind: PointerDeviceKind.mouse,
           );
@@ -284,6 +293,17 @@ void main() {
           );
           await tester.pumpAndSettle();
           await capture('focus');
+          final focusedShape = tester.widget<ListTile>(item).shape
+              as RoundedRectangleBorder;
+          if (state == 'folded') {
+            expect(focusedShape.side, BorderSide.none);
+          } else {
+            expect(focusedShape.side.width,
+                PrimeShellMetrics.sidebarFocusOutlineWidth);
+            expect(focusedShape.side.color, mode == 'dark'
+                ? Colors.white.withValues(alpha: 0.12)
+                : const Color(0xffd1d5db));
+          }
           expect(tester.takeException(), isNull);
           final beforeActivation = navigationAttempts;
           await tester.sendKeyEvent(LogicalKeyboardKey.enter);

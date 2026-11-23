@@ -198,14 +198,19 @@ void main(){
      expect(selectedColor, isNotNull);
      const focusedState = {WidgetState.focused};
      expect(selectedStyle.overlayColor?.resolve(focusedState), Colors.transparent);
-     expect(selectedStyle.side?.resolve(focusedState)?.color, isNotNull);
+     expect(selectedStyle.side?.resolve(focusedState), isNull);
+     expect(selectedStyle.shape?.resolve(focusedState),
+       const RoundedRectangleBorder(borderRadius: BorderRadius.zero));
      final selectedBounds = tester.getRect(triggerFinder);
      final paintedButton = find.descendant(
       of: triggerFinder, matching: find.byType(Material),
      );
      expect(tester.getSize(paintedButton).height,
          PrimeShellMetrics.horizontalDestinationPaintHeight);
+     expect(tester.getSize(paintedButton).width, closeTo(151.953125, 0.1));
      expect(selectedBounds.height, PrimeShellMetrics.horizontalNavigationRowHeight);
+     expect(selectedBounds.left, closeTo(1096.046875, 0.1));
+     expect(selectedBounds.right, closeTo(1248, 0.1));
      final boundary = tester.renderObject<RenderRepaintBoundary>(proof);
      final paintPoint = boundary.globalToLocal(
       Offset(selectedBounds.left + 4, selectedBounds.center.dy),

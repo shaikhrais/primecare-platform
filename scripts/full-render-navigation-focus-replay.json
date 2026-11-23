@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "baseCommit": "ea9a9bdf39f732c8072cb249e05faf062eed69e6",
+  "purpose": "R01-R05 full-render navigation focus, folded corner and horizontal destination source match",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "435431caa05f79142861ceefcaf26b0b03879a15056871e0c12dc006bc974f6e",
+      "afterSha256": "7bfa953fb35b8702dca70f78665588ba601251c4b3c9eb7609ec40609816ab4b",
+      "edits": [
+        {
+          "begin": 8851,
+          "old": "",
+          "new": "                                        brightness: navbarTheme.brightness,\n"
+        },
+        {
+          "begin": 36691,
+          "old": "                      child: PrimeListTile(\n",
+          "new": "                      child: _PrimeSidebarDestination(\n                        theme: theme,\n                        folded: collapsed,\n"
+        },
+        {
+          "begin": 37062,
+          "old": "                        shape: RoundedRectangleBorder(\n                          borderRadius: BorderRadius.circular(PrimeShellMetrics.sidebarCorner),\n                        ),\n",
+          "new": ""
+        },
+        {
+          "begin": 40138,
+          "old": "",
+          "new": "}\n\nclass _PrimeSidebarDestination extends StatefulWidget {\n  const _PrimeSidebarDestination({\n    required this.theme,\n    required this.folded,\n    required this.dense,\n    required this.minTileHeight,\n    required this.minVerticalPadding,\n    required this.minLeadingWidth,\n    required this.horizontalTitleGap,\n    required this.contentPadding,\n    required this.selected,\n    required this.selectedTileColor,\n    required this.hoverColor,\n    required this.focusColor,\n    required this.leading,\n    required this.title,\n    required this.onTap,\n  });\n\n  final ThemeData theme;\n  final bool folded;\n  final bool dense;\n  final double minTileHeight;\n  final double minVerticalPadding;\n  final double minLeadingWidth;\n  final double horizontalTitleGap;\n  final EdgeInsetsGeometry contentPadding;\n  final bool selected;\n  final Color selectedTileColor;\n  final Color hoverColor;\n  final Color focusColor;\n  final Widget? leading;\n  final Widget title;\n  final VoidCallback onTap;\n\n  @override\n  State<_PrimeSidebarDestination> createState() =>\n      _PrimeSidebarDestinationState();\n}\n\nclass _PrimeSidebarDestinationState extends State<_PrimeSidebarDestination> {\n  bool _keyboardFocused = false;\n\n  @override\n  Widget build(BuildContext context) => PrimeListTile(\n    dense: widget.dense,\n    minTileHeight: widget.minTileHeight,\n    minVerticalPadding: widget.minVerticalPadding,\n    minLeadingWidth: widget.minLeadingWidth,\n    horizontalTitleGap: widget.horizontalTitleGap,\n    contentPadding: widget.contentPadding,\n    shape: PrimeShellMetrics.sidebarDestinationShape(\n      widget.theme,\n      folded: widget.folded,\n      keyboardFocused: _keyboardFocused,\n    ),\n    selected: widget.selected,\n    selectedTileColor: widget.selectedTileColor,\n    hoverColor: widget.selected ? Colors.transparent : widget.hoverColor,\n    focusColor: widget.selected ? Colors.transparent : widget.focusColor,\n    leading: widget.leading,\n    title: widget.title,\n    onFocusChange: (focused) {\n      if (_keyboardFocused == focused) return;\n      setState(() => _keyboardFocused = focused);\n    },\n    onTap: widget.onTap,\n  );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "e83961d3f26bf56ec5299037cc1d928c43e6cf6024d9c800958e4970c09ba794",
+      "afterSha256": "d9e3308a2ddcf3801c85737836ca6a84b7f0347ad33e6636253a15a5f0d185f2",
+      "edits": [
+        {
+          "begin": 558,
+          "old": "  static const horizontalNavigationItemPadding = EdgeInsets.symmetric(horizontal: 4);\n",
+          "new": "  static const horizontalNavigationItemPadding = EdgeInsets.zero;\n"
+        },
+        {
+          "begin": 1094,
+          "old": "",
+          "new": "  static const horizontalDestinationFontSize = 12.0;\n  static const horizontalDestinationLineHeight = 20.0 / 12.0;\n  static const horizontalDestinationLetterSpacing = 0.462890625;\n"
+        },
+        {
+          "begin": 2512,
+          "old": "",
+          "new": "    required Brightness brightness,\n"
+        },
+        {
+          "begin": 2895,
+          "old": "      RoundedRectangleBorder(borderRadius: navigationItemRadius),\n",
+          "new": "      RoundedRectangleBorder(borderRadius: BorderRadius.zero),\n"
+        },
+        {
+          "begin": 3197,
+          "old": "        return navigationFocusInk(foreground);\n",
+          "new": "        return brightness == Brightness.dark\n            ? Colors.white.withValues(alpha: 0.06)\n            : Colors.black.withValues(alpha: 0.05);\n"
+        },
+        {
+          "begin": 3302,
+          "old": "        return navigationHoverInk(foreground);\n      }\n      return null;\n    }),\n    side: WidgetStateProperty.resolveWith((states) {\n      if (selectedBackground != null &&\n          (states.contains(WidgetState.focused) ||\n              states.contains(WidgetState.pressed))) {\n        return BorderSide(color: foreground);\n",
+          "new": "        return brightness == Brightness.dark\n            ? Colors.white.withValues(alpha: 0.05)\n            : Colors.black.withValues(alpha: 0.04);\n"
+        },
+        {
+          "begin": 4890,
+          "old": "",
+          "new": "  static const foldedSidebarCorner = 8.0;\n  static const sidebarFocusOutlineWidth = 1.0;\n"
+        },
+        {
+          "begin": 4978,
+          "old": "",
+          "new": "\n  static RoundedRectangleBorder sidebarDestinationShape(\n    ThemeData theme, {\n    required bool folded,\n    required bool keyboardFocused,\n  }) => RoundedRectangleBorder(\n    borderRadius: BorderRadius.circular(\n      folded ? foldedSidebarCorner : sidebarCorner,\n    ),\n    side: keyboardFocused && !folded\n        ? BorderSide(\n            color: theme.brightness == Brightness.dark\n                ? Colors.white.withValues(alpha: 0.12)\n                : const Color(0xffd1d5db),\n            width: sidebarFocusOutlineWidth,\n          )\n        : BorderSide.none,\n  );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
+      "beforeSha256": "d2068e9862eef16a7f644f40c88866882283e227ff2bd96665fd5c6206685a15",
+      "afterSha256": "ee4807f8649b84e451a8041811852f2831f0cafe564a84a0efcd1ca0da0845b5",
+      "edits": [
+        {
+          "begin": 15113,
+          "old": "      PrimeText(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color)),\n",
+          "new": "      PrimeText(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(\n        color: color,\n        fontSize: PrimeShellMetrics.horizontalDestinationFontSize,\n        height: PrimeShellMetrics.horizontalDestinationLineHeight,\n        letterSpacing: PrimeShellMetrics.horizontalDestinationLetterSpacing,\n        fontWeight: FontWeight.w400,\n      )),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "297a27870c262ed719e1f10ce79f4d631e1d393cb2b22e5ba347e4d48d79745f",
+      "afterSha256": "f3699e7c5d4cf40705a50878b4d64105d87b21905a8f5f6731e22f80fabeca35",
+      "edits": [
+        {
+          "begin": 852,
+          "old": "",
+          "new": "import 'package:flutter_core/theme/prime_shell_metrics.dart';\n"
+        },
+        {
+          "begin": 10646,
+          "old": "",
+          "new": "          final selectedShape = tester.widget<ListTile>(item).shape\n              as RoundedRectangleBorder;\n          expect(selectedShape.side, BorderSide.none);\n          expect(selectedShape.borderRadius, BorderRadius.circular(\n            state == 'folded'\n                ? PrimeShellMetrics.foldedSidebarCorner\n                : PrimeShellMetrics.sidebarCorner,\n          ));\n"
+        },
+        {
+          "begin": 11717,
+          "old": "",
+          "new": "          final focusedShape = tester.widget<ListTile>(item).shape\n              as RoundedRectangleBorder;\n          if (state == 'folded') {\n            expect(focusedShape.side, BorderSide.none);\n          } else {\n            expect(focusedShape.side.width,\n                PrimeShellMetrics.sidebarFocusOutlineWidth);\n            expect(focusedShape.side.color, mode == 'dark'\n                ? Colors.white.withValues(alpha: 0.12)\n                : const Color(0xffd1d5db));\n          }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "09fd94538bd4f568b516dc820058c578549834f17d9044acd2428224c55716a8",
+      "afterSha256": "2585fe05614ae19e376df4c28a73752191c196fc2ccdf83989f186869c658adb",
+      "edits": [
+        {
+          "begin": 11770,
+          "old": "     expect(selectedStyle.side?.resolve(focusedState)?.color, isNotNull);\n",
+          "new": "     expect(selectedStyle.side?.resolve(focusedState), isNull);\n     expect(selectedStyle.shape?.resolve(focusedState),\n       const RoundedRectangleBorder(borderRadius: BorderRadius.zero));\n"
+        },
+        {
+          "begin": 12125,
+          "old": "",
+          "new": "     expect(tester.getSize(paintedButton).width, closeTo(151.953125, 0.1));\n"
+        },
+        {
+          "begin": 12210,
+          "old": "",
+          "new": "     expect(selectedBounds.left, closeTo(1096.046875, 0.1));\n     expect(selectedBounds.right, closeTo(1248, 0.1));\n"
+        }
+      ]
+    }
+  ]
+}

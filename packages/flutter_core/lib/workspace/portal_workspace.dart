@@ -312,7 +312,13 @@ class PrimePortalNavigationLabel extends StatelessWidget {
     padding: const EdgeInsets.symmetric(horizontal: 12),
     child: Row(mainAxisSize: MainAxisSize.min, children: [
       PrimeIcon(icon, size: 16, color: color), const SizedBox(width: 8),
-      PrimeText(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color)),
+      PrimeText(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(
+        color: color,
+        fontSize: PrimeShellMetrics.horizontalDestinationFontSize,
+        height: PrimeShellMetrics.horizontalDestinationLineHeight,
+        letterSpacing: PrimeShellMetrics.horizontalDestinationLetterSpacing,
+        fontWeight: FontWeight.w400,
+      )),
       if (showExpand) ...[
         const SizedBox(width: 4),
         PrimeIcon(Icons.expand_more, size: 16, color: color),

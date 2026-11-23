@@ -268,3 +268,28 @@ navigation shortcuts. Layout saving is a separate PrimeCare action.
 The EN/FR/ES menu, text scale selection and workspace save are captured in
 light and dark through the actual horizontal host. These controls are part of
 the open R05 comparison. Broader toolbar and utilities acceptance stays gated.
+
+## Selected focus and horizontal source alignment
+
+The same populated `Tenant dashboard` fixture was reviewed again in R01-R05,
+in light and dark, at the recorded desktop/mobile viewports and zero scroll.
+R01, R03 and R04 now keep the selected Fuse fill unchanged on hover/focus and
+add the source-observed 1px keyboard outline: `#d1d5db` in light mode and 12%
+white in dark mode. R02 preserves the source behavior with no focus outline and
+uses the observed 8px folded corner. Route activation, right placement and
+mobile drawer closure remain verified through the existing callbacks.
+
+R05 now applies the source horizontal link rules rather than the vertical row
+rules: 12px/400 text, 36px painted height, square corners, 4%/5% light
+hover/focus and 5%/6% dark hover/focus. The activated native destination is
+151.916px wide at x=1096.084; the recorded Fuse case is 151.953px at
+x=1096.047. Both end at x=1248 and retain the 48px accessible target. The
+selected painted pixel remains the registered navbar secondary color in both
+modes. This is measured evidence, not a similarity percentage or acceptance.
+
+Twenty-eight full native render cases, 45 workspace/navigation checks and 55
+exact-history/boundary checks pass locally. The licensed source audit still
+indexes 4,701 source files, 55 component families and 1,187 named examples.
+R01-R05 remain IN PROGRESS because complete header/account controls, menu
+behavior and whole-screen visual review still contain differences. R06-R25
+remain NOT MATCHED; demo implementation remains blocked.

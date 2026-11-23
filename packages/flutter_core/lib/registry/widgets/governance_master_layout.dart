@@ -172,6 +172,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       style: PrimeShellMetrics.horizontalDestinationStyle(
                                         foreground: labelColor,
                                         selectedBackground: selected ? selectedBackground : null,
+                                        brightness: navbarTheme.brightness,
                                       ),
                                       onPressed: () => context.go(screen.route),
                                       child: PrimePortalNavigationLabel(
@@ -686,13 +687,12 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       padding: collapsed
                           ? PrimeShellMetrics.foldedRowPadding
                           : PrimeShellMetrics.sidebarRowPadding,
-                      child: PrimeListTile(
+                      child: _PrimeSidebarDestination(
+                        theme: theme,
+                        folded: collapsed,
                         dense: true,
                         minTileHeight:PrimeShellMetrics.sidebarRowHeight,minVerticalPadding:0,minLeadingWidth:PrimeShellMetrics.sidebarIconExtent,horizontalTitleGap:PrimeShellMetrics.sidebarGap,
                         contentPadding: PrimeShellMetrics.sidebarRowContentPadding(collapsed),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(PrimeShellMetrics.sidebarCorner),
-                        ),
                         selected: isSelected,
                         selectedTileColor: sidebarSelectedTileColor,
                         hoverColor: PrimeShellMetrics.navigationHoverInk(contrastInk),
@@ -762,6 +762,76 @@ class GovernanceMasterLayout extends ConsumerWidget {
     }
     return sidebarContent;
   }
+}
+
+class _PrimeSidebarDestination extends StatefulWidget {
+  const _PrimeSidebarDestination({
+    required this.theme,
+    required this.folded,
+    required this.dense,
+    required this.minTileHeight,
+    required this.minVerticalPadding,
+    required this.minLeadingWidth,
+    required this.horizontalTitleGap,
+    required this.contentPadding,
+    required this.selected,
+    required this.selectedTileColor,
+    required this.hoverColor,
+    required this.focusColor,
+    required this.leading,
+    required this.title,
+    required this.onTap,
+  });
+
+  final ThemeData theme;
+  final bool folded;
+  final bool dense;
+  final double minTileHeight;
+  final double minVerticalPadding;
+  final double minLeadingWidth;
+  final double horizontalTitleGap;
+  final EdgeInsetsGeometry contentPadding;
+  final bool selected;
+  final Color selectedTileColor;
+  final Color hoverColor;
+  final Color focusColor;
+  final Widget? leading;
+  final Widget title;
+  final VoidCallback onTap;
+
+  @override
+  State<_PrimeSidebarDestination> createState() =>
+      _PrimeSidebarDestinationState();
+}
+
+class _PrimeSidebarDestinationState extends State<_PrimeSidebarDestination> {
+  bool _keyboardFocused = false;
+
+  @override
+  Widget build(BuildContext context) => PrimeListTile(
+    dense: widget.dense,
+    minTileHeight: widget.minTileHeight,
+    minVerticalPadding: widget.minVerticalPadding,
+    minLeadingWidth: widget.minLeadingWidth,
+    horizontalTitleGap: widget.horizontalTitleGap,
+    contentPadding: widget.contentPadding,
+    shape: PrimeShellMetrics.sidebarDestinationShape(
+      widget.theme,
+      folded: widget.folded,
+      keyboardFocused: _keyboardFocused,
+    ),
+    selected: widget.selected,
+    selectedTileColor: widget.selectedTileColor,
+    hoverColor: widget.selected ? Colors.transparent : widget.hoverColor,
+    focusColor: widget.selected ? Colors.transparent : widget.focusColor,
+    leading: widget.leading,
+    title: widget.title,
+    onFocusChange: (focused) {
+      if (_keyboardFocused == focused) return;
+      setState(() => _keyboardFocused = focused);
+    },
+    onTap: widget.onTap,
+  );
 }
 
 class _RoleSwitcherDialog extends StatefulWidget {
