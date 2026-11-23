@@ -146,7 +146,7 @@
     {
       "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
       "beforeSha256": "2037d762ddf2dc7c202eafe9eb5ebb5620fb390899d6f6482e7ee8f56059a8a4",
-      "afterSha256": "2d62e13f98b41fa5a32c10c541bbfcbea714afdfca87ff80b8dfd18abe714321",
+      "afterSha256": "d2068e9862eef16a7f644f40c88866882283e227ff2bd96665fd5c6206685a15",
       "edits": [
         {
           "begin": 182,
@@ -166,7 +166,7 @@
         {
           "begin": 11297,
           "old": "",
-          "new": "/// The toolbar shortcut uses the same reversible fold setting as the editor.\nclass PrimeSidebarFoldButton extends StatelessWidget {\n  final WorkspaceController controller;\n  final Color foreground;\n  const PrimeSidebarFoldButton({\n    super.key,\n    required this.controller,\n    required this.foreground,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final folded = controller.current.navigationWidth ==\n        PrimeShellMetrics.foldedNavigationMarker;\n    return Semantics(\n      container: true,\n      expanded: !folded,\n      child: Center(\n        child: DecoratedBox(\n          decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),\n          child: PrimeIconButton(\n          icon: PrimeIcon(\n            LucideIcons.panelLeft,\n            size: PrimeShellMetrics.sidebarIconExtent,\n            color: foreground,\n          ),\n          tooltip: themeCenterOption(context, 'color.sidebar'),\n          padding: EdgeInsets.zero,\n          constraints: const BoxConstraints.tightFor(\n            width: PrimeShellMetrics.sidebarToggleSize,\n            height: PrimeShellMetrics.sidebarToggleSize,\n          ),\n          onPressed: () => controller.patch({\n            'navigationWidth': folded\n                ? controller.expandedNavigationWidth\n                : PrimeShellMetrics.foldedNavigationMarker,\n          }),\n          ),\n        ),\n      ),\n    );\n  }\n}\n\n/// Opens the existing mobile drawer using the same glyph as the sidebar toggle.\nclass PrimeSidebarDrawerButton extends StatelessWidget {\n  final Color foreground;\n  const PrimeSidebarDrawerButton({super.key, required this.foreground});\n\n  @override\n  Widget build(BuildContext context) => PrimeIconButton(\n    icon: PrimeIcon(\n      LucideIcons.panelLeft,\n      size: PrimeShellMetrics.sidebarIconExtent,\n      color: foreground,\n    ),\n    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,\n    onPressed: Scaffold.of(context).openDrawer,\n  );\n}\n\n"
+          "new": "/// The toolbar shortcut uses the same reversible fold setting as the editor.\nclass PrimeSidebarFoldButton extends StatelessWidget {\n  final WorkspaceController controller;\n  final Color foreground;\n  const PrimeSidebarFoldButton({\n    super.key,\n    required this.controller,\n    required this.foreground,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final folded = controller.current.navigationWidth ==\n        PrimeShellMetrics.foldedNavigationMarker;\n    return Semantics(\n      container: true,\n      expanded: !folded,\n      child: _SidebarToggleOutline(\n        child: PrimeIconButton(\n          icon: PrimeIcon(\n            LucideIcons.panelLeft,\n            size: PrimeShellMetrics.sidebarIconExtent,\n            color: foreground,\n          ),\n          tooltip: themeCenterOption(context, 'color.sidebar'),\n          padding: EdgeInsets.zero,\n          constraints: const BoxConstraints.tightFor(\n            width: PrimeShellMetrics.sidebarToggleSize,\n            height: PrimeShellMetrics.sidebarToggleSize,\n          ),\n          onPressed: () => controller.patch({\n            'navigationWidth': folded\n                ? controller.expandedNavigationWidth\n                : PrimeShellMetrics.foldedNavigationMarker,\n          }),\n        ),\n      ),\n    );\n  }\n}\n\n/// Opens the existing mobile drawer using the same glyph as the sidebar toggle.\nclass PrimeSidebarDrawerButton extends StatelessWidget {\n  final Color foreground;\n  const PrimeSidebarDrawerButton({super.key, required this.foreground});\n\n  @override\n  Widget build(BuildContext context) => _SidebarToggleOutline(\n    child: PrimeIconButton(\n      icon: PrimeIcon(\n        LucideIcons.panelLeft,\n        size: PrimeShellMetrics.sidebarIconExtent,\n        color: foreground,\n      ),\n      tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,\n      onPressed: Scaffold.of(context).openDrawer,\n    ),\n  );\n}\n\nclass _SidebarToggleOutline extends StatelessWidget {\n  final Widget child;\n  const _SidebarToggleOutline({required this.child});\n\n  @override\n  Widget build(BuildContext context) => Center(\n    child: Stack(\n      alignment: Alignment.center,\n      children: [\n        IgnorePointer(\n          child: DecoratedBox(\n            decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),\n            child: const SizedBox.square(dimension: PrimeShellMetrics.sidebarToggleOutlineSize),\n          ),\n        ),\n        child,\n      ],\n    ),\n  );\n}\n\n"
         },
         {
           "begin": 11502,
@@ -193,7 +193,7 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
-      "afterSha256": "b7055a1e392e77c63098e7133adf86910a174617a6242405ffaa21a978b9da10",
+      "afterSha256": "24533a1c36c2309610afada86ea612a73613671a5c85750758d8f78cfa5d9af1",
       "edits": [
         {
           "begin": 297,
@@ -208,7 +208,7 @@
         {
           "begin": 1101,
           "old": "",
-          "new": "  static const sidebarToggleSize = 32.0;\n  static BoxDecoration sidebarToggleDecoration(ThemeData theme) => BoxDecoration(\n    border: Border.all(color: theme.colorScheme.outlineVariant),\n    borderRadius: navigationItemRadius,\n  );\n"
+          "new": "  static const sidebarToggleSize = 32.0;\n  static const sidebarToggleOutlineSize = 28.0;\n  static BoxDecoration sidebarToggleDecoration(ThemeData theme) => BoxDecoration(\n    border: Border.all(color: theme.colorScheme.outlineVariant),\n    borderRadius: navigationItemRadius,\n  );\n"
         },
         {
           "begin": 1570,

@@ -237,10 +237,8 @@ class PrimeSidebarFoldButton extends StatelessWidget {
     return Semantics(
       container: true,
       expanded: !folded,
-      child: Center(
-        child: DecoratedBox(
-          decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),
-          child: PrimeIconButton(
+      child: _SidebarToggleOutline(
+        child: PrimeIconButton(
           icon: PrimeIcon(
             LucideIcons.panelLeft,
             size: PrimeShellMetrics.sidebarIconExtent,
@@ -257,7 +255,6 @@ class PrimeSidebarFoldButton extends StatelessWidget {
                 ? controller.expandedNavigationWidth
                 : PrimeShellMetrics.foldedNavigationMarker,
           }),
-          ),
         ),
       ),
     );
@@ -270,14 +267,37 @@ class PrimeSidebarDrawerButton extends StatelessWidget {
   const PrimeSidebarDrawerButton({super.key, required this.foreground});
 
   @override
-  Widget build(BuildContext context) => PrimeIconButton(
-    icon: PrimeIcon(
-      LucideIcons.panelLeft,
-      size: PrimeShellMetrics.sidebarIconExtent,
-      color: foreground,
+  Widget build(BuildContext context) => _SidebarToggleOutline(
+    child: PrimeIconButton(
+      icon: PrimeIcon(
+        LucideIcons.panelLeft,
+        size: PrimeShellMetrics.sidebarIconExtent,
+        color: foreground,
+      ),
+      tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+      onPressed: Scaffold.of(context).openDrawer,
     ),
-    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-    onPressed: Scaffold.of(context).openDrawer,
+  );
+}
+
+class _SidebarToggleOutline extends StatelessWidget {
+  final Widget child;
+  const _SidebarToggleOutline({required this.child});
+
+  @override
+  Widget build(BuildContext context) => Center(
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        IgnorePointer(
+          child: DecoratedBox(
+            decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),
+            child: const SizedBox.square(dimension: PrimeShellMetrics.sidebarToggleOutlineSize),
+          ),
+        ),
+        child,
+      ],
+    ),
   );
 }
 

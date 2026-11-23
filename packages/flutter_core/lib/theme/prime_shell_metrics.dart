@@ -29,6 +29,7 @@ abstract final class PrimeShellMetrics {
   static const foldedNavigationWidth = 48.0;
   static const mobileDrawerWidth = 280.0;
   static const sidebarToggleSize = 32.0;
+  static const sidebarToggleOutlineSize = 28.0;
   static BoxDecoration sidebarToggleDecoration(ThemeData theme) => BoxDecoration(
     border: Border.all(color: theme.colorScheme.outlineVariant),
     borderRadius: navigationItemRadius,

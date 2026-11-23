@@ -72,8 +72,8 @@ Keep the original PrimeCare brand and registered resources. Use matching common 
 
 | Surface | Reference identifier | PrimeCare result | Full-view status |
 |---|---|---|---|
-| R01–R03 desktop sidebar | `lucide:panel-left` | Same Lucide glyph on both sides and in both fold states | IN PROGRESS |
-| R04 mobile drawer | `lucide:panel-left` | Same Lucide glyph on the existing drawer opener | IN PROGRESS |
+| R01–R03 desktop sidebar | `lucide:panel-left` | Same glyph on both sides and in both fold states, with a 28 px visible outline | IN PROGRESS |
+| R04 mobile drawer | `lucide:panel-left` | Same glyph and outline on the existing drawer opener | IN PROGRESS |
 | R05 text size and fixture destination | `lucide:a-large-small`, `lucide:star` | Existing Lucide glyphs retained | IN PROGRESS |
 | R05 fullscreen and Quick Panel | `fullscreen`, `lucide:bookmark` | Native host bindings require registration and approval | BLOCKED |
 
