@@ -60,6 +60,10 @@ def kind_declarations(schema):
 
 
 def inspect(db):
+    option_rows = rows(db, 'SELECT r.resource_key,r.active,l.language_code,v.translated_text,v.reviewed,v.approved FROM language_resources r JOIN language_resource_values v USING(resource_id) JOIN languages l USING(language_id) WHERE r.resource_key LIKE ? ORDER BY r.resource_key,l.language_code', ('themeCenter.options.%',))
+    disabled_rows = [row for row in option_rows if row['resource_key'] == 'themeCenter.options.color.disabled' and row['active'] == 1]
+    disabled_locales = sorted({row['language_code'] for row in disabled_rows if isinstance(row['translated_text'], str) and row['translated_text'].strip()})
+    theme_options = dict(registrations=option_rows, disabledColor=dict(nonemptyActiveLocales=disabled_locales, missingLocales=sorted(set(['en','fr','es']) - set(disabled_locales)), duplicateLocaleRows=len(disabled_rows) != len({row['language_code'] for row in disabled_rows})), limitation='Registration and nonempty copy do not establish translation review or runtime adoption.')
     contracts = {}
     for family in ['dashboard-pages', 'dashboard-widgets']:
         contract = json.loads((ROOT / 'tools/governance-production' / (family + '-contract.json')).read_text())
@@ -89,7 +93,7 @@ def inspect(db):
             path = (ROOT / entry['path']).resolve()
             present = path.is_relative_to(ROOT) and path.is_file()
             checks.append(dict(feature=feature['id'], path=entry['path'], present=present, matchesRecordedHash=present and hashlib.sha256(path.read_bytes()).hexdigest() == entry['sha256']))
-    return dict(developerCatalogue=dict(featureCount=len(catalogue['features']), recordedDispositions=dict(collections.Counter(f['disposition'] for f in catalogue['features'])), fullReferenceParity=catalogue['fullReferenceParity'], runtimeActivated=catalogue['runtimeActivated'], appWideAdoptionVerified=catalogue['appWideAdoptionVerified'], sourceChecks=checks), canonicalAssetCatalogue=dict(assetCount=len(assets['assets']), categories=dict(collections.Counter(a['category'] for a in assets['assets'].values()))), contracts=contracts, preferenceApi=dict(expectedId=preference['apiId'], registrations=apis, matchesSourceContract=api_matches, registeredRequestKindDeclarations=registered_kinds),
+    return dict(themeOptionResources=theme_options, developerCatalogue=dict(featureCount=len(catalogue['features']), recordedDispositions=dict(collections.Counter(f['disposition'] for f in catalogue['features'])), fullReferenceParity=catalogue['fullReferenceParity'], runtimeActivated=catalogue['runtimeActivated'], appWideAdoptionVerified=catalogue['appWideAdoptionVerified'], sourceChecks=checks), canonicalAssetCatalogue=dict(assetCount=len(assets['assets']), categories=dict(collections.Counter(a['category'] for a in assets['assets'].values()))), contracts=contracts, preferenceApi=dict(expectedId=preference['apiId'], registrations=apis, matchesSourceContract=api_matches, registeredRequestKindDeclarations=registered_kinds),
         dashboardScreenCandidates=candidates, candidateLimit=200, candidateListMayBeTruncated=len(candidates) == 200,
         sourcePersistenceAdapter=dict(path='packages/shared/src/dashboard-widgets/session.ts', contract='Host-provided port required; this audit does not test an HTTP adapter.'), sourcePreferenceKinds=sorted({kind for branch in preference['requestSchema'].get('oneOf', []) for kind in ([branch.get('properties', {}).get('kind', {}).get('const')] + branch.get('properties', {}).get('kind', {}).get('enum', [])) if isinstance(kind, str)}),
         limitations=['Registration is not proof of deployment, authorization enforcement, business data binding or visual acceptance.',

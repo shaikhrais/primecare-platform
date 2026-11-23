@@ -17,13 +17,17 @@ class Cursor:
 
 
 class Metadata:
-    def __init__(self, permission='authenticated_self_preferences'):
+    def __init__(self, permission='authenticated_self_preferences', options=()):
         self.permission = permission
+        self.options = options
         self.statements = []
     def execute(self, sql, parameters=()):
         self.statements.append(sql)
         if not sql.startswith('SELECT '):
             raise AssertionError('Only SELECT metadata reads are expected')
+        if 'FROM language_resources' in sql:
+            assert parameters == ('themeCenter.options.%',)
+            return Cursor(['resource_key','active','language_code','translated_text','reviewed','approved'], self.options)
         if 'FROM api_endpoints' in sql:
             assert 'route_path AS path' in sql and 'http_method AS method' in sql
             return Cursor(['id','path','method','service_name','auth_required','permission_key','request_schema'], [(777,'/v1/user/preferences','POST','auth',1,self.permission,'{"oneOf":[{"properties":{"kind":{"const":"theme"}}}]}')])
@@ -39,6 +43,14 @@ class Metadata:
 
 
 class ReadinessTests(unittest.TestCase):
+    def test_missing_disabled_labels_and_unreviewed_copy_are_not_inferred_ready(self):
+        self.assertEqual(audit.inspect(Metadata())['themeOptionResources']['disabledColor']['missingLocales'], ['en','es','fr'])
+        record=('themeCenter.options.color.disabled',1,'en','Disabled text',0,0)
+        result=audit.inspect(Metadata(options=[record,record,('themeCenter.options.color.disabled',1,'fr',' ',0,0)]))['themeOptionResources']
+        self.assertEqual(result['disabledColor']['missingLocales'], ['es','fr'])
+        self.assertTrue(result['disabledColor']['duplicateLocaleRows'])
+        self.assertEqual(result['registrations'][0]['approved'], 0)
+        self.assertNotIn('ready', result)
     def test_matching_metadata_is_not_reported_as_business_acceptance(self):
         db = Metadata()
         result = audit.inspect(db)
