@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_shell_border_frame(source,path):
+    return reverse_presentation_receipt(source,path,'shell-breakpoint-border-replay.json')
+
 def before_avatar_fallback(source,path):
+    source=before_shell_border_frame(source,path)
     return reverse_presentation_receipt(source,path,'shell-avatar-fallback-replay.json')
 
 def before_shell_metrics(source,path):

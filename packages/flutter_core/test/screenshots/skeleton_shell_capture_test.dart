@@ -12,6 +12,7 @@ import 'package:flutter_core/models/domain_governance.dart';
 import 'package:flutter_core/registry/platform_role.dart';
 import 'package:flutter_core/registry/widgets/governance_master_layout.dart';
 import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/theme/prime_shell_metrics.dart';
 import 'package:flutter_core/workspace/portal_workspace.dart';
 import 'theme_center_capture_test.dart' show loadFonts, CaptureAuth;
 class ShellCaptureApplication extends PlatformApplication {
@@ -46,8 +47,9 @@ void main(){
    expect(tester.widget<CircleAvatar>(avatar).child,isNotNull);
    expect(resourceErrors,isEmpty,reason:'The deliberate failed-image path must show the user fallback without an unhandled image error');
    Directory('test/screenshots/shell-captures').createSync(recursive:true);final id='layout$family-${view.$1}-$mode';
+   Map<String,double>? barBox(bool top){final f=find.byWidgetPredicate((w)=>w is PrimeShellBarFrame&&w.top==top);if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
    Map<String,double>? box(String key){final f=find.byKey(Key(key));if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
-   File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':box('app-topbar'),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'empty authorized-module set; synthetic local account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));
+   File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':barBox(false),'toolbarInner':box('app-topbar'),'footer':barBox(true),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'empty authorized-module set; synthetic local account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));
    await expectLater(find.byKey(const Key('full-shell-proof')),matchesGoldenFile('shell-captures/primecare-shell-$id.png'));
   });
  }

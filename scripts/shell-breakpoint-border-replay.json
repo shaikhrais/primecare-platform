@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "be6cc271e85ed5a5b4c19c4d5ccc8e8f969cada7",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "0a86c107708ea00084291a5803840fc869ac3119756c3ef0ae07e9e1861785f9",
+      "afterSha256": "cf44865b459e94350d89affc08788ad82143637e5ff28387783d81fbf2653c44",
+      "edits": [
+        {
+          "begin": 7888,
+          "old": "                  toolbarExtent: shellBarHeight,\n                  footerExtent: shellBarHeight,\n",
+          "new": "                  toolbarExtent: PrimeShellMetrics.toolbarExtent(MediaQuery.sizeOf(context).width,horizontal:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal),\n                  footerExtent: PrimeShellMetrics.footerExtent(MediaQuery.sizeOf(context).width),\n"
+        },
+        {
+          "begin": 8356,
+          "old": "                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: Builder(builder: (context) {\n",
+          "new": "                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PrimeShellBarFrame(bordered:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal,child: Builder(builder: (context) {\n"
+        },
+        {
+          "begin": 21424,
+          "old": "                  }),\n",
+          "new": "                  })),\n"
+        },
+        {
+          "begin": 21467,
+          "old": "                  footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PortalLayoutFooter()),\n",
+          "new": "                  footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PrimeShellBarFrame(top:true,child:PortalLayoutFooter())),\n"
+        }
+      ]
+    }
+  ]
+}

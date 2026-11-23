@@ -43,3 +43,14 @@ user icon; failed image loads leave that icon visible. All 18 local shell
 captures and the host compilation test pass, with zero unhandled image errors.
 Eight exact migration-history tests pass. This closes the observed blank-avatar
 fixture path, not all avatar/asset or full-shell acceptance. New CI is pending.
+
+Hourly continuation is authorized, targeting five meaningful tasks per run without
+inflating completion. Original full-shell cloud run 45103957472 succeeded: 18 cases,
+no page errors/external requests. These measured captures corrected an earlier
+assumption: reference CSS overrides md to 60rem/960px, not the generic 768px.
+The host now uses 48px inner bars below 960px and 64px above; horizontal toolbar
+bottom borders and footer top borders occupy their own additional pixel. All 18
+native toolbar and footer outer heights equal the recorded reference heights.
+Twenty-four geometry/render/compile checks and nine exact history checks passed
+locally. This is dimensional proof only: sidebar width, contents/account state,
+actions/colors/typography and full-screen visual acceptance remain open.

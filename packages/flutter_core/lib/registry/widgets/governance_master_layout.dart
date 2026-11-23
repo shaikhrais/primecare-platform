@@ -167,13 +167,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   navbarStyle: settings.navbarStyle,
                   navigationVisible: !isHandheld,
                   horizontalNavigationExtent: PrimeShellMetrics.horizontalNavbarHeight,
-                  toolbarExtent: shellBarHeight,
-                  footerExtent: shellBarHeight,
+                  toolbarExtent: PrimeShellMetrics.toolbarExtent(MediaQuery.sizeOf(context).width,horizontal:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal),
+                  footerExtent: PrimeShellMetrics.footerExtent(MediaQuery.sizeOf(context).width),
                   navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)
                       ? buildHorizontalNav()
                       : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
                           collapsed: workspace.current.navigationWidth == 64)),
-                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: Builder(builder: (context) {
+                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PrimeShellBarFrame(bordered:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal,child: Builder(builder: (context) {
                   final theme = Theme.of(context);
                   return PreferredSize(
                   preferredSize: Size.fromHeight(shellBarHeight),
@@ -396,9 +396,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     ),
                   ),
                 );
-                  }),
+                  })),
                   ),
-                  footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PortalLayoutFooter()),
+                  footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PrimeShellBarFrame(top:true,child:PortalLayoutFooter())),
                   main: Semantics(
                     label: 'data-cy:app-content-slot',
                     container: true,
