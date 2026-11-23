@@ -39,3 +39,13 @@ opening the full existing editor, including its disabled-color field.
 This closes the missing source label after verification; it does not claim
 independent language review, app-wide adoption, navbar-style support or full
 Fuse dashboard acceptance. Application publishing remains separate.
+
+## Shared-UI contrast expectations
+
+At d2186d6 the complete core suite passed 3,089 cases; the later shared-UI suite
+passed 110 and exposed two stale expectations. Both expected the preset's white
+onPrimary after the test overrides primary to white. Runtime correctly resolves
+black for readable contrast. Both expectations now require black, retaining
+contrast-ratio checks, hero-gradient checks, draft-input preservation and large
+mobile-text coverage. Both affected cases pass locally. No production color
+behavior is changed by this follow-up.

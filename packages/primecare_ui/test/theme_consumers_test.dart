@@ -388,9 +388,9 @@ void main() {
     expect(find.text('keep this draft'), findsOneWidget);
     final foreground = tester.widget<Text>(find.text('Saved appearance')).style!.color!;
     final material = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
-    // A readable preset foreground must survive the custom primary override.
+    // A custom white primary needs a black foreground, including in the hero.
     expect(material.colorScheme.primary, Colors.white);
-    expect(material.colorScheme.onPrimary, ThemeConfig.getAppPalette('dark1').onPrimary);
+    expect(material.colorScheme.onPrimary, Colors.black);
     expect(foreground, material.colorScheme.onPrimary);
     expect(foreground, isNot(lightForeground));
     final heroContainers = tester.widgetList<Container>(find.descendant(
