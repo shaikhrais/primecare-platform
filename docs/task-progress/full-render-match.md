@@ -5,6 +5,10 @@ width/height/test/capture passes as full rendered-view matches. Work on up to
 five full-render tasks per iteration; report fewer completions when blocked.
 Demo remains blocked until all required skeleton views/states are accepted.
 
+Use the [Fuse component coverage inventory](fuse-component-coverage.md) within
+each active R task. A complete-view review includes every applicable visible
+component variant and interaction state identified in the supplied sources.
+
 For every view: align account/navigation/content/viewport/theme/language/scroll;
 render the complete region; inspect screenshots and overlay/differences; fix
 visible discrepancies; verify interaction/accessibility; retain commit/case/hash

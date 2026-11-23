@@ -234,10 +234,6 @@ class PrimeSidebarFoldButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final folded = controller.current.navigationWidth ==
         PrimeShellMetrics.foldedNavigationMarker;
-    final leading = controller.current.navigation == 'left';
-    final icon = leading
-        ? (folded ? LucideIcons.panelLeftOpen : LucideIcons.panelLeftClose)
-        : (folded ? LucideIcons.panelRightOpen : LucideIcons.panelRightClose);
     return Semantics(
       container: true,
       expanded: !folded,
@@ -246,7 +242,7 @@ class PrimeSidebarFoldButton extends StatelessWidget {
           decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),
           child: PrimeIconButton(
           icon: PrimeIcon(
-            icon,
+            LucideIcons.panelLeft,
             size: PrimeShellMetrics.sidebarIconExtent,
             color: foreground,
           ),
@@ -266,6 +262,23 @@ class PrimeSidebarFoldButton extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Opens the existing mobile drawer using the same glyph as the sidebar toggle.
+class PrimeSidebarDrawerButton extends StatelessWidget {
+  final Color foreground;
+  const PrimeSidebarDrawerButton({super.key, required this.foreground});
+
+  @override
+  Widget build(BuildContext context) => PrimeIconButton(
+    icon: PrimeIcon(
+      LucideIcons.panelLeft,
+      size: PrimeShellMetrics.sidebarIconExtent,
+      color: foreground,
+    ),
+    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+    onPressed: Scaffold.of(context).openDrawer,
+  );
 }
 
 /// Horizontal navigation uses the same centrally themed label in every portal.

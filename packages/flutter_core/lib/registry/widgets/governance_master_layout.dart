@@ -289,9 +289,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         toolbarHeight: shellBarHeight,
                         primary: false,
                         elevation: 0,
-                        leading: !isHandheld && position == 'left'
-                            ? PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor)
-                            : null,
+                        leading: isHandheld
+                            ? PrimeSidebarDrawerButton(foreground: topbarIconColor)
+                            : position == 'left'
+                                ? PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor)
+                                : null,
                         backgroundColor: topbarBg,
                         surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
                         iconTheme: IconThemeData(color: topbarIconColor),

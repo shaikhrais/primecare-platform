@@ -18,6 +18,7 @@ import 'package:flutter_core/registry/widgets/governance_master_layout.dart';
 import 'package:flutter_core/theme/theme_settings_provider.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/workspace/portal_workspace.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'theme_center_capture_test.dart' show loadFonts, CaptureAuth;
 import 'skeleton_shell_capture_test.dart' show ShellCaptureApplication;
 
@@ -184,8 +185,9 @@ void main() {
           }
           if (state == 'mobile') {
             expect(find.byType(PrimeSidebarFoldButton), findsNothing);
-            final trigger = find.byType(DrawerButton);
+            final trigger = find.byType(PrimeSidebarDrawerButton);
             expect(trigger, findsOneWidget);
+            expect(find.descendant(of: trigger, matching: find.byIcon(LucideIcons.panelLeft)), findsOneWidget);
             await tester.tap(trigger);
             await tester.pumpAndSettle();
           }
@@ -319,6 +321,7 @@ void main() {
             await tester.pumpAndSettle();
             final toggle = find.byType(PrimeSidebarFoldButton);
             expect(toggle, findsOneWidget);
+            expect(find.descendant(of: toggle, matching: find.byIcon(LucideIcons.panelLeft)), findsOneWidget);
             final toggleElement = tester.element(toggle);
             bool toggleFocused() {
               var found = false;
@@ -336,6 +339,7 @@ void main() {
             await tester.sendKeyEvent(LogicalKeyboardKey.enter);
             await tester.pumpAndSettle();
             expect(workspace.current.navigationWidth, 64);
+            expect(find.descendant(of: toggle, matching: find.byIcon(LucideIcons.panelLeft)), findsOneWidget);
             expect(tester.getSize(sidebar).width, 48);
             await capture('toggle-folded');
             expect(toggleFocused(), isTrue);

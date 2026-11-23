@@ -4,7 +4,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
-      "afterSha256": "039af7ed8db7697111682786080003e85c70bcdaa65f4f5786518c47d7c0b905",
+      "afterSha256": "5ff55993cfbae7a8ca7eb4a930826908863ecedabb2bfee9ad3a1c18921730fc",
       "edits": [
         {
           "begin": 1393,
@@ -79,7 +79,7 @@
         {
           "begin": 13290,
           "old": "",
-          "new": "                        leading: !isHandheld && position == 'left'\n                            ? PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor)\n                            : null,\n"
+          "new": "                        leading: isHandheld\n                            ? PrimeSidebarDrawerButton(foreground: topbarIconColor)\n                            : position == 'left'\n                                ? PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor)\n                                : null,\n"
         },
         {
           "begin": 13517,
@@ -146,7 +146,7 @@
     {
       "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
       "beforeSha256": "2037d762ddf2dc7c202eafe9eb5ebb5620fb390899d6f6482e7ee8f56059a8a4",
-      "afterSha256": "b4a3bf6f3eadbd7ef70af8bed3f31d8ae70b07dfd7bfabe7268b91b4f230a92b",
+      "afterSha256": "2d62e13f98b41fa5a32c10c541bbfcbea714afdfca87ff80b8dfd18abe714321",
       "edits": [
         {
           "begin": 182,
@@ -166,7 +166,7 @@
         {
           "begin": 11297,
           "old": "",
-          "new": "/// The toolbar shortcut uses the same reversible fold setting as the editor.\nclass PrimeSidebarFoldButton extends StatelessWidget {\n  final WorkspaceController controller;\n  final Color foreground;\n  const PrimeSidebarFoldButton({\n    super.key,\n    required this.controller,\n    required this.foreground,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final folded = controller.current.navigationWidth ==\n        PrimeShellMetrics.foldedNavigationMarker;\n    final leading = controller.current.navigation == 'left';\n    final icon = leading\n        ? (folded ? LucideIcons.panelLeftOpen : LucideIcons.panelLeftClose)\n        : (folded ? LucideIcons.panelRightOpen : LucideIcons.panelRightClose);\n    return Semantics(\n      container: true,\n      expanded: !folded,\n      child: Center(\n        child: DecoratedBox(\n          decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),\n          child: PrimeIconButton(\n          icon: PrimeIcon(\n            icon,\n            size: PrimeShellMetrics.sidebarIconExtent,\n            color: foreground,\n          ),\n          tooltip: themeCenterOption(context, 'color.sidebar'),\n          padding: EdgeInsets.zero,\n          constraints: const BoxConstraints.tightFor(\n            width: PrimeShellMetrics.sidebarToggleSize,\n            height: PrimeShellMetrics.sidebarToggleSize,\n          ),\n          onPressed: () => controller.patch({\n            'navigationWidth': folded\n                ? controller.expandedNavigationWidth\n                : PrimeShellMetrics.foldedNavigationMarker,\n          }),\n          ),\n        ),\n      ),\n    );\n  }\n}\n\n"
+          "new": "/// The toolbar shortcut uses the same reversible fold setting as the editor.\nclass PrimeSidebarFoldButton extends StatelessWidget {\n  final WorkspaceController controller;\n  final Color foreground;\n  const PrimeSidebarFoldButton({\n    super.key,\n    required this.controller,\n    required this.foreground,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final folded = controller.current.navigationWidth ==\n        PrimeShellMetrics.foldedNavigationMarker;\n    return Semantics(\n      container: true,\n      expanded: !folded,\n      child: Center(\n        child: DecoratedBox(\n          decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),\n          child: PrimeIconButton(\n          icon: PrimeIcon(\n            LucideIcons.panelLeft,\n            size: PrimeShellMetrics.sidebarIconExtent,\n            color: foreground,\n          ),\n          tooltip: themeCenterOption(context, 'color.sidebar'),\n          padding: EdgeInsets.zero,\n          constraints: const BoxConstraints.tightFor(\n            width: PrimeShellMetrics.sidebarToggleSize,\n            height: PrimeShellMetrics.sidebarToggleSize,\n          ),\n          onPressed: () => controller.patch({\n            'navigationWidth': folded\n                ? controller.expandedNavigationWidth\n                : PrimeShellMetrics.foldedNavigationMarker,\n          }),\n          ),\n        ),\n      ),\n    );\n  }\n}\n\n/// Opens the existing mobile drawer using the same glyph as the sidebar toggle.\nclass PrimeSidebarDrawerButton extends StatelessWidget {\n  final Color foreground;\n  const PrimeSidebarDrawerButton({super.key, required this.foreground});\n\n  @override\n  Widget build(BuildContext context) => PrimeIconButton(\n    icon: PrimeIcon(\n      LucideIcons.panelLeft,\n      size: PrimeShellMetrics.sidebarIconExtent,\n      color: foreground,\n    ),\n    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,\n    onPressed: Scaffold.of(context).openDrawer,\n  );\n}\n\n"
         },
         {
           "begin": 11502,
