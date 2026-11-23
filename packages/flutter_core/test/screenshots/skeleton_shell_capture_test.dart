@@ -358,6 +358,9 @@ void main() {
               findsNothing,
             );
             expect(find.text('Sign out'), findsOneWidget);
+            final signOutLabel = tester.widget<Text>(find.text('Sign out'));
+            expect(signOutLabel.style?.fontSize, 13);
+            expect(signOutLabel.style?.fontWeight, FontWeight.w400);
             expect(
               tester
                   .getSize(

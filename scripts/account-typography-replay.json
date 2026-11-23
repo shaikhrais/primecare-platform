@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "baseCommit": "611c516e9e49bd8e3f00a202d5d8692a0c7e3296",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "5860dac7997c258e781d550319ee2808c89dd1f66283b7a4f192de3bec8485eb",
+      "afterSha256": "b3a99732c6a6ad325b8a0c76a13a6cd06d2cd444f5b5f93030c9816e4d174017",
+      "edits": [
+        {
+          "begin": 21512,
+          "old": "                            _buildAccountMenu(context,ref,theme,textColor:topbarTextColor,iconColor:topbarIconColor,compact:isHandheld,mobile:isHandheld),\n",
+          "new": "                            _buildAccountMenu(\n                              context, ref, theme,\n                              textColor: topbarTextColor,\n                              iconColor: topbarIconColor,\n                              preferredFamily: settings.theme.fontFamily,\n                              preferredScale: settings.theme.fontScale,\n                              compact: isHandheld,\n                              mobile: isHandheld,\n                            ),\n"
+        },
+        {
+          "begin": 23003,
+          "old": "",
+          "new": "    required String preferredFamily,\n    required double preferredScale,\n"
+        },
+        {
+          "begin": 23860,
+          "old": "",
+          "new": "          family: preferredFamily,\n          scale: preferredScale,\n"
+        },
+        {
+          "begin": 24768,
+          "old": "",
+          "new": "                          family: preferredFamily,\n                          scale: preferredScale,\n                          dense: false,\n"
+        },
+        {
+          "begin": 26149,
+          "old": "",
+          "new": "                          family: preferredFamily,\n                          scale: preferredScale,\n                          dense: true,\n"
+        },
+        {
+          "begin": 29181,
+          "old": "                    style: theme.textTheme.bodyMedium?.copyWith(\n                      color: textColor,\n",
+          "new": "                    style: PrimeShellMetrics.accountSignOutTextStyle(\n                      theme,\n                      textColor,\n                      family: preferredFamily,\n                      scale: preferredScale,\n"
+        },
+        {
+          "begin": 40343,
+          "old": "",
+          "new": "            preferredFamily: settings.theme.fontFamily,\n            preferredScale: settings.theme.fontScale,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "a232cf9b447006a4547457293fea7e2a90c5360a5799e5deca7eafc0611a67f1",
+      "afterSha256": "2dbb867cdd55b7142114e464f85b7badd84fff5dfe00ccec255c38071c0b3627",
+      "edits": [
+        {
+          "begin": 3959,
+          "old": "    int darkenedChannel(int shift) => (((color >> shift) & 0xff) * 0.95).floor();\n",
+          "new": "    int darkenedChannel(int shift) =>\n        (((color >> shift) & 0xff) * 0.95).floor();\n"
+        },
+        {
+          "begin": 4186,
+          "old": "",
+          "new": "\n"
+        },
+        {
+          "begin": 4567,
+          "old": "    Color foreground,\n  ) => theme.textTheme.labelLarge?.copyWith(\n",
+          "new": "    Color foreground, {\n    required String family,\n    required double scale,\n  }) => theme.textTheme.labelLarge?.copyWith(\n"
+        },
+        {
+          "begin": 4657,
+          "old": "    fontWeight: FontWeight.w700,\n",
+          "new": "    fontFamily: _accountFontFamily(family),\n    fontSize: 13 * scale,\n    fontWeight: FontWeight.w400,\n    letterSpacing: 0,\n    height: 1,\n"
+        },
+        {
+          "begin": 4765,
+          "old": "    Color foreground,\n  ) => theme.textTheme.labelMedium?.copyWith(\n",
+          "new": "    Color foreground, {\n    required String family,\n    required double scale,\n    required bool dense,\n  }) {\n    final role = theme.textTheme.labelMedium?.copyWith(\n      color: foreground,\n      fontWeight: FontWeight.w600,\n    );\n    // Keep the toolbar's intrinsic width until its spacing is reconciled.\n    return dense\n        ? role\n        : role?.copyWith(\n            fontFamily: _accountFontFamily(family),\n            fontSize: 13 * scale,\n            letterSpacing: 13 * scale * -0.025,\n            height: 1,\n          );\n  }\n  static TextStyle? accountSignOutTextStyle(\n    ThemeData theme,\n    Color foreground, {\n    required String family,\n    required double scale,\n  }) => theme.textTheme.bodyMedium?.copyWith(\n"
+        },
+        {
+          "begin": 4856,
+          "old": "    fontWeight: FontWeight.w600,\n",
+          "new": "    fontFamily: _accountFontFamily(family),\n    fontSize: 13 * scale,\n    fontWeight: FontWeight.w400,\n    letterSpacing: 0,\n    height: 1.5,\n"
+        },
+        {
+          "begin": 4894,
+          "old": "",
+          "new": "  static String _accountFontFamily(String family) =>\n      family == 'system' ? PrimeThemeCenterStyle.fontFamily : family;\n"
+        },
+        {
+          "begin": 6009,
+          "old": "      final triggerRight = math.min(mobileDrawerWidth, viewport) -\n",
+          "new": "      final triggerRight =\n          math.min(mobileDrawerWidth, viewport) -\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "023c12bd6aaf4bd46db39a70b13b0be51007a48be1e0ec5b8d7695792d11edb4",
+      "afterSha256": "e29a3b38397004f29b180b19ba5f36200fcacec3c6835ffc8d5038dad58b43e2",
+      "edits": [
+        {
+          "begin": 12531,
+          "old": "",
+          "new": "          final signOutLabel = tester.widget<Text>(find.text('Sign out'));\n          expect(signOutLabel.style?.fontSize, 13);\n          expect(signOutLabel.style?.fontWeight, FontWeight.w400);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "3cd9fc646db4fdebca6a8794aea344325ac6dbc0c3a7fecfd71acc5eda986f8e",
+      "afterSha256": "152c34a6b1365f4ac8d40f277242cd8afb454b15bf5a5fb12f7d0b34e15ede09",
+      "edits": [
+        {
+          "begin": 14386,
+          "old": "",
+          "new": "            final signOutLabel = tester.widget<Text>(find.text('Sign out'));\n            expect(signOutLabel.style?.fontSize, 13);\n            expect(signOutLabel.style?.fontWeight, FontWeight.w400);\n"
+        }
+      ]
+    }
+  ]
+}

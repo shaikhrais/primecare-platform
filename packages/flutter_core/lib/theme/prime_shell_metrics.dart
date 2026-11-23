@@ -91,7 +91,8 @@ abstract final class PrimeShellMetrics {
   static const foldedAccountMargin = EdgeInsets.fromLTRB(4, 8, 3, 8);
   static Color accountAvatarBackground(ThemeData theme, {Color? surface}) {
     final color = (surface ?? theme.scaffoldBackgroundColor).toARGB32();
-    int darkenedChannel(int shift) => (((color >> shift) & 0xff) * 0.95).floor();
+    int darkenedChannel(int shift) =>
+        (((color >> shift) & 0xff) * 0.95).floor();
     return Color.fromARGB(
       (color >> 24) & 0xff,
       darkenedChannel(16),
@@ -99,6 +100,7 @@ abstract final class PrimeShellMetrics {
       darkenedChannel(0),
     );
   }
+
   static const ShapeBorder accountMenuShape = RoundedRectangleBorder(
     borderRadius: accountMenuRadius,
   );
@@ -109,18 +111,53 @@ abstract final class PrimeShellMetrics {
       );
   static TextStyle? toolbarAccountAvatarTextStyle(
     ThemeData theme,
-    Color foreground,
-  ) => theme.textTheme.labelLarge?.copyWith(
+    Color foreground, {
+    required String family,
+    required double scale,
+  }) => theme.textTheme.labelLarge?.copyWith(
     color: foreground,
-    fontWeight: FontWeight.w700,
+    fontFamily: _accountFontFamily(family),
+    fontSize: 13 * scale,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 1,
   );
   static TextStyle? toolbarAccountRoleTextStyle(
     ThemeData theme,
-    Color foreground,
-  ) => theme.textTheme.labelMedium?.copyWith(
+    Color foreground, {
+    required String family,
+    required double scale,
+    required bool dense,
+  }) {
+    final role = theme.textTheme.labelMedium?.copyWith(
+      color: foreground,
+      fontWeight: FontWeight.w600,
+    );
+    // Keep the toolbar's intrinsic width until its spacing is reconciled.
+    return dense
+        ? role
+        : role?.copyWith(
+            fontFamily: _accountFontFamily(family),
+            fontSize: 13 * scale,
+            letterSpacing: 13 * scale * -0.025,
+            height: 1,
+          );
+  }
+  static TextStyle? accountSignOutTextStyle(
+    ThemeData theme,
+    Color foreground, {
+    required String family,
+    required double scale,
+  }) => theme.textTheme.bodyMedium?.copyWith(
     color: foreground,
-    fontWeight: FontWeight.w600,
+    fontFamily: _accountFontFamily(family),
+    fontSize: 13 * scale,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0,
+    height: 1.5,
   );
+  static String _accountFontFamily(String family) =>
+      family == 'system' ? PrimeThemeCenterStyle.fontFamily : family;
   static const sidebarAccountGap = 12.0;
   static const accountInfoExtent = 16.0;
   static const sidebarAccountInfoExtent = accountInfoExtent;
@@ -146,7 +183,8 @@ abstract final class PrimeShellMetrics {
       const referenceEdgeInset = 16.0;
       final viewport = leadingDrawerViewportWidth;
       if (viewport == null) return const Offset(preferredOffset, 0);
-      final triggerRight = math.min(mobileDrawerWidth, viewport) -
+      final triggerRight =
+          math.min(mobileDrawerWidth, viewport) -
           sidebarAccountMargin.right -
           dividerExtent;
       // Flutter aligns the popup to the shifted trigger's right edge on

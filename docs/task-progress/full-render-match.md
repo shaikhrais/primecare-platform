@@ -465,3 +465,19 @@ avatar interior pixels match in the reviewed mobile and horizontal cases
 in both themes. Remaining differences include account typography, menu shadow,
 native host controls and incomplete whole-view state coverage. R01–R05 remain
 IN PROGRESS.
+
+## Account typography refinement
+
+The desktop left, right and mobile drawer account labels use the shared Geist
+default, 13px semibold text and the reference tight tracking. Folded navigation
+keeps the avatar-only account trigger. Avatar initials and sign-out labels use
+13px regular text across R01–R05. Native theme font-family and scale choices
+remain in effect. The R05 toolbar role label retains its current token because
+the 12px reference text alone increased the visible trigger-width difference
+while its spacing was still unmatched.
+
+The exact sources are `UserMenu.tsx`, `FuseDefaultSettings.ts` (hashes above)
+and Vite skeleton `src/styles/index.css` SHA-256
+`c4c6abe0fabc2ae5badffe65d57f2d069d65a8b8d6cc015a787d9f1cafdda85e`.
+The native account menu shape, location, content, authorization and dismissal
+remain unchanged. Typography progress keeps all five complete views IN PROGRESS.

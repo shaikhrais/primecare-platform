@@ -398,7 +398,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             PortalLayoutSaveButton(tooltip: themeCenterText(context, 'save')),
                           if (horizontal || isHandheld || position == 'hidden') ...[
                             const SizedBox(width: 8),
-                            _buildAccountMenu(context,ref,theme,textColor:topbarTextColor,iconColor:topbarIconColor,compact:isHandheld,mobile:isHandheld),
+                            _buildAccountMenu(
+                              context, ref, theme,
+                              textColor: topbarTextColor,
+                              iconColor: topbarIconColor,
+                              preferredFamily: settings.theme.fontFamily,
+                              preferredScale: settings.theme.fontScale,
+                              compact: isHandheld,
+                              mobile: isHandheld,
+                            ),
                             if (!horizontal) const SizedBox(width: 8),
                           ],
                           if (!isHandheld && position == 'right')
@@ -437,6 +445,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
     ThemeData theme, {
     required Color textColor,
     required Color iconColor,
+    required String preferredFamily,
+    required double preferredScale,
     required bool compact,
     bool sidebar = false,
     bool mobile = false,
@@ -460,6 +470,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
         style: PrimeShellMetrics.toolbarAccountAvatarTextStyle(
           theme,
           textColor,
+          family: preferredFamily,
+          scale: preferredScale,
         ),
       ),
     );
@@ -483,6 +495,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         style: PrimeShellMetrics.toolbarAccountRoleTextStyle(
                           theme,
                           textColor,
+                          family: preferredFamily,
+                          scale: preferredScale,
+                          dense: false,
                         ),
                       ),
                     ),
@@ -520,6 +535,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         style: PrimeShellMetrics.toolbarAccountRoleTextStyle(
                           theme,
                           textColor,
+                          family: preferredFamily,
+                          scale: preferredScale,
+                          dense: true,
                         ),
                       ),
                       const SizedBox(width: 6),
@@ -596,8 +614,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       'workspace.sign_out',
                       'Sign out',
                     ),
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: textColor,
+                    style: PrimeShellMetrics.accountSignOutTextStyle(
+                      theme,
+                      textColor,
+                      family: preferredFamily,
+                      scale: preferredScale,
                     ),
                   ),
                 ],
@@ -832,6 +853,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
             context, ref, theme,
             textColor: sidebarTextColor,
             iconColor: sidebarIconColor,
+            preferredFamily: settings.theme.fontFamily,
+            preferredScale: settings.theme.fontScale,
             compact: collapsed,
             sidebar: true,
             mobile: isDrawer,

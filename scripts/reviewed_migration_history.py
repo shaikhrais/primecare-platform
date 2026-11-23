@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_typography(source,path):
+    return reverse_presentation_receipt(source,path,'account-typography-replay.json')
+
 def before_account_surface_style(source,path):
+    source=before_account_typography(source,path)
     return reverse_presentation_receipt(source,path,'account-surface-style-replay.json')
 
 def before_mobile_account_edge(source,path):
