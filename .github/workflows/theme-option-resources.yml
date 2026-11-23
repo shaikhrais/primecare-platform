@@ -1,0 +1,67 @@
+name: Register exact Theme Center option resources
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/theme_option_*.py'
+      - 'tools/governance-production/theme-option-resources.json'
+      - 'tools/governance-production/test-theme-option-resources.py'
+      - '.github/workflows/theme-option-resources.yml'
+permissions: {contents: read}
+concurrency:
+  group: theme-center-option-resource-registration
+  cancel-in-progress: false
+jobs:
+  rehearsal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: workspace, POSTGRES_PASSWORD: isolated-only, POSTGRES_DB: workspace_resources_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U workspace -d workspace_resources_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Prove exact scope, preservation, idempotency and rollback
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://workspace:isolated-only@127.0.0.1:5432/workspace_resources_test
+        run: python tools/governance-production/test-theme-option-resources.py
+  production:
+    needs: rehearsal
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/option-readback" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/option-readback/node_modules" node_modules
+      - name: Require the tested source to remain main
+        run: test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+      - name: Register only the pinned option labels
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_THEME_OPTION_RESOURCE_WRITES: '1'
+        run: python tools/governance-production/theme_option_resource_registration.py --apply --output artifacts/theme-options/registration.json
+      - name: Independently read back all registered copy and export a candidate
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/theme_option_resource_registration.py --readback --output artifacts/theme-options/readback.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: theme-option-registration-and-export
+          path: artifacts/theme-options
+          retention-days: 30

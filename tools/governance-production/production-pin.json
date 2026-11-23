@@ -2119,5 +2119,18 @@
     "roleGrants": false,
     "runtimeActivation": false,
     "reviewApprovals": false
+  },
+  "themeOptionResourceWriter": {
+    "optInVariable": "GOVERNANCE_THEME_OPTION_RESOURCE_WRITES",
+    "tables": [
+      "language_resources",
+      "language_resource_values"
+    ],
+    "namespace": "themeCenter.options.",
+    "catalogPath": "tools/governance-production/theme-option-resources.json",
+    "catalogSha256": "cfe93e5cf35c4e820a8573e2e384e797c5bbde9702808e27798efa8fd3d1f856",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "permissionChanges": false
   }
 }
