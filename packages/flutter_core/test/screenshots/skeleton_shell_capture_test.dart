@@ -64,6 +64,7 @@ void main(){
     final item=find.ancestor(of:find.text('Tenant dashboard'),matching:find.byWidgetPredicate((w)=>w is ListTile));
     expect(tester.getRect(item).top,64);expect(tester.getSize(item).height,32);
     expect(find.text('PrimeCare'),findsNWidgets(2),reason:'Brand header and existing topbar tenant label');
+    expect(find.text('Home service'),findsOneWidget);
     final sidebar=find.byKey(const Key('app-sidebar'));
     final surface=tester.widget<Container>(find.descendant(of:sidebar,matching:find.byType(Container)).first);
     expect((surface.decoration as BoxDecoration).color,Theme.of(tester.element(sidebar)).scaffoldBackgroundColor);

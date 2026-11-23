@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_sidebar_slogan(source,path):
+    return reverse_presentation_receipt(source,path,'sidebar-slogan-replay.json')
+
 def before_sidebar_render(source,path):
+    source=before_sidebar_slogan(source,path)
     return reverse_presentation_receipt(source,path,'sidebar-full-render-replay.json')
 
 def before_sidebar_default(source,path):

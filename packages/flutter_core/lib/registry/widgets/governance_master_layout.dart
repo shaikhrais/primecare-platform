@@ -2,6 +2,7 @@ import '../../theme/portal_section_theme.dart';
 import '../../original_assets.dart';
 import '../../theme/prime_shell_metrics.dart';
 import '../../theme/prime_theme_center_style.dart';
+import '../../theme/theme_center_options.dart';
 import '../../workspace/portal_workspace.dart';
 import '../../providers/persistence_providers.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;
@@ -475,11 +476,16 @@ class GovernanceMasterLayout extends ConsumerWidget {
             ),
           ),
           child: Column(children:[
-            SizedBox(height:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),child:Padding(
+            ConstrainedBox(constraints:BoxConstraints(minHeight:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width)),child:Padding(
               padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[
                 const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),
-                if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:PrimeText(tenant.name,maxLines:2,overflow:TextOverflow.ellipsis,
-                  style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)))],
+                if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[
+                  PrimeText(tenant.name,maxLines:1,overflow:TextOverflow.ellipsis,
+                    style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)),
+                  const SizedBox(height:PrimeShellMetrics.sidebarBrandLineGap),
+                  PrimeText(themeCenterOption(context,'brand.slogan'),maxLines:1,overflow:TextOverflow.ellipsis,
+                    style:theme.textTheme.bodySmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarSloganFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:theme.colorScheme.onSurfaceVariant)),
+                ]))],
               ]))),
             Expanded(child:ListView.builder(
             padding: EdgeInsets.zero,

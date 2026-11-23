@@ -16,6 +16,8 @@ abstract final class PrimeShellMetrics {
   static const sidebarRowSpacing = 4.0;
   static const sidebarCorner = 6.0;
   static const sidebarFontSize = 13.0;
+  static const sidebarSloganFontSize = 12.0;
+  static const sidebarBrandLineGap = 2.0;
   static double barHeight(double viewportWidth) => viewportWidth >= desktopBreakpoint ? 64 : 48;
   static double toolbarExtent(double width, {required bool horizontal}) => barHeight(width)+(horizontal?dividerExtent:0);
   static double footerExtent(double width) => barHeight(width)+dividerExtent;

@@ -1,6 +1,7 @@
 // Generated from governance resources by scripts/register-theme-center-options.py.
 const themeCenterOptions = <String, Map<String, String>>{
   "en": {
+    "brand.slogan": "Home service",
     "color.background": "Background",
     "color.border": "Border",
     "color.disabled": "Disabled text",
@@ -19,6 +20,7 @@ const themeCenterOptions = <String, Map<String, String>>{
     "invalidColor": "Use #RRGGBB colors.",
   },
   "fr": {
+    "brand.slogan": "Home service",
     "color.background": "Arrière-plan",
     "color.border": "Bordure",
     "color.disabled": "Texte désactivé",
@@ -37,6 +39,7 @@ const themeCenterOptions = <String, Map<String, String>>{
     "invalidColor": "Utilisez des couleurs #RRGGBB.",
   },
   "es": {
+    "brand.slogan": "Home service",
     "color.background": "Fondo",
     "color.border": "Borde",
     "color.disabled": "Texto deshabilitado",

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "88086f359593778233156fbb20746cc1077741b2",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "4e478fd1cc04f01dea7195d1e58d22c0ca7719c94bd835d536b79ef96bf7a966",
+      "afterSha256": "c299fc74874c8240244e267519ad5bb914ba9ceede5e0ace473341232c46e542",
+      "edits": [
+        {
+          "begin": 184,
+          "old": "",
+          "new": "import '../../theme/theme_center_options.dart';\n"
+        },
+        {
+          "begin": 25471,
+          "old": "            SizedBox(height:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),child:Padding(\n",
+          "new": "            ConstrainedBox(constraints:BoxConstraints(minHeight:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width)),child:Padding(\n"
+        },
+        {
+          "begin": 25921,
+          "old": "                if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:PrimeText(tenant.name,maxLines:2,overflow:TextOverflow.ellipsis,\n                  style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)))],\n",
+          "new": "                if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[\n                  PrimeText(tenant.name,maxLines:1,overflow:TextOverflow.ellipsis,\n                    style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)),\n                  const SizedBox(height:PrimeShellMetrics.sidebarBrandLineGap),\n                  PrimeText(themeCenterOption(context,'brand.slogan'),maxLines:1,overflow:TextOverflow.ellipsis,\n                    style:theme.textTheme.bodySmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarSloganFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:theme.colorScheme.onSurfaceVariant)),\n                ]))],\n"
+        }
+      ]
+    }
+  ]
+}
