@@ -90,6 +90,12 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
   try {
    await page.keyboard.press('Enter');
    await page.waitForURL(url => url.pathname === initial.href && url.href !== before, {timeout:2500});
+   if (id.startsWith('layout2-desktop')) {
+    // The URL can change before the original link paints its selected state.
+    await page.locator(`a.active[aria-current="page"][href$="${route}"]:visible`)
+     .waitFor({timeout:3000});
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(resolve)));
+   }
    if (sidebarCase === 'drawer') {
     const drawer = page.locator('.MuiDrawer-paper').filter({
      has: page.locator(`a[href$="${route}"]`),
@@ -166,6 +172,11 @@ try{
        interaction.entry.scroll.some(value => value !== 0) ||
        (sidebarCase !== 'folded' && interaction.entry.label !== fixture.entries[0].label))) {
     throw new Error('Shared navigation fixture route, label, locale or scroll did not reach the original renderer');
+   }
+   if (shared && layout === 'layout2' && device === 'desktop' &&
+       (interaction.states.activated?.appearance?.current !== 'page' ||
+        interaction.states.activated.appearance.selectedClass !== true)) {
+    throw new Error('The horizontal reference did not render the selected destination after activation');
    }
    results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,interaction,errors,external,
     dataSet:dataSet??'original-guest',fixtureSha256:shared?fixtureSha256:null,
