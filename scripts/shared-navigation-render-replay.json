@@ -4,7 +4,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
-      "afterSha256": "5ff55993cfbae7a8ca7eb4a930826908863ecedabb2bfee9ad3a1c18921730fc",
+      "afterSha256": "435431caa05f79142861ceefcaf26b0b03879a15056871e0c12dc006bc974f6e",
       "edits": [
         {
           "begin": 1393,
@@ -49,7 +49,7 @@
         {
           "begin": 7382,
           "old": "                                height: PrimeShellMetrics.sidebarRowHeight,\n                                child: PrimePopupMenuButton<String>(\n",
-          "new": "                                height: PrimeShellMetrics.horizontalNavigationRowHeight,\n                                child: screen != null ? Semantics(\n                                  container: true,\n                                  link: true,\n                                  selected: selected,\n                                  child: PrimeTextButton(\n                                    style: PrimeShellMetrics.horizontalDestinationStyle(\n                                      foreground: labelColor,\n                                      selectedBackground: selected ? selectedBackground : null,\n                                    ),\n                                    onPressed: () => context.go(screen.route),\n                                    child: PrimePortalNavigationLabel(\n                                      icon: screen.icon ?? module.icon,\n                                      label: screen.title,\n                                      color: labelColor,\n                                      showExpand: false,\n                                    ),\n                                  ),\n                                ) : PrimePopupMenuButton<String>(\n"
+          "new": "                                height: PrimeShellMetrics.horizontalNavigationRowHeight,\n                                child: screen != null ? Semantics(\n                                  container: true,\n                                  link: true,\n                                  selected: selected,\n                                  child: Center(\n                                    widthFactor: 1,\n                                    child: PrimeTextButton(\n                                      style: PrimeShellMetrics.horizontalDestinationStyle(\n                                        foreground: labelColor,\n                                        selectedBackground: selected ? selectedBackground : null,\n                                      ),\n                                      onPressed: () => context.go(screen.route),\n                                      child: PrimePortalNavigationLabel(\n                                        icon: screen.icon ?? module.icon,\n                                        label: screen.title,\n                                        color: labelColor,\n                                        showExpand: false,\n                                      ),\n                                    ),\n                                  ),\n                                ) : PrimePopupMenuButton<String>(\n"
         },
         {
           "begin": 7809,
@@ -193,7 +193,7 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
-      "afterSha256": "24533a1c36c2309610afada86ea612a73613671a5c85750758d8f78cfa5d9af1",
+      "afterSha256": "1a59833ad0c47bd62e310c3792caf81c16b206acc0695975eff7bda460e92075",
       "edits": [
         {
           "begin": 297,
@@ -203,7 +203,7 @@
         {
           "begin": 855,
           "old": "",
-          "new": "  static const horizontalNavigationRowHeight = 48.0;\n"
+          "new": "  static const horizontalNavigationRowHeight = 48.0;\n  static const horizontalDestinationPaintHeight = 36.0;\n"
         },
         {
           "begin": 1101,
@@ -218,7 +218,7 @@
         {
           "begin": 1870,
           "old": "",
-          "new": "\n  static ButtonStyle horizontalDestinationStyle({\n    required Color foreground,\n    required Color? selectedBackground,\n  }) => ButtonStyle(\n    padding: const WidgetStatePropertyAll(EdgeInsets.zero),\n    shape: const WidgetStatePropertyAll(\n      RoundedRectangleBorder(borderRadius: navigationItemRadius),\n    ),\n    backgroundColor: WidgetStatePropertyAll(selectedBackground),\n    overlayColor: WidgetStateProperty.resolveWith((states) {\n      if (states.contains(WidgetState.pressed) ||\n          states.contains(WidgetState.focused)) {\n        return navigationFocusInk(foreground);\n      }\n      if (states.contains(WidgetState.hovered)) {\n        return navigationHoverInk(foreground);\n      }\n      return null;\n    }),\n  );\n"
+          "new": "\n  static ButtonStyle horizontalDestinationStyle({\n    required Color foreground,\n    required Color? selectedBackground,\n  }) => ButtonStyle(\n    padding: const WidgetStatePropertyAll(EdgeInsets.zero),\n    minimumSize: const WidgetStatePropertyAll(\n      Size(0, horizontalDestinationPaintHeight),\n    ),\n    fixedSize: const WidgetStatePropertyAll(\n      Size.fromHeight(horizontalDestinationPaintHeight),\n    ),\n    tapTargetSize: MaterialTapTargetSize.padded,\n    shape: const WidgetStatePropertyAll(\n      RoundedRectangleBorder(borderRadius: navigationItemRadius),\n    ),\n    backgroundColor: WidgetStatePropertyAll(selectedBackground),\n    overlayColor: WidgetStateProperty.resolveWith((states) {\n      if (states.contains(WidgetState.pressed) ||\n          states.contains(WidgetState.focused)) {\n        return navigationFocusInk(foreground);\n      }\n      if (states.contains(WidgetState.hovered)) {\n        return navigationHoverInk(foreground);\n      }\n      return null;\n    }),\n  );\n"
         },
         {
           "begin": 3859,

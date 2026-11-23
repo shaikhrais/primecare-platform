@@ -23,6 +23,7 @@ abstract final class PrimeShellMetrics {
 
   static const horizontalNavbarHeight = 64.0;
   static const horizontalNavigationRowHeight = 48.0;
+  static const horizontalDestinationPaintHeight = 36.0;
   static const expandedNavigationWidth = 280;
   // The persisted profile continues to use 64 as its folded marker.
   static const foldedNavigationMarker = 64;
@@ -61,6 +62,13 @@ abstract final class PrimeShellMetrics {
     required Color? selectedBackground,
   }) => ButtonStyle(
     padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+    minimumSize: const WidgetStatePropertyAll(
+      Size(0, horizontalDestinationPaintHeight),
+    ),
+    fixedSize: const WidgetStatePropertyAll(
+      Size.fromHeight(horizontalDestinationPaintHeight),
+    ),
+    tapTargetSize: MaterialTapTargetSize.padded,
     shape: const WidgetStatePropertyAll(
       RoundedRectangleBorder(borderRadius: navigationItemRadius),
     ),

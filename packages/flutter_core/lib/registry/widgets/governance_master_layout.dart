@@ -166,17 +166,20 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   container: true,
                                   link: true,
                                   selected: selected,
-                                  child: PrimeTextButton(
-                                    style: PrimeShellMetrics.horizontalDestinationStyle(
-                                      foreground: labelColor,
-                                      selectedBackground: selected ? selectedBackground : null,
-                                    ),
-                                    onPressed: () => context.go(screen.route),
-                                    child: PrimePortalNavigationLabel(
-                                      icon: screen.icon ?? module.icon,
-                                      label: screen.title,
-                                      color: labelColor,
-                                      showExpand: false,
+                                  child: Center(
+                                    widthFactor: 1,
+                                    child: PrimeTextButton(
+                                      style: PrimeShellMetrics.horizontalDestinationStyle(
+                                        foreground: labelColor,
+                                        selectedBackground: selected ? selectedBackground : null,
+                                      ),
+                                      onPressed: () => context.go(screen.route),
+                                      child: PrimePortalNavigationLabel(
+                                        icon: screen.icon ?? module.icon,
+                                        label: screen.title,
+                                        color: labelColor,
+                                        showExpand: false,
+                                      ),
                                     ),
                                   ),
                                 ) : PrimePopupMenuButton<String>(

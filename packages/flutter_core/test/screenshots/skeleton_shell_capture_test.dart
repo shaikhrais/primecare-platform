@@ -196,6 +196,12 @@ void main(){
      final selectedColor = selectedStyle.backgroundColor?.resolve({});
      expect(selectedColor, isNotNull);
      final selectedBounds = tester.getRect(triggerFinder);
+     final paintedButton = find.descendant(
+      of: triggerFinder, matching: find.byType(Material),
+     );
+     expect(tester.getSize(paintedButton).height,
+         PrimeShellMetrics.horizontalDestinationPaintHeight);
+     expect(selectedBounds.height, PrimeShellMetrics.horizontalNavigationRowHeight);
      final destination = router!.routeInformationProvider.value.uri.path;
      expect(destination, '/tenant-dashboard');
      // The registered router keeps its shell mounted when a child route changes.
@@ -216,6 +222,7 @@ void main(){
        'shellLayoutPreserved': true,
        'selected': true,
        'selectedColorArgb': selectedColor!.toARGB32(),
+       'selectedPaintHeight': tester.getSize(paintedButton).height,
        'selectedBounds': {
         'x': selectedBounds.left,
         'y': selectedBounds.top,
