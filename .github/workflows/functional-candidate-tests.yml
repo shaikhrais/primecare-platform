@@ -9,7 +9,7 @@ concurrency:
   group: functional-candidate-${{ github.sha }}
   cancel-in-progress: false
 env:
-  CANDIDATE_SHA: fe776ab702808bfc8e8fb9ff064ee2c07150c955
+  CANDIDATE_SHA: db6205bdb1998e78b11eed96306775fd22aad638
 jobs:
   browser-postgres:
     name: Browser and PostgreSQL (${{ matrix.suite }})
