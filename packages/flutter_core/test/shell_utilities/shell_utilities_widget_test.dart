@@ -1,10 +1,24 @@
-import 'package:flutter/services.dart';import 'dart:convert';import 'dart:io';import 'package:flutter/material.dart';import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/services.dart';import 'dart:async';import 'dart:convert';import 'dart:io';import 'package:flutter/material.dart';import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/shell_utilities.dart';import 'shell_utilities_controller_test.dart' as fixture;
 final catalog=jsonDecode(File('../primecare_ui/catalogs/shell-utilities.registration.json').readAsStringSync()) as Map<String,dynamic>;
 final labels=ShellUtilityLabels(Map<String,String>.from((catalog['locales'] as Map)['en'] as Map),{for(final r in catalog['controls'] as List)(r as Map)['key'] as String:r['testId'] as String});
 Finder control(String key)=>find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier==labels.ids[key]);
 Widget host(ShellUtilitiesController c,{Future<bool> Function(bool)? fullscreen,TextDirection direction=TextDirection.ltr})=>MaterialApp(home:Scaffold(body:PrimeShellUtilities(controller:c,labels:labels,maxWidth:380,direction:direction,fullscreenPort:fullscreen==null?null:ShellFullscreenPort(read:()=>false,write:fullscreen))));
 void main(){
+ testWidgets('Quick Panel loads its own source while the favourites request is pending',(tester) async {
+  final ready=Completer<void>();
+  final c=fixture.make({'notifications':UtilityPort(load:() async =>[fixture.item()])},ready.future);
+  await tester.pumpWidget(host(c));
+  await tester.tap(control('open'));
+  await tester.pumpAndSettle();
+  expect(c.favourites.current['status'],'loading');
+  expect(find.text('Notice'),findsOneWidget);
+  ready.complete();
+  await tester.pumpAndSettle();
+  expect(c.favourites.current['status'],'clean');
+  await tester.pumpWidget(const SizedBox.shrink());
+  c.dispose();
+ });
  testWidgets('registered drawer stays honest when unbound; favourites search/save and close focus work in RTL', (tester)async{final c=fixture.make();await tester.pumpWidget(host(c,direction:TextDirection.rtl));await tester.tap(control('open'));await tester.pumpAndSettle();expect(find.text(labels('unavailable')),findsOneWidget);final fs=tester.widget<TextButton>(find.descendant(of:control('fullscreen'),matching:find.byType(TextButton)));expect(fs.onPressed,isNull);await tester.tap(control('favourites'));await tester.pumpAndSettle();final search=find.descendant(of:control('search'),matching:find.byType(TextField));await tester.enterText(search,'Events');await tester.pumpAndSettle();expect(find.text('Notes'),findsOneWidget);final toggle=find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='${labels.ids['favouriteToggle']}-1');await tester.tap(toggle);await tester.pumpAndSettle();expect(c.favourites.current['draft'],{'version':1,'screenIds':['1']});await tester.tap(control('save'));await tester.pumpAndSettle();expect(c.favourites.current['status'],'clean');expect(tester.takeException(),isNull);await tester.sendKeyEvent(LogicalKeyboardKey.escape);await tester.pumpAndSettle();expect(find.byType(Dialog),findsNothing);expect(tester.widget<TextButton>(find.descendant(of:control('open'),matching:find.byType(TextButton))).focusNode!.hasFocus,true);await tester.pumpWidget(const SizedBox.shrink());c.dispose();});
  testWidgets('fullscreen rejection remains an error and changing actor retires the old drawer',(tester)async{final c=fixture.make(),next=fixture.make();await tester.pumpWidget(host(c,fullscreen:(_)async=>false));await tester.tap(control('open'));await tester.pumpAndSettle();await tester.tap(control('fullscreen'));await tester.pumpAndSettle();expect(find.text(labels('error')),findsOneWidget);await tester.pumpWidget(host(next));await tester.pumpAndSettle();expect(find.byType(Dialog),findsNothing);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox.shrink());c.dispose();next.dispose();});
  testWidgets('native fullscreen label and confirmation read the supplied actual state',(tester)async{var actual=true;final c=fixture.make();await tester.pumpWidget(MaterialApp(home:Scaffold(body:PrimeShellUtilities(controller:c,labels:labels,maxWidth:380,fullscreenPort:ShellFullscreenPort(read:()=>actual,write:(value)async{actual=value;return actual;})))));await tester.tap(control('open'));await tester.pumpAndSettle();expect(find.text(labels('exitFullscreen')),findsOneWidget);await tester.tap(control('fullscreen'));await tester.pumpAndSettle();expect(actual,false);expect(find.text(labels('fullscreen')),findsOneWidget);await tester.tap(control('close'));await tester.pumpAndSettle();await tester.pumpWidget(const SizedBox.shrink());c.dispose();});

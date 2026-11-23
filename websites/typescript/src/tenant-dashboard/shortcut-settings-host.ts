@@ -38,6 +38,14 @@ export function mountTenantShortcutHost(root:HTMLElement,options:{gateway:string
  try{
   const send=preferenceHttpTransport(gateway,token),binding={scope,kind:'shortcuts' as const,resource:'navigation',policy:{panelIds:[],screenIds:destinations.destinations.map(d=>d.id)}};
   port=new ApplicationSettingsPort(binding,async(request,signal)=>{if(!await whenActive()||!current())throw new PreferenceFailure('scope_changed',403);try{return await send(request,signal);}finally{if(!await whenActive()||!current())throw new PreferenceFailure('scope_changed',403);}},preferenceStorageCache(localStorage),Object.fromEntries(destinations.destinations.map(d=>[d.id,d.title])),application.locales[locale],['2534']);
-  editor=new ApplicationShortcutEditor(port);view=new PrimeApplicationShortcuts(slot,editor,locale,current);off=editor.subscribe(()=>handle.syncControls());observer=new MutationObserver(()=>{if(!root.isConnected||!root.contains(slot))handle.dispose();});observer.observe(root.ownerDocument,{childList:true,subtree:true});void editor.load().catch(()=>handle.syncControls());return handle;
+  const openFavourite=(id:string)=>{
+   if(!current()||handle.blocked())return;
+   const destination=destinations.destinations.find(candidate=>candidate.id===id),location=root.ownerDocument.defaultView?.location;
+   if(!destination||!location)return;
+   const url=new URL(destination.route,location.origin);
+   url.searchParams.set('enable-semantics','true');
+   if(current())location.assign(url.href);
+  };
+  editor=new ApplicationShortcutEditor(port);view=new PrimeApplicationShortcuts(slot,editor,locale,current,openFavourite);off=editor.subscribe(()=>handle.syncControls());observer=new MutationObserver(()=>{if(!root.isConnected||!root.contains(slot))handle.dispose();});observer.observe(root.ownerDocument,{childList:true,subtree:true});void editor.load().catch(()=>handle.syncControls());return handle;
  }catch(error){try{handle.dispose();}catch{}throw error;}
 }

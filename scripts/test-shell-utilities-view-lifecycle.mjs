@@ -3,10 +3,10 @@ const built=await build({stdin:{contents:"export * from './packages/primecare_ui
 const api=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
 const scope={tenantId:'t',userId:'u',role:'psw',dataset:'live'},item={id:'record1',title:'Notice',detail:'Owned content',read:false,status:'delivered'};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
-async function fixture(load=async()=>[item]){
+async function fixture(load=async()=>[item],readPreferences=async()=>{throw Error('No preference request expected');}){
  const {document}=parseHTML('<html><head></head><body><div id="shell"><div id="slot"></div></div></body></html>');
  const storage=new Map();let mutations=0;
- const pref=new api.PreferenceSyncClient({scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:[]}},async()=>{throw Error('No preference request expected');},{read:async k=>storage.get(k)??null,write:async(k,v)=>{storage.set(k,v);},remove:async k=>storage.delete(k)});
+ const pref=new api.PreferenceSyncClient({scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:[]}},readPreferences,{read:async k=>storage.get(k)??null,write:async(k,v)=>{storage.set(k,v);},remove:async k=>storage.delete(k)});
  const c=new api.ShellUtilitiesController(scope,{notifications:{load,markRead:async(id,read)=>{mutations++;return {...item,id,read};}}},pref,[],()=>{});
  const view=new api.ShellUtilitiesView(document.getElementById('slot'),document.getElementById('shell'),c,'en','ltr');
  document.querySelector('dialog').close=()=>{};
@@ -33,6 +33,27 @@ test('switching to idle favourites clears a resource load busy announcement',asy
   assert.equal(f.document.querySelector('[role="tabpanel"]').getAttribute('aria-busy'),'false');
   release([item]);await pending;
  }finally{release?.([item]);await f.view.dispose();}
+});
+
+test('Quick Panel renders its own resource while reading favourites and ignores a duplicate open',async()=>{
+ let reads=0,loads=0,ready;
+ const pending=new Promise(resolve=>ready=resolve);
+ const f=await fixture(async()=>{loads++;return [item];},async()=>{reads++;return pending;});
+ const dialog=f.document.querySelector('dialog');
+ dialog.showModal=()=>{dialog.open=true;};
+ try{
+  const opening=f.view.open();
+  await flush();
+  assert.equal(f.c.favourites.current.status,'loading');
+  assert.equal(f.c.current.notifications.status,'ready');
+  assert.equal(loads,2);
+  assert.equal(reads,1);
+  await f.view.open();
+  assert.equal(reads,1);
+  ready({version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null});
+  await opening;
+  assert.equal(f.c.favourites.current.status,'clean');
+ }finally{ready();await f.view.dispose();}
 });
 
 for(const stage of ['unsubscribe','dialog','controller'])for(const failure of [Error('cleanup failed'),null,undefined])test('utility view completes cleanup after '+stage+' throws '+String(failure),async()=>{const f=await fixture(),slot=f.document.getElementById('slot'),shell=f.document.getElementById('shell'),old=f.button();let disposed=0;const dispose=f.c.dispose.bind(f.c);f.c.dispose=async()=>{disposed++;await dispose();if(stage==='controller')throw failure;};if(stage==='unsubscribe'){const off=f.view.off;f.view.off=()=>{off();throw failure;};}if(stage==='dialog')f.document.querySelector('dialog').close=()=>{throw failure;};let caught=false;try{await f.view.dispose();}catch(error){caught=true;assert.equal(error,failure);}assert.equal(caught,true);assert.equal(disposed,1);assert.equal(slot.childNodes.length,0);assert.equal(shell.hasAttribute('data-pc-shell-environment'),false);assert.equal(shell.hasAttribute('dir'),false);assert.deepEqual(f.c.current.notifications.items,[]);old.click();await flush();assert.equal(f.mutations(),0);await f.view.dispose();assert.equal(disposed,1);const environment=new api.ShellEnvironment(shell,'rtl');await environment.dispose();});

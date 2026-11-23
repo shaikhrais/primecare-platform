@@ -6,6 +6,22 @@ const browser=await playwright.chromium.launch({headless:true,...(process.env.PR
 async function page(context,direction='ltr',id='user1'){const p=await context.newPage();p.setDefaultTimeout(15000);p.on('response',r=>{if(new URL(r.url()).pathname==='/v1/user/preferences'){const entry={status:r.status(),body:null};packets.push(entry);void r.text().then(t=>entry.body=t).catch(()=>{});}});await p.goto(origin+'/?enable-semantics=true');await p.evaluate(([token,scope,dir])=>window.mount(token,scope,dir),[f.tokens[id],f.scope(id),direction]);return p;}
 try{const aContext=await browser.newContext();contexts.push(aContext);const a=await page(aContext);assert.ok((await cy(a,'open').boundingBox()).height>=44);await cy(a,'open').click();await cy(a,'mark-read-record1').click();await a.waitForFunction(()=>controller.current.notifications.status==='error');assert.equal(await a.evaluate(()=>controller.current.notifications.items[0].read),false);await a.evaluate(()=>window.allowRead=true);await cy(a,'mark-read-record1').click();await a.waitForFunction(()=>controller.current.notifications.items[0].read===true);await cy(a,'mark-read-record1').click();await a.waitForFunction(()=>controller.current.notifications.items[0].read===false);assert.equal(await a.evaluate(async()=>{const stale=document.querySelector('[data-cy="shell-utilities-mark-read-record1"]');await controller.load('notifications');stale.click();await new Promise(r=>setTimeout(r,0));return controller.current.notifications.items[0].read;}),false,'retired receipt button cannot change read state');assert.equal(await a.evaluate(async()=>{document.querySelector('[data-cy="shell-utilities-mark-read-record1"]').click();await controller.load('events');await new Promise(r=>setTimeout(r,0));return controller.current.notifications.items[0].read;}),false,'queued retired receipt cannot change read state');await cy(a,'events').click();assert.equal(await a.evaluate(()=>controller.current.events.status),'unavailable');
  await a.evaluate(()=>{window.pauseNotificationLoad=true;window.pausedLoad=controller.load('notifications');});await cy(a,'notifications').click();assert.equal(await a.locator('[role=tabpanel]').getAttribute('aria-busy'),'true');await cy(a,'favourites').click();assert.equal(await a.locator('[role=tabpanel]').getAttribute('aria-busy'),'false');await a.evaluate(async()=>{window.pauseNotificationLoad=false;window.finishNotificationLoad();await window.pausedLoad;});
+ const independent=await aContext.newPage();
+ let unblockPreference;
+ const stalledPreference=new Promise(resolve=>unblockPreference=resolve);
+ try{
+  await independent.route('**/v1/user/preferences',async route=>{await stalledPreference;await route.continue();});
+  await independent.goto(origin+'/?enable-semantics=true');
+  await independent.evaluate(([token,scope])=>window.mount(token,scope,'ltr'),[f.tokens.user1,f.scope()]);
+  await cy(independent,'open').click();
+  await independent.waitForFunction(()=>controller.favourites.current.status==='loading'&&controller.current.notifications.status==='ready');
+  assert.equal(await cy(independent,'mark-read-record1').count(),1);
+  assert.equal(await independent.locator('[role=tabpanel]').getAttribute('aria-busy'),'false');
+ }finally{
+  unblockPreference();
+  await independent.waitForFunction(()=>controller.favourites.current.status!=='loading');
+  await independent.close();
+ }
  await cy(a,'favourites').click();await cy(a,'search').fill('one');assert.equal(await cy(a,'items-2').count(),0);await cy(a,'favourite-toggle-1').click();await cy(a,'save').click();await a.waitForFunction(()=>controller.favourites.current.status==='clean');assert.deepEqual((await f.db.query("SELECT document FROM account_preference_documents WHERE kind='shortcuts'")).rows[0].document,{version:1,screenIds:['1']});
  const bContext=await browser.newContext();contexts.push(bContext);const b=await page(bContext);await cy(b,'open').click();await cy(b,'favourites').click();await b.waitForFunction(()=>controller.favourites.current.status==='clean'&&document.querySelector('[data-cy=\"shell-utilities-favourite-toggle-1\"]').getAttribute('aria-pressed')==='true');assert.equal(await cy(b,'favourite-toggle-1').getAttribute('aria-pressed'),'true');
  await a.keyboard.press('Escape');assert.equal(await a.evaluate(()=>document.activeElement.dataset.cy),'shell-utilities-open');assert.equal(await a.evaluate(()=>document.getElementById('unsaved').value),'keep');

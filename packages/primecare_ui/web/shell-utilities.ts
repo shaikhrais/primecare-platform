@@ -27,7 +27,12 @@ export class ShellUtilitiesView extends ThemeControlBase {
  }
  private button(key:string,action:()=>void|Promise<void>,suffix='',signal:AbortSignal=this.abort.signal){const b=this.root.ownerDocument.createElement('button');b.type='button';b.style.minBlockSize='var(--control-min-height)';b.style.font='inherit';b.dataset.cy=this.ids[key]+suffix;b.textContent=this.labels[key];b.addEventListener('click',()=>{if(this.dead||signal.aborted||b.disabled)return;this.error=false;Promise.resolve().then(()=>{if(this.dead||signal.aborted)return;return action();}).catch(()=>{if(!this.dead){this.error=true;this.render();}});},{signal});return b;}
  private bodyButton(key:string,action:()=>void|Promise<void>,suffix=''){return this.button(key,action,suffix,this.bodyAbort.signal);}
- async open(){if(this.dead)return;if(!this.dialog.open)this.dialog.showModal();this.tabs.get(this.selected)!.focus();await this.controller.preference('load');await this.select(this.selected);}
+ async open(){
+  if(this.dead||this.dialog.open)return;
+  this.dialog.showModal();
+  this.tabs.get(this.selected)!.focus();
+  await Promise.all([this.select(this.selected),this.controller.preference('load')]);
+ }
  close(){if(this.dead)return;this.dialog.close();if(this.opener.isConnected)this.opener.focus();}
  private async select(key:string){if(this.dead)return;this.selected=key;this.render();if(key!=='favourites'&&!this.controller.current[key as UtilityKind].busy)await this.controller.load(key as UtilityKind);}
  private render(){if(this.dead)return;const active=this.root.ownerDocument.activeElement as HTMLElement|null,focus=active?.dataset.cy;for(const [key,tab]of this.tabs){tab.setAttribute('aria-selected',String(key===this.selected));tab.tabIndex=key===this.selected?0:-1;}this.body.setAttribute('aria-labelledby',this.ids[this.selected]);this.search.parentElement!.hidden=this.selected!=='favourites';this.bodyAbort.abort();this.bodyAbort=new AbortController();this.body.replaceChildren();const f=this.controller.favourites.current,busy=['loading','saving'].includes(f.status);let state='empty';

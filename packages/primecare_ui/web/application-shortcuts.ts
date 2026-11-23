@@ -9,7 +9,7 @@ const owners=new WeakMap<HTMLElement,PrimeApplicationShortcuts>();
 /** Existing registered favourite controls, EN/FR/ES resources and theme tokens. Host supplies allowed destinations. */
 export class PrimeApplicationShortcuts extends ThemeControlBase {
  private off:()=>void=()=>{};private renderAbort=new AbortController();private query='';private labels:Record<string,string>;private ids:Record<string,string>;private failed=false;
- constructor(root:HTMLElement,readonly editor:ApplicationShortcutEditor,private locale:'en'|'fr'|'es',private isCurrent:()=>boolean=()=>true){
+ constructor(root:HTMLElement,readonly editor:ApplicationShortcutEditor,private locale:'en'|'fr'|'es',private isCurrent:()=>boolean=()=>true,private openFavourite?:(id:string)=>void){
   super(root);const registration=shellUtilityRegistration(locale);this.labels=registration.labels;this.ids=registration.ids;
   if(owners.has(root)||[root.ownerDocument.body,root.ownerDocument.documentElement].includes(root))throw Error('Distinct registered settings slot required');
   const previousChildren=[...root.childNodes],previousMarker=root.getAttribute('data-pc-application-shortcuts'),doc=root.ownerDocument;let createdStyle:HTMLStyleElement|undefined;try{owners.set(root,this);root.dataset.pcApplicationShortcuts='';
@@ -19,6 +19,28 @@ export class PrimeApplicationShortcuts extends ThemeControlBase {
  private control<K extends keyof HTMLElementTagNameMap>(tag:K,key:string,suffix=''){const registration=metadata.controls.find(c=>c.key===key);if(!registration||!registration.controlId)throw Error('Missing registered shortcut control');const node=this.root.ownerDocument.createElement(tag);node.dataset.cy=this.ids[key]+suffix;node.dataset.controlId=String(registration.controlId);return node;}
  private recoveryButton(key:string,action:()=>Promise<void>,disabled:boolean){const spec=recovery.controls.find(c=>c.key===key);if(recovery.kind!=='verified_metadata_export'||!recovery.source.jobId||!spec?.controlId)throw Error('Registered recovery control required');const node=this.root.ownerDocument.createElement('button');node.type='button';node.dataset.cy=spec.testId;node.dataset.controlId=String(spec.controlId);node.textContent=(recovery.locales[this.locale] as Record<string,string>)[key];node.disabled=disabled;node.addEventListener('click',()=>{if(this.dead||!this.isCurrent()||node.disabled)return;this.failed=false;void action().catch(()=>{if(!this.dead){this.failed=true;this.render();}});},{signal:this.renderAbort.signal});return node;}
  private button(key:string,action:()=>Promise<void>,disabled:boolean,suffix=''){const node=this.control('button',key,suffix);node.type='button';node.textContent=this.labels[key];node.disabled=disabled;node.addEventListener('click',()=>{if(this.dead||!this.isCurrent()||node.disabled)return;this.failed=false;void action().catch(()=>{if(!this.dead){this.failed=true;this.render();}});},{signal:this.renderAbort.signal});return node;}
+ private confirmedFavourites(){
+  const state=this.editor.current;
+  if(!state.loaded||state.status!=='clean'||state.dirty||state.pending||state.remote)return [];
+  const saved=(state.base.document as {screenIds:string[]}|null)?.screenIds??[];
+  const destinations=new Map(this.editor.destinations('',this.locale).map(destination=>[destination.id,destination]));
+  return saved.flatMap(id=>{const destination=destinations.get(id);return destination?[destination]:[];});
+ }
+ private pinnedFavourites(){
+  if(!this.openFavourite)return null;
+  const destinations=this.confirmedFavourites();
+  if(!destinations.length)return null;
+  const panel=this.control('section','items','-pinned');
+  panel.setAttribute('aria-label',this.labels.favourites);
+  for(const {id,title} of destinations){
+   const open=this.button('favourites',async()=>{
+    if(this.confirmedFavourites().some(destination=>destination.id===id)&&this.isCurrent()&&!this.dead)this.openFavourite?.(id);
+   },false,'-open-'+id);
+   open.textContent=title;
+   panel.append(open);
+  }
+  return panel;
+ }
  render(){if(this.dead||!this.isCurrent())return;const focused=this.root.ownerDocument.activeElement as HTMLInputElement|null,focus=focused?.dataset.cy,selection=focused?.tagName==='INPUT'?[focused.selectionStart,focused.selectionEnd]:null;this.renderAbort.abort();this.renderAbort=new AbortController();const doc=this.root.ownerDocument,state=this.editor.current,busy=['loading','saving','discarding','recovering'].includes(state.status),blocked=busy||!state.loaded,editable=!blocked&&['clean','dirty','offline'].includes(state.status);
   const title=doc.createElement('h2');title.textContent=this.labels.favourites;const label=doc.createElement('label'),search=this.control('input','search');search.type='search';search.maxLength=100;search.value=this.query;label.textContent=this.labels.search;label.append(search);search.addEventListener('input',()=>{this.query=search.value;this.render();},{signal:this.renderAbort.signal});
   const list=this.control('div','items');for(const destination of this.editor.destinations(this.query,this.locale)){const row=doc.createElement('p'),toggle=this.button('favouriteToggle',()=>this.editor.toggle(destination.id),!editable||!!state.pending||!!state.remote,'-'+destination.id);toggle.textContent=destination.title;toggle.setAttribute('aria-label',this.labels.favouriteToggle+' '+destination.title);toggle.setAttribute('aria-pressed',String(state.selected.includes(destination.id)));row.append(toggle);list.append(row);}
@@ -27,7 +49,8 @@ export class PrimeApplicationShortcuts extends ThemeControlBase {
   const preview=this.editor.recoveryPreview,words=recovery.locales[this.locale],panel=doc.createElement('section');
   if(preview||state.error&&!['scope_changed','forbidden','unauthenticated','preference_sync_disabled','offline'].includes(state.error)){panel.setAttribute('role','group');panel.setAttribute('aria-label',words.review);const notice=doc.createElement('p');notice.textContent=words.notice;panel.append(notice,this.recoveryButton('review',async()=>{await this.editor.reviewRecovery();},busy));if(preview){const ready=doc.createElement('p');ready.textContent=preview.uncertain?words.pendingNotice:words.reviewed;panel.append(ready,this.recoveryButton('restore',()=>this.editor.confirmRecovery(preview.token,'restore'),busy||!preview.canRestore),this.recoveryButton('reset',()=>this.editor.confirmRecovery(preview.token,'reset'),busy||!preview.canReset),this.recoveryButton('cancel',async()=>this.editor.cancelRecovery(),busy));}}
   if(state.status==='recovering')status.textContent=words.recovering;
-  this.root.replaceChildren(title,label,list,refresh,save,retry,remote,local,panel,status);if(focus){const next=this.root.querySelector<HTMLInputElement>('[data-cy="'+focus+'"]');next?.focus({preventScroll:true});if(selection&&next?.setSelectionRange)next.setSelectionRange(selection[0],selection[1]);}
+  const pinned=this.pinnedFavourites();
+  this.root.replaceChildren(title,...(pinned?[pinned]:[]),label,list,refresh,save,retry,remote,local,panel,status);if(focus){const next=this.root.querySelector<HTMLInputElement>('[data-cy="'+focus+'"]');next?.focus({preventScroll:true});if(selection&&next?.setSelectionRange)next.setSelectionRange(selection[0],selection[1]);}
  }
  dispose(){this.disposeControlScope([()=>this.renderAbort.abort(),()=>this.off(),()=>this.editor.dispose(),()=>{this.query='';},()=>{if(owners.get(this.root)===this)this.root.replaceChildren();},()=>{if(owners.get(this.root)===this)this.root.removeAttribute('data-pc-application-shortcuts');},()=>{if(owners.get(this.root)===this)owners.delete(this.root);}]);}
 }

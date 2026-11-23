@@ -1,9 +1,36 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {build} from 'esbuild';import {parseHTML} from 'linkedom';
 const built=await build({stdin:{contents:"export * from './packages/primecare_ui/web/application-shortcuts';export {ApplicationSettingsPort} from './packages/shared/src/application-modules/settings-port';",resolveDir:process.cwd()},bundle:true,write:false,format:'esm',platform:'node'});
 const {PrimeApplicationShortcuts,ApplicationShortcutEditor,ApplicationSettingsPort}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
-function fixture(locale='en',providedRoot) {const {document,window}=parseHTML('<html><head></head><body><main><section></section></main></body></html>');globalThis.HTMLElement=window.HTMLElement;globalThis.Event=window.Event;const root=providedRoot??document.querySelector('section'),scope={userId:'user',tenantId:'tenant',role:'tenant_admin',dataset:'live'};let revision=0,stored=null,writes=0,active=true;
+function fixture(locale='en',providedRoot,openFavourite) {const {document,window}=parseHTML('<html><head></head><body><main><section></section></main></body></html>');globalThis.HTMLElement=window.HTMLElement;globalThis.Event=window.Event;const root=providedRoot??document.querySelector('section'),scope={userId:'user',tenantId:'tenant',role:'tenant_admin',dataset:'live'};let revision=0,stored=null,writes=0,active=true;
  const port=new ApplicationSettingsPort({scope,kind:'shortcuts',resource:'navigation',policy:{screenIds:['1','2'],panelIds:[]}},async request=>{if(request.action!=='read'){writes++;revision++;stored=request.document;}return {version:1,scope,kind:'shortcuts',resource:'navigation',revision,document:stored};},{read:async()=>null,write:async()=>{},remove:async()=>{}},{'1':'Overview','2':'<img src=x>'},{shortcuts:'Shortcuts',editShortcuts:'Edit'},['1']);
- const editor=new ApplicationShortcutEditor(port),view=new PrimeApplicationShortcuts(root,editor,locale,()=>active);const cy=key=>root.querySelector('[data-cy="shell-utilities-'+key.replace('favouriteToggle','favourite-toggle')+'"]');return {root,editor,view,cy,get writes(){return writes;},stale:()=>active=false};}
+ const editor=new ApplicationShortcutEditor(port),view=new PrimeApplicationShortcuts(root,editor,locale,()=>active,openFavourite);const cy=key=>root.querySelector('[data-cy="shell-utilities-'+key.replace('favouriteToggle','favourite-toggle')+'"]');return {root,editor,view,cy,get writes(){return writes;},stale:()=>active=false};}
+test('only confirmed favourites open, in saved order, and stale shortcut buttons cannot navigate',async()=>{
+ const opened=[],f=fixture('en',undefined,id=>opened.push(id));
+ try{
+  await f.editor.load();
+  assert.equal(f.cy('items-pinned'),null);
+  await f.editor.toggle('1');
+  await f.editor.toggle('2');
+  await f.editor.toggle('1');
+  assert.equal(f.cy('items-pinned'),null);
+  await f.editor.save();
+  assert.deepEqual([...f.cy('items-pinned').children].map(button=>button.textContent),['<img src=x>','Overview']);
+  assert.equal(f.root.querySelector('img'),null);
+  const first=f.cy('favourites-open-2');
+  first.click();
+  assert.deepEqual(opened,['2']);
+  await f.editor.toggle('2');
+  assert.equal(f.cy('items-pinned'),null);
+  first.click();
+  assert.deepEqual(opened,['2']);
+  await f.editor.save();
+  assert.equal(f.cy('favourites-open-2'),null);
+  const last=f.cy('favourites-open-1');
+  f.stale();
+  last.click();
+  assert.deepEqual(opened,['2']);
+ }finally{f.view.dispose();}
+});
 for(const locale of ['en','fr','es'])test('registered shortcut '+locale+' view offers accessible selection without name entry',async()=>{const f=fixture(locale);await f.editor.load();assert.equal(f.cy('favouriteToggle-1').getAttribute('aria-pressed'),'true');assert.equal(f.cy('favouriteToggle-1').getAttribute('data-control-id'),'632');assert.equal(f.root.querySelector('textarea'),null);assert.equal(f.root.querySelector('img'),null);await f.editor.toggle('2');assert.equal(f.cy('favouriteToggle-2').getAttribute('aria-pressed'),'true');assert.equal(f.writes,0);await f.editor.save();assert.equal(f.writes,1);assert.equal(f.cy('save').disabled,true);f.view.dispose();});
 test('search filters literal destination labels and stale events cannot dispatch after disposal',async()=>{const f=fixture();await f.editor.load();const input=f.cy('search');input.value='img';input.dispatchEvent(new Event('input'));assert.equal(f.cy('favouriteToggle-1'),null);const stale=f.cy('save');f.view.dispose();stale.click();await new Promise(r=>setImmediate(r));assert.equal(f.writes,0);assert.equal(f.root.textContent,'');});
 test('duplicate mount is rejected and repeated old cleanup preserves replacement content',async()=>{const f=fixture();await f.editor.load();assert.throws(()=>new PrimeApplicationShortcuts(f.root,f.editor,'en'));f.view.dispose();f.root.textContent='Replacement';f.view.dispose();assert.equal(f.root.textContent,'Replacement');});

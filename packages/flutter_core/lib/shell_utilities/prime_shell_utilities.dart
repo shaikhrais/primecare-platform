@@ -34,7 +34,14 @@ class _UtilityPanel extends StatefulWidget {
 }
 class _UtilityPanelState extends State<_UtilityPanel> {
  String selected='notifications',query='';bool error=false,fullscreenBusy=false;final scroll=ScrollController();
- @override void initState(){super.initState();widget.controller.addListener(_changed);Future<void>.microtask(()async{await widget.controller.favourites.load();if(mounted)await _select(selected);});}
+ @override void initState(){
+  super.initState();
+  widget.controller.addListener(_changed);
+  Future<void>.microtask(() async {
+   if(!mounted)return;
+   await Future.wait([_select(selected),_run(widget.controller.favourites.load)]);
+  });
+ }
  void _changed(){if(mounted)setState((){});}
  @override void dispose(){widget.controller.removeListener(_changed);scroll.dispose();super.dispose();}
  Future<void> _run(Future<void> Function() action)async{try{if(mounted)setState(()=>error=false);await action();}catch(_){if(mounted)setState(()=>error=true);}}
