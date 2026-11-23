@@ -336,9 +336,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   child: CircleAvatar(
                                     radius: 16,
                                     backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
-                                    backgroundImage: NetworkImage(
+                                    foregroundImage: NetworkImage(
                                       'https://api.dicebear.com/7.x/avataaars/png?seed=${ref.watch(authProvider).userName ?? 'User'}',
                                     ),
+                                    onForegroundImageError: (_, __) {},
+                                    child: PrimeIcon(LucideIcons.user, size: 18, color: topbarIconColor),
                                   ),
                                 ),
                                 onSelected: (value) {

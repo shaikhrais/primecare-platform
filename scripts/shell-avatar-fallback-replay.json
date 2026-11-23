@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "abcc47ea08c6fe819cfddaac22bd3e1c5f76761e",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "47bd8431b3173adbd71b2e8bb3d17c668926161003d1256f7ebd0e470999972b",
+      "afterSha256": "0a86c107708ea00084291a5803840fc869ac3119756c3ef0ae07e9e1861785f9",
+      "edits": [
+        {
+          "begin": 17836,
+          "old": "                                    backgroundImage: NetworkImage(\n",
+          "new": "                                    foregroundImage: NetworkImage(\n"
+        },
+        {
+          "begin": 18077,
+          "old": "",
+          "new": "                                    onForegroundImageError: (_, __) {},\n                                    child: PrimeIcon(LucideIcons.user, size: 18, color: topbarIconColor),\n"
+        }
+      ]
+    }
+  ]
+}

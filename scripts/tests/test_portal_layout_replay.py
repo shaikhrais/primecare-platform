@@ -6,7 +6,7 @@ import sys
 import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics
+from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics, before_avatar_fallback
 
 class PortalLayoutReplayTest(unittest.TestCase):
     def test_only_exact_reviewed_outputs_are_replayed(self):
@@ -84,9 +84,18 @@ class SkeletonShellMetricsReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/skeleton-shell-metrics-replay.json').read_text())
         self.assertEqual(len(receipt['files']),1)
         for row in receipt['files']:
-            source=(ROOT/row['path']).read_text()
+            source=before_avatar_fallback((ROOT/row['path']).read_text(),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             before=before_shell_metrics(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_shell_metrics(source+'\n',row['path']),source+'\n')
             self.assertEqual(before_shell_metrics(source,'unregistered.dart'),source)
+
+class AvatarFallbackReplayTest(unittest.TestCase):
+    def test_exact_fallback_delta_rejects_drift(self):
+        receipt=json.loads((ROOT/'scripts/shell-avatar-fallback-replay.json').read_text())
+        for row in receipt['files']:
+            source=(ROOT/row['path']).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            self.assertEqual(hashlib.sha256(before_avatar_fallback(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_avatar_fallback(source+'\n',row['path']),source+'\n')

@@ -40,6 +40,11 @@ void main(){
    final workspace=PortalWorkspaceScope.maybeOf(tester.element(find.byKey(const Key('app-shell'))))!;
    workspace.patch({'navigation':family=='1'?'left':'top','toolbar':family=='1'?'top':'belowNavigation','toolbarStyle':family=='1'?'sticky':'static','scroll':family=='3'?'content':'page','footer':'sticky'});
    await tester.pumpAndSettle();expect(tester.takeException(),isNull);
+   final avatar=find.descendant(of:find.byKey(const Key('topbar-user-menu')),matching:find.byType(CircleAvatar));
+   expect(avatar,findsOneWidget);
+   expect(tester.widget<CircleAvatar>(avatar).foregroundImage,isNotNull);
+   expect(tester.widget<CircleAvatar>(avatar).child,isNotNull);
+   expect(resourceErrors,isEmpty,reason:'The deliberate failed-image path must show the user fallback without an unhandled image error');
    Directory('test/screenshots/shell-captures').createSync(recursive:true);final id='layout$family-${view.$1}-$mode';
    Map<String,double>? box(String key){final f=find.byKey(Key(key));if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
    File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':box('app-topbar'),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'empty authorized-module set; synthetic local account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));

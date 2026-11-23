@@ -35,3 +35,11 @@ and records shell/content/toolbar/sidebar bounds. Its account/navigation state
 is not aligned with the reference. Avatar resource errors are retained, not
 silently turned into successful image or matching evidence. Task 7 remains
 partial and task 8 state alignment is open. Demo remains blocked.
+
+Continuation: original-shell host corrected to mount the original FuseLayout
+wrapper so its FuseLayoutSettingsContext is present. No vendor source changes.
+The user avatar now uses foreground-image layering over an existing shared
+user icon; failed image loads leave that icon visible. All 18 local shell
+captures and the host compilation test pass, with zero unhandled image errors.
+Eight exact migration-history tests pass. This closes the observed blank-avatar
+fixture path, not all avatar/asset or full-shell acceptance. New CI is pending.
