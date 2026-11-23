@@ -1,6 +1,7 @@
 import './styles/index.css';
 import {createRoot} from 'react-dom/client';
-import {useState} from 'react';
+import {useState,lazy,Suspense} from 'react';
+const ShellReference=lazy(()=>import('./cloud-shell-host'));
 import {BrowserRouter} from 'react-router';
 import _ from 'lodash';
 import {SnackbarProvider} from 'notistack';
@@ -19,6 +20,6 @@ if(new URLSearchParams(location.search).get('mode')==='dark')initial.theme={main
 function Reference(){
  const [data,setData]=useState(initial);
  const update=(change)=>{const next=_.merge({},data,change);setData(next);return next;};
- return <FuseSettingsContext value={{data,initial,defaults:data,setSettings:update}}><RootThemeProvider><MainThemeProvider><SnackbarProvider><SettingsPanel open onClose={()=>{}} settingsHandlers={{}}/></SnackbarProvider></MainThemeProvider></RootThemeProvider></FuseSettingsContext>;
+ return <FuseSettingsContext value={{data,initial,defaults:data,setSettings:update}}><RootThemeProvider><MainThemeProvider><SnackbarProvider>{new URLSearchParams(location.search).get('surface')==='shell'?<Suspense fallback={null}><ShellReference layout={layout}/></Suspense>:<SettingsPanel open onClose={()=>{}} settingsHandlers={{}}/>}</SnackbarProvider></MainThemeProvider></RootThemeProvider></FuseSettingsContext>;
 }
 createRoot(document.getElementById('app')!).render(<BrowserRouter><Reference/></BrowserRouter>);

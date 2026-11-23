@@ -77,3 +77,11 @@ jobs:
           name: primecare-theme-cloud-comparison
           path: packages/flutter_core/test/screenshots/captures
           retention-days: 14
+      - name: Capture original full-shell reference separately from settings
+        run: node tools/fuse-reference-cloud/shell-capture.mjs "$GITHUB_WORKSPACE/artifacts/fuse-shell-reference"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: original-fuse-full-shell-reference
+          path: artifacts/fuse-shell-reference
+          retention-days: 14

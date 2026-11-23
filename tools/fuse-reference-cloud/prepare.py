@@ -9,7 +9,7 @@ with zipfile.ZipFile(archive) as outer:
    dest=(target/item.filename).resolve()
    if not dest.is_relative_to(target):raise ValueError('Unsafe archive path')
   inner.extractall(target)
-for source,name in [('host.tsx','src/cloud-reference.tsx'),('user-fixture.ts','src/cloud-user-fixture.ts'),('vite-reference.mts','vite-reference.mts')]:
+for source,name in [('host.tsx','src/cloud-reference.tsx'),('shell-host.tsx','src/cloud-shell-host.tsx'),('user-fixture.ts','src/cloud-user-fixture.ts'),('vite-reference.mts','vite-reference.mts')]:
  (target/name).write_bytes((root/'tools/fuse-reference-cloud'/source).read_bytes())
 p=target/'index.html';p.write_text(p.read_text().replace('/src/index.tsx','/src/cloud-reference.tsx'))
 print('Extracted original Vite skeleton; only entry host and local user fixture are supplied. Original settings/style components unchanged.')
