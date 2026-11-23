@@ -6,7 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_sidebar_account_style_boundary(source,path):
+    return reverse_presentation_receipt(
+        source,path,'sidebar-account-style-boundary-replay.json'
+    )
+
 def before_sidebar_account_footer(source,path):
+    source=before_sidebar_account_style_boundary(source,path)
     return reverse_presentation_receipt(
         source,path,'sidebar-account-footer-replay.json'
     )
