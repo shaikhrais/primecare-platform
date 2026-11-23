@@ -192,6 +192,10 @@ void main(){
      await tester.pumpAndSettle();
      expect(find.widgetWithText(PopupMenuItem<String>, 'Tenant dashboard'), findsNothing);
      expect(tester.getSemantics(link).hasFlag(SemanticsFlag.isSelected), isTrue);
+     final selectedStyle = tester.widget<TextButton>(triggerFinder).style!;
+     final selectedColor = selectedStyle.backgroundColor?.resolve({});
+     expect(selectedColor, isNotNull);
+     final selectedBounds = tester.getRect(triggerFinder);
      final destination = router!.routeInformationProvider.value.uri.path;
      expect(destination, '/tenant-dashboard');
      // The registered router keeps its shell mounted when a child route changes.
@@ -210,6 +214,14 @@ void main(){
        'destination': destination,
        'directDestination': true,
        'shellLayoutPreserved': true,
+       'selected': true,
+       'selectedColorArgb': selectedColor!.toARGB32(),
+       'selectedBounds': {
+        'x': selectedBounds.left,
+        'y': selectedBounds.top,
+        'width': selectedBounds.width,
+        'height': selectedBounds.height,
+       },
       }),
      );
      await tester.tap(find.byTooltip('Change Language'));

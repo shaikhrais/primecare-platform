@@ -45,6 +45,26 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
   language: document.documentElement.lang || null,
   scroll: [window.scrollX, window.scrollY],
  }));
+ const appearance = async () => {
+  if (await entry.count() !== 1) return null;
+  return entry.evaluate(element => {
+   const style = getComputedStyle(element);
+   const { x, y, width, height } = element.getBoundingClientRect();
+   return {
+    box: { x, y, width, height },
+    current: element.getAttribute('aria-current'),
+    selectedClass: element.classList.contains('active'),
+    keyboardFocus: element.matches(':focus-visible'),
+    background: style.backgroundColor,
+    foreground: style.color,
+    outline: style.outlineStyle,
+    outlineColor: style.outlineColor,
+    outlineWidth: style.outlineWidth,
+    borderRadius: style.borderRadius,
+   };
+  });
+ };
+ const baseline = await appearance();
  const states = {};
  const screenshot = async state => {
   const filename = `fuse-shell-${id}-${state}.png`;
@@ -54,7 +74,7 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
 
  await entry.hover({timeout:3000});
  if (await entry.evaluate(element => element.matches(':hover'))) {
-  states.hover = {status:'captured',file:await screenshot('hover')};
+  states.hover = {status:'captured',appearance:await appearance(),file:await screenshot('hover')};
  } else {
   states.hover = {status:'unavailable',reason:'The navigation link did not enter hover state'};
  }
@@ -65,7 +85,7 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
  }
  if (await focused()) {
   const focusVisible = await entry.evaluate(element => element.matches(':focus-visible'));
-  states.focus = {status:'captured',focusVisible,file:await screenshot('focus')};
+  states.focus = {status:'captured',focusVisible,appearance:await appearance(),file:await screenshot('focus')};
   const before = page.url();
   try {
    await page.keyboard.press('Enter');
@@ -80,6 +100,7 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
     status:'captured',
     destination:new URL(page.url()).pathname,
     drawerClosed:sidebarCase === 'drawer' ? true : null,
+    appearance:await appearance(),
     file:await screenshot('activated'),
    };
   } catch (error) {
@@ -89,7 +110,7 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
  } else {
   states.focus = {status:'unavailable',reason:'The navigation link was not reached by Tab within 30 stops'};
  }
- return {status:'observed',entry:initial,states};
+ return {status:'observed',entry:initial,appearance:baseline,states};
 }
 
 try{
