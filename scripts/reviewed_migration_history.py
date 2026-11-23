@@ -6,7 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_menu_state_capture(source,path):
+    return reverse_presentation_receipt(
+        source,path,'account-menu-state-capture-replay.json'
+    )
+
 def before_sidebar_account_style_boundary(source,path):
+    source=before_account_menu_state_capture(source,path)
     return reverse_presentation_receipt(
         source,path,'sidebar-account-style-boundary-replay.json'
     )

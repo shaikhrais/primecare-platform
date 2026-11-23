@@ -254,6 +254,23 @@ void main() {
           }
 
           await capture('selected');
+          final accountTrigger = find.byKey(const Key('sidebar-user-menu'));
+          expect(accountTrigger, findsOneWidget);
+          expect(
+            find.descendant(of: sidebar, matching: accountTrigger),
+            findsOneWidget,
+            reason: 'Vertical account actions must stay inside the sidebar or drawer',
+          );
+          await tester.tap(accountTrigger);
+          await tester.pumpAndSettle();
+          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);
+          await expectLater(
+            find.byKey(const Key('sidebar-overlay-proof')),
+            matchesGoldenFile('sidebar-state-captures/$id-account-menu-open.png'),
+          );
+          await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+          await tester.pumpAndSettle();
+          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
           final selectedShape = tester.widget<ListTile>(item).shape
               as RoundedRectangleBorder;
           expect(selectedShape.side, BorderSide.none);
@@ -377,7 +394,8 @@ void main() {
               'keyboardActivation': true,
               'sloganVisible': state != 'folded',
               'boxes': boxes,
-              'states': ['selected', 'hover', 'focus', 'activated'],
+              'states': ['selected', 'account-menu-open', 'hover', 'focus', 'activated'],
+              'accountMenuAuthorized': true,
               'drawerClosedOnActivation': state == 'mobile' ? true : null,
               if (state == 'left' || state == 'right') 'toggleRestoredWidth': 312,
               'fixtureOnly': true,

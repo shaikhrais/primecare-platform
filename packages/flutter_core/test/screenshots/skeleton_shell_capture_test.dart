@@ -145,6 +145,14 @@ void main(){
    File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':barBox(false),'toolbarInner':box('app-topbar'),'footer':barBox(true),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'existing registered /tenant-dashboard route sample; fixture-only policy and synthetic account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));
    await expectLater(find.byKey(const Key('full-shell-proof')),matchesGoldenFile('shell-captures/primecare-shell-$id.png'));
    if (compareNavbar) {
+    final accountProof = find.byKey(const Key('shell-overlay-proof'));
+    await tester.tap(find.byKey(const Key('topbar-user-menu')));
+    await tester.pumpAndSettle();
+    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);
+    await expectLater(accountProof, matchesGoldenFile('shell-captures/primecare-shell-$id-account-menu-open.png'));
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await tester.pumpAndSettle();
+    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
     final moduleLabel = find.text('Tenant dashboard');
     final brand = find.text('PrimeCare').first;
     expect(find.text('PrimeCare'), findsOneWidget);

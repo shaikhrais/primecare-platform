@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "reason": "Capture and verify the complete authorized account-menu state for R01-R05, align the Fuse sign-out icon, and retain localized visible text in isolated screenshot harnesses.",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "0ee028c53b02171f80fe03eb7d69a89cd802552a551cb8967d651ef7be480f32",
+      "afterSha256": "5b8de77731604bc54b1ab805ec6c3e4789c82c6754dedce700a36bbac0c3c04c",
+      "edits": [
+        {
+          "begin": 2962,
+          "old": "",
+          "new": "\n  String _localizedResource(BuildContext context, String key, String fallback) {\n    if (EasyLocalization.of(context) == null) return fallback;\n    final value = context.tr(key);\n    return value == key ? fallback : value;\n  }\n"
+        },
+        {
+          "begin": 25613,
+          "old": "      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.logOut,size:18,color:theme.colorScheme.error),const SizedBox(width:12),PrimeText(tr('login_button'),style:theme.textTheme.bodyMedium?.copyWith(color:theme.colorScheme.error))])))),\n",
+          "new": "      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.squareArrowRightExit,size:18,color:theme.colorScheme.error),const SizedBox(width:12),PrimeText(_localizedResource(context,'workspace.sign_out','Sign out'),style:theme.textTheme.bodyMedium?.copyWith(color:theme.colorScheme.error))])))),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "f3699e7c5d4cf40705a50878b4d64105d87b21905a8f5f6731e22f80fabeca35",
+      "afterSha256": "2551d07dd3f39f0d8c3892d4fd42cca9284fdf37a5ecbfbd70f4642070564fdd",
+      "edits": [
+        {
+          "begin": 10708,
+          "old": "",
+          "new": "          final accountTrigger = find.byKey(const Key('sidebar-user-menu'));\n          expect(accountTrigger, findsOneWidget);\n          expect(\n            find.descendant(of: sidebar, matching: accountTrigger),\n            findsOneWidget,\n            reason: 'Vertical account actions must stay inside the sidebar or drawer',\n          );\n          await tester.tap(accountTrigger);\n          await tester.pumpAndSettle();\n          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);\n          await expectLater(\n            find.byKey(const Key('sidebar-overlay-proof')),\n            matchesGoldenFile('sidebar-state-captures/$id-account-menu-open.png'),\n          );\n          await tester.sendKeyEvent(LogicalKeyboardKey.escape);\n          await tester.pumpAndSettle();\n          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n"
+        },
+        {
+          "begin": 15682,
+          "old": "              'states': ['selected', 'hover', 'focus', 'activated'],\n",
+          "new": "              'states': ['selected', 'account-menu-open', 'hover', 'focus', 'activated'],\n              'accountMenuAuthorized': true,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "d55e8c6cb46fff9f569e2887db6120333eed25e65bb758944f0c12917aacab49",
+      "afterSha256": "2d1c3726d7a1586d87362f7e8c3f3b73c072e4d2d7e2448263e3b3679f85e8e5",
+      "edits": [
+        {
+          "begin": 9590,
+          "old": "",
+          "new": "    final accountProof = find.byKey(const Key('shell-overlay-proof'));\n    await tester.tap(find.byKey(const Key('topbar-user-menu')));\n    await tester.pumpAndSettle();\n    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);\n    await expectLater(accountProof, matchesGoldenFile('shell-captures/primecare-shell-$id-account-menu-open.png'));\n    await tester.sendKeyEvent(LogicalKeyboardKey.escape);\n    await tester.pumpAndSettle();\n    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n"
+        }
+      ]
+    },
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "9d1596948a5b544fd0aedc99f478d3be464bcc10ea484ee0e951b9d4664519ff",
+      "afterSha256": "52420dfc0b2bb724d13ea20b16bc564c1526cfe4510b988618903aab6b9c8a97",
+      "edits": [
+        {
+          "begin": 5427,
+          "old": "",
+          "new": "async function captureAccountMenu(page, id) {\n const trigger = page.locator('.user-menu:visible');\n const candidateCount = await trigger.count();\n if (candidateCount !== 1) {\n  return {status:'unavailable',reason:'Expected one visible Fuse user-menu trigger',candidateCount};\n }\n const triggerState = await trigger.evaluate(element => {\n  const {x,y,width,height}=element.getBoundingClientRect();\n  return {box:{x,y,width,height},label:element.textContent.trim()||null};\n });\n await trigger.click({timeout:5000});\n const popover = page.locator('.MuiPopover-root:visible');\n await popover.waitFor({timeout:5000});\n const menuState = await popover.evaluate(element => {\n  const {x,y,width,height}=element.getBoundingClientRect();\n  return {box:{x,y,width,height},text:element.textContent.trim()||null};\n });\n const file=`fuse-shell-${id}-account-menu-open.png`;\n await page.screenshot({path:resolve(output,file),fullPage:false});\n await page.keyboard.press('Escape');\n await popover.waitFor({state:'hidden',timeout:5000});\n return {status:'captured',trigger:triggerState,menu:menuState,file};\n}\n\n"
+        },
+        {
+          "begin": 8243,
+          "old": "",
+          "new": "   let accountMenu = null;\n   if (shared && (sidebarCase || (layout === 'layout2' && device === 'desktop'))) {\n    try {\n     accountMenu = await captureAccountMenu(page,id);\n    } catch (error) {\n     accountMenu = {status:'unavailable',reason:String(error)};\n    }\n   }\n"
+        },
+        {
+          "begin": 9437,
+          "old": "   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,interaction,errors,external,\n",
+          "new": "   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,accountMenu,interaction,errors,external,\n"
+        }
+      ]
+    }
+  ]
+}

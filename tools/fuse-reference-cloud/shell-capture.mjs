@@ -119,6 +119,30 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
  return {status:'observed',entry:initial,appearance:baseline,states};
 }
 
+async function captureAccountMenu(page, id) {
+ const trigger = page.locator('.user-menu:visible');
+ const candidateCount = await trigger.count();
+ if (candidateCount !== 1) {
+  return {status:'unavailable',reason:'Expected one visible Fuse user-menu trigger',candidateCount};
+ }
+ const triggerState = await trigger.evaluate(element => {
+  const {x,y,width,height}=element.getBoundingClientRect();
+  return {box:{x,y,width,height},label:element.textContent.trim()||null};
+ });
+ await trigger.click({timeout:5000});
+ const popover = page.locator('.MuiPopover-root:visible');
+ await popover.waitFor({timeout:5000});
+ const menuState = await popover.evaluate(element => {
+  const {x,y,width,height}=element.getBoundingClientRect();
+  return {box:{x,y,width,height},text:element.textContent.trim()||null};
+ });
+ const file=`fuse-shell-${id}-account-menu-open.png`;
+ await page.screenshot({path:resolve(output,file),fullPage:false});
+ await page.keyboard.press('Escape');
+ await popover.waitFor({state:'hidden',timeout:5000});
+ return {status:'captured',trigger:triggerState,menu:menuState,file};
+}
+
 try{
  for (const {layout,device,width,height,mode,sidebarCase,dataSet} of cases) {
   const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});const errors=[],external=[];
@@ -157,6 +181,14 @@ try{
     throw new Error('Right sidebar case did not place main content at the left edge');
    }
    await page.screenshot({path:resolve(output,`fuse-shell-${id}.png`),fullPage:false});
+   let accountMenu = null;
+   if (shared && (sidebarCase || (layout === 'layout2' && device === 'desktop'))) {
+    try {
+     accountMenu = await captureAccountMenu(page,id);
+    } catch (error) {
+     accountMenu = {status:'unavailable',reason:String(error)};
+    }
+   }
    let interaction = null;
    if (sidebarCase || (layout === 'layout2' && device === 'desktop')) {
     try {
@@ -178,7 +210,7 @@ try{
         interaction.states.activated.appearance.selectedClass !== true)) {
     throw new Error('The horizontal reference did not render the selected destination after activation');
    }
-   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,interaction,errors,external,
+   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,accountMenu,interaction,errors,external,
     dataSet:dataSet??'original-guest',fixtureSha256:shared?fixtureSha256:null,
     identity:shared?'same isolated role and presented navigation as native; no production session':'isolated guest reference; no production session',
     visualAcceptance:false});

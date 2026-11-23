@@ -349,3 +349,37 @@ This corrects a visible R01-R04 placement discrepancy but is not full-render
 acceptance. R01-R05 remain IN PROGRESS pending aligned reference/native account
 state, interaction review and complete side-by-side/overlay inspection. R06-R25
 remain NOT MATCHED and demo work remains blocked.
+
+## Authorized account-menu state capture
+
+R01–R04 now open the existing authorized account menu from the sidebar or
+mobile-drawer footer and retain the entire shell in the captured frame. R05
+opens the same account state from the horizontal toolbar. Each fixture verifies
+that the account trigger is on the expected surface, that `Switch role` is
+present, and that Escape closes the menu. The logout row uses the common Lucide
+`square-arrow-right` equivalent and the registered `workspace.sign_out`
+resource. Isolated test hosts fall back to the same English display text only
+when no localization scope exists; a resource key is never accepted as visible
+screenshot text.
+
+The licensed source review uses `UserMenu.tsx` SHA-256
+`97d42175449187df285f3a876e24fbc84c64ae91ff443bf44c0f234e91ca22af`.
+The reviewed native light-state capture hashes are:
+
+| Task | Complete account-menu frame SHA-256 |
+|---|---|
+| R01 | `a8e87dad91872c738315a4bb28c55d8df37b9233e0b479fdb12192e232d76de8` |
+| R02 | `3f82616542107775ad6bdbf70a55055e2d33164927756ee56022ce5a8ff408be` |
+| R03 | `7cec4cfb634a008b353f64ef8fbb227474b6008d6e98216a7ee506efdb297c92` |
+| R04 | `fb2f810561f9d149df5bcc8fb6f838aed00676b536c67b4e59b9fd50bd3896f1` |
+| R05 | `3338eee02a19c71a5f5eee3ed047908582c45f8dee9da7ca88913add17f5f354` |
+
+The original Fuse menu still exposes a different guest/authenticated content
+model from PrimeCare's authorized role menu. The new browser capture records
+the exact visible reference trigger, popover bounds, text and full frame so the
+next evidence build can show that mismatch rather than hide it. Twenty-eight
+native render cases, 21 exact replay checks and 40 shared-boundary checks pass.
+The licensed component audit still records 4,701 sources, 55 families and 1,187
+named examples. These are implementation and discovery checks, not visual
+acceptance. R01–R05 remain IN PROGRESS; R06–R25 remain NOT MATCHED and demo work
+remains blocked.

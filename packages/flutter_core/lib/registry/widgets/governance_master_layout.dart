@@ -55,6 +55,12 @@ class GovernanceMasterLayout extends ConsumerWidget {
     required this.child,
   });
 
+  String _localizedResource(BuildContext context, String key, String fallback) {
+    if (EasyLocalization.of(context) == null) return fallback;
+    final value = context.tr(key);
+    return value == key ? fallback : value;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navigation = <MapEntry<PlatformModule, List<PrimeCareScreen>>>[];
@@ -433,7 +439,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
       PopupMenuItem<String>(value:'switch-role',child:Row(children:[PrimeIcon(LucideIcons.users,size:18,color:iconColor),const SizedBox(width:12),const PrimeText('Switch role')])),
       if(['ceo','maintenance'].contains(account.role))const PopupMenuItem<String>(value:'maintenance',child:PrimeText('IT maintenance')),
       const PopupMenuDivider(),
-      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.logOut,size:18,color:theme.colorScheme.error),const SizedBox(width:12),PrimeText(tr('login_button'),style:theme.textTheme.bodyMedium?.copyWith(color:theme.colorScheme.error))])))),
+      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.squareArrowRightExit,size:18,color:theme.colorScheme.error),const SizedBox(width:12),PrimeText(_localizedResource(context,'workspace.sign_out','Sign out'),style:theme.textTheme.bodyMedium?.copyWith(color:theme.colorScheme.error))])))),
     ])));
   }
 
