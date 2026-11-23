@@ -9,5 +9,21 @@ const screens=(await db.query('SELECT id,screen_code,route_path,active FROM '+ta
 const controls=(await db.query('SELECT to_jsonb(c)-\'_primecare_import_row\' AS metadata FROM '+table('screen_components')+" c WHERE data_cy ILIKE ANY($1::text[]) ORDER BY screen_id,data_cy",[['%notification%','%quick%','%shortcut%','%fullscreen%','%scroll%','%favourite%','%favorite%']])).rows;
 const resources=(await db.query('SELECT to_jsonb(r)-\'_primecare_import_row\' AS metadata FROM '+table('language_resources')+" r WHERE resource_key ILIKE ANY($1::text[]) ORDER BY resource_key LIMIT 500",[['%notification%','%quick%','%shortcut%','%fullscreen%','%scroll%','%favorite%','%favourite%','%unread%','%mark_read%']])).rows;
 const components=(await db.query('SELECT to_jsonb(c)-\'_primecare_import_row\' AS metadata FROM '+table('primecare_ui_component_registry')+" c WHERE active=1 ORDER BY component_code")).rows;
-const report={format:1,sourceCommit:process.env.GITHUB_SHA,manifestSha256:pin.manifestSha256,writes:0,businessRowsRead:0,columns,endpoints,grants,screens,controls,resources,components};await db.query('ROLLBACK');await mkdir('test-results/shell-utilities',{recursive:true});await writeFile('test-results/shell-utilities/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('SHELL_UTILITIES_DISCOVERY '+JSON.stringify(report));
+const shellSources=[
+  'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart',
+  'packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart',
+  'packages/primecare_ui/web/shell-utilities.ts',
+];
+const utilityHostControls=(await db.query(
+  'SELECT screen_id,component_code,data_cy,file_path,implementation_status FROM '+table('screen_components')+
+  ' WHERE file_path=ANY($1::text[]) AND component_code LIKE $2 ORDER BY screen_id,component_code',
+  [shellSources,'shellUtilities.%'],
+)).rows;
+const hostIds=[...new Set(['2534',...utilityHostControls.map(control=>String(control.screen_id))])];
+const utilityHostLinks=(await db.query(
+  'SELECT screen_id,api_id FROM '+table('screen_api_links')+
+  ' WHERE screen_id::text=ANY($1::text[]) AND api_id::text=ANY($2::text[]) ORDER BY screen_id,api_id',
+  [hostIds,endpointIds],
+)).rows;
+const report={format:1,sourceCommit:process.env.GITHUB_SHA,manifestSha256:pin.manifestSha256,writes:0,businessRowsRead:0,columns,endpoints,grants,screens,controls,resources,components,utilityHostControls,utilityHostLinks};await db.query('ROLLBACK');await mkdir('test-results/shell-utilities',{recursive:true});await writeFile('test-results/shell-utilities/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('SHELL_UTILITIES_DISCOVERY '+JSON.stringify(report));
 }catch{console.error('Pinned shell utility metadata discovery failed; no mutations attempted.');process.exitCode=1;}finally{if(db)await db.end();}
