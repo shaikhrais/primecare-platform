@@ -71,7 +71,7 @@ jobs:
         working-directory: packages/flutter_core
       - run: flutter test test/theme_center_test.dart
         working-directory: packages/flutter_core
-      - run: flutter test test
+      - run: flutter test test --exclude-tags visual-capture
         working-directory: packages/flutter_core
       - run: python3 scripts/test_dashboard_generator.py
       - name: Verify conservative themed workspace migration

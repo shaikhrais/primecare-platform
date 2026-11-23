@@ -28,3 +28,22 @@ still absent from the active API contract. Original reference assets remain a
 private deliverable, with no vendor files added to public runtime source.
 
 This verification workflow performs no production deployment or database write.
+
+## Broad-suite follow-up
+
+Capture-only tests now carry the visual-capture tag. The broad native command
+excludes that tag; dedicated workflows still generate all captures explicitly.
+This does not approve unreviewed baselines or skip behavior tests. A command guard
+checks the separation.
+
+The presentation test now asserts all four success/warning colors from the
+selected reference preset, preserves the original standalone theme unchanged and
+still exercises readable contrast for each semantic tone. Its prior identity
+assertion contradicted the complete-palette application implemented by the
+source palette replay. No production theme behavior was changed.
+
+The color.disabled option is present in the shared editable-color contract but
+absent from all three generated option-label catalogues. Its failing completeness
+test is retained. The legacy registration script is not a production-compatible
+writer; do not run it against the pinned authority or hand-edit generated
+translations to claim this gap is resolved.

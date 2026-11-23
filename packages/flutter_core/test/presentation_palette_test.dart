@@ -6,6 +6,7 @@ import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
+import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'fixtures/presentation_palette_fixture.dart';
 
 void main() {
@@ -72,11 +73,20 @@ void main() {
    }
   }
  });
- testWidgets('custom status extension and neutral Material fallback remain readable', (tester) async {
+ testWidgets('selected preset replaces old status colors and Material fallback remains readable', (tester) async {
   const status=PrimeSemanticStatusColors(success:Colors.cyan,successContainer:Color(0xFF777777),warning:Colors.yellow,warningContainer:Colors.black);
   final original=ThemeData(extensions:const[status]);
   final personal=applyPersonalThemeData(original,PersonalTheme(name:'Custom',preset:themeCenterPresetNames.first));
-  expect(personal.extension<PrimeSemanticStatusColors>(),same(status));
+  // Applying a complete source preset must not keep success/warning colors from
+  // the previous host theme. Standalone Material hosts still retain their own
+  // extension and applyPersonalThemeData must not mutate that original theme.
+  expect(original.extension<PrimeSemanticStatusColors>(),same(status));
+  final selected=ThemeConfig.getAppPalette(themeCenterPresetNames.first);
+  final applied=personal.extension<PrimeSemanticStatusColors>()!;
+  expect(applied.success,selected.token('success.main'));
+  expect(applied.successContainer,selected.token('success.light'));
+  expect(applied.warning,selected.token('warning.main'));
+  expect(applied.warningContainer,selected.token('warning.light'));
   for(final theme in [original,personal,ThemeData.dark()]) {
    await tester.pumpWidget(MaterialApp(theme:theme,home:Builder(builder:(context){
     for(final tone in PrimeSemanticTone.values) {
