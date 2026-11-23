@@ -21,6 +21,7 @@ VALUES = {
     'color.border': ('Border', 'Bordure', 'Borde'),
     'color.sidebar': ('Sidebar', 'Barre latérale', 'Barra lateral'),
     'color.topbar': ('Top bar', 'Barre supérieure', 'Barra superior'),
+    'color.disabled': ('Disabled text', 'Texte désactivé', 'Texto deshabilitado'),
     'invalidColor': ('Use #RRGGBB colors.', 'Utilisez des couleurs #RRGGBB.', 'Use colores #RRGGBB.'),
     'copyName': ('{name} copy', '{name} copie', '{name} copia'),
 }
@@ -76,4 +77,4 @@ if __name__ == '__main__':
                 TARGET.write_text(content)
         finally:
             db.close()
-    print('Theme Center options: 15 keys validated in en/fr/es')
+    print(f'Theme Center options: {len(VALUES)} keys validated in en/fr/es')

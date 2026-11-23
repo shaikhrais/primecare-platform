@@ -3,10 +3,16 @@ import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show Prime
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton, PrimeTextButton;
 import '../../src/localization/live_screen_text.dart';import '../../theme/theme_center_text_generated.dart';
+import '../../theme/theme_center_options_generated.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import 'package:flutter/services.dart';import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../theme/personal_theme.dart';import '../../theme/theme_center_catalog_generated.dart';import '../../theme/theme_library_provider.dart';import '../../theme/theme_settings_provider.dart';
-String themeCenterText(BuildContext context,String key,{Map<String,String> args=const {}}) {final language=Localizations.localeOf(context).languageCode;return liveScreenText(context,'theme_center',language,key,themeCenterScreenCatalog[language]?[key]??themeCenterScreenCatalog['en']![key]!,args:args);}
+String themeCenterText(BuildContext context,String key,{Map<String,String> args=const {}}) {
+ final language=Localizations.localeOf(context).languageCode;
+ final fallback=themeCenterScreenCatalog[language]?[key]??themeCenterOptions[language]?[key]??themeCenterScreenCatalog['en']?[key]??themeCenterOptions['en']?[key];
+ if(fallback==null)throw ArgumentError.value(key,'key','Unknown Theme Center resource');
+ return liveScreenText(context,'theme_center',language,key,fallback,args:args);
+}
 class ThemeCenterPanel extends ConsumerWidget {
  const ThemeCenterPanel({super.key});
  Future<void> _run(BuildContext context,Future<void> Function() action) async {try{await action();}catch(_){if(context.mounted)ScaffoldMessenger.of(context).showSnackBar(PrimeSnackBar(content:PrimeText(themeCenterText(context,'unable_to_save_or_apply_use_a_unique_name_and_valid_settings'))));}}

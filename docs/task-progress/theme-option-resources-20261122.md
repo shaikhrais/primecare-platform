@@ -22,3 +22,20 @@ business data, application deployment or runtime activation changes. New labels
 remain reviewed=0 and approved=0. Readback exports a candidate for subsequent
 source adoption; it does not claim independent language review or full Fuse
 acceptance. The horizontal-navbar and full-dashboard gaps remain separate.
+
+## Registration receipt and source adoption
+
+Run 45090950277 at 800a7d4a passed all five native PostgreSQL boundary tests,
+committed 16 resource records / 48 translation records and independently read
+back exact parity. New labels have reviewed=0 and approved=0. The generated
+option catalogue is adopted byte-for-byte from that readback artifact. The
+isolated historical fixture generator now uses the same 16 names.
+
+The legacy Theme Center editor now uses the registered option catalogue as a
+fallback when its older screen-copy catalogue lacks a key, while preserving
+downloaded screen text overrides. Regression tests cover EN/FR/ES labels and
+opening the full existing editor, including its disabled-color field.
+
+This closes the missing source label after verification; it does not claim
+independent language review, app-wide adoption, navbar-style support or full
+Fuse dashboard acceptance. Application publishing remains separate.

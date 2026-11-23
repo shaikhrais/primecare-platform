@@ -2,7 +2,7 @@ name: Render original Fuse skeleton reference in cloud
 on:
   push:
     branches: [main]
-    paths: ['tools/fuse-reference-cloud/**', '.github/workflows/fuse-reference-cloud.yml', 'packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/test/theme_center_number_test.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'packages/flutter_core/test/presentation_palette_test.dart', 'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart', 'packages/primecare_ui_foundation/test/prime_settings_radio_test.dart']
+    paths: ['tools/fuse-reference-cloud/**', '.github/workflows/fuse-reference-cloud.yml', 'packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/test/theme_center_number_test.dart', 'packages/flutter_core/lib/theme/theme_center_options_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/test/theme_center_option_render_test.dart', 'packages/flutter_core/test/theme_center_options_test.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'packages/flutter_core/test/presentation_palette_test.dart', 'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart', 'packages/primecare_ui_foundation/test/prime_settings_radio_test.dart']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -64,7 +64,7 @@ jobs:
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: Verify validation recovery and saved Theme Center behavior
-        run: flutter test test/presentation_palette_test.dart test/theme_palette_parity_test.dart test/theme_center_number_test.dart test/theme_center_reference_test.dart test/theme_center_settings_file_test.dart test/theme_center_test.dart --reporter expanded
+        run: flutter test test/presentation_palette_test.dart test/theme_palette_parity_test.dart test/theme_center_options_test.dart test/theme_center_option_render_test.dart test/theme_center_number_test.dart test/theme_center_reference_test.dart test/theme_center_settings_file_test.dart test/theme_center_test.dart --reporter expanded
         working-directory: packages/flutter_core
       - name: Prepare all three native layout families
         run: python3 tools/fuse-reference-cloud/prepare_layout_capture.py packages/flutter_core/test/screenshots/generated_layout_capture_test.dart

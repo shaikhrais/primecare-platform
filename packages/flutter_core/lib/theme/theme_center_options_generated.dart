@@ -3,6 +3,7 @@ const themeCenterOptions = <String, Map<String, String>>{
   "en": {
     "color.background": "Background",
     "color.border": "Border",
+    "color.disabled": "Disabled text",
     "color.muted": "Muted text",
     "color.primary": "Primary color",
     "color.primaryContainer": "Primary container",
@@ -20,6 +21,7 @@ const themeCenterOptions = <String, Map<String, String>>{
   "fr": {
     "color.background": "Arrière-plan",
     "color.border": "Bordure",
+    "color.disabled": "Texte désactivé",
     "color.muted": "Texte atténué",
     "color.primary": "Couleur principale",
     "color.primaryContainer": "Conteneur principal",
@@ -37,6 +39,7 @@ const themeCenterOptions = <String, Map<String, String>>{
   "es": {
     "color.background": "Fondo",
     "color.border": "Borde",
+    "color.disabled": "Texto deshabilitado",
     "color.muted": "Texto atenuado",
     "color.primary": "Color principal",
     "color.primaryContainer": "Contenedor principal",
