@@ -2,7 +2,7 @@
 library;
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui' show PointerDeviceKind;
+import 'dart:ui' show PointerDeviceKind, SemanticsFlag;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -118,7 +118,12 @@ void main(){
     expect(tester.getCenter(moduleLabel).dx, greaterThan(view.$2 / 2));
     final semantics = tester.ensureSemantics();
     try {
-     expect(find.byTooltip('Tenant dashboard'), findsOneWidget);
+     final triggerFinder = find.ancestor(of: moduleLabel, matching: find.byType(TextButton));
+     expect(triggerFinder, findsOneWidget);
+     final link = find.ancestor(of: triggerFinder, matching: find.byWidgetPredicate(
+      (widget) => widget is Semantics && widget.properties.link == true,
+     ));
+     expect(tester.getSemantics(link).hasFlag(SemanticsFlag.isLink), isTrue);
      final proof = find.byKey(const Key('shell-overlay-proof'));
      final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
      await mouse.addPointer(location: const Offset(1, 1));
@@ -130,10 +135,7 @@ void main(){
      );
      await mouse.removePointer();
      await tester.pumpAndSettle();
-     final trigger = tester.element(find.ancestor(
-      of: moduleLabel,
-      matching: find.byWidgetPredicate((widget) => widget is PopupMenuButton<String>),
-     ));
+     final trigger = tester.element(triggerFinder);
      bool keyboardFocused() {
       var found = false;
       FocusManager.instance.primaryFocus?.context?.visitAncestorElements((element) {
@@ -154,23 +156,8 @@ void main(){
      );
      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
      await tester.pumpAndSettle();
-     final item = find.widgetWithText(PopupMenuItem<String>, 'Tenant dashboard');
-     expect(item, findsOneWidget);
-     expect(tester.widget<PopupMenuItem<String>>(item).value, '/tenant-dashboard');
-     await expectLater(
-      find.byKey(const Key('shell-overlay-proof')),
-      matchesGoldenFile('shell-captures/primecare-shell-$id-menu-open.png'),
-     );
-     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
-     await tester.pumpAndSettle();
-     expect(item, findsNothing);
-     expect(keyboardFocused(), isTrue, reason: 'Closing the navbar menu restores trigger focus');
-     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-     await tester.pumpAndSettle();
-     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
-     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-     await tester.pumpAndSettle();
-     expect(item, findsNothing);
+     expect(find.widgetWithText(PopupMenuItem<String>, 'Tenant dashboard'), findsNothing);
+     expect(tester.getSemantics(link).hasFlag(SemanticsFlag.isSelected), isTrue);
      final destination = router!.routeInformationProvider.value.uri.path;
      expect(destination, '/tenant-dashboard');
      // The registered router keeps its shell mounted when a child route changes.
@@ -187,7 +174,7 @@ void main(){
       jsonEncode({
        'keyboardActivation': true,
        'destination': destination,
-       'focusReturnedOnEscape': true,
+       'directDestination': true,
        'shellLayoutPreserved': true,
       }),
      );

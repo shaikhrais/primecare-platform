@@ -17,6 +17,7 @@ import '../../theme/theme_center_theme_data.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/theme_settings_provider.dart';
@@ -55,7 +56,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final modules = application.getAuthorizedModules(activeRole);
+    final navigation = <MapEntry<PlatformModule, List<PrimeCareScreen>>>[];
+    for (final module in application.getAuthorizedModules(activeRole)) {
+      final screens = module.screens.where(
+        (screen) => screen.requiredRole == null || screen.requiredRole == activeRole,
+      ).toList();
+      if (screens.isNotEmpty) navigation.add(MapEntry(module, screens));
+    }
     final tenant = application.tenant;
     final tier = ScreenBreakpoints.getTier(MediaQuery.of(context).size.width);
     final isHandheld = MediaQuery.sizeOf(context).width <= 1024;
@@ -146,26 +153,61 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         padding: PrimeShellMetrics.horizontalNavigationPadding,
-                        itemCount: modules.length,
+                        itemCount: navigation.length,
                         itemBuilder: (context, index) {
-                          final module = modules[index];
+                          final MapEntry(key: module, value: screens) = navigation[index];
+                          final screen = screens.length == 1 ? screens.single : null;
+                          final selected = screen != null &&
+                              GoRouter.maybeOf(context)?.routeInformationProvider.value.uri.path == screen.route;
+                          final selectedBackground = navbarTheme.colorScheme.primaryContainer;
+                          final labelColor = selected
+                              ? readableThemeForeground(selectedBackground, navbarTheme.colorScheme.onPrimaryContainer)
+                              : foreground;
                           return Padding(
                             padding: PrimeShellMetrics.horizontalNavigationItemPadding,
                             child: Center(
                               child: SizedBox(
                                 height: PrimeShellMetrics.sidebarRowHeight,
-                                child: PrimePopupMenuButton<String>(
+                                child: screen != null ? Semantics(
+                                  container: true,
+                                  link: true,
+                                  selected: selected,
+                                  child: PrimeTextButton(
+                                    style: PrimeTextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: PrimeShellMetrics.navigationItemRadius,
+                                      ),
+                                      backgroundColor: selected ? selectedBackground : null,
+                                    ).copyWith(
+                                      overlayColor: WidgetStateProperty.resolveWith((states) {
+                                        if (states.contains(WidgetState.focused)) {
+                                          return PrimeShellMetrics.navigationFocusInk(labelColor);
+                                        }
+                                        if (states.contains(WidgetState.hovered)) {
+                                          return PrimeShellMetrics.navigationHoverInk(labelColor);
+                                        }
+                                        return null;
+                                      }),
+                                    ),
+                                    onPressed: () => context.go(screen.route),
+                                    child: PrimePortalNavigationLabel(
+                                      icon: screen.icon ?? module.icon,
+                                      label: screen.title,
+                                      color: labelColor,
+                                      showExpand: false,
+                                    ),
+                                  ),
+                                ) : PrimePopupMenuButton<String>(
                                   borderRadius: PrimeShellMetrics.navigationItemRadius,
                                   tooltip: module.name,
                                   onSelected: (route) => context.go(route),
                                   itemBuilder: (context) => [
-                                    for (final screen in module.screens)
-                                      if (screen.requiredRole == null ||
-                                          screen.requiredRole == activeRole)
-                                        PopupMenuItem(
-                                          value: screen.route,
-                                          child: PrimeText(screen.title),
-                                        ),
+                                    for (final screen in screens)
+                                      PopupMenuItem(
+                                        value: screen.route,
+                                        child: PrimeText(screen.title),
+                                      ),
                                   ],
                                   child: PrimePortalNavigationLabel(
                                     icon: module.icon,
@@ -224,7 +266,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         context,
                         ref,
                         portalSectionTheme(theme, 'navbar'),
-                        modules,
+                        navigation,
                         tenant,
                         tier,
                         settings,
@@ -247,7 +289,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       ? Builder(builder: (context) => buildHorizontalNav(Theme.of(context)))
                       : _buildSidebar(
                           context, ref, portalSectionTheme(theme, 'navbar'),
-                          modules, tenant, tier, settings,
+                          navigation, tenant, tier, settings,
                           collapsed: workspace.current.navigationWidth ==
                               PrimeShellMetrics.foldedNavigationMarker,
                           onTrailingSide: workspace.current.navigation == 'right',
@@ -499,7 +541,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     ThemeData theme,
-    List<PlatformModule> modules,
+    List<MapEntry<PlatformModule, List<PrimeCareScreen>>> navigation,
     PlatformTenant tenant,
     ResolutionTier tier,
     ThemeSettingsState settings, {
@@ -508,13 +550,24 @@ class GovernanceMasterLayout extends ConsumerWidget {
     bool tabContent = false,
     bool onTrailingSide = false,
   }) {
-    if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && modules.isNotEmpty) {
+    const brandMark = PrimeOriginalAsset(
+      'brand-mark-concept',
+      width: PrimeShellMetrics.sidebarLogoExtent,
+      height: PrimeShellMetrics.sidebarLogoExtent,
+    );
+    if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && navigation.isNotEmpty) {
       String route='';try {route=GoRouterState.of(context).uri.path;} catch (_) {}
-      final selected=modules.indexWhere((module)=>module.screens.any((screen)=>screen.route==route));
-      return PrimeTabbedNavigation(initialIndex:selected<0?0:selected,tabs:[
-        for(final module in modules)PrimeNavigationTab(label:module.name,icon:module.icon,
-          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),
-          entries:[for(final screen in module.screens)if(screen.requiredRole==null||screen.requiredRole==activeRole)
+      final selected=navigation.indexWhere((group)=>group.value.any((screen)=>screen.route==route));
+      return PrimeTabbedNavigation(
+        initialIndex:selected<0?0:selected,
+        railHeader: const SizedBox(
+          height: PrimeShellMetrics.foldedHeaderExtent,
+          child: Center(child: brandMark),
+        ),
+        tabs:[
+        for(final group in navigation)PrimeNavigationTab(label:group.key.name,icon:group.key.icon,
+          content:_buildSidebar(context,ref,theme,[group],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),
+          entries:[for(final screen in group.value)
             PrimeNavigationEntry(screen.title,()=>context.go(screen.route))]),
       ]);
     }
@@ -567,7 +620,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     : PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),
               ),child:Padding(
               padding:PrimeShellMetrics.sidebarHeaderPadding(collapsed),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[
-                const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),
+                brandMark,
                 if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[
                   PrimeText(tenant.name,maxLines:1,overflow:TextOverflow.ellipsis,
                     style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:sidebarTextColor,brand:true)),
@@ -579,13 +632,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
             if (collapsed) const SizedBox(height: PrimeShellMetrics.foldedNavigationTopGap),
             Expanded(child:ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: modules.length,
+            itemCount: navigation.length,
             itemBuilder: (context, index) {
-              final module = modules[index];
+              final MapEntry(key: module, value: screens) = navigation[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if(modules.length>1)Padding(
+                  if(navigation.length>1)Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
@@ -615,11 +668,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  ...module.screens
-                      .where((screen) =>
-                          screen.requiredRole == null ||
-                          screen.requiredRole == activeRole)
-                      .map((screen) {
+                  ...screens.map((screen) {
 
                     String currentRoute = '';
                     try {

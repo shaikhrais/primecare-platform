@@ -190,3 +190,21 @@ registered router's shared shell, and verifies the same workspace and navbar
 position survive child-route activation in both themes. The blank child pages
 stay outside focus traversal so the check reaches the visible shell controls
 using Tab.
+
+## Direct navbar destination and folded tabbed rail
+
+The master shell uses the same authorized rows for expanded, folded, right,
+mobile and horizontal navigation. Groups with no visible destination are
+omitted. A horizontal group with one visible destination renders a named,
+keyboard-activatable direct link. Groups with multiple destinations keep their
+menus. The link shows its selected state after navigation.
+
+The folded tabbed style now shows the existing PrimeCare mark in the compact
+rail and exposes the tab name to assistive technology. The two-line header
+keeps its registered name and slogan hierarchy. The shared sidebar selected
+fill and label weight were adjusted in the rendered expanded, right and mobile
+cases. Existing saved layout formats, routes, metadata and grants are unchanged.
+
+The capture suite exercises slide and tabbed folded cases in both themes.
+The Fuse guest and PrimeCare tenant fixture still contain different menu data.
+R01–R05 remain IN PROGRESS. Demo work remains blocked.

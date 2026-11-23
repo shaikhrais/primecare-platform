@@ -140,7 +140,19 @@ class SidebarStatesReplayTest(unittest.TestCase):
     def test_exact_state_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/sidebar-states-replay.json').read_text())
         for row in receipt['files']:
-            source=(ROOT/row['path']).read_text()
+            from reviewed_migration_history import before_shared_navigation_render
+            source=before_shared_navigation_render((ROOT/row['path']).read_text(),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_sidebar_states(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_sidebar_states(source+'\n',row['path']),source+'\n')
+
+class SharedNavigationRenderReplayTest(unittest.TestCase):
+    def test_exact_navigation_delta_rejects_drift(self):
+        from reviewed_migration_history import before_shared_navigation_render
+        receipt=json.loads((ROOT/'scripts/shared-navigation-render-replay.json').read_text())
+        for row in receipt['files']:
+            source=(ROOT/row['path']).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            restored=before_shared_navigation_render(source,row['path'])
+            self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_shared_navigation_render(source+'\n',row['path']),source+'\n')

@@ -37,7 +37,7 @@ abstract final class PrimeShellMetrics {
     required Color foreground,
     required Brightness brightness,
   }) => Color.alphaBlend(
-    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),
+    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.05),
     background,
   );
 
@@ -88,7 +88,7 @@ abstract final class PrimeShellMetrics {
   static TextStyle? sidebarTextStyle(ThemeData theme,{required String family,required double scale,required Color color,bool brand=false,bool slogan=false,bool selected=false}) {
     final source=slogan?theme.textTheme.bodySmall:brand?theme.textTheme.titleSmall:theme.textTheme.bodyMedium;
     return source?.copyWith(fontFamily:family=='system'?PrimeThemeCenterStyle.fontFamily:family,fontSize:(slogan?sidebarSloganFontSize:brand?sidebarBrandFontSize:sidebarFontSize)*scale,height:1,
-      fontWeight:brand?FontWeight.w700:selected?FontWeight.w600:FontWeight.normal,color:color);
+      fontWeight:brand?FontWeight.w700:selected?FontWeight.w500:FontWeight.normal,color:color);
   }
   static double barHeight(double viewportWidth) => viewportWidth >= desktopBreakpoint ? 64 : 48;
   static double toolbarExtent(double width, {required bool horizontal}) => barHeight(width)+(horizontal?dividerExtent:0);

@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
+      "afterSha256": "b308997e781e5ea069ece5fa0032b39dbabf2eb8f780dee91af240191b39b9b7",
+      "edits": [
+        {
+          "begin": 1393,
+          "old": "",
+          "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+        },
+        {
+          "begin": 2859,
+          "old": "    final modules = application.getAuthorizedModules(activeRole);\n",
+          "new": "    final navigation = <MapEntry<PlatformModule, List<PrimeCareScreen>>>[];\n    for (final module in application.getAuthorizedModules(activeRole)) {\n      final screens = module.screens.where(\n        (screen) => screen.requiredRole == null || screen.requiredRole == activeRole,\n      ).toList();\n      if (screens.isNotEmpty) navigation.add(MapEntry(module, screens));\n    }\n"
+        },
+        {
+          "begin": 6998,
+          "old": "                        itemCount: modules.length,\n",
+          "new": "                        itemCount: navigation.length,\n"
+        },
+        {
+          "begin": 7105,
+          "old": "                          final module = modules[index];\n",
+          "new": "                          final MapEntry(key: module, value: screens) = navigation[index];\n                          final screen = screens.length == 1 ? screens.single : null;\n                          final selected = screen != null &&\n                              GoRouter.maybeOf(context)?.routeInformationProvider.value.uri.path == screen.route;\n                          final selectedBackground = navbarTheme.colorScheme.primaryContainer;\n                          final labelColor = selected\n                              ? readableThemeForeground(selectedBackground, navbarTheme.colorScheme.onPrimaryContainer)\n                              : foreground;\n"
+        },
+        {
+          "begin": 7458,
+          "old": "                                child: PrimePopupMenuButton<String>(\n",
+          "new": "                                child: screen != null ? Semantics(\n                                  container: true,\n                                  link: true,\n                                  selected: selected,\n                                  child: PrimeTextButton(\n                                    style: PrimeTextButton.styleFrom(\n                                      padding: EdgeInsets.zero,\n                                      shape: const RoundedRectangleBorder(\n                                        borderRadius: PrimeShellMetrics.navigationItemRadius,\n                                      ),\n                                      backgroundColor: selected ? selectedBackground : null,\n                                    ).copyWith(\n                                      overlayColor: WidgetStateProperty.resolveWith((states) {\n                                        if (states.contains(WidgetState.focused)) {\n                                          return PrimeShellMetrics.navigationFocusInk(labelColor);\n                                        }\n                                        if (states.contains(WidgetState.hovered)) {\n                                          return PrimeShellMetrics.navigationHoverInk(labelColor);\n                                        }\n                                        return null;\n                                      }),\n                                    ),\n                                    onPressed: () => context.go(screen.route),\n                                    child: PrimePortalNavigationLabel(\n                                      icon: screen.icon ?? module.icon,\n                                      label: screen.title,\n                                      color: labelColor,\n                                      showExpand: false,\n                                    ),\n                                  ),\n                                ) : PrimePopupMenuButton<String>(\n"
+        },
+        {
+          "begin": 7809,
+          "old": "                                    for (final screen in module.screens)\n                                      if (screen.requiredRole == null ||\n                                          screen.requiredRole == activeRole)\n                                        PopupMenuItem(\n                                          value: screen.route,\n                                          child: PrimeText(screen.title),\n                                        ),\n",
+          "new": "                                    for (final screen in screens)\n                                      PopupMenuItem(\n                                        value: screen.route,\n                                        child: PrimeText(screen.title),\n                                      ),\n"
+        },
+        {
+          "begin": 10555,
+          "old": "                        modules,\n",
+          "new": "                        navigation,\n"
+        },
+        {
+          "begin": 12126,
+          "old": "                          modules, tenant, tier, settings,\n",
+          "new": "                          navigation, tenant, tier, settings,\n"
+        },
+        {
+          "begin": 26404,
+          "old": "    List<PlatformModule> modules,\n",
+          "new": "    List<MapEntry<PlatformModule, List<PrimeCareScreen>>> navigation,\n"
+        },
+        {
+          "begin": 26649,
+          "old": "    if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && modules.isNotEmpty) {\n",
+          "new": "    const brandMark = PrimeOriginalAsset(\n      'brand-mark-concept',\n      width: PrimeShellMetrics.sidebarLogoExtent,\n      height: PrimeShellMetrics.sidebarLogoExtent,\n    );\n    if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && navigation.isNotEmpty) {\n"
+        },
+        {
+          "begin": 26829,
+          "old": "      final selected=modules.indexWhere((module)=>module.screens.any((screen)=>screen.route==route));\n      return PrimeTabbedNavigation(initialIndex:selected<0?0:selected,tabs:[\n        for(final module in modules)PrimeNavigationTab(label:module.name,icon:module.icon,\n          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),\n          entries:[for(final screen in module.screens)if(screen.requiredRole==null||screen.requiredRole==activeRole)\n",
+          "new": "      final selected=navigation.indexWhere((group)=>group.value.any((screen)=>screen.route==route));\n      return PrimeTabbedNavigation(\n        initialIndex:selected<0?0:selected,\n        railHeader: const SizedBox(\n          height: PrimeShellMetrics.foldedHeaderExtent,\n          child: Center(child: brandMark),\n        ),\n        tabs:[\n        for(final group in navigation)PrimeNavigationTab(label:group.key.name,icon:group.key.icon,\n          content:_buildSidebar(context,ref,theme,[group],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),\n          entries:[for(final screen in group.value)\n"
+        },
+        {
+          "begin": 29978,
+          "old": "                const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),\n",
+          "new": "                brandMark,\n"
+        },
+        {
+          "begin": 31145,
+          "old": "            itemCount: modules.length,\n",
+          "new": "            itemCount: navigation.length,\n"
+        },
+        {
+          "begin": 31228,
+          "old": "              final module = modules[index];\n",
+          "new": "              final MapEntry(key: module, value: screens) = navigation[index];\n"
+        },
+        {
+          "begin": 31392,
+          "old": "                  if(modules.length>1)Padding(\n",
+          "new": "                  if(navigation.length>1)Padding(\n"
+        },
+        {
+          "begin": 32732,
+          "old": "                  ...module.screens\n                      .where((screen) =>\n                          screen.requiredRole == null ||\n                          screen.requiredRole == activeRole)\n                      .map((screen) {\n",
+          "new": "                  ...screens.map((screen) {\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
+      "beforeSha256": "2037d762ddf2dc7c202eafe9eb5ebb5620fb390899d6f6482e7ee8f56059a8a4",
+      "afterSha256": "578e0795978cc2f6aa2c1c1d791dc5bd634bd8c4355c2d19d50d311af47a3396",
+      "edits": [
+        {
+          "begin": 11502,
+          "old": "  const PrimePortalNavigationLabel({super.key, required this.icon, required this.label, required this.color});\n",
+          "new": "  final bool showExpand;\n  const PrimePortalNavigationLabel({super.key, required this.icon, required this.label, required this.color, this.showExpand = true});\n"
+        },
+        {
+          "begin": 11957,
+          "old": "      const SizedBox(width: 4), PrimeIcon(Icons.expand_more, size: 16, color: color),\n",
+          "new": "      if (showExpand) ...[\n        const SizedBox(width: 4),\n        PrimeIcon(Icons.expand_more, size: 16, color: color),\n      ],\n"
+        },
+        {
+          "begin": 13352,
+          "old": "  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0});\n",
+          "new": "  final Widget? railHeader;\n  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0,this.railHeader});\n"
+        },
+        {
+          "begin": 14189,
+          "old": "        for(var i=0;i<widget.tabs.length;i++)Semantics(selected:i==selected,child:Container(\n",
+          "new": "        if (folded && widget.railHeader != null) widget.railHeader!,\n        for(var i=0;i<widget.tabs.length;i++)Semantics(\n          container: folded,\n          label: folded ? widget.tabs[i].label : null,\n          selected:i==selected,child:Container(\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
+      "afterSha256": "3eb00aeaee33346f8bc56a27b579d38f846db830020502e3f75006baabf1f290",
+      "edits": [
+        {
+          "begin": 1570,
+          "old": "    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),\n",
+          "new": "    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.05),\n"
+        },
+        {
+          "begin": 3859,
+          "old": "      fontWeight:brand?FontWeight.w700:selected?FontWeight.w600:FontWeight.normal,color:color);\n",
+          "new": "      fontWeight:brand?FontWeight.w700:selected?FontWeight.w500:FontWeight.normal,color:color);\n"
+        }
+      ]
+    }
+  ]
+}

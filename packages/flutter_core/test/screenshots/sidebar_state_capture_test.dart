@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/auth_service.dart';
+import 'package:flutter_core/original_assets.dart';
 import 'package:flutter_core/providers/persistence_providers.dart';
 import 'package:flutter_core/registry/platform_role.dart';
 import 'package:flutter_core/registry/widgets/governance_master_layout.dart';
@@ -24,7 +25,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(loadFonts);
   for (final mode in ['light', 'dark'])
-    for (final state in ['left', 'folded', 'right', 'mobile']) {
+    for (final state in ['left', 'folded', 'right', 'mobile', 'folded-tabbed']) {
       testWidgets('populated sidebar $state $mode selected hover focus', (
         tester,
       ) async {
@@ -50,6 +51,10 @@ void main() {
           await c
               .read(themeSettingsProvider.notifier)
               .updatePreset(mode == 'dark' ? 'defaultDark' : 'default');
+          final tabbed = state == 'folded-tabbed';
+          if (tabbed) {
+            await c.read(themeSettingsProvider.notifier).updateNavigationStyle('tabbed');
+          }
           await c
               .read(themeSettingsProvider.notifier)
               .updateSectionTheme(
@@ -95,9 +100,12 @@ void main() {
           await tester.pumpWidget(
             UncontrolledProviderScope(
               container: c,
-              child: MaterialApp.router(
-                routerConfig: router,
-                debugShowCheckedModeBanner: false,
+              child: RepaintBoundary(
+                key: const Key('sidebar-overlay-proof'),
+                child: MaterialApp.router(
+                  routerConfig: router,
+                  debugShowCheckedModeBanner: false,
+                ),
               ),
             ),
           );
@@ -107,10 +115,61 @@ void main() {
           )!;
           workspace.patch({
             'navigation': state == 'right' ? 'right' : 'left',
-            'navigationWidth': state == 'folded' ? 64 : 280,
+            'navigationWidth': state == 'folded' || tabbed ? 64 : 280,
             'footer': 'sticky',
           });
           await tester.pumpAndSettle();
+          if (tabbed) {
+            final rail = find.byType(PrimeTabbedNavigation);
+            expect(tester.getSize(rail).width, 48);
+            expect(workspace.current.navigationWidth, 64);
+            expect(
+              find.descendant(of: rail, matching: find.byType(PrimeOriginalAsset)),
+              findsOneWidget,
+            );
+            final trigger = find.descendant(
+              of: rail, matching: find.byWidgetPredicate((w) => w is PopupMenuButton<int>),
+            );
+            final semantics = find.ancestor(
+              of: trigger,
+              matching: find.byWidgetPredicate(
+                (w) => w is Semantics && w.properties.label == 'Tenant dashboard',
+              ),
+            );
+            expect(tester.getSemantics(semantics).label, contains('Tenant dashboard'));
+            final proof = find.byKey(const Key('sidebar-overlay-proof'));
+            Future<void> captureTabbed(String phase) => expectLater(
+              proof, matchesGoldenFile('sidebar-state-captures/folded-tabbed-$mode-$phase.png'),
+            );
+            await captureTabbed('baseline');
+            final triggerElement = tester.element(trigger);
+            bool focused() {
+              var found = false;
+              FocusManager.instance.primaryFocus?.context?.visitAncestorElements((element) {
+                found = element == triggerElement;
+                return !found;
+              });
+              return found;
+            }
+            for (var i = 0; i < 20 && !focused(); i++) {
+              await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+              await tester.pump();
+            }
+            expect(focused(), isTrue);
+            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+            await tester.pumpAndSettle();
+            final item = find.widgetWithText(PopupMenuItem<int>, 'Tenant dashboard');
+            expect(item, findsOneWidget);
+            await captureTabbed('menu-open');
+            final before = navigationAttempts;
+            await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
+            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+            await tester.pumpAndSettle();
+            expect(navigationAttempts, greaterThan(before));
+            expect(item, findsNothing);
+            await captureTabbed('activated');
+            return;
+          }
           if (state == 'mobile') {
             final trigger = find.byType(DrawerButton);
             expect(trigger, findsOneWidget);

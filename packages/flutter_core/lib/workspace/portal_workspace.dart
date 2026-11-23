@@ -200,13 +200,17 @@ class PrimePortalNavigationLabel extends StatelessWidget {
   final IconData icon;
   final String label;
   final Color color;
-  const PrimePortalNavigationLabel({super.key, required this.icon, required this.label, required this.color});
+  final bool showExpand;
+  const PrimePortalNavigationLabel({super.key, required this.icon, required this.label, required this.color, this.showExpand = true});
   @override Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 12),
     child: Row(mainAxisSize: MainAxisSize.min, children: [
       PrimeIcon(icon, size: 16, color: color), const SizedBox(width: 8),
       PrimeText(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color)),
-      const SizedBox(width: 4), PrimeIcon(Icons.expand_more, size: 16, color: color),
+      if (showExpand) ...[
+        const SizedBox(width: 4),
+        PrimeIcon(Icons.expand_more, size: 16, color: color),
+      ],
     ]));
 }
 
@@ -231,7 +235,8 @@ class PrimeNavigationTab {
 /// The host supplies only authorized navigation destinations and content.
 class PrimeTabbedNavigation extends StatefulWidget {
   final List<PrimeNavigationTab> tabs;final int initialIndex;
-  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0});
+  final Widget? railHeader;
+  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0,this.railHeader});
   @override State<PrimeTabbedNavigation> createState()=>_PrimeTabbedNavigationState();
 }
 class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
@@ -243,7 +248,11 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
   @override Widget build(BuildContext context){if(widget.tabs.isEmpty)return const SizedBox.shrink();
     return LayoutBuilder(builder:(context,limits){final folded=limits.maxWidth<=96;
       return Row(children:[Container(width:folded?limits.maxWidth:48,color:Theme.of(context).colorScheme.surfaceContainerLow,child:ListView(children:[
-        for(var i=0;i<widget.tabs.length;i++)Semantics(selected:i==selected,child:Container(
+        if (folded && widget.railHeader != null) widget.railHeader!,
+        for(var i=0;i<widget.tabs.length;i++)Semantics(
+          container: folded,
+          label: folded ? widget.tabs[i].label : null,
+          selected:i==selected,child:Container(
           color:i==selected?Theme.of(context).colorScheme.primaryContainer:null,
           child:folded?PrimePopupMenuButton<int>(tooltip:widget.tabs[i].label,icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant),
             itemBuilder:(context)=>[for(var j=0;j<widget.tabs[i].entries.length;j++)PopupMenuItem(value:j,child:PrimeText(widget.tabs[i].entries[j].label))],
