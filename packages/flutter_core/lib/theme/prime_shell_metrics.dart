@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'prime_theme_center_style.dart';
 
@@ -125,10 +127,23 @@ abstract final class PrimeShellMetrics {
     required bool compact,
     required bool mobile,
     required bool trailing,
+    double? leadingDrawerViewportWidth,
   }) {
     if (!sidebar) return const Offset(-3, 0);
     if (trailing) return const Offset(-4, 0);
-    if (mobile) return const Offset(234, 0);
+    if (mobile) {
+      const preferredOffset = 234.0;
+      const referenceEdgeInset = 16.0;
+      final viewport = leadingDrawerViewportWidth;
+      if (viewport == null) return const Offset(preferredOffset, 0);
+      final triggerRight = math.min(mobileDrawerWidth, viewport) -
+          sidebarAccountMargin.right -
+          dividerExtent;
+      // Flutter aligns the popup to the shifted trigger's right edge on
+      // narrow screens. Keep that edge inside the reference's 16px gutter.
+      final edgeOffset = viewport - referenceEdgeInset - triggerRight;
+      return Offset(math.min(preferredOffset, edgeOffset), 0);
+    }
     if (compact) return const Offset(40, 0);
     return const Offset(255, 0);
   }

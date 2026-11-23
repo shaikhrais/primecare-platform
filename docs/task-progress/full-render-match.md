@@ -407,12 +407,13 @@ The following origins are asserted from the complete 1440x1000 desktop and
 | R01 | `12,932 255x56` | `12,932 255x56` | `267,932 128x31.5` | `267,932 128x32` | IN PROGRESS |
 | R02 | `4,952 40x40` | `4,952 40x40` | `44,952 128x31.5` | `44,952 128x32` | IN PROGRESS |
 | R03 | `1173,932 255x56` | `1173,932 255x56` | `1296,932 128x31.5` | `1296,932 128x32` | IN PROGRESS |
-| R04 | `12,776 256x56` | `12,776 255x56` | `246,776 128x48` | `254,776 128x48` | IN PROGRESS |
+| R04 | `12,776 256x56` | `12,776 255x56` | `246,776 128x48` | `246,776 128x48` | IN PROGRESS |
 | R05 | `1113.484,78 134.516x36` | `1108.08,78 139.92x36` | `1117,114 128x31.5` | `1117,114 128x32` | IN PROGRESS |
 
-R04 remains visibly different because the native drawer divider consumes one
-pixel of trigger width and Flutter's popup route preserves an 8px screen-edge
-clamp. The source paper ends 16px from the right edge. The native test capture's
+R04 now uses the source panel's 16px right inset in the reviewed light and dark
+390×844 cases. The shared metrics calculate a bounded launcher offset and retain
+Flutter's menu route. The native drawer divider still consumes one pixel of
+trigger width. The native test capture's
 elevation shadow is also disabled because the deterministic golden renderer
 paints the SDK shadow as a solid black outline rather than the source's subtle
 MUI shadow; runtime shadow equivalence remains open. These differences are

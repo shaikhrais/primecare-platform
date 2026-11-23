@@ -441,6 +441,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     bool sidebar = false,
     bool mobile = false,
     bool trailing = false,
+    double? leadingDrawerViewportWidth,
   }) {
     final semanticsId = sidebar ? 'sidebar-user-menu' : 'topbar-user-menu',
         logoutId = sidebar ? 'sidebar-logout-button' : 'topbar-logout-button',
@@ -538,6 +539,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
         compact: compact,
         mobile: mobile,
         trailing: trailing,
+        leadingDrawerViewportWidth: leadingDrawerViewportWidth,
       ),
       menuPadding: PrimeShellMetrics.accountMenuPadding,
       constraints: PrimeShellMetrics.accountMenuConstraints,
@@ -816,7 +818,18 @@ class GovernanceMasterLayout extends ConsumerWidget {
               );
             },
           )),
-          _buildAccountMenu(context,ref,theme,textColor:sidebarTextColor,iconColor:sidebarIconColor,compact:collapsed,sidebar:true,mobile:isDrawer,trailing:onTrailingSide),
+          _buildAccountMenu(
+            context, ref, theme,
+            textColor: sidebarTextColor,
+            iconColor: sidebarIconColor,
+            compact: collapsed,
+            sidebar: true,
+            mobile: isDrawer,
+            trailing: onTrailingSide,
+            leadingDrawerViewportWidth: isDrawer && settings.direction == TextDirection.ltr
+                ? MediaQuery.sizeOf(context).width
+                : null,
+          ),
           ])),
         ),
       ),

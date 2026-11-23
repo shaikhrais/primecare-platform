@@ -347,9 +347,7 @@ void main() {
             'left' => const Offset(267, 932),
             'folded' => const Offset(44, 952),
             'right' => const Offset(1296, 932),
-            // Flutter's PopupMenuRoute preserves its 8 px safe screen edge.
-            // Fuse is at x=246, so R04 remains IN PROGRESS at x=254.
-            'mobile' => const Offset(254, 776),
+            'mobile' => const Offset(246, 776),
             _ => throw StateError('Unhandled account menu state: $state'),
           };
           expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);

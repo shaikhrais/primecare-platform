@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "baseCommit": "7ffde3f737c85b511fe089c7b9d76169a3491c47",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "82c4259b7646cec6299be852f800988ec92ecc28bf0bfa388c0f4aa9d489cb0a",
+      "afterSha256": "262f6063ec164c09115ba236ebb4a1d76b15d68855113c13de0e96f5cfd843de",
+      "edits": [
+        {
+          "begin": 23108,
+          "old": "",
+          "new": "    double? leadingDrawerViewportWidth,\n"
+        },
+        {
+          "begin": 26822,
+          "old": "",
+          "new": "        leadingDrawerViewportWidth: leadingDrawerViewportWidth,\n"
+        },
+        {
+          "begin": 39766,
+          "old": "          _buildAccountMenu(context,ref,theme,textColor:sidebarTextColor,iconColor:sidebarIconColor,compact:collapsed,sidebar:true,mobile:isDrawer,trailing:onTrailingSide),\n",
+          "new": "          _buildAccountMenu(\n            context, ref, theme,\n            textColor: sidebarTextColor,\n            iconColor: sidebarIconColor,\n            compact: collapsed,\n            sidebar: true,\n            mobile: isDrawer,\n            trailing: onTrailingSide,\n            leadingDrawerViewportWidth: isDrawer && settings.direction == TextDirection.ltr\n                ? MediaQuery.sizeOf(context).width\n                : null,\n          ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "cf2297e96f160706b081188e7e0eda2fd53b241a34a007dd7aa04bbc6bddbd28",
+      "afterSha256": "c9a00f2f42657f16e55261f910ac51c250a569b36648fa3313be6f3026cd1b3b",
+      "edits": [
+        {
+          "begin": 0,
+          "old": "",
+          "new": "import 'dart:math' as math;\n\n"
+        },
+        {
+          "begin": 5235,
+          "old": "",
+          "new": "    double? leadingDrawerViewportWidth,\n"
+        },
+        {
+          "begin": 5334,
+          "old": "    if (mobile) return const Offset(234, 0);\n",
+          "new": "    if (mobile) {\n      const preferredOffset = 234.0;\n      const referenceEdgeInset = 16.0;\n      final viewport = leadingDrawerViewportWidth;\n      if (viewport == null) return const Offset(preferredOffset, 0);\n      final triggerRight = math.min(mobileDrawerWidth, viewport) -\n          sidebarAccountMargin.right -\n          dividerExtent;\n      // Flutter aligns the popup to the shifted trigger's right edge on\n      // narrow screens. Keep that edge inside the reference's 16px gutter.\n      final edgeOffset = viewport - referenceEdgeInset - triggerRight;\n      return Offset(math.min(preferredOffset, edgeOffset), 0);\n    }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "0156dc3334418951e0b59617937ce58c2a77501a6904c2288c545715dbee05a1",
+      "afterSha256": "68f0b30278df23ca7f16f0fcc7a86e9c9e946c5a19b89f113463f6fbbfcf220a",
+      "edits": [
+        {
+          "begin": 13507,
+          "old": "            // Flutter's PopupMenuRoute preserves its 8 px safe screen edge.\n            // Fuse is at x=246, so R04 remains IN PROGRESS at x=254.\n            'mobile' => const Offset(254, 776),\n",
+          "new": "            'mobile' => const Offset(246, 776),\n"
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_mobile_account_edge(source,path):
+    return reverse_presentation_receipt(source,path,'mobile-account-edge-replay.json')
+
 def before_account_menu_boundary_repair(source,path):
+    source=before_mobile_account_edge(source,path)
     return reverse_presentation_receipt(
         source,path,'account-menu-boundary-repair-replay.json'
     )
