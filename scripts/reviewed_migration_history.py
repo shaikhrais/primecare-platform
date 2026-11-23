@@ -6,7 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_navigation_theme_boundary(source,path):
+    return reverse_presentation_receipt(
+        source,path,'navigation-theme-boundary-replay.json'
+    )
+
 def before_full_render_navigation_focus(source,path):
+    source=before_navigation_theme_boundary(source,path)
     return reverse_presentation_receipt(
         source,path,'full-render-navigation-focus-replay.json'
     )

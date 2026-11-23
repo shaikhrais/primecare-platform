@@ -6,14 +6,25 @@ import sys
 import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics, before_avatar_fallback, before_shell_border_frame, before_sidebar_default, before_sidebar_render, before_sidebar_slogan, before_sidebar_states, before_full_render_navigation_focus
+from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics, before_avatar_fallback, before_shell_border_frame, before_sidebar_default, before_sidebar_render, before_sidebar_slogan, before_sidebar_states, before_full_render_navigation_focus, before_navigation_theme_boundary
+
+class NavigationThemeBoundaryReplayTest(unittest.TestCase):
+    def test_exact_theme_boundary_delta_rejects_drift(self):
+        receipt=json.loads((ROOT/'scripts/navigation-theme-boundary-replay.json').read_text())
+        self.assertEqual(len(receipt['files']),2)
+        for row in receipt['files']:
+            source=(ROOT/row['path']).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            restored=before_navigation_theme_boundary(source,row['path'])
+            self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_navigation_theme_boundary(source+'\\n',row['path']),source+'\\n')
 
 class FullRenderNavigationFocusReplayTest(unittest.TestCase):
     def test_exact_full_render_navigation_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/full-render-navigation-focus-replay.json').read_text())
         self.assertEqual(len(receipt['files']),5)
         for row in receipt['files']:
-            source=(ROOT/row['path']).read_text()
+            source=before_navigation_theme_boundary((ROOT/row['path']).read_text(),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_full_render_navigation_focus(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
