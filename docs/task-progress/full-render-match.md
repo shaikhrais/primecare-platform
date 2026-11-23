@@ -355,8 +355,8 @@ remain NOT MATCHED and demo work remains blocked.
 R01–R04 now open the existing authorized account menu from the sidebar or
 mobile-drawer footer and retain the entire shell in the captured frame. R05
 opens the same account state from the horizontal toolbar. Each fixture verifies
-that the account trigger is on the expected surface, that `Switch role` is
-present, and that Escape closes the menu. The logout row uses the common Lucide
+that the account trigger is on the expected surface, that the registered
+`Sign out` action is visible, and that Escape closes the menu. The logout row uses the common Lucide
 `square-arrow-right` equivalent and the registered `workspace.sign_out`
 resource. Isolated test hosts fall back to the same English display text only
 when no localization scope exists; a resource key is never accepted as visible
@@ -368,17 +368,23 @@ The reviewed native light-state capture hashes are:
 
 | Task | Complete account-menu frame SHA-256 |
 |---|---|
-| R01 | `a8e87dad91872c738315a4bb28c55d8df37b9233e0b479fdb12192e232d76de8` |
-| R02 | `3f82616542107775ad6bdbf70a55055e2d33164927756ee56022ce5a8ff408be` |
-| R03 | `7cec4cfb634a008b353f64ef8fbb227474b6008d6e98216a7ee506efdb297c92` |
-| R04 | `fb2f810561f9d149df5bcc8fb6f838aed00676b536c67b4e59b9fd50bd3896f1` |
-| R05 | `3338eee02a19c71a5f5eee3ed047908582c45f8dee9da7ca88913add17f5f354` |
+| R01 | `8c0bffb77d280071cae865f75a16dd79d69e76d8ce0e27564780f24ab0f9f101` |
+| R02 | `acc0d8fffbff47ae37195812fa8712dc299876d79e881cb6b7ccf70b4d39cdd5` |
+| R03 | `12529929d4d6e0a6ff236b5ce123f36deab3ed2ac18361fa1e45f3f78fe62494` |
+| R04 | `bc2bc7d755e3734208e4a3138f3e1c5eeb20771da9a8e3c851aa21b9d9375039` |
+| R05 | `f58720ff94f357e1c04aefa61cf621e530df8f27a9e071a9bd224b1be75bcd04` |
 
-The original Fuse menu still exposes a different guest/authenticated content
-model from PrimeCare's authorized role menu. The new browser capture records
-the exact visible reference trigger, popover bounds, text and full frame so the
-next evidence build can show that mismatch rather than hide it. Twenty-eight
-native render cases, 21 exact replay checks and 40 shared-boundary checks pass.
+The authenticated fixture now follows the source menu's single 128px-minimum
+`Sign out` row, four-pixel corner, common `square-arrow-right` icon and neutral
+foreground. The former registry-wide `Switch role` action was removed from the
+shell because the layout receives no user-authorized role grant list. Removing
+that ungranted action preserves the existing tenant boundary; a cross-role UI
+must remain absent until it has an approved authorization source. Maintenance
+remains restricted to its existing CEO/maintenance role condition.
+
+The browser capture now records the actual visible popover paper rather than
+the full-screen modal root, plus the trigger, text and full frame. Twenty-eight
+native render cases, 22 exact replay checks and 40 shared-boundary checks pass.
 The licensed component audit still records 4,701 sources, 55 families and 1,187
 named examples. These are implementation and discovery checks, not visual
 acceptance. R01–R05 remain IN PROGRESS; R06–R25 remain NOT MATCHED and demo work

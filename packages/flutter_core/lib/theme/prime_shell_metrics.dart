@@ -50,11 +50,14 @@ abstract final class PrimeShellMetrics {
   static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 8);
   static const toolbarAccountPadding = EdgeInsets.fromLTRB(6, 4, 10, 4);
   static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));
-  static const accountMenuRadius = BorderRadius.all(Radius.circular(12));
+  static const accountMenuRadius = BorderRadius.all(Radius.circular(4));
+  static const accountMenuConstraints = BoxConstraints(minWidth: 128, maxWidth: 280);
   static const toolbarAccountAvatarRadius = 16.0;
   static Color accountAvatarBackground(ThemeData theme) => theme.colorScheme.primary.withValues(alpha:0.1);
-  static Color accountDialogBarrier(ThemeData theme) => theme.colorScheme.scrim.withValues(alpha:0.5);
-  static ShapeBorder accountMenuShape(ThemeData theme) => RoundedRectangleBorder(borderRadius:accountMenuRadius,side:BorderSide(color:theme.dividerColor));
+  static ShapeBorder accountMenuShape(ThemeData theme) => RoundedRectangleBorder(
+    borderRadius: accountMenuRadius,
+    side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.12)),
+  );
   static BoxDecoration toolbarAccountDecoration(ThemeData theme) => BoxDecoration(
     border: Border.all(color: theme.dividerColor),
     borderRadius: toolbarAccountRadius,
@@ -73,7 +76,6 @@ abstract final class PrimeShellMetrics {
     color: foreground,
     fontWeight: FontWeight.w600,
   );
-  static TextStyle? accountIdentityTextStyle(ThemeData theme) => theme.textTheme.bodyMedium?.copyWith(fontWeight:FontWeight.bold);
   static const sidebarAccountGap = 12.0;
   static EdgeInsets sidebarAccountPadding(bool compact) => compact ? const EdgeInsets.symmetric(vertical:16) : const EdgeInsets.fromLTRB(16,16,12,16);
   static BoxDecoration sidebarAccountDecoration(ThemeData theme) => BoxDecoration(border:Border(top:BorderSide(color:theme.dividerColor.withValues(alpha:0.12))));

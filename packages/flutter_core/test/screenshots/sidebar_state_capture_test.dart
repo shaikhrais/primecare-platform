@@ -263,14 +263,15 @@ void main() {
           );
           await tester.tap(accountTrigger);
           await tester.pumpAndSettle();
-          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);
+          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
+          expect(find.text('Sign out'), findsOneWidget);
           await expectLater(
             find.byKey(const Key('sidebar-overlay-proof')),
             matchesGoldenFile('sidebar-state-captures/$id-account-menu-open.png'),
           );
           await tester.sendKeyEvent(LogicalKeyboardKey.escape);
           await tester.pumpAndSettle();
-          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
+          expect(find.text('Sign out'), findsNothing);
           final selectedShape = tester.widget<ListTile>(item).shape
               as RoundedRectangleBorder;
           expect(selectedShape.side, BorderSide.none);

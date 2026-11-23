@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "reason": "Match the authenticated Fuse account popover without exposing a registry-wide role switch that has no user-authorized role grant list; retain the registered sign-out behavior and measure the actual Fuse popover paper.",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "5b8de77731604bc54b1ab805ec6c3e4789c82c6754dedce700a36bbac0c3c04c",
+      "afterSha256": "37ac2f38edad411b3447e554bfab0dae25245246ab352e7c3f8721067492aab6",
+      "edits": [
+        {
+          "begin": 24557,
+          "old": "    return Semantics(label:'data-cy:$semanticsId',container:true,child:KeyedSubtree(key:Key(semanticsId),child:PrimePopupMenuButton<String>(offset:sidebar?Offset.zero:const Offset(0,48),shape:PrimeShellMetrics.accountMenuShape(theme),tooltip:'User Functions',child:trigger,onSelected:(value){if(value=='switch-role')showDialog<void>(context:context,barrierColor:PrimeShellMetrics.accountDialogBarrier(theme),builder:(context)=>_RoleSwitcherDialog(activeRole:activeRole,ref:ref));if(value=='maintenance')context.go('/maintenance/configuration');if(value=='logout')ref.read(authProvider.notifier).logout();},itemBuilder:(context)=><PopupMenuEntry<String>>[\n      PopupMenuItem<String>(enabled:false,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[PrimeText(account.userName??'System User',style:PrimeShellMetrics.accountIdentityTextStyle(theme)),PrimeText(account.role??'Guest',style:theme.textTheme.labelSmall)])),\n      PopupMenuItem<String>(value:'switch-role',child:Row(children:[PrimeIcon(LucideIcons.users,size:18,color:iconColor),const SizedBox(width:12),const PrimeText('Switch role')])),\n",
+          "new": "    return Semantics(label:'data-cy:$semanticsId',container:true,child:KeyedSubtree(key:Key(semanticsId),child:PrimePopupMenuButton<String>(offset:sidebar?Offset.zero:const Offset(0,48),constraints:PrimeShellMetrics.accountMenuConstraints,shape:PrimeShellMetrics.accountMenuShape(theme),tooltip:'User Functions',child:trigger,onSelected:(value){if(value=='maintenance')context.go('/maintenance/configuration');if(value=='logout')ref.read(authProvider.notifier).logout();},itemBuilder:(context)=><PopupMenuEntry<String>>[\n      // A cross-role action requires an explicit user-authorized role list.\n      // This shell only receives the active role, so it must not invent grants.\n"
+        },
+        {
+          "begin": 25809,
+          "old": "      const PopupMenuDivider(),\n      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.squareArrowRightExit,size:18,color:theme.colorScheme.error),const SizedBox(width:12),PrimeText(_localizedResource(context,'workspace.sign_out','Sign out'),style:theme.textTheme.bodyMedium?.copyWith(color:theme.colorScheme.error))])))),\n",
+          "new": "      PopupMenuItem<String>(value:'logout',child:Semantics(label:'data-cy:$logoutId',container:false,child:KeyedSubtree(key:Key(logoutId),child:Row(children:[PrimeIcon(LucideIcons.squareArrowRightExit,size:18,color:iconColor),const SizedBox(width:12),PrimeText(_localizedResource(context,'workspace.sign_out','Sign out'),style:theme.textTheme.bodyMedium?.copyWith(color:textColor))])))),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "7a9aed5044c9e7820f437739f7a88e675e51521207f3b623703dff9f527891d9",
+      "afterSha256": "99369d4f21159a2c4d5d5bd65734d877776ec20c30a93f3040de8b06d52cf213",
+      "edits": [
+        {
+          "begin": 2605,
+          "old": "  static const accountMenuRadius = BorderRadius.all(Radius.circular(12));\n",
+          "new": "  static const accountMenuRadius = BorderRadius.all(Radius.circular(4));\n  static const accountMenuConstraints = BoxConstraints(minWidth: 128, maxWidth: 280);\n"
+        },
+        {
+          "begin": 2837,
+          "old": "  static Color accountDialogBarrier(ThemeData theme) => theme.colorScheme.scrim.withValues(alpha:0.5);\n  static ShapeBorder accountMenuShape(ThemeData theme) => RoundedRectangleBorder(borderRadius:accountMenuRadius,side:BorderSide(color:theme.dividerColor));\n",
+          "new": "  static ShapeBorder accountMenuShape(ThemeData theme) => RoundedRectangleBorder(\n    borderRadius: accountMenuRadius,\n    side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.12)),\n  );\n"
+        },
+        {
+          "begin": 3674,
+          "old": "  static TextStyle? accountIdentityTextStyle(ThemeData theme) => theme.textTheme.bodyMedium?.copyWith(fontWeight:FontWeight.bold);\n",
+          "new": ""
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "2551d07dd3f39f0d8c3892d4fd42cca9284fdf37a5ecbfbd70f4642070564fdd",
+      "afterSha256": "f8d149e08dad92c256e5e7e191f0e4a9d1315f731253b754cd58f587a12fb3de",
+      "edits": [
+        {"begin": 11133, "old": "          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);\n", "new": "          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n          expect(find.text('Sign out'), findsOneWidget);\n"},
+        {"begin": 11515, "old": "          expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n", "new": "          expect(find.text('Sign out'), findsNothing);\n"}
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "2d1c3726d7a1586d87362f7e8c3f3b73c072e4d2d7e2448263e3b3679f85e8e5",
+      "afterSha256": "428c8357ea3d666cb59a03033317e41cdf2cd85a2cfc40fca06caf09b2897cd8",
+      "edits": [
+        {"begin": 9760, "old": "    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);\n", "new": "    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n    expect(find.text('Sign out'), findsOneWidget);\n"},
+        {"begin": 10055, "old": "    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n", "new": "    expect(find.text('Sign out'), findsNothing);\n"}
+      ]
+    },
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "52420dfc0b2bb724d13ea20b16bc564c1526cfe4510b988618903aab6b9c8a97",
+      "afterSha256": "4ebf028574df22e03d43b3f0ca3e8f631ae23d557b3c3482beac06321e7de35f",
+      "edits": [
+        {"begin": 6040, "old": " const menuState = await popover.evaluate(element => {\n", "new": " const paper = page.locator('.MuiPopover-paper:visible');\n await paper.waitFor({timeout:5000});\n const menuState = await paper.evaluate(element => {\n"}
+      ]
+    }
+  ]
+}

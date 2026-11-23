@@ -148,11 +148,12 @@ void main(){
     final accountProof = find.byKey(const Key('shell-overlay-proof'));
     await tester.tap(find.byKey(const Key('topbar-user-menu')));
     await tester.pumpAndSettle();
-    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsOneWidget);
+    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
+    expect(find.text('Sign out'), findsOneWidget);
     await expectLater(accountProof, matchesGoldenFile('shell-captures/primecare-shell-$id-account-menu-open.png'));
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
     await tester.pumpAndSettle();
-    expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);
+    expect(find.text('Sign out'), findsNothing);
     final moduleLabel = find.text('Tenant dashboard');
     final brand = find.text('PrimeCare').first;
     expect(find.text('PrimeCare'), findsOneWidget);

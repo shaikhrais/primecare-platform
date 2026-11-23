@@ -132,7 +132,9 @@ async function captureAccountMenu(page, id) {
  await trigger.click({timeout:5000});
  const popover = page.locator('.MuiPopover-root:visible');
  await popover.waitFor({timeout:5000});
- const menuState = await popover.evaluate(element => {
+ const paper = page.locator('.MuiPopover-paper:visible');
+ await paper.waitFor({timeout:5000});
+ const menuState = await paper.evaluate(element => {
   const {x,y,width,height}=element.getBoundingClientRect();
   return {box:{x,y,width,height},text:element.textContent.trim()||null};
  });
