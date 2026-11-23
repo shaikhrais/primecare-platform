@@ -13,6 +13,12 @@ void main(){
   await tester.pumpAndSettle();
   expect(c.favourites.current['status'],'loading');
   expect(find.text('Notice'),findsOneWidget);
+  await tester.tap(control('close'));
+  await tester.pumpAndSettle();
+  await tester.tap(control('open'));
+  await tester.pumpAndSettle();
+  expect(find.text('Notice'),findsOneWidget);
+  expect(find.text(labels('error')),findsNothing);
   ready.complete();
   await tester.pumpAndSettle();
   expect(c.favourites.current['status'],'clean');

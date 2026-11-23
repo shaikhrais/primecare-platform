@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "beforeSha256": "be46e6c4dcf21b42a865b4297bca0f7f62dae6531bcdde5fe98325c4123c23d9",
+      "afterSha256": "d8992db7ee3e7c2615ebedfdca3a5cad6334f60c1a7b8fcb8e14b04b1ac7395b",
+      "edits": [
+        {
+          "begin": 4120,
+          "old": " @override void initState(){super.initState();widget.controller.addListener(_changed);Future<void>.microtask(()async{await widget.controller.favourites.load();if(mounted)await _select(selected);});}\n",
+          "new": " @override void initState(){\n  super.initState();\n  widget.controller.addListener(_changed);\n  Future<void>.microtask(() async {\n   if(!mounted)return;\n   final favourites=widget.controller.favourites;\n   await Future.wait([\n    _select(selected),\n    if(favourites.current['status']!='loading')_run(favourites.load),\n   ]);\n  });\n }\n"
+        },
+        {
+          "begin": 4629,
+          "old": " Future<void> _select(String key)async{if(!mounted)return;setState(()=>selected=key);if(key!='favourites')await _run(()=>widget.controller.load(key));}\n",
+          "new": " Future<void> _select(String key) async {\n  if(!mounted)return;\n  setState(()=>selected=key);\n  if(key!='favourites'&&widget.controller.current[key]?.busy==false){\n   await _run(()=>widget.controller.load(key));\n  }\n }\n"
+        }
+      ]
+    }
+  ]
+}

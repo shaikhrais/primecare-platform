@@ -50,8 +50,13 @@ test('Quick Panel renders its own resource while reading favourites and ignores 
   assert.equal(reads,1);
   await f.view.open();
   assert.equal(reads,1);
+  dialog.close=()=>{dialog.open=false;};
+  f.view.close();
+  const reopening=f.view.open();
+  await flush();
+  assert.equal(reads,1);
   ready({version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null});
-  await opening;
+  await Promise.all([opening,reopening]);
   assert.equal(f.c.favourites.current.status,'clean');
  }finally{ready();await f.view.dispose();}
 });

@@ -39,13 +39,23 @@ class _UtilityPanelState extends State<_UtilityPanel> {
   widget.controller.addListener(_changed);
   Future<void>.microtask(() async {
    if(!mounted)return;
-   await Future.wait([_select(selected),_run(widget.controller.favourites.load)]);
+   final favourites=widget.controller.favourites;
+   await Future.wait([
+    _select(selected),
+    if(favourites.current['status']!='loading')_run(favourites.load),
+   ]);
   });
  }
  void _changed(){if(mounted)setState((){});}
  @override void dispose(){widget.controller.removeListener(_changed);scroll.dispose();super.dispose();}
  Future<void> _run(Future<void> Function() action)async{try{if(mounted)setState(()=>error=false);await action();}catch(_){if(mounted)setState(()=>error=true);}}
- Future<void> _select(String key)async{if(!mounted)return;setState(()=>selected=key);if(key!='favourites')await _run(()=>widget.controller.load(key));}
+ Future<void> _select(String key) async {
+  if(!mounted)return;
+  setState(()=>selected=key);
+  if(key!='favourites'&&widget.controller.current[key]?.busy==false){
+   await _run(()=>widget.controller.load(key));
+  }
+ }
  Widget button(String key,VoidCallback? action,{String? label,String suffix='',bool? pressed})=>Semantics(identifier:widget.labels.ids[key]!+suffix,label:label??widget.labels(key),toggled:pressed,child:PrimeTextButton(style:pressed==true?PrimeTextButton.styleFrom(backgroundColor:Theme.of(context).colorScheme.primary,foregroundColor:Theme.of(context).colorScheme.onPrimary):null,onPressed:action,child:PrimeText(label??widget.labels(key))));
  String _preferenceStatus(Map<String,dynamic> f){final status=f['status'];return status=='clean'?'saved':['loading','saving'].contains(status)?'loading':['dirty','offline','conflict','error'].contains(status)?status as String:'empty';}
  bool? _fullscreen(){try{return widget.fullscreenPort?.read();}catch(_){return null;}}

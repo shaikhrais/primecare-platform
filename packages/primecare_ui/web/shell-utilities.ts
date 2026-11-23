@@ -7,6 +7,7 @@ export * from '../../shared/src/shell-utilities/controller';
 export function shellUtilityRegistration(locale:'en'|'fr'|'es'){if(!['en','fr','es'].includes(locale))throw Error('unsupported_shell_locale');if(catalog.kind!=='verified_metadata_export'||!catalog.source.jobId||catalog.controls.some(c=>!c.controlId))throw Error('unverified_shell_utility_metadata');return {labels:catalog.locales[locale],ids:Object.fromEntries(catalog.controls.map(c=>[c.key,c.testId]))};}
 export class ShellUtilitiesView extends ThemeControlBase {
  private bodyAbort=new AbortController();
+ private preferenceLoad?:Promise<void>;
  private dialog:HTMLDialogElement;private opener:HTMLButtonElement;private tabs=new Map<string,HTMLButtonElement>();private body:HTMLElement;private status:HTMLElement;private search:HTMLInputElement;private selected:string='notifications';private off:()=>void=()=>{};private error=false;private env!:ShellEnvironment;
  private labels:Record<string,string>;private ids:Record<string,string>;
  constructor(root:HTMLElement,private shellRoot:HTMLElement,readonly controller:ShellUtilitiesController,private locale:'en'|'fr'|'es',direction:'ltr'|'rtl'){
@@ -31,7 +32,8 @@ export class ShellUtilitiesView extends ThemeControlBase {
   if(this.dead||this.dialog.open)return;
   this.dialog.showModal();
   this.tabs.get(this.selected)!.focus();
-  await Promise.all([this.select(this.selected),this.controller.preference('load')]);
+  this.preferenceLoad??=this.controller.preference('load').finally(()=>{this.preferenceLoad=undefined;});
+  await Promise.all([this.select(this.selected),this.preferenceLoad]);
  }
  close(){if(this.dead)return;this.dialog.close();if(this.opener.isConnected)this.opener.focus();}
  private async select(key:string){if(this.dead)return;this.selected=key;this.render();if(key!=='favourites'&&!this.controller.current[key as UtilityKind].busy)await this.controller.load(key as UtilityKind);}
