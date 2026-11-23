@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "d2d1ce377a1e6798344347340aef09f828f4edee",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "cf44865b459e94350d89affc08788ad82143637e5ff28387783d81fbf2653c44",
+      "afterSha256": "5a65d2a75f427e62156d8d5d8d012cf2704518b10f491f1c123cbb052ddb2cc3",
+      "edits": [
+        {
+          "begin": 5943,
+          "old": "",
+          "new": "      defaultNavigationWidth: PrimeShellMetrics.expandedNavigationWidth,\n"
+        }
+      ]
+    }
+  ]
+}

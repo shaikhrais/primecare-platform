@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 abstract final class PrimeShellMetrics {
   static const desktopBreakpoint = 960.0;
   static const horizontalNavbarHeight = 64.0;
+  static const expandedNavigationWidth = 280;
   static const dividerExtent = 1.0;
   static double barHeight(double viewportWidth) => viewportWidth >= desktopBreakpoint ? 64 : 48;
   static double toolbarExtent(double width, {required bool horizontal}) => barHeight(width)+(horizontal?dividerExtent:0);

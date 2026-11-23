@@ -10,6 +10,7 @@ import 'personal_theme.dart';
 import 'navbar_style_text_generated.dart';
 import 'prime_palette_editor.dart';
 import 'prime_theme_center_style.dart';
+import 'prime_shell_metrics.dart';
 import 'theme_center_catalog_generated.dart';
 import 'theme_center_complete_panel.dart';
 import 'theme_center_settings_file.dart';
@@ -53,7 +54,7 @@ class PrimeThemeCenter extends ConsumerWidget {
       _run(context,()async{
         await notifier.updateLayoutStyle(value=='1'?LayoutStyle.verticalLeft:LayoutStyle.horizontal);
         if(!context.mounted||themeAccountScope(ref.read(authProvider))!=owner)return;
-        patch({'navigation':value=='1'?'left':'top','navigationWidth':248,'container':'content','maxWidth':1120,
+        patch({'navigation':value=='1'?'left':'top','navigationWidth':PrimeShellMetrics.expandedNavigationWidth,'container':'content','maxWidth':1120,
           'toolbar':value=='1'?'top':'belowNavigation','toolbarStyle':value=='1'?'sticky':'static','footer':'sticky','scroll':value=='3'?'content':'page'});
       });
     }
@@ -90,7 +91,7 @@ class PrimeThemeCenter extends ConsumerWidget {
                   if(context.mounted&&themeAccountScope(ref.read(authProvider))==owner)await notifier.updateLayoutStyle(v=='right'?LayoutStyle.verticalRight:LayoutStyle.verticalLeft);
                 })),
                 choices('Style',settings.navigationStyle,{'slide':'Slide','tabbed':'Tabbed'},(v)=>_run(context,()=>notifier.updateNavigationStyle(v))),
-                toggle('Tabbed Folded (default)',p.navigationWidth==64,(v)=>patch({'navigationWidth':v?64:248}),last:true),
+                toggle('Tabbed Folded (default)',p.navigationWidth==64,(v)=>patch({'navigationWidth':v?64:c?.expandedNavigationWidth??PrimeShellMetrics.expandedNavigationWidth}),last:true),
               ],
             ]),
             PrimeSettingsGroup(label:'Toolbar',children:[

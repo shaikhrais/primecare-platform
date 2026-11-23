@@ -13,9 +13,10 @@ class PortalWorkspace extends StatefulWidget {
   final WorkspaceScope scope;
   final WorkspacePreferences? preferences;
   final String legacyLayoutStyle;
+  final int? defaultNavigationWidth;
   final Widget Function(BuildContext, WorkspaceController) builder;
   const PortalWorkspace({super.key, required this.scope, this.preferences,
-    required this.legacyLayoutStyle, required this.builder});
+    required this.legacyLayoutStyle, required this.builder, this.defaultNavigationWidth});
   @override State<PortalWorkspace> createState() => _PortalWorkspaceState();
 }
 class _PortalWorkspaceState extends State<PortalWorkspace> {
@@ -26,7 +27,7 @@ class _PortalWorkspaceState extends State<PortalWorkspace> {
   }
   void _createController() {
     controller = WorkspaceController(scope: widget.scope, panelIds: const [],
-      preferences: widget.preferences, legacyLayoutStyle: widget.legacyLayoutStyle);
+      preferences: widget.preferences, legacyLayoutStyle: widget.legacyLayoutStyle, defaultNavigationWidth: widget.defaultNavigationWidth);
     if (widget.preferences != null) _restore();
   }
   @override void didUpdateWidget(PortalWorkspace oldWidget) {
@@ -105,7 +106,7 @@ class PortalLayoutEditor extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       const PrimeText('WORKSPACE LAYOUT'),
       Wrap(spacing: 8, children: [
-        PrimeTextButton(onPressed: () => c.patch({'navigation':'left','navigationWidth':248,
+        PrimeTextButton(onPressed: () => c.patch({'navigation':'left','navigationWidth':c.expandedNavigationWidth,
           'container':'content','maxWidth':1120,'toolbar':'top','toolbarStyle':'sticky','footer':'sticky','scroll':'page'}),
           child: const PrimeText('Vertical')),
         PrimeTextButton(onPressed: () => c.patch({'navigation':'top','container':'content','maxWidth':1120,
@@ -123,7 +124,7 @@ class PortalLayoutEditor extends StatelessWidget {
       choice('Scrolling', 'scroll', layout.scroll, ['page','content']),
       PrimeSwitchListTile(title: const PrimeText('Fold navigation to icons'),
         value: layout.navigationWidth == 64,
-        onChanged: (v) => c.patch({'navigationWidth': v ? 64 : 248})),
+        onChanged: (v) => c.patch({'navigationWidth': v ? 64 : c.expandedNavigationWidth})),
       PrimeText('Navigation width · ${layout.navigationWidth}px'),
       PrimeSlider(value: layout.navigationWidth.clamp(160, 400).toDouble(), min: 160, max: 400, divisions: 24,
         onChanged: layout.navigationWidth == 64 ? null : (v) => c.patch({'navigationWidth': v.round()})),

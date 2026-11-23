@@ -21,14 +21,16 @@ class WorkspaceController extends ChangeNotifier {
   final WorkspacePreferences? preferences;
   final WorkspaceLayout defaults;
   late WorkspaceLayout _current;
+  late int _expandedNavigationWidth;
   final List<WorkspaceLayout> _undo = [], _redo = [];
   WorkspaceLayout? _gesture;
   bool _disposed = false;
   int _revision = 0;
   WorkspaceController({required this.scope, required Iterable<String> panelIds, this.preferences,
-      WorkspaceLayout? initial, String? legacyLayoutStyle})
-      : defaults = _initial(panelIds, initial, legacyLayoutStyle) { _current = defaults; }
+      WorkspaceLayout? initial, String? legacyLayoutStyle, int? defaultNavigationWidth})
+      : defaults = _initial(panelIds, initial, legacyLayoutStyle, defaultNavigationWidth) { _current = defaults; _expandedNavigationWidth = defaults.navigationWidth == 64 ? defaultNavigationWidth ?? WorkspaceLayout.defaults(panelIds).navigationWidth : defaults.navigationWidth; }
   WorkspaceLayout get current => _current;
+  int get expandedNavigationWidth => current.navigationWidth == 64 ? _expandedNavigationWidth : current.navigationWidth;
   bool get canUndo => _undo.isNotEmpty;
   bool get canRedo => _redo.isNotEmpty;
   bool get inGesture => _gesture != null;
@@ -39,6 +41,7 @@ class WorkspaceController extends ChangeNotifier {
   void change(WorkspaceLayout next) {
     _idle(); final checked = WorkspaceLayout.fromJson(next.toJson(), defaults.panels.keys);
     if (checked.exportJson() == _current.exportJson()) return;
+    if (_current.navigationWidth != 64) _expandedNavigationWidth = _current.navigationWidth;
     _remember(_current); _current = checked; _emit();
   }
   void patch(Map<String, Object?> changes) => change(current.patch(changes));
@@ -77,9 +80,10 @@ class WorkspaceController extends ChangeNotifier {
   @override void dispose() {if (_disposed) return; _disposed = true; _gesture = null; super.dispose();}
 }
 
-WorkspaceLayout _initial(Iterable<String> ids, WorkspaceLayout? initial, String? legacy) {
+WorkspaceLayout _initial(Iterable<String> ids, WorkspaceLayout? initial, String? legacy, int? width) {
   if (initial != null) return WorkspaceLayout.fromJson(initial.toJson(), ids);
-  final defaults = WorkspaceLayout.defaults(ids);
+  final base = WorkspaceLayout.defaults(ids);
+  final defaults = width == null ? base : base.patch({'navigationWidth':width});
   // Copy only presentation from the current actor's already-loaded native settings.
   // Never read or migrate the historical role-only pref_layout_* namespace.
   return switch (legacy) {

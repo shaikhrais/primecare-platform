@@ -54,3 +54,18 @@ native toolbar and footer outer heights equal the recorded reference heights.
 Twenty-four geometry/render/compile checks and nine exact history checks passed
 locally. This is dimensional proof only: sidebar width, contents/account state,
 actions/colors/typography and full-screen visual acceptance remain open.
+
+Sidebar continuation: the native governance host opts into a 280px expanded
+navigation default. Generic Dart/TypeScript workspace v1 defaults remain 248px;
+no persisted file/schema or namespace changes. The optional host default is
+applied only when creating/resetting that host controller; saved 248/64/custom
+widths restore unchanged. Fold/unfold remembers a customized expanded width in
+the current session. A saved folded v1 file cannot remember a separate custom
+expanded width because v1 stores only one width; on restart it uses that host's
+expanded default. Theme family selection explicitly uses 280px.
+
+All 55 local defaults/controller/widget/navbar/full-shell capture cases passed.
+All 18 captured toolbar heights still match, and exact toolbar bounds now match
+16/18 reference cases. Layout 3 desktop retains a separate 56px left-side-panel
+gap in both modes; it is not masked by a forced margin or a fabricated panel.
+Account/navigation/palette alignment and complete visual acceptance stay open.

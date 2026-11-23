@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_sidebar_default(source,path):
+    return reverse_presentation_receipt(source,path,'shell-sidebar-default-replay.json')
+
 def before_shell_border_frame(source,path):
+    source=before_sidebar_default(source,path)
     return reverse_presentation_receipt(source,path,'shell-breakpoint-border-replay.json')
 
 def before_avatar_fallback(source,path):

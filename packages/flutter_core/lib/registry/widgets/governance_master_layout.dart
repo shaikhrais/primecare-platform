@@ -124,6 +124,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final auth = ref.watch(authProvider);
     final preferences = ref.watch(sharedPreferencesProvider);
     return PortalWorkspace(
+      defaultNavigationWidth: PrimeShellMetrics.expandedNavigationWidth,
       key: ValueKey('${auth.isAuthenticated}:${auth.tenantId}:${auth.userId}:${activeRole.name}:${application.name}:${preferences != null}'),
       scope: WorkspaceScope(
         tenant: auth.tenantId ?? tenant.tenantId,
