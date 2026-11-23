@@ -72,19 +72,8 @@ abstract final class PrimeShellMetrics {
     shape: const WidgetStatePropertyAll(
       RoundedRectangleBorder(borderRadius: navigationItemRadius),
     ),
-    backgroundColor: WidgetStatePropertyAll(selectedBackground),
-    side: WidgetStateProperty.resolveWith((states) {
-      if (selectedBackground != null &&
-          (states.contains(WidgetState.focused) ||
-              states.contains(WidgetState.pressed))) {
-        return BorderSide(color: foreground);
-      }
-      return null;
-    }),
-    overlayColor: WidgetStateProperty.resolveWith((states) {
-      // Keep the selected background and its contrast while showing focus
-      // on the outline. The ordinary unselected ink is unchanged.
-      if (selectedBackground != null) return Colors.transparent;
+    backgroundColor: WidgetStateProperty.resolveWith((states) {
+      if (selectedBackground != null) return selectedBackground;
       if (states.contains(WidgetState.pressed) ||
           states.contains(WidgetState.focused)) {
         return navigationFocusInk(foreground);
@@ -94,6 +83,17 @@ abstract final class PrimeShellMetrics {
       }
       return null;
     }),
+    side: WidgetStateProperty.resolveWith((states) {
+      if (selectedBackground != null &&
+          (states.contains(WidgetState.focused) ||
+              states.contains(WidgetState.pressed))) {
+        return BorderSide(color: foreground);
+      }
+      return null;
+    }),
+    // Paint the *current* state above so a held ink highlight does not
+    // carry its original alpha into the newly selected destination.
+    overlayColor: const WidgetStatePropertyAll(Colors.transparent),
   );
 
   static ThemeData navigationInteractionTheme(

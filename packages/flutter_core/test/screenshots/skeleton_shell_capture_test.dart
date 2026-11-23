@@ -2,8 +2,9 @@
 library;
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui' show PointerDeviceKind, SemanticsFlag;
+import 'dart:ui' show ImageByteFormat, PointerDeviceKind, SemanticsFlag;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show RenderRepaintBoundary;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
@@ -205,6 +206,25 @@ void main(){
      expect(tester.getSize(paintedButton).height,
          PrimeShellMetrics.horizontalDestinationPaintHeight);
      expect(selectedBounds.height, PrimeShellMetrics.horizontalNavigationRowHeight);
+     final boundary = tester.renderObject<RenderRepaintBoundary>(proof);
+     final paintPoint = boundary.globalToLocal(
+      Offset(selectedBounds.left + 4, selectedBounds.center.dy),
+     );
+     final paintedArgb = await tester.runAsync(() async {
+      final image = await boundary.toImage();
+      try {
+       final bytes = (await image.toByteData(format: ImageByteFormat.rawRgba))!;
+       final offset = (paintPoint.dy.floor() * image.width + paintPoint.dx.floor()) * 4;
+       return (bytes.getUint8(offset + 3) << 24) |
+           (bytes.getUint8(offset) << 16) |
+           (bytes.getUint8(offset + 1) << 8) |
+           bytes.getUint8(offset + 2);
+      } finally {
+       image.dispose();
+      }
+     });
+     expect(paintedArgb, selectedColor!.toARGB32(),
+         reason: 'Keyboard focus preserves the painted selection');
      final destination = router!.routeInformationProvider.value.uri.path;
      expect(destination, '/tenant-dashboard');
      // The registered router keeps its shell mounted when a child route changes.
@@ -224,7 +244,8 @@ void main(){
        'directDestination': true,
        'shellLayoutPreserved': true,
        'selected': true,
-       'selectedColorArgb': selectedColor!.toARGB32(),
+       'selectedColorArgb': selectedColor.toARGB32(),
+       'selectedPaintedArgb': paintedArgb,
        'selectedPaintHeight': tester.getSize(paintedButton).height,
        'selectedBounds': {
         'x': selectedBounds.left,
