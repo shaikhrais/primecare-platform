@@ -5,6 +5,18 @@ import 'prime_theme_center_style.dart';
 /// ToolbarLayout1/2 and FooterLayout1/2 use min-h-12 md:min-h-16.
 abstract final class PrimeShellMetrics {
   static const transparentInteractionInk = Colors.transparent;
+  static const _flagWhite = Colors.white;
+  static const _flagUsNavy = Color(0xff3c3b6e);
+  static const _flagUsRed = Color(0xffb22234);
+  static const _flagFrenchBlue = Color(0xff0055a4);
+  static const _flagFrenchRed = Color(0xffef4135);
+  static const _flagSpanishRed = Color(0xffaa151b);
+  static const _flagSpanishYellow = Color(0xfff1bf00);
+  static Map<String, Color> languageFlagPalette(String language) => switch (language) {
+    'fr' => const {'primary': _flagFrenchBlue, 'accent': _flagFrenchRed, 'onPrimary': _flagWhite},
+    'es' => const {'primary': _flagSpanishRed, 'accent': _flagSpanishYellow, 'onPrimary': _flagWhite},
+    _ => const {'primary': _flagUsNavy, 'accent': _flagUsRed, 'onPrimary': _flagWhite},
+  };
   static const desktopBreakpoint = 960.0;
   static const horizontalContentWidth = 1120.0;
   static const horizontalDesktopBreakpoint = 1280.0;

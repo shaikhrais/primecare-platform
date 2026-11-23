@@ -67,6 +67,10 @@ class ThemeSettingsNotifier extends Notifier<ThemeSettingsState> {
   String _scope='';
   bool _authenticated=false;
   bool _matchesAccount(String scope) => _scope==scope && themeAccountScope(ref.read(authProvider))==scope;
+  PersonalTheme _themeForAccount(String scope) {
+    if(!_matchesAccount(scope))throw StateError('Account changed');
+    return state.theme;
+  }
   PersonalThemeSettingsSession bindAccount() => PersonalThemeSettingsSession._(this,_scope);
   @override ThemeSettingsState build() {
     final auth=ref.watch(authProvider);_scope=themeAccountScope(auth);_authenticated=hasThemeAccount(auth);final prefs=ref.watch(sharedPreferencesProvider);
@@ -136,8 +140,7 @@ class PersonalThemeSettingsSession {
     return _owner.applyPersonalTheme(theme);
   }
   Future<void> updateTextScale(double scale) {
-    if (!_owner._matchesAccount(_scope)) throw StateError('Account changed');
-    final current = _owner.state.theme;
+    final current = _owner._themeForAccount(_scope);
     return _owner.applyPersonalTheme(
       PersonalTheme.fromJson({...current.toJson(), 'fontScale': scale}),
     );

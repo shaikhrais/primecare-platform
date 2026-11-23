@@ -258,10 +258,10 @@ navigation shortcuts. Layout saving is a separate PrimeCare action.
 
 | Reference or requested action | PrimeCare horizontal toolbar |
 |---|---|
-| Language | Existing EN/FR/ES selector and account preference path |
-| Font size | Toolbar access to the existing Theme Center text scale, using its validated range and account scope |
+| Language | Existing EN/FR/ES selector and account preference path; local registered US/French/Spanish flag geometry replaces the unsupported emoji glyph |
+| Font size | Toolbar access in each non-handheld layout to the existing Theme Center text scale, using its validated range and account scope |
 | Save layout | Toolbar access to the existing local workspace save used by the footer, with no account sync grant |
-| Drawer trigger and account menu | Existing PrimeCare controls retain their current routing and permissions |
+| Drawer trigger and account menu | Existing PrimeCare controls retain routing and permissions; the former separate role pill and avatar are one bordered account trigger with role switching inside its menu |
 | Fullscreen, navigation search and shortcuts | The current native master has no approved host binding. Existing shared B08 controls were registered on the Tenant Admin web pilot only. |
 | Quick Panel (bookmark) | Native host and authorized resource bindings are absent. The B08 pilot does not grant Tenant Admin preference API access. |
 
@@ -293,3 +293,37 @@ indexes 4,701 source files, 55 component families and 1,187 named examples.
 R01-R05 remain IN PROGRESS because complete header/account controls, menu
 behavior and whole-screen visual review still contain differences. R06-R25
 remain NOT MATCHED; demo implementation remains blocked.
+
+## Shared toolbar and language asset review
+
+The R01–R05 native toolbar no longer repeats the PrimeCare tenant name beside
+the navbar-owned brand. Desktop Layout 1, right-sidebar and folded views expose
+the existing Theme Center text-size control, as the Layout 1 source does. The
+horizontal view retains PrimeCare's separately requested save action. The
+settings cog was removed from the toolbar because the existing footer Theme
+Center action already opens the same registered drawer.
+
+The language trigger now uses three locally authored, generated vector assets
+(`language-flag-en-us`, `language-flag-fr-fr`, `language-flag-es-es`) through
+the existing registered `prime_asset` illustration binding. This removes the
+missing-glyph boxes seen in the first native render and avoids network images.
+The account trigger is local and deterministic: it shows the active role mark,
+label, info and chevron, and keeps role switching, maintenance authorization
+and logout in the existing menu and handlers. No route, role grant, API,
+account sync or production permission changed.
+
+Source identities reviewed in this run:
+
+| Source/case | SHA-256 |
+|---|---|
+| Fuse `ToolbarLayout1.tsx` | `d7ac110fbf4f36f378b495053abe38444bced392e788805b18e3c42e658d1711` |
+| Fuse `ToolbarLayout2.tsx` | `a8b9e11f04fefee493156e71ccee30c1d90301ede42ccc8b73ec501dec7a5f4a` |
+| Native Layout 1 desktop light capture | `5dfb7a392a9b5357627eff37621a989e90694c06d10636b378a62846eab655ee` |
+| Native Layout 2 desktop light capture | `58230dc20a1c49a408d2579b79c779c4fb3f22c811499a217f2a413b4ff9d227` |
+| Native left/folded/right/mobile selected cases | `cccbcf708fa9c5d27c55023a2d18554bf35103775389e99fa7f398cba0ceef3b`, `3776b8abfad59e755c6c9669b0359e7965a2de342bc162e5a92a4ea6225f070b`, `9e4e74f30d9a725f449869d207f6311898fa67292235619edc5f1d4fb834e866`, `13f48ff06213e8330177df3a77a56fcd116d22eb83aeea9971b6f72004a0e5d2` |
+| Fuse Layout 2 desktop light capture | `b53a2ef96df0936472fe71e7f5c5226a28554ac124fbc0cfd4a44789bfedf37e` |
+
+The current native toolbar still lacks the registered native host contracts for
+fullscreen, navigation search, navigation shortcuts and the Quick Panel
+bookmark. Those controls are BLOCKED; they were not rendered as decorative or
+nonfunctional buttons. R01–R05 therefore remain IN PROGRESS, not MATCHED.

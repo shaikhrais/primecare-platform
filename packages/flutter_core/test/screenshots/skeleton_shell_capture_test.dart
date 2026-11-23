@@ -95,20 +95,22 @@ void main(){
    await tester.pumpAndSettle();expect(tester.takeException(),isNull);
    final avatar=find.descendant(of:find.byKey(const Key('topbar-user-menu')),matching:find.byType(CircleAvatar));
    expect(avatar,findsOneWidget);
-   expect(tester.widget<CircleAvatar>(avatar).foregroundImage,isNotNull);
+   expect(tester.widget<CircleAvatar>(avatar).foregroundImage,isNull);
    expect(tester.widget<CircleAvatar>(avatar).child,isNotNull);
    if(family=='1'&&view.$1=='desktop') {
     expect(find.text('Tenant dashboard'),findsOneWidget);
     expect(find.text('TENANT DASHBOARD'),findsNothing,reason:'A lone module must not add a duplicate group caption');
     final item=find.ancestor(of:find.text('Tenant dashboard'),matching:find.byWidgetPredicate((w)=>w is ListTile));
     expect(tester.getRect(item).top,64);expect(tester.getSize(item).height,32);
-    expect(find.text('PrimeCare'),findsNWidgets(2),reason:'Brand header and existing topbar tenant label');
+    expect(find.text('PrimeCare'),findsOneWidget,reason:'The navbar owns the brand; the toolbar must not duplicate it');
     expect(find.text('Home service'),findsOneWidget);
+    expect(find.byTooltip('Text scale'),findsOneWidget,reason:'Fuse Layout 1 exposes text size in the desktop toolbar');
+    expect(find.text(PlatformRole.admin.displayName),findsOneWidget,reason:'Role and account share one Fuse-style menu trigger');
     final sidebar=find.byKey(const Key('app-sidebar'));
     final surface=tester.widget<Container>(find.descendant(of:sidebar,matching:find.byType(Container)).first);
     expect((surface.decoration as BoxDecoration).color,Theme.of(tester.element(sidebar)).scaffoldBackgroundColor);
    }
-   expect(resourceErrors,isEmpty,reason:'The deliberate failed-image path must show the user fallback without an unhandled image error');
+   expect(resourceErrors,isEmpty,reason:'The local account mark must not issue a network image request');
    Directory('test/screenshots/shell-captures').createSync(recursive:true);final id='layout$family-${view.$1}-$mode';
    if (compareNavbar && mode == 'light') {
     final account = container.read(authProvider);
@@ -150,6 +152,8 @@ void main(){
     expect(toolbar.right, 1248);
     expect(tester.getTopLeft(find.byType(PrimeHorizontalChrome).first).dx, 0);
     expect(find.byType(PrimeSidebarFoldButton), findsNothing);
+    expect(find.byTooltip('Text scale'), findsOneWidget);
+    expect(find.text(PlatformRole.admin.displayName), findsOneWidget);
     final semantics = tester.ensureSemantics();
     try {
      final triggerFinder = find.ancestor(of: moduleLabel, matching: find.byType(TextButton));

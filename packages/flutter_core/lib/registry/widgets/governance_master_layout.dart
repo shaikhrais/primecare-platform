@@ -301,51 +301,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         backgroundColor: topbarBg,
                         surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
                         iconTheme: IconThemeData(color: topbarIconColor),
-                        title: isHandheld || horizontal ? null : PrimeText(tenant.name, maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.titleSmall?.copyWith(color: topbarTextColor)),
+                        title: null,
                         actions: [
-                          GestureDetector(
-                            onTap: () {
-                              showDialog<void>(
-                                context: context,
-                                barrierColor: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),
-                                builder: (context) => _RoleSwitcherDialog(
-                                  activeRole: activeRole,
-                                  ref: ref,
-                                ),
-                              );
-                            },
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 16),
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: topbarIconColor.withValues(alpha: 0.05),
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color: topbarIconColor.withValues(alpha: 0.15),
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    PrimeIcon(LucideIcons.user, size: 14, color: topbarTextColor),
-                                    const SizedBox(width: 8),
-                                    if (!isHandheld) PrimeText(
-                                      activeRole.displayName,
-                                      style: theme.textTheme.labelMedium?.copyWith(
-                                        color: topbarTextColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 4),
-                                    PrimeIcon(LucideIcons.chevronDown, size: 12, color: topbarTextColor),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
                           Semantics(
                             label: 'data-cy:topbar-language-switcher',
                             container: true,
@@ -363,7 +320,16 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      PrimeIcon(LucideIcons.languages, color: topbarIconColor, size: 20),
+                                      PrimeOriginalAsset(
+                                        switch (ref.watch(languageProvider)) {
+                                          'fr' => 'language-flag-fr-fr',
+                                          'es' => 'language-flag-es-es',
+                                          _ => 'language-flag-en-us',
+                                        },
+                                        width: 20,
+                                        height: 14,
+                                        palette: PrimeShellMetrics.languageFlagPalette(ref.watch(languageProvider)),
+                                      ),
                                       const SizedBox(width: 6),
                                       PrimeText(
                                         ref.watch(languageProvider).toUpperCase(),
@@ -419,21 +385,10 @@ class GovernanceMasterLayout extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          if (horizontal && !isHandheld) ...[
+                          if (!isHandheld)
                             PrimeToolbarTextScale(foreground: topbarIconColor),
+                          if (horizontal && !isHandheld)
                             PortalLayoutSaveButton(tooltip: themeCenterText(context, 'save')),
-                          ],
-                          const SizedBox(width: 8),
-                          Builder(
-                            builder: (scaffoldContext) {
-                              return PrimeIconButton(
-                                icon: PrimeIcon(LucideIcons.settings, color: topbarIconColor),
-                                onPressed: () {
-                                  Scaffold.of(scaffoldContext).openEndDrawer();
-                                },
-                              );
-                            }
-                          ),
                           const SizedBox(width: 8),
                           Semantics(
                             label: 'data-cy:topbar-user-menu',
@@ -447,19 +402,37 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   side: BorderSide(color: theme.dividerColor),
                                 ),
                                 tooltip: 'User Functions',
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: CircleAvatar(
-                                    radius: 16,
-                                    backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
-                                    foregroundImage: NetworkImage(
-                                      'https://api.dicebear.com/7.x/avataaars/png?seed=${ref.watch(authProvider).userName ?? 'User'}',
-                                    ),
-                                    onForegroundImageError: (_, __) {},
-                                    child: PrimeIcon(LucideIcons.user, size: 18, color: topbarIconColor),
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.fromLTRB(6, 4, 10, 4),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: theme.dividerColor),
+                                    borderRadius: BorderRadius.circular(24),
                                   ),
+                                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                                    CircleAvatar(
+                                      radius: 16,
+                                      backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
+                                      child: PrimeText(activeRole.displayName.characters.first.toUpperCase(),
+                                        style: theme.textTheme.labelLarge?.copyWith(color: topbarTextColor, fontWeight: FontWeight.w700)),
+                                    ),
+                                    if (!isHandheld) ...[
+                                      const SizedBox(width: 8),
+                                      PrimeText(activeRole.displayName, style: theme.textTheme.labelMedium?.copyWith(
+                                        color: topbarTextColor, fontWeight: FontWeight.w600)),
+                                      const SizedBox(width: 6),
+                                      PrimeIcon(LucideIcons.info, size: 15, color: topbarIconColor),
+                                    ],
+                                    const SizedBox(width: 4),
+                                    PrimeIcon(LucideIcons.chevronDown, size: 14, color: topbarIconColor),
+                                  ]),
                                 ),
                                 onSelected: (value) {
+                                  if (value == 'switch-role') {
+                                    showDialog<void>(context: context,
+                                      barrierColor: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),
+                                      builder: (context) => _RoleSwitcherDialog(activeRole: activeRole, ref: ref));
+                                  }
                                   if (value == 'maintenance') context.go('/maintenance/configuration');
                                   if (value == 'logout') {
                                     ref.read(authProvider.notifier).logout();
@@ -482,6 +455,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
+                                  PopupMenuItem<String>(value: 'switch-role', child: Row(children: [
+                                    PrimeIcon(LucideIcons.users, size: 18, color: topbarIconColor),
+                                    const SizedBox(width: 12),
+                                    const PrimeText('Switch role'),
+                                  ])),
                                   if (['ceo', 'maintenance'].contains(ref.watch(authProvider).role))
                                     const PopupMenuItem<String>(value: 'maintenance', child: PrimeText('IT maintenance')),
                                   const PopupMenuDivider(),

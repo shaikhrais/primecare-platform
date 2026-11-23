@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "baseCommit": "1e3cfa5a19ff715d4f2faf94e723c190d34e24fc",
+  "purpose": "R01-R05 shared toolbar alignment, account-safe text scale and registered local language flag assets",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "e0a83622f915420498eccaaa498b62118e655254a640733fb50a617a2f587f72",
+      "afterSha256": "332d2b87c4d2de4df269832236b10de8e9cafe57cb0af13016c1920b1a2d1168",
+      "edits": [
+        {
+          "begin": 15856,
+          "old": "                        title: isHandheld || horizontal ? null : PrimeText(tenant.name, maxLines: 1,\n                          overflow: TextOverflow.ellipsis,\n                          style: theme.textTheme.titleSmall?.copyWith(color: topbarTextColor)),\n",
+          "new": "                        title: null,\n"
+        },
+        {
+          "begin": 16147,
+          "old": "                          GestureDetector(\n                            onTap: () {\n                              showDialog<void>(\n                                context: context,\n                                barrierColor: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),\n                                builder: (context) => _RoleSwitcherDialog(\n                                  activeRole: activeRole,\n                                  ref: ref,\n                                ),\n                              );\n                            },\n                            child: MouseRegion(\n                              cursor: SystemMouseCursors.click,\n                              child: Container(\n                                margin: const EdgeInsets.only(right: 16),\n                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),\n                                decoration: BoxDecoration(\n                                  color: topbarIconColor.withValues(alpha: 0.05),\n                                  borderRadius: BorderRadius.circular(20),\n                                  border: Border.all(\n                                    color: topbarIconColor.withValues(alpha: 0.15),\n                                  ),\n                                ),\n                                child: Row(\n                                  children: [\n                                    PrimeIcon(LucideIcons.user, size: 14, color: topbarTextColor),\n                                    const SizedBox(width: 8),\n                                    if (!isHandheld) PrimeText(\n                                      activeRole.displayName,\n                                      style: theme.textTheme.labelMedium?.copyWith(\n                                        color: topbarTextColor,\n                                        fontWeight: FontWeight.w600,\n                                      ),\n                                    ),\n                                    const SizedBox(width: 4),\n                                    PrimeIcon(LucideIcons.chevronDown, size: 12, color: topbarTextColor),\n                                  ],\n                                ),\n                              ),\n                            ),\n                          ),\n",
+          "new": ""
+        },
+        {
+          "begin": 19504,
+          "old": "                                      PrimeIcon(LucideIcons.languages, color: topbarIconColor, size: 20),\n",
+          "new": "                                      PrimeOriginalAsset(\n                                        switch (ref.watch(languageProvider)) {\n                                          'fr' => 'language-flag-fr-fr',\n                                          'es' => 'language-flag-es-es',\n                                          _ => 'language-flag-en-us',\n                                        },\n                                        width: 20,\n                                        height: 14,\n                                        palette: PrimeShellMetrics.languageFlagPalette(ref.watch(languageProvider)),\n                                      ),\n"
+        },
+        {
+          "begin": 22811,
+          "old": "                          if (horizontal && !isHandheld) ...[\n",
+          "new": "                          if (!isHandheld)\n"
+        },
+        {
+          "begin": 22953,
+          "old": "",
+          "new": "                          if (horizontal && !isHandheld)\n"
+        },
+        {
+          "begin": 23048,
+          "old": "                          ],\n                          const SizedBox(width: 8),\n                          Builder(\n                            builder: (scaffoldContext) {\n                              return PrimeIconButton(\n                                icon: PrimeIcon(LucideIcons.settings, color: topbarIconColor),\n                                onPressed: () {\n                                  Scaffold.of(scaffoldContext).openEndDrawer();\n                                },\n                              );\n                            }\n                          ),\n",
+          "new": ""
+        },
+        {
+          "begin": 24376,
+          "old": "                                child: Padding(\n                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),\n                                  child: CircleAvatar(\n                                    radius: 16,\n                                    backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),\n                                    foregroundImage: NetworkImage(\n                                      'https://api.dicebear.com/7.x/avataaars/png?seed=${ref.watch(authProvider).userName ?? 'User'}',\n",
+          "new": "                                child: Container(\n                                  margin: const EdgeInsets.symmetric(vertical: 8),\n                                  padding: const EdgeInsets.fromLTRB(6, 4, 10, 4),\n                                  decoration: BoxDecoration(\n                                    border: Border.all(color: theme.dividerColor),\n                                    borderRadius: BorderRadius.circular(24),\n                                  ),\n                                  child: Row(mainAxisSize: MainAxisSize.min, children: [\n                                    CircleAvatar(\n                                      radius: 16,\n                                      backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),\n                                      child: PrimeText(activeRole.displayName.characters.first.toUpperCase(),\n                                        style: theme.textTheme.labelLarge?.copyWith(color: topbarTextColor, fontWeight: FontWeight.w700)),\n"
+        },
+        {
+          "begin": 24959,
+          "old": "                                    onForegroundImageError: (_, __) {},\n                                    child: PrimeIcon(LucideIcons.user, size: 18, color: topbarIconColor),\n                                  ),\n",
+          "new": "                                    if (!isHandheld) ...[\n                                      const SizedBox(width: 8),\n                                      PrimeText(activeRole.displayName, style: theme.textTheme.labelMedium?.copyWith(\n                                        color: topbarTextColor, fontWeight: FontWeight.w600)),\n                                      const SizedBox(width: 6),\n                                      PrimeIcon(LucideIcons.info, size: 15, color: topbarIconColor),\n                                    ],\n                                    const SizedBox(width: 4),\n                                    PrimeIcon(LucideIcons.chevronDown, size: 14, color: topbarIconColor),\n                                  ]),\n"
+        },
+        {
+          "begin": 25263,
+          "old": "",
+          "new": "                                  if (value == 'switch-role') {\n                                    showDialog<void>(context: context,\n                                      barrierColor: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),\n                                      builder: (context) => _RoleSwitcherDialog(activeRole: activeRole, ref: ref));\n                                  }\n"
+        },
+        {
+          "begin": 26640,
+          "old": "",
+          "new": "                                  PopupMenuItem<String>(value: 'switch-role', child: Row(children: [\n                                    PrimeIcon(LucideIcons.users, size: 18, color: topbarIconColor),\n                                    const SizedBox(width: 12),\n                                    const PrimeText('Switch role'),\n                                  ])),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
+      "beforeSha256": "5b21636b5bdbebab8451321ba26df5c311e598f103d09926f926cc16f2e4662d",
+      "afterSha256": "d70bc2729e1092ae6f55cf653f6ed1de24d6dba233b5595d1566e47c25b3719b",
+      "edits": [
+        {
+          "begin": 6666,
+          "old": "",
+          "new": "  PersonalTheme _themeForAccount(String scope) {\n    if(!_matchesAccount(scope))throw StateError('Account changed');\n    return state.theme;\n  }\n"
+        },
+        {
+          "begin": 12504,
+          "old": "    if (!_owner._matchesAccount(_scope)) throw StateError('Account changed');\n    final current = _owner.state.theme;\n",
+          "new": "    final current = _owner._themeForAccount(_scope);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "9f1ce448b409bdde8569834ca6729858a58d0673b27bb973de11b72cf896dc85",
+      "afterSha256": "2e9011a2fc5b335961972301bc080894332e3c77faa0435615e5b3f9c79f21b3",
+      "edits": [
+        {
+          "begin": 318,
+          "old": "",
+          "new": "  static const _flagWhite = Colors.white;\n  static const _flagUsNavy = Color(0xff3c3b6e);\n  static const _flagUsRed = Color(0xffb22234);\n  static const _flagFrenchBlue = Color(0xff0055a4);\n  static const _flagFrenchRed = Color(0xffef4135);\n  static const _flagSpanishRed = Color(0xffaa151b);\n  static const _flagSpanishYellow = Color(0xfff1bf00);\n  static Map<String, Color> languageFlagPalette(String language) => switch (language) {\n    'fr' => const {'primary': _flagFrenchBlue, 'accent': _flagFrenchRed, 'onPrimary': _flagWhite},\n    'es' => const {'primary': _flagSpanishRed, 'accent': _flagSpanishYellow, 'onPrimary': _flagWhite},\n    _ => const {'primary': _flagUsNavy, 'accent': _flagUsRed, 'onPrimary': _flagWhite},\n  };\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "2585fe05614ae19e376df4c28a73752191c196fc2ccdf83989f186869c658adb",
+      "afterSha256": "02b8df67f24c73a7d9eea437feb913faf4fee5cd97be6b79270c796aa99476f9",
+      "edits": [
+        {
+          "begin": 5659,
+          "old": "   expect(tester.widget<CircleAvatar>(avatar).foregroundImage,isNotNull);\n",
+          "new": "   expect(tester.widget<CircleAvatar>(avatar).foregroundImage,isNull);\n"
+        },
+        {
+          "begin": 6210,
+          "old": "    expect(find.text('PrimeCare'),findsNWidgets(2),reason:'Brand header and existing topbar tenant label');\n",
+          "new": "    expect(find.text('PrimeCare'),findsOneWidget,reason:'The navbar owns the brand; the toolbar must not duplicate it');\n"
+        },
+        {
+          "begin": 6372,
+          "old": "",
+          "new": "    expect(find.byTooltip('Text scale'),findsOneWidget,reason:'Fuse Layout 1 exposes text size in the desktop toolbar');\n    expect(find.text(PlatformRole.admin.displayName),findsOneWidget,reason:'Role and account share one Fuse-style menu trigger');\n"
+        },
+        {
+          "begin": 6659,
+          "old": "   expect(resourceErrors,isEmpty,reason:'The deliberate failed-image path must show the user fallback without an unhandled image error');\n",
+          "new": "   expect(resourceErrors,isEmpty,reason:'The local account mark must not issue a network image request');\n"
+        },
+        {
+          "begin": 9536,
+          "old": "",
+          "new": "    expect(find.byTooltip('Text scale'), findsOneWidget);\n    expect(find.text(PlatformRole.admin.displayName), findsOneWidget);\n"
+        }
+      ]
+    }
+  ]
+}
