@@ -6,6 +6,7 @@ import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/auth_service.dart';
@@ -51,22 +52,30 @@ void main(){
    final resourceErrors=<String>[];final previous=FlutterError.onError;
    FlutterError.onError=(details){if(details.library=='image resource service'){resourceErrors.add(details.exception.runtimeType.toString());}else{previous?.call(details);}};
    addTearDown(()=>FlutterError.onError=previous);
+   final compareNavbar = family == '2' && view.$1 == 'desktop';
+   final shell = RepaintBoundary(
+    key: const Key('full-shell-proof'),
+    child: GovernanceMasterLayout(
+     application: ShellCaptureApplication(),
+     activeRole: PlatformRole.admin,
+     child: const SizedBox.expand(),
+    ),
+   );
+   final router = compareNavbar ? GoRouter(
+    routes: [
+     GoRoute(path: '/', builder: (_, _) => shell),
+     GoRoute(path: '/tenant-dashboard', builder: (_, _) => shell),
+    ],
+   ) : null;
+   if (router != null) addTearDown(router.dispose);
    await tester.pumpWidget(
     UncontrolledProviderScope(
      container: container,
      child: RepaintBoundary(
       key: const Key('shell-overlay-proof'),
-      child: MaterialApp(
-       debugShowCheckedModeBanner: false,
-       home: RepaintBoundary(
-        key: const Key('full-shell-proof'),
-        child: GovernanceMasterLayout(
-         application: ShellCaptureApplication(),
-         activeRole: PlatformRole.admin,
-         child: const SizedBox.expand(),
-        ),
-       ),
-      ),
+      child: router == null
+       ? MaterialApp(debugShowCheckedModeBanner: false, home: shell)
+       : MaterialApp.router(debugShowCheckedModeBanner: false, routerConfig: router),
      ),
     ),
    );
@@ -95,7 +104,7 @@ void main(){
    Map<String,double>? box(String key){final f=find.byKey(Key(key));if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
    File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':barBox(false),'toolbarInner':box('app-topbar'),'footer':barBox(true),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'existing registered /tenant-dashboard route sample; fixture-only policy and synthetic account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));
    await expectLater(find.byKey(const Key('full-shell-proof')),matchesGoldenFile('shell-captures/primecare-shell-$id.png'));
-   if (family == '2' && view.$1 == 'desktop') {
+   if (compareNavbar) {
     final moduleLabel = find.text('Tenant dashboard');
     final brand = find.text('PrimeCare').first;
     expect(tester.getTopLeft(brand).dy, lessThan(64));
@@ -149,6 +158,21 @@ void main(){
      await tester.pumpAndSettle();
      expect(item, findsNothing);
      expect(keyboardFocused(), isTrue, reason: 'Closing the navbar menu restores trigger focus');
+     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+     await tester.pumpAndSettle();
+     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
+     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+     await tester.pumpAndSettle();
+     expect(item, findsNothing);
+     final destination = router!.routeInformationProvider.value.uri.path;
+     expect(destination, '/tenant-dashboard');
+     await expectLater(
+      proof,
+      matchesGoldenFile('shell-captures/primecare-shell-$id-activated.png'),
+     );
+     File('test/screenshots/shell-captures/$id-activation.json').writeAsStringSync(
+      jsonEncode({'keyboardActivation': true, 'destination': destination, 'focusReturnedOnEscape': true}),
+     );
     } finally {
      semantics.dispose();
     }

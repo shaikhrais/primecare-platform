@@ -15,7 +15,7 @@ for (const mode of ['light','dark']) {
   cases.push({layout:'layout1',device,width,height,mode,sidebarCase});
  }
 }
-async function captureNavigationInteraction(page, id) {
+async function captureNavigationInteraction(page, id, sidebarCase) {
  const entry = page.locator('a[href$="/example"]:visible');
  const candidateCount = await entry.count();
  if (candidateCount !== 1) {
@@ -50,6 +50,26 @@ async function captureNavigationInteraction(page, id) {
  if (await focused()) {
   const focusVisible = await entry.evaluate(element => element.matches(':focus-visible'));
   states.focus = {status:'captured',focusVisible,file:await screenshot('focus')};
+  const before = page.url();
+  try {
+   await page.keyboard.press('Enter');
+   await page.waitForURL(url => url.pathname === initial.href && url.href !== before, {timeout:2500});
+   if (sidebarCase === 'drawer') {
+    const drawer = page.locator('.MuiDrawer-paper').filter({
+     has: page.getByLabel('Example', {exact:true}),
+    });
+    await drawer.waitFor({state:'hidden',timeout:2500});
+   }
+   states.activated = {
+    status:'captured',
+    destination:new URL(page.url()).pathname,
+    drawerClosed:sidebarCase === 'drawer' ? true : null,
+    file:await screenshot('activated'),
+   };
+  } catch (error) {
+   states.activated = {status:'unavailable',reason:String(error)};
+  }
+
  } else {
   states.focus = {status:'unavailable',reason:'Example link was not reached by Tab within 30 stops'};
  }
@@ -94,7 +114,7 @@ try{
    let interaction = null;
    if (sidebarCase || (layout === 'layout2' && device === 'desktop')) {
     try {
-     interaction = await captureNavigationInteraction(page,id);
+     interaction = await captureNavigationInteraction(page,id,sidebarCase);
     } catch (error) {
      interaction = {status:'unavailable',reason:String(error)};
     }

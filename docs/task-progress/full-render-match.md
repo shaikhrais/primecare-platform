@@ -167,3 +167,18 @@ text foreground against the actual sidebar surface. The existing registered
 wording, brand hierarchy and destination data remain in place. The screenshot
 fixture disables its debug ribbon, and the horizontal module menu check verifies
 keyboard focus returns to the trigger after Escape. R01–R05 remain IN PROGRESS.
+
+## Route activation evidence
+
+The four PrimeCare sidebar fixtures save their full-screen result after keyboard
+activation. The mobile fixture opens the drawer through the existing toolbar
+button and verifies the drawer closes on activation. The desktop horizontal
+fixture verifies Escape returns focus, then uses the keyboard to open the
+existing module menu and select its registered Tenant dashboard destination.
+It records the destination and a full-screen post-activation capture.
+
+The reference capture measures Enter on its original Example link after the
+focus capture, records the resulting destination, and observes whether the
+mobile drawer closes. Missing activation evidence keeps a reason. The isolated
+capture host keeps its original shell mounted when the link changes the URL.
+R01–R05 remain IN PROGRESS. The reference and native menu content differ.

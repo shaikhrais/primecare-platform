@@ -14,6 +14,7 @@ import SettingsPanel from './components/theme-layouts/components/configurator/Se
 import RootThemeProvider from './contexts/RootThemeProvider';
 import MainThemeProvider from './contexts/MainThemeProvider';
 const requestedLayout=new URLSearchParams(location.search).get('layout');
+const captureSurface=new URLSearchParams(location.search).get('surface');
 const layout=requestedLayout==='layout2'||requestedLayout==='layout3'?requestedLayout:'layout1';
 const initial=_.merge({},defaultSettings,settingsConfig,{layout:{style:layout,config:layouts[layout].defaults}});
 const sidebarCase = new URLSearchParams(location.search).get('sidebarCase');
@@ -27,6 +28,6 @@ if(new URLSearchParams(location.search).get('mode')==='dark')initial.theme={main
 function Reference(){
  const [data,setData]=useState(initial);
  const update=(change)=>{const next=_.merge({},data,change);setData(next);return next;};
- return <FuseSettingsContext value={{data,initial,defaults:data,setSettings:update}}><RootThemeProvider><MainThemeProvider><SnackbarProvider>{new URLSearchParams(location.search).get('surface')==='shell'?<Suspense fallback={null}><ShellReference layout={layout}/></Suspense>:<SettingsPanel open onClose={()=>{}} settingsHandlers={{}}/>}</SnackbarProvider></MainThemeProvider></RootThemeProvider></FuseSettingsContext>;
+ return <FuseSettingsContext value={{data,initial,defaults:data,setSettings:update}}><RootThemeProvider><MainThemeProvider><SnackbarProvider>{captureSurface==='shell'?<Suspense fallback={null}><ShellReference layout={layout}/></Suspense>:<SettingsPanel open onClose={()=>{}} settingsHandlers={{}}/>}</SnackbarProvider></MainThemeProvider></RootThemeProvider></FuseSettingsContext>;
 }
 createRoot(document.getElementById('app')!).render(<BrowserRouter><Reference/></BrowserRouter>);

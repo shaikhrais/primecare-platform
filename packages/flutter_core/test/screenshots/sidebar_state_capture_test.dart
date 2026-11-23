@@ -112,11 +112,9 @@ void main() {
           });
           await tester.pumpAndSettle();
           if (state == 'mobile') {
-            tester
-                .state<ScaffoldState>(
-                  find.byWidgetPredicate((w) => w is Scaffold).first,
-                )
-                .openDrawer();
+            final trigger = find.byType(DrawerButton);
+            expect(trigger, findsOneWidget);
+            await tester.tap(trigger);
             await tester.pumpAndSettle();
           }
           final sidebar = find.byKey(const Key('app-sidebar'));
@@ -243,6 +241,7 @@ void main() {
                   .isDrawerOpen,
               isFalse,
             );
+          await capture('activated');
           File('$path/$id.json').writeAsStringSync(
             jsonEncode({
               'case': id,
@@ -252,7 +251,8 @@ void main() {
               'keyboardActivation': true,
               'sloganVisible': state != 'folded',
               'boxes': boxes,
-              'states': ['selected', 'hover', 'focus'],
+              'states': ['selected', 'hover', 'focus', 'activated'],
+              'drawerClosedOnActivation': state == 'mobile' ? true : null,
               'fixtureOnly': true,
               'referenceAligned': false,
               'visualAcceptance': false,
