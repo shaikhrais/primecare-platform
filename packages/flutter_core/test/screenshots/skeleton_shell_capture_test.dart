@@ -2,6 +2,7 @@
 library;
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -101,6 +102,17 @@ void main(){
     final semantics = tester.ensureSemantics();
     try {
      expect(find.byTooltip('Tenant dashboard'), findsOneWidget);
+     final proof = find.byKey(const Key('shell-overlay-proof'));
+     final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+     await mouse.addPointer(location: const Offset(1, 1));
+     await mouse.moveTo(tester.getCenter(moduleLabel));
+     await tester.pumpAndSettle();
+     await expectLater(
+      proof,
+      matchesGoldenFile('shell-captures/primecare-shell-$id-hover.png'),
+     );
+     await mouse.removePointer();
+     await tester.pumpAndSettle();
      final trigger = tester.element(find.ancestor(
       of: moduleLabel,
       matching: find.byWidgetPredicate((widget) => widget is PopupMenuButton<String>),
@@ -118,6 +130,11 @@ void main(){
       await tester.pump();
      }
      expect(keyboardFocused(), isTrue);
+     await tester.pumpAndSettle();
+     await expectLater(
+      proof,
+      matchesGoldenFile('shell-captures/primecare-shell-$id-focus.png'),
+     );
      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
      await tester.pumpAndSettle();
      final item = find.widgetWithText(PopupMenuItem<String>, 'Tenant dashboard');

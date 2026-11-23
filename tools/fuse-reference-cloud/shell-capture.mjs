@@ -15,6 +15,47 @@ for (const mode of ['light','dark']) {
   cases.push({layout:'layout1',device,width,height,mode,sidebarCase});
  }
 }
+async function captureNavigationInteraction(page, id) {
+ const entry = page.locator('a[href$="/example"]:visible');
+ const candidateCount = await entry.count();
+ if (candidateCount !== 1) {
+  return {status:'unavailable', reason:'Expected one visible Example link', candidateCount};
+ }
+ const initial = await entry.evaluate(element => ({
+  href: element.getAttribute('href'),
+  label: element.getAttribute('aria-label') || element.textContent.trim() || null,
+  current: element.getAttribute('aria-current'),
+  selectedClass: element.classList.contains('active'),
+  language: document.documentElement.lang || null,
+  scroll: [window.scrollX, window.scrollY],
+ }));
+ const states = {};
+ const screenshot = async state => {
+  const filename = `fuse-shell-${id}-${state}.png`;
+  await page.screenshot({path:resolve(output,filename),fullPage:false});
+  return filename;
+ };
+
+ await entry.hover({timeout:3000});
+ if (await entry.evaluate(element => element.matches(':hover'))) {
+  states.hover = {status:'captured',file:await screenshot('hover')};
+ } else {
+  states.hover = {status:'unavailable',reason:'Example link did not enter hover state'};
+ }
+ await page.mouse.move(0,0);
+ const focused = () => entry.evaluate(element => element === document.activeElement);
+ for (let tab = 0; tab < 30 && !(await focused()); tab++) {
+  await page.keyboard.press('Tab');
+ }
+ if (await focused()) {
+  const focusVisible = await entry.evaluate(element => element.matches(':focus-visible'));
+  states.focus = {status:'captured',focusVisible,file:await screenshot('focus')};
+ } else {
+  states.focus = {status:'unavailable',reason:'Example link was not reached by Tab within 30 stops'};
+ }
+ return {status:'observed',entry:initial,states};
+}
+
 try{
  for (const {layout,device,width,height,mode,sidebarCase} of cases) {
   const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});const errors=[],external=[];
@@ -49,10 +90,18 @@ try{
    if (sidebarCase === 'right' && boxes['#fuse-main'].x !== 0) {
     throw new Error('Right sidebar case did not place main content at the left edge');
    }
+   await page.screenshot({path:resolve(output,`fuse-shell-${id}.png`),fullPage:false});
+   let interaction = null;
+   if (sidebarCase || (layout === 'layout2' && device === 'desktop')) {
+    try {
+     interaction = await captureNavigationInteraction(page,id);
+    } catch (error) {
+     interaction = {status:'unavailable',reason:String(error)};
+    }
+   }
    if(errors.length)throw new Error('Original shell page errors: '+errors.join('; '));
    if(external.length)throw new Error('External requests blocked: '+[...new Set(external)].join(', '));
-   await page.screenshot({path:resolve(output,`fuse-shell-${id}.png`),fullPage:false});
-   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,errors,external,identity:'isolated guest reference; no authenticated production session',visualAcceptance:false});
+   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,interaction,errors,external,identity:'isolated guest reference; no authenticated production session',visualAcceptance:false});
   }catch(error){await page.screenshot({path:resolve(output,`FAILED-${id}.png`),fullPage:false}).catch(()=>{});results.push({id,status:'failed',error:String(error),errors,external,visualAcceptance:false});}
   finally{await page.close();}
  }

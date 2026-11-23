@@ -128,3 +128,15 @@ The private reference now requests the existing Example path for the right and
 mobile cases, like the expanded selected case. The drawer still opens through the
 original toolbar button. R01–R05 remain IN PROGRESS. The account and menu content
 still differ and the folded rail and navbar have distinct interaction patterns.
+
+## Navigation interaction renders
+
+The cloud reference now records screenshots of the visible Example link under
+pointer hover and real Tab focus for R01–R05, where those states are reachable.
+Its manifest records the visible destination, selected marker, language, scroll
+and whether the browser reports visible focus. Missing interactions carry a
+reason and do not stand in for a screenshot. The PrimeCare navbar fixture now
+also saves its hover and keyboard focus views alongside the open menu. The four
+sidebar fixtures already save these states. This extends diagnostic comparison
+coverage. The reference and tenant fixtures still have different content and
+the reference navbar link has no matching popup.
