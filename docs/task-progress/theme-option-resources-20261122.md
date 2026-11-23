@@ -49,3 +49,10 @@ black for readable contrast. Both expectations now require black, retaining
 contrast-ratio checks, hero-gradient checks, draft-input preservation and large
 mobile-text coverage. Both affected cases pass locally. No production color
 behavior is changed by this follow-up.
+
+The next full run at dac8fb1 passed all 3,089 core and 112 shared-UI tests, the
+website suite and all nine consumer compile jobs. Its final blueprint smoke
+test still expected the old visible drawer title. It now asserts Theme Settings
+after opening the existing Theme Center action, retaining counter-state and
+personal-theme application checks. The corrected app smoke case passes locally.
+This changes only the test expectation, not the application title or behavior.

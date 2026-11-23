@@ -22,7 +22,7 @@ class TestTranslations extends AssetLoader {
 }
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('counter state survives opening settings and applying a personal theme', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
@@ -44,7 +44,7 @@ void main() {
     expect(find.text('1'), findsOneWidget);
     await tester.tap(find.byTooltip('Theme Center'));
     await tester.pumpAndSettle();
-    expect(find.text('Theme Center'), findsWidgets);
+    expect(find.text('Theme Settings'), findsOneWidget);
     expect(tester.takeException(), isNull);
     final scope = ProviderScope.containerOf(tester.element(find.byType(MyApp)), listen: false);
     await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Test', preset: 'dark1', fontScale: 1.5, colors: {'primary': '#ffffff'}));
