@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'prime_theme_center_style.dart';
 
 /// Reference src/styles/index.css overrides md to 60rem (960px).
 /// ToolbarLayout1/2 and FooterLayout1/2 use min-h-12 md:min-h-16.
@@ -16,8 +17,16 @@ abstract final class PrimeShellMetrics {
   static const sidebarRowSpacing = 4.0;
   static const sidebarCorner = 6.0;
   static const sidebarFontSize = 13.0;
-  static const sidebarSloganFontSize = 12.0;
+  static const sidebarBrandFontSize = 18.0;
+  static const sidebarSloganFontSize = 11.0;
   static const sidebarBrandLineGap = 2.0;
+  static const sidebarRowPadding = EdgeInsets.fromLTRB(sidebarRowInset,0,sidebarRowInset,sidebarRowSpacing);
+  static EdgeInsets sidebarHeaderPadding(bool collapsed) => EdgeInsets.symmetric(horizontal:collapsed?0:sidebarHeaderInset);
+  static TextStyle? sidebarTextStyle(ThemeData theme,{required String family,required double scale,required Color color,bool brand=false,bool slogan=false,bool selected=false}) {
+    final source=slogan?theme.textTheme.bodySmall:brand?theme.textTheme.titleSmall:theme.textTheme.bodyMedium;
+    return source?.copyWith(fontFamily:family=='system'?PrimeThemeCenterStyle.fontFamily:family,fontSize:(slogan?sidebarSloganFontSize:brand?sidebarBrandFontSize:sidebarFontSize)*scale,height:1,
+      fontWeight:brand?FontWeight.w700:selected?FontWeight.w600:FontWeight.normal,color:color);
+  }
   static double barHeight(double viewportWidth) => viewportWidth >= desktopBreakpoint ? 64 : 48;
   static double toolbarExtent(double width, {required bool horizontal}) => barHeight(width)+(horizontal?dividerExtent:0);
   static double footerExtent(double width) => barHeight(width)+dividerExtent;

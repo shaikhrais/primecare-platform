@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 import sqlite3
+import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = ROOT / 'packages/flutter_core/lib/theme/theme_center_options_generated.dart'
@@ -59,22 +60,23 @@ def export(db):
     return '\n'.join(lines + ['};', ''])
 
 
+def check_pinned_catalog():
+    # CI validates the adopted production-pinned export without a SQLite writer.
+    spec=importlib.util.spec_from_file_location('theme_option_catalog',ROOT/'tools/governance-production/theme_option_catalog.py')
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.ROOT=ROOT
+    pin=json.loads((ROOT/'tools/governance-production/production-pin.json').read_text())
+    content=module.render_dart(module.load_catalog(pin))
+    if TARGET.read_text()!=content:
+        raise ValueError('Theme Center option catalog drift')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
-    with sqlite3.connect('file:' + str(ROOT / '.agents/governance/governance.db') + '?mode=ro', uri=True) as source:
-        db = sqlite3.connect(':memory:') if args.check else sqlite3.connect(ROOT / '.agents/governance/governance.db')
-        if args.check:
-            source.backup(db)
-        try:
-            register(db)
-            content = export(db)
-            if args.check:
-                if TARGET.read_text() != content:
-                    raise SystemExit('Theme Center option catalog drift')
-            else:
-                TARGET.write_text(content)
-        finally:
-            db.close()
-    print(f'Theme Center options: {len(VALUES)} keys validated in en/fr/es')
+    if not args.check:
+        parser.error('Use the pinned production registration workflow; the legacy SQLite writer is retired.')
+    check_pinned_catalog()
+    print('Theme Center options: pinned export validated; no database writes or new readback claimed')

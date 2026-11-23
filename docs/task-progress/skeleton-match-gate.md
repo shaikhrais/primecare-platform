@@ -76,3 +76,10 @@ hourly automation works on whole rendered views. R01 populated screenshots,
 header/row presentation and registered brand asset adoption are in progress;
 no full-render task is MATCHED. Earlier palette-bug suspicion was disproved by
 a baseline test; explicit capture palette state accounts for that difference.
+
+Sidebar states: R01–R04 are IN PROGRESS. Selection survives accessibility query
+parameters; sidebar ink is visible; folded header overflow and folded accessible
+names are corrected. Eight native light/dark variant cases verify selected labels,
+keyboard activation and mobile drawer close, with 24 state captures. 41 existing
+workspace/full-shell cases and 13 exact-history checks pass. No complete view is
+accepted: reference account/content alignment and full review remain open.

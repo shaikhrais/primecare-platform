@@ -1,7 +1,6 @@
 import '../../theme/portal_section_theme.dart';
 import '../../original_assets.dart';
 import '../../theme/prime_shell_metrics.dart';
-import '../../theme/prime_theme_center_style.dart';
 import '../../theme/theme_center_options.dart';
 import '../../workspace/portal_workspace.dart';
 import '../../providers/persistence_providers.dart';
@@ -475,16 +474,17 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   : BorderSide.none,
             ),
           ),
-          child: Column(children:[
+          // Keep row ink above the opaque sidebar decoration.
+          child: Material(type:MaterialType.transparency,child:Column(children:[
             ConstrainedBox(constraints:BoxConstraints(minHeight:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width)),child:Padding(
-              padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[
+              padding:PrimeShellMetrics.sidebarHeaderPadding(collapsed),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[
                 const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),
                 if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[
                   PrimeText(tenant.name,maxLines:1,overflow:TextOverflow.ellipsis,
-                    style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)),
+                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:sidebarTextColor,brand:true)),
                   const SizedBox(height:PrimeShellMetrics.sidebarBrandLineGap),
                   PrimeText(themeCenterOption(context,'brand.slogan'),maxLines:1,overflow:TextOverflow.ellipsis,
-                    style:theme.textTheme.bodySmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarSloganFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:theme.colorScheme.onSurfaceVariant)),
+                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:theme.colorScheme.onSurfaceVariant,slogan:true)),
                 ]))],
               ]))),
             Expanded(child:ListView.builder(
@@ -533,14 +533,14 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
                     String currentRoute = '';
                     try {
-                      currentRoute = GoRouterState.of(context).uri.toString();
+                      currentRoute = GoRouterState.of(context).uri.path;
                     } catch (_) {
                       currentRoute = '';
                     }
 
                     final isSelected = currentRoute == screen.route;
                     return Padding(
-                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),
+                      padding: PrimeShellMetrics.sidebarRowPadding,
                       child: PrimeListTile(
                         dense: true,
                         minTileHeight:PrimeShellMetrics.sidebarRowHeight,minVerticalPadding:0,minLeadingWidth:PrimeShellMetrics.sidebarIconExtent,horizontalTitleGap:PrimeShellMetrics.sidebarGap,
@@ -552,6 +552,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         selectedTileColor: sidebarSelectedTileColor,
                         leading: Tooltip(
                           message: collapsed ? screen.title : '',
+                          excludeFromSemantics: collapsed,
                           child: PrimeIcon(
                             screen.icon ?? LucideIcons.circle,
                             size: PrimeShellMetrics.sidebarIconExtent,
@@ -559,14 +560,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           ),
                         ),
                         title: collapsed
-                            ? null
+                            ? Semantics(label:screen.title)
                             : PrimeText(
                                 screen.title,
                                 overflow: TextOverflow.ellipsis,
-                                style: theme.textTheme.bodyMedium?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,
-                                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                                  color: isSelected ? sidebarSelectedTextColor : sidebarTextColor,
-                                ),
+                                style: PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:isSelected?sidebarSelectedTextColor:sidebarTextColor,selected:isSelected),
                               ),
                         onTap: () {
                           ref
@@ -602,7 +600,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
               );
             },
           )),
-          ]),
+          ])),
         ),
       ),
     );

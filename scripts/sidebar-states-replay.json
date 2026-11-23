@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "274429987d220e994acbe49483e1c035db5a87d5",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "c299fc74874c8240244e267519ad5bb914ba9ceede5e0ace473341232c46e542",
+      "afterSha256": "110e757fea2b5b88f282f94ea4073d9e9d278eb9fd7d8b7e2c69e02ccef646a5",
+      "edits": [
+        {
+          "begin": 132,
+          "old": "import '../../theme/prime_theme_center_style.dart';\n",
+          "new": ""
+        },
+        {
+          "begin": 25484,
+          "old": "          child: Column(children:[\n",
+          "new": "          // Keep row ink above the opaque sidebar decoration.\n          child: Material(type:MaterialType.transparency,child:Column(children:[\n"
+        },
+        {
+          "begin": 25661,
+          "old": "              padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n",
+          "new": "              padding:PrimeShellMetrics.sidebarHeaderPadding(collapsed),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n"
+        },
+        {
+          "begin": 26281,
+          "old": "                    style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)),\n",
+          "new": "                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:sidebarTextColor,brand:true)),\n"
+        },
+        {
+          "begin": 26773,
+          "old": "                    style:theme.textTheme.bodySmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarSloganFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:theme.colorScheme.onSurfaceVariant)),\n",
+          "new": "                    style:PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:theme.colorScheme.onSurfaceVariant,slogan:true)),\n"
+        },
+        {
+          "begin": 29113,
+          "old": "                      currentRoute = GoRouterState.of(context).uri.toString();\n",
+          "new": "                      currentRoute = GoRouterState.of(context).uri.path;\n"
+        },
+        {
+          "begin": 29395,
+          "old": "                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),\n",
+          "new": "                      padding: PrimeShellMetrics.sidebarRowPadding,\n"
+        },
+        {
+          "begin": 30346,
+          "old": "",
+          "new": "                          excludeFromSemantics: collapsed,\n"
+        },
+        {
+          "begin": 30714,
+          "old": "                            ? null\n",
+          "new": "                            ? Semantics(label:screen.title)\n"
+        },
+        {
+          "begin": 30901,
+          "old": "                                style: theme.textTheme.bodyMedium?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,\n                                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,\n                                  color: isSelected ? sidebarSelectedTextColor : sidebarTextColor,\n                                ),\n",
+          "new": "                                style: PrimeShellMetrics.sidebarTextStyle(theme,family:settings.theme.fontFamily,scale:settings.theme.fontScale,color:isSelected?sidebarSelectedTextColor:sidebarTextColor,selected:isSelected),\n"
+        },
+        {
+          "begin": 32716,
+          "old": "          ]),\n",
+          "new": "          ])),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "b71c414aa2e7ab49edd37b8e3fd08a5188818a7c02b2d633525d2fc5825c8f3e",
+      "afterSha256": "9829a560aa24ccdb4699b623d3ae2b8e77061b65b0bf14400cb1a11d0d8a9fcb",
+      "edits": [
+        {
+          "begin": 40,
+          "old": "",
+          "new": "import 'prime_theme_center_style.dart';\n"
+        },
+        {
+          "begin": 736,
+          "old": "  static const sidebarSloganFontSize = 12.0;\n",
+          "new": "  static const sidebarBrandFontSize = 18.0;\n  static const sidebarSloganFontSize = 11.0;\n"
+        },
+        {
+          "begin": 823,
+          "old": "",
+          "new": "  static const sidebarRowPadding = EdgeInsets.fromLTRB(sidebarRowInset,0,sidebarRowInset,sidebarRowSpacing);\n  static EdgeInsets sidebarHeaderPadding(bool collapsed) => EdgeInsets.symmetric(horizontal:collapsed?0:sidebarHeaderInset);\n  static TextStyle? sidebarTextStyle(ThemeData theme,{required String family,required double scale,required Color color,bool brand=false,bool slogan=false,bool selected=false}) {\n    final source=slogan?theme.textTheme.bodySmall:brand?theme.textTheme.titleSmall:theme.textTheme.bodyMedium;\n    return source?.copyWith(fontFamily:family=='system'?PrimeThemeCenterStyle.fontFamily:family,fontSize:(slogan?sidebarSloganFontSize:brand?sidebarBrandFontSize:sidebarFontSize)*scale,height:1,\n      fontWeight:brand?FontWeight.w700:selected?FontWeight.w600:FontWeight.normal,color:color);\n  }\n"
+        }
+      ]
+    }
+  ]
+}

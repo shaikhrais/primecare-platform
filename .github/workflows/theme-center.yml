@@ -79,6 +79,7 @@ jobs:
       - name: Verify generated API error border migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_api_error_borders.py
       - run: python3 scripts/register-theme-center-options.py --check
+      - run: python3 -m unittest discover -s scripts/tests -p test_theme_option_catalog_check.py -v
       - run: python3 scripts/register-admin-reality-filters.py --check
       - run: python3 scripts/check-admin-localization.py --check
       - run: python3 scripts/audit-ui-localization.py

@@ -36,7 +36,10 @@ def verify(db):
 
 def export_dart(db):
     verify(db)
-    catalogs=load_catalog(db.pin)
+    return render_dart(load_catalog(db.pin))
+
+def render_dart(catalogs):
+    """Format a pinned catalogue; this function makes no database parity claim."""
     lines=['// Generated from governance resources by scripts/register-theme-center-options.py.', 'const themeCenterOptions = <String, Map<String, String>>{']
     for language,values in catalogs.items():
         lines.append('  '+json.dumps(language)+': {')

@@ -13,9 +13,9 @@ and recorded review. Use NOT MATCHED / IN PROGRESS / BLOCKED / MATCHED only.
 | Task | Complete rendered view | Status |
 |---|---|---|
 | R01 | Expanded left sidebar | IN PROGRESS |
-| R02 | Folded sidebar | NOT MATCHED |
-| R03 | Right sidebar | NOT MATCHED |
-| R04 | Mobile sidebar drawer | NOT MATCHED |
+| R02 | Folded sidebar | IN PROGRESS |
+| R03 | Right sidebar | IN PROGRESS |
+| R04 | Mobile sidebar drawer | IN PROGRESS |
 | R05 | Horizontal navbar | NOT MATCHED |
 | R06 | Header/toolbar and action menus | NOT MATCHED |
 | R07 | Footer | NOT MATCHED |
@@ -59,3 +59,37 @@ and recorded review. Use NOT MATCHED / IN PROGRESS / BLOCKED / MATCHED only.
   Example navigation; native has PrimeCare branding and a tenant-dashboard sample.
   Selected/hover/focus/expanded/folded state comparison and final branding/header
   decision remain open. No full-render approval is claimed.
+
+## Sidebar state continuation
+
+R01–R04 remain IN PROGRESS; zero complete views accepted. The exact slogan
+Home service is registered and rendered through the verified existing resource
+helper (production registration/readback run 45111378438). This does not grant
+full-render acceptance.
+
+The existing sidebar now compares the current URI path so accessibility query
+parameters do not remove selection. Its row Material ink renders above the opaque
+sidebar background; selected, hover and settled keyboard-focus colors are visible.
+The folded header centers its existing logo without the expanded 20px inset,
+removing a one-pixel overflow. Folded entries expose their existing registered
+screen title in semantics, with the tooltip excluded from duplicate semantics.
+No new routes, resources, role grants, APIs, layout schema or public interfaces.
+
+Eight populated fixture cases (left/folded/right/mobile × light/dark) capture
+selected/hover/focus states. Checks include selected semantics and accessible name,
+keyboard reachability/activation, the existing route callback and mobile drawer
+closure. The capture policy remains synthetic and isolated, not live authority.
+41 workspace/default/metrics/full-shell regression cases and 13 exact-history
+checks pass locally; shared UI/theme boundary has zero violations. Reference
+account/navigation alignment, same-state comparison, remaining scrolling,
+transition, localization and visual acceptance are still open. Native screenshots
+and state differences are diagnostic evidence, not approved Fuse match pairs.
+
+The latest explicit typography request is applied: brand 18px/700, slogan
+11px/400 at normal saved scale. Typography and row padding moved to the existing
+shared shell theme metrics to resolve the observed screen-local-style CI failure;
+no boundary exemption was added. The stale legacy option-check path now checks
+the exact production-pinned export without database writes. Three checks reject
+pin/export drift and confirm no file/database creation. Other pre-existing CI
+failures (source revision/preflight and replay dependency proofs) remain open;
+no full CI, review, deployment or readiness claim is made from local tests.
