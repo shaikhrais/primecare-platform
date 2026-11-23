@@ -182,3 +182,11 @@ focus capture, records the resulting destination, and observes whether the
 mobile drawer closes. Missing activation evidence keeps a reason. The isolated
 capture host keeps its original shell mounted when the link changes the URL.
 R01–R05 remain IN PROGRESS. The reference and native menu content differ.
+
+The first navigation activation review exposed a desktop fixture defect. Two
+separate route builders rebuilt the shell when the keyboard selected the
+destination, losing the configured navbar position. The fixture now mirrors the
+registered router's shared shell, and verifies the same workspace and navbar
+position survive child-route activation in both themes. The blank child pages
+stay outside focus traversal so the check reaches the visible shell controls
+using Tab.

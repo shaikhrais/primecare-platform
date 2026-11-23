@@ -53,18 +53,25 @@ void main(){
    FlutterError.onError=(details){if(details.library=='image resource service'){resourceErrors.add(details.exception.runtimeType.toString());}else{previous?.call(details);}};
    addTearDown(()=>FlutterError.onError=previous);
    final compareNavbar = family == '2' && view.$1 == 'desktop';
-   final shell = RepaintBoundary(
+   Widget shell(Widget child) => RepaintBoundary(
     key: const Key('full-shell-proof'),
     child: GovernanceMasterLayout(
      application: ShellCaptureApplication(),
      activeRole: PlatformRole.admin,
-     child: const SizedBox.expand(),
+     child: child,
     ),
    );
    final router = compareNavbar ? GoRouter(
     routes: [
-     GoRoute(path: '/', builder: (_, _) => shell),
-     GoRoute(path: '/tenant-dashboard', builder: (_, _) => shell),
+     ShellRoute(
+      // The nested navigator has only blank fixture pages. Keep them out of
+      // traversal so Tab starts with the visible PrimeCare shell controls.
+      builder: (_, _, child) => shell(ExcludeFocus(child: child)),
+      routes: [
+       GoRoute(path: '/', builder: (_, _) => const SizedBox.expand()),
+       GoRoute(path: '/tenant-dashboard', builder: (_, _) => const SizedBox.expand()),
+      ],
+     ),
     ],
    ) : null;
    if (router != null) addTearDown(router.dispose);
@@ -74,7 +81,7 @@ void main(){
      child: RepaintBoundary(
       key: const Key('shell-overlay-proof'),
       child: router == null
-       ? MaterialApp(debugShowCheckedModeBanner: false, home: shell)
+       ? MaterialApp(debugShowCheckedModeBanner: false, home: shell(const SizedBox.expand()))
        : MaterialApp.router(debugShowCheckedModeBanner: false, routerConfig: router),
      ),
     ),
@@ -166,12 +173,23 @@ void main(){
      expect(item, findsNothing);
      final destination = router!.routeInformationProvider.value.uri.path;
      expect(destination, '/tenant-dashboard');
+     // The registered router keeps its shell mounted when a child route changes.
+     final activatedWorkspace = PortalWorkspaceScope.maybeOf(
+      tester.element(find.byKey(const Key('app-shell'))),
+     );
+     expect(activatedWorkspace, same(workspace));
+     expect(tester.getTopLeft(brand).dy, lessThan(64));
      await expectLater(
       proof,
       matchesGoldenFile('shell-captures/primecare-shell-$id-activated.png'),
      );
      File('test/screenshots/shell-captures/$id-activation.json').writeAsStringSync(
-      jsonEncode({'keyboardActivation': true, 'destination': destination, 'focusReturnedOnEscape': true}),
+      jsonEncode({
+       'keyboardActivation': true,
+       'destination': destination,
+       'focusReturnedOnEscape': true,
+       'shellLayoutPreserved': true,
+      }),
      );
     } finally {
      semantics.dispose();
