@@ -77,8 +77,33 @@ Keep the original PrimeCare brand and registered resources. Use matching common 
 | R01–R05 language and account actions | Fuse flag image, account avatar/info/chevron | Registered local flag vectors plus the existing role/account handlers; no network avatar | IN PROGRESS |
 | R05 text size and fixture destination | `lucide:a-large-small`, `lucide:star` | Existing Lucide glyphs retained | IN PROGRESS |
 | R05 fullscreen and Quick Panel | `fullscreen`, `lucide:bookmark` | Native host bindings require registration and approval | BLOCKED |
+| R01–R05 right-edge Theme Settings launcher | `lucide:settings` | Existing Theme Center drawer is a candidate. The separate authenticated shell launcher is absent from the checked production control receipt. | BLOCKED |
+| R01–R05 right-edge color schemes launcher | `lucide:swatch-book` | Existing account-scoped color combinations are a candidate. The separate launcher and picker entry are absent from the checked production control receipt. | BLOCKED |
 
 PrimeCare workspace save keeps its own action. The Fuse bookmark opens the Quick Panel. PrimeCare brand imagery stays tied to its existing registered asset.
+
+### Right-edge configurator evidence
+
+Untouched Vite skeleton SHA-256 values:
+
+| Source | SHA-256 |
+|---|---|
+| `Configurator.tsx` | `9b28fe4e6f14ec1f1cd7f4615ed66ce5c0e5b1c7b3307016fffc9dc0f1662c54` |
+| `SettingsPanel.tsx` | `fddc74b49ca4ea221fff84d5b56d3b5eabe997b1ada5c5e5aa32108a69efb7b8` |
+| `ThemesPanel.tsx` | `228e306d092e80fbdfc43c79c8bf41faf78bd6bbdf12561301549b1ff0f1ac93` |
+
+The authenticated reference displays two separate actions in a shared right-edge
+rail. The gear opens layout and theme settings. The swatch book opens scheme
+selection. The reference hides the rail for guests. The current PrimeCare
+footer opens Theme Center, and its hidden-toolbar recovery action opens the
+same drawer. Those entry points do not cover either separate launcher.
+
+Use the existing account scope and actions for the proposed launchers. Verify
+production registration for the two distinct shell elements and their accessible
+labels before exposing them in runtime. Review closed, opened and dismissed
+states, keyboard focus and activation, guest absence, drawer overlay, and theme
+selection scoped to the authenticated account. Check both themes and each
+active shell, including the mobile scrim and right-docked sidebar.
 
 ## Reproduce
 

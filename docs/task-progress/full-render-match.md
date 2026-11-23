@@ -433,3 +433,18 @@ Source identities reviewed for this geometry pass:
 This is measured component progress inside complete frames. It is not a
 whole-view match claim. R01–R05 remain IN PROGRESS; R06–R25 remain NOT MATCHED,
 and demo work remains blocked.
+
+## Account menu CI repair and right-edge theme controls
+
+GitHub run 45255382075 reported 28 screen-style violations on the account
+geometry commit. The shell now retains the prior source around unchanged
+presentation code and uses a shared frame for the account trigger decoration.
+The fixed screen-style baseline comparison reports zero new findings in the
+shell. All 28 existing render tests pass against their existing captures.
+
+The reported pair of red buttons is visible in the authenticated Fuse frames
+for R01–R05. The gear opens Settings and the swatch book opens color schemes.
+Both launchers are BLOCKED pending their production control registration and
+readback. The [component coverage](fuse-component-coverage.md) records the
+source hashes, native counterparts and open behavior checks. R01–R05 remain
+IN PROGRESS for complete-view acceptance.
