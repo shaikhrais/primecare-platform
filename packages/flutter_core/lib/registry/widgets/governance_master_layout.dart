@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/theme_settings_provider.dart';
 import 'theme_settings_drawer.dart';
+import 'theme_center_panel.dart' show PrimeToolbarTextScale, themeCenterText;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
@@ -412,6 +413,10 @@ class GovernanceMasterLayout extends ConsumerWidget {
                               ),
                             ),
                           ),
+                          if (horizontal && !isHandheld) ...[
+                            PrimeToolbarTextScale(foreground: topbarIconColor),
+                            PortalLayoutSaveButton(tooltip: themeCenterText(context, 'save')),
+                          ],
                           const SizedBox(width: 8),
                           Builder(
                             builder: (scaffoldContext) {

@@ -244,3 +244,23 @@ row inside the existing 64px navbar.
 R01–R05 remain IN PROGRESS. Shared fixture inputs resolve the previous
 navigation-label discrepancy for diagnostic comparison. Differences in
 brand, account controls and full view behavior still require review.
+
+## Layout 2 toolbar controls
+
+The Fuse toolbar source renders the responsive drawer trigger, navigation
+shortcuts, language, font size, fullscreen, navigation search, Quick Panel
+and an account menu. The bookmark opens the Quick Panel. The star opens
+navigation shortcuts. Layout saving is a separate PrimeCare action.
+
+| Reference or requested action | PrimeCare horizontal toolbar |
+|---|---|
+| Language | Existing EN/FR/ES selector and account preference path |
+| Font size | Toolbar access to the existing Theme Center text scale, using its validated range and account scope |
+| Save layout | Toolbar access to the existing local workspace save used by the footer, with no account sync grant |
+| Drawer trigger and account menu | Existing PrimeCare controls retain their current routing and permissions |
+| Fullscreen, navigation search and shortcuts | The current native master has no approved host binding. Existing shared B08 controls were registered on the Tenant Admin web pilot only. |
+| Quick Panel (bookmark) | Native host and authorized resource bindings are absent. The B08 pilot does not grant Tenant Admin preference API access. |
+
+The EN/FR/ES menu, text scale selection and workspace save are captured in
+light and dark through the actual horizontal host. These controls are part of
+the open R05 comparison. Broader toolbar and utilities acceptance stays gated.

@@ -76,6 +76,28 @@ Future<void> _operation(BuildContext context, Future<String> Function() action) 
   }
 }
 
+/// Exposes the same account-scoped local save wherever layout actions appear.
+class PortalLayoutSaveButton extends StatelessWidget {
+  final String tooltip;
+  const PortalLayoutSaveButton({super.key, required this.tooltip});
+
+  @override
+  Widget build(BuildContext context) {
+    final workspace = PortalWorkspaceScope.maybeOf(context);
+    return PrimeIconButton(
+      tooltip: tooltip,
+      onPressed: workspace?.preferences == null ? null : () => _operation(
+        context,
+        () async {
+          await workspace!.save();
+          return 'Layout saved on this device.';
+        },
+      ),
+      icon: const PrimeIcon(Icons.save_outlined, size: 18),
+    );
+  }
+}
+
 /// Compact shared footer. Hidden footers can always be restored in Theme Center.
 class PortalLayoutFooter extends StatelessWidget {
   const PortalLayoutFooter({super.key});
@@ -88,9 +110,7 @@ class PortalLayoutFooter extends StatelessWidget {
           maxLines: 1, overflow: TextOverflow.ellipsis)),
         PrimeIconButton(tooltip: 'Undo layout', onPressed: c.canUndo ? c.undo : null,
           icon: const PrimeIcon(Icons.undo, size: 18)),
-        PrimeIconButton(tooltip: 'Save layout', onPressed: c.preferences == null ? null : () =>
-          _operation(context, () async { await c.save(); return 'Layout saved on this device.'; }),
-          icon: const PrimeIcon(Icons.save_outlined, size: 18)),
+        const PortalLayoutSaveButton(tooltip: 'Save layout'),
         PrimeIconButton(tooltip: 'Theme and layout', onPressed: () => Scaffold.of(context).openEndDrawer(),
           icon: const PrimeIcon(Icons.tune, size: 18)),
       ]));

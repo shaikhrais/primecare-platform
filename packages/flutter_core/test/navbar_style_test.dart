@@ -50,11 +50,15 @@ void main(){
     final notifier=a.read(themeSettingsProvider.notifier),session= a.read(themeSettingsProvider.notifier).bindAccount();
     await notifier.updateNavbarStyle('static');await notifier.updatePreset('defaultDark');
     await notifier.updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default'));
+    await session.updateTextScale(1.25);
     expect(a.read(themeSettingsProvider).navbarStyle,'static');
     final restarted=container('alice');addTearDown(restarted.dispose);expect(restarted.read(themeSettingsProvider).navbarStyle,'static');
+    expect(restarted.read(themeSettingsProvider).theme.fontScale, 1.25);
     (a.read(authProvider.notifier) as TestThemeAuth).switchUser(actor('bob'));
     expect(a.read(themeSettingsProvider).navbarStyle,'fixed');
     expect(()=>session.updateNavbarStyle('static'),throwsStateError);
+    expect(()=>session.updateTextScale(1.5),throwsStateError);
+    expect(a.read(themeSettingsProvider).theme.fontScale, 1.0);
     expect(a.read(themeSettingsProvider).navbarStyle,'fixed');
     expect(()=>notifier.updateNavbarStyle('unsupported'),throwsArgumentError);
   });

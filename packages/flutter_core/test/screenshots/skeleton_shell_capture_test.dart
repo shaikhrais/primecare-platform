@@ -212,6 +212,28 @@ void main(){
        'shellLayoutPreserved': true,
       }),
      );
+     await tester.tap(find.byTooltip('Change Language'));
+     await tester.pumpAndSettle();
+     expect(find.text('English (EN)'), findsOneWidget);
+     expect(find.text('Français (FR)'), findsOneWidget);
+     expect(find.text('Español (ES)'), findsOneWidget);
+     await expectLater(proof, matchesGoldenFile('shell-captures/primecare-shell-$id-language-open.png'));
+     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+     await tester.pumpAndSettle();
+     await tester.tap(find.byTooltip('Text scale'));
+     await tester.pumpAndSettle();
+     expect(find.text('125%'), findsOneWidget);
+     await expectLater(proof, matchesGoldenFile('shell-captures/primecare-shell-$id-text-size-open.png'));
+     await tester.tap(find.text('125%'));
+     await tester.pumpAndSettle();
+     expect(container.read(themeSettingsProvider).theme.fontScale, 1.25);
+     expect(container.read(themeSettingsProvider).sectionThemes['navbar']?.preset,
+       mode == 'dark' ? 'defaultDark' : 'defaultNavbar');
+     await tester.tap(find.byTooltip('Save'));
+     await tester.pumpAndSettle();
+     expect(prefs.getString(workspace.scope.storageKey), workspace.exportJson());
+     expect(find.text('Layout saved on this device.'), findsOneWidget);
+     await expectLater(proof, matchesGoldenFile('shell-captures/primecare-shell-$id-layout-saved.png'));
     } finally {
      semantics.dispose();
     }

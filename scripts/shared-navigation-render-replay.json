@@ -4,12 +4,17 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
-      "afterSha256": "681b83e7a433f5bb0a5007df8635b1fd4340e0633214e4cbddaf0458fbd4a9ac",
+      "afterSha256": "039af7ed8db7697111682786080003e85c70bcdaa65f4f5786518c47d7c0b905",
       "edits": [
         {
           "begin": 1393,
           "old": "",
           "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+        },
+        {
+          "begin": 1558,
+          "old": "",
+          "new": "import 'theme_center_panel.dart' show PrimeToolbarTextScale, themeCenterText;\n"
         },
         {
           "begin": 2859,
@@ -82,6 +87,11 @@
           "new": "                        title: isHandheld || horizontal ? null : PrimeText(tenant.name, maxLines: 1,\n"
         },
         {
+          "begin": 20458,
+          "old": "",
+          "new": "                          if (horizontal && !isHandheld) ...[\n                            PrimeToolbarTextScale(foreground: topbarIconColor),\n                            PortalLayoutSaveButton(tooltip: themeCenterText(context, 'save')),\n                          ],\n"
+        },
+        {
           "begin": 25572,
           "old": "",
           "new": "                          if (!isHandheld && position == 'right')\n                            PrimeSidebarFoldButton(controller: workspace, foreground: topbarIconColor),\n"
@@ -136,12 +146,22 @@
     {
       "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
       "beforeSha256": "2037d762ddf2dc7c202eafe9eb5ebb5620fb390899d6f6482e7ee8f56059a8a4",
-      "afterSha256": "670c7787eb8b15f1a526076c391ab507a82676f9aaa8d06af90a5e83acd118d4",
+      "afterSha256": "b4a3bf6f3eadbd7ef70af8bed3f31d8ae70b07dfd7bfabe7268b91b4f230a92b",
       "edits": [
         {
           "begin": 182,
           "old": "",
           "new": "import '../theme/app_theme.dart' show GovernanceThemeColors;\nimport '../theme/prime_shell_metrics.dart';\nimport '../theme/theme_contrast.dart';\nimport '../theme/theme_center_options.dart';\nimport 'package:lucide_icons_flutter/lucide_icons.dart';\n"
+        },
+        {
+          "begin": 3336,
+          "old": "",
+          "new": "/// Exposes the same account-scoped local save wherever layout actions appear.\nclass PortalLayoutSaveButton extends StatelessWidget {\n  final String tooltip;\n  const PortalLayoutSaveButton({super.key, required this.tooltip});\n\n  @override\n  Widget build(BuildContext context) {\n    final workspace = PortalWorkspaceScope.maybeOf(context);\n    return PrimeIconButton(\n      tooltip: tooltip,\n      onPressed: workspace?.preferences == null ? null : () => _operation(\n        context,\n        () async {\n          await workspace!.save();\n          return 'Layout saved on this device.';\n        },\n      ),\n      icon: const PrimeIcon(Icons.save_outlined, size: 18),\n    );\n  }\n}\n\n"
+        },
+        {
+          "begin": 4047,
+          "old": "        PrimeIconButton(tooltip: 'Save layout', onPressed: c.preferences == null ? null : () =>\n          _operation(context, () async { await c.save(); return 'Layout saved on this device.'; }),\n          icon: const PrimeIcon(Icons.save_outlined, size: 18)),\n",
+          "new": "        const PortalLayoutSaveButton(tooltip: 'Save layout'),\n"
         },
         {
           "begin": 11297,
@@ -209,6 +229,35 @@
           "begin": 4256,
           "old": "",
           "new": "}\n\n/// Keeps horizontal bars full bleed and aligns their controls to one column.\nclass PrimeHorizontalChrome extends StatelessWidget {\n  final Color background;\n  final Widget child;\n  const PrimeHorizontalChrome({\n    super.key,\n    required this.background,\n    required this.child,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    final desktop = MediaQuery.sizeOf(context).width >=\n        PrimeShellMetrics.horizontalDesktopBreakpoint;\n    return ColoredBox(\n      color: background,\n      child: Center(\n        child: ConstrainedBox(\n          constraints: const BoxConstraints(\n            maxWidth: PrimeShellMetrics.horizontalContentWidth,\n          ),\n          child: Padding(\n            padding: desktop ? PrimeShellMetrics.horizontalChromeInset : EdgeInsets.zero,\n            child: child,\n          ),\n        ),\n      ),\n    );\n  }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
+      "beforeSha256": "bea2eb8cb1f09aac328aea73311936f5b5bb13dc41f89d4b2352f0b5d0a5932b",
+      "afterSha256": "5b21636b5bdbebab8451321ba26df5c311e598f103d09926f926cc16f2e4662d",
+      "edits": [
+        {
+          "begin": 12457,
+          "old": "",
+          "new": "  Future<void> updateTextScale(double scale) {\n    if (!_owner._matchesAccount(_scope)) throw StateError('Account changed');\n    final current = _owner.state.theme;\n    return _owner.applyPersonalTheme(\n      PersonalTheme.fromJson({...current.toJson(), 'fontScale': scale}),\n    );\n  }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+      "beforeSha256": "e72d7d7a72e4c617905d24920c23b14918efc07a4d542c2b86536332d04bab3c",
+      "afterSha256": "fe88a4bb7c3dab57cbb4c7de435e11ba72b082cd6e6d392239d06c79ee504183",
+      "edits": [
+        {
+          "begin": 1072,
+          "old": "",
+          "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;\nimport 'package:intl/intl.dart';\nimport 'package:lucide_icons_flutter/lucide_icons.dart';\n"
+        },
+        {
+          "begin": 1562,
+          "old": "",
+          "new": "\n/// Toolbar access to the existing, account-scoped Theme Center text scale.\nclass PrimeToolbarTextScale extends ConsumerWidget {\n  final Color foreground;\n  const PrimeToolbarTextScale({super.key, required this.foreground});\n\n  @override\n  Widget build(BuildContext context, WidgetRef ref) {\n    final current = ref.watch(themeSettingsProvider).theme.fontScale;\n    final account = ref.read(themeSettingsProvider.notifier).bindAccount();\n    final locale = Localizations.localeOf(context).toLanguageTag();\n    String percentage(double scale) => NumberFormat.decimalPercentPattern(\n      locale: locale,\n      decimalDigits: (scale * 100) % 1 == 0 ? 0 : 1,\n    ).format(scale);\n    return PrimePopupMenuButton<double>(\n      tooltip: themeCenterText(context, 'text_scale'),\n      icon: PrimeIcon(LucideIcons.aLargeSmall, color: foreground),\n      onSelected: (scale) async {\n        try {\n          await account.updateTextScale(scale);\n        } catch (_) {\n          if (context.mounted) {\n            ScaffoldMessenger.maybeOf(context)?.showSnackBar(PrimeSnackBar(\n              content: PrimeText(themeCenterText(context,\n                'unable_to_save_or_apply_use_a_unique_name_and_valid_settings')),\n            ));\n          }\n        }\n      },\n      itemBuilder: (context) => [\n        for (final scale in [.875, 1.0, 1.125, 1.25, 1.375, 1.5])\n          PopupMenuItem(\n            value: scale,\n            child: Semantics(selected: scale == current, child: PrimeText(percentage(scale))),\n          ),\n      ],\n    );\n  }\n}\n\n"
         }
       ]
     }

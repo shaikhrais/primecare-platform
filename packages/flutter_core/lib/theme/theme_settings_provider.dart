@@ -135,4 +135,11 @@ class PersonalThemeSettingsSession {
     if(!_owner._matchesAccount(_scope))throw StateError('Account changed');
     return _owner.applyPersonalTheme(theme);
   }
+  Future<void> updateTextScale(double scale) {
+    if (!_owner._matchesAccount(_scope)) throw StateError('Account changed');
+    final current = _owner.state.theme;
+    return _owner.applyPersonalTheme(
+      PersonalTheme.fromJson({...current.toJson(), 'fontScale': scale}),
+    );
+  }
 }

@@ -7,12 +7,56 @@ import '../../theme/theme_center_options_generated.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import 'package:flutter/services.dart';import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../theme/personal_theme.dart';import '../../theme/theme_center_catalog_generated.dart';import '../../theme/theme_library_provider.dart';import '../../theme/theme_settings_provider.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
+import 'package:intl/intl.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 String themeCenterText(BuildContext context,String key,{Map<String,String> args=const {}}) {
  final language=Localizations.localeOf(context).languageCode;
  final fallback=themeCenterScreenCatalog[language]?[key]??themeCenterOptions[language]?[key]??themeCenterScreenCatalog['en']?[key]??themeCenterOptions['en']?[key];
  if(fallback==null)throw ArgumentError.value(key,'key','Unknown Theme Center resource');
  return liveScreenText(context,'theme_center',language,key,fallback,args:args);
 }
+
+/// Toolbar access to the existing, account-scoped Theme Center text scale.
+class PrimeToolbarTextScale extends ConsumerWidget {
+  final Color foreground;
+  const PrimeToolbarTextScale({super.key, required this.foreground});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final current = ref.watch(themeSettingsProvider).theme.fontScale;
+    final account = ref.read(themeSettingsProvider.notifier).bindAccount();
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    String percentage(double scale) => NumberFormat.decimalPercentPattern(
+      locale: locale,
+      decimalDigits: (scale * 100) % 1 == 0 ? 0 : 1,
+    ).format(scale);
+    return PrimePopupMenuButton<double>(
+      tooltip: themeCenterText(context, 'text_scale'),
+      icon: PrimeIcon(LucideIcons.aLargeSmall, color: foreground),
+      onSelected: (scale) async {
+        try {
+          await account.updateTextScale(scale);
+        } catch (_) {
+          if (context.mounted) {
+            ScaffoldMessenger.maybeOf(context)?.showSnackBar(PrimeSnackBar(
+              content: PrimeText(themeCenterText(context,
+                'unable_to_save_or_apply_use_a_unique_name_and_valid_settings')),
+            ));
+          }
+        }
+      },
+      itemBuilder: (context) => [
+        for (final scale in [.875, 1.0, 1.125, 1.25, 1.375, 1.5])
+          PopupMenuItem(
+            value: scale,
+            child: Semantics(selected: scale == current, child: PrimeText(percentage(scale))),
+          ),
+      ],
+    );
+  }
+}
+
 class ThemeCenterPanel extends ConsumerWidget {
  const ThemeCenterPanel({super.key});
  Future<void> _run(BuildContext context,Future<void> Function() action) async {try{await action();}catch(_){if(context.mounted)ScaffoldMessenger.of(context).showSnackBar(PrimeSnackBar(content:PrimeText(themeCenterText(context,'unable_to_save_or_apply_use_a_unique_name_and_valid_settings'))));}}
