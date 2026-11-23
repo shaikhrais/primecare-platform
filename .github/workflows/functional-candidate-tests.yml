@@ -22,14 +22,15 @@ jobs:
     services:
       postgres:
         image: postgres:16
-        env: {POSTGRES_DB: functional_test, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture-only}
+        env: {POSTGRES_DB: psw_test, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture-only}
         ports: ['5432:5432']
-        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
     env:
-      PSW_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
-      PLATFORM_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
-      CARE_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
-      GROWTH_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
+      PSW_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/psw_test
+      PREFERENCE_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/preference_test
+      PLATFORM_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/psw_test
+      CARE_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/psw_test
+      GROWTH_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/psw_test
       GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
       SUITE: ${{ matrix.suite }}
     steps:
@@ -47,6 +48,14 @@ jobs:
           ln -s /tmp/functional-tools/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
           pip install -r tools/governance-production/requirements.txt
+      - name: Create dedicated preference fixture database
+        run: |
+          node --input-type=module - <<'JS'
+          import pg from 'pg';
+          const db=new pg.Client({connectionString:process.env.PSW_TEST_DATABASE_URL});
+          await db.connect();
+          try{await db.query('CREATE DATABASE preference_test');}finally{await db.end();}
+          JS
       - name: Prepare historical metadata as isolated test fixtures only
         run: |
           python3 tools/governance-production/prepare-ci-fixture.py
