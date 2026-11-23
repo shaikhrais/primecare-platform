@@ -822,8 +822,12 @@ class _PrimeSidebarDestinationState extends State<_PrimeSidebarDestination> {
     ),
     selected: widget.selected,
     selectedTileColor: widget.selectedTileColor,
-    hoverColor: widget.selected ? Colors.transparent : widget.hoverColor,
-    focusColor: widget.selected ? Colors.transparent : widget.focusColor,
+    hoverColor: widget.selected
+        ? PrimeShellMetrics.transparentInteractionInk
+        : widget.hoverColor,
+    focusColor: widget.selected
+        ? PrimeShellMetrics.transparentInteractionInk
+        : widget.focusColor,
     leading: widget.leading,
     title: widget.title,
     onFocusChange: (focused) {

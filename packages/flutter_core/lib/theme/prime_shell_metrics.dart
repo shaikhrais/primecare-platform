@@ -4,6 +4,7 @@ import 'prime_theme_center_style.dart';
 /// Reference src/styles/index.css overrides md to 60rem (960px).
 /// ToolbarLayout1/2 and FooterLayout1/2 use min-h-12 md:min-h-16.
 abstract final class PrimeShellMetrics {
+  static const transparentInteractionInk = Colors.transparent;
   static const desktopBreakpoint = 960.0;
   static const horizontalContentWidth = 1120.0;
   static const horizontalDesktopBreakpoint = 1280.0;
@@ -93,7 +94,7 @@ abstract final class PrimeShellMetrics {
     }),
     // Paint the *current* state above so a held ink highlight does not
     // carry its original alpha into the newly selected destination.
-    overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+    overlayColor: const WidgetStatePropertyAll(transparentInteractionInk),
   );
 
   static ThemeData navigationInteractionTheme(
