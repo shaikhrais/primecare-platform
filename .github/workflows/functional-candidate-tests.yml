@@ -1,0 +1,127 @@
+name: Functional candidate acceptance
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/functional-candidate-tests.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency:
+  group: functional-candidate-${{ github.sha }}
+  cancel-in-progress: false
+env:
+  CANDIDATE_SHA: 0db20fb75f3c974b12af97042df42596c52be0c8
+jobs:
+  browser-postgres:
+    name: Browser and PostgreSQL (${{ matrix.suite }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [work, communication, applications, business]
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: functional_test, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture-only}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PSW_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
+      PLATFORM_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
+      CARE_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
+      GROWTH_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/functional_test
+      GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+      SUITE: ${{ matrix.suite }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.CANDIDATE_SHA }}', persist-credentials: false}
+      - name: Verify immutable candidate identity
+        run: test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install isolated test dependencies
+        run: |
+          npm install --prefix /tmp/functional-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 pg@8.16.3 bcryptjs@3.0.2 linkedom@0.18.12 jsdom@26.1.0 @electric-sql/pglite@0.3.14 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 axe-core@4.10.3 @twilio/voice-sdk@2.18.5 @redocly/openapi-core@1.34.3
+          ln -s /tmp/functional-tools/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+          pip install -r tools/governance-production/requirements.txt
+      - name: Prepare historical metadata as isolated test fixtures only
+        run: |
+          python3 tools/governance-production/prepare-ci-fixture.py
+          python3 tools/workflow-verification/restore_checkpoint.py
+      - name: Run every selected feature check and retain failures
+        run: |
+          python3 - <<'PY'
+          import json,os,pathlib,subprocess,time
+          groups={
+            'work':['test-work-modules-calendar','test-work-modules-lifecycle','test-work-modules-scope','test-work-modules-receipts','test-work-modules-transport','test-work-modules','test-tenant-work-host-lifecycle','test-work-modules-browser','test-tenant-work-module-host'],
+            'communication':['test-communication-modules-transport','test-communication-module-cancellation','test-communication-module-query-lifecycle','test-communication-modules','test-communication-modules-browser'],
+            'applications':['test-application-modules-transport','test-application-modules-settings-lifecycle','test-application-modules','test-application-modules-browser','test-dashboard-pages-integration','test-dashboard-pages-browser'],
+            'business':['test-care-delivery','test-growth-reporting','test-look-manager']
+          }
+          out=pathlib.Path('test-results/functional-candidate');out.mkdir(parents=True,exist_ok=True);results=[]
+          for name in groups[os.environ['SUITE']]:
+            command=['node','scripts/'+name+'.mjs'];start=time.monotonic()
+            try:
+              run=subprocess.run(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=600)
+              code,output=run.returncode,run.stdout
+            except subprocess.TimeoutExpired as error:code,output=124,error.stdout or b''
+            (out/(name+'.log')).write_bytes(output)
+            results.append({'name':name,'command':command,'exitCode':code,'seconds':round(time.monotonic()-start,2)})
+            print(name,code,flush=True)
+          source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          (out/'summary.json').write_text(json.dumps({'candidate':source,'suite':os.environ['SUITE'],'results':results},indent=2))
+          assert source==os.environ['CANDIDATE_SHA']
+          raise SystemExit(int(any(row['exitCode'] for row in results)))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: functional-candidate-${{ matrix.suite }}-${{ github.run_attempt }}
+          path: test-results/functional-candidate/
+          retention-days: 14
+  source-contracts:
+    name: Source and contract regressions
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env: {GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.CANDIDATE_SHA }}', persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Prepare immutable replay sources and isolated fixture
+        run: |
+          git fetch --no-tags --depth=1 origin 4e6195c51e639e362b2884e4de435578960f0983
+          python3 tools/governance-production/prepare-ci-fixture.py
+          python3 tools/workflow-verification/restore_checkpoint.py
+          npm install --prefix /tmp/functional-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 bcryptjs@3.0.2 linkedom@0.18.12 @electric-sql/pglite@0.3.14 pg@8.16.3
+          ln -s /tmp/functional-tools/node_modules node_modules
+      - name: Exact proof, source boundaries and transport regressions
+        run: |
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          python3 scripts/test-workflow-theme-replay.py
+          python3 scripts/test-workflow-contract-plan.py
+          python3 scripts/generate-workflow-contract-plan.py --check
+          python3 -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
+          node --test tools/package_master/test_web_boundary.mjs scripts/test-help-reader-client-cancellation.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-analytics.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/work-modules.ts websites/typescript/src/tenant-dashboard/work-module-transport.ts
+  native:
+    name: Native shared tests (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.CANDIDATE_SHA }}', persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - name: Native feature model and widget acceptance
+        run: flutter test test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/preference_sync --reporter expanded
+        working-directory: packages/flutter_core
