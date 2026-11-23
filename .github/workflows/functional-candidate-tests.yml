@@ -4,16 +4,46 @@ on:
     branches: [main]
     paths: ['.github/workflows/functional-candidate-tests.yml']
   workflow_dispatch:
+    inputs:
+      source:
+        description: 'Verify exact main (default) or replay the explicitly pinned utility candidate'
+        type: choice
+        required: true
+        default: exact-main
+        options: [exact-main, historical-replay]
 permissions: {contents: read}
 concurrency:
-  group: functional-candidate-${{ github.sha }}
+  group: functional-candidate-${{ github.sha }}-${{ inputs.source || 'exact-main' }}
   cancel-in-progress: false
-env:
-  CANDIDATE_SHA: db6205bdb1998e78b11eed96306775fd22aad638
 jobs:
+  source:
+    name: Select verification source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      commit: ${{ steps.selection.outputs.commit }}
+      mode: ${{ steps.selection.outputs.mode }}
+    steps:
+      - name: Validate main ref and immutable candidate
+        id: selection
+        env:
+          REQUESTED_SOURCE: ${{ inputs.source || 'exact-main' }}
+          HISTORICAL_SHA: db6205bdb1998e78b11eed96306775fd22aad638
+        run: |
+          set -eu
+          test "$GITHUB_REF" = refs/heads/main
+          case "$REQUESTED_SOURCE:$GITHUB_EVENT_NAME" in
+            exact-main:push|exact-main:workflow_dispatch) commit="$GITHUB_SHA" ;;
+            historical-replay:workflow_dispatch) commit="$HISTORICAL_SHA" ;;
+            *) echo 'Unsupported verification source or event' >&2; exit 1 ;;
+          esac
+          [[ "$commit" =~ ^[0-9a-f]{40}$ ]]
+          printf 'commit=%s\nmode=%s\n' "$commit" "$REQUESTED_SOURCE" >> "$GITHUB_OUTPUT"
+          printf 'Verification mode: **%s**\n\nSource: `%s`\n\nWorkflow trigger SHA: `%s`\n' "$REQUESTED_SOURCE" "$commit" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
   browser-postgres:
     name: Browser and PostgreSQL (${{ matrix.suite }})
     runs-on: ubuntu-24.04
+    needs: source
     timeout-minutes: 35
     strategy:
       fail-fast: false
@@ -33,6 +63,8 @@ jobs:
       GROWTH_TEST_DATABASE_URL: postgresql://postgres:fixture-only@127.0.0.1:5432/psw_test
       GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
       SUITE: ${{ matrix.suite }}
+      CANDIDATE_SHA: ${{ needs.source.outputs.commit }}
+      VERIFICATION_MODE: ${{ needs.source.outputs.mode }}
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ env.CANDIDATE_SHA }}', persist-credentials: false}
@@ -81,7 +113,7 @@ jobs:
             results.append({'name':name,'command':command,'exitCode':code,'seconds':round(time.monotonic()-start,2)})
             print(name,code,flush=True)
           source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-          (out/'summary.json').write_text(json.dumps({'candidate':source,'suite':os.environ['SUITE'],'results':results},indent=2))
+          (out/'summary.json').write_text(json.dumps({'candidate':source,'verificationMode':os.environ['VERIFICATION_MODE'],'workflowTriggerSha':os.environ['GITHUB_SHA'],'suite':os.environ['SUITE'],'results':results},indent=2))
           assert source==os.environ['CANDIDATE_SHA']
           raise SystemExit(int(any(row['exitCode'] for row in results)))
           PY
@@ -94,11 +126,16 @@ jobs:
   source-contracts:
     name: Source and contract regressions
     runs-on: ubuntu-24.04
+    needs: source
     timeout-minutes: 20
-    env: {GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'}
+    env:
+      GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+      CANDIDATE_SHA: ${{ needs.source.outputs.commit }}
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ env.CANDIDATE_SHA }}', persist-credentials: false}
+      - name: Verify immutable candidate identity
+        run: test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - name: Prepare immutable replay sources and isolated fixture
@@ -123,10 +160,16 @@ jobs:
       fail-fast: false
       matrix: {os: [ubuntu-24.04, windows-latest]}
     runs-on: ${{ matrix.os }}
+    needs: source
     timeout-minutes: 30
+    env:
+      CANDIDATE_SHA: ${{ needs.source.outputs.commit }}
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ env.CANDIDATE_SHA }}', persist-credentials: false}
+      - name: Verify immutable candidate identity
+        shell: bash
+        run: test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
