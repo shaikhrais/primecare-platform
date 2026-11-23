@@ -195,6 +195,9 @@ void main(){
      final selectedStyle = tester.widget<TextButton>(triggerFinder).style!;
      final selectedColor = selectedStyle.backgroundColor?.resolve({});
      expect(selectedColor, isNotNull);
+     const focusedState = {WidgetState.focused};
+     expect(selectedStyle.overlayColor?.resolve(focusedState), Colors.transparent);
+     expect(selectedStyle.side?.resolve(focusedState)?.color, isNotNull);
      final selectedBounds = tester.getRect(triggerFinder);
      final paintedButton = find.descendant(
       of: triggerFinder, matching: find.byType(Material),

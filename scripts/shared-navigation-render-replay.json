@@ -193,7 +193,7 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
-      "afterSha256": "1a59833ad0c47bd62e310c3792caf81c16b206acc0695975eff7bda460e92075",
+      "afterSha256": "06e16f06836c4b2bc92d5b4cec64d470eff4d2895dd33f4a6841a52ab650890d",
       "edits": [
         {
           "begin": 297,
@@ -218,7 +218,7 @@
         {
           "begin": 1870,
           "old": "",
-          "new": "\n  static ButtonStyle horizontalDestinationStyle({\n    required Color foreground,\n    required Color? selectedBackground,\n  }) => ButtonStyle(\n    padding: const WidgetStatePropertyAll(EdgeInsets.zero),\n    minimumSize: const WidgetStatePropertyAll(\n      Size(0, horizontalDestinationPaintHeight),\n    ),\n    fixedSize: const WidgetStatePropertyAll(\n      Size.fromHeight(horizontalDestinationPaintHeight),\n    ),\n    tapTargetSize: MaterialTapTargetSize.padded,\n    shape: const WidgetStatePropertyAll(\n      RoundedRectangleBorder(borderRadius: navigationItemRadius),\n    ),\n    backgroundColor: WidgetStatePropertyAll(selectedBackground),\n    overlayColor: WidgetStateProperty.resolveWith((states) {\n      if (states.contains(WidgetState.pressed) ||\n          states.contains(WidgetState.focused)) {\n        return navigationFocusInk(foreground);\n      }\n      if (states.contains(WidgetState.hovered)) {\n        return navigationHoverInk(foreground);\n      }\n      return null;\n    }),\n  );\n"
+          "new": "\n  static ButtonStyle horizontalDestinationStyle({\n    required Color foreground,\n    required Color? selectedBackground,\n  }) => ButtonStyle(\n    padding: const WidgetStatePropertyAll(EdgeInsets.zero),\n    minimumSize: const WidgetStatePropertyAll(\n      Size(0, horizontalDestinationPaintHeight),\n    ),\n    fixedSize: const WidgetStatePropertyAll(\n      Size.fromHeight(horizontalDestinationPaintHeight),\n    ),\n    tapTargetSize: MaterialTapTargetSize.padded,\n    shape: const WidgetStatePropertyAll(\n      RoundedRectangleBorder(borderRadius: navigationItemRadius),\n    ),\n    backgroundColor: WidgetStatePropertyAll(selectedBackground),\n    side: WidgetStateProperty.resolveWith((states) {\n      if (selectedBackground != null &&\n          (states.contains(WidgetState.focused) ||\n              states.contains(WidgetState.pressed))) {\n        return BorderSide(color: foreground);\n      }\n      return null;\n    }),\n    overlayColor: WidgetStateProperty.resolveWith((states) {\n      // Keep the selected background and its contrast while showing focus\n      // on the outline. The ordinary unselected ink is unchanged.\n      if (selectedBackground != null) return Colors.transparent;\n      if (states.contains(WidgetState.pressed) ||\n          states.contains(WidgetState.focused)) {\n        return navigationFocusInk(foreground);\n      }\n      if (states.contains(WidgetState.hovered)) {\n        return navigationHoverInk(foreground);\n      }\n      return null;\n    }),\n  );\n"
         },
         {
           "begin": 3859,
