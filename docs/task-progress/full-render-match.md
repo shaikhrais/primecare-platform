@@ -200,7 +200,8 @@ keyboard-activatable direct link. Groups with multiple destinations keep their
 menus. The link shows its selected state after navigation.
 
 The folded tabbed style now shows the existing PrimeCare mark in the compact
-rail and exposes the tab name to assistive technology. The two-line header
+rail and exposes the tab name to assistive technology. Its selected marker
+uses the shared sidebar palette and rounded row treatment. The two-line header
 keeps its registered name and slogan hierarchy. The shared sidebar selected
 fill and label weight were adjusted in the rendered expanded, right and mobile
 cases. Existing saved layout formats, routes, metadata and grants are unchanged.

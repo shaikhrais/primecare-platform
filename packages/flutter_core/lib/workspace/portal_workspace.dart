@@ -2,6 +2,9 @@ import 'workspace_files.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart';
+import '../theme/app_theme.dart' show GovernanceThemeColors;
+import '../theme/prime_shell_metrics.dart';
+import '../theme/theme_contrast.dart';
 import 'workspace_controller.dart';
 export 'workspace_controller.dart';
 export 'workspace_preferences.dart';
@@ -245,20 +248,76 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
     if(old.initialIndex!=widget.initialIndex)selected=widget.initialIndex;
     if(selected>=widget.tabs.length)selected=0;
   }
-  @override Widget build(BuildContext context){if(widget.tabs.isEmpty)return const SizedBox.shrink();
-    return LayoutBuilder(builder:(context,limits){final folded=limits.maxWidth<=96;
-      return Row(children:[Container(width:folded?limits.maxWidth:48,color:Theme.of(context).colorScheme.surfaceContainerLow,child:ListView(children:[
-        if (folded && widget.railHeader != null) widget.railHeader!,
-        for(var i=0;i<widget.tabs.length;i++)Semantics(
-          container: folded,
-          label: folded ? widget.tabs[i].label : null,
-          selected:i==selected,child:Container(
-          color:i==selected?Theme.of(context).colorScheme.primaryContainer:null,
-          child:folded?PrimePopupMenuButton<int>(tooltip:widget.tabs[i].label,icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant),
-            itemBuilder:(context)=>[for(var j=0;j<widget.tabs[i].entries.length;j++)PopupMenuItem(value:j,child:PrimeText(widget.tabs[i].entries[j].label))],
-            onSelected:(j)=>widget.tabs[i].entries[j].onPressed()):PrimeIconButton(tooltip:widget.tabs[i].label,
-              onPressed:()=>setState(()=>selected=i),icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant)))),
-      ])),if(!folded)Expanded(child:widget.tabs[selected].content)]);
+  @override
+  Widget build(BuildContext context) {
+    if (widget.tabs.isEmpty) return const SizedBox.shrink();
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final sidebar = theme.extension<GovernanceThemeColors>();
+    final foldedSurface = sidebar?.sidebarBackground ?? scheme.surfaceContainerLow;
+    final ink = readableThemeForeground(foldedSurface, scheme.onSurface);
+    final foldedSelection = PrimeShellMetrics.sidebarSelectionFill(
+      background: foldedSurface, foreground: ink, brightness: theme.brightness,
+    );
+    return LayoutBuilder(builder: (context, limits) {
+      final folded = limits.maxWidth <= 96;
+      return Row(children: [
+        Container(
+          width: folded ? limits.maxWidth : 48,
+          color: folded ? foldedSurface : scheme.surfaceContainerLow,
+          child: ListView(children: [
+            if (folded && widget.railHeader != null) widget.railHeader!,
+            for (var i = 0; i < widget.tabs.length; i++)
+              Semantics(
+                container: folded,
+                label: folded ? widget.tabs[i].label : null,
+                selected: i == selected,
+                child: folded
+                    ? Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          if (i == selected)
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: foldedSelection,
+                                borderRadius: PrimeShellMetrics.navigationItemRadius,
+                              ),
+                              child: const SizedBox.square(
+                                dimension: PrimeShellMetrics.sidebarRowHeight,
+                              ),
+                            ),
+                          PrimePopupMenuButton<int>(
+                            tooltip: widget.tabs[i].label,
+                            icon: PrimeIcon(
+                              widget.tabs[i].icon,
+                              size: PrimeShellMetrics.sidebarIconExtent,
+                              color: readableThemeForeground(
+                                i == selected ? foldedSelection : foldedSurface,
+                                sidebar?.sidebarIconColor ?? ink,
+                              ),
+                            ),
+                            itemBuilder: (context) => [
+                              for (var j = 0; j < widget.tabs[i].entries.length; j++)
+                                PopupMenuItem(value: j, child: PrimeText(widget.tabs[i].entries[j].label)),
+                            ],
+                            onSelected: (j) => widget.tabs[i].entries[j].onPressed(),
+                          ),
+                        ],
+                      )
+                    : Container(
+                        color: i == selected ? scheme.primaryContainer : null,
+                        child: PrimeIconButton(
+                          tooltip: widget.tabs[i].label,
+                          onPressed: () => setState(() => selected = i),
+                          icon: PrimeIcon(widget.tabs[i].icon, size: 20,
+                            color: i == selected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant),
+                        ),
+                      ),
+              ),
+          ]),
+        ),
+        if (!folded) Expanded(child: widget.tabs[selected].content),
+      ]);
     });
   }
 }

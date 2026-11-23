@@ -47,6 +47,27 @@ abstract final class PrimeShellMetrics {
   static Color navigationFocusInk(Color contrastInk) =>
       contrastInk.withValues(alpha: 0.12);
 
+  static ButtonStyle horizontalDestinationStyle({
+    required Color foreground,
+    required Color? selectedBackground,
+  }) => ButtonStyle(
+    padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+    shape: const WidgetStatePropertyAll(
+      RoundedRectangleBorder(borderRadius: navigationItemRadius),
+    ),
+    backgroundColor: WidgetStatePropertyAll(selectedBackground),
+    overlayColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.pressed) ||
+          states.contains(WidgetState.focused)) {
+        return navigationFocusInk(foreground);
+      }
+      if (states.contains(WidgetState.hovered)) {
+        return navigationHoverInk(foreground);
+      }
+      return null;
+    }),
+  );
+
   static ThemeData navigationInteractionTheme(
     ThemeData theme,
     Color contrastInk,

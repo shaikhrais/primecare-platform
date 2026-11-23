@@ -173,22 +173,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   link: true,
                                   selected: selected,
                                   child: PrimeTextButton(
-                                    style: PrimeTextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: PrimeShellMetrics.navigationItemRadius,
-                                      ),
-                                      backgroundColor: selected ? selectedBackground : null,
-                                    ).copyWith(
-                                      overlayColor: WidgetStateProperty.resolveWith((states) {
-                                        if (states.contains(WidgetState.focused)) {
-                                          return PrimeShellMetrics.navigationFocusInk(labelColor);
-                                        }
-                                        if (states.contains(WidgetState.hovered)) {
-                                          return PrimeShellMetrics.navigationHoverInk(labelColor);
-                                        }
-                                        return null;
-                                      }),
+                                    style: PrimeShellMetrics.horizontalDestinationStyle(
+                                      foreground: labelColor,
+                                      selectedBackground: selected ? selectedBackground : null,
                                     ),
                                     onPressed: () => context.go(screen.route),
                                     child: PrimePortalNavigationLabel(

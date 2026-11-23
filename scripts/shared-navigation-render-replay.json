@@ -4,7 +4,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "b681c7abc1ef048fcc8324a1fe3fff27c69084da723d377cfc5f5098c1e008a1",
-      "afterSha256": "b308997e781e5ea069ece5fa0032b39dbabf2eb8f780dee91af240191b39b9b7",
+      "afterSha256": "4165c5ac3df82c21764f68f547bf807e647e2ab399929d316acb8673ce70f230",
       "edits": [
         {
           "begin": 1393,
@@ -29,7 +29,7 @@
         {
           "begin": 7458,
           "old": "                                child: PrimePopupMenuButton<String>(\n",
-          "new": "                                child: screen != null ? Semantics(\n                                  container: true,\n                                  link: true,\n                                  selected: selected,\n                                  child: PrimeTextButton(\n                                    style: PrimeTextButton.styleFrom(\n                                      padding: EdgeInsets.zero,\n                                      shape: const RoundedRectangleBorder(\n                                        borderRadius: PrimeShellMetrics.navigationItemRadius,\n                                      ),\n                                      backgroundColor: selected ? selectedBackground : null,\n                                    ).copyWith(\n                                      overlayColor: WidgetStateProperty.resolveWith((states) {\n                                        if (states.contains(WidgetState.focused)) {\n                                          return PrimeShellMetrics.navigationFocusInk(labelColor);\n                                        }\n                                        if (states.contains(WidgetState.hovered)) {\n                                          return PrimeShellMetrics.navigationHoverInk(labelColor);\n                                        }\n                                        return null;\n                                      }),\n                                    ),\n                                    onPressed: () => context.go(screen.route),\n                                    child: PrimePortalNavigationLabel(\n                                      icon: screen.icon ?? module.icon,\n                                      label: screen.title,\n                                      color: labelColor,\n                                      showExpand: false,\n                                    ),\n                                  ),\n                                ) : PrimePopupMenuButton<String>(\n"
+          "new": "                                child: screen != null ? Semantics(\n                                  container: true,\n                                  link: true,\n                                  selected: selected,\n                                  child: PrimeTextButton(\n                                    style: PrimeShellMetrics.horizontalDestinationStyle(\n                                      foreground: labelColor,\n                                      selectedBackground: selected ? selectedBackground : null,\n                                    ),\n                                    onPressed: () => context.go(screen.route),\n                                    child: PrimePortalNavigationLabel(\n                                      icon: screen.icon ?? module.icon,\n                                      label: screen.title,\n                                      color: labelColor,\n                                      showExpand: false,\n                                    ),\n                                  ),\n                                ) : PrimePopupMenuButton<String>(\n"
         },
         {
           "begin": 7809,
@@ -91,8 +91,13 @@
     {
       "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
       "beforeSha256": "2037d762ddf2dc7c202eafe9eb5ebb5620fb390899d6f6482e7ee8f56059a8a4",
-      "afterSha256": "578e0795978cc2f6aa2c1c1d791dc5bd634bd8c4355c2d19d50d311af47a3396",
+      "afterSha256": "7492ea5504a3b88ce0630f56ed30eb33e046514b27fc7e22f073d9321d9c4d2c",
       "edits": [
+        {
+          "begin": 182,
+          "old": "",
+          "new": "import '../theme/app_theme.dart' show GovernanceThemeColors;\nimport '../theme/prime_shell_metrics.dart';\nimport '../theme/theme_contrast.dart';\n"
+        },
         {
           "begin": 11502,
           "old": "  const PrimePortalNavigationLabel({super.key, required this.icon, required this.label, required this.color});\n",
@@ -109,21 +114,26 @@
           "new": "  final Widget? railHeader;\n  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0,this.railHeader});\n"
         },
         {
-          "begin": 14189,
-          "old": "        for(var i=0;i<widget.tabs.length;i++)Semantics(selected:i==selected,child:Container(\n",
-          "new": "        if (folded && widget.railHeader != null) widget.railHeader!,\n        for(var i=0;i<widget.tabs.length;i++)Semantics(\n          container: folded,\n          label: folded ? widget.tabs[i].label : null,\n          selected:i==selected,child:Container(\n"
+          "begin": 13852,
+          "old": "  @override Widget build(BuildContext context){if(widget.tabs.isEmpty)return const SizedBox.shrink();\n    return LayoutBuilder(builder:(context,limits){final folded=limits.maxWidth<=96;\n      return Row(children:[Container(width:folded?limits.maxWidth:48,color:Theme.of(context).colorScheme.surfaceContainerLow,child:ListView(children:[\n        for(var i=0;i<widget.tabs.length;i++)Semantics(selected:i==selected,child:Container(\n          color:i==selected?Theme.of(context).colorScheme.primaryContainer:null,\n          child:folded?PrimePopupMenuButton<int>(tooltip:widget.tabs[i].label,icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant),\n            itemBuilder:(context)=>[for(var j=0;j<widget.tabs[i].entries.length;j++)PopupMenuItem(value:j,child:PrimeText(widget.tabs[i].entries[j].label))],\n            onSelected:(j)=>widget.tabs[i].entries[j].onPressed()):PrimeIconButton(tooltip:widget.tabs[i].label,\n              onPressed:()=>setState(()=>selected=i),icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant)))),\n      ])),if(!folded)Expanded(child:widget.tabs[selected].content)]);\n",
+          "new": "  @override\n  Widget build(BuildContext context) {\n    if (widget.tabs.isEmpty) return const SizedBox.shrink();\n    final theme = Theme.of(context);\n    final scheme = theme.colorScheme;\n    final sidebar = theme.extension<GovernanceThemeColors>();\n    final foldedSurface = sidebar?.sidebarBackground ?? scheme.surfaceContainerLow;\n    final ink = readableThemeForeground(foldedSurface, scheme.onSurface);\n    final foldedSelection = PrimeShellMetrics.sidebarSelectionFill(\n      background: foldedSurface, foreground: ink, brightness: theme.brightness,\n    );\n    return LayoutBuilder(builder: (context, limits) {\n      final folded = limits.maxWidth <= 96;\n      return Row(children: [\n        Container(\n          width: folded ? limits.maxWidth : 48,\n          color: folded ? foldedSurface : scheme.surfaceContainerLow,\n          child: ListView(children: [\n            if (folded && widget.railHeader != null) widget.railHeader!,\n            for (var i = 0; i < widget.tabs.length; i++)\n              Semantics(\n                container: folded,\n                label: folded ? widget.tabs[i].label : null,\n                selected: i == selected,\n                child: folded\n                    ? Stack(\n                        alignment: Alignment.center,\n                        children: [\n                          if (i == selected)\n                            DecoratedBox(\n                              decoration: BoxDecoration(\n                                color: foldedSelection,\n                                borderRadius: PrimeShellMetrics.navigationItemRadius,\n                              ),\n                              child: const SizedBox.square(\n                                dimension: PrimeShellMetrics.sidebarRowHeight,\n                              ),\n                            ),\n                          PrimePopupMenuButton<int>(\n                            tooltip: widget.tabs[i].label,\n                            icon: PrimeIcon(\n                              widget.tabs[i].icon,\n                              size: PrimeShellMetrics.sidebarIconExtent,\n                              color: readableThemeForeground(\n                                i == selected ? foldedSelection : foldedSurface,\n                                sidebar?.sidebarIconColor ?? ink,\n                              ),\n                            ),\n                            itemBuilder: (context) => [\n                              for (var j = 0; j < widget.tabs[i].entries.length; j++)\n                                PopupMenuItem(value: j, child: PrimeText(widget.tabs[i].entries[j].label)),\n                            ],\n                            onSelected: (j) => widget.tabs[i].entries[j].onPressed(),\n                          ),\n                        ],\n                      )\n                    : Container(\n                        color: i == selected ? scheme.primaryContainer : null,\n                        child: PrimeIconButton(\n                          tooltip: widget.tabs[i].label,\n                          onPressed: () => setState(() => selected = i),\n                          icon: PrimeIcon(widget.tabs[i].icon, size: 20,\n                            color: i == selected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant),\n                        ),\n                      ),\n              ),\n          ]),\n        ),\n        if (!folded) Expanded(child: widget.tabs[selected].content),\n      ]);\n"
         }
       ]
     },
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "7f19af9a41fd3d122dc2e1280d7ead143e2ed92b799f44abc98e069ed041c937",
-      "afterSha256": "3eb00aeaee33346f8bc56a27b579d38f846db830020502e3f75006baabf1f290",
+      "afterSha256": "1ddd58e58193d3c30f816ef2b5e5ef23350f7354dbc9d510186144855b7ccc82",
       "edits": [
         {
           "begin": 1570,
           "old": "    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),\n",
           "new": "    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.05),\n"
+        },
+        {
+          "begin": 1870,
+          "old": "",
+          "new": "\n  static ButtonStyle horizontalDestinationStyle({\n    required Color foreground,\n    required Color? selectedBackground,\n  }) => ButtonStyle(\n    padding: const WidgetStatePropertyAll(EdgeInsets.zero),\n    shape: const WidgetStatePropertyAll(\n      RoundedRectangleBorder(borderRadius: navigationItemRadius),\n    ),\n    backgroundColor: WidgetStatePropertyAll(selectedBackground),\n    overlayColor: WidgetStateProperty.resolveWith((states) {\n      if (states.contains(WidgetState.pressed) ||\n          states.contains(WidgetState.focused)) {\n        return navigationFocusInk(foreground);\n      }\n      if (states.contains(WidgetState.hovered)) {\n        return navigationHoverInk(foreground);\n      }\n      return null;\n    }),\n  );\n"
         },
         {
           "begin": 3859,
