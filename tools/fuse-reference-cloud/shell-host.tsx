@@ -7,9 +7,9 @@ import {NavigationContextProvider} from './components/theme-layouts/components/n
 import {QuickPanelProvider} from './components/theme-layouts/components/quickPanel/contexts/QuickPanelContext/QuickPanelContextProvider';
 import {FuseDialogContextProvider} from './@fuse/core/FuseDialog/contexts/FuseDialogContext/FuseDialogContextProvider';
 import themeLayouts from './components/theme-layouts/themeLayouts';
+import FuseLayout from './@fuse/core/FuseLayout/FuseLayout';
 const client=new QueryClient({defaultOptions:{queries:{retry:false}}});
 export default function ShellReference({layout}:{layout:string}){
- const Layout=themeLayouts[layout];
- if(!Layout)throw new Error('Unknown reference shell layout');
- return <AppContext value={{routes:[]}}><QueryClientProvider client={client}><I18nProvider><NavbarContextProvider><NavigationContextProvider><FuseDialogContextProvider><QuickPanelProvider><Layout/></QuickPanelProvider></FuseDialogContextProvider></NavigationContextProvider></NavbarContextProvider></I18nProvider></QueryClientProvider></AppContext>;
+ if(!themeLayouts[layout])throw new Error('Unknown reference shell layout');
+ return <AppContext value={{routes:[]}}><QueryClientProvider client={client}><I18nProvider><NavbarContextProvider><NavigationContextProvider><FuseDialogContextProvider><QuickPanelProvider><FuseLayout layouts={themeLayouts}/></QuickPanelProvider></FuseDialogContextProvider></NavigationContextProvider></NavbarContextProvider></I18nProvider></QueryClientProvider></AppContext>;
 }
