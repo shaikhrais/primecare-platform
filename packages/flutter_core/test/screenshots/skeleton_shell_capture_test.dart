@@ -3,6 +3,7 @@ library;
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +50,24 @@ void main(){
    final resourceErrors=<String>[];final previous=FlutterError.onError;
    FlutterError.onError=(details){if(details.library=='image resource service'){resourceErrors.add(details.exception.runtimeType.toString());}else{previous?.call(details);}};
    addTearDown(()=>FlutterError.onError=previous);
-   await tester.pumpWidget(UncontrolledProviderScope(container:container,child:MaterialApp(home:RepaintBoundary(key:const Key('full-shell-proof'),child:GovernanceMasterLayout(application:ShellCaptureApplication(),activeRole:PlatformRole.admin,child:const SizedBox.expand())))));
+   await tester.pumpWidget(
+    UncontrolledProviderScope(
+     container: container,
+     child: RepaintBoundary(
+      key: const Key('shell-overlay-proof'),
+      child: MaterialApp(
+       home: RepaintBoundary(
+        key: const Key('full-shell-proof'),
+        child: GovernanceMasterLayout(
+         application: ShellCaptureApplication(),
+         activeRole: PlatformRole.admin,
+         child: const SizedBox.expand(),
+        ),
+       ),
+      ),
+     ),
+    ),
+   );
    await tester.pumpAndSettle();
    final workspace=PortalWorkspaceScope.maybeOf(tester.element(find.byKey(const Key('app-shell'))))!;
    workspace.patch({'navigation':family=='1'?'left':'top','toolbar':family=='1'?'top':'belowNavigation','toolbarStyle':family=='1'?'sticky':'static','scroll':family=='3'?'content':'page','footer':'sticky'});
@@ -75,6 +93,30 @@ void main(){
    Map<String,double>? box(String key){final f=find.byKey(Key(key));if(f.evaluate().length!=1)return null;final b=tester.getRect(f);return {'x':b.left,'y':b.top,'width':b.width,'height':b.height};}
    File('test/screenshots/shell-captures/$id.json').writeAsStringSync(jsonEncode({'case':id,'boxes':{'shell':box('app-shell'),'toolbar':barBox(false),'toolbarInner':box('app-topbar'),'footer':barBox(true),'sidebar':box('app-sidebar'),'content':box('app-content-slot')},'fixture':'existing registered /tenant-dashboard route sample; fixture-only policy and synthetic account; not production','referenceStateAligned':false,'imageResourceErrors':resourceErrors,'visualAcceptance':false}));
    await expectLater(find.byKey(const Key('full-shell-proof')),matchesGoldenFile('shell-captures/primecare-shell-$id.png'));
+   if (family == '2' && view.$1 == 'desktop') {
+    final moduleLabel = find.text('Tenant dashboard');
+    final brand = find.text('PrimeCare').first;
+    expect(tester.getTopLeft(brand).dy, lessThan(64));
+    expect(tester.getCenter(moduleLabel).dx, greaterThan(view.$2 / 2));
+    final semantics = tester.ensureSemantics();
+    try {
+     expect(find.byTooltip('Tenant dashboard'), findsOneWidget);
+     await tester.tap(moduleLabel);
+     await tester.pumpAndSettle();
+     final item = find.widgetWithText(PopupMenuItem<String>, 'Tenant dashboard');
+     expect(item, findsOneWidget);
+     expect(tester.widget<PopupMenuItem<String>>(item).value, '/tenant-dashboard');
+     await expectLater(
+      find.byKey(const Key('shell-overlay-proof')),
+      matchesGoldenFile('shell-captures/primecare-shell-$id-menu-open.png'),
+     );
+     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+     await tester.pumpAndSettle();
+     expect(item, findsNothing);
+    } finally {
+     semantics.dispose();
+    }
+   }
   });
  }
 }

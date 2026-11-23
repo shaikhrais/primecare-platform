@@ -5,6 +5,20 @@ import 'prime_theme_center_style.dart';
 /// ToolbarLayout1/2 and FooterLayout1/2 use min-h-12 md:min-h-16.
 abstract final class PrimeShellMetrics {
   static const desktopBreakpoint = 960.0;
+  static const horizontalContentWidth = 1088.0;
+  static const horizontalNavigationPadding = EdgeInsets.symmetric(horizontal: 16);
+  static const horizontalNavigationItemPadding = EdgeInsets.symmetric(horizontal: 4);
+  static BoxDecoration horizontalNavigationDecoration(
+    ThemeData theme, {
+    required Color background,
+    Color? divider,
+  }) => BoxDecoration(
+    color: background,
+    border: Border(
+      bottom: BorderSide(color: divider ?? theme.dividerColor.withValues(alpha: 0.1)),
+    ),
+  );
+
   static const horizontalNavbarHeight = 64.0;
   static const expandedNavigationWidth = 280;
   static const dividerExtent = 1.0;

@@ -16,7 +16,7 @@ and recorded review. Use NOT MATCHED / IN PROGRESS / BLOCKED / MATCHED only.
 | R02 | Folded sidebar | IN PROGRESS |
 | R03 | Right sidebar | IN PROGRESS |
 | R04 | Mobile sidebar drawer | IN PROGRESS |
-| R05 | Horizontal navbar | NOT MATCHED |
+| R05 | Horizontal navbar | IN PROGRESS |
 | R06 | Header/toolbar and action menus | NOT MATCHED |
 | R07 | Footer | NOT MATCHED |
 | R08 | Left-side panel | NOT MATCHED |
@@ -93,3 +93,19 @@ the exact production-pinned export without database writes. Three checks reject
 pin/export drift and confirm no file/database creation. Other pre-existing CI
 failures (source revision/preflight and replay dependency proofs) remain open;
 no full CI, review, deployment or readiness claim is made from local tests.
+
+## Horizontal navbar and reference cases
+
+The native horizontal navbar uses a centered content band with the registered
+PrimeCare mark and tenant name at the leading edge. Authorized module menus
+occupy the trailing edge and still scroll horizontally when space runs out.
+The brand and menu use the navbar palette. Desktop light and dark captures
+include the opened menu. The fixture checks the registered destination and
+Escape dismissal.
+
+The isolated cloud reference now requests expanded navigation at the existing
+Example URL, the folded tabbed sidebar, a right sidebar and the open mobile
+drawer in both modes. The supplied reference components remain in place. The
+guest Example entry differs from the PrimeCare tenant fixture, and the native
+module popup and reference direct entry require separate review. R01–R05 stay
+IN PROGRESS pending equivalent states and recorded visual acceptance.

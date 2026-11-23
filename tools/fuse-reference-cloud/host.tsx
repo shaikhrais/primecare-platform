@@ -16,6 +16,13 @@ import MainThemeProvider from './contexts/MainThemeProvider';
 const requestedLayout=new URLSearchParams(location.search).get('layout');
 const layout=requestedLayout==='layout2'||requestedLayout==='layout3'?requestedLayout:'layout1';
 const initial=_.merge({},defaultSettings,settingsConfig,{layout:{style:layout,config:layouts[layout].defaults}});
+const sidebarCase = new URLSearchParams(location.search).get('sidebarCase');
+if (layout === 'layout1' && sidebarCase === 'folded') {
+ initial.layout.config.navbar = { ...initial.layout.config.navbar, style: 'style-2', folded: true };
+}
+if (layout === 'layout1' && sidebarCase === 'right') {
+ initial.layout.config.navbar = { ...initial.layout.config.navbar, position: 'right' };
+}
 if(new URLSearchParams(location.search).get('mode')==='dark')initial.theme={main:themes.defaultDark,navbar:themes.defaultDark,toolbar:themes.defaultDark,footer:themes.defaultDark};
 function Reference(){
  const [data,setData]=useState(initial);

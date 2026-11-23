@@ -5,12 +5,32 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "c299fc74874c8240244e267519ad5bb914ba9ceede5e0ace473341232c46e542",
-      "afterSha256": "110e757fea2b5b88f282f94ea4073d9e9d278eb9fd7d8b7e2c69e02ccef646a5",
+      "afterSha256": "fae82c2686709e0cab41dcf9d982381fb6b4498c67a54ab5e65961334b47f421",
       "edits": [
         {
           "begin": 132,
           "old": "import '../../theme/prime_theme_center_style.dart';\n",
           "new": ""
+        },
+        {
+          "begin": 4208,
+          "old": "    // Build horizontal nav row (used for LayoutStyle.horizontal)\n    Widget buildHorizontalNav() {\n",
+          "new": "    Widget buildHorizontalNav(ThemeData navbarTheme) {\n      final colors = navbarTheme.extension<GovernanceThemeColors>();\n      final background = colors?.sidebarBackground ?? navbarTheme.scaffoldBackgroundColor;\n      final foreground = readableThemeForeground(\n        background,\n        colors?.sidebarTextColor ?? navbarTheme.colorScheme.onSurface,\n      );\n"
+        },
+        {
+          "begin": 4332,
+          "old": "        height: 48,\n        decoration: BoxDecoration(\n          color: themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor,\n          border: Border(\n            bottom: BorderSide(\n              color: themeColors?.sidebarDividerColor ?? theme.dividerColor.withValues(alpha: 0.1),\n",
+          "new": "        decoration: PrimeShellMetrics.horizontalNavigationDecoration(\n          navbarTheme,\n          background: background,\n          divider: colors?.sidebarDividerColor,\n        ),\n        child: Center(\n          child: ConstrainedBox(\n            constraints: const BoxConstraints(\n              maxWidth: PrimeShellMetrics.horizontalContentWidth,\n            ),\n            child: Row(\n              mainAxisAlignment: MainAxisAlignment.spaceBetween,\n              children: [\n                Flexible(\n                  child: Padding(\n                    padding: PrimeShellMetrics.sidebarHeaderPadding(false),\n                    child: Row(\n                      mainAxisSize: MainAxisSize.min,\n                      children: [\n                        const PrimeOriginalAsset(\n                          'brand-mark-concept',\n                          width: PrimeShellMetrics.sidebarLogoExtent,\n                          height: PrimeShellMetrics.sidebarLogoExtent,\n                        ),\n                        const SizedBox(width: PrimeShellMetrics.sidebarGap),\n                        Flexible(\n                          child: PrimeText(\n                            tenant.name,\n                            maxLines: 1,\n                            overflow: TextOverflow.ellipsis,\n                            style: PrimeShellMetrics.sidebarTextStyle(\n                              navbarTheme,\n                              family: settings.theme.fontFamily,\n                              scale: settings.theme.fontScale,\n                              color: foreground,\n                              brand: true,\n                            ),\n                          ),\n                        ),\n                      ],\n                    ),\n                  ),\n                ),\n                Flexible(\n                  flex: 3,\n                  child: ListView.builder(\n                    shrinkWrap: true,\n                    scrollDirection: Axis.horizontal,\n                    padding: PrimeShellMetrics.horizontalNavigationPadding,\n                    itemCount: modules.length,\n                    itemBuilder: (context, index) {\n                      final module = modules[index];\n                      return Padding(\n                        padding: PrimeShellMetrics.horizontalNavigationItemPadding,\n                        child: PrimePopupMenuButton<String>(\n                          tooltip: module.name,\n                          onSelected: (route) => context.go(route),\n                          itemBuilder: (context) => [\n                            for (final screen in module.screens)\n                              if (screen.requiredRole == null ||\n                                  screen.requiredRole == activeRole)\n                                PopupMenuItem(\n                                  value: screen.route,\n                                  child: PrimeText(screen.title),\n                                ),\n                          ],\n                          child: PrimePortalNavigationLabel(\n                            icon: module.icon,\n                            label: module.name,\n                            color: foreground,\n                          ),\n                        ),\n                      );\n                    },\n                  ),\n                ),\n              ],\n"
+        },
+        {
+          "begin": 4655,
+          "old": "        ),\n        child: ListView.builder(\n          scrollDirection: Axis.horizontal,\n          padding: const EdgeInsets.symmetric(horizontal: 16),\n          itemCount: modules.length,\n          itemBuilder: (context, index) {\n            final module = modules[index];\n            final textColor = readableThemeForeground(themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor, themeColors?.sidebarTextColor ?? theme.colorScheme.onSurface);\n\n            return Padding(\n              padding: const EdgeInsets.symmetric(horizontal: 4.0),\n              child: PrimePopupMenuButton<String>(\n                tooltip: module.name,\n                onSelected: (route) => context.go(route),\n                itemBuilder: (context) => [\n                  for (final screen in module.screens)\n                    if (screen.requiredRole == null || screen.requiredRole == activeRole)\n                      PopupMenuItem(value: screen.route, child: PrimeText(screen.title)),\n                ],\n                child: PrimePortalNavigationLabel(icon: module.icon,\n                  label: module.name, color: textColor),\n              ),\n            );\n          },\n",
+          "new": ""
+        },
+        {
+          "begin": 8603,
+          "old": "                      ? buildHorizontalNav()\n",
+          "new": "                      ? Builder(builder: (context) => buildHorizontalNav(Theme.of(context)))\n"
         },
         {
           "begin": 25484,
@@ -67,12 +87,17 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "b71c414aa2e7ab49edd37b8e3fd08a5188818a7c02b2d633525d2fc5825c8f3e",
-      "afterSha256": "9829a560aa24ccdb4699b623d3ae2b8e77061b65b0bf14400cb1a11d0d8a9fcb",
+      "afterSha256": "138837cee909c1360a9198455f6334a281bd5317f88c4c249d8c3e6ac92023c8",
       "edits": [
         {
           "begin": 40,
           "old": "",
           "new": "import 'prime_theme_center_style.dart';\n"
+        },
+        {
+          "begin": 257,
+          "old": "",
+          "new": "  static const horizontalContentWidth = 1088.0;\n  static const horizontalNavigationPadding = EdgeInsets.symmetric(horizontal: 16);\n  static const horizontalNavigationItemPadding = EdgeInsets.symmetric(horizontal: 4);\n  static BoxDecoration horizontalNavigationDecoration(\n    ThemeData theme, {\n    required Color background,\n    Color? divider,\n  }) => BoxDecoration(\n    color: background,\n    border: Border(\n      bottom: BorderSide(color: divider ?? theme.dividerColor.withValues(alpha: 0.1)),\n    ),\n  );\n\n"
         },
         {
           "begin": 736,

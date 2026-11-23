@@ -82,41 +82,93 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;
     final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;
 
-    // Build horizontal nav row (used for LayoutStyle.horizontal)
-    Widget buildHorizontalNav() {
+    Widget buildHorizontalNav(ThemeData navbarTheme) {
+      final colors = navbarTheme.extension<GovernanceThemeColors>();
+      final background = colors?.sidebarBackground ?? navbarTheme.scaffoldBackgroundColor;
+      final foreground = readableThemeForeground(
+        background,
+        colors?.sidebarTextColor ?? navbarTheme.colorScheme.onSurface,
+      );
       return Container(
-        height: 48,
-        decoration: BoxDecoration(
-          color: themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor,
-          border: Border(
-            bottom: BorderSide(
-              color: themeColors?.sidebarDividerColor ?? theme.dividerColor.withValues(alpha: 0.1),
+        decoration: PrimeShellMetrics.horizontalNavigationDecoration(
+          navbarTheme,
+          background: background,
+          divider: colors?.sidebarDividerColor,
+        ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: PrimeShellMetrics.horizontalContentWidth,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: PrimeShellMetrics.sidebarHeaderPadding(false),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const PrimeOriginalAsset(
+                          'brand-mark-concept',
+                          width: PrimeShellMetrics.sidebarLogoExtent,
+                          height: PrimeShellMetrics.sidebarLogoExtent,
+                        ),
+                        const SizedBox(width: PrimeShellMetrics.sidebarGap),
+                        Flexible(
+                          child: PrimeText(
+                            tenant.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: PrimeShellMetrics.sidebarTextStyle(
+                              navbarTheme,
+                              family: settings.theme.fontFamily,
+                              scale: settings.theme.fontScale,
+                              color: foreground,
+                              brand: true,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 3,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    padding: PrimeShellMetrics.horizontalNavigationPadding,
+                    itemCount: modules.length,
+                    itemBuilder: (context, index) {
+                      final module = modules[index];
+                      return Padding(
+                        padding: PrimeShellMetrics.horizontalNavigationItemPadding,
+                        child: PrimePopupMenuButton<String>(
+                          tooltip: module.name,
+                          onSelected: (route) => context.go(route),
+                          itemBuilder: (context) => [
+                            for (final screen in module.screens)
+                              if (screen.requiredRole == null ||
+                                  screen.requiredRole == activeRole)
+                                PopupMenuItem(
+                                  value: screen.route,
+                                  child: PrimeText(screen.title),
+                                ),
+                          ],
+                          child: PrimePortalNavigationLabel(
+                            icon: module.icon,
+                            label: module.name,
+                            color: foreground,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          itemCount: modules.length,
-          itemBuilder: (context, index) {
-            final module = modules[index];
-            final textColor = readableThemeForeground(themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor, themeColors?.sidebarTextColor ?? theme.colorScheme.onSurface);
-
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: PrimePopupMenuButton<String>(
-                tooltip: module.name,
-                onSelected: (route) => context.go(route),
-                itemBuilder: (context) => [
-                  for (final screen in module.screens)
-                    if (screen.requiredRole == null || screen.requiredRole == activeRole)
-                      PopupMenuItem(value: screen.route, child: PrimeText(screen.title)),
-                ],
-                child: PrimePortalNavigationLabel(icon: module.icon,
-                  label: module.name, color: textColor),
-              ),
-            );
-          },
         ),
       );
     }
@@ -173,7 +225,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   toolbarExtent: PrimeShellMetrics.toolbarExtent(MediaQuery.sizeOf(context).width,horizontal:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal),
                   footerExtent: PrimeShellMetrics.footerExtent(MediaQuery.sizeOf(context).width),
                   navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)
-                      ? buildHorizontalNav()
+                      ? Builder(builder: (context) => buildHorizontalNav(Theme.of(context)))
                       : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
                           collapsed: workspace.current.navigationWidth == 64)),
                   toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PrimeShellBarFrame(bordered:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal,child: Builder(builder: (context) {
