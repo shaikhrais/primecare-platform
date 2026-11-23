@@ -80,6 +80,16 @@ class NavbarRegistrationTests(unittest.TestCase):
             with patch.dict(os.environ,{'GOVERNANCE_NAVBAR_IMPLEMENTATION_WRITES':'1'}):db.record_control_implementation(2534,cid,tid)
             self.assertEqual(target.register(db)['implementationStatuses'][tid],'implemented-unverified')
             with self.assertRaises(target.GovernanceReadError):db.ensure('roles',{'id':99},{})
+    def test_lock_timeout_rolls_back_and_a_fresh_transaction_can_register(self):
+        blocker=psycopg.connect(URL)
+        try:
+            blocker.execute('LOCK TABLE '+self.table('screen_components')+' IN SHARE ROW EXCLUSIVE MODE')
+            with self.assertRaises(psycopg.errors.LockNotAvailable):self.store()
+        finally:
+            blocker.rollback();blocker.close()
+        with self.store() as db:
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM language_resources').fetchone()[0],0)
+            self.assertEqual(target.register(db)['translationCount'],12)
     def test_exact_contract_and_explicit_opt_in_are_required(self):
         p=self.root/'tampered.json';p.write_text('{}')
         with patch.object(target,'FILE',p):

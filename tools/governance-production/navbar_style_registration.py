@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import time
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools/workflow-verification'))
@@ -172,29 +173,37 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
     result={'status':'not_started','runtimeActivated':False,'roleGrants':0,'schemaChanges':False,'businessDataWrites':False}
-    try:
-        with NavbarStyleStore() as db:
-            result.update(register(db))
-            if register(db)!=register(db):raise GovernanceReadError('Registration is not idempotent')
-            if args.record_implementation:
-                for test_id,cid in result['controls'].items():
-                    db.record_control_implementation(result['screenId'],cid,test_id)
-                    result['implementationStatuses'][test_id]='implemented-unverified'
-        result['status']='registration_committed'
-        verify_independently(result)
-        result['independentReadback']=True
-        result['sourceCommit']=os.environ.get('GITHUB_SHA')
-        c=json.loads(FILE.read_text())
-        locales={lang:{key.removeprefix('themeNavbar.'):text[lang] for key,text in c['resources'].items()} for lang in ['en','fr','es']}
-        lines=['// Generated only after independent production navbar-style registration readback.','const navbarStyleText = <String, Map<String, String>>{']
-        for language,values in locales.items():
-            lines.append('  '+json.dumps(language)+': {')
-            for key,value in values.items():lines.append('    '+json.dumps(key)+': '+json.dumps(value,ensure_ascii=False).replace('$',r'\$')+',')
-            lines.append('  },')
-        args.output.parent.mkdir(parents=True,exist_ok=True)
-        args.output.with_name('navbar_style_text_generated.dart').write_text('\n'.join(lines+['};','']))
-    except Exception as error:
-        result.update(status='operation_failed',errorType=type(error).__name__)
+    for attempt in range(8):
+        result['lockRetries']=attempt
+        try:
+            with NavbarStyleStore() as db:
+                registered=register(db)
+                if register(db)!=registered:raise GovernanceReadError('Registration is not idempotent')
+                result.update(registered)
+                if args.record_implementation:
+                    for test_id,cid in result['controls'].items():
+                        db.record_control_implementation(result['screenId'],cid,test_id)
+                        result['implementationStatuses'][test_id]='implemented-unverified'
+            result['status']='registration_committed'
+            verify_independently(result)
+            result['independentReadback']=True
+            result['sourceCommit']=os.environ.get('GITHUB_SHA')
+            c=json.loads(FILE.read_text())
+            locales={lang:{key.removeprefix('themeNavbar.'):text[lang] for key,text in c['resources'].items()} for lang in ['en','fr','es']}
+            lines=['// Generated only after independent production navbar-style registration readback.','const navbarStyleText = <String, Map<String, String>>{']
+            for language,values in locales.items():
+                lines.append('  '+json.dumps(language)+': {')
+                for key,value in values.items():lines.append('    '+json.dumps(key)+': '+json.dumps(value,ensure_ascii=False).replace('$',r'\$')+',')
+                lines.append('  },')
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.with_name('navbar_style_text_generated.dart').write_text('\n'.join(lines+['};','']))
+            break
+        except Exception as error:
+            if getattr(error,'sqlstate',None)=='55P03' and attempt<7:
+                time.sleep(2**min(attempt,3))
+                continue
+            result.update(status='operation_failed',errorType=type(error).__name__)
+            break
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result))

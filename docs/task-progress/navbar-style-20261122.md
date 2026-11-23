@@ -18,3 +18,8 @@ horizontal layouts, hidden/vertical navbar compatibility, draft-state preservati
 account boundaries and restored settings. Implementation metadata may advance
 only to implemented-unverified after native checks; no full Fuse or deployment
 acceptance is inferred.
+
+Initial production attempt hit PostgreSQL lock timeout and rolled back. The
+writer retries only SQLSTATE 55P03 using fresh transactions, at most eight
+attempts with delays capped at eight seconds. Other errors remain failures. A
+native lock-contention fixture proves rollback and successful fresh registration.
