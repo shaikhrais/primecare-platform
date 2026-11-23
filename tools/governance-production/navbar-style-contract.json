@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "requirement": "Add independent Fixed/Static navbar scrolling to the native Theme Center.",
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/flutter_core/lib/theme/prime_theme_center.dart",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_radio"
+  ],
+  "controls": [
+    {
+      "key": "navbarStyle",
+      "testId": "theme-navbar-style",
+      "componentCode": "prime_radio",
+      "resourceKey": "themeNavbar.label",
+      "allowedValues": [
+        "fixed",
+        "static"
+      ]
+    }
+  ],
+  "resources": {
+    "themeNavbar.label": {
+      "en": "Navbar style",
+      "fr": "Style de la barre de navigation",
+      "es": "Estilo de la barra de navegación"
+    },
+    "themeNavbar.style": {
+      "en": "Style",
+      "fr": "Style",
+      "es": "Estilo"
+    },
+    "themeNavbar.fixed": {
+      "en": "Fixed",
+      "fr": "Fixe",
+      "es": "Fija"
+    },
+    "themeNavbar.static": {
+      "en": "Static",
+      "fr": "Statique",
+      "es": "Estática"
+    }
+  },
+  "persistence": {
+    "kind": "device_local_native_theme_appearance",
+    "property": "navbarStyle",
+    "version": 5,
+    "legacyVersions": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "missingValue": "preserve_legacy_layout_behavior",
+    "cloudWorkspaceContractChanged": false
+  },
+  "schemaChanges": false,
+  "businessDataWrites": false,
+  "roleGrants": false,
+  "runtimeActivated": false
+}

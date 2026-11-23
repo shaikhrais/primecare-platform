@@ -1,0 +1,98 @@
+name: Register and verify native navbar style
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/navbar*'
+      - 'tools/governance-production/test-navbar-style-registration.py'
+      - '.github/workflows/navbar-style.yml'
+      - 'packages/flutter_core/test/navbar_style_test.dart'
+      - 'packages/flutter_core/lib/theme/navbar_style_text_generated.dart'
+      - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
+      - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
+      - 'packages/flutter_core/lib/workspace/prime_workspace_layout.dart'
+      - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
+permissions: {contents: read}
+concurrency:
+  group: native-navbar-style-registration
+  cancel-in-progress: false
+jobs:
+  rehearsal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: workspace, POSTGRES_PASSWORD: isolated-only, POSTGRES_DB: workspace_resources_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U workspace -d workspace_resources_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Prove metadata boundaries on disposable PostgreSQL
+        env:
+          WORKFLOW_TEST_DATABASE_URL: postgres://workspace:isolated-only@127.0.0.1:5432/workspace_resources_test
+        run: python tools/governance-production/test-navbar-style-registration.py
+  native:
+    needs: rehearsal
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      implemented: ${{ steps.native.outputs.implemented }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - id: native
+        name: Verify implemented behavior or retain registration-only status
+        working-directory: packages/flutter_core
+        run: |
+          if test -f test/navbar_style_test.dart; then
+            flutter pub get
+            flutter test test/navbar_style_test.dart test/workspace/workspace_widget_test.dart test/workspace/workspace_controller_test.dart test/theme_center_settings_file_test.dart test/theme_center_test.dart test/theme_center_reference_test.dart --reporter expanded
+            echo "implemented=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Registration phase only: no native implementation claim."
+            echo "implemented=false" >> "$GITHUB_OUTPUT"
+          fi
+  production:
+    needs: [rehearsal, native]
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix "$RUNNER_TEMP/navbar-readback" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/navbar-readback/node_modules" node_modules
+      - name: Require the tested source to remain main
+        run: test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+      - name: Register exact optional control and independently read it back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_NAVBAR_STYLE_WRITES: '1'
+          GOVERNANCE_NAVBAR_IMPLEMENTATION_WRITES: ${{ needs.native.outputs.implemented == 'true' && '1' || '0' }}
+          NATIVE_IMPLEMENTED: ${{ needs.native.outputs.implemented }}
+        run: |
+          if test "$NATIVE_IMPLEMENTED" = true; then
+            python tools/governance-production/navbar_style_registration.py --record-implementation --output artifacts/navbar-style/receipt.json
+          else
+            python tools/governance-production/navbar_style_registration.py --output artifacts/navbar-style/receipt.json
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-navbar-style-registration
+          path: artifacts/navbar-style
+          retention-days: 30

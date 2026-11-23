@@ -2132,5 +2132,22 @@
     "schemaChanges": false,
     "businessDataWrites": false,
     "permissionChanges": false
+  },
+  "navbarStyleWriter": {
+    "optInVariable": "GOVERNANCE_NAVBAR_STYLE_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "contractSha256": "3ac99e70eb04b2713148b4fde4a3a6d41531347f955ffe1e9cf30668e4091ee1",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "themeNavbar.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }
