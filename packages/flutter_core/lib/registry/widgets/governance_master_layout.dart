@@ -442,6 +442,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     bool mobile = false,
     bool trailing = false,
     double? leadingDrawerViewportWidth,
+    Color? avatarSurface,
   }) {
     final semanticsId = sidebar ? 'sidebar-user-menu' : 'topbar-user-menu',
         logoutId = sidebar ? 'sidebar-logout-button' : 'topbar-logout-button',
@@ -450,7 +451,10 @@ class GovernanceMasterLayout extends ConsumerWidget {
       radius: sidebar
           ? PrimeShellMetrics.sidebarAccountAvatarRadius
           : PrimeShellMetrics.toolbarAccountAvatarRadius,
-      backgroundColor: PrimeShellMetrics.accountAvatarBackground(theme),
+      backgroundColor: PrimeShellMetrics.accountAvatarBackground(
+        theme,
+        surface: avatarSurface,
+      ),
       child: PrimeText(
         activeRole.displayName.characters.first.toUpperCase(),
         style: PrimeShellMetrics.toolbarAccountAvatarTextStyle(
@@ -519,7 +523,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 6),
-                      PrimeIcon(LucideIcons.info, size: 24, color: iconColor),
+                      PrimeIcon(
+                        LucideIcons.info,
+                        size: PrimeShellMetrics.accountInfoExtent,
+                        color: iconColor,
+                      ),
                       const SizedBox(width: 8),
                     ],
                     PrimeIcon(
@@ -556,6 +564,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
         // This shell only receives the active role, so it must not invent grants.
         if (['ceo', 'maintenance'].contains(account.role))
           PopupMenuItem<String>(
+            padding: PrimeShellMetrics.accountMenuItemPadding,
             height: mobile
                 ? PrimeShellMetrics.accountMenuMobileItemHeight
                 : PrimeShellMetrics.accountMenuDesktopItemHeight,
@@ -563,6 +572,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
             child: const PrimeText('IT maintenance'),
           ),
         PopupMenuItem<String>(
+          padding: PrimeShellMetrics.accountMenuItemPadding,
           height: mobile
               ? PrimeShellMetrics.accountMenuMobileItemHeight
               : PrimeShellMetrics.accountMenuDesktopItemHeight,
@@ -826,6 +836,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
             sidebar: true,
             mobile: isDrawer,
             trailing: onTrailingSide,
+            avatarSurface: sidebarBg,
             leadingDrawerViewportWidth: isDrawer && settings.direction == TextDirection.ltr
                 ? MediaQuery.sizeOf(context).width
                 : null,

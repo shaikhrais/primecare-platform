@@ -408,7 +408,7 @@ The following origins are asserted from the complete 1440x1000 desktop and
 | R02 | `4,952 40x40` | `4,952 40x40` | `44,952 128x31.5` | `44,952 128x32` | IN PROGRESS |
 | R03 | `1173,932 255x56` | `1173,932 255x56` | `1296,932 128x31.5` | `1296,932 128x32` | IN PROGRESS |
 | R04 | `12,776 256x56` | `12,776 255x56` | `246,776 128x48` | `246,776 128x48` | IN PROGRESS |
-| R05 | `1113.484,78 134.516x36` | `1108.08,78 139.92x36` | `1117,114 128x31.5` | `1117,114 128x32` | IN PROGRESS |
+| R05 | `1113.484,78 134.516x36` | `1116.08,78 131.92x36` | `1117,114 128x31.5` | `1117,114 128x32` | IN PROGRESS |
 
 R04 now uses the source panel's 16px right inset in the reviewed light and dark
 390×844 cases. The shared metrics calculate a bounded launcher offset and retain
@@ -420,9 +420,9 @@ MUI shadow; runtime shadow equivalence remains open. These differences are
 recorded blockers, not accepted tolerances.
 
 R05's trigger is right-aligned to the same x=1248 content edge and its menu
-origin matches the source, but the native active-role label makes the trigger
-about 5.4px wider than the source account fixture. That remains a visible text
-and trigger-width mismatch.
+origin matches the source. With the 16px info icon, the full native trigger is
+about 2.6px narrower than the source account fixture. Text and trigger width
+remain visibly different.
 
 Source identities reviewed for this geometry pass:
 
@@ -449,3 +449,19 @@ Both launchers are BLOCKED pending their production control registration and
 readback. The [component coverage](fuse-component-coverage.md) records the
 source hashes, native counterparts and open behavior checks. R01–R05 remain
 IN PROGRESS for complete-view acceptance.
+
+## Account avatar, information icon and sign-out row
+
+R01–R05 share the corrected avatar fill, using the active navigation or
+toolbar background darkened by 5% per channel. R01, R03, R04 and R05 use the
+source's 16px account info icon. R02 retains its avatar-only trigger. All five
+opened menus use the source's 8px horizontal item inset. The reference icon
+sizing comes from `FuseSvgIcon.tsx` SHA-256
+`75d7f596bb4a1e60733bcd8286fc7e2904bf27a66ccc5ef5b0593251b53564d2`.
+
+Render tests check glyph size or its folded absence, the sign-out icon inset,
+and the existing account popover position and Escape dismissal. Sampled
+avatar interior pixels match in the reviewed mobile and horizontal cases
+in both themes. Remaining differences include account typography, menu shadow,
+native host controls and incomplete whole-view state coverage. R01–R05 remain
+IN PROGRESS.

@@ -80,6 +80,7 @@ abstract final class PrimeShellMetrics {
   static const accountMenuPadding = EdgeInsets.zero;
   static const accountMenuIconExtent = 16.0;
   static const accountMenuIconGap = 8.0;
+  static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);
   static const toolbarAccountAvatarRadius = 16.0;
   static const sidebarAccountAvatarRadius = 20.0;
   static const sidebarAccountHeight = 56.0;
@@ -88,8 +89,16 @@ abstract final class PrimeShellMetrics {
   // The sidebar's one-pixel content divider leaves 47 logical pixels inside
   // the folded rail. The asymmetric inset preserves Fuse's 40px trigger.
   static const foldedAccountMargin = EdgeInsets.fromLTRB(4, 8, 3, 8);
-  static Color accountAvatarBackground(ThemeData theme) =>
-      theme.colorScheme.primary.withValues(alpha: 0.1);
+  static Color accountAvatarBackground(ThemeData theme, {Color? surface}) {
+    final color = (surface ?? theme.scaffoldBackgroundColor).toARGB32();
+    int darkenedChannel(int shift) => (((color >> shift) & 0xff) * 0.95).floor();
+    return Color.fromARGB(
+      (color >> 24) & 0xff,
+      darkenedChannel(16),
+      darkenedChannel(8),
+      darkenedChannel(0),
+    );
+  }
   static const ShapeBorder accountMenuShape = RoundedRectangleBorder(
     borderRadius: accountMenuRadius,
   );
@@ -113,7 +122,8 @@ abstract final class PrimeShellMetrics {
     fontWeight: FontWeight.w600,
   );
   static const sidebarAccountGap = 12.0;
-  static const sidebarAccountInfoExtent = 24.0;
+  static const accountInfoExtent = 16.0;
+  static const sidebarAccountInfoExtent = accountInfoExtent;
   static const sidebarAccountArrowExtent = 13.0;
   static const sidebarAccountActionGap = 8.0;
   static EdgeInsets sidebarAccountPadding(bool compact) =>

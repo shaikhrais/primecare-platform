@@ -295,6 +295,15 @@ void main() {
           final accountTrigger = find.byKey(const Key('sidebar-user-menu'));
           expect(accountTrigger, findsOneWidget);
           final accountTriggerRect = tester.getRect(accountTrigger);
+          final accountInfo = find.descendant(
+            of: accountTrigger,
+            matching: find.byIcon(LucideIcons.info),
+          );
+          if (state == 'folded') {
+            expect(accountInfo, findsNothing);
+          } else {
+            expect(tester.getSize(accountInfo), const Size.square(16));
+          }
           expect(accountTriggerRect.width, state == 'folded' ? 40 : 255);
           expect(
             accountTriggerRect.height,
@@ -333,6 +342,11 @@ void main() {
           );
           expect(accountMenuSurface, findsOneWidget);
           final accountMenuRect = tester.getRect(accountMenuSurface);
+          final signOutIcon = find.descendant(
+            of: signOutItem,
+            matching: find.byIcon(LucideIcons.squareArrowRightExit),
+          );
+          expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);
           expect(
             accountMenuRect.width,
             PrimeShellMetrics.accountMenuConstraints.minWidth,

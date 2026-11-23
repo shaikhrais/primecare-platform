@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "baseCommit": "df6945a6914e6900ad0953490bb76b9ee76680aa",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "262f6063ec164c09115ba236ebb4a1d76b15d68855113c13de0e96f5cfd843de",
+      "afterSha256": "5860dac7997c258e781d550319ee2808c89dd1f66283b7a4f192de3bec8485eb",
+      "edits": [
+        {
+          "begin": 23148,
+          "old": "",
+          "new": "    Color? avatarSurface,\n"
+        },
+        {
+          "begin": 23523,
+          "old": "      backgroundColor: PrimeShellMetrics.accountAvatarBackground(theme),\n",
+          "new": "      backgroundColor: PrimeShellMetrics.accountAvatarBackground(\n        theme,\n        surface: avatarSurface,\n      ),\n"
+        },
+        {
+          "begin": 26174,
+          "old": "                      PrimeIcon(LucideIcons.info, size: 24, color: iconColor),\n",
+          "new": "                      PrimeIcon(\n                        LucideIcons.info,\n                        size: PrimeShellMetrics.accountInfoExtent,\n                        color: iconColor,\n                      ),\n"
+        },
+        {
+          "begin": 27677,
+          "old": "",
+          "new": "            padding: PrimeShellMetrics.accountMenuItemPadding,\n"
+        },
+        {
+          "begin": 27966,
+          "old": "",
+          "new": "          padding: PrimeShellMetrics.accountMenuItemPadding,\n"
+        },
+        {
+          "begin": 40141,
+          "old": "",
+          "new": "            avatarSurface: sidebarBg,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "c9a00f2f42657f16e55261f910ac51c250a569b36648fa3313be6f3026cd1b3b",
+      "afterSha256": "a232cf9b447006a4547457293fea7e2a90c5360a5799e5deca7eafc0611a67f1",
+      "edits": [
+        {
+          "begin": 3267,
+          "old": "",
+          "new": "  static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);\n"
+        },
+        {
+          "begin": 3733,
+          "old": "  static Color accountAvatarBackground(ThemeData theme) =>\n      theme.colorScheme.primary.withValues(alpha: 0.1);\n",
+          "new": "  static Color accountAvatarBackground(ThemeData theme, {Color? surface}) {\n    final color = (surface ?? theme.scaffoldBackgroundColor).toARGB32();\n    int darkenedChannel(int shift) => (((color >> shift) & 0xff) * 0.95).floor();\n    return Color.fromARGB(\n      (color >> 24) & 0xff,\n      darkenedChannel(16),\n      darkenedChannel(8),\n      darkenedChannel(0),\n    );\n  }\n"
+        },
+        {
+          "begin": 4597,
+          "old": "  static const sidebarAccountInfoExtent = 24.0;\n",
+          "new": "  static const accountInfoExtent = 16.0;\n  static const sidebarAccountInfoExtent = accountInfoExtent;\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "68f0b30278df23ca7f16f0fcc7a86e9c9e946c5a19b89f113463f6fbbfcf220a",
+      "afterSha256": "023c12bd6aaf4bd46db39a70b13b0be51007a48be1e0ec5b8d7695792d11edb4",
+      "edits": [
+        {
+          "begin": 11414,
+          "old": "",
+          "new": "          final accountInfo = find.descendant(\n            of: accountTrigger,\n            matching: find.byIcon(LucideIcons.info),\n          );\n          if (state == 'folded') {\n            expect(accountInfo, findsNothing);\n          } else {\n            expect(tester.getSize(accountInfo), const Size.square(16));\n          }\n"
+        },
+        {
+          "begin": 12949,
+          "old": "",
+          "new": "          final signOutIcon = find.descendant(\n            of: signOutItem,\n            matching: find.byIcon(LucideIcons.squareArrowRightExit),\n          );\n          expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "c339c2145ca8dc48e66821b0c24ed90cbc0abf42aa0776b2c3b784120a6214a5",
+      "afterSha256": "3cd9fc646db4fdebca6a8794aea344325ac6dbc0c3a7fecfd71acc5eda986f8e",
+      "edits": [
+        {
+          "begin": 13715,
+          "old": "",
+          "new": "            expect(tester.getSize(accountTrigger).width, closeTo(131.92, 0.01));\n            expect(\n              tester.getSize(find.descendant(\n                of: accountTrigger,\n                matching: find.byIcon(LucideIcons.info),\n              )),\n              const Size.square(16),\n            );\n"
+        },
+        {
+          "begin": 15097,
+          "old": "",
+          "new": "            final signOutIcon = find.descendant(\n              of: find.widgetWithText(PopupMenuItem<String>, 'Sign out'),\n              matching: find.byIcon(LucideIcons.squareArrowRightExit),\n            );\n            expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);\n"
+        }
+      ]
+    }
+  ]
+}

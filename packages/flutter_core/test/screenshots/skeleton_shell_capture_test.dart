@@ -342,6 +342,14 @@ void main() {
               PrimeShellMetrics.toolbarAccountHeight,
             );
             expect(tester.getRect(accountTrigger).right, 1248);
+            expect(tester.getSize(accountTrigger).width, closeTo(131.92, 0.01));
+            expect(
+              tester.getSize(find.descendant(
+                of: accountTrigger,
+                matching: find.byIcon(LucideIcons.info),
+              )),
+              const Size.square(16),
+            );
             expect(tester.getSize(find.text('Admin')).width, greaterThan(0));
             await tester.tap(accountTrigger);
             await tester.pumpAndSettle();
@@ -375,6 +383,11 @@ void main() {
               PrimeShellMetrics.accountMenuDesktopItemHeight,
             );
             expect(accountMenuRect, const Rect.fromLTWH(1117, 114, 128, 32));
+            final signOutIcon = find.descendant(
+              of: find.widgetWithText(PopupMenuItem<String>, 'Sign out'),
+              matching: find.byIcon(LucideIcons.squareArrowRightExit),
+            );
+            expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);
             await expectLater(
               accountProof,
               matchesGoldenFile(
