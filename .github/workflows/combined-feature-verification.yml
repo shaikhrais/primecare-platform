@@ -46,7 +46,7 @@ jobs:
         run: |
           npm install --prefix /tmp/combined-feature-tools --ignore-scripts --no-audit --no-fund \
             esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 pg@8.16.3 bcryptjs@3.0.2 \
-            linkedom@0.18.12 jsdom@26.1.0 @electric-sql/pglite@0.3.14 ajv@8.17.1 ajv-formats@3.0.1
+            linkedom@0.18.12 jsdom@26.1.0 @electric-sql/pglite@0.3.14 ajv@8.17.1 ajv-formats@3.0.1 @twilio/voice-sdk@2.18.5
           ln -s /tmp/combined-feature-tools/node_modules node_modules
           pip install -r tools/governance-production/requirements.txt
       - name: Prepare only disposable governance fixtures
