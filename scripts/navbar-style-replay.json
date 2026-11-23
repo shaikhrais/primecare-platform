@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "d3cac2bd8e128b150dfd52cb00a699ed72a48e65",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "88c08e9fb02eb428f8c164efa778d78cae8bb6aa4c8e9357758f2d56f7f2de71",
+      "afterSha256": "c3cd6f3d771393fc437e9b39464a880ed959d4967a1e0ea86e7ab9a3f622e9ed",
+      "edits": [
+        {
+          "begin": 7560,
+          "old": "",
+          "new": "                  navbarStyle: settings.navbarStyle,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+      "beforeSha256": "0f4a138cae6f19e34a176a44b371bee460c74ecdf07aa51f4a50f92613d1972f",
+      "afterSha256": "50fdf85e73722a06d745b33c6139df0ed0939bbe6bc34619270b221e506378ed",
+      "edits": [
+        {
+          "begin": 325,
+          "old": "",
+          "new": "import 'navbar_scroll_header.dart';\n"
+        },
+        {
+          "begin": 1145,
+          "old": "",
+          "new": "  final String? navbarStyle;\n"
+        },
+        {
+          "begin": 1513,
+          "old": "    this.navigationVisible = true, this.toolbarVisible = true, this.footerVisible = true})\n      : panels = Map.unmodifiable(panels), handleLabels = Map.unmodifiable(handleLabels);\n",
+          "new": "    this.navigationVisible = true, this.toolbarVisible = true, this.footerVisible = true, this.navbarStyle})\n      : panels = Map.unmodifiable(panels), handleLabels = Map.unmodifiable(handleLabels) {\n    if(navbarStyle!=null&&!['fixed','static'].contains(navbarStyle))throw ArgumentError('Invalid navbar style');\n  }\n"
+        },
+        {
+          "begin": 10361,
+          "old": "        Widget main() => SizedBox(height: mainHeight, child: Align(alignment: Alignment.topCenter,\n",
+          "new": "        Widget main([double? height]) => SizedBox(height: height??mainHeight, child: Align(alignment: Alignment.topCenter,\n"
+        },
+        {
+          "begin": 10673,
+          "old": "        final stage = Column(mainAxisSize: MainAxisSize.min, children: [dock('top'),\n          if (narrow) ...[dock('left'), main(), dock('right')]\n          else Row(crossAxisAlignment: CrossAxisAlignment.start, children: [dock('left'), Expanded(child: main()), dock('right')]),\n",
+          "new": "        Widget stageFor([double? height]) => Column(mainAxisSize: MainAxisSize.min, children: [dock('top'),\n          if (narrow) ...[dock('left'), main(height), dock('right')]\n          else Row(crossAxisAlignment: CrossAxisAlignment.start, children: [dock('left'), Expanded(child: main(height)), dock('right')]),\n"
+        },
+        {
+          "begin": 11021,
+          "old": "",
+          "new": "        final stage=stageFor();\n"
+        },
+        {
+          "begin": 12775,
+          "old": "        final shell = vertical ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [\n",
+          "new": "        Widget shell = vertical ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [\n"
+        },
+        {
+          "begin": 13007,
+          "old": "",
+          "new": "        if(widget.navbarStyle!=null&&showNavigation&&!vertical&&p.navigation=='top') {\n          final bars=<NavbarChromeBar>[\n            if(showToolbar&&toolAtTop&&!belowNavigation)NavbarChromeBar(id:'toolbar',child:toolbar(),extent:toolHeight,fixed:toolOutside),\n            NavbarChromeBar(id:'navbar',child:navigation(),extent:navHeight,fixed:widget.navbarStyle=='fixed'),\n            if(showToolbar&&belowNavigation)NavbarChromeBar(id:'toolbar',child:toolbar(),extent:toolHeight,fixed:toolOutside),\n          ];\n          final header=NavbarScrollHeader(bars);\n          shell=Column(children:[\n            Expanded(child:NestedScrollView(\n              key:ValueKey('navbar-scroll:${widget.controller.scope.storageKey}:${p.scroll}'),\n              headerSliverBuilder:(context,innerScrolled)=>[\n                SliverPersistentHeader(pinned:header.minExtent>0,delegate:header),\n              ],\n              body:LayoutBuilder(builder:(context,bodyConstraints){\n                final staticFooter=hasFooter&&!footOutside;\n                final staticBottomToolbar=showToolbar&&p.toolbar=='bottom'&&!toolOutside;\n                final height=math.max(0.0,bodyConstraints.maxHeight-(staticFooter?footHeight:0)-(staticBottomToolbar?toolHeight:0));\n                return SingleChildScrollView(primary:false,child:Column(mainAxisSize:MainAxisSize.min,children:[\n                  stageFor(height),if(staticFooter)footer(),if(staticBottomToolbar)toolbar(),\n                ]));\n              }),\n            )),\n            if(hasFooter&&footOutside)footer(),\n            if(showToolbar&&p.toolbar=='bottom'&&toolOutside)toolbar(),\n          ]);\n        }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
+      "beforeSha256": "01a835be1b0a33c5b1e858b81be981f4c7cada0d44a8aa402b6de7e176e0c4e4",
+      "afterSha256": "bea2eb8cb1f09aac328aea73311936f5b5bb13dc41f89d4b2352f0b5d0a5932b",
+      "edits": [
+        {
+          "begin": 1091,
+          "old": "",
+          "new": "  final String? navbarStyle;\n"
+        },
+        {
+          "begin": 1399,
+          "old": "  const ThemeSettingsState({required this.layoutStyle,required this.presetName,required this.customScrollbars,required this.direction,this.customPrimary,this.customPrimaryContainer,this.customSidebarBg,this.customTopbarBg,this.personalTheme,this.sectionThemes=const {},this.navigationStyle='slide',this.hiddenChrome=const {}});\n",
+          "new": "  const ThemeSettingsState({required this.layoutStyle,required this.presetName,required this.customScrollbars,required this.direction,this.customPrimary,this.customPrimaryContainer,this.customSidebarBg,this.customTopbarBg,this.personalTheme,this.sectionThemes=const {},this.navigationStyle='slide',this.hiddenChrome=const {},this.navbarStyle});\n"
+        },
+        {
+          "begin": 2056,
+          "old": "  ThemeSettingsState copyWith({Map<String,String>? hiddenChrome,String? navigationStyle,LayoutStyle? layoutStyle,String? presetName,bool? customScrollbars,TextDirection? direction,String? customPrimary,String? customPrimaryContainer,String? customSidebarBg,String? customTopbarBg}) => ThemeSettingsState(layoutStyle:layoutStyle ?? this.layoutStyle,presetName:presetName ?? this.presetName,customScrollbars:customScrollbars ?? this.customScrollbars,direction:direction ?? this.direction,customPrimary:customPrimary ?? this.customPrimary,customPrimaryContainer:customPrimaryContainer ?? this.customPrimaryContainer,customSidebarBg:customSidebarBg ?? this.customSidebarBg,customTopbarBg:customTopbarBg ?? this.customTopbarBg,personalTheme:personalTheme,sectionThemes:sectionThemes,navigationStyle:navigationStyle ?? this.navigationStyle,hiddenChrome:hiddenChrome ?? this.hiddenChrome);\n  ThemeSettingsState withTheme(PersonalTheme value) {final next=value.validated();return ThemeSettingsState(layoutStyle:layoutStyle,presetName:next.preset,customScrollbars:customScrollbars,direction:direction,customPrimary:next.colors['primary'],customPrimaryContainer:next.colors['primaryContainer'],customSidebarBg:next.colors['sidebar'],customTopbarBg:next.colors['topbar'],personalTheme:next,sectionThemes:sectionThemes,navigationStyle:navigationStyle,hiddenChrome:hiddenChrome);}\n  Map<String,Object> toJson() => {'version':4,'hiddenChrome':hiddenChrome,'navigationStyle':navigationStyle,'sections':{for(final entry in sectionThemes.entries)entry.key:entry.value.validated().toJson()},'layout':layoutStyle.name,'scrollbars':customScrollbars,'direction':direction==TextDirection.rtl?'rtl':'ltr','personal':personalTheme!=null,'theme':theme.validated().toJson()};\n",
+          "new": "  ThemeSettingsState copyWith({String? navbarStyle,Map<String,String>? hiddenChrome,String? navigationStyle,LayoutStyle? layoutStyle,String? presetName,bool? customScrollbars,TextDirection? direction,String? customPrimary,String? customPrimaryContainer,String? customSidebarBg,String? customTopbarBg}) => ThemeSettingsState(layoutStyle:layoutStyle ?? this.layoutStyle,presetName:presetName ?? this.presetName,customScrollbars:customScrollbars ?? this.customScrollbars,direction:direction ?? this.direction,customPrimary:customPrimary ?? this.customPrimary,customPrimaryContainer:customPrimaryContainer ?? this.customPrimaryContainer,customSidebarBg:customSidebarBg ?? this.customSidebarBg,customTopbarBg:customTopbarBg ?? this.customTopbarBg,personalTheme:personalTheme,sectionThemes:sectionThemes,navigationStyle:navigationStyle ?? this.navigationStyle,hiddenChrome:hiddenChrome ?? this.hiddenChrome,navbarStyle:navbarStyle ?? this.navbarStyle);\n  ThemeSettingsState withTheme(PersonalTheme value) {final next=value.validated();return ThemeSettingsState(layoutStyle:layoutStyle,presetName:next.preset,customScrollbars:customScrollbars,direction:direction,customPrimary:next.colors['primary'],customPrimaryContainer:next.colors['primaryContainer'],customSidebarBg:next.colors['sidebar'],customTopbarBg:next.colors['topbar'],personalTheme:next,sectionThemes:sectionThemes,navigationStyle:navigationStyle,hiddenChrome:hiddenChrome,navbarStyle:navbarStyle);}\n  Map<String,Object> toJson() => {'version':navbarStyle==null?4:5,if(navbarStyle!=null)'navbarStyle':navbarStyle!,'hiddenChrome':hiddenChrome,'navigationStyle':navigationStyle,'sections':{for(final entry in sectionThemes.entries)entry.key:entry.value.validated().toJson()},'layout':layoutStyle.name,'scrollbars':customScrollbars,'direction':direction==TextDirection.rtl?'rtl':'ltr','personal':personalTheme!=null,'theme':theme.validated().toJson()};\n"
+        },
+        {
+          "begin": 3859,
+          "old": "    if(raw is! Map || ![1,2,3,4].contains(raw['version']) ||\n      raw.length != (raw['version']==1?6:raw['version']==2?7:raw['version']==3?8:9) ||\n",
+          "new": "    if(raw is! Map || ![1,2,3,4,5].contains(raw['version']) ||\n      raw.length != (raw['version']==1?6:raw['version']==2?7:raw['version']==3?8:raw['version']==4?9:10) ||\n"
+        },
+        {
+          "begin": 4335,
+          "old": "",
+          "new": "    if(raw['version']==5&&!['fixed','static'].contains(raw['navbarStyle']))throw const FormatException('Invalid navbar style');\n"
+        },
+        {
+          "begin": 4714,
+          "old": "    if([3,4].contains(raw['version']) && !['slide','tabbed'].contains(raw['navigationStyle']))throw const FormatException('Invalid navigation style');\n",
+          "new": "    if([3,4,5].contains(raw['version']) && !['slide','tabbed'].contains(raw['navigationStyle']))throw const FormatException('Invalid navigation style');\n"
+        },
+        {
+          "begin": 4901,
+          "old": "    if(raw['version']==4){\n",
+          "new": "    if([4,5].contains(raw['version'])){\n"
+        },
+        {
+          "begin": 5759,
+          "old": "      sectionThemes:Map.unmodifiable(sections),navigationStyle:[3,4].contains(raw['version'])?raw['navigationStyle'] as String:'slide',hiddenChrome:Map.unmodifiable(chrome));\n",
+          "new": "      sectionThemes:Map.unmodifiable(sections),navigationStyle:[3,4,5].contains(raw['version'])?raw['navigationStyle'] as String:'slide',hiddenChrome:Map.unmodifiable(chrome),navbarStyle:raw['version']==5?raw['navbarStyle'] as String:null);\n"
+        },
+        {
+          "begin": 6848,
+          "old": "    return const ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:'navyTealPalette',customScrollbars:false,direction:TextDirection.ltr);\n",
+          "new": "    return const ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:'navyTealPalette',customScrollbars:false,direction:TextDirection.ltr,navbarStyle:'fixed');\n"
+        },
+        {
+          "begin": 8276,
+          "old": "      sectionThemes:Map.unmodifiable(sections),navigationStyle:state.navigationStyle,hiddenChrome:state.hiddenChrome));\n",
+          "new": "      sectionThemes:Map.unmodifiable(sections),navigationStyle:state.navigationStyle,hiddenChrome:state.hiddenChrome,navbarStyle:state.navbarStyle));\n"
+        },
+        {
+          "begin": 9266,
+          "old": "",
+          "new": "  Future<void> updateNavbarStyle(String style) {\n    if(!['fixed','static'].contains(style))throw ArgumentError('Unknown navbar style');\n    return _save(state.copyWith(navbarStyle:style));\n  }\n"
+        },
+        {
+          "begin": 10853,
+          "old": "  Future<void> resetToTenantDefault(String tenantPreset) => _save(ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:tenantPreset,customScrollbars:false,direction:TextDirection.ltr));\n",
+          "new": "  Future<void> resetToTenantDefault(String tenantPreset) => _save(ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:tenantPreset,customScrollbars:false,direction:TextDirection.ltr,navbarStyle:'fixed'));\n"
+        },
+        {
+          "begin": 11404,
+          "old": "",
+          "new": "  Future<void> updateNavbarStyle(String style) {\n    if(!_owner._matchesAccount(_scope))throw StateError('Account changed');\n    return _owner.updateNavbarStyle(style);\n  }\n"
+        }
+      ]
+    }
+  ]
+}

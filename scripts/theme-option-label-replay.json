@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "d2186d676619621d7af91da56a3aba54a13d4ba7",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+      "beforeSha256": "835e24dff0f91795b4a5fae98b1e51a9ca2209caf2b05c986dfa041be1aba17c",
+      "afterSha256": "e72d7d7a72e4c617905d24920c23b14918efc07a4d542c2b86536332d04bab3c",
+      "edits": [
+        {
+          "begin": 595,
+          "old": "",
+          "new": "import '../../theme/theme_center_options_generated.dart';\n"
+        },
+        {
+          "begin": 1014,
+          "old": "String themeCenterText(BuildContext context,String key,{Map<String,String> args=const {}}) {final language=Localizations.localeOf(context).languageCode;return liveScreenText(context,'theme_center',language,key,themeCenterScreenCatalog[language]?[key]??themeCenterScreenCatalog['en']![key]!,args:args);}\n",
+          "new": "String themeCenterText(BuildContext context,String key,{Map<String,String> args=const {}}) {\n final language=Localizations.localeOf(context).languageCode;\n final fallback=themeCenterScreenCatalog[language]?[key]??themeCenterOptions[language]?[key]??themeCenterScreenCatalog['en']?[key]??themeCenterOptions['en']?[key];\n if(fallback==null)throw ArgumentError.value(key,'key','Unknown Theme Center resource');\n return liveScreenText(context,'theme_center',language,key,fallback,args:args);\n}\n"
+        }
+      ]
+    }
+  ]
+}
