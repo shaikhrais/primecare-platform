@@ -26,3 +26,13 @@ from the 42 Theme Center pairs. Capturing a guest reference shell does not prove
 matching an authenticated native host; task 7 and state alignment remain open.
 Local Chromium launch is blocked by the execution environment; cloud capture
 must succeed before task 6 is marked verified.
+
+## Actual native host fixture (task 7/200 partial)
+
+`skeleton_shell_capture_test.dart` renders GovernanceMasterLayout across 18
+layout/device/mode cases. It records region boxes and image resource failures,
+using an empty authorized-module set and the existing synthetic capture account.
+It never imports a new runtime route or grants production authority. It is an
+actual host renderer, but its state is not yet aligned with the guest reference.
+Avatar/network image failures are retained in JSON; captures with those failures
+must not count as visual passes. Cloud artifact: primecare-full-shell-fixture.

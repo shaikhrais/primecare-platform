@@ -2,7 +2,7 @@ name: Render original Fuse skeleton reference in cloud
 on:
   push:
     branches: [main]
-    paths: ['tools/fuse-reference-cloud/**', '.github/workflows/fuse-reference-cloud.yml', 'packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/test/theme_center_number_test.dart', 'packages/flutter_core/lib/theme/theme_center_options_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/test/theme_center_option_render_test.dart', 'packages/flutter_core/test/theme_center_options_test.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'packages/flutter_core/test/presentation_palette_test.dart', 'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart', 'packages/primecare_ui_foundation/test/prime_settings_radio_test.dart']
+    paths: ['tools/fuse-reference-cloud/**', '.github/workflows/fuse-reference-cloud.yml', 'packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/test/theme_center_number_test.dart', 'packages/flutter_core/lib/theme/theme_center_options_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/test/theme_center_option_render_test.dart', 'packages/flutter_core/test/theme_center_options_test.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart', 'packages/flutter_core/lib/theme/prime_shell_metrics.dart', 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart', 'packages/flutter_core/test/presentation_palette_test.dart', 'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart', 'packages/primecare_ui_foundation/test/prime_settings_radio_test.dart']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -76,6 +76,15 @@ jobs:
         with:
           name: primecare-theme-cloud-comparison
           path: packages/flutter_core/test/screenshots/captures
+          retention-days: 14
+      - name: Capture actual native host fixture separately from matched-state acceptance
+        run: flutter test --update-goldens test/screenshots/skeleton_shell_capture_test.dart --reporter expanded
+        working-directory: packages/flutter_core
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: primecare-full-shell-fixture
+          path: packages/flutter_core/test/screenshots/shell-captures
           retention-days: 14
       - name: Capture original full-shell reference separately from settings
         run: node tools/fuse-reference-cloud/shell-capture.mjs "$GITHUB_WORKSPACE/artifacts/fuse-shell-reference"

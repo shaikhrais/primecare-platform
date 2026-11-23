@@ -27,3 +27,11 @@ PrimeAppBar height and PreferredSize agree with the outer slot. Shared renderer
 defaults and persisted layouts are unchanged. Four geometry tests at 390, 767,
 768 and 1440px plus existing workspace/navbar checks pass (28 tests total).
 Full-shell reference/native screenshot acceptance is still pending.
+
+Tasks 6–7 continuation: original-shell capture host prepared with original
+providers and unchanged Layout1/2/3 sources; 18 reference cases awaiting cloud
+execution. Actual GovernanceMasterLayout fixture renders all 18 cases locally
+and records shell/content/toolbar/sidebar bounds. Its account/navigation state
+is not aligned with the reference. Avatar resource errors are retained, not
+silently turned into successful image or matching evidence. Task 7 remains
+partial and task 8 state alignment is open. Demo remains blocked.
