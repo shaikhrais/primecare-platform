@@ -7,9 +7,9 @@ class PrimeSettingsRadio<T> extends StatelessWidget {
   final VoidCallback onSelected;
   const PrimeSettingsRadio({super.key,required this.value,required this.label,required this.onSelected});
   @override Widget build(BuildContext context)=>MergeSemantics(child:InkWell(onTap:onSelected,canRequestFocus:false,
-    child:SizedBox(height:32,child:Row(mainAxisSize:MainAxisSize.min,children:[
+    child:ConstrainedBox(constraints:const BoxConstraints(minHeight:32),child:Row(mainAxisSize:MainAxisSize.min,children:[
       SizedBox(width:21,child:Transform.translate(offset:const Offset(-5.5,0),child:Transform.scale(scale:.8,child:Radio<T>(value:value,materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,visualDensity:VisualDensity.compact)))),
-      label,
+      Flexible(fit:FlexFit.loose,child:label),
     ]))));
 }
 

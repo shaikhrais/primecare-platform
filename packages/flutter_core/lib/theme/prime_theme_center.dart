@@ -169,7 +169,16 @@ class PrimeSettingsNumber extends StatefulWidget {
 }
 class _PrimeSettingsNumberState extends State<PrimeSettingsNumber>{
   late final controller=TextEditingController(text:widget.value.toString());String? error;
-  @override void didUpdateWidget(PrimeSettingsNumber old){super.didUpdateWidget(old);if(old.value!=widget.value&&controller.text!=widget.value.toString())controller.text=widget.value.toString();}
+  @override void didUpdateWidget(PrimeSettingsNumber old){
+    super.didUpdateWidget(old);
+    if(old.value!=widget.value){
+      if(controller.text!=widget.value.toString())controller.text=widget.value.toString();
+      error=null;
+    }else if(old.min!=widget.min||old.max!=widget.max){
+      final value=int.tryParse(controller.text);
+      error=value==null||value<widget.min||value>widget.max?'${widget.min}–${widget.max}':null;
+    }
+  }
   @override void dispose(){controller.dispose();super.dispose();}
   @override Widget build(BuildContext context)=>Padding(padding:const EdgeInsets.only(top:6),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[PrimeText(widget.label,style:Theme.of(context).textTheme.labelLarge?.copyWith(fontSize:12,height:2,color:Theme.of(context).colorScheme.onSurfaceVariant)),SizedBox(width:209,height:error==null?32:null,child:PrimeTextField(controller:controller,keyboardType:TextInputType.number,
     style:Theme.of(context).textTheme.bodyMedium?.copyWith(height:1.4375),decoration:InputDecoration(isDense:true,errorText:error),onChanged:(s){final v=int.tryParse(s);setState(()=>error=v==null||v<widget.min||v>widget.max?'${widget.min}–${widget.max}':null);if(error==null)widget.onChanged(v!);}))]));
