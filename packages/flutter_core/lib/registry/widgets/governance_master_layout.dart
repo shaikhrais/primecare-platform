@@ -1,5 +1,7 @@
 import '../../theme/portal_section_theme.dart';
+import '../../original_assets.dart';
 import '../../theme/prime_shell_metrics.dart';
+import '../../theme/prime_theme_center_style.dart';
 import '../../workspace/portal_workspace.dart';
 import '../../providers/persistence_providers.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;
@@ -472,15 +474,22 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   : BorderSide.none,
             ),
           ),
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(children:[
+            SizedBox(height:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),child:Padding(
+              padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[
+                const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),
+                if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:PrimeText(tenant.name,maxLines:2,overflow:TextOverflow.ellipsis,
+                  style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)))],
+              ]))),
+            Expanded(child:ListView.builder(
+            padding: EdgeInsets.zero,
             itemCount: modules.length,
             itemBuilder: (context, index) {
               final module = modules[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
+                  if(modules.length>1)Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
@@ -525,12 +534,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
                     final isSelected = currentRoute == screen.route;
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),
                       child: PrimeListTile(
                         dense: true,
-                        contentPadding: collapsed ? const EdgeInsets.symmetric(horizontal: 8) : const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                        minTileHeight:PrimeShellMetrics.sidebarRowHeight,minVerticalPadding:0,minLeadingWidth:PrimeShellMetrics.sidebarIconExtent,horizontalTitleGap:PrimeShellMetrics.sidebarGap,
+                        contentPadding: const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarGap),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(PrimeShellMetrics.sidebarCorner),
                         ),
                         selected: isSelected,
                         selectedTileColor: sidebarSelectedTileColor,
@@ -538,7 +548,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           message: collapsed ? screen.title : '',
                           child: PrimeIcon(
                             screen.icon ?? LucideIcons.circle,
-                            size: 18,
+                            size: PrimeShellMetrics.sidebarIconExtent,
                             color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,
                           ),
                         ),
@@ -547,7 +557,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             : PrimeText(
                                 screen.title,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: theme.textTheme.bodyMedium?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,
                                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                                   color: isSelected ? sidebarSelectedTextColor : sidebarTextColor,
                                 ),
@@ -585,7 +595,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 ],
               );
             },
-          ),
+          )),
+          ]),
         ),
       ),
     );

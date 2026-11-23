@@ -6,7 +6,7 @@ import sys
 import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics, before_avatar_fallback, before_shell_border_frame, before_sidebar_default
+from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics, before_avatar_fallback, before_shell_border_frame, before_sidebar_default, before_sidebar_render
 
 class PortalLayoutReplayTest(unittest.TestCase):
     def test_only_exact_reviewed_outputs_are_replayed(self):
@@ -113,7 +113,16 @@ class SidebarDefaultReplayTest(unittest.TestCase):
     def test_exact_default_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/shell-sidebar-default-replay.json').read_text())
         for row in receipt['files']:
-            source=(ROOT/row['path']).read_text()
+            source=before_sidebar_render((ROOT/row['path']).read_text(),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_sidebar_default(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_sidebar_default(source+'\n',row['path']),source+'\n')
+
+class SidebarRenderReplayTest(unittest.TestCase):
+    def test_exact_sidebar_delta_rejects_drift(self):
+        receipt=json.loads((ROOT/'scripts/sidebar-full-render-replay.json').read_text())
+        for row in receipt['files']:
+            source=(ROOT/row['path']).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            self.assertEqual(hashlib.sha256(before_sidebar_render(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_sidebar_render(source+'\n',row['path']),source+'\n')

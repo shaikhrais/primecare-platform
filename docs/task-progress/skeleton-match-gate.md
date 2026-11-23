@@ -69,3 +69,10 @@ All 18 captured toolbar heights still match, and exact toolbar bounds now match
 16/18 reference cases. Layout 3 desktop retains a separate 56px left-side-panel
 gap in both modes; it is not masked by a forced margin or a fabricated panel.
 Account/navigation/palette alignment and complete visual acceptance stay open.
+
+The active queue is now docs/task-progress/full-render-match.md (R01–R25).
+The former 200-task count is retired as a completion metric. The replacement
+hourly automation works on whole rendered views. R01 populated screenshots,
+header/row presentation and registered brand asset adoption are in progress;
+no full-render task is MATCHED. Earlier palette-bug suspicion was disproved by
+a baseline test; explicit capture palette state accounts for that difference.

@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "892bea150179511ef17bee29bafae8f05bacf8b0",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "5a65d2a75f427e62156d8d5d8d012cf2704518b10f491f1c123cbb052ddb2cc3",
+      "afterSha256": "4e478fd1cc04f01dea7195d1e58d22c0ca7719c94bd835d536b79ef96bf7a966",
+      "edits": [
+        {
+          "begin": 48,
+          "old": "",
+          "new": "import '../../original_assets.dart';\n"
+        },
+        {
+          "begin": 95,
+          "old": "",
+          "new": "import '../../theme/prime_theme_center_style.dart';\n"
+        },
+        {
+          "begin": 25347,
+          "old": "          child: ListView.builder(\n            padding: const EdgeInsets.symmetric(vertical: 16),\n",
+          "new": "          child: Column(children:[\n            SizedBox(height:PrimeShellMetrics.barHeight(MediaQuery.sizeOf(context).width),child:Padding(\n              padding:const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarHeaderInset),child:Row(mainAxisAlignment:collapsed?MainAxisAlignment.center:MainAxisAlignment.start,children:[\n                const PrimeOriginalAsset('brand-mark-concept',width:PrimeShellMetrics.sidebarLogoExtent,height:PrimeShellMetrics.sidebarLogoExtent),\n                if(!collapsed)...[const SizedBox(width:PrimeShellMetrics.sidebarGap),Expanded(child:PrimeText(tenant.name,maxLines:2,overflow:TextOverflow.ellipsis,\n                  style:theme.textTheme.titleSmall?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,fontWeight:FontWeight.w600,color:sidebarTextColor)))],\n              ]))),\n            Expanded(child:ListView.builder(\n            padding: EdgeInsets.zero,\n"
+        },
+        {
+          "begin": 25692,
+          "old": "                  Padding(\n",
+          "new": "                  if(modules.length>1)Padding(\n"
+        },
+        {
+          "begin": 27600,
+          "old": "                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),\n",
+          "new": "                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),\n"
+        },
+        {
+          "begin": 27768,
+          "old": "                        contentPadding: collapsed ? const EdgeInsets.symmetric(horizontal: 8) : const EdgeInsets.symmetric(horizontal: 16, vertical: 0),\n",
+          "new": "                        minTileHeight:PrimeShellMetrics.sidebarRowHeight,minVerticalPadding:0,minLeadingWidth:PrimeShellMetrics.sidebarIconExtent,horizontalTitleGap:PrimeShellMetrics.sidebarGap,\n                        contentPadding: const EdgeInsets.symmetric(horizontal:PrimeShellMetrics.sidebarGap),\n"
+        },
+        {
+          "begin": 27976,
+          "old": "                          borderRadius: BorderRadius.circular(10),\n",
+          "new": "                          borderRadius: BorderRadius.circular(PrimeShellMetrics.sidebarCorner),\n"
+        },
+        {
+          "begin": 28400,
+          "old": "                            size: 18,\n",
+          "new": "                            size: PrimeShellMetrics.sidebarIconExtent,\n"
+        },
+        {
+          "begin": 28815,
+          "old": "                                style: TextStyle(\n",
+          "new": "                                style: theme.textTheme.bodyMedium?.copyWith(fontFamily:settings.theme.fontFamily=='system'?PrimeThemeCenterStyle.fontFamily:settings.theme.fontFamily,fontSize:PrimeShellMetrics.sidebarFontSize*settings.theme.fontScale,height:1,\n"
+        },
+        {
+          "begin": 30406,
+          "old": "          ),\n",
+          "new": "          )),\n          ]),\n"
+        }
+      ]
+    }
+  ]
+}
