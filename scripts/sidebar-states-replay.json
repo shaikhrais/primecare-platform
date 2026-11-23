@@ -5,7 +5,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "c299fc74874c8240244e267519ad5bb914ba9ceede5e0ace473341232c46e542",
-      "afterSha256": "fae82c2686709e0cab41dcf9d982381fb6b4498c67a54ab5e65961334b47f421",
+      "afterSha256": "926f86d1f63f19e9fc8dfd1f193b933cba6ba6a5731266e7c8f18c8631d8646f",
       "edits": [
         {
           "begin": 132,
@@ -28,9 +28,49 @@
           "new": ""
         },
         {
+          "begin": 7453,
+          "old": "                        theme,\n",
+          "new": "                        portalSectionTheme(theme, 'navbar'),\n"
+        },
+        {
+          "begin": 8010,
+          "old": "",
+          "new": "                  navigationVisualWidth:\n                      workspace.current.navigationWidth == PrimeShellMetrics.foldedNavigationMarker\n                          ? PrimeShellMetrics.foldedNavigationWidth\n                          : null,\n"
+        },
+        {
           "begin": 8603,
-          "old": "                      ? buildHorizontalNav()\n",
-          "new": "                      ? Builder(builder: (context) => buildHorizontalNav(Theme.of(context)))\n"
+          "old": "                      ? buildHorizontalNav()\n                      : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,\n                          collapsed: workspace.current.navigationWidth == 64)),\n",
+          "new": "                      ? Builder(builder: (context) => buildHorizontalNav(Theme.of(context)))\n                      : _buildSidebar(\n                          context, ref, portalSectionTheme(theme, 'navbar'),\n                          modules, tenant, tier, settings,\n                          collapsed: workspace.current.navigationWidth ==\n                              PrimeShellMetrics.foldedNavigationMarker,\n                          onTrailingSide: workspace.current.navigation == 'right',\n                        )),\n"
+        },
+        {
+          "begin": 22987,
+          "old": "",
+          "new": "    bool onTrailingSide = false,\n"
+        },
+        {
+          "begin": 23444,
+          "old": "          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true),\n",
+          "new": "          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),\n"
+        },
+        {
+          "begin": 24214,
+          "old": "    final sidebarSelectedTextColor = themeColors?.sidebarSelectedTextColor ?? theme.primaryColor;\n",
+          "new": ""
+        },
+        {
+          "begin": 24399,
+          "old": "    final sidebarSelectedIconColor = themeColors?.sidebarSelectedIconColor ?? sidebarSelectedTextColor;\n    final sidebarSelectedTileColor = themeColors?.sidebarSelectedTileColor ?? theme.primaryColor.withValues(alpha: 0.05);\n",
+          "new": "    final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(\n      background: sidebarBg,\n      foreground: readableThemeForeground(sidebarBg, theme.colorScheme.onSurface),\n      brightness: theme.brightness,\n    );\n    final sidebarSelectedTextColor = readableThemeForeground(\n      sidebarSelectedTileColor, themeColors?.sidebarSelectedTextColor ?? sidebarTextColor,\n    );\n    final sidebarSelectedIconColor = readableThemeForeground(\n      sidebarSelectedTileColor, themeColors?.sidebarSelectedIconColor ?? sidebarIconColor,\n    );\n"
+        },
+        {
+          "begin": 24738,
+          "old": "    final sidebarWidth = collapsed ? 64.0 : AdaptiveScalingConfig.getSidebarWidth(tier);\n",
+          "new": "    final sidebarWidth = collapsed\n        ? PrimeShellMetrics.foldedNavigationWidth\n        : AdaptiveScalingConfig.getSidebarWidth(tier);\n"
+        },
+        {
+          "begin": 25048,
+          "old": "          decoration: BoxDecoration(\n            color: sidebarBg,\n            border: Border(\n              right: settings.direction == TextDirection.ltr\n                  ? BorderSide(color: sidebarDividerColor)\n                  : BorderSide.none,\n              left: settings.direction == TextDirection.rtl\n                  ? BorderSide(color: sidebarDividerColor)\n                  : BorderSide.none,\n            ),\n",
+          "new": "          decoration: PrimeShellMetrics.sidebarDecoration(\n            background: sidebarBg,\n            divider: sidebarDividerColor,\n            onTrailingSide: onTrailingSide,\n            direction: settings.direction,\n"
         },
         {
           "begin": 25484,
@@ -58,19 +98,24 @@
           "new": "                      currentRoute = GoRouterState.of(context).uri.path;\n"
         },
         {
-          "begin": 29395,
-          "old": "                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),\n",
-          "new": "                      padding: PrimeShellMetrics.sidebarRowPadding,\n"
+          "begin": 29359,
+          "old": "",
+          "new": "                    final icon = PrimeIcon(\n                      screen.icon ?? LucideIcons.circle,\n                      size: PrimeShellMetrics.sidebarIconExtent,\n                      color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,\n                    );\n"
         },
         {
-          "begin": 30346,
-          "old": "",
-          "new": "                          excludeFromSemantics: collapsed,\n"
+          "begin": 29395,
+          "old": "                      padding: const EdgeInsets.fromLTRB(PrimeShellMetrics.sidebarRowInset,0,PrimeShellMetrics.sidebarRowInset,PrimeShellMetrics.sidebarRowSpacing),\n",
+          "new": "                      padding: collapsed\n                          ? PrimeShellMetrics.foldedRowPadding\n                          : PrimeShellMetrics.sidebarRowPadding,\n"
+        },
+        {
+          "begin": 30238,
+          "old": "                        leading: Tooltip(\n                          message: collapsed ? screen.title : '',\n                          child: PrimeIcon(\n                            screen.icon ?? LucideIcons.circle,\n                            size: PrimeShellMetrics.sidebarIconExtent,\n                            color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,\n                          ),\n                        ),\n",
+          "new": "                        leading: collapsed ? null : icon,\n"
         },
         {
           "begin": 30714,
           "old": "                            ? null\n",
-          "new": "                            ? Semantics(label:screen.title)\n"
+          "new": "                            ? Semantics(\n                                label: screen.title,\n                                child: Tooltip(\n                                  message: screen.title,\n                                  excludeFromSemantics: true,\n                                  child: Center(child: icon),\n                                ),\n                              )\n"
         },
         {
           "begin": 30901,
@@ -81,13 +126,18 @@
           "begin": 32716,
           "old": "          ]),\n",
           "new": "          ])),\n"
+        },
+        {
+          "begin": 32804,
+          "old": "",
+          "new": "        width: PrimeShellMetrics.mobileDrawerWidth,\n"
         }
       ]
     },
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "b71c414aa2e7ab49edd37b8e3fd08a5188818a7c02b2d633525d2fc5825c8f3e",
-      "afterSha256": "138837cee909c1360a9198455f6334a281bd5317f88c4c249d8c3e6ac92023c8",
+      "afterSha256": "b29eccc82e3d43069be6fdc286ee82e76cad781d1d25c2b13c0743d4debe26c3",
       "edits": [
         {
           "begin": 40,
@@ -98,6 +148,11 @@
           "begin": 257,
           "old": "",
           "new": "  static const horizontalContentWidth = 1088.0;\n  static const horizontalNavigationPadding = EdgeInsets.symmetric(horizontal: 16);\n  static const horizontalNavigationItemPadding = EdgeInsets.symmetric(horizontal: 4);\n  static BoxDecoration horizontalNavigationDecoration(\n    ThemeData theme, {\n    required Color background,\n    Color? divider,\n  }) => BoxDecoration(\n    color: background,\n    border: Border(\n      bottom: BorderSide(color: divider ?? theme.dividerColor.withValues(alpha: 0.1)),\n    ),\n  );\n\n"
+        },
+        {
+          "begin": 349,
+          "old": "",
+          "new": "  // The persisted profile continues to use 64 as its folded marker.\n  static const foldedNavigationMarker = 64;\n  static const foldedNavigationWidth = 48.0;\n  static const mobileDrawerWidth = 280.0;\n  static const foldedRowPadding = EdgeInsets.fromLTRB(4, 0, 4, 4);\n\n  static Color sidebarSelectionFill({\n    required Color background,\n    required Color foreground,\n    required Brightness brightness,\n  }) => Color.alphaBlend(\n    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),\n    background,\n  );\n\n  static BoxDecoration sidebarDecoration({\n    required Color background,\n    required Color divider,\n    required bool onTrailingSide,\n    required TextDirection direction,\n  }) {\n    final border = BorderSide(color: divider);\n    final borderOnRight = onTrailingSide == (direction == TextDirection.rtl);\n    return BoxDecoration(\n      color: background,\n      border: borderOnRight ? Border(right: border) : Border(left: border),\n    );\n  }\n\n"
         },
         {
           "begin": 736,

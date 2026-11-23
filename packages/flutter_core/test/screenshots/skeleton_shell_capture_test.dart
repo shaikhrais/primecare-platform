@@ -101,7 +101,24 @@ void main(){
     final semantics = tester.ensureSemantics();
     try {
      expect(find.byTooltip('Tenant dashboard'), findsOneWidget);
-     await tester.tap(moduleLabel);
+     final trigger = tester.element(find.ancestor(
+      of: moduleLabel,
+      matching: find.byWidgetPredicate((widget) => widget is PopupMenuButton<String>),
+     ));
+     bool keyboardFocused() {
+      var found = false;
+      FocusManager.instance.primaryFocus?.context?.visitAncestorElements((element) {
+       found = element == trigger;
+       return !found;
+      });
+      return found;
+     }
+     for (var i = 0; i < 20 && !keyboardFocused(); i++) {
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+     }
+     expect(keyboardFocused(), isTrue);
+     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
      await tester.pumpAndSettle();
      final item = find.widgetWithText(PopupMenuItem<String>, 'Tenant dashboard');
      expect(item, findsOneWidget);

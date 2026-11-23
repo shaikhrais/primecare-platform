@@ -109,3 +109,22 @@ drawer in both modes. The supplied reference components remain in place. The
 guest Example entry differs from the PrimeCare tenant fixture, and the native
 module popup and reference direct entry require separate review. R01–R05 stay
 IN PROGRESS pending equivalent states and recorded visual acceptance.
+
+## Sidebar presentation follow-up
+
+The native folded rail occupies 48px in the governance shell. The saved profile
+continues to encode folded navigation as 64. The native mobile drawer occupies
+280px at the reviewed phone viewport. Desktop sidebar widths still come from
+the saved expanded layout. The divider now faces workspace content whether the
+sidebar is docked at the leading or trailing edge.
+
+The selected row fill is derived from the sidebar palette and the foreground is
+contrast checked against that fill. The navigation section palette also reaches
+the drawer. The existing registered logo, tenant name and Home service wording
+retain their current hierarchy. The native navbar capture uses Tab and Enter to
+open the authorized module menu, then Escape to dismiss it.
+
+The private reference now requests the existing Example path for the right and
+mobile cases, like the expanded selected case. The drawer still opens through the
+original toolbar button. R01–R05 remain IN PROGRESS. The account and menu content
+still differ and the folded rail and navbar have distinct interaction patterns.

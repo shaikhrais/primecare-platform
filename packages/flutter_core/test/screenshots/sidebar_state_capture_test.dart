@@ -118,6 +118,15 @@ void main() {
           }
           final sidebar = find.byKey(const Key('app-sidebar'));
           expect(sidebar, findsOneWidget);
+          final expectedWidth = state == 'folded' ? 48.0 : 280.0;
+          expect(tester.getRect(sidebar).width, expectedWidth);
+          if (state == 'folded') {
+            expect(workspace.current.navigationWidth, 64);
+          }
+          if (state == 'right') {
+            expect(tester.getRect(sidebar).left, 1160);
+          }
+
           final item = find
               .descendant(
                 of: sidebar,

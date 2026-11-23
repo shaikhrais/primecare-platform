@@ -208,7 +208,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     ? _buildSidebar(
                         context,
                         ref,
-                        theme,
+                        portalSectionTheme(theme, 'navbar'),
                         modules,
                         tenant,
                         tier,
@@ -221,13 +221,22 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   controller: workspace,
                   navbarStyle: settings.navbarStyle,
                   navigationVisible: !isHandheld,
+                  navigationVisualWidth:
+                      workspace.current.navigationWidth == PrimeShellMetrics.foldedNavigationMarker
+                          ? PrimeShellMetrics.foldedNavigationWidth
+                          : null,
                   horizontalNavigationExtent: PrimeShellMetrics.horizontalNavbarHeight,
                   toolbarExtent: PrimeShellMetrics.toolbarExtent(MediaQuery.sizeOf(context).width,horizontal:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal),
                   footerExtent: PrimeShellMetrics.footerExtent(MediaQuery.sizeOf(context).width),
                   navigation: PrimePortalTheme(data: portalSectionTheme(theme, 'navbar'), child: ['top', 'bottom'].contains(workspace.current.navigation)
                       ? Builder(builder: (context) => buildHorizontalNav(Theme.of(context)))
-                      : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
-                          collapsed: workspace.current.navigationWidth == 64)),
+                      : _buildSidebar(
+                          context, ref, portalSectionTheme(theme, 'navbar'),
+                          modules, tenant, tier, settings,
+                          collapsed: workspace.current.navigationWidth ==
+                              PrimeShellMetrics.foldedNavigationMarker,
+                          onTrailingSide: workspace.current.navigation == 'right',
+                        )),
                   toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PrimeShellBarFrame(bordered:['top','bottom'].contains(workspace.current.navigation)||workspace.current.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal,child: Builder(builder: (context) {
                   final theme = Theme.of(context);
                   return PreferredSize(
@@ -482,13 +491,14 @@ class GovernanceMasterLayout extends ConsumerWidget {
     bool collapsed = false,
     bool isDrawer = false,
     bool tabContent = false,
+    bool onTrailingSide = false,
   }) {
     if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && modules.isNotEmpty) {
       String route='';try {route=GoRouterState.of(context).uri.path;} catch (_) {}
       final selected=modules.indexWhere((module)=>module.screens.any((screen)=>screen.route==route));
       return PrimeTabbedNavigation(initialIndex:selected<0?0:selected,tabs:[
         for(final module in modules)PrimeNavigationTab(label:module.name,icon:module.icon,
-          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true),
+          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),
           entries:[for(final screen in module.screens)if(screen.requiredRole==null||screen.requiredRole==activeRole)
             PrimeNavigationEntry(screen.title,()=>context.go(screen.route))]),
       ]);
@@ -500,13 +510,23 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final defaultSidebarIconColor = readableThemeForeground(sidebarBg, theme.iconTheme.color ?? theme.primaryColor);
 
     final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
-    final sidebarSelectedTextColor = themeColors?.sidebarSelectedTextColor ?? theme.primaryColor;
     final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
-    final sidebarSelectedIconColor = themeColors?.sidebarSelectedIconColor ?? sidebarSelectedTextColor;
-    final sidebarSelectedTileColor = themeColors?.sidebarSelectedTileColor ?? theme.primaryColor.withValues(alpha: 0.05);
+    final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(
+      background: sidebarBg,
+      foreground: readableThemeForeground(sidebarBg, theme.colorScheme.onSurface),
+      brightness: theme.brightness,
+    );
+    final sidebarSelectedTextColor = readableThemeForeground(
+      sidebarSelectedTileColor, themeColors?.sidebarSelectedTextColor ?? sidebarTextColor,
+    );
+    final sidebarSelectedIconColor = readableThemeForeground(
+      sidebarSelectedTileColor, themeColors?.sidebarSelectedIconColor ?? sidebarIconColor,
+    );
     final sidebarDividerColor = themeColors?.sidebarDividerColor ?? theme.dividerColor.withValues(alpha: 0.05);
 
-    final sidebarWidth = collapsed ? 64.0 : AdaptiveScalingConfig.getSidebarWidth(tier);
+    final sidebarWidth = collapsed
+        ? PrimeShellMetrics.foldedNavigationWidth
+        : AdaptiveScalingConfig.getSidebarWidth(tier);
 
     final sidebarContent = Semantics(
       label: 'data-cy:app-sidebar',
@@ -515,16 +535,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
         key: const Key('app-sidebar'),
         child: Container(
           width: sidebarWidth,
-          decoration: BoxDecoration(
-            color: sidebarBg,
-            border: Border(
-              right: settings.direction == TextDirection.ltr
-                  ? BorderSide(color: sidebarDividerColor)
-                  : BorderSide.none,
-              left: settings.direction == TextDirection.rtl
-                  ? BorderSide(color: sidebarDividerColor)
-                  : BorderSide.none,
-            ),
+          decoration: PrimeShellMetrics.sidebarDecoration(
+            background: sidebarBg,
+            divider: sidebarDividerColor,
+            onTrailingSide: onTrailingSide,
+            direction: settings.direction,
           ),
           // Keep row ink above the opaque sidebar decoration.
           child: Material(type:MaterialType.transparency,child:Column(children:[
@@ -591,8 +606,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     }
 
                     final isSelected = currentRoute == screen.route;
+                    final icon = PrimeIcon(
+                      screen.icon ?? LucideIcons.circle,
+                      size: PrimeShellMetrics.sidebarIconExtent,
+                      color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,
+                    );
                     return Padding(
-                      padding: PrimeShellMetrics.sidebarRowPadding,
+                      padding: collapsed
+                          ? PrimeShellMetrics.foldedRowPadding
+                          : PrimeShellMetrics.sidebarRowPadding,
                       child: PrimeListTile(
                         dense: true,
                         minTileHeight:PrimeShellMetrics.sidebarRowHeight,minVerticalPadding:0,minLeadingWidth:PrimeShellMetrics.sidebarIconExtent,horizontalTitleGap:PrimeShellMetrics.sidebarGap,
@@ -602,17 +624,16 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         ),
                         selected: isSelected,
                         selectedTileColor: sidebarSelectedTileColor,
-                        leading: Tooltip(
-                          message: collapsed ? screen.title : '',
-                          excludeFromSemantics: collapsed,
-                          child: PrimeIcon(
-                            screen.icon ?? LucideIcons.circle,
-                            size: PrimeShellMetrics.sidebarIconExtent,
-                            color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,
-                          ),
-                        ),
+                        leading: collapsed ? null : icon,
                         title: collapsed
-                            ? Semantics(label:screen.title)
+                            ? Semantics(
+                                label: screen.title,
+                                child: Tooltip(
+                                  message: screen.title,
+                                  excludeFromSemantics: true,
+                                  child: Center(child: icon),
+                                ),
+                              )
                             : PrimeText(
                                 screen.title,
                                 overflow: TextOverflow.ellipsis,
@@ -659,6 +680,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     if (isDrawer) {
       return PrimeDrawer(
+        width: PrimeShellMetrics.mobileDrawerWidth,
         backgroundColor: sidebarBg,
         surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),

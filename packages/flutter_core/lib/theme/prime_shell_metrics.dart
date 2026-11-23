@@ -21,6 +21,35 @@ abstract final class PrimeShellMetrics {
 
   static const horizontalNavbarHeight = 64.0;
   static const expandedNavigationWidth = 280;
+  // The persisted profile continues to use 64 as its folded marker.
+  static const foldedNavigationMarker = 64;
+  static const foldedNavigationWidth = 48.0;
+  static const mobileDrawerWidth = 280.0;
+  static const foldedRowPadding = EdgeInsets.fromLTRB(4, 0, 4, 4);
+
+  static Color sidebarSelectionFill({
+    required Color background,
+    required Color foreground,
+    required Brightness brightness,
+  }) => Color.alphaBlend(
+    foreground.withValues(alpha: brightness == Brightness.dark ? 0.10 : 0.06),
+    background,
+  );
+
+  static BoxDecoration sidebarDecoration({
+    required Color background,
+    required Color divider,
+    required bool onTrailingSide,
+    required TextDirection direction,
+  }) {
+    final border = BorderSide(color: divider);
+    final borderOnRight = onTrailingSide == (direction == TextDirection.rtl);
+    return BoxDecoration(
+      color: background,
+      border: borderOnRight ? Border(right: border) : Border(left: border),
+    );
+  }
+
   static const dividerExtent = 1.0;
   static const sidebarHeaderInset = 20.0;
   static const sidebarLogoExtent = 24.0;
