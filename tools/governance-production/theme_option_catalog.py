@@ -13,7 +13,7 @@ def load_catalog(pin):
     if scope.get('catalogPath')!=CATALOG or hashlib.sha256(raw).hexdigest()!=scope.get('catalogSha256'):
         raise RuntimeError('Pinned Theme Center option catalog required')
     document=json.loads(raw)
-    keys={'font.'+k for k in ['system','serif','monospace']} | {'color.'+k for k in ['primary','primaryContainer','secondary','background','surface','text','muted','border','sidebar','topbar','disabled']} | {'invalidColor','copyName'}
+    keys={'font.'+k for k in ['system','serif','monospace']} | {'color.'+k for k in ['primary','primaryContainer','secondary','background','surface','text','muted','border','sidebar','topbar','disabled']} | {'invalidColor','copyName','brand.slogan'}
     locales=document.get('locales',{})
     if document.get('version')!=1 or document.get('screen')!='theme_center_options' or set(locales)!={'en','fr','es'}:
         raise RuntimeError('Exact Theme Center option identities required')
@@ -32,7 +32,7 @@ def verify(db):
             raise RuntimeError('Unexpected or duplicate Theme Center option registration')
         actual[language][short]=value
     if actual!=expected:raise RuntimeError('Theme Center option production parity failed')
-    return {'source_parity':True,'registered_resources':16,'registered_values':len(records),'reviewed_values':sum(row[6]==1 for row in records),'approved_values':sum(row[7]==1 for row in records),'independent_review':'not inferred from parity'}
+    return {'source_parity':True,'registered_resources':len(expected['en']),'registered_values':len(records),'reviewed_values':sum(row[6]==1 for row in records),'approved_values':sum(row[7]==1 for row in records),'independent_review':'not inferred from parity'}
 
 def export_dart(db):
     verify(db)

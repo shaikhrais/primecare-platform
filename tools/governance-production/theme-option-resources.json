@@ -18,7 +18,8 @@
       "font.monospace": "Monospace",
       "font.serif": "Serif",
       "font.system": "System",
-      "invalidColor": "Use #RRGGBB colors."
+      "invalidColor": "Use #RRGGBB colors.",
+      "brand.slogan": "Home service"
     },
     "fr": {
       "color.background": "Arrière-plan",
@@ -36,7 +37,8 @@
       "font.monospace": "Chasse fixe",
       "font.serif": "Avec empattements",
       "font.system": "Système",
-      "invalidColor": "Utilisez des couleurs #RRGGBB."
+      "invalidColor": "Utilisez des couleurs #RRGGBB.",
+      "brand.slogan": "Home service"
     },
     "es": {
       "color.background": "Fondo",
@@ -54,7 +56,8 @@
       "font.monospace": "Monoespaciada",
       "font.serif": "Con remates",
       "font.system": "Sistema",
-      "invalidColor": "Use colores #RRGGBB."
+      "invalidColor": "Use colores #RRGGBB.",
+      "brand.slogan": "Home service"
     }
   }
 }

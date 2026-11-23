@@ -47,11 +47,11 @@ class ThemeOptionResourcesTests(unittest.TestCase):
         with self.store() as db:
             before=list(db.execute('SELECT * FROM virtual_workflow_definitions'))
             first=register(db);second=register(db)
-            self.assertEqual(first['values'],48);self.assertEqual(first['created_resources'],16)
+            self.assertEqual(first['values'],51);self.assertEqual(first['created_resources'],17)
             self.assertEqual(second['created_resources'],0);self.assertEqual(second['created_values'],0)
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM language_resource_values WHERE reviewed=0 AND approved=0').fetchone()[0],48)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM language_resource_values WHERE reviewed=0 AND approved=0').fetchone()[0],51)
             self.assertEqual(list(db.execute('SELECT * FROM virtual_workflow_definitions')),before)
-            self.assertEqual(verify(db)['registered_values'],48)
+            self.assertEqual(verify(db)['registered_values'],51)
             self.assertIn('\"color.disabled\": \"Disabled text\"',export_dart(db))
     def test_unrelated_resources_permissions_and_approval_claims_are_rejected(self):
         with self.store() as db:
