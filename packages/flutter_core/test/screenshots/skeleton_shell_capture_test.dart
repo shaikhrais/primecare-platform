@@ -362,7 +362,7 @@ void main() {
               debugDisableShadows = previousShadowMode;
             }
             expect(
-              find.widgetWithText(PopupMenuItem<String>, 'Switch role'),
+              findAccountPopupItem('Switch role'),
               findsNothing,
             );
             expect(find.text('Sign out'), findsOneWidget);
@@ -372,7 +372,7 @@ void main() {
             expect(
               tester
                   .getSize(
-                    find.widgetWithText(PopupMenuItem<String>, 'Sign out'),
+                    findAccountPopupItem('Sign out'),
                   )
                   .height,
               PrimeShellMetrics.accountMenuDesktopItemHeight,
@@ -396,7 +396,7 @@ void main() {
             );
             expect(accountMenuRect, const Rect.fromLTWH(1117, 114, 128, 32));
             final signOutIcon = find.descendant(
-              of: find.widgetWithText(PopupMenuItem<String>, 'Sign out'),
+              of: findAccountPopupItem('Sign out'),
               matching: find.byIcon(LucideIcons.squareArrowRightExit),
             );
             expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);

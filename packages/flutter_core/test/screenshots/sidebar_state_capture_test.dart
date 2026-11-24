@@ -366,17 +366,14 @@ void main() {
             debugDisableShadows = previousShadowMode;
           }
           expect(
-            find.widgetWithText(PopupMenuItem<String>, 'Switch role'),
+            findAccountPopupItem('Switch role'),
             findsNothing,
           );
           expect(find.text('Sign out'), findsOneWidget);
           final signOutLabel = tester.widget<Text>(find.text('Sign out'));
           expect(signOutLabel.style?.fontSize, 13);
           expect(signOutLabel.style?.fontWeight, FontWeight.w400);
-          final signOutItem = find.widgetWithText(
-            PopupMenuItem<String>,
-            'Sign out',
-          );
+          final signOutItem = findAccountPopupItem('Sign out');
           expect(
             tester.getSize(signOutItem).height,
             state == 'mobile'

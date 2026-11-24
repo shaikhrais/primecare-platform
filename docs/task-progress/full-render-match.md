@@ -579,3 +579,27 @@ The folded multi-destination panel and horizontal account width and fills
 still need review. The two theme launcher controls still need
 production registration and independent readback before adoption. R01 through R05 remain
 IN PROGRESS.
+
+### Account keyboard focus across R01–R05
+
+The original Fuse account button leaves the trigger interior unchanged on
+keyboard focus. PrimeCare's extra Material focus fill is now suppressed on the
+existing account trigger. Its separate outline uses the readable shell
+foreground, which is stronger than the reference stroke. Menu rows keep their
+existing keyboard highlight. The capture test checks the outline contrast
+against the shell surface and exercises Tab, Enter, Sign out focus, Escape
+dismissal and focus return.
+
+Candidate `002b48cf89426bfc6314dde06afab2188b27c697` passed capture and replay
+of all 28 shell fixture cases in GitHub run `45342762807`. Artifact
+`14896024516` contains the 12 changed keyboard-focus frames. The changes are
+confined to the account trigger bounds, including the folded-tabbed alternate.
+The other tracked shell images had no pixel changes. The fixture SHA-256 is
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+
+The remaining differences include the R01 header and utilities, R02
+multi-destination panel, R03 rail placement and menu hover, R04 wider and
+RTL drawer states and scrim contents, and R05 toolbar surface, account width and
+a right-clipped outline. The right-edge Settings and color-scheme launchers
+still require production registration and independent readback. All five
+views remain IN PROGRESS.

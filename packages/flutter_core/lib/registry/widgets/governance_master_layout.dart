@@ -409,6 +409,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                               compact: isHandheld,
                               mobile: isHandheld,
                               horizontalToolbar: horizontal && !isHandheld,
+                              triggerSurface: topbarBg,
                             ),
                             if (!horizontal) const SizedBox(width: 8),
                           ],
@@ -457,6 +458,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     bool trailing = false,
     double? leadingDrawerViewportWidth,
     Color? avatarSurface,
+    Color? triggerSurface,
   }) {
     final semanticsId = sidebar ? 'sidebar-user-menu' : 'topbar-user-menu',
         logoutId = sidebar ? 'sidebar-logout-button' : 'topbar-logout-button',
@@ -594,7 +596,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
         // A cross-role action requires an explicit user-authorized role list.
         // This shell only receives the active role, so it must not invent grants.
         if (['ceo', 'maintenance'].contains(account.role))
-          PopupMenuItem<String>(
+          PrimeAccountMenuItem<String>(
+            menuTheme: theme,
             padding: PrimeShellMetrics.accountMenuItemPadding,
             height: mobile
                 ? PrimeShellMetrics.accountMenuMobileItemHeight
@@ -602,7 +605,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
             value: 'maintenance',
             child: const PrimeText('IT maintenance'),
           ),
-        PopupMenuItem<String>(
+        PrimeAccountMenuItem<String>(
+          menuTheme: theme,
           padding: PrimeShellMetrics.accountMenuItemPadding,
           height: mobile
               ? PrimeShellMetrics.accountMenuMobileItemHeight
@@ -652,6 +656,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
           key: Key(semanticsId),
           child: PrimeAccountTriggerFocusFrame(
             radius: triggerRadius,
+            surface: triggerSurface ?? avatarSurface ?? theme.scaffoldBackgroundColor,
             child: button,
           ),
         ),

@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "baseCommit": "7729cf152ed2f6907c3ad6a136c12305b99bf4ad",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "6156b31f66fd33eb3055b178f2fb4b096c45ce33d9a80b784cf01150bce977bd",
+      "afterSha256": "3fe6be10d4f74a17153a40c6cc00002d0c94271cb9a565da185cf241f253ce75",
+      "edits": [
+        {
+          "begin": 22180,
+          "old": "",
+          "new": "                              triggerSurface: topbarBg,\n"
+        },
+        {
+          "begin": 23827,
+          "old": "",
+          "new": "    Color? triggerSurface,\n"
+        },
+        {
+          "begin": 29308,
+          "old": "          PopupMenuItem<String>(\n",
+          "new": "          PrimeAccountMenuItem<String>(\n            menuTheme: theme,\n"
+        },
+        {
+          "begin": 29662,
+          "old": "        PopupMenuItem<String>(\n",
+          "new": "        PrimeAccountMenuItem<String>(\n          menuTheme: theme,\n"
+        },
+        {
+          "begin": 31395,
+          "old": "",
+          "new": "            surface: triggerSurface ?? avatarSurface ?? theme.scaffoldBackgroundColor,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_account_trigger_focus_frame.dart",
+      "beforeSha256": "2d4b4af5e8298f9591cf8bc2f88d8af059c2730b8ec6b73f65f971d02b67bdda",
+      "afterSha256": "bec4910c4fbcb313c65a26f9a0ced6812e987df3f1b944fc6769034b12125796",
+      "edits": [
+        {
+          "begin": 297,
+          "old": "",
+          "new": "    required this.surface,\n"
+        },
+        {
+          "begin": 358,
+          "old": "",
+          "new": "  final Color surface;\n"
+        },
+        {
+          "begin": 380,
+          "old": "",
+          "new": "\n  static const outlineKey = ValueKey('account-trigger-focus-outline');\n"
+        },
+        {
+          "begin": 1259,
+          "old": "        widget.child,\n",
+          "new": "        Theme(\n          data: Theme.of(context).copyWith(\n            focusColor: PrimeShellMetrics.transparentInteractionInk,\n          ),\n          child: widget.child,\n        ),\n"
+        },
+        {
+          "begin": 1758,
+          "old": "",
+          "new": "                key: PrimeAccountTriggerFocusFrame.outlineKey,\n"
+        },
+        {
+          "begin": 1898,
+          "old": "",
+          "new": "                  widget.surface,\n"
+        },
+        {
+          "begin": 1985,
+          "old": "",
+          "new": "\n/// Retains the menu's keyboard highlight when its trigger uses an outline.\nclass PrimeAccountMenuItem<T> extends PopupMenuItem<T> {\n  const PrimeAccountMenuItem({\n    super.key,\n    required this.menuTheme,\n    super.padding,\n    super.height,\n    super.value,\n    required super.child,\n  });\n\n  final ThemeData menuTheme;\n\n  @override\n  PopupMenuItemState<T, PrimeAccountMenuItem<T>> createState() =>\n      _PrimeAccountMenuItemState<T>();\n}\n\nclass _PrimeAccountMenuItemState<T>\n    extends PopupMenuItemState<T, PrimeAccountMenuItem<T>> {\n  @override\n  Widget build(BuildContext context) => Theme(\n    data: widget.menuTheme,\n    child: Builder(builder: super.build),\n  );\n}\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "6bd32a12dcb35f6e0319fb7fc84ef8c2e0a3b4403ac42005e2ee34ba1fd479b7",
+      "afterSha256": "8ec9c61b8955e0946e61148a17e4276d7506bfd9f561108de3dd6d3736891f0f",
+      "edits": [
+        {
+          "begin": 109,
+          "old": "",
+          "new": "import 'theme_contrast.dart';\n"
+        },
+        {
+          "begin": 5266,
+          "old": "",
+          "new": "    Color surface,\n"
+        },
+        {
+          "begin": 5312,
+          "old": "      color: navigationFocusInk(theme.colorScheme.onSurface),\n",
+          "new": "      color: readableThemeForeground(surface, theme.colorScheme.onSurface),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/account_keyboard_check.dart",
+      "beforeSha256": "eb16e5f0ead4ddcb213795dc1dd72ca89bbd8701550e156a3c57756ec6655cb5",
+      "afterSha256": "dd97ede8d40b7445e8c2135ee811b49d0c991eabc0800e332f614916924dc08c",
+      "edits": [
+        {
+          "begin": 194,
+          "old": "",
+          "new": "import 'package:flutter_core/theme/prime_account_trigger_focus_frame.dart';\nimport 'package:flutter_core/theme/theme_contrast.dart';\n\nFinder findAccountPopupItem(String label) => find.ancestor(\n  of: find.text(label),\n  matching: find.byWidgetPredicate((widget) => widget is PopupMenuItem<String>),\n);\n"
+        },
+        {
+          "begin": 1005,
+          "old": "",
+          "new": "  final triggerInk = find.descendant(of: trigger, matching: find.byType(InkWell));\n  expect(triggerInk, findsOneWidget);\n  expect(Theme.of(tester.element(triggerInk)).focusColor, Colors.transparent);\n  final focusFrame = find.descendant(\n    of: trigger,\n    matching: find.byType(PrimeAccountTriggerFocusFrame),\n  );\n  final surface =\n      tester.widget<PrimeAccountTriggerFocusFrame>(focusFrame).surface;\n  final outline = tester.widget<DecoratedBox>(\n    find.descendant(\n      of: focusFrame,\n      matching: find.byKey(PrimeAccountTriggerFocusFrame.outlineKey),\n    ),\n  ).decoration as BoxDecoration;\n  final color = (outline.border! as Border).top.color;\n  expect(\n    themeContrastRatio(color, surface),\n    greaterThanOrEqualTo(3),\n  );\n"
+        },
+        {
+          "begin": 1371,
+          "old": "  final signOut = find.widgetWithText(PopupMenuItem<String>, 'Sign out');\n",
+          "new": "  final signOut = findAccountPopupItem('Sign out');\n"
+        },
+        {
+          "begin": 1480,
+          "old": "  expect(find.widgetWithText(PopupMenuItem<String>, 'Switch role'), findsNothing);\n",
+          "new": "  expect(findAccountPopupItem('Switch role'), findsNothing);\n"
+        },
+        {
+          "begin": 1816,
+          "old": "",
+          "new": "  final menuInk = find.descendant(of: signOut, matching: find.byType(InkWell));\n  expect(menuInk, findsOneWidget);\n  expect(\n    Theme.of(tester.element(menuInk)).focusColor,\n    Theme.of(target).focusColor,\n  );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "3cff3fd52381b84262bcb023d8a4e6ee5c881b84a878454e78159cb23f0ed522",
+      "afterSha256": "1083de07f8ee6025de0d5934cf36e1a69b53a194fb9a8c8806fe08bd58218376",
+      "edits": [
+        {
+          "begin": 14352,
+          "old": "            find.widgetWithText(PopupMenuItem<String>, 'Switch role'),\n",
+          "new": "            findAccountPopupItem('Switch role'),\n"
+        },
+        {
+          "begin": 14713,
+          "old": "          final signOutItem = find.widgetWithText(\n            PopupMenuItem<String>,\n            'Sign out',\n          );\n",
+          "new": "          final signOutItem = findAccountPopupItem('Sign out');\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "9812326bb8038b567c5af004ff582a41c42c1493aaaf9c7529a72b2ab75fa30a",
+      "afterSha256": "b407a6b3680b9cb4579fd02351e21ea7bc8e53a6b6dadbc31dde44192ca7f474",
+      "edits": [
+        {
+          "begin": 14531,
+          "old": "              find.widgetWithText(PopupMenuItem<String>, 'Switch role'),\n",
+          "new": "              findAccountPopupItem('Switch role'),\n"
+        },
+        {
+          "begin": 14975,
+          "old": "                    find.widgetWithText(PopupMenuItem<String>, 'Sign out'),\n",
+          "new": "                    findAccountPopupItem('Sign out'),\n"
+        },
+        {
+          "begin": 16054,
+          "old": "              of: find.widgetWithText(PopupMenuItem<String>, 'Sign out'),\n",
+          "new": "              of: findAccountPopupItem('Sign out'),\n"
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'prime_theme_center_style.dart';
+import 'theme_contrast.dart';
 
 /// Reference src/styles/index.css overrides md to 60rem (960px).
 /// ToolbarLayout1/2 and FooterLayout1/2 use min-h-12 md:min-h-16.
@@ -126,9 +127,10 @@ abstract final class PrimeShellMetrics {
   static BoxDecoration accountFocusDecoration(
     ThemeData theme,
     BorderRadius radius,
+    Color surface,
   ) => BoxDecoration(
     border: Border.all(
-      color: navigationFocusInk(theme.colorScheme.onSurface),
+      color: readableThemeForeground(surface, theme.colorScheme.onSurface),
       width: accountFocusOutlineWidth,
     ),
     borderRadius:
