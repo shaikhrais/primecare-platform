@@ -146,6 +146,12 @@ void main() {
               of: rail,
               matching: find.byType(IconButton),
             );
+            expect(
+              tester.getCenter(trigger).dy - tester.getTopLeft(rail).dy,
+              PrimeShellMetrics.foldedHeaderExtent +
+                  PrimeShellMetrics.foldedTabbedDestinationExtent / 2,
+            );
+            expect(tester.getSize(trigger).height, greaterThanOrEqualTo(40));
             final semantics = find.ancestor(
               of: trigger,
               matching: find.byWidgetPredicate(

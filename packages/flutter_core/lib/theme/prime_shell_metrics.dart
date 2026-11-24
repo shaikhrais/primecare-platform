@@ -64,6 +64,7 @@ abstract final class PrimeShellMetrics {
   static const foldedNavigationMarker = 64;
   static const foldedNavigationWidth = 48.0;
   static const foldedNavigationContentWidth = foldedNavigationWidth - 1;
+  static const foldedTabbedDestinationExtent = 40.0;
   static const mobileDrawerWidth = 280.0;
   static const drawerScrimColor = Color(0x80000000);
   static const sidebarToggleSize = 32.0;
@@ -72,6 +73,8 @@ abstract final class PrimeShellMetrics {
   static const toolbarAccountHeight = 36.0;
   static const toolbarAccountPadding = EdgeInsets.symmetric(horizontal: 4);
   static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));
+  static const horizontalToolbarAccountRadius =
+      BorderRadius.all(Radius.circular(8));
   static const sidebarAccountRadius = BorderRadius.all(Radius.circular(8));
   static const accountFocusOutlineGap = 2.0;
   static const accountFocusOutlineWidth = 1.0;
@@ -113,11 +116,13 @@ abstract final class PrimeShellMetrics {
   static const ShapeBorder accountMenuShape = RoundedRectangleBorder(
     borderRadius: accountMenuRadius,
   );
-  static BoxDecoration toolbarAccountDecoration(ThemeData theme) =>
-      BoxDecoration(
-        border: Border.all(color: theme.dividerColor),
-        borderRadius: toolbarAccountRadius,
-      );
+  static BoxDecoration toolbarAccountDecoration(
+    ThemeData theme, {
+    BorderRadius radius = toolbarAccountRadius,
+  }) => BoxDecoration(
+    border: Border.all(color: theme.dividerColor),
+    borderRadius: radius,
+  );
   static BoxDecoration accountFocusDecoration(
     ThemeData theme,
     BorderRadius radius,

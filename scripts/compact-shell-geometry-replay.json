@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "baseCommit": "3a68b7751c6a83c4bbe1c8456e092e1233cbd528",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "29419804e3016ec69b1c69a8537bbcbc2f47491452cd12ff970d20d8d70d1573",
+      "afterSha256": "6bd32a12dcb35f6e0319fb7fc84ef8c2e0a3b4403ac42005e2ee34ba1fd479b7",
+      "edits": [
+        {
+          "begin": 2524,
+          "old": "",
+          "new": "  static const foldedTabbedDestinationExtent = 40.0;\n"
+        },
+        {
+          "begin": 2979,
+          "old": "",
+          "new": "  static const horizontalToolbarAccountRadius =\n      BorderRadius.all(Radius.circular(8));\n"
+        },
+        {
+          "begin": 4803,
+          "old": "  static BoxDecoration toolbarAccountDecoration(ThemeData theme) =>\n      BoxDecoration(\n        border: Border.all(color: theme.dividerColor),\n        borderRadius: toolbarAccountRadius,\n      );\n",
+          "new": "  static BoxDecoration toolbarAccountDecoration(\n    ThemeData theme, {\n    BorderRadius radius = toolbarAccountRadius,\n  }) => BoxDecoration(\n    border: Border.all(color: theme.dividerColor),\n    borderRadius: radius,\n  );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_toolbar_account_frame.dart",
+      "beforeSha256": "df1c9d649859df49b7896313c8783e406f8c4f227bcf381a19bc3652baa8283e",
+      "afterSha256": "7a57123f18fa932bcab16ecd28016f48080a5c68f543f82a93e991468ca29ad1",
+      "edits": [
+        {
+          "begin": 192,
+          "old": "  const PrimeToolbarAccountFrame({super.key, required this.child});\n",
+          "new": "  const PrimeToolbarAccountFrame({\n    super.key,\n    this.radius = PrimeShellMetrics.toolbarAccountRadius,\n    required this.child,\n  });\n"
+        },
+        {
+          "begin": 261,
+          "old": "",
+          "new": "  final BorderRadius radius;\n"
+        },
+        {
+          "begin": 350,
+          "old": "    decoration: PrimeShellMetrics.toolbarAccountDecoration(Theme.of(context)),\n",
+          "new": "    decoration: PrimeShellMetrics.toolbarAccountDecoration(\n      Theme.of(context),\n      radius: radius,\n    ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "3f5cb2eb9ebeacadbad058072286931b6252f59cead4774d8de0cd5baf0f6179",
+      "afterSha256": "6156b31f66fd33eb3055b178f2fb4b096c45ce33d9a80b784cf01150bce977bd",
+      "edits": [
+        {
+          "begin": 22104,
+          "old": "",
+          "new": "                              horizontalToolbar: horizontal && !isHandheld,\n"
+        },
+        {
+          "begin": 23622,
+          "old": "",
+          "new": "    bool horizontalToolbar = false,\n"
+        },
+        {
+          "begin": 24496,
+          "old": "",
+          "new": "    final triggerRadius = sidebar\n        ? PrimeShellMetrics.sidebarAccountRadius\n        : horizontalToolbar\n        ? PrimeShellMetrics.horizontalToolbarAccountRadius\n        : PrimeShellMetrics.toolbarAccountRadius;\n"
+        },
+        {
+          "begin": 26350,
+          "old": "",
+          "new": "              radius: triggerRadius,\n"
+        },
+        {
+          "begin": 27675,
+          "old": "    final triggerRadius = sidebar\n        ? PrimeShellMetrics.sidebarAccountRadius\n        : PrimeShellMetrics.toolbarAccountRadius;\n",
+          "new": ""
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
+      "beforeSha256": "f3388f19106f9f3b1def7f43e71c5bd29955fcc21348100e6836f86a063e25be",
+      "afterSha256": "c8fa5891c25439ddd5755a77e0a3b7a92ceb0ab542a9fad4b40c11719177d36b",
+      "edits": [
+        {
+          "begin": 19640,
+          "old": "                ? Stack(\n                    alignment: Alignment.center,\n                    children: [\n                      if (i == selected)\n                        DecoratedBox(\n                          decoration: BoxDecoration(\n                            color: foldedSelection,\n                            borderRadius: PrimeShellMetrics.navigationItemRadius,\n",
+          "new": "                ? SizedBox(\n                    height: PrimeShellMetrics.foldedTabbedDestinationExtent,\n                    child: Stack(\n                      alignment: Alignment.center,\n                      children: [\n                        if (i == selected)\n                          DecoratedBox(\n                            decoration: BoxDecoration(\n                              color: foldedSelection,\n                              borderRadius:\n                                  PrimeShellMetrics.navigationItemRadius,\n                            ),\n                            child: const SizedBox.square(\n                              dimension: PrimeShellMetrics.sidebarRowHeight,\n                            ),\n"
+        },
+        {
+          "begin": 20041,
+          "old": "                          child: const SizedBox.square(\n                            dimension: PrimeShellMetrics.sidebarRowHeight,\n                          ),\n                        ),\n                      foldedAction(widget.tabs[i], i == selected),\n                    ],\n",
+          "new": "                        foldedAction(widget.tabs[i], i == selected),\n                      ],\n                    ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "b0289278f8792d99a4e9194de7fb97d03bb6b86af4a2ac0001550bfb2c2edd97",
+      "afterSha256": "3cff3fd52381b84262bcb023d8a4e6ee5c881b84a878454e78159cb23f0ed522",
+      "edits": [
+        {
+          "begin": 5762,
+          "old": "",
+          "new": "            expect(\n              tester.getCenter(trigger).dy - tester.getTopLeft(rail).dy,\n              PrimeShellMetrics.foldedHeaderExtent +\n                  PrimeShellMetrics.foldedTabbedDestinationExtent / 2,\n            );\n            expect(tester.getSize(trigger).height, greaterThanOrEqualTo(40));\n"
+        }
+      ]
+    }
+  ]
+}

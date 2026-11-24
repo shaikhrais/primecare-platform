@@ -417,21 +417,25 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
             link: folded && widget.tabs[i].entries.length == 1,
             selected: i == selected,
             child: folded
-                ? Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      if (i == selected)
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: foldedSelection,
-                            borderRadius: PrimeShellMetrics.navigationItemRadius,
+                ? SizedBox(
+                    height: PrimeShellMetrics.foldedTabbedDestinationExtent,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        if (i == selected)
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: foldedSelection,
+                              borderRadius:
+                                  PrimeShellMetrics.navigationItemRadius,
+                            ),
+                            child: const SizedBox.square(
+                              dimension: PrimeShellMetrics.sidebarRowHeight,
+                            ),
                           ),
-                          child: const SizedBox.square(
-                            dimension: PrimeShellMetrics.sidebarRowHeight,
-                          ),
-                        ),
-                      foldedAction(widget.tabs[i], i == selected),
-                    ],
+                        foldedAction(widget.tabs[i], i == selected),
+                      ],
+                    ),
                   )
                 : Container(
                     color: i == selected ? scheme.primaryContainer : null,

@@ -408,6 +408,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                               preferredScale: settings.theme.fontScale,
                               compact: isHandheld,
                               mobile: isHandheld,
+                              horizontalToolbar: horizontal && !isHandheld,
                             ),
                             if (!horizontal) const SizedBox(width: 8),
                           ],
@@ -452,6 +453,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     required bool compact,
     bool sidebar = false,
     bool mobile = false,
+    bool horizontalToolbar = false,
     bool trailing = false,
     double? leadingDrawerViewportWidth,
     Color? avatarSurface,
@@ -477,6 +479,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
         ),
       ),
     );
+    final triggerRadius = sidebar
+        ? PrimeShellMetrics.sidebarAccountRadius
+        : horizontalToolbar
+        ? PrimeShellMetrics.horizontalToolbarAccountRadius
+        : PrimeShellMetrics.toolbarAccountRadius;
     final trigger = sidebar
         ? SizedBox(
             height: PrimeShellMetrics.sidebarAccountButtonHeight(compact),
@@ -524,6 +531,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
         : SizedBox(
             height: PrimeShellMetrics.toolbarAccountHeight,
             child: PrimeToolbarAccountFrame(
+              radius: triggerRadius,
               child: Padding(
                 padding: PrimeShellMetrics.toolbarAccountPadding,
                 child: Row(
@@ -560,9 +568,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
               ),
             ),
           );
-    final triggerRadius = sidebar
-        ? PrimeShellMetrics.sidebarAccountRadius
-        : PrimeShellMetrics.toolbarAccountRadius;
     final button = PrimePopupMenuButton<String>(
       borderRadius: triggerRadius,
       position: sidebar ? PopupMenuPosition.over : PopupMenuPosition.under,

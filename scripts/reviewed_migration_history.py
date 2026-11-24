@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_compact_shell_geometry(source,path):
+    return reverse_presentation_receipt(source,path,'compact-shell-geometry-replay.json')
+
 def before_folded_tabbed_account(source,path):
+    source=before_compact_shell_geometry(source,path)
     return reverse_presentation_receipt(source,path,'folded-tabbed-account-replay.json')
 
 def before_neutral_account_capture(source,path):

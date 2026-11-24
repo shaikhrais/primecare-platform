@@ -10,14 +10,26 @@ from reviewed_migration_history import before_portal_layout, before_complete_the
 
 from reviewed_migration_history import before_account_menu_boundary_repair, before_mobile_account_edge, before_account_surface_style, before_account_typography, before_shell_overlay_style, before_account_keyboard, before_unobscured_account_capture, before_account_focus_outline
 from reviewed_migration_history import before_neutral_account_capture, before_folded_tabbed_account
+from reviewed_migration_history import before_compact_shell_geometry
 
 class AccountKeyboardReplayTest(unittest.TestCase):
+    def test_compact_shell_geometry_replays_only_exact_source(self):
+        receipt=json.loads((ROOT/'scripts/compact-shell-geometry-replay.json').read_text())
+        self.assertEqual(len(receipt['files']),5)
+        for row in receipt['files']:
+            path=row['path']
+            source=(ROOT/path).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            restored=before_compact_shell_geometry(source,path)
+            self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_compact_shell_geometry(source+'\n',path),source+'\n')
+
     def test_folded_tabbed_account_replays_only_exact_source(self):
         receipt=json.loads((ROOT/'scripts/folded-tabbed-account-replay.json').read_text())
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
             path=row['path']
-            source=(ROOT/path).read_text()
+            source=before_compact_shell_geometry((ROOT/path).read_text(),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_folded_tabbed_account(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
