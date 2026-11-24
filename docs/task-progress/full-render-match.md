@@ -499,3 +499,19 @@ The source drawer is `NavbarStyle1.tsx` SHA-256
 `97c2bc2a960c47c5a13f34d9a3eee1c83b72e998e983f893db368bed248190bf`.
 The source popover and shadow tokens are in the previously hashed
 `UserMenu.tsx` and `FuseDefaultSettings.ts`. All five views remain IN PROGRESS.
+
+## Account keyboard interaction across the five views
+
+The native render tests now reach each registered account trigger with Tab,
+capture the visible focus state, open it with Enter and capture the menu.
+They check that keyboard traversal reaches the existing Sign out item, the
+unapproved Switch role item is absent, and Escape returns focus to the same
+trigger. The cases cover R01–R05 in both light and dark. They do not execute
+sign-out or use a live session.
+
+The original Fuse browser capture now requests the corresponding keyboard
+focus and keyboard-open frames, records focus return, and records an explicit
+unavailable reason when the original renderer does not produce a state.
+Those reference frames require a completed cloud run before paired keyboard
+review. The existing pointer-open, navigation focus, hover and activation
+comparisons remain separate. All five views remain IN PROGRESS.

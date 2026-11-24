@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "baseCommit": "db8cbaeb9686cd6f677568a7ded9acb673f095c1",
+  "files": [
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "0b68b0db5a2aac2a9b49951366ae310b336b1b40563d3750915c2583188a8e58",
+      "afterSha256": "97557e2bba627aad61b2e1010991a96581a4ea1ced017406549fe70704d266b7",
+      "edits": [
+        {
+          "begin": 1099,
+          "old": "",
+          "new": "import 'account_keyboard_check.dart';\n"
+        },
+        {
+          "begin": 16040,
+          "old": "",
+          "new": "          await verifyAccountKeyboard(\n            tester,\n            trigger: accountTrigger,\n            frame: find.byKey(const Key('sidebar-overlay-proof')),\n            focusGolden: 'sidebar-state-captures/$id-account-keyboard-focus.png',\n            openGolden: 'sidebar-state-captures/$id-account-keyboard-open.png',\n          );\n"
+        },
+        {
+          "begin": 21440,
+          "old": "",
+          "new": "                'account-keyboard-focus',\n                'account-keyboard-open',\n"
+        },
+        {
+          "begin": 21581,
+          "old": "",
+          "new": "              'accountMenuKeyboardActivationAndFocusReturn': true,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "456ed7d9907df836d4ac9c7da582cf57d6822f0973f68954459b75a0d4833959",
+      "afterSha256": "9812326bb8038b567c5af004ff582a41c42c1493aaaf9c7529a72b2ab75fa30a",
+      "edits": [
+        {
+          "begin": 1243,
+          "old": "",
+          "new": "import 'account_keyboard_check.dart';\n"
+        },
+        {
+          "begin": 16621,
+          "old": "",
+          "new": "            await verifyAccountKeyboard(\n              tester,\n              trigger: accountTrigger,\n              frame: accountProof,\n              focusGolden:\n                  'shell-captures/primecare-shell-$id-account-keyboard-focus.png',\n              openGolden:\n                  'shell-captures/primecare-shell-$id-account-keyboard-open.png',\n            );\n"
+        }
+      ]
+    },
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "4ebf028574df22e03d43b3f0ca3e8f631ae23d557b3c3482beac06321e7de35f",
+      "afterSha256": "f28e99614121f3db78cf71566a76e7670f425e0e13125a7ad9b80e275b02222c",
+      "edits": [
+        {
+          "begin": 6542,
+          "old": " return {status:'captured',trigger:triggerState,menu:menuState,file};\n",
+          "new": " let keyboard;\n try {\n  // Move through the original tab order even if closing the pointer-opened\n  // menu already returned DOM focus to its trigger.\n  await page.keyboard.press('Tab');\n  const focusVisible = () => trigger.evaluate(element =>\n   element === document.activeElement && element.matches(':focus-visible'));\n  for (let tab = 0; tab < 30 && !(await focusVisible()); tab++) {\n   await page.keyboard.press('Tab');\n  }\n  if (!(await focusVisible())) {\n   throw new Error('Account trigger was not reached with visible focus within 30 Tab stops');\n  }\n  const focusFile = `fuse-shell-${id}-account-keyboard-focus.png`;\n  await page.screenshot({path:resolve(output,focusFile),fullPage:false});\n  await page.keyboard.press('Enter');\n  await paper.waitFor({timeout:5000});\n  const menuFile = `fuse-shell-${id}-account-keyboard-open.png`;\n  await page.screenshot({path:resolve(output,menuFile),fullPage:false});\n  await page.keyboard.press('Escape');\n  await popover.waitFor({state:'hidden',timeout:5000});\n  const focusReturned = await trigger.evaluate(element => element === document.activeElement);\n  keyboard = {status:'captured',focusFile,menuFile,focusReturned};\n } catch (error) {\n  if (await popover.isVisible()) {\n   await page.keyboard.press('Escape');\n   await popover.waitFor({state:'hidden',timeout:5000});\n  }\n  keyboard = {status:'unavailable',reason:String(error)};\n }\n return {status:'captured',trigger:triggerState,menu:menuState,file,keyboard};\n"
+        }
+      ]
+    }
+  ]
+}

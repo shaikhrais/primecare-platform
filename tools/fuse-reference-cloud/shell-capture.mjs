@@ -142,7 +142,37 @@ async function captureAccountMenu(page, id) {
  await page.screenshot({path:resolve(output,file),fullPage:false});
  await page.keyboard.press('Escape');
  await popover.waitFor({state:'hidden',timeout:5000});
- return {status:'captured',trigger:triggerState,menu:menuState,file};
+ let keyboard;
+ try {
+  // Move through the original tab order even if closing the pointer-opened
+  // menu already returned DOM focus to its trigger.
+  await page.keyboard.press('Tab');
+  const focusVisible = () => trigger.evaluate(element =>
+   element === document.activeElement && element.matches(':focus-visible'));
+  for (let tab = 0; tab < 30 && !(await focusVisible()); tab++) {
+   await page.keyboard.press('Tab');
+  }
+  if (!(await focusVisible())) {
+   throw new Error('Account trigger was not reached with visible focus within 30 Tab stops');
+  }
+  const focusFile = `fuse-shell-${id}-account-keyboard-focus.png`;
+  await page.screenshot({path:resolve(output,focusFile),fullPage:false});
+  await page.keyboard.press('Enter');
+  await paper.waitFor({timeout:5000});
+  const menuFile = `fuse-shell-${id}-account-keyboard-open.png`;
+  await page.screenshot({path:resolve(output,menuFile),fullPage:false});
+  await page.keyboard.press('Escape');
+  await popover.waitFor({state:'hidden',timeout:5000});
+  const focusReturned = await trigger.evaluate(element => element === document.activeElement);
+  keyboard = {status:'captured',focusFile,menuFile,focusReturned};
+ } catch (error) {
+  if (await popover.isVisible()) {
+   await page.keyboard.press('Escape');
+   await popover.waitFor({state:'hidden',timeout:5000});
+  }
+  keyboard = {status:'unavailable',reason:String(error)};
+ }
+ return {status:'captured',trigger:triggerState,menu:menuState,file,keyboard};
 }
 
 try{

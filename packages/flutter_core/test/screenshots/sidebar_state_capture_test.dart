@@ -21,6 +21,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/prime_shell_metrics.dart';
 import 'package:flutter_core/workspace/portal_workspace.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'account_keyboard_check.dart';
 import 'theme_center_capture_test.dart' show loadFonts, CaptureAuth;
 import 'skeleton_shell_capture_test.dart' show ShellCaptureApplication;
 
@@ -404,6 +405,13 @@ void main() {
           await tester.sendKeyEvent(LogicalKeyboardKey.escape);
           await tester.pumpAndSettle();
           expect(find.text('Sign out'), findsNothing);
+          await verifyAccountKeyboard(
+            tester,
+            trigger: accountTrigger,
+            frame: find.byKey(const Key('sidebar-overlay-proof')),
+            focusGolden: 'sidebar-state-captures/$id-account-keyboard-focus.png',
+            openGolden: 'sidebar-state-captures/$id-account-keyboard-open.png',
+          );
           final selectedShape =
               tester.widget<ListTile>(item).shape as RoundedRectangleBorder;
           expect(selectedShape.side, BorderSide.none);
@@ -552,11 +560,14 @@ void main() {
               'states': [
                 'selected',
                 'account-menu-open',
+                'account-keyboard-focus',
+                'account-keyboard-open',
                 'hover',
                 'focus',
                 'activated',
               ],
               'accountMenuAuthorized': true,
+              'accountMenuKeyboardActivationAndFocusReturn': true,
               'drawerClosedOnActivation': state == 'mobile' ? true : null,
               if (state == 'left' || state == 'right')
                 'toggleRestoredWidth': 312,

@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_keyboard(source,path):
+    return reverse_presentation_receipt(source,path,'account-keyboard-replay.json')
+
 def before_shell_overlay_style(source,path):
+    source=before_account_keyboard(source,path)
     return reverse_presentation_receipt(source,path,'shell-overlay-style-replay.json')
 
 def before_account_typography(source,path):

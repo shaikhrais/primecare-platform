@@ -23,6 +23,7 @@ import 'package:flutter_core/registry/widgets/governance_master_layout.dart';
 import 'package:flutter_core/theme/theme_settings_provider.dart';
 import 'package:flutter_core/theme/prime_shell_metrics.dart';
 import 'package:flutter_core/workspace/portal_workspace.dart';
+import 'account_keyboard_check.dart';
 import 'theme_center_capture_test.dart' show loadFonts, CaptureAuth;
 
 /// Rendering sample for existing registered host 2534 (/tenant-dashboard).
@@ -408,6 +409,15 @@ void main() {
             await tester.sendKeyEvent(LogicalKeyboardKey.escape);
             await tester.pumpAndSettle();
             expect(find.text('Sign out'), findsNothing);
+            await verifyAccountKeyboard(
+              tester,
+              trigger: accountTrigger,
+              frame: accountProof,
+              focusGolden:
+                  'shell-captures/primecare-shell-$id-account-keyboard-focus.png',
+              openGolden:
+                  'shell-captures/primecare-shell-$id-account-keyboard-open.png',
+            );
             final moduleLabel = find.text('Tenant dashboard');
             final brand = find.text('PrimeCare').first;
             expect(find.text('PrimeCare'), findsOneWidget);
