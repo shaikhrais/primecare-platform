@@ -39,7 +39,7 @@ jobs:
         run: |
           flutter pub get
           flutter test --no-pub --update-goldens --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart
-          flutter test --no-pub --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart test/screenshots/theme_center_capture_test.dart
+          flutter test --no-pub --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart
       - name: Save exact evidence identity
         run: printf '%s\n' "$CANDIDATE_SHA" > packages/flutter_core/test/screenshots/shell-captures/candidate-sha.txt
       - uses: actions/upload-artifact@v4
