@@ -1,4 +1,4 @@
-name: Verify PrimeCare package migration and nine Flutter web builds
+name: Verify PrimeCare package migration and core-independent tooling
 on:
   push:
     branches: [main]
@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 env:
-  PC_SHA: 5017393d132db246d29f232e1c8a3d05729c23b9
-  PC_TREE: dd20b2c33b097249fdc86da94fd3ee9e4c02cce6
-  PC_PARENT: 1eb03bb3b0e9697b927369fb62b63cd2bd084c86
+  PC_SHA: 42ae2b802ffd0d1bc46d3cf60160735de8015b59
+  PC_TREE: db144c5cf74884a0ee97cb506855a2cdf1f87844
+  PC_PARENT: 4f20c8f1fa71604bc82e33fc69ae416cdcb03804
 jobs:
   inventory:
     runs-on: ubuntu-24.04
@@ -110,3 +110,31 @@ jobs:
           flutter build web --no-pub --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://fixture.invalid
           test -s build/web/main.dart.js
           sha256sum build/web/main.dart.js
+  detached-tooling:
+    needs: inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Prove the gallery and master do not resolve flutter_core
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          for p in packages/primecare_kitchen_sink packages/primecare_master; do
+            (
+              cd "$p"
+              flutter pub get
+              flutter pub deps --json | python3 -c 'import json,sys; d=json.load(sys.stdin); assert not any(x["name"]=="flutter_core" for x in d["packages"])'
+            )
+          done
+          cd packages/primecare_kitchen_sink
+          flutter test --no-pub
+      - name: Analyze and compile the independent screenshot helper
+        working-directory: tools/screenshots
+        run: |
+          dart pub get
+          dart pub deps --json | python3 -c 'import json,sys; d=json.load(sys.stdin); assert not any(x["name"] in {"flutter", "flutter_core"} for x in d["packages"])'
+          dart analyze regenerate_screenshots.dart
+          dart compile kernel regenerate_screenshots.dart -o "$RUNNER_TEMP/regenerate-screenshots.dill"
