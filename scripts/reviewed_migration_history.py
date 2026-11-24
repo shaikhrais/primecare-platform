@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_menu_shadow(source, path):
+    return reverse_presentation_receipt(source, path, 'account-menu-shadow-replay.json')
+
 def before_account_menu_label_foreground(source, path):
+    source = before_account_menu_shadow(source, path)
     return reverse_presentation_receipt(source, path, 'account-menu-label-foreground-replay.json')
 
 def before_account_menu_hover(source, path):

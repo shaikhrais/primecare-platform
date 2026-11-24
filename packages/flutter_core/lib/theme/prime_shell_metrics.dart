@@ -92,6 +92,10 @@ abstract final class PrimeShellMetrics {
   static const accountMenuPadding = EdgeInsets.zero;
   static const accountMenuElevation = 2.0;
   static const accountMenuShadowColor = Color(0x66000000);
+  static double accountMenuElevationFor(Brightness brightness) =>
+      brightness == Brightness.light ? 1.0 : accountMenuElevation;
+  static Color accountMenuShadowFor(Brightness brightness) =>
+      brightness == Brightness.light ? const Color(0x7A000000) : accountMenuShadowColor;
   static const accountMenuIconExtent = 16.0;
   static const accountMenuIconGap = 8.0;
   static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);

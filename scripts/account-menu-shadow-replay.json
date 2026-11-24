@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "baseCommit": "5cb40c04989985ad34ce8ba2750d34681205331e",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "08f0576688a0f7ed07b9e168dc861db99fd75cbda3b983ce92a84a20a452b26d",
+      "afterSha256": "a603657db81cfeb2a08957e6794918b18281c40c59ba78e534b88a0874433f22",
+      "edits": [
+        {
+          "begin": 28766,
+          "old": "      elevation: PrimeShellMetrics.accountMenuElevation,\n      shadowColor: PrimeShellMetrics.accountMenuShadowColor,\n",
+          "new": "      elevation: PrimeShellMetrics.accountMenuElevationFor(theme.brightness),\n      shadowColor: PrimeShellMetrics.accountMenuShadowFor(theme.brightness),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "0d4722f975d96e31b2e16487684d77cbb78966d34a538b572e314c511c7c6bc4",
+      "afterSha256": "ffe352e723ae10632944addcc44c75abc2153ce0a585856b070772eb18ae378a",
+      "edits": [
+        {
+          "begin": 3929,
+          "old": "",
+          "new": "  static double accountMenuElevationFor(Brightness brightness) =>\n      brightness == Brightness.light ? 1.0 : accountMenuElevation;\n  static Color accountMenuShadowFor(Brightness brightness) =>\n      brightness == Brightness.light ? const Color(0x7A000000) : accountMenuShadowColor;\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "cd6f45dac21fbfa54ea004842e829259d5aa44ccb2a0c865207e80082336c498",
+      "afterSha256": "16c166cd27fc7abfb084b736d25f662652ce07aab55ffaaa3b4bcb7bcfcd3d5a",
+      "edits": [
+        {
+          "begin": 15701,
+          "old": "          expect(tester.widget<Material>(accountMenuSurface).elevation, 2);\n",
+          "new": "          expect(\n            tester.widget<Material>(accountMenuSurface).elevation,\n            PrimeShellMetrics.accountMenuElevationFor(\n                mode == 'light' ? Brightness.light : Brightness.dark,\n              ),\n          );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "8846b4524f23b3a5bf9020e1800eb81b51b1db1d304fff2e2b4f02ff6e7a2f16",
+      "afterSha256": "426cc9a4caca54c356d0e09d0d99d6caa87e20e2d256a8cadeb569a2a8f7ca21",
+      "edits": [
+        {
+          "begin": 15889,
+          "old": "            expect(tester.widget<Material>(accountMenuSurface).elevation, 2);\n",
+          "new": "            expect(\n              tester.widget<Material>(accountMenuSurface).elevation,\n              PrimeShellMetrics.accountMenuElevationFor(\n                  mode == 'light' ? Brightness.light : Brightness.dark,\n                ),\n            );\n"
+        }
+      ]
+    }
+  ]
+}

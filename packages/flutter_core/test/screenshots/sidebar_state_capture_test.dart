@@ -400,7 +400,12 @@ void main() {
             description: 'account menu Material surface',
           );
           expect(accountMenuSurface, findsOneWidget);
-          expect(tester.widget<Material>(accountMenuSurface).elevation, 2);
+          expect(
+            tester.widget<Material>(accountMenuSurface).elevation,
+            PrimeShellMetrics.accountMenuElevationFor(
+                mode == 'light' ? Brightness.light : Brightness.dark,
+              ),
+          );
           final accountMenuRect = tester.getRect(accountMenuSurface);
           final signOutIcon = find.descendant(
             of: signOutItem,

@@ -693,3 +693,27 @@ R01–R05 remain IN PROGRESS. Header and utility control differences,
 alternate folded-tabbed hover and multi-destination evidence, popover
 shadows, and wider and RTL drawer cases are still open. The two
 right-edge theme controls and demo remain BLOCKED.
+
+### Light account popover shadow
+
+The shared account popover uses a tighter Material shadow in light mode.
+The captured bottom-edge falloff moves closer to the original Fuse
+popover across the five active views. Dark keeps its prior elevation
+and shadow settings after the both-theme trial moved most sampled
+dark bottom edges farther from Fuse.
+
+Only the vicinity of the menu changes in 16 light captures. The
+captured interior pixels and all dark native images are unchanged.
+Reviewed open, hover and keyboard-open cases retain their full frames,
+overlays and difference images. The native Material falloff still
+differs from Fuse's layered CSS shadows, particularly at some side edges.
+
+Candidate `97a3debd8e0a481e2388149a2458f151fa9f9d09` passed all 28 native
+cases in capture and replay, run `45377894169`, artifact `14912686874`.
+The shared navigation fixture SHA-256 is
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+Reference provenance is recorded per comparison. Dark open-menu evidence
+from the rejected trial remains available in the comparison archive.
+
+R01–R05 remain IN PROGRESS. The two right-edge theme controls and demo
+implementation remain BLOCKED.
