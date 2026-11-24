@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_menu_hover(source, path):
+    return reverse_presentation_receipt(source, path, 'account-menu-hover-replay.json')
+
 def before_account_shell_edge(source, path):
+    source = before_account_menu_hover(source, path)
     return reverse_presentation_receipt(source, path, 'account-shell-edge-replay.json')
 
 def before_account_trigger_focus_style(source, path):
@@ -22,6 +26,7 @@ def before_folded_tabbed_account(source,path):
     return reverse_presentation_receipt(source,path,'folded-tabbed-account-replay.json')
 
 def before_neutral_account_capture(source,path):
+    source=before_account_menu_hover(source,path)
     return reverse_presentation_receipt(source,path,'neutral-account-capture-replay.json')
 
 def before_account_focus_outline(source,path):

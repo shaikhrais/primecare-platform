@@ -402,7 +402,7 @@ void main() {
             expect(accountMenuRect, const Rect.fromLTWH(1117, 114, 128, 32));
             final signOutIcon = find.descendant(
               of: findAccountPopupItem('Sign out'),
-              matching: find.byIcon(LucideIcons.squareArrowRightExit),
+              matching: find.byIcon(LucideIcons.squareArrowRight),
             );
             expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);
             await expectLater(
@@ -410,6 +410,11 @@ void main() {
               matchesGoldenFile(
                 'shell-captures/primecare-shell-$id-account-menu-open.png',
               ),
+            );
+            await captureAccountMenuHover(
+              tester,
+              frame: accountProof,
+              golden: 'shell-captures/primecare-shell-$id-account-menu-hover.png',
             );
             await tester.sendKeyEvent(LogicalKeyboardKey.escape);
             await tester.pumpAndSettle();

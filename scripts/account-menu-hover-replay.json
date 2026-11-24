@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "baseCommit": "9c235fe9cdab29733b4b0eaba3a827dc93d6d0e7",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "afe19696eb0f08f8f1154e4e4d5084503e47f42da07d8adf09e3841b7db37ac3",
+      "afterSha256": "5da46d3a16402fee087849479dc95b5f53f87c968298e222e1633d8b8f7e7025",
+      "edits": [
+        {
+          "begin": 30419,
+          "old": "                    LucideIcons.squareArrowRightExit,\n",
+          "new": "                    LucideIcons.squareArrowRight,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_account_trigger_focus_frame.dart",
+      "beforeSha256": "bec4910c4fbcb313c65a26f9a0ced6812e987df3f1b944fc6769034b12125796",
+      "afterSha256": "54b8ec4d15b76190d32764252cd419e79c545a3f3aff96453e095ce8146e9451",
+      "edits": [
+        {
+          "begin": 2995,
+          "old": "    child: Builder(builder: super.build),\n",
+          "new": "    child: Material(\n      type: MaterialType.transparency,\n      borderRadius: PrimeShellMetrics.accountMenuItemRadius,\n      clipBehavior: Clip.antiAlias,\n      child: Builder(builder: super.build),\n    ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "a754046b03d1869e67b4f53f5b33a9499058c6906c3d66183682e06850a1bef0",
+      "afterSha256": "0d4722f975d96e31b2e16487684d77cbb78966d34a538b572e314c511c7c6bc4",
+      "edits": [
+        {
+          "begin": 3495,
+          "old": "",
+          "new": "  static const accountMenuItemRadius = BorderRadius.all(Radius.circular(4));\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/account_keyboard_check.dart",
+      "beforeSha256": "dd97ede8d40b7445e8c2135ee811b49d0c991eabc0800e332f614916924dc08c",
+      "afterSha256": "44a6349ce76eb8e4c82df0c21ae8a73d3996a36523104269ac90b3ce5b431bac",
+      "edits": [
+        {
+          "begin": 194,
+          "old": "",
+          "new": "import 'dart:ui' show PointerDeviceKind;\n"
+        },
+        {
+          "begin": 496,
+          "old": "",
+          "new": "\n/// Captures the pointer-open menu after hovering its existing Sign out item.\nFuture<void> captureAccountMenuHover(\n  WidgetTester tester, {\n  required Finder frame,\n  required String golden,\n}) async {\n  final item = findAccountPopupItem('Sign out');\n  expect(item, findsOneWidget);\n  expect(tester.widget<PopupMenuItem<String>>(item).enabled, isTrue);\n  final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);\n  final previousShadowMode = debugDisableShadows;\n  debugDisableShadows = false;\n  try {\n    await mouse.addPointer(location: tester.getCenter(frame));\n    await mouse.moveTo(tester.getCenter(item));\n    await tester.pumpAndSettle();\n    expect(item, findsOneWidget);\n    await expectLater(frame, matchesGoldenFile(golden));\n  } finally {\n    await mouse.removePointer();\n    debugDisableShadows = previousShadowMode;\n    await tester.pumpAndSettle();\n  }\n}\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "f0dda404fa0aec096d582534db4143332a085d856ec394145e3487651c6788e0",
+      "afterSha256": "2e73a195b6fc6dd3c4adb59b7f7c4508c9041be6ac3bd51c0cd051bf8c7fbdcb",
+      "edits": [
+        {
+          "begin": 15770,
+          "old": "            matching: find.byIcon(LucideIcons.squareArrowRightExit),\n",
+          "new": "            matching: find.byIcon(LucideIcons.squareArrowRight),\n"
+        },
+        {
+          "begin": 17010,
+          "old": "",
+          "new": "          );\n          await captureAccountMenuHover(\n            tester,\n            frame: find.byKey(const Key('sidebar-overlay-proof')),\n            golden: 'sidebar-state-captures/$id-account-menu-hover.png',\n"
+        },
+        {
+          "begin": 22920,
+          "old": "",
+          "new": "                'account-menu-hover',\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "55b5099a66f68a85cda6df37e4d9234204b9c0389cb073a4ec90a8d978386612",
+      "afterSha256": "0f31770da2d0fc2e8e34b41f6e28993776c1e46c050c471c7492f012ebca0675",
+      "edits": [
+        {
+          "begin": 16329,
+          "old": "              matching: find.byIcon(LucideIcons.squareArrowRightExit),\n",
+          "new": "              matching: find.byIcon(LucideIcons.squareArrowRight),\n"
+        },
+        {
+          "begin": 16680,
+          "old": "",
+          "new": "            );\n            await captureAccountMenuHover(\n              tester,\n              frame: accountProof,\n              golden: 'shell-captures/primecare-shell-$id-account-menu-hover.png',\n"
+        }
+      ]
+    },
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "9d09d9103b2e5597d28d1efd686476332ce31389bb1c9e96b02b1c72d3e93a87",
+      "afterSha256": "955d9aa8846587c0b35515fc99cbb8dd839fa298df13aa3b8c049ca91f74a0a2",
+      "edits": [
+        {
+          "begin": 1832,
+          "old": "",
+          "new": "const sharedOnly = process.env.FUSE_CAPTURE_SHARED_ONLY === '1';\nif (sharedOnly && !fixture) throw new Error('Shared-only capture requires the native fixture');\nconst plannedCases = sharedOnly ? cases.filter(item => item.dataSet === 'shared-navigation') : cases;\n"
+        },
+        {
+          "begin": 7072,
+          "old": "",
+          "new": " const signOut = paper.getByRole('menuitem', {name:'Sign out', exact:true});\n await signOut.hover({timeout:5000});\n const hoveredItem = await signOut.evaluate(element => {\n  const {x,y,width,height} = element.getBoundingClientRect();\n  const style = getComputedStyle(element);\n  return {\n   box:{x,y,width,height},\n   hovered:element.matches(':hover'),\n   background:style.backgroundColor,\n   borderRadius:style.borderRadius,\n  };\n });\n if (!hoveredItem.hovered) throw new Error('Account menu item did not enter hover state');\n const hoverFile = `fuse-shell-${id}-account-menu-hover.png`;\n await page.screenshot({path:resolve(output,hoverFile),fullPage:false});\n await page.mouse.move(viewport.width / 2, viewport.height / 2);\n"
+        },
+        {
+          "begin": 9065,
+          "old": " return {status:'captured',trigger:triggerState,menu:menuState,file,keyboard};\n",
+          "new": " return {status:'captured',trigger:triggerState,menu:menuState,file,hover:{file:hoverFile,item:hoveredItem},keyboard};\n"
+        },
+        {
+          "begin": 9152,
+          "old": " for (const {layout,device,width,height,mode,sidebarCase,dataSet} of cases) {\n",
+          "new": " for (const {layout,device,width,height,mode,sidebarCase,dataSet} of plannedCases) {\n"
+        },
+        {
+          "begin": 14305,
+          "old": "if(results.length!==cases.length||results.some(x=>x.status!=='captured'))throw new Error('Full-shell reference capture incomplete; inspect shell-measurements.json');\nconsole.log(`Captured ${cases.length} cases using the original shell renderer. Visual acceptance remains open.`);\n",
+          "new": "if(results.length!==plannedCases.length||results.some(x=>x.status!=='captured'))throw new Error('Full-shell reference capture incomplete; inspect shell-measurements.json');\nconsole.log(`Captured ${plannedCases.length} cases using the original shell renderer. Visual acceptance remains open.`);\n"
+        }
+      ]
+    }
+  ]
+}

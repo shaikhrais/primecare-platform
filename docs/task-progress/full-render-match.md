@@ -634,3 +634,34 @@ multi-destination folded panels, the right menu shadow and hover, wider
 and RTL drawer views, and R05's toolbar surface and account width remain
 open. The two edge launchers still require production registration and
 independent readback. Demo work remains BLOCKED.
+
+### Account menu hover and the shared Sign out glyph
+
+R01–R05 now have paired pointer-hover captures of the existing Sign out
+row in both themes. The fixture keeps the same authorized destination,
+account, locale, viewport and scroll state. The original menu item reports
+a 4px corner radius and a hovered state. The shared native account row
+now clips the highlight to 4px and uses the same
+`lucide:square-arrow-right` identifier as Fuse. Account and routing
+behavior are preserved. Keyboard opening, item focus, Escape dismissal
+and focus return pass.
+
+The light interior hover sample is RGB (229, 231, 235) on both platforms in
+all five paired views. The dark sample is (43, 46, 51) in Fuse and
+(44, 47, 51) in PrimeCare. PrimeCare keeps the registered palette.
+Popover shadows, some label styling and the broader view differences
+still need review. The alternate folded-tabbed hover has no matched
+reference case.
+
+Fuse hover evidence was captured from `4090f67e452548ba03c91cc05d2ebee5175ce967`
+in run `45358757172`, artifact `14903203997`. The native final glyph candidate
+`7ae7c00bf6717d5e8894d526c0e3e8a795cf636a` passed all 28 shell cases in
+capture and replay, run `45359541145`, artifact `14904376010`. The same
+licensed capture source, reference archive and navigation fixture were
+used. The fixture SHA-256 is
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+
+The archive adds ten hover pairs and refreshes 22 open-menu pairs. Each
+retains the exact source, case, hashes, full renders and difference images.
+All five active views remain IN PROGRESS. Right-edge launchers and demo work
+remain BLOCKED under their existing gates.

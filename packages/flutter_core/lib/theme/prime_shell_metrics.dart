@@ -82,6 +82,7 @@ abstract final class PrimeShellMetrics {
   static const accountFocusOutlineExtent =
       accountFocusOutlineGap + accountFocusOutlineWidth;
   static const accountMenuRadius = BorderRadius.all(Radius.circular(8));
+  static const accountMenuItemRadius = BorderRadius.all(Radius.circular(4));
   static const accountMenuConstraints = BoxConstraints(
     minWidth: 128,
     maxWidth: 280,

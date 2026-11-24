@@ -104,6 +104,11 @@ class _PrimeAccountMenuItemState<T>
   @override
   Widget build(BuildContext context) => Theme(
     data: widget.menuTheme,
-    child: Builder(builder: super.build),
+    child: Material(
+      type: MaterialType.transparency,
+      borderRadius: PrimeShellMetrics.accountMenuItemRadius,
+      clipBehavior: Clip.antiAlias,
+      child: Builder(builder: super.build),
+    ),
   );
 }

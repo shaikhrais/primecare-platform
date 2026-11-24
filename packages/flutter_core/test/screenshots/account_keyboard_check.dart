@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart' show debugDisableShadows;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter_core/theme/prime_account_trigger_focus_frame.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 
@@ -9,6 +10,31 @@ Finder findAccountPopupItem(String label) => find.ancestor(
   of: find.text(label),
   matching: find.byWidgetPredicate((widget) => widget is PopupMenuItem<String>),
 );
+
+/// Captures the pointer-open menu after hovering its existing Sign out item.
+Future<void> captureAccountMenuHover(
+  WidgetTester tester, {
+  required Finder frame,
+  required String golden,
+}) async {
+  final item = findAccountPopupItem('Sign out');
+  expect(item, findsOneWidget);
+  expect(tester.widget<PopupMenuItem<String>>(item).enabled, isTrue);
+  final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+  final previousShadowMode = debugDisableShadows;
+  debugDisableShadows = false;
+  try {
+    await mouse.addPointer(location: tester.getCenter(frame));
+    await mouse.moveTo(tester.getCenter(item));
+    await tester.pumpAndSettle();
+    expect(item, findsOneWidget);
+    await expectLater(frame, matchesGoldenFile(golden));
+  } finally {
+    await mouse.removePointer();
+    debugDisableShadows = previousShadowMode;
+    await tester.pumpAndSettle();
+  }
+}
 
 bool _hasFocusWithin(Element target) {
   final focused = FocusManager.instance.primaryFocus?.context;

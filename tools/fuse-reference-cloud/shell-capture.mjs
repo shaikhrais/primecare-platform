@@ -31,6 +31,9 @@ if (fixture) {
   (item.layout === 'layout2' && item.device === 'desktop'))
   .map(item => ({...item, dataSet: 'shared-navigation'})));
 }
+const sharedOnly = process.env.FUSE_CAPTURE_SHARED_ONLY === '1';
+if (sharedOnly && !fixture) throw new Error('Shared-only capture requires the native fixture');
+const plannedCases = sharedOnly ? cases.filter(item => item.dataSet === 'shared-navigation') : cases;
 async function captureNavigationInteraction(page, id, sidebarCase, route) {
  const entry = page.locator(`a[href$="${route}"]:visible`);
  const candidateCount = await entry.count();
@@ -152,6 +155,22 @@ async function captureAccountMenu(page, id) {
  if (menuState.hovered) throw new Error('Pointer obscures the default account menu state');
  const file=`fuse-shell-${id}-account-menu-open.png`;
  await page.screenshot({path:resolve(output,file),fullPage:false});
+ const signOut = paper.getByRole('menuitem', {name:'Sign out', exact:true});
+ await signOut.hover({timeout:5000});
+ const hoveredItem = await signOut.evaluate(element => {
+  const {x,y,width,height} = element.getBoundingClientRect();
+  const style = getComputedStyle(element);
+  return {
+   box:{x,y,width,height},
+   hovered:element.matches(':hover'),
+   background:style.backgroundColor,
+   borderRadius:style.borderRadius,
+  };
+ });
+ if (!hoveredItem.hovered) throw new Error('Account menu item did not enter hover state');
+ const hoverFile = `fuse-shell-${id}-account-menu-hover.png`;
+ await page.screenshot({path:resolve(output,hoverFile),fullPage:false});
+ await page.mouse.move(viewport.width / 2, viewport.height / 2);
  await page.keyboard.press('Escape');
  await popover.waitFor({state:'hidden',timeout:5000});
  let keyboard;
@@ -192,11 +211,11 @@ async function captureAccountMenu(page, id) {
   }
   keyboard = {status:'unavailable',reason:String(error)};
  }
- return {status:'captured',trigger:triggerState,menu:menuState,file,keyboard};
+ return {status:'captured',trigger:triggerState,menu:menuState,file,hover:{file:hoverFile,item:hoveredItem},keyboard};
 }
 
 try{
- for (const {layout,device,width,height,mode,sidebarCase,dataSet} of cases) {
+ for (const {layout,device,width,height,mode,sidebarCase,dataSet} of plannedCases) {
   const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});const errors=[],external=[];
   const shared = dataSet === 'shared-navigation';
   if (shared) await page.addInitScript(data => { window.__primecareNavigationFixture = data; }, fixture);
@@ -270,5 +289,5 @@ try{
   finally{await page.close();}
  }
 }finally{await browser.close();await writeFile(resolve(output,'shell-measurements.json'),JSON.stringify({source:process.env.GITHUB_SHA??null,cases:results,fullShellVisualAcceptance:false,nativeComparisonComplete:false},null,2));}
-if(results.length!==cases.length||results.some(x=>x.status!=='captured'))throw new Error('Full-shell reference capture incomplete; inspect shell-measurements.json');
-console.log(`Captured ${cases.length} cases using the original shell renderer. Visual acceptance remains open.`);
+if(results.length!==plannedCases.length||results.some(x=>x.status!=='captured'))throw new Error('Full-shell reference capture incomplete; inspect shell-measurements.json');
+console.log(`Captured ${plannedCases.length} cases using the original shell renderer. Visual acceptance remains open.`);

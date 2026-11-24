@@ -400,7 +400,7 @@ void main() {
           final accountMenuRect = tester.getRect(accountMenuSurface);
           final signOutIcon = find.descendant(
             of: signOutItem,
-            matching: find.byIcon(LucideIcons.squareArrowRightExit),
+            matching: find.byIcon(LucideIcons.squareArrowRight),
           );
           expect(tester.getRect(signOutIcon).left - accountMenuRect.left, 8);
           expect(
@@ -428,6 +428,11 @@ void main() {
             matchesGoldenFile(
               'sidebar-state-captures/$id-account-menu-open.png',
             ),
+          );
+          await captureAccountMenuHover(
+            tester,
+            frame: find.byKey(const Key('sidebar-overlay-proof')),
+            golden: 'sidebar-state-captures/$id-account-menu-hover.png',
           );
           await tester.sendKeyEvent(LogicalKeyboardKey.escape);
           await tester.pumpAndSettle();
@@ -587,6 +592,7 @@ void main() {
               'states': [
                 'selected',
                 'account-menu-open',
+                'account-menu-hover',
                 'account-keyboard-focus',
                 'account-keyboard-open',
                 'hover',

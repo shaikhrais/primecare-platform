@@ -621,7 +621,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
               child: Row(
                 children: [
                   PrimeIcon(
-                    LucideIcons.squareArrowRightExit,
+                    LucideIcons.squareArrowRight,
                     size: PrimeShellMetrics.accountMenuIconExtent,
                     color: iconColor,
                   ),
