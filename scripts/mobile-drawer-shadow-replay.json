@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "baseCommit": "2a49910f4ff91f739ed00fed406b3a698788ce5f",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "7bef3342ec4deeb1176e61451448364c0786422a01bb7f7b0d4c89fdacc36394",
+      "afterSha256": "73270b435d3ac04034f2b3f1dbb693f2c5846a0f2d6201c515ae0cb6d133d3cb",
+      "edits": [
+        {
+          "begin": 2702,
+          "old": "",
+          "new": "  static const mobileDrawerShadow = BoxDecoration(\n    boxShadow: [\n      BoxShadow(\n        color: Color(0x21000000),\n        offset: Offset(0, 12),\n        blurRadius: 18,\n        spreadRadius: -5,\n      ),\n      BoxShadow(\n        color: Color(0x1C000000),\n        offset: Offset(0, 5),\n        blurRadius: 9,\n        spreadRadius: -5,\n      ),\n    ],\n  );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "28ef63c4d3b4f4282a571172df99cf0cdebd2df9d1121d180a9d6b406f97ffe6",
+      "afterSha256": "a55cc07395fc4a18e164348d2ad6700f6f4434a5a26756399039b778a0b346d9",
+      "edits": [
+        {
+          "begin": 45080,
+          "old": "      return PrimeDrawer(\n        width: PrimeShellMetrics.mobileDrawerWidth,\n        backgroundColor: sidebarBg,\n        surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),\n        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),\n        child: sidebarContent,\n",
+          "new": "      return DecoratedBox(\n        decoration: PrimeShellMetrics.mobileDrawerShadow,\n        child: PrimeDrawer(\n          width: PrimeShellMetrics.mobileDrawerWidth,\n          backgroundColor: sidebarBg,\n          surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,\n          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),\n          child: sidebarContent,\n        ),\n"
+        }
+      ]
+    }
+  ]
+}

@@ -940,12 +940,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
     );
 
     if (isDrawer) {
-      return PrimeDrawer(
-        width: PrimeShellMetrics.mobileDrawerWidth,
-        backgroundColor: sidebarBg,
-        surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        child: sidebarContent,
+      return DecoratedBox(
+        decoration: PrimeShellMetrics.mobileDrawerShadow,
+        child: PrimeDrawer(
+          width: PrimeShellMetrics.mobileDrawerWidth,
+          backgroundColor: sidebarBg,
+          surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          child: sidebarContent,
+        ),
       );
     }
     return sidebarContent;

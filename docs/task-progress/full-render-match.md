@@ -795,3 +795,19 @@ Pointer and keyboard activation, menu focus and Escape return pass in the
 capture fixture. The new samples cover the account popup and its hover state.
 All five whole-view tasks remain IN PROGRESS. The native red theme launchers
 and demo implementation remain BLOCKED.
+
+### Mobile drawer at 390 and 640 px
+
+The populated R04 fixture now captures both widths in light and dark, with
+account menu, pointer, keyboard, route activation and drawer dismissal states.
+[GitHub shell capture run 45428722853](https://github.com/shaikhrais/primecare-platform/actions/runs/45428722853)
+rendered source `2a49910f4ff91f739ed00fed406b3a698788ce5f` in native artifact
+`14939340355` and original reference artifact `14939006921`. The two 640 px
+account menus start at x=268 in Fuse and x=374 in PrimeCare. Their respective
+heights are 31.5 px and 48 px. At 390 px both menus start at x=246 and are 48 px
+high. The wide placement, footer under the scrim and RTL review remain open.
+
+At that source, enabling capture shadows still leaves a flat native drawer
+edge because Flutter's Material 3 drawer defaults to a transparent shadow
+color. The shared mobile drawer now applies two outer shadow layers. The
+current correction requires a fresh visual review. R04 remains IN PROGRESS.

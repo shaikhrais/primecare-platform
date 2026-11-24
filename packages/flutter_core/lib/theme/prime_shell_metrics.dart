@@ -68,6 +68,22 @@ abstract final class PrimeShellMetrics {
   static const foldedTabbedDestinationExtent = 40.0;
   static const mobileDrawerWidth = 280.0;
   static const drawerScrimColor = Color(0x80000000);
+  static const mobileDrawerShadow = BoxDecoration(
+    boxShadow: [
+      BoxShadow(
+        color: Color(0x21000000),
+        offset: Offset(0, 12),
+        blurRadius: 18,
+        spreadRadius: -5,
+      ),
+      BoxShadow(
+        color: Color(0x1C000000),
+        offset: Offset(0, 5),
+        blurRadius: 9,
+        spreadRadius: -5,
+      ),
+    ],
+  );
   static const sidebarToggleSize = 32.0;
   static const sidebarToggleOutlineSize = 28.0;
   static const sidebarToggleLeadingWidth = 60.0;
