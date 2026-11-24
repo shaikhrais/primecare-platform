@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "baseCommit": "8d10ceb94f77578e2dc5003aa34236bbf57daff4",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "e926443b8fd03ed210e846ec0177cfac0be54f55c8727a2b953a455036131aa8",
+      "afterSha256": "7bef3342ec4deeb1176e61451448364c0786422a01bb7f7b0d4c89fdacc36394",
+      "edits": [
+        {
+          "begin": 4576,
+          "old": "",
+          "new": "\n  static Color accountMenuHoverFill(ThemeData theme) {\n    final hover = theme.hoverColor.toARGB32();\n    final opacity = hover >>> 24;\n    final paper = theme.popupMenuTheme.color ??\n        (theme.useMaterial3 ? theme.colorScheme.surfaceContainer : theme.cardColor);\n    final surface = paper.toARGB32();\n    if (opacity == 0 || opacity == 255 || surface >>> 24 != 255) {\n      return theme.hoverColor;\n    }\n\n    // Composite the palette's hover token on the opaque paper using the\n    // same channel rounding as the browser capture.\n    int composite(int shift) {\n      final inkChannel = (hover >>> shift) & 0xff;\n      final paperChannel = (surface >>> shift) & 0xff;\n      return (inkChannel * opacity + paperChannel * (255 - opacity)) ~/ 255;\n    }\n\n    return Color.fromARGB(255, composite(16), composite(8), composite(0));\n  }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_account_trigger_focus_frame.dart",
+      "beforeSha256": "54b8ec4d15b76190d32764252cd419e79c545a3f3aff96453e095ce8146e9451",
+      "afterSha256": "223b88294339ba0b2a34b74a473df89c99e84ca1b5eb5f95632e623c4138ff13",
+      "edits": [
+        {
+          "begin": 2967,
+          "old": "    data: widget.menuTheme,\n",
+          "new": "    data: widget.menuTheme.copyWith(\n      hoverColor: PrimeShellMetrics.accountMenuHoverFill(widget.menuTheme),\n    ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "b6661d286e5fc7872de1670a4e74711dd791c6effe0fddf99f8804b9398fda04",
+      "afterSha256": "28ef63c4d3b4f4282a571172df99cf0cdebd2df9d1121d180a9d6b406f97ffe6",
+      "edits": [
+        {
+          "begin": 30217,
+          "old": "",
+          "new": "      clipBehavior: Clip.antiAlias,\n"
+        }
+      ]
+    }
+  ]
+}

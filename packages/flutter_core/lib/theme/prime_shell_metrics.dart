@@ -104,6 +104,27 @@ abstract final class PrimeShellMetrics {
   static const accountMenuIconExtent = 16.0;
   static const accountMenuIconGap = 8.0;
   static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);
+
+  static Color accountMenuHoverFill(ThemeData theme) {
+    final hover = theme.hoverColor.toARGB32();
+    final opacity = hover >>> 24;
+    final paper = theme.popupMenuTheme.color ??
+        (theme.useMaterial3 ? theme.colorScheme.surfaceContainer : theme.cardColor);
+    final surface = paper.toARGB32();
+    if (opacity == 0 || opacity == 255 || surface >>> 24 != 255) {
+      return theme.hoverColor;
+    }
+
+    // Composite the palette's hover token on the opaque paper using the
+    // same channel rounding as the browser capture.
+    int composite(int shift) {
+      final inkChannel = (hover >>> shift) & 0xff;
+      final paperChannel = (surface >>> shift) & 0xff;
+      return (inkChannel * opacity + paperChannel * (255 - opacity)) ~/ 255;
+    }
+
+    return Color.fromARGB(255, composite(16), composite(8), composite(0));
+  }
   static const toolbarAccountAvatarRadius = 16.0;
   static const horizontalToolbarAccountAvatarRadius = 20.0;
   static const horizontalToolbarAccountLabelSize = 12.0;

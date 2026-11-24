@@ -103,7 +103,9 @@ class _PrimeAccountMenuItemState<T>
     extends PopupMenuItemState<T, PrimeAccountMenuItem<T>> {
   @override
   Widget build(BuildContext context) => Theme(
-    data: widget.menuTheme,
+    data: widget.menuTheme.copyWith(
+      hoverColor: PrimeShellMetrics.accountMenuHoverFill(widget.menuTheme),
+    ),
     child: Material(
       type: MaterialType.transparency,
       borderRadius: PrimeShellMetrics.accountMenuItemRadius,

@@ -613,6 +613,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
       menuPadding: PrimeShellMetrics.accountMenuPadding,
       constraints: PrimeShellMetrics.accountMenuConstraints,
       shape: PrimeShellMetrics.accountMenuShape,
+      clipBehavior: Clip.antiAlias,
       elevation: PrimeShellMetrics.accountMenuElevationFor(theme.brightness),
       shadowColor: PrimeShellMetrics.accountMenuShadowFor(theme.brightness),
       surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,
