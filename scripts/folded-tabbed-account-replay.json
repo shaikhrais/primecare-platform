@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "baseCommit": "16cea863bc3a55fed15de48ebb183a06c7784e33",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "8baa4d847db2866aa6c37fabc1095ac5248470497d50d348e3ef3c987f675ae0",
+      "afterSha256": "3f5cb2eb9ebeacadbad058072286931b6252f59cead4774d8de0cd5baf0f6179",
+      "edits": [
+        {
+          "begin": 31780,
+          "old": "",
+          "new": "    final themeColors = theme.extension<GovernanceThemeColors>();\n    final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;\n    final defaultSidebarTextColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);\n    final defaultSidebarIconColor = readableThemeForeground(sidebarBg, theme.iconTheme.color ?? theme.primaryColor);\n    final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;\n    final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;\n"
+        },
+        {
+          "begin": 32290,
+          "old": "",
+          "new": "        foldedRailFooter: Align(\n          alignment: AlignmentDirectional.centerStart,\n          child: SizedBox(\n            width: PrimeShellMetrics.foldedNavigationContentWidth,\n            child: _buildAccountMenu(\n              context, ref, theme,\n              textColor: sidebarTextColor,\n              iconColor: sidebarIconColor,\n              preferredFamily: settings.theme.fontFamily,\n              preferredScale: settings.theme.fontScale,\n              compact: true,\n              sidebar: true,\n              trailing: onTrailingSide,\n              avatarSurface: sidebarBg,\n            ),\n          ),\n        ),\n"
+        },
+        {
+          "begin": 32678,
+          "old": "    final themeColors = theme.extension<GovernanceThemeColors>();\n    final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;\n\n    final defaultSidebarTextColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);\n    final defaultSidebarIconColor = readableThemeForeground(sidebarBg, theme.iconTheme.color ?? theme.primaryColor);\n\n    final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;\n    final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;\n",
+          "new": ""
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "3c8c8beb79dd7d8214aa0c4f4bb5c6551a50e9e6dc2f592f234fdb7f53c7348d",
+      "afterSha256": "29419804e3016ec69b1c69a8537bbcbc2f47491452cd12ff970d20d8d70d1573",
+      "edits": [
+        {
+          "begin": 2451,
+          "old": "",
+          "new": "  static const foldedNavigationContentWidth = foldedNavigationWidth - 1;\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
+      "beforeSha256": "ee4807f8649b84e451a8041811852f2831f0cafe564a84a0efcd1ca0da0845b5",
+      "afterSha256": "f3388f19106f9f3b1def7f43e71c5bd29955fcc21348100e6836f86a063e25be",
+      "edits": [
+        {
+          "begin": 16943,
+          "old": "  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0,this.railHeader});\n",
+          "new": "  final Widget? foldedRailFooter;\n  const PrimeTabbedNavigation({\n    super.key,\n    required this.tabs,\n    this.initialIndex = 0,\n    this.railHeader,\n    this.foldedRailFooter,\n  });\n"
+        },
+        {
+          "begin": 18998,
+          "old": "",
+          "new": "      final destinations = ListView(children: [\n        if (folded && widget.railHeader != null) widget.railHeader!,\n        for (var i = 0; i < widget.tabs.length; i++)\n          Semantics(\n            container: folded,\n            label: folded\n                ? (widget.tabs[i].entries.length == 1\n                    ? widget.tabs[i].entries.single.label\n                    : widget.tabs[i].label)\n                : null,\n            link: folded && widget.tabs[i].entries.length == 1,\n            selected: i == selected,\n            child: folded\n                ? Stack(\n                    alignment: Alignment.center,\n                    children: [\n                      if (i == selected)\n                        DecoratedBox(\n                          decoration: BoxDecoration(\n                            color: foldedSelection,\n                            borderRadius: PrimeShellMetrics.navigationItemRadius,\n                          ),\n                          child: const SizedBox.square(\n                            dimension: PrimeShellMetrics.sidebarRowHeight,\n                          ),\n                        ),\n                      foldedAction(widget.tabs[i], i == selected),\n                    ],\n                  )\n                : Container(\n                    color: i == selected ? scheme.primaryContainer : null,\n                    child: PrimeIconButton(\n                      tooltip: widget.tabs[i].label,\n                      onPressed: () => setState(() => selected = i),\n                      icon: PrimeIcon(widget.tabs[i].icon, size: 20,\n                        color: i == selected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant),\n                    ),\n                  ),\n          ),\n      ]);\n      final footer = folded ? widget.foldedRailFooter : null;\n"
+        },
+        {
+          "begin": 19164,
+          "old": "          child: ListView(children: [\n            if (folded && widget.railHeader != null) widget.railHeader!,\n            for (var i = 0; i < widget.tabs.length; i++)\n              Semantics(\n                container: folded,\n                label: folded\n                    ? (widget.tabs[i].entries.length == 1\n                        ? widget.tabs[i].entries.single.label\n                        : widget.tabs[i].label)\n                    : null,\n                link: folded && widget.tabs[i].entries.length == 1,\n                selected: i == selected,\n                child: folded\n                    ? Stack(\n                        alignment: Alignment.center,\n                        children: [\n                          if (i == selected)\n                            DecoratedBox(\n                              decoration: BoxDecoration(\n                                color: foldedSelection,\n                                borderRadius: PrimeShellMetrics.navigationItemRadius,\n                              ),\n                              child: const SizedBox.square(\n                                dimension: PrimeShellMetrics.sidebarRowHeight,\n                              ),\n                            ),\n                          foldedAction(widget.tabs[i], i == selected),\n                        ],\n                      )\n                    : Container(\n                        color: i == selected ? scheme.primaryContainer : null,\n                        child: PrimeIconButton(\n                          tooltip: widget.tabs[i].label,\n                          onPressed: () => setState(() => selected = i),\n                          icon: PrimeIcon(widget.tabs[i].icon, size: 20,\n                            color: i == selected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant),\n                        ),\n                      ),\n              ),\n          ]),\n",
+          "new": "          child: footer == null\n              ? destinations\n              : Column(children: [Expanded(child: destinations), footer]),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "97557e2bba627aad61b2e1010991a96581a4ea1ced017406549fe70704d266b7",
+      "afterSha256": "b0289278f8792d99a4e9194de7fb97d03bb6b86af4a2ac0001550bfb2c2edd97",
+      "edits": [
+        {
+          "begin": 8082,
+          "old": "",
+          "new": "            final account = find.descendant(\n              of: rail,\n              matching: find.byKey(const Key('sidebar-user-menu')),\n            );\n            expect(account, findsOneWidget);\n            expect(tester.getSize(account), const Size.square(40));\n            await verifyAccountKeyboard(\n              tester,\n              trigger: account,\n              frame: proof,\n              focusGolden:\n                  'sidebar-state-captures/folded-tabbed-$mode-account-keyboard-focus.png',\n              openGolden:\n                  'sidebar-state-captures/folded-tabbed-$mode-account-keyboard-open.png',\n            );\n"
+        }
+      ]
+    }
+  ]
+}

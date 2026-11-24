@@ -204,6 +204,21 @@ void main() {
               findsNothing,
             );
             await captureTabbed('activated');
+            final account = find.descendant(
+              of: rail,
+              matching: find.byKey(const Key('sidebar-user-menu')),
+            );
+            expect(account, findsOneWidget);
+            expect(tester.getSize(account), const Size.square(40));
+            await verifyAccountKeyboard(
+              tester,
+              trigger: account,
+              frame: proof,
+              focusGolden:
+                  'sidebar-state-captures/folded-tabbed-$mode-account-keyboard-focus.png',
+              openGolden:
+                  'sidebar-state-captures/folded-tabbed-$mode-account-keyboard-open.png',
+            );
             File(
               'test/screenshots/sidebar-state-captures/folded-tabbed-$mode.json',
             ).writeAsStringSync(

@@ -672,6 +672,12 @@ class GovernanceMasterLayout extends ConsumerWidget {
       width: PrimeShellMetrics.sidebarLogoExtent,
       height: PrimeShellMetrics.sidebarLogoExtent,
     );
+    final themeColors = theme.extension<GovernanceThemeColors>();
+    final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;
+    final defaultSidebarTextColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);
+    final defaultSidebarIconColor = readableThemeForeground(sidebarBg, theme.iconTheme.color ?? theme.primaryColor);
+    final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
+    final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
     if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && navigation.isNotEmpty) {
       String route='';try {route=GoRouterState.of(context).uri.path;} catch (_) {}
       final selected=navigation.indexWhere((group)=>group.value.any((screen)=>screen.route==route));
@@ -681,6 +687,23 @@ class GovernanceMasterLayout extends ConsumerWidget {
           height: PrimeShellMetrics.foldedHeaderExtent,
           child: Center(child: brandMark),
         ),
+        foldedRailFooter: Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            width: PrimeShellMetrics.foldedNavigationContentWidth,
+            child: _buildAccountMenu(
+              context, ref, theme,
+              textColor: sidebarTextColor,
+              iconColor: sidebarIconColor,
+              preferredFamily: settings.theme.fontFamily,
+              preferredScale: settings.theme.fontScale,
+              compact: true,
+              sidebar: true,
+              trailing: onTrailingSide,
+              avatarSurface: sidebarBg,
+            ),
+          ),
+        ),
         tabs:[
         for(final group in navigation)PrimeNavigationTab(label:group.key.name,icon:group.key.icon,
           content:_buildSidebar(context,ref,theme,[group],tenant,tier,settings,tabContent:true,onTrailingSide:onTrailingSide),
@@ -688,14 +711,6 @@ class GovernanceMasterLayout extends ConsumerWidget {
             PrimeNavigationEntry(screen.title,()=>context.go(screen.route))]),
       ]);
     }
-    final themeColors = theme.extension<GovernanceThemeColors>();
-    final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;
-
-    final defaultSidebarTextColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);
-    final defaultSidebarIconColor = readableThemeForeground(sidebarBg, theme.iconTheme.color ?? theme.primaryColor);
-
-    final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
-    final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
     final sloganColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurfaceVariant);
     final contrastInk = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);
     final sidebarSelectedTileColor = PrimeShellMetrics.sidebarSelectionFill(

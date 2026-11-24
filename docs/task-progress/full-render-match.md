@@ -543,3 +543,17 @@ The focus fill and R05 corner radius still differ visibly. R01 header spacing
 and utilities, R02 alternate tabbed coverage, R03 right-rail and light popover,
 R04 scrim contents and wider/RTL cases, and R05 missing toolbar controls and
 trigger width remain open. All five views remain IN PROGRESS.
+
+### Folded tabbed account control
+
+The authorized account button is available at the bottom of the folded
+tabbed rail. It uses the existing compact avatar, account menu, resources,
+and permission checks. The rail scrolls its destinations independently of
+the footer. No saved-layout values or navigation destinations were added.
+
+The light and dark fixtures verify the 40px trigger, keyboard opening,
+Sign out focus, Escape dismissal and return to the same control. Candidate
+`83664894d83bd59efdb785a7d02ab937423ade15` passed the 28 shell fixture tests in
+capture and replay, GitHub run `45328880802`. Artifact `14891022029` contains
+the twelve folded-tabbed captures. The rest of the tracked shell images
+showed no pixel changes. R02 and the other four active views remain IN PROGRESS.

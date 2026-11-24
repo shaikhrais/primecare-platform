@@ -348,7 +348,14 @@ class PrimeNavigationTab {
 class PrimeTabbedNavigation extends StatefulWidget {
   final List<PrimeNavigationTab> tabs;final int initialIndex;
   final Widget? railHeader;
-  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0,this.railHeader});
+  final Widget? foldedRailFooter;
+  const PrimeTabbedNavigation({
+    super.key,
+    required this.tabs,
+    this.initialIndex = 0,
+    this.railHeader,
+    this.foldedRailFooter,
+  });
   @override State<PrimeTabbedNavigation> createState()=>_PrimeTabbedNavigationState();
 }
 class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
@@ -397,50 +404,54 @@ class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
     }
     return LayoutBuilder(builder: (context, limits) {
       final folded = limits.maxWidth <= 96;
+      final destinations = ListView(children: [
+        if (folded && widget.railHeader != null) widget.railHeader!,
+        for (var i = 0; i < widget.tabs.length; i++)
+          Semantics(
+            container: folded,
+            label: folded
+                ? (widget.tabs[i].entries.length == 1
+                    ? widget.tabs[i].entries.single.label
+                    : widget.tabs[i].label)
+                : null,
+            link: folded && widget.tabs[i].entries.length == 1,
+            selected: i == selected,
+            child: folded
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (i == selected)
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: foldedSelection,
+                            borderRadius: PrimeShellMetrics.navigationItemRadius,
+                          ),
+                          child: const SizedBox.square(
+                            dimension: PrimeShellMetrics.sidebarRowHeight,
+                          ),
+                        ),
+                      foldedAction(widget.tabs[i], i == selected),
+                    ],
+                  )
+                : Container(
+                    color: i == selected ? scheme.primaryContainer : null,
+                    child: PrimeIconButton(
+                      tooltip: widget.tabs[i].label,
+                      onPressed: () => setState(() => selected = i),
+                      icon: PrimeIcon(widget.tabs[i].icon, size: 20,
+                        color: i == selected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant),
+                    ),
+                  ),
+          ),
+      ]);
+      final footer = folded ? widget.foldedRailFooter : null;
       return Row(children: [
         Container(
           width: folded ? limits.maxWidth : 48,
           color: folded ? foldedSurface : scheme.surfaceContainerLow,
-          child: ListView(children: [
-            if (folded && widget.railHeader != null) widget.railHeader!,
-            for (var i = 0; i < widget.tabs.length; i++)
-              Semantics(
-                container: folded,
-                label: folded
-                    ? (widget.tabs[i].entries.length == 1
-                        ? widget.tabs[i].entries.single.label
-                        : widget.tabs[i].label)
-                    : null,
-                link: folded && widget.tabs[i].entries.length == 1,
-                selected: i == selected,
-                child: folded
-                    ? Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          if (i == selected)
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: foldedSelection,
-                                borderRadius: PrimeShellMetrics.navigationItemRadius,
-                              ),
-                              child: const SizedBox.square(
-                                dimension: PrimeShellMetrics.sidebarRowHeight,
-                              ),
-                            ),
-                          foldedAction(widget.tabs[i], i == selected),
-                        ],
-                      )
-                    : Container(
-                        color: i == selected ? scheme.primaryContainer : null,
-                        child: PrimeIconButton(
-                          tooltip: widget.tabs[i].label,
-                          onPressed: () => setState(() => selected = i),
-                          icon: PrimeIcon(widget.tabs[i].icon, size: 20,
-                            color: i == selected ? scheme.onPrimaryContainer : scheme.onSurfaceVariant),
-                        ),
-                      ),
-              ),
-          ]),
+          child: footer == null
+              ? destinations
+              : Column(children: [Expanded(child: destinations), footer]),
         ),
         if (!folded) Expanded(child: widget.tabs[selected].content),
       ]);

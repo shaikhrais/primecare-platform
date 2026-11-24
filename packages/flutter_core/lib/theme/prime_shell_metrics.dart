@@ -63,6 +63,7 @@ abstract final class PrimeShellMetrics {
   // The persisted profile continues to use 64 as its folded marker.
   static const foldedNavigationMarker = 64;
   static const foldedNavigationWidth = 48.0;
+  static const foldedNavigationContentWidth = foldedNavigationWidth - 1;
   static const mobileDrawerWidth = 280.0;
   static const drawerScrimColor = Color(0x80000000);
   static const sidebarToggleSize = 32.0;
