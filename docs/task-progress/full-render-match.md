@@ -778,3 +778,20 @@ Native artifact `14925332789` supplies the tracked captures. The corrected
 candidate accounts for the reference border inset after the initial narrower
 candidate failed the width check. R01–R05 remain IN PROGRESS. Missing
 native toolbar bindings require review. Demo implementation remains BLOCKED.
+
+### Account popup hover surface
+
+The account popup clips its row paint to the outer paper shape. The inner row
+retains the shared 4 px radius. The hover fill uses the registered theme token
+composited against the active popup paper. In the dark fixture, the sampled
+RGB value changes from (44, 47, 51) to (43, 46, 51), the value observed in Fuse.
+The sampled light fill is RGB (229, 231, 235). The paired samples cover the
+five active views and the alternate folded-tabbed account menu in both themes.
+
+[GitHub native capture run 45417129601](https://github.com/shaikhrais/primecare-platform/actions/runs/45417129601)
+rendered source `a86d61a771131a583b5da11747f97d1d8e19df8b`.
+Native artifact `14932109473` supplies the 12 tracked hover screenshots.
+Pointer and keyboard activation, menu focus and Escape return pass in the
+capture fixture. The new samples cover the account popup and its hover state.
+All five whole-view tasks remain IN PROGRESS. The native red theme launchers
+and demo implementation remain BLOCKED.
