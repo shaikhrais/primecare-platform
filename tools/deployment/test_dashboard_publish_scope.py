@@ -21,6 +21,32 @@ class DashboardPublishScopeTest(unittest.TestCase):
     def test_only_pilot_skips_unrelated_publish(self):
         self.assertFalse(allow_legacy("push", PILOT_PATHS))
 
+    def test_theme_ci_repair_disables_only_exact_automatic_release_scope(self):
+        paths = {
+            "docs/appearance/theme-execution-ledger.json",
+            "docs/appearance/theme-service-contract-triage.json",
+            "packages/primecare_ui/catalogs/developer-catalogue.json",
+            "packages/shared/src/guarded-json.ts",
+            "scripts/test-work-modules-transport.mjs",
+            "tools/governance-production/theme-source-revisions.json",
+        }
+        after = "3" * 40
+        entries = [f"100644 blob {blob}\t{path}" for path, blob in scope.THEME_CI_REPAIR_BLOBS.items()]
+        with patch.object(scope.subprocess, "check_output", return_value="\0".join(entries) + "\0") as git:
+            self.assertFalse(allow_legacy("push", paths, after=after))
+            git.assert_called_once_with(["git", "ls-tree", "-z", after, "--", *scope.THEME_CI_REPAIR_BLOBS], text=True)
+        for wrong in (entries[:-1], [*entries[:-1], entries[-1].replace("100644", "100755", 1)],
+                      [*entries[:-1], entries[-1].replace(next(reversed(scope.THEME_CI_REPAIR_BLOBS.values())), "f" * 40)]):
+            with patch.object(scope.subprocess, "check_output", return_value="\0".join(wrong) + "\0"):
+                self.assertTrue(allow_legacy("push", paths, after=after))
+        with self.assertRaises(ValueError):
+            allow_legacy("push", paths)
+        for excluded in paths:
+            with self.subTest(excluded=excluded):
+                self.assertTrue(allow_legacy("push", paths - {excluded}))
+        self.assertTrue(allow_legacy("push", paths | {"websites/typescript/src/workspace.ts"}))
+        self.assertTrue(allow_legacy("workflow_dispatch", paths))
+
     def test_unrelated_push_keeps_existing_behavior(self):
         self.assertTrue(allow_legacy("push", {"websites/typescript/src/workspace.ts"}))
         self.assertTrue(allow_legacy("push", {"cloudflare/workers/src/screen-text.ts"}))

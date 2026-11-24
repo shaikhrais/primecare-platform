@@ -17,9 +17,28 @@ GATE_PATHS = {
     "tools/deployment/dashboard_publish_scope.py",
     "tools/deployment/test_dashboard_publish_scope.py",
 }
+THEME_CI_REPAIR_BLOBS = {
+    "docs/appearance/theme-execution-ledger.json": "d2c792927dabd348487ce5f37bf0026fdb96c029",
+    "docs/appearance/theme-service-contract-triage.json": "b8a1179673a93ef063349c5b8e9f368f4172847d",
+    "packages/primecare_ui/catalogs/developer-catalogue.json": "75a10656e788c8d63b1972a1238bfc0de805c435",
+    "packages/shared/src/guarded-json.ts": "43a2e4c041eccec0a31011b7dc1cdda7d1e3353d",
+    "scripts/test-work-modules-transport.mjs": "959f8bdc0b40526a4b459297bdeb26a66e42b8c0",
+    "tools/governance-production/theme-source-revisions.json": "d9cb552b248eb75861333ad351191d1ce51785dc",
+}
 MARKER = "websites/typescript/src/governance-officer-pilot.ts"
 PILOT_PATHS = {MARKER, "websites/typescript/src/workspace.ts"}
 CLINICAL_API_MARKER = "cloudflare/workers/src/clinical-dashboard.ts"
+
+
+def matches_theme_ci_repair(after):
+    if not after:
+        raise ValueError("Theme repair scope must bind the exact after commit")
+    entries = subprocess.check_output(
+        ["git", "ls-tree", "-z", after, "--", *THEME_CI_REPAIR_BLOBS],
+        text=True,
+    )
+    expected = {f"100644 blob {blob}\t{path}" for path, blob in THEME_CI_REPAIR_BLOBS.items()}
+    return set(entries.split("\0")[:-1]) == expected
 
 
 def allow_legacy(event, paths, before=None, after=None):
@@ -27,6 +46,10 @@ def allow_legacy(event, paths, before=None, after=None):
         return True
     if event != "push" or not paths:
         raise ValueError("Cannot determine approved release scope")
+    # Only the complete reviewed repair cohort is a checks-only push. Do not
+    # reclassify an arbitrary subset or a mixed change as this repair.
+    if paths == THEME_CI_REPAIR_BLOBS.keys() and matches_theme_ci_repair(after):
+        return False
     # This API-only release uses separate verification and promotion.
     # A mixed push cannot re-enable a legacy dashboard production writer.
     if CLINICAL_API_MARKER in paths:
