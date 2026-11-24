@@ -1,4 +1,4 @@
-name: Verify PrimeCare Flutter core package split
+name: Verify PrimeCare package migration and nine Flutter web builds
 on:
   push:
     branches: [main]
@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 env:
-  PC_SHA: c2d120c604728d5dc75fad0764fac33c9a49ae50
-  PC_TREE: 3c9ae704f71a7473a0944c03c3e94b37863e8919
-  PC_PARENT: 5e9fffdec74173783f0714c47e995f80e796a8c4
+  PC_SHA: 5017393d132db246d29f232e1c8a3d05729c23b9
+  PC_TREE: dd20b2c33b097249fdc86da94fd3ee9e4c02cce6
+  PC_PARENT: 1eb03bb3b0e9697b927369fb62b63cd2bd084c86
 jobs:
   inventory:
     runs-on: ubuntu-24.04
@@ -79,3 +79,34 @@ jobs:
           flutter pub get
           flutter build web --no-pub --release --no-tree-shake-icons
           test -s build/web/main.dart.js
+  app-build:
+    needs: inventory
+    name: Flutter web build (${{ matrix.app }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 32
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        app: [primecare_business_development, primecare_client, primecare_clinic, primecare_corporate, primecare_enterprise_blueprint, primecare_franchise, primecare_governance, primecare_marketing, primecare_support]
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Resolve exact app package graph
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          flutter pub get
+      - if: matrix.app == 'primecare_enterprise_blueprint'
+        name: Verify Blueprint theme and UI compatibility
+        working-directory: apps/primecare_enterprise_blueprint
+        run: |
+          flutter test --no-pub test/widget_test.dart
+      - name: Compile the Flutter app; no deployment
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          flutter build web --no-pub --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://fixture.invalid
+          test -s build/web/main.dart.js
+          sha256sum build/web/main.dart.js
