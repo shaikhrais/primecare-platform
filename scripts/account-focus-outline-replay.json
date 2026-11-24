@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "baseCommit": "6a4fe692a0b52b2f6c2771bc61fca3a560a24790",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "565a8ed4fa620efa40b3bf85b7fd99aed9c5b5ff57489f7420c41d03f9e55cbf",
+      "afterSha256": "8baa4d847db2866aa6c37fabc1095ac5248470497d50d348e3ef3c987f675ae0",
+      "edits": [
+        {
+          "begin": 85,
+          "old": "",
+          "new": "import '../../theme/prime_account_trigger_focus_frame.dart';\n"
+        },
+        {
+          "begin": 27614,
+          "old": "",
+          "new": "    final triggerRadius = sidebar\n        ? PrimeShellMetrics.sidebarAccountRadius\n        : PrimeShellMetrics.toolbarAccountRadius;\n"
+        },
+        {
+          "begin": 27663,
+          "old": "",
+          "new": "      borderRadius: triggerRadius,\n"
+        },
+        {
+          "begin": 30785,
+          "old": "        child: KeyedSubtree(key: Key(semanticsId), child: button),\n",
+          "new": "        child: KeyedSubtree(\n          key: Key(semanticsId),\n          child: PrimeAccountTriggerFocusFrame(\n            radius: triggerRadius,\n            child: button,\n          ),\n        ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "ed315308d8887fd95db6dbb5ff2f894754c998fea822e11f7eb376b96445f004",
+      "afterSha256": "3c8c8beb79dd7d8214aa0c4f4bb5c6551a50e9e6dc2f592f234fdb7f53c7348d",
+      "edits": [
+        {
+          "begin": 2906,
+          "old": "",
+          "new": "  static const sidebarAccountRadius = BorderRadius.all(Radius.circular(8));\n  static const accountFocusOutlineGap = 2.0;\n  static const accountFocusOutlineWidth = 1.0;\n  static const accountFocusOutlineExtent =\n      accountFocusOutlineGap + accountFocusOutlineWidth;\n"
+        },
+        {
+          "begin": 4659,
+          "old": "",
+          "new": "  static BoxDecoration accountFocusDecoration(\n    ThemeData theme,\n    BorderRadius radius,\n  ) => BoxDecoration(\n    border: Border.all(\n      color: navigationFocusInk(theme.colorScheme.onSurface),\n      width: accountFocusOutlineWidth,\n    ),\n    borderRadius:\n        radius +\n        const BorderRadius.all(Radius.circular(accountFocusOutlineExtent)),\n  );\n\n"
+        },
+        {
+          "begin": 5635,
+          "old": "",
+          "new": "\n"
+        }
+      ]
+    }
+  ]
+}

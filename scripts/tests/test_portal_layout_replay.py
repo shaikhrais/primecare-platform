@@ -8,9 +8,20 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from reviewed_migration_history import before_portal_layout, before_complete_theme_settings, before_user_settings_isolation, before_fuse_center_match, before_navbar_style, before_shell_metrics, before_avatar_fallback, before_shell_border_frame, before_sidebar_default, before_sidebar_render, before_sidebar_slogan, before_sidebar_states, before_full_render_navigation_focus, before_navigation_theme_boundary, before_full_render_toolbar_actions, before_toolbar_shared_tokens, before_sidebar_account_footer, before_sidebar_account_style_boundary, before_account_menu_state_capture, before_account_menu_fuse_state, before_account_menu_geometry
 
-from reviewed_migration_history import before_account_menu_boundary_repair, before_mobile_account_edge, before_account_surface_style, before_account_typography, before_shell_overlay_style, before_account_keyboard, before_unobscured_account_capture
+from reviewed_migration_history import before_account_menu_boundary_repair, before_mobile_account_edge, before_account_surface_style, before_account_typography, before_shell_overlay_style, before_account_keyboard, before_unobscured_account_capture, before_account_focus_outline
 
 class AccountKeyboardReplayTest(unittest.TestCase):
+    def test_account_focus_outline_replays_only_exact_source(self):
+        receipt=json.loads((ROOT/'scripts/account-focus-outline-replay.json').read_text())
+        self.assertEqual(len(receipt['files']),2)
+        for row in receipt['files']:
+            path=row['path']
+            source=(ROOT/path).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            restored=before_account_focus_outline(source,path)
+            self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_account_focus_outline(source+'\n',path),source+'\n')
+
     def test_exact_account_keyboard_replay(self):
         receipt=json.loads((ROOT/'scripts/account-keyboard-replay.json').read_text())
         self.assertEqual(len(receipt['files']),3)

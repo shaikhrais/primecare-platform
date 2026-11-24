@@ -1,5 +1,6 @@
 import '../../theme/portal_section_theme.dart';
 import '../../original_assets.dart';
+import '../../theme/prime_account_trigger_focus_frame.dart';
 import '../../theme/prime_shell_metrics.dart';
 import '../../theme/prime_toolbar_account_frame.dart';
 import '../../theme/theme_center_options.dart';
@@ -559,7 +560,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
               ),
             ),
           );
+    final triggerRadius = sidebar
+        ? PrimeShellMetrics.sidebarAccountRadius
+        : PrimeShellMetrics.toolbarAccountRadius;
     final button = PrimePopupMenuButton<String>(
+      borderRadius: triggerRadius,
       position: sidebar ? PopupMenuPosition.over : PopupMenuPosition.under,
       offset: PrimeShellMetrics.accountMenuOffset(
         sidebar: sidebar,
@@ -638,7 +643,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
         padding: sidebar
             ? PrimeShellMetrics.sidebarAccountOuterPadding(compact)
             : PrimeShellMetrics.toolbarAccountMargin,
-        child: KeyedSubtree(key: Key(semanticsId), child: button),
+        child: KeyedSubtree(
+          key: Key(semanticsId),
+          child: PrimeAccountTriggerFocusFrame(
+            radius: triggerRadius,
+            child: button,
+          ),
+        ),
       ),
     );
   }

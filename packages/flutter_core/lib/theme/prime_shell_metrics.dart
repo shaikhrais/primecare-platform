@@ -71,6 +71,11 @@ abstract final class PrimeShellMetrics {
   static const toolbarAccountHeight = 36.0;
   static const toolbarAccountPadding = EdgeInsets.symmetric(horizontal: 4);
   static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));
+  static const sidebarAccountRadius = BorderRadius.all(Radius.circular(8));
+  static const accountFocusOutlineGap = 2.0;
+  static const accountFocusOutlineWidth = 1.0;
+  static const accountFocusOutlineExtent =
+      accountFocusOutlineGap + accountFocusOutlineWidth;
   static const accountMenuRadius = BorderRadius.all(Radius.circular(8));
   static const accountMenuConstraints = BoxConstraints(
     minWidth: 128,
@@ -112,6 +117,19 @@ abstract final class PrimeShellMetrics {
         border: Border.all(color: theme.dividerColor),
         borderRadius: toolbarAccountRadius,
       );
+  static BoxDecoration accountFocusDecoration(
+    ThemeData theme,
+    BorderRadius radius,
+  ) => BoxDecoration(
+    border: Border.all(
+      color: navigationFocusInk(theme.colorScheme.onSurface),
+      width: accountFocusOutlineWidth,
+    ),
+    borderRadius:
+        radius +
+        const BorderRadius.all(Radius.circular(accountFocusOutlineExtent)),
+  );
+
   static TextStyle? toolbarAccountAvatarTextStyle(
     ThemeData theme,
     Color foreground, {
@@ -146,6 +164,7 @@ abstract final class PrimeShellMetrics {
             height: 1,
           );
   }
+
   static TextStyle? accountSignOutTextStyle(
     ThemeData theme,
     Color foreground, {

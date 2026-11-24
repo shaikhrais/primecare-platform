@@ -522,3 +522,24 @@ Tab as an opening key. The capture now takes one reverse tab before re-entering
 the trigger when Escape restored focus. It also checks the hit-test at the
 center of the focused trigger before recording evidence. This applies to the
 ten account cases and leaves the licensed source and key behavior intact.
+
+### R01–R05 visible native account focus
+
+PrimeCare's account trigger now paints a rounded keyboard focus outline using
+the shared navigation focus color. The focus frame observes the existing
+trigger and adds no tab stop. The test above still exercises Tab, Enter and
+Escape through the registered control and checks focus return.
+
+GitHub candidate `c1c0d9b47a491c372dd8257ec4dd7c0164a73616` passed
+28 shell cases during capture and again during image replay in run
+`45322223896`. Artifact `14888357285` supplies the ten changed focus goldens.
+Inspection found the outline visible in light and dark across all five views.
+The pixel changes are local to the focused account buttons. The menu frames
+and other tracked shell states have no pixel changes. The registered
+navigation fixture SHA-256 remains
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+
+The focus fill and R05 corner radius still differ visibly. R01 header spacing
+and utilities, R02 alternate tabbed coverage, R03 right-rail and light popover,
+R04 scrim contents and wider/RTL cases, and R05 missing toolbar controls and
+trigger width remain open. All five views remain IN PROGRESS.
