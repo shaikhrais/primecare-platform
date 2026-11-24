@@ -809,5 +809,12 @@ high. The wide placement, footer under the scrim and RTL review remain open.
 
 At that source, enabling capture shadows still leaves a flat native drawer
 edge because Flutter's Material 3 drawer defaults to a transparent shadow
-color. The shared mobile drawer now applies two outer shadow layers. The
-current correction requires a fresh visual review. R04 remains IN PROGRESS.
+color. The shared mobile drawer now applies two outer shadow layers.
+[GitHub shell capture run 45430719232](https://github.com/shaikhrais/primecare-platform/actions/runs/45430719232)
+passed for source `2286f8a873a0d3eadf256b861488c8c5b3b906c7`. Native artifact
+`14940370291` and reference artifact `14939368522` provide 32 paired R04
+screens. At x=280, y=360, the light drawer edge moved from RGB (123, 123, 124) to
+(116, 116, 117), while Fuse measures (118, 118, 119). The sampled edge falloff
+still differs. The 64 paired native frames in R01, R02, R03 and R05 retain
+their decoded pixels. Both shared UI and screen-style checks passed. R04
+remains IN PROGRESS after visual review.
