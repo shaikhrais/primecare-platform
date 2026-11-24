@@ -76,16 +76,21 @@ jobs:
         shell: python
         run: |
           import os,json,time,hashlib,urllib.request,urllib.error,pathlib
+          from tools.deployment.http_client import read_public_asset
           base=os.environ['SITE_URL']; sha=os.environ['GITHUB_SHA']
           expected=json.loads(pathlib.Path('personal-resume/build.json').read_text())
           def read(path):
-              with urllib.request.urlopen(base+'/'+path+'?build='+sha,timeout=30) as response: return response.read()
+              return read_public_asset(base+'/'+path+'?build='+sha)
           for attempt in range(12):
               try:
                   assert json.loads(read('build.json'))==expected, 'Deployment still propagating'
-                  assert hashlib.sha256(read('index.html')).hexdigest()==expected['sha256']
+                  assert hashlib.sha256(read('')).hexdigest()==expected['sha256']
                   assert read('resume.pdf').startswith(b'%PDF')
                   break
+              except urllib.error.HTTPError as error:
+                  if error.code in (401,403): raise
+                  if attempt==11: raise
+                  time.sleep(5)
               except Exception:
                   if attempt==11: raise
                   time.sleep(5)
