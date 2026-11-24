@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' show PointerDeviceKind, SemanticsFlag;
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart' show debugDisableShadows;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -229,6 +230,23 @@ void main() {
             );
             await tester.tap(trigger);
             await tester.pumpAndSettle();
+            final drawer = tester.widget<DrawerController>(
+              find.byWidgetPredicate(
+                (widget) =>
+                    widget is DrawerController &&
+                    widget.alignment == DrawerAlignment.start,
+              ),
+            );
+            expect(drawer.scrimColor, const Color(0x80000000));
+            final scaffold = tester.state<ScaffoldState>(
+              find.byType(Scaffold).first,
+            );
+            await tester.tapAt(const Offset(340, 500));
+            await tester.pumpAndSettle();
+            expect(scaffold.isDrawerOpen, isFalse);
+            await tester.tap(trigger);
+            await tester.pumpAndSettle();
+            expect(scaffold.isDrawerOpen, isTrue);
           }
           final sidebar = find.byKey(const Key('app-sidebar'));
           expect(sidebar, findsOneWidget);
@@ -317,8 +335,14 @@ void main() {
             reason:
                 'Vertical account actions must stay inside the sidebar or drawer',
           );
-          await tester.tap(accountTrigger);
-          await tester.pumpAndSettle();
+          final previousShadowMode = debugDisableShadows;
+          debugDisableShadows = false;
+          try {
+            await tester.tap(accountTrigger);
+            await tester.pumpAndSettle();
+          } finally {
+            debugDisableShadows = previousShadowMode;
+          }
           expect(
             find.widgetWithText(PopupMenuItem<String>, 'Switch role'),
             findsNothing,
@@ -344,6 +368,7 @@ void main() {
             description: 'account menu Material surface',
           );
           expect(accountMenuSurface, findsOneWidget);
+          expect(tester.widget<Material>(accountMenuSurface).elevation, 2);
           final accountMenuRect = tester.getRect(accountMenuSurface);
           final signOutIcon = find.descendant(
             of: signOutItem,

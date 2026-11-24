@@ -251,6 +251,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
             child: KeyedSubtree(
               key: const Key('app-shell'),
               child: PrimeScaffold(
+                drawerScrimColor: PrimeShellMetrics.drawerScrimColor,
                 endDrawer: ThemeSettingsDrawer(tenantDefaultPreset: defaultPreset),
                 drawer: isHandheld || workspace.current.navigation == 'hidden'
                     ? _buildSidebar(
@@ -570,7 +571,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
       menuPadding: PrimeShellMetrics.accountMenuPadding,
       constraints: PrimeShellMetrics.accountMenuConstraints,
       shape: PrimeShellMetrics.accountMenuShape,
-      elevation: 0,
+      elevation: PrimeShellMetrics.accountMenuElevation,
+      shadowColor: PrimeShellMetrics.accountMenuShadowColor,
+      surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,
       tooltip: 'User Functions',
       child: trigger,
       onSelected: (value) {

@@ -11,6 +11,7 @@ class PrimeScaffold extends StatelessWidget {
   final Widget? drawer;
   final Widget? endDrawer;
   final Color? backgroundColor;
+  final Color? drawerScrimColor;
 
   const PrimeScaffold({
     super.key,
@@ -20,6 +21,7 @@ class PrimeScaffold extends StatelessWidget {
     this.drawer,
     this.endDrawer,
     this.backgroundColor,
+    this.drawerScrimColor,
   });
 
   @override
@@ -30,5 +32,6 @@ class PrimeScaffold extends StatelessWidget {
         drawer: drawer,
         endDrawer: endDrawer,
         backgroundColor: backgroundColor,
+        drawerScrimColor: drawerScrimColor,
       );
 }

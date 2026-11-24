@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' show ImageByteFormat, PointerDeviceKind, SemanticsFlag;
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart' show debugDisableShadows;
 import 'package:flutter/rendering.dart' show RenderRepaintBoundary;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -351,8 +352,14 @@ void main() {
               const Size.square(16),
             );
             expect(tester.getSize(find.text('Admin')).width, greaterThan(0));
-            await tester.tap(accountTrigger);
-            await tester.pumpAndSettle();
+            final previousShadowMode = debugDisableShadows;
+            debugDisableShadows = false;
+            try {
+              await tester.tap(accountTrigger);
+              await tester.pumpAndSettle();
+            } finally {
+              debugDisableShadows = previousShadowMode;
+            }
             expect(
               find.widgetWithText(PopupMenuItem<String>, 'Switch role'),
               findsNothing,
@@ -376,6 +383,7 @@ void main() {
               description: 'account menu Material surface',
             );
             expect(accountMenuSurface, findsOneWidget);
+            expect(tester.widget<Material>(accountMenuSurface).elevation, 2);
             final accountMenuRect = tester.getRect(accountMenuSurface);
             expect(
               accountMenuRect.width,

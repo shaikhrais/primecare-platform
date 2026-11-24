@@ -64,6 +64,7 @@ abstract final class PrimeShellMetrics {
   static const foldedNavigationMarker = 64;
   static const foldedNavigationWidth = 48.0;
   static const mobileDrawerWidth = 280.0;
+  static const drawerScrimColor = Color(0x80000000);
   static const sidebarToggleSize = 32.0;
   static const sidebarToggleOutlineSize = 28.0;
   static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 14);
@@ -78,6 +79,8 @@ abstract final class PrimeShellMetrics {
   static const accountMenuDesktopItemHeight = 32.0;
   static const accountMenuMobileItemHeight = 48.0;
   static const accountMenuPadding = EdgeInsets.zero;
+  static const accountMenuElevation = 2.0;
+  static const accountMenuShadowColor = Color(0x66000000);
   static const accountMenuIconExtent = 16.0;
   static const accountMenuIconGap = 8.0;
   static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);

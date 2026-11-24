@@ -413,11 +413,9 @@ The following origins are asserted from the complete 1440x1000 desktop and
 R04 now uses the source panel's 16px right inset in the reviewed light and dark
 390×844 cases. The shared metrics calculate a bounded launcher offset and retain
 Flutter's menu route. The native drawer divider still consumes one pixel of
-trigger width. The native test capture's
-elevation shadow is also disabled because the deterministic golden renderer
-paints the SDK shadow as a solid black outline rather than the source's subtle
-MUI shadow; runtime shadow equivalence remains open. These differences are
-recorded blockers, not accepted tolerances.
+trigger width. The earlier native captures suppressed account-menu elevation.
+The later overlay review restores a subtle shadow and records its remaining
+differences.
 
 R05's trigger is right-aligned to the same x=1248 content edge and its menu
 origin matches the source. With the 16px info icon, the full native trigger is
@@ -481,3 +479,23 @@ and Vite skeleton `src/styles/index.css` SHA-256
 `c4c6abe0fabc2ae5badffe65d57f2d069d65a8b8d6cc015a787d9f1cafdda85e`.
 The native account menu shape, location, content, authorization and dismissal
 remain unchanged. Typography progress keeps all five complete views IN PROGRESS.
+
+## Drawer backdrop and account popover shadows
+
+R04 now uses the same measured 50% black backdrop in the shared governance
+scaffold. At (335,490) the populated 390×844 reference and native captures
+both measure RGB (123,123,124) in light mode and (7,8,10) in dark mode.
+Backdrop tap dismissal, drawer reopening, selected navigation activation and
+the open account menu are exercised. The shared scaffold parameter is
+optional and the governance scaffold applies it to both of its drawers.
+
+The existing account popover uses a subtle native shadow in R01–R05. Capture
+tests enable normal Flutter shadow rendering while opening that popover, then
+restore their previous setting. All known menu rectangles and Escape behavior
+remain asserted. The native shadow falloff still differs from the source's
+multi-layer CSS shadow.
+
+The source drawer is `NavbarStyle1.tsx` SHA-256
+`97c2bc2a960c47c5a13f34d9a3eee1c83b72e998e983f893db368bed248190bf`.
+The source popover and shadow tokens are in the previously hashed
+`UserMenu.tsx` and `FuseDefaultSettings.ts`. All five views remain IN PROGRESS.

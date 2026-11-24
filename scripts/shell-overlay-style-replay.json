@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "baseCommit": "c0ed86c6f732a40a68ea62ec17ff724adec280d1",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "b3a99732c6a6ad325b8a0c76a13a6cd06d2cd444f5b5f93030c9816e4d174017",
+      "afterSha256": "565a8ed4fa620efa40b3bf85b7fd99aed9c5b5ff57489f7420c41d03f9e55cbf",
+      "edits": [
+        {
+          "begin": 12368,
+          "old": "",
+          "new": "                drawerScrimColor: PrimeShellMetrics.drawerScrimColor,\n"
+        },
+        {
+          "begin": 28064,
+          "old": "      elevation: 0,\n",
+          "new": "      elevation: PrimeShellMetrics.accountMenuElevation,\n      shadowColor: PrimeShellMetrics.accountMenuShadowColor,\n      surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "2dbb867cdd55b7142114e464f85b7badd84fff5dfe00ccec255c38071c0b3627",
+      "afterSha256": "ed315308d8887fd95db6dbb5ff2f894754c998fea822e11f7eb376b96445f004",
+      "edits": [
+        {
+          "begin": 2493,
+          "old": "",
+          "new": "  static const drawerScrimColor = Color(0x80000000);\n"
+        },
+        {
+          "begin": 3181,
+          "old": "",
+          "new": "  static const accountMenuElevation = 2.0;\n  static const accountMenuShadowColor = Color(0x66000000);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "e29a3b38397004f29b180b19ba5f36200fcacec3c6835ffc8d5038dad58b43e2",
+      "afterSha256": "0b68b0db5a2aac2a9b49951366ae310b336b1b40563d3750915c2583188a8e58",
+      "edits": [
+        {
+          "begin": 173,
+          "old": "",
+          "new": "import 'package:flutter/painting.dart' show debugDisableShadows;\n"
+        },
+        {
+          "begin": 8966,
+          "old": "",
+          "new": "            final drawer = tester.widget<DrawerController>(\n              find.byWidgetPredicate(\n                (widget) =>\n                    widget is DrawerController &&\n                    widget.alignment == DrawerAlignment.start,\n              ),\n            );\n            expect(drawer.scrimColor, const Color(0x80000000));\n            final scaffold = tester.state<ScaffoldState>(\n              find.byType(Scaffold).first,\n            );\n            await tester.tapAt(const Offset(340, 500));\n            await tester.pumpAndSettle();\n            expect(scaffold.isDrawerOpen, isFalse);\n            await tester.tap(trigger);\n            await tester.pumpAndSettle();\n            expect(scaffold.isDrawerOpen, isTrue);\n"
+        },
+        {
+          "begin": 12262,
+          "old": "          await tester.tap(accountTrigger);\n          await tester.pumpAndSettle();\n",
+          "new": "          final previousShadowMode = debugDisableShadows;\n          debugDisableShadows = false;\n          try {\n            await tester.tap(accountTrigger);\n            await tester.pumpAndSettle();\n          } finally {\n            debugDisableShadows = previousShadowMode;\n          }\n"
+        },
+        {
+          "begin": 13403,
+          "old": "",
+          "new": "          expect(tester.widget<Material>(accountMenuSurface).elevation, 2);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "152c34a6b1365f4ac8d40f277242cd8afb454b15bf5a5fb12f7d0b34e15ede09",
+      "afterSha256": "456ed7d9907df836d4ac9c7da582cf57d6822f0973f68954459b75a0d4833959",
+      "edits": [
+        {
+          "begin": 190,
+          "old": "",
+          "new": "import 'package:flutter/painting.dart' show debugDisableShadows;\n"
+        },
+        {
+          "begin": 14103,
+          "old": "            await tester.tap(accountTrigger);\n            await tester.pumpAndSettle();\n",
+          "new": "            final previousShadowMode = debugDisableShadows;\n            debugDisableShadows = false;\n            try {\n              await tester.tap(accountTrigger);\n              await tester.pumpAndSettle();\n            } finally {\n              debugDisableShadows = previousShadowMode;\n            }\n"
+        },
+        {
+          "begin": 15185,
+          "old": "",
+          "new": "            expect(tester.widget<Material>(accountMenuSurface).elevation, 2);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui_foundation/lib/src/prime_scaffold.dart",
+      "beforeSha256": "960feff87035d34e352b4f9b3f79c66df699b60a5839b1b290ab8bbfd251f75c",
+      "afterSha256": "2cb835004cf2b29e232dc87ba219a3c85cd04b4f8d64818d943944d3380101f9",
+      "edits": [
+        {
+          "begin": 470,
+          "old": "",
+          "new": "  final Color? drawerScrimColor;\n"
+        },
+        {
+          "begin": 636,
+          "old": "",
+          "new": "    this.drawerScrimColor,\n"
+        },
+        {
+          "begin": 897,
+          "old": "",
+          "new": "        drawerScrimColor: drawerScrimColor,\n"
+        }
+      ]
+    }
+  ]
+}
