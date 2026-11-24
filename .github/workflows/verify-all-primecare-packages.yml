@@ -1,0 +1,305 @@
+name: PrimeCare exact-source package verification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-all-primecare-packages.yml']
+
+permissions:
+  contents: read
+
+env:
+  PC_SHA: b2c31f6e9ced7158f6f2040990f67be52cd04fa6
+  CI: 'true'
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      packages: ${{ steps.plan.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PC_SHA }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve the exact tracked package set
+        id: plan
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          python -m pip install PyYAML==6.0.3
+          python tools/package_master/catalog.py --check
+          python - <<'PY'
+          import json, os, pathlib, re, subprocess, yaml
+          root = pathlib.Path('.')
+          tracked = subprocess.check_output(['git','ls-files','-z','--','packages/','services/']).decode().split('\0')
+          paths = {'/'.join(p.split('/')[:2]) for p in tracked if p.count('/') >= 2}
+          catalog = json.loads((root/'packages/primecare_package_base/catalog.json').read_text())['packages']
+          packages = {r['id']:r for r in catalog}
+          mapped_paths={row['path'] for row in packages.values()}
+          assert mapped_paths==paths, {'trackedNotInResolver':sorted(paths-mapped_paths),
+                                       'resolverNotTracked':sorted(mapped_paths-paths)}
+          plan = []
+          for key,row in sorted(packages.items()):
+              assert re.fullmatch(r'[a-zA-Z0-9_-]+',key) and row['path'] in (f'packages/{key}',f'services/{key}')
+              group=row['path'].split('/')[0]
+              path=root/row['path']
+              manifest={file for file in ('package.json','pubspec.yaml') if (path/file).is_file()}
+              assert manifest==set(row['manifests']), row['id']
+              files=[p for p in tracked if p.startswith(f'{row["path"]}/') and pathlib.PurePosixPath(p).name!='.gitkeep']
+              dart='pubspec.yaml' in manifest
+              flutter=False
+              if dart:
+                  spec=yaml.safe_load((path/'pubspec.yaml').read_text())
+                  flutter=any(isinstance(v,dict) and v.get('sdk')=='flutter'
+                   for section in ('dependencies','dev_dependencies') for v in (spec.get(section) or {}).values())
+              plan.append({'id':key,'path':row['path'],'node':'package.json' in manifest or key=='shared',
+                           'dart':dart or key=='factory_system','flutter':flutter,
+                           'manifest':bool(manifest),'placeholder':not files,
+                           'kind':row['kind'],'group':group,'trackedFileCount':len(files)})
+          by_id={entry['id']:entry for entry in plan}
+          changed=True
+          while changed:
+              changed=False
+              for entry in plan:
+                  dependencies=packages[entry['id']]['dependencies']+packages[entry['id']]['developmentDependencies']
+                  if entry['dart'] and not entry['flutter'] and any(by_id[dep]['flutter'] for dep in dependencies):
+                      entry['flutter']=True
+                      changed=True
+          assert sum(p['group']=='packages' for p in plan)==20
+          assert sum(p['group']=='services' for p in plan)==13
+          pathlib.Path('coverage-plan.json').write_text(json.dumps({'source':os.environ['PC_SHA'],'packages':plan},indent=2)+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              print('packages='+json.dumps(plan,separators=(',',':')),file=f)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: primecare-package-plan
+          path: coverage-plan.json
+          if-no-files-found: error
+
+  package:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        package: ${{ fromJSON(needs.plan.outputs.packages) }}
+    name: ${{ matrix.package.id }}
+    env:
+      PC_PACKAGE: ${{ toJSON(matrix.package) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PC_SHA }}
+          persist-credentials: false
+      - name: Initialize report before dependencies
+        run: |
+          mkdir -p coverage
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          info=json.loads(os.environ['PC_PACKAGE'])
+          head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          assert head==os.environ['PC_SHA']
+          pathlib.Path('coverage/status.json').write_text(json.dumps({
+              'package': info['id'],'source': head,'status':'setup_failed_or_interrupted','steps':[]
+          },indent=2)+'\n')
+          PY
+      - if: matrix.package.node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - if: matrix.package.dart
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - if: matrix.package.node
+        name: Resolve locked npm dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - if: matrix.package.id == 'database'
+        name: Cache the Prisma schema engine; no database connection
+        env:
+          DATABASE_URL: postgresql://fixture:fixture@127.0.0.1:1/not_a_database
+        run: npm exec --offline -- prisma --version
+      - if: matrix.package.dart && matrix.package.manifest
+        name: Resolve native package dependencies
+        working-directory: ${{ matrix.package.path }}
+        run: |
+          flutter config --no-analytics
+          if [ "${{ matrix.package.flutter }}" = true ]; then flutter pub get; else dart pub get; fi
+      - if: matrix.package.id == 'primecare_kitchen_sink'
+        name: Resolve the checked-in Flutter preview
+        working-directory: examples/kitchen_sink_flutter
+        run: |
+          flutter precache --web
+          flutter pub get
+      - if: matrix.package.id == 'primecare_kitchen_sink_web'
+        name: Install the existing catalogue generator's parser
+        run: python3 -m pip install PyYAML==6.0.3
+      - name: Run checks in a network namespace with loopback only
+        run: |
+          cat > "$RUNNER_TEMP/pc-package-check.py" <<'PY'
+          import hashlib, json, os, pathlib, subprocess, sys
+          root=pathlib.Path(os.environ['GITHUB_WORKSPACE'])
+          info=json.loads(os.environ['PC_PACKAGE'])
+          path=root/info['path']
+          out=root/'coverage'
+          key=info['id']
+          status={'package':key,'group':info['group'],'source':os.environ['PC_SHA'],'steps':[]}
+          failures=[]
+          def artifact(path):
+              assert path.is_file() and path.stat().st_size>0, str(path)
+              status.setdefault('outputs',[]).append({
+                  'path':str(path.relative_to(root)),
+                  'bytes':path.stat().st_size,
+                  'sha256':hashlib.file_digest(path.open('rb'),'sha256').hexdigest(),
+              })
+          os.environ.update({
+            'DATABASE_URL':'postgresql://fixture:fixture@127.0.0.1:1/not_a_database',
+            'PRISMA_GENERATE_SKIP_AUTOINSTALL':'true','FLUTTER_SUPPRESS_ANALYTICS':'true',
+          })
+          def run(label,category,command,cwd=path):
+              destination=out/(label+'.log')
+              print(key, label, command, flush=True)
+              with destination.open('w') as stream:
+                  try:
+                      code=subprocess.run(command,cwd=cwd,stdout=stream,stderr=subprocess.STDOUT,timeout=1200).returncode
+                  except subprocess.TimeoutExpired:
+                      print('Timed out',file=stream)
+                      code=124
+                  except OSError as error:
+                      print(error,file=stream)
+                      code=127
+              status['steps'].append({'check':label,'category':category,'exitCode':code,'log':destination.name})
+              if code: failures.append(label)
+          tracked=[p for p in subprocess.check_output(['git','ls-files','-z','--',info['path']+'/'],cwd=root).decode().split('\0') if p]
+          tracked_rel=[str(pathlib.Path(p).relative_to(info['path'])) for p in tracked]
+          if info['placeholder']:
+              status['status']='placeholder_no_build_target'
+          else:
+              if info['dart'] and info['manifest']:
+                  language='flutter' if info['flutter'] else 'dart'
+                  sources=[name for name in ('lib','bin','test') if (path/name).is_dir()]
+                  if sources: run('native-analysis','static',[language,'analyze',*(['--no-pub'] if info['flutter'] else []),*sources])
+                  if any(p.startswith('test/') and p.endswith('_test.dart') for p in tracked_rel):
+                      args=[language,'test']+(['--no-pub','--exclude-tags=visual-capture'] if info['flutter'] else [])
+                      run('native-tests','test',args)
+              if info['group']=='services':
+                  if 'bin/server.dart' not in tracked_rel:
+                      raise RuntimeError(key+' has no tracked Dart server entry point')
+                  run('dart-server-compile','build',['dart','compile','exe','bin/server.dart','-o',str(out/'server')])
+                  if (out/'server').is_file():
+                      artifact(out/'server')
+                      (out/'server').unlink()
+                  status['limit']='Compiled the declared Dart server; no launch, provider calls, schema changes or Worker deploy.'
+              if key=='factory_system':
+                  dart=[p for p in tracked_rel if p.endswith('.dart')]
+                  if dart: run('factory-source-parse','syntax',['dart','format','--output=none',*dart])
+              if key=='database':
+                  schema=str(path/'prisma/schema')
+                  run('prisma-schema','static',['npm','exec','--offline','--','prisma','validate','--schema',schema],root)
+                  run('prisma-client','build',['npm','exec','--offline','--','prisma','generate','--schema',schema],root)
+              if info['node']:
+                  if (path/'package.json').exists():
+                      scripts=json.loads((path/'package.json').read_text()).get('scripts',{})
+                      if 'typecheck' in scripts: run('npm-types','static',['npm','--ignore-scripts','run','typecheck'])
+                      if key in ('domain','primecare_package_base'): run('npm-tests','test',['npm','--ignore-scripts','test'])
+                      if key=='infrastructure': run('npm-build','build',['npm','--ignore-scripts','run','build'])
+                  files=[p for p in tracked_rel if p.endswith(('.mjs','.cjs','.js')) and not p.startswith('generated/')]
+                  if files:
+                      run('javascript-syntax','syntax',[sys.executable,'-c',
+                         'import subprocess,sys; res=[subprocess.run(["node","--check",f]).returncode for f in sys.argv[1:]];sys.exit(any(res))',*files])
+              if key=='shared':
+                  cases=[str(root/p) for p in tracked if p.startswith('packages/shared/test/') and p.endswith('.test.mjs')]
+                  if cases: run('shared-source-tests','test',['node','--test',*cases],root)
+              if key=='primecare_master':
+                  tsc=root/'node_modules/.bin/tsc'
+                  run('master-web-export','static',[str(tsc),'--noEmit','--strict','--skipLibCheck','--target','ES2022',
+                      '--module','ESNext','--moduleResolution','Bundler','--resolveJsonModule','--lib','ES2022,DOM,DOM.Iterable',
+                      'packages/primecare_master/web/kitchen-sink.ts'],root)
+                  run('web-import-boundary','test',['node','--test','tools/package_master/test_web_boundary.mjs'],root)
+              if key=='primecare_kitchen_sink_web':
+                  run('kitchen-sink-web-preview','build',['node','tools/kitchen_sink/build.mjs','--outdir',str(out/'web-preview')],root)
+                  if not failures: artifact(out/'web-preview/index.html'); artifact(out/'web-preview/assets/app.js')
+              if key=='primecare_kitchen_sink_catalog':
+                  run('kitchen-sink-catalog','test',['node','--test','tools/kitchen_sink/test_catalog.mjs'],root)
+              if key=='primecare_kitchen_sink':
+                  preview=root/'examples/kitchen_sink_flutter'
+                  run('kitchen-sink-flutter-preview','build',['flutter','build','web','--no-pub','--release','--no-tree-shake-icons'],preview)
+                  if not failures: artifact(preview/'build/web/index.html'); artifact(preview/'build/web/main.dart.js')
+              categories={step['category'] for step in status['steps'] if step['exitCode']==0}
+              status['status']='failed' if failures else (
+                 'build_verified' if 'build' in categories else 'tests_verified_no_standalone_build' if 'test' in categories
+                 else 'static_only' if categories else 'missing_check')
+          status['failedChecks']=failures
+          if key=='shared':
+              status['limit']='JavaScript syntax and checked-in shared business fixtures; no standalone build target.'
+          if key=='factory_system':
+              status['limit']='Dart parser check only; no package manifest.'
+          (out/'status.json').write_text(json.dumps(status,indent=2)+'\n')
+          sys.exit(bool(failures) or status['status']=='missing_check')
+          PY
+          tool_path="$PATH"
+          sudo --preserve-env=HOME,FLUTTER_ROOT,RUNNER_TEMP,GITHUB_WORKSPACE,PC_PACKAGE,PC_SHA,CI unshare --net bash --noprofile --norc -c 'ip link set lo up; exec runuser -m -u "$1" -- env PATH="$3" python3 "$2"' _ "$(id -un)" "$RUNNER_TEMP/pc-package-check.py" "$tool_path"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: primecare-package-${{ matrix.package.id }}
+          path: coverage/
+          if-no-files-found: error
+
+  report:
+    needs: [plan, package]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: primecare-package-*
+          path: receipts
+      - name: Summarize per-package evidence against the exact plan
+        env:
+          MATRIX_RESULT: ${{ needs.package.result }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, sys
+          root=pathlib.Path('receipts')
+          source=os.environ['PC_SHA']
+          plan_file=root/'primecare-package-plan/coverage-plan.json'
+          if not plan_file.exists():
+              print('Exact-source coverage plan missing',file=sys.stderr)
+              sys.exit(1)
+          plan=json.loads(plan_file.read_text())
+          assert plan['source']==source
+          results=[]
+          for p in plan['packages']:
+              record=root/('primecare-package-'+p['id'])/'status.json'
+              value=json.loads(record.read_text()) if record.exists() else {'package':p['id'],'status':'missing_receipt','steps':[]}
+              if record.exists(): assert value['package']==p['id'] and value['source']==source
+              value['group']=p['group']
+              results.append(value)
+          pathlib.Path('all-package-summary.json').write_text(json.dumps({'source':source,'packages':results},indent=2)+'\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as out:
+              print(f'## Package verification for `{source}`\n',file=out)
+              print('| Package or service | Status | Evidence |\n|---|---|---|',file=out)
+              for row in results:
+                  actions=', '.join(step['check']+': '+('pass' if step['exitCode']==0 else 'fail') for step in row['steps'])
+                  print(f"| `{row['group']}/{row['package']}` | {row['status']} | {actions or 'No executable target or no receipt'} |",file=out)
+          invalid={'failed','missing_check','setup_failed_or_interrupted','missing_receipt'}
+          sys.exit(any(row['status'] in invalid for row in results) or os.environ['MATRIX_RESULT']!='success')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: primecare-all-packages-summary
+          path: all-package-summary.json
+          if-no-files-found: warn
