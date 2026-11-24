@@ -1,0 +1,52 @@
+name: Verify shell account focus candidate
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/fuse-account-focus-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  CANDIDATE_SHA: 6cb603e48dca376fe83082b26dae2801b2b5e875
+  EXPECTED_PARENT: bcbc78e49a81ec5235fb8da2e076bfb699c467e3
+  EXPECTED_TREE: f37d2bab763545cabb0aff85e79d1c4c339b78b5
+  FLUTTER_SUPPRESS_ANALYTICS: 'true'
+jobs:
+  native:
+    name: Render and verify all five keyboard account views
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          persist-credentials: false
+      - name: Verify exact sources and review boundaries
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$EXPECTED_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$EXPECTED_PARENT"
+          printf 'Fixture candidate: `%s`\n\nReviewed parent: `%s`\n' "$CANDIDATE_SHA" "$EXPECTED_PARENT" >> "$GITHUB_STEP_SUMMARY"
+          git fetch --no-tags --depth=1 origin a75adabc1efdedbc5ed387584cf5b51ad9e41cbc
+          python3 scripts/check-shared-ui-boundary.py
+          python3 scripts/check-screen-style-boundary.py --head "$CANDIDATE_SHA"
+          python3 -m unittest scripts.tests.test_portal_layout_replay
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Render and replay the native shell fixtures
+        working-directory: packages/flutter_core
+        run: |
+          flutter pub get
+          flutter test --no-pub --update-goldens --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart
+          flutter test --no-pub --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart test/screenshots/theme_center_capture_test.dart
+      - name: Save exact evidence identity
+        run: printf '%s\n' "$CANDIDATE_SHA" > packages/flutter_core/test/screenshots/shell-captures/candidate-sha.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-shell-account-focus-candidate
+          path: |
+            packages/flutter_core/test/screenshots/shell-captures
+            packages/flutter_core/test/screenshots/sidebar-state-captures
+          if-no-files-found: error
+          retention-days: 14
