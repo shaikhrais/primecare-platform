@@ -72,7 +72,7 @@ Keep the original PrimeCare brand and registered resources. Use matching common 
 
 | Surface | Reference identifier | PrimeCare result | Full-view status |
 |---|---|---|---|
-| R01–R03 desktop sidebar | `lucide:panel-left` | Same glyph on both sides and in both fold states. The 28 px outline uses the palette divider. The left inset agrees in both themes. Right placement remains open. | IN PROGRESS |
+| R01–R03 desktop sidebar | `lucide:panel-left` | Same glyph on both sides and in both fold states. The 28 px outline uses the palette divider. The left inset and right paint position agree in both themes in the aligned desktop fixture. Alternate viewports and RTL remain open. | IN PROGRESS |
 | R04 mobile drawer | `lucide:panel-left` | Same glyph and outline on the existing drawer opener | IN PROGRESS |
 | R01–R05 language and account actions | Fuse flag image, account avatar/info/chevron | Registered local flag vectors plus the existing role/account handlers; no network avatar | IN PROGRESS |
 | R01–R05 account popover | MUI popover paper, menu item hover and layered CSS shadow | Ten pointer-hover pairs cover the regular five views in light and dark. Both use a 4px row corner and the shared lucide:square-arrow-right icon. The sampled Sign out ink color agrees in both themes. The light bottom-edge shadow profile moves closer in five sampled views. Side-edge differences and dark hover fill remain open. Folded-tabbed hover requires aligned reference evidence. | IN PROGRESS |

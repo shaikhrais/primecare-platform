@@ -737,3 +737,23 @@ Checked-in snapshots are from native artifact `14916298022`. These are
 fixture renders with populated authorized navigation. R01–R05 remain
 IN PROGRESS. The right-edge theme launchers and demo implementation remain
 BLOCKED.
+
+### Right-docked sidebar toggle
+
+The right-docked `panel-left` glyph and its 28 px outline now paint 10 px
+closer to the sidebar. The visual center in the expanded desktop fixture is
+x=1146, and the shared 48 px hit area remains in place. GitHub tests retain
+Tab focus, Enter activation, folding and restoration of a saved custom width.
+The code mirrors the paint offset in RTL. RTL full-render evidence remains open.
+
+[GitHub native capture run 45396081878](https://github.com/shaikhrais/primecare-platform/actions/runs/45396081878)
+rendered source `0d382e8d14937a5e2aba930e079c3f411591b92a`.
+Native artifact `14921755950` supplies the refreshed tracked right-side
+fixtures. Decoded native pixels changed only in the right-side fixture family
+across the comparable captured renders. Expanded left, folded, mobile and
+horizontal baselines retain their prior native pixels in the aligned set.
+
+R01–R05 remain IN PROGRESS. Active gaps include expanded and folded
+multi-destination states, the right popup shadow and toolbar, mobile drawer
+shadow and wider or RTL layouts, and horizontal toolbar actions. The two
+native right-edge theme launchers and demo implementation remain BLOCKED.
