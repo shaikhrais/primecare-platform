@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "baseCommit": "436bc671d3375259e3e6940686577ee9ad408631",
+  "files": [
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "f28e99614121f3db78cf71566a76e7670f425e0e13125a7ad9b80e275b02222c",
+      "afterSha256": "77760f72d0780304c1d906a88750fe0e27563080d77fdb401a97448a0d7dab5c",
+      "edits": [
+        {
+          "begin": 6564,
+          "old": "  // Move through the original tab order even if closing the pointer-opened\n  // menu already returned DOM focus to its trigger.\n",
+          "new": "  // Step to the preceding control when Escape restored the trigger. This\n  // avoids wrapping through Search, whose own key handler opens it on Tab.\n  const hasFocus = await trigger.evaluate(element => element === document.activeElement);\n  if (hasFocus) await page.keyboard.press('Shift+Tab');\n"
+        },
+        {
+          "begin": 6729,
+          "old": "  const focusVisible = () => trigger.evaluate(element =>\n   element === document.activeElement && element.matches(':focus-visible'));\n",
+          "new": "  const focusVisible = () => trigger.evaluate(element => {\n   const {x,y,width,height} = element.getBoundingClientRect();\n   const hit = document.elementFromPoint(x + width / 2, y + height / 2);\n   return element === document.activeElement &&\n    element.matches(':focus-visible') && element.contains(hit);\n  });\n"
+        }
+      ]
+    }
+  ]
+}

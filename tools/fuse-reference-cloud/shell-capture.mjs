@@ -144,11 +144,17 @@ async function captureAccountMenu(page, id) {
  await popover.waitFor({state:'hidden',timeout:5000});
  let keyboard;
  try {
-  // Move through the original tab order even if closing the pointer-opened
-  // menu already returned DOM focus to its trigger.
+  // Step to the preceding control when Escape restored the trigger. This
+  // avoids wrapping through Search, whose own key handler opens it on Tab.
+  const hasFocus = await trigger.evaluate(element => element === document.activeElement);
+  if (hasFocus) await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('Tab');
-  const focusVisible = () => trigger.evaluate(element =>
-   element === document.activeElement && element.matches(':focus-visible'));
+  const focusVisible = () => trigger.evaluate(element => {
+   const {x,y,width,height} = element.getBoundingClientRect();
+   const hit = document.elementFromPoint(x + width / 2, y + height / 2);
+   return element === document.activeElement &&
+    element.matches(':focus-visible') && element.contains(hit);
+  });
   for (let tab = 0; tab < 30 && !(await focusVisible()); tab++) {
    await page.keyboard.press('Tab');
   }

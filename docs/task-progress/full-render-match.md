@@ -515,3 +515,10 @@ unavailable reason when the original renderer does not produce a state.
 Those reference frames require a completed cloud run before paired keyboard
 review. The existing pointer-open, navigation focus, hover and activation
 comparisons remain separate. All five views remain IN PROGRESS.
+
+The first Fuse R05 focus frames showed the Search overlay even though the
+account trigger was the DOM focus target. The licensed Search trigger handles
+Tab as an opening key. The capture now takes one reverse tab before re-entering
+the trigger when Escape restored focus. It also checks the hit-test at the
+center of the focused trigger before recording evidence. This applies to the
+ten account cases and leaves the licensed source and key behavior intact.
