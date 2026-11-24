@@ -110,6 +110,17 @@ abstract final class PrimeShellMetrics {
   );
   static const accountMenuDesktopItemHeight = 32.0;
   static const accountMenuMobileItemHeight = 48.0;
+  static const wideDrawerAccountMenuItemHeight = 31.5;
+  static const compactAccountMenuBreakpoint = 600.0;
+  static double accountMenuItemHeight({
+    required bool mobile,
+    required double viewportWidth,
+  }) {
+    if (!mobile) return accountMenuDesktopItemHeight;
+    return viewportWidth < compactAccountMenuBreakpoint
+        ? accountMenuMobileItemHeight
+        : wideDrawerAccountMenuItemHeight;
+  }
   static const accountMenuPadding = EdgeInsets.zero;
   static const accountMenuElevation = 2.0;
   static const accountMenuShadowColor = Color(0x66000000);

@@ -600,82 +600,99 @@ class GovernanceMasterLayout extends ConsumerWidget {
               ),
             ),
           );
-    final button = PrimePopupMenuButton<String>(
-      borderRadius: triggerRadius,
-      position: sidebar ? PopupMenuPosition.over : PopupMenuPosition.under,
-      offset: PrimeShellMetrics.accountMenuOffset(
-        sidebar: sidebar,
-        compact: compact,
-        mobile: mobile,
-        trailing: trailing,
-        leadingDrawerViewportWidth: leadingDrawerViewportWidth,
-      ),
-      menuPadding: PrimeShellMetrics.accountMenuPadding,
-      constraints: PrimeShellMetrics.accountMenuConstraints,
-      shape: PrimeShellMetrics.accountMenuShape,
-      clipBehavior: Clip.antiAlias,
-      elevation: PrimeShellMetrics.accountMenuElevationFor(theme.brightness),
-      shadowColor: PrimeShellMetrics.accountMenuShadowFor(theme.brightness),
-      surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,
-      tooltip: 'User Functions',
-      child: trigger,
-      onSelected: (value) {
-        if (value == 'maintenance') context.go('/maintenance/configuration');
-        if (value == 'logout') ref.read(authProvider.notifier).logout();
-      },
-      itemBuilder: (context) => <PopupMenuEntry<String>>[
-        // A cross-role action requires an explicit user-authorized role list.
-        // This shell only receives the active role, so it must not invent grants.
-        if (['ceo', 'maintenance'].contains(account.role))
+    const tooltip = 'User Functions';
+    final menuItemHeight = PrimeShellMetrics.accountMenuItemHeight(
+      mobile: mobile,
+      viewportWidth: MediaQuery.sizeOf(context).width,
+    );
+    void selectAccountAction(String value) {
+      if (value == 'maintenance') context.go('/maintenance/configuration');
+      if (value == 'logout') ref.read(authProvider.notifier).logout();
+    }
+
+    List<PopupMenuEntry<String>> buildAccountItems(BuildContext context) =>
+        <PopupMenuEntry<String>>[
+          // A cross-role action requires an explicit user-authorized role list.
+          // This shell only receives the active role, so it must not invent grants.
+          if (['ceo', 'maintenance'].contains(account.role))
+            PrimeAccountMenuItem<String>(
+              menuTheme: theme,
+              padding: PrimeShellMetrics.accountMenuItemPadding,
+              height: menuItemHeight,
+              value: 'maintenance',
+              child: const PrimeText('IT maintenance'),
+            ),
           PrimeAccountMenuItem<String>(
             menuTheme: theme,
             padding: PrimeShellMetrics.accountMenuItemPadding,
-            height: mobile
-                ? PrimeShellMetrics.accountMenuMobileItemHeight
-                : PrimeShellMetrics.accountMenuDesktopItemHeight,
-            value: 'maintenance',
-            child: const PrimeText('IT maintenance'),
-          ),
-        PrimeAccountMenuItem<String>(
-          menuTheme: theme,
-          padding: PrimeShellMetrics.accountMenuItemPadding,
-          height: mobile
-              ? PrimeShellMetrics.accountMenuMobileItemHeight
-              : PrimeShellMetrics.accountMenuDesktopItemHeight,
-          value: 'logout',
-          child: Semantics(
-            label: 'data-cy:$logoutId',
-            container: false,
-            child: KeyedSubtree(
-              key: Key(logoutId),
-              child: Row(
-                children: [
-                  PrimeIcon(
-                    LucideIcons.squareArrowRight,
-                    size: PrimeShellMetrics.accountMenuIconExtent,
-                    color: iconColor,
-                  ),
-                  const SizedBox(width: PrimeShellMetrics.accountMenuIconGap),
-                  PrimeText(
-                    _localizedResource(
-                      context,
-                      'workspace.sign_out',
-                      'Sign out',
+            height: menuItemHeight,
+            value: 'logout',
+            child: Semantics(
+              label: 'data-cy:$logoutId',
+              container: false,
+              child: KeyedSubtree(
+                key: Key(logoutId),
+                child: Row(
+                  children: [
+                    PrimeIcon(
+                      LucideIcons.squareArrowRight,
+                      size: PrimeShellMetrics.accountMenuIconExtent,
+                      color: iconColor,
                     ),
-                    style: PrimeShellMetrics.accountSignOutTextStyle(
-                      theme,
-                      theme.colorScheme.onSurface,
-                      family: preferredFamily,
-                      scale: preferredScale,
+                    const SizedBox(width: PrimeShellMetrics.accountMenuIconGap),
+                    PrimeText(
+                      _localizedResource(
+                        context,
+                        'workspace.sign_out',
+                        'Sign out',
+                      ),
+                      style: PrimeShellMetrics.accountSignOutTextStyle(
+                        theme,
+                        theme.colorScheme.onSurface,
+                        family: preferredFamily,
+                        scale: preferredScale,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    );
+        ];
+    final wideLeadingDrawer =
+        leadingDrawerViewportWidth != null &&
+        leadingDrawerViewportWidth >= PrimeShellMetrics.compactAccountMenuBreakpoint;
+    final button = wideLeadingDrawer
+        ? PrimeWideDrawerAccountMenu(
+            radius: triggerRadius,
+            brightness: theme.brightness,
+            tooltip: tooltip,
+            onSelected: selectAccountAction,
+            itemBuilder: buildAccountItems,
+            child: trigger,
+          )
+        : PrimePopupMenuButton<String>(
+            borderRadius: triggerRadius,
+            position: sidebar ? PopupMenuPosition.over : PopupMenuPosition.under,
+            offset: PrimeShellMetrics.accountMenuOffset(
+              sidebar: sidebar,
+              compact: compact,
+              mobile: mobile,
+              trailing: trailing,
+              leadingDrawerViewportWidth: leadingDrawerViewportWidth,
+            ),
+            menuPadding: PrimeShellMetrics.accountMenuPadding,
+            constraints: PrimeShellMetrics.accountMenuConstraints,
+            shape: PrimeShellMetrics.accountMenuShape,
+            clipBehavior: Clip.antiAlias,
+            elevation: PrimeShellMetrics.accountMenuElevationFor(theme.brightness),
+            shadowColor: PrimeShellMetrics.accountMenuShadowFor(theme.brightness),
+            surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,
+            tooltip: tooltip,
+            child: trigger,
+            onSelected: selectAccountAction,
+            itemBuilder: buildAccountItems,
+          );
     return Semantics(
       label: 'data-cy:$semanticsId',
       container: true,

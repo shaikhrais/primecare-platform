@@ -416,12 +416,15 @@ void main() {
             signOutLabel.style?.color,
             Theme.of(tester.element(find.text('Sign out'))).colorScheme.onSurface,
           );
+          final expectedAccountMenuHeight = switch (state) {
+            'mobile' => 48.0,
+            'mobile-wide' => 31.5,
+            _ => 32.0,
+          };
           final signOutItem = findAccountPopupItem('Sign out');
           expect(
             tester.getSize(signOutItem).height,
-            mobile
-                ? PrimeShellMetrics.accountMenuMobileItemHeight
-                : PrimeShellMetrics.accountMenuDesktopItemHeight,
+            expectedAccountMenuHeight,
           );
           final accountMenuSurface = find.byWidgetPredicate(
             (widget) =>
@@ -448,25 +451,17 @@ void main() {
           );
           expect(
             accountMenuRect.height,
-            mobile
-                ? PrimeShellMetrics.accountMenuMobileItemHeight
-                : PrimeShellMetrics.accountMenuDesktopItemHeight,
+            expectedAccountMenuHeight,
           );
           final expectedAccountMenuOrigin = switch (state) {
             'left' => const Offset(267, 932),
             'folded' => const Offset(44, 952),
             'right' => const Offset(1296, 932),
             'mobile' => const Offset(246, 776),
-            'mobile-wide' => null,
+            'mobile-wide' => const Offset(268, 832),
             _ => throw StateError('Unhandled account menu state: $state'),
           };
-          if (expectedAccountMenuOrigin != null) {
-            expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);
-          } else {
-            expect(accountMenuRect.top, viewport.height - 68);
-            expect(accountMenuRect.left, greaterThanOrEqualTo(0));
-            expect(accountMenuRect.right, lessThanOrEqualTo(viewport.width));
-          }
+          expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);
           boxes['accountTrigger'] = box(accountTrigger);
           boxes['accountMenu'] = box(accountMenuSurface);
           await expectLater(

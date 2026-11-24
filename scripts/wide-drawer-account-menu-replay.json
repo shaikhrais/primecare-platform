@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "baseCommit": "31743f99e79e05995479998616e856ff144b87bf",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "e6a9f584868aa461e3efd4718bb96977dd90f5a33136c2be0ac1d765e001c395",
+      "afterSha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
+      "edits": [
+        {
+          "begin": 29662,
+          "old": "    final button = PrimePopupMenuButton<String>(\n      borderRadius: triggerRadius,\n      position: sidebar ? PopupMenuPosition.over : PopupMenuPosition.under,\n      offset: PrimeShellMetrics.accountMenuOffset(\n        sidebar: sidebar,\n        compact: compact,\n        mobile: mobile,\n        trailing: trailing,\n        leadingDrawerViewportWidth: leadingDrawerViewportWidth,\n      ),\n      menuPadding: PrimeShellMetrics.accountMenuPadding,\n      constraints: PrimeShellMetrics.accountMenuConstraints,\n      shape: PrimeShellMetrics.accountMenuShape,\n      clipBehavior: Clip.antiAlias,\n      elevation: PrimeShellMetrics.accountMenuElevationFor(theme.brightness),\n      shadowColor: PrimeShellMetrics.accountMenuShadowFor(theme.brightness),\n      surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,\n      tooltip: 'User Functions',\n      child: trigger,\n      onSelected: (value) {\n        if (value == 'maintenance') context.go('/maintenance/configuration');\n        if (value == 'logout') ref.read(authProvider.notifier).logout();\n      },\n      itemBuilder: (context) => <PopupMenuEntry<String>>[\n        // A cross-role action requires an explicit user-authorized role list.\n        // This shell only receives the active role, so it must not invent grants.\n        if (['ceo', 'maintenance'].contains(account.role))\n",
+          "new": "    const tooltip = 'User Functions';\n    final menuItemHeight = PrimeShellMetrics.accountMenuItemHeight(\n      mobile: mobile,\n      viewportWidth: MediaQuery.sizeOf(context).width,\n    );\n    void selectAccountAction(String value) {\n      if (value == 'maintenance') context.go('/maintenance/configuration');\n      if (value == 'logout') ref.read(authProvider.notifier).logout();\n    }\n\n    List<PopupMenuEntry<String>> buildAccountItems(BuildContext context) =>\n        <PopupMenuEntry<String>>[\n          // A cross-role action requires an explicit user-authorized role list.\n          // This shell only receives the active role, so it must not invent grants.\n          if (['ceo', 'maintenance'].contains(account.role))\n            PrimeAccountMenuItem<String>(\n              menuTheme: theme,\n              padding: PrimeShellMetrics.accountMenuItemPadding,\n              height: menuItemHeight,\n              value: 'maintenance',\n              child: const PrimeText('IT maintenance'),\n            ),\n"
+        },
+        {
+          "begin": 31132,
+          "old": "            height: mobile\n                ? PrimeShellMetrics.accountMenuMobileItemHeight\n                : PrimeShellMetrics.accountMenuDesktopItemHeight,\n            value: 'maintenance',\n            child: const PrimeText('IT maintenance'),\n          ),\n        PrimeAccountMenuItem<String>(\n          menuTheme: theme,\n          padding: PrimeShellMetrics.accountMenuItemPadding,\n          height: mobile\n              ? PrimeShellMetrics.accountMenuMobileItemHeight\n              : PrimeShellMetrics.accountMenuDesktopItemHeight,\n          value: 'logout',\n          child: Semantics(\n            label: 'data-cy:$logoutId',\n            container: false,\n            child: KeyedSubtree(\n              key: Key(logoutId),\n              child: Row(\n                children: [\n                  PrimeIcon(\n                    LucideIcons.squareArrowRight,\n                    size: PrimeShellMetrics.accountMenuIconExtent,\n                    color: iconColor,\n                  ),\n                  const SizedBox(width: PrimeShellMetrics.accountMenuIconGap),\n                  PrimeText(\n                    _localizedResource(\n                      context,\n                      'workspace.sign_out',\n                      'Sign out',\n",
+          "new": "            height: menuItemHeight,\n            value: 'logout',\n            child: Semantics(\n              label: 'data-cy:$logoutId',\n              container: false,\n              child: KeyedSubtree(\n                key: Key(logoutId),\n                child: Row(\n                  children: [\n                    PrimeIcon(\n                      LucideIcons.squareArrowRight,\n                      size: PrimeShellMetrics.accountMenuIconExtent,\n                      color: iconColor,\n"
+        },
+        {
+          "begin": 32399,
+          "old": "                    style: PrimeShellMetrics.accountSignOutTextStyle(\n                      theme,\n                      theme.colorScheme.onSurface,\n                      family: preferredFamily,\n                      scale: preferredScale,\n",
+          "new": "                    const SizedBox(width: PrimeShellMetrics.accountMenuIconGap),\n                    PrimeText(\n                      _localizedResource(\n                        context,\n                        'workspace.sign_out',\n                        'Sign out',\n                      ),\n                      style: PrimeShellMetrics.accountSignOutTextStyle(\n                        theme,\n                        theme.colorScheme.onSurface,\n                        family: preferredFamily,\n                        scale: preferredScale,\n                      ),\n"
+        },
+        {
+          "begin": 32664,
+          "old": "                  ),\n                ],\n",
+          "new": "                  ],\n                ),\n"
+        },
+        {
+          "begin": 32749,
+          "old": "        ),\n      ],\n    );\n",
+          "new": "        ];\n    final wideLeadingDrawer =\n        leadingDrawerViewportWidth != null &&\n        leadingDrawerViewportWidth >= PrimeShellMetrics.compactAccountMenuBreakpoint;\n    final button = wideLeadingDrawer\n        ? PrimeWideDrawerAccountMenu(\n            radius: triggerRadius,\n            brightness: theme.brightness,\n            tooltip: tooltip,\n            onSelected: selectAccountAction,\n            itemBuilder: buildAccountItems,\n            child: trigger,\n          )\n        : PrimePopupMenuButton<String>(\n            borderRadius: triggerRadius,\n            position: sidebar ? PopupMenuPosition.over : PopupMenuPosition.under,\n            offset: PrimeShellMetrics.accountMenuOffset(\n              sidebar: sidebar,\n              compact: compact,\n              mobile: mobile,\n              trailing: trailing,\n              leadingDrawerViewportWidth: leadingDrawerViewportWidth,\n            ),\n            menuPadding: PrimeShellMetrics.accountMenuPadding,\n            constraints: PrimeShellMetrics.accountMenuConstraints,\n            shape: PrimeShellMetrics.accountMenuShape,\n            clipBehavior: Clip.antiAlias,\n            elevation: PrimeShellMetrics.accountMenuElevationFor(theme.brightness),\n            shadowColor: PrimeShellMetrics.accountMenuShadowFor(theme.brightness),\n            surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,\n            tooltip: tooltip,\n            child: trigger,\n            onSelected: selectAccountAction,\n            itemBuilder: buildAccountItems,\n          );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_account_trigger_focus_frame.dart",
+      "beforeSha256": "223b88294339ba0b2a34b74a473df89c99e84ca1b5eb5f95632e623c4138ff13",
+      "afterSha256": "9976d9dc45debfc54c53fda12bbbb3b3b7f13259169635b212da33ccd3d7699d",
+      "edits": [
+        {
+          "begin": 1396,
+          "old": "          data: Theme.of(context).copyWith(\n            focusColor: PrimeShellMetrics.transparentInteractionInk,\n          ),\n",
+          "new": "          data: Theme.of(\n            context,\n          ).copyWith(focusColor: PrimeShellMetrics.transparentInteractionInk),\n"
+        },
+        {
+          "begin": 2351,
+          "old": "",
+          "new": "    ),\n  );\n}\n\n/// Anchors the wide leading drawer's menu at the trigger's outer top corner.\n/// A full-width PopupMenuButton lets Material choose the opposite edge.\nclass PrimeWideDrawerAccountMenu extends StatefulWidget {\n  const PrimeWideDrawerAccountMenu({\n    super.key,\n    required this.radius,\n    required this.brightness,\n    required this.tooltip,\n    required this.itemBuilder,\n    required this.onSelected,\n    required this.child,\n  });\n\n  final BorderRadius radius;\n  final Brightness brightness;\n  final String tooltip;\n  final PopupMenuItemBuilder<String> itemBuilder;\n  final ValueChanged<String> onSelected;\n  final Widget child;\n\n  @override\n  State<PrimeWideDrawerAccountMenu> createState() =>\n      _PrimeWideDrawerAccountMenuState();\n}\n\nclass _PrimeWideDrawerAccountMenuState\n    extends State<PrimeWideDrawerAccountMenu> {\n  bool _open = false;\n\n  Future<void> _showMenu() async {\n    if (_open) return;\n    final trigger = context.findRenderObject();\n    final overlay = Navigator.of(context).overlay?.context.findRenderObject();\n    if (trigger is! RenderBox || overlay is! RenderBox) return;\n    final items = widget.itemBuilder(context);\n    if (items.isEmpty) return;\n\n    Offset anchor = trigger.localToGlobal(\n      trigger.size.topRight(Offset.zero),\n      ancestor: overlay,\n    );\n    setState(() => _open = true);\n    String? selected;\n    try {\n      selected = await showMenu<String>(\n        context: context,\n        positionBuilder: (_, constraints) {\n          if (trigger.attached && overlay.attached) {\n            anchor = trigger.localToGlobal(\n              trigger.size.topRight(Offset.zero),\n              ancestor: overlay,\n            );\n          }\n          return RelativeRect.fromSize(anchor & Size.zero, constraints.biggest);\n        },\n        items: items,\n        shape: PrimeShellMetrics.accountMenuShape,\n        constraints: PrimeShellMetrics.accountMenuConstraints,\n        menuPadding: PrimeShellMetrics.accountMenuPadding,\n        clipBehavior: Clip.antiAlias,\n        elevation: PrimeShellMetrics.accountMenuElevationFor(widget.brightness),\n        shadowColor: PrimeShellMetrics.accountMenuShadowFor(widget.brightness),\n        surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,\n      );\n    } finally {\n      if (mounted) setState(() => _open = false);\n    }\n    if (mounted && selected != null) widget.onSelected(selected);\n  }\n\n  @override\n  Widget build(BuildContext context) => Semantics(\n    button: true,\n    expanded: _open,\n    child: Tooltip(\n      message: widget.tooltip,\n      child: InkWell(\n        borderRadius: widget.radius,\n        onTap: _showMenu,\n        child: widget.child,\n      ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "6d23f7dcc1b0337037ccea4f41b77014bb63ad021b431716a5227860b15f5c25",
+      "afterSha256": "c1790ef30142c14f939f01a76200c78407d734b94aa8e42cd3fa8c9050784cf3",
+      "edits": [
+        {
+          "begin": 4334,
+          "old": "",
+          "new": "  static const wideDrawerAccountMenuItemHeight = 31.5;\n  static const compactAccountMenuBreakpoint = 600.0;\n  static double accountMenuItemHeight({\n    required bool mobile,\n    required double viewportWidth,\n  }) {\n    if (!mobile) return accountMenuDesktopItemHeight;\n    return viewportWidth < compactAccountMenuBreakpoint\n        ? accountMenuMobileItemHeight\n        : wideDrawerAccountMenuItemHeight;\n  }\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "ca182a98c38d89b20e580795ada02216b319aa37a7fe1b5dc9975cea46c63af0",
+      "afterSha256": "7146fb33bec7d16d0b64345e82efb5f2da8192e5588f7b060984df0f96328656",
+      "edits": [
+        {
+          "begin": 16433,
+          "old": "",
+          "new": "          final expectedAccountMenuHeight = switch (state) {\n            'mobile' => 48.0,\n            'mobile-wide' => 31.5,\n            _ => 32.0,\n          };\n"
+        },
+        {
+          "begin": 16563,
+          "old": "            mobile\n                ? PrimeShellMetrics.accountMenuMobileItemHeight\n                : PrimeShellMetrics.accountMenuDesktopItemHeight,\n",
+          "new": "            expectedAccountMenuHeight,\n"
+        },
+        {
+          "begin": 17766,
+          "old": "            mobile\n                ? PrimeShellMetrics.accountMenuMobileItemHeight\n                : PrimeShellMetrics.accountMenuDesktopItemHeight,\n",
+          "new": "            expectedAccountMenuHeight,\n"
+        },
+        {
+          "begin": 18178,
+          "old": "            'mobile-wide' => null,\n",
+          "new": "            'mobile-wide' => const Offset(268, 832),\n"
+        },
+        {
+          "begin": 18301,
+          "old": "          if (expectedAccountMenuOrigin != null) {\n            expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);\n          } else {\n            expect(accountMenuRect.top, viewport.height - 68);\n            expect(accountMenuRect.left, greaterThanOrEqualTo(0));\n            expect(accountMenuRect.right, lessThanOrEqualTo(viewport.width));\n          }\n",
+          "new": "          expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);\n"
+        }
+      ]
+    }
+  ]
+}

@@ -52,9 +52,9 @@ class _PrimeAccountTriggerFocusFrameState
       clipBehavior: Clip.none,
       children: [
         Theme(
-          data: Theme.of(context).copyWith(
-            focusColor: PrimeShellMetrics.transparentInteractionInk,
-          ),
+          data: Theme.of(
+            context,
+          ).copyWith(focusColor: PrimeShellMetrics.transparentInteractionInk),
           child: widget.child,
         ),
         if (_focused &&
@@ -77,6 +77,91 @@ class _PrimeAccountTriggerFocusFrameState
             ),
           ),
       ],
+    ),
+  );
+}
+
+/// Anchors the wide leading drawer's menu at the trigger's outer top corner.
+/// A full-width PopupMenuButton lets Material choose the opposite edge.
+class PrimeWideDrawerAccountMenu extends StatefulWidget {
+  const PrimeWideDrawerAccountMenu({
+    super.key,
+    required this.radius,
+    required this.brightness,
+    required this.tooltip,
+    required this.itemBuilder,
+    required this.onSelected,
+    required this.child,
+  });
+
+  final BorderRadius radius;
+  final Brightness brightness;
+  final String tooltip;
+  final PopupMenuItemBuilder<String> itemBuilder;
+  final ValueChanged<String> onSelected;
+  final Widget child;
+
+  @override
+  State<PrimeWideDrawerAccountMenu> createState() =>
+      _PrimeWideDrawerAccountMenuState();
+}
+
+class _PrimeWideDrawerAccountMenuState
+    extends State<PrimeWideDrawerAccountMenu> {
+  bool _open = false;
+
+  Future<void> _showMenu() async {
+    if (_open) return;
+    final trigger = context.findRenderObject();
+    final overlay = Navigator.of(context).overlay?.context.findRenderObject();
+    if (trigger is! RenderBox || overlay is! RenderBox) return;
+    final items = widget.itemBuilder(context);
+    if (items.isEmpty) return;
+
+    Offset anchor = trigger.localToGlobal(
+      trigger.size.topRight(Offset.zero),
+      ancestor: overlay,
+    );
+    setState(() => _open = true);
+    String? selected;
+    try {
+      selected = await showMenu<String>(
+        context: context,
+        positionBuilder: (_, constraints) {
+          if (trigger.attached && overlay.attached) {
+            anchor = trigger.localToGlobal(
+              trigger.size.topRight(Offset.zero),
+              ancestor: overlay,
+            );
+          }
+          return RelativeRect.fromSize(anchor & Size.zero, constraints.biggest);
+        },
+        items: items,
+        shape: PrimeShellMetrics.accountMenuShape,
+        constraints: PrimeShellMetrics.accountMenuConstraints,
+        menuPadding: PrimeShellMetrics.accountMenuPadding,
+        clipBehavior: Clip.antiAlias,
+        elevation: PrimeShellMetrics.accountMenuElevationFor(widget.brightness),
+        shadowColor: PrimeShellMetrics.accountMenuShadowFor(widget.brightness),
+        surfaceTintColor: PrimeShellMetrics.transparentInteractionInk,
+      );
+    } finally {
+      if (mounted) setState(() => _open = false);
+    }
+    if (mounted && selected != null) widget.onSelected(selected);
+  }
+
+  @override
+  Widget build(BuildContext context) => Semantics(
+    button: true,
+    expanded: _open,
+    child: Tooltip(
+      message: widget.tooltip,
+      child: InkWell(
+        borderRadius: widget.radius,
+        onTap: _showMenu,
+        child: widget.child,
+      ),
     ),
   );
 }
