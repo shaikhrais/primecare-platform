@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "baseCommit": "93677093733a6c881c8b6364ebc8d3480c918e5c",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "73270b435d3ac04034f2b3f1dbb693f2c5846a0f2d6201c515ae0cb6d133d3cb",
+      "afterSha256": "6d23f7dcc1b0337037ccea4f41b77014bb63ad021b431716a5227860b15f5c25",
+      "edits": [
+        {
+          "begin": 17744,
+          "old": "",
+          "new": "/// Paints outside the mobile drawer without changing its layout or hit area.\nclass PrimeMobileDrawerFrame extends StatelessWidget {\n  const PrimeMobileDrawerFrame({super.key, required this.child});\n\n  final Widget child;\n\n  @override\n  Widget build(BuildContext context) => DecoratedBox(\n    decoration: PrimeShellMetrics.mobileDrawerShadow,\n    child: child,\n  );\n}\n\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "a55cc07395fc4a18e164348d2ad6700f6f4434a5a26756399039b778a0b346d9",
+      "afterSha256": "e6a9f584868aa461e3efd4718bb96977dd90f5a33136c2be0ac1d765e001c395",
+      "edits": [
+        {
+          "begin": 45080,
+          "old": "      return DecoratedBox(\n        decoration: PrimeShellMetrics.mobileDrawerShadow,\n",
+          "new": "      return PrimeMobileDrawerFrame(\n"
+        }
+      ]
+    }
+  ]
+}

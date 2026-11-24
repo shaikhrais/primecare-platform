@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def before_mobile_drawer_shadow(source, path):
+    source = reverse_presentation_receipt(source, path, 'mobile-drawer-frame-replay.json')
     return reverse_presentation_receipt(source, path, 'mobile-drawer-shadow-replay.json')
 
 def before_mobile_drawer_coverage(source, path):

@@ -940,8 +940,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     );
 
     if (isDrawer) {
-      return DecoratedBox(
-        decoration: PrimeShellMetrics.mobileDrawerShadow,
+      return PrimeMobileDrawerFrame(
         child: PrimeDrawer(
           width: PrimeShellMetrics.mobileDrawerWidth,
           backgroundColor: sidebarBg,

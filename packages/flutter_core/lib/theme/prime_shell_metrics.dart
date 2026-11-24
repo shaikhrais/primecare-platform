@@ -490,6 +490,19 @@ class PrimeHorizontalChrome extends StatelessWidget {
   }
 }
 
+/// Paints outside the mobile drawer without changing its layout or hit area.
+class PrimeMobileDrawerFrame extends StatelessWidget {
+  const PrimeMobileDrawerFrame({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: PrimeShellMetrics.mobileDrawerShadow,
+    child: child,
+  );
+}
+
 /// Border occupies its own pixel, matching the reference AppBar plus Toolbar.
 class PrimeShellBarFrame extends StatelessWidget {
   final Widget child;
