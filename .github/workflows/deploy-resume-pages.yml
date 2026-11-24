@@ -1,0 +1,94 @@
+name: Deploy personal resume to Cloudflare Pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - personal-resume/**
+      - .github/workflows/deploy-resume-pages.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: personal-resume-cloudflare-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PAGES_PROJECT: mohammedrais-shaikh-resume
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate static resume
+        shell: python
+        run: |
+          import pathlib, os, hashlib, json
+          from html.parser import HTMLParser
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.ids=set(); self.links=[]; self.h1=0
+              def handle_starttag(self, tag, attrs):
+                  attrs=dict(attrs)
+                  if 'id' in attrs: self.ids.add(attrs['id'])
+                  if tag=='a': self.links.append(attrs.get('href',''))
+                  if tag=='h1': self.h1+=1
+          root=pathlib.Path('personal-resume')
+          html=(root/'index.html').read_bytes()
+          page=Page(); page.feed(html.decode())
+          assert page.h1==1
+          assert all(link[1:] in page.ids for link in page.links if link.startswith('#'))
+          assert (root/'resume.pdf').read_bytes().startswith(b'%PDF')
+          (root/'build.json').write_text(json.dumps({'commit':os.environ['GITHUB_SHA'],'sha256':hashlib.sha256(html).hexdigest()}))
+      - name: Ensure separate Pages project exists
+        id: project
+        shell: python
+        run: |
+          import os,json,urllib.request,urllib.error
+          token=os.environ['CLOUDFLARE_API_TOKEN']; account=os.environ['CLOUDFLARE_ACCOUNT_ID']
+          assert token and account, 'Cloudflare deployment secrets are missing'
+          name=os.environ['PAGES_PROJECT']
+          base=f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects'
+          def call(url, data=None):
+              request=urllib.request.Request(url,data=None if data is None else json.dumps(data).encode(),headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'})
+              with urllib.request.urlopen(request,timeout=30) as response: return json.load(response)
+          try: result=call(base+'/'+name)
+          except urllib.error.HTTPError as error:
+              if error.code!=404: raise RuntimeError(f'Cloudflare project lookup failed HTTP {error.code}') from None
+              result=call(base,{'name':name,'production_branch':'main'})
+          assert result.get('success'), 'Cloudflare project request unsuccessful'
+          project=result['result']
+          assert project['name']==name
+          assert project['production_branch']=='main', 'Unexpected production branch'
+          assert not project.get('source'), 'Refusing to replace a Git-integrated project'
+          origin='https://'+project['subdomain']
+          with open(os.environ['GITHUB_OUTPUT'],'a') as stream: stream.write('url='+origin+'\n')
+      - name: Publish resume assets
+        run: npx --yes wrangler@3.90.0 pages deploy personal-resume --project-name="$PAGES_PROJECT" --branch=main --commit-hash="$GITHUB_SHA"
+      - name: Verify published resume and PDF
+        env:
+          SITE_URL: ${{ steps.project.outputs.url }}
+        shell: python
+        run: |
+          import os,json,time,hashlib,urllib.request,urllib.error,pathlib
+          base=os.environ['SITE_URL']; sha=os.environ['GITHUB_SHA']
+          expected=json.loads(pathlib.Path('personal-resume/build.json').read_text())
+          def read(path):
+              with urllib.request.urlopen(base+'/'+path+'?build='+sha,timeout=30) as response: return response.read()
+          for attempt in range(12):
+              try:
+                  assert json.loads(read('build.json'))==expected, 'Deployment still propagating'
+                  assert hashlib.sha256(read('index.html')).hexdigest()==expected['sha256']
+                  assert read('resume.pdf').startswith(b'%PDF')
+                  break
+              except Exception:
+                  if attempt==11: raise
+                  time.sleep(5)
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as stream:
+              stream.write('## Resume website published\n\n'+base+'\n\nVerified HTML, PDF download, and source commit '+sha+'\n')
+          print('Verified resume website:',base)
