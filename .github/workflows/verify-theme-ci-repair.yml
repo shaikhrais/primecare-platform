@@ -1,0 +1,83 @@
+name: Verify PrimeCare theme CI repair
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-theme-ci-repair.yml']
+permissions:
+  contents: read
+env:
+  PC_CANDIDATE: 19a31a89c30be434fecd0e2f14f4aee77214baeb
+  PC_TREE: a45f77119b3ee741c373da4211ffcacc9fda061a
+  PC_PARENT: ad1b7853f1478ec60cf79a7699fcffdcb69b5852
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PC_CANDIDATE }}
+          persist-credentials: false
+      - name: Verify exact repair candidate
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_CANDIDATE"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$PC_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$PC_PARENT"
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-theme-adoption-preflight.mjs scripts/test-theme-workspace-export.mjs
+      - name: Fetch immutable audited source for reproducibility
+        run: |
+          python - <<'PY'
+          import json,re,subprocess
+          source=json.load(open('docs/appearance/theme-batches-main-audit-snapshot.json'))['sourceCommit']
+          assert re.fullmatch('[0-9a-f]{40}',source)
+          subprocess.run(['git','fetch','--depth=1','origin',source],check=True)
+          PY
+      - run: |
+          python scripts/build-theme-developer-catalogue.py --check
+          python scripts/build-theme-execution-ledger.py --check
+          python scripts/build-theme-service-contract-triage.py --check
+          python scripts/test-theme-execution-plan.py
+          python scripts/audit-theme-batches.py --check
+          python scripts/check-theme-release.py --output docs/appearance/theme-release-gates.json
+      - if: inputs.require_release_complete == true
+        run: python scripts/check-theme-release.py --require-complete
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: theme-release-gap-report
+          path: docs/appearance/theme-release-gates.json
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PC_CANDIDATE }}
+          persist-credentials: false
+      - name: Verify exact repair candidate
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_CANDIDATE"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$PC_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$PC_PARENT"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 linkedom@0.18.12 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
+          ln -s /tmp/theme-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+      - name: Cross-batch models and real-handler fixtures
+        run: |
+          node --test scripts/test-advanced-theme-editor-lifecycle.mjs scripts/test-advanced-theme-region-ownership.mjs
+          node --test scripts/test-page-template-lifecycle.mjs
+          node scripts/test-data-controls-rich-ranges.mjs
+          for name in workspace-layout-contract workspace-navigation-model page-template-model advanced-theme-model preference-client shell-utilities-model component-catalogue-model data-controls-model upload-removal dashboard-widgets-model original-assets-model work-modules work-modules-transport communication-modules communication-modules-transport application-modules application-modules-transport dashboard-pages-projection dashboard-pages-session dashboard-record-pages dashboard-pages-parity dashboard-pages-integration; do
+            node scripts/test-$name.mjs
+          done
+      - name: Cross-batch browser acceptance
+        run: |
+          for name in shell-lifecycle workspace-layout tenant-workspace-layout tenant-work-module-host workspace-navigation-browser page-template-browser advanced-theme-browser preference-browser shell-utilities-browser component-catalogue-browser data-controls-browser dashboard-widgets-browser original-assets-browser work-modules-browser communication-modules-browser application-modules-browser dashboard-pages-browser; do
+            node scripts/test-$name.mjs
+          done
