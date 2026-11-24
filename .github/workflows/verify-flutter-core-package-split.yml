@@ -1,4 +1,4 @@
-name: Verify PrimeCare routing, theme, startup and communications migration
+name: Verify PrimeCare media, education and visual asset ownership
 on:
   push:
     branches: [main]
@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 env:
-  PC_SHA: 52edc3bae2b1c4f643a94016afd43eb70c9b28e4
-  PC_TREE: aee8dd1dcf5f7f858ebce21a4de75a93c7a8b626
-  PC_PARENT: eada65a896b614d164ddad70317739d4783bb6e0
+  PC_SHA: 15adc3b3e0e9926710cba042f923538d1c8d8ff4
+  PC_TREE: 54ea11e69db4838e729f455b42bf3803d5b92501
+  PC_PARENT: e75f3e0d3d2463cdd6b699c354416d92301a440d
 jobs:
   inventory:
     runs-on: ubuntu-24.04
@@ -25,7 +25,7 @@ jobs:
           python3 -m pip install PyYAML==6.0.3
           python3 tools/package_master/catalog.py --check
           node --test packages/primecare_package_base/test/registry.test.mjs
-          for package in primecare_auth primecare_app_runtime primecare_navigation primecare_api_client primecare_preferences primecare_communications; do
+          for package in primecare_auth primecare_app_runtime primecare_navigation primecare_api_client primecare_preferences primecare_communications primecare_clinical_education; do
             test -s "packages/$package/pubspec.yaml"
             if git grep -n 'package:flutter_core/\|\.\./flutter_core' -- "packages/$package/lib" "packages/$package/pubspec.yaml"; then
               echo "Unexpected legacy dependency in $package"
@@ -39,12 +39,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences, primecare_communications]
+        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences, primecare_communications, primecare_clinical_education]
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - if: matrix.path == 'primecare_clinical_education'
+        name: Verify native SQLite library is available
+        run: |
+          if ! ldconfig -p | grep 'libsqlite3\.so ' >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y libsqlite3-dev
+          fi
       - name: Analyze and test the package
         working-directory: packages/${{ matrix.path }}
         run: |
@@ -143,3 +150,34 @@ jobs:
           dart pub deps --json | python3 -c 'import json,sys; d=json.load(sys.stdin); assert not any(x["name"] in {"flutter", "flutter_core"} for x in d["packages"])'
           dart analyze regenerate_screenshots.dart
           dart compile kernel regenerate_screenshots.dart -o "$RUNNER_TEMP/regenerate-screenshots.dill"
+  flutter-browser-media:
+    needs: inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - run: test "$(git rev-parse HEAD)" = "$PC_SHA"
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/flutter-media-tools" --ignore-scripts playwright@1.60.0 esbuild@0.27.2
+          ln -s "$RUNNER_TEMP/flutter-media-tools/node_modules" node_modules
+          node tools/communication-media-bundle.mjs
+          mkdir -p test-results
+          cd packages/flutter_core
+          dart compile js test/communication_browser_media_harness.dart -o ../../test-results/communication-dart-browser.js
+      - name: Compiled Dart bridge, shared session and real audio packets
+        run: |
+          export BUSINESS_TEST_CHROMIUM_EXECUTABLE="$(command -v google-chrome)"
+          node --test scripts/test-communication-flutter-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: communication-flutter-browser
+          path: test-results/communication-flutter-browser
+          retention-days: 90
