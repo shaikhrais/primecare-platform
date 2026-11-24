@@ -1,4 +1,4 @@
-name: Verify PrimeCare package migration and core-independent tooling
+name: Verify PrimeCare routing, theme, startup and communications migration
 on:
   push:
     branches: [main]
@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 env:
-  PC_SHA: 42ae2b802ffd0d1bc46d3cf60160735de8015b59
-  PC_TREE: db144c5cf74884a0ee97cb506855a2cdf1f87844
-  PC_PARENT: 4f20c8f1fa71604bc82e33fc69ae416cdcb03804
+  PC_SHA: 52edc3bae2b1c4f643a94016afd43eb70c9b28e4
+  PC_TREE: aee8dd1dcf5f7f858ebce21a4de75a93c7a8b626
+  PC_PARENT: eada65a896b614d164ddad70317739d4783bb6e0
 jobs:
   inventory:
     runs-on: ubuntu-24.04
@@ -25,7 +25,7 @@ jobs:
           python3 -m pip install PyYAML==6.0.3
           python3 tools/package_master/catalog.py --check
           node --test packages/primecare_package_base/test/registry.test.mjs
-          for package in primecare_auth primecare_app_runtime primecare_navigation primecare_api_client primecare_preferences; do
+          for package in primecare_auth primecare_app_runtime primecare_navigation primecare_api_client primecare_preferences primecare_communications; do
             test -s "packages/$package/pubspec.yaml"
             if git grep -n 'package:flutter_core/\|\.\./flutter_core' -- "packages/$package/lib" "packages/$package/pubspec.yaml"; then
               echo "Unexpected legacy dependency in $package"
@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences]
+        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences, primecare_communications]
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
@@ -72,7 +72,7 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "$PC_SHA"
           flutter pub get
-          flutter test --no-pub test/app_runtime_provider_ttl_compatibility_test.dart test/primecare_auth_compatibility_test.dart test/auth_interceptor_test.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_privileged_access_test.dart test/auth_route_guard_test.dart test/auth_session_test.dart test/auth_transport_test.dart
+          flutter test --no-pub test/app_runtime_provider_ttl_compatibility_test.dart test/primecare_auth_compatibility_test.dart test/auth_interceptor_test.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_privileged_access_test.dart test/auth_route_guard_test.dart test/auth_session_test.dart test/auth_transport_test.dart test/theme_center_settings_file_test.dart test/dio_communication_transport_test.dart test/communication_workspace_controller_test.dart
       - name: Compile the shared Flutter preview consumer
         working-directory: examples/kitchen_sink_flutter
         run: |
@@ -104,6 +104,11 @@ jobs:
         working-directory: apps/primecare_enterprise_blueprint
         run: |
           flutter test --no-pub test/widget_test.dart
+      - if: matrix.app == 'primecare_client'
+        name: Verify Client routing with the master navigation facade
+        working-directory: apps/primecare_client
+        run: |
+          flutter test --no-pub test/auth_routing_test.dart
       - name: Compile the Flutter app; no deployment
         working-directory: apps/${{ matrix.app }}
         run: |
