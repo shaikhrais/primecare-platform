@@ -88,6 +88,11 @@ jobs:
                   assert json.loads(read('build.json'))==expected, 'Deployment still propagating'
                   assert hashlib.sha256(read('')).hexdigest()==expected['sha256']
                   assert read('resume.pdf').startswith(b'%PDF')
+                  assert read('cover-letter.pdf').startswith(b'%PDF')
+                  assert read('campaign-kit.pdf').startswith(b'%PDF')
+                  assert read('assets/christmas-banner.png').startswith(b'\x89PNG')
+                  assert b'ftyp' in read('assets/seasonal-reel.mp4')[:64]
+                  assert b'selectSeason' in read('app.js')
                   break
               except urllib.error.HTTPError as error:
                   if error.code in (401,403): raise
