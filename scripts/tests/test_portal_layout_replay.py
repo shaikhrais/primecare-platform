@@ -11,14 +11,26 @@ from reviewed_migration_history import before_portal_layout, before_complete_the
 from reviewed_migration_history import before_account_menu_boundary_repair, before_mobile_account_edge, before_account_surface_style, before_account_typography, before_shell_overlay_style, before_account_keyboard, before_unobscured_account_capture, before_account_focus_outline
 from reviewed_migration_history import before_neutral_account_capture, before_folded_tabbed_account
 from reviewed_migration_history import before_account_menu_shadow, before_account_menu_label_foreground, before_account_menu_hover, before_account_shell_edge, before_account_trigger_focus_style, before_compact_shell_geometry
+from reviewed_migration_history import before_shell_chrome
 
 class AccountKeyboardReplayTest(unittest.TestCase):
+    def test_shell_chrome_replays_only_exact_source(self):
+        receipt = json.loads((ROOT / 'scripts/shell-chrome-replay.json').read_text())
+        self.assertEqual(len(receipt['files']), 3)
+        for row in receipt['files']:
+            path = row['path']
+            current = (ROOT / path).read_text()
+            self.assertEqual(hashlib.sha256(current.encode()).hexdigest(), row['afterSha256'])
+            original = before_shell_chrome(current, path)
+            self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['beforeSha256'])
+            self.assertEqual(before_shell_chrome(current + '\n', path), current + '\n')
+
     def test_account_menu_shadow_replays_only_exact_source(self):
         receipt = json.loads((ROOT / 'scripts/account-menu-shadow-replay.json').read_text())
         self.assertEqual(len(receipt['files']), 4)
         for row in receipt['files']:
             path = row['path']
-            current = (ROOT / path).read_text()
+            current = before_shell_chrome((ROOT / path).read_text(), path)
             self.assertEqual(hashlib.sha256(current.encode()).hexdigest(), row['afterSha256'])
             original = before_account_menu_shadow(current, path)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['beforeSha256'])

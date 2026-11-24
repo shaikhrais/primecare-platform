@@ -717,3 +717,23 @@ from the rejected trial remains available in the comparison archive.
 
 R01–R05 remain IN PROGRESS. The two right-edge theme controls and demo
 implementation remain BLOCKED.
+
+### Sidebar toggle and horizontal toolbar surface
+
+The existing `panel-left` control uses the active divider token. The left
+expanded and folded desktop controls place their 28px outline at the source
+inset while preserving keyboard focus and reversible folding. The right
+outline uses the same token. Its placement still differs from the reference.
+
+The horizontal toolbar uses the active palette's paper surface with text
+and icon contrast recalculated for that surface. A saved toolbar background
+override still takes precedence. The exact-host capture tests check both
+light and dark surfaces, the override, account menu keyboard behavior,
+registered navigation, drawer close, and Save.
+
+[GitHub capture run 45387239074](https://github.com/shaikhrais/primecare-platform/actions/runs/45387239074)
+rendered native commit `fdcafdca1d4a6da32ce8626df2668465c78bd60f`.
+Checked-in snapshots are from native artifact `14916298022`. These are
+fixture renders with populated authorized navigation. R01–R05 remain
+IN PROGRESS. The right-edge theme launchers and demo implementation remain
+BLOCKED.

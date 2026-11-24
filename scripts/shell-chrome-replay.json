@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "baseCommit": "f2dc0b519928a9667d241f6fef5a4a19ad16a8c7",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "a603657db81cfeb2a08957e6794918b18281c40c59ba78e534b88a0874433f22",
+      "afterSha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+      "edits": [
+        {
+          "begin": 4536,
+          "old": "    final topbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;\n    final defaultTopbarTextColor = readableThemeForeground(topbarBg, theme.colorScheme.onSurface);\n    final defaultTopbarIconColor = readableThemeForeground(topbarBg, theme.primaryColor);\n\n    final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;\n    final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;\n",
+          "new": "    final configuredTopbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;\n    final toolbarSettings = settings.sectionThemes['toolbar'] ?? settings.theme;\n"
+        },
+        {
+          "begin": 15212,
+          "old": "",
+          "new": "                  final topbarBg = PrimeShellMetrics.toolbarSurface(\n                    theme,\n                    configuredTopbarBg,\n                    horizontal: horizontal ||\n                        position == 'hidden' && settings.layoutStyle == LayoutStyle.horizontal,\n                    hasBackgroundOverride: toolbarSettings.colors.containsKey('topbar'),\n                  );\n                  final topbarTextColor = readableThemeForeground(\n                    topbarBg, themeColors?.topbarTextColor ?? theme.colorScheme.onSurface,\n                  );\n                  final topbarIconColor = readableThemeForeground(\n                    topbarBg, themeColors?.topbarIconColor ?? theme.primaryColor,\n                  );\n"
+        },
+        {
+          "begin": 15801,
+          "old": "",
+          "new": "                        leadingWidth: !isHandheld && position == 'left'\n                            ? PrimeShellMetrics.sidebarToggleLeadingWidth\n                            : null,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "ffe352e723ae10632944addcc44c75abc2153ce0a585856b070772eb18ae378a",
+      "afterSha256": "4e1b810a38be46b128fcdae20493090add0311cadd9dccece5e162a139ae762f",
+      "edits": [
+        {
+          "begin": 2791,
+          "old": "",
+          "new": "  static const sidebarToggleLeadingWidth = 60.0;\n"
+        },
+        {
+          "begin": 9102,
+          "old": "        border: Border.all(color: theme.colorScheme.outlineVariant),\n",
+          "new": "        border: Border.all(color: theme.dividerColor),\n"
+        },
+        {
+          "begin": 9224,
+          "old": "",
+          "new": "\n  static Color toolbarSurface(\n    ThemeData theme,\n    Color configuredBackground, {\n    required bool horizontal,\n    required bool hasBackgroundOverride,\n  }) => horizontal && !hasBackgroundOverride\n      ? theme.colorScheme.surface\n      : configuredBackground;\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "426cc9a4caca54c356d0e09d0d99d6caa87e20e2d256a8cadeb569a2a8f7ca21",
+      "afterSha256": "fb86f319c56ea60afe94a1ff39560f04872a252cd9d01c142e073b7806abdc9b",
+      "edits": [
+        {
+          "begin": 13899,
+          "old": "",
+          "new": "              appBar.backgroundColor,\n              mode == 'light' ? Colors.white : const Color(0xff1a1d22),\n            );\n            expect(\n"
+        },
+        {
+          "begin": 27732,
+          "old": "",
+          "new": "            await container.read(themeSettingsProvider.notifier).updateSectionTheme(\n              'toolbar',\n              PersonalTheme(\n                name: 'Toolbar with a saved background',\n                preset: mode == 'dark' ? 'defaultDark' : 'default',\n                colors: const {'topbar': '#31465a'},\n              ),\n            );\n            await tester.pumpAndSettle();\n            expect(\n              tester.widget<AppBar>(find.descendant(\n                of: find.byKey(const Key('app-topbar')),\n                matching: find.byWidgetPredicate((widget) => widget is AppBar),\n              )).backgroundColor,\n              const Color(0xff31465a),\n            );\n"
+        }
+      ]
+    }
+  ]
+}
