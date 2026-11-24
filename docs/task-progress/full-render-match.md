@@ -557,3 +557,25 @@ Sign out focus, Escape dismissal and return to the same control. Candidate
 capture and replay, GitHub run `45328880802`. Artifact `14891022029` contains
 the twelve folded-tabbed captures. The rest of the tracked shell images
 showed no pixel changes. R02 and the other four active views remain IN PROGRESS.
+
+### Folded tabbed row and horizontal account geometry
+
+The selected folded-tabbed destination now starts at y=60 in the light and
+dark desktop fixture. The previous PrimeCare row starts at y=64. The
+shared 40px destination row aligns the selected tile with the reference
+position and leaves the brand header in place. The desktop horizontal
+account trigger now uses an 8px corner radius for its shape and focus
+frame. Handheld account controls keep their existing compact shape.
+
+Run `45335946807` completed successfully for pinned app commit
+`57060a1581bea6be0d88ad39ac6c8d037a8bbf6f`. It captured and replayed 28
+shell fixture cases. Artifact `14894017663` supplies the 18 changed native
+images, all in the folded-tabbed or desktop horizontal cases. Decoded R01,
+R03 and R04 pixels match the previously captured native fixtures. The
+registered navigation fixture SHA-256 is
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+
+The folded multi-destination panel and horizontal account width and fills
+still need review. The two registered theme launcher controls still need
+production metadata verification before adoption. R01 through R05 remain
+IN PROGRESS.
