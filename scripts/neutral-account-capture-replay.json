@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "baseCommit": "e1935a7b013dedb28213ad9a510e6b73da01b554",
+  "files": [
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "77760f72d0780304c1d906a88750fe0e27563080d77fdb401a97448a0d7dab5c",
+      "afterSha256": "9d09d9103b2e5597d28d1efd686476332ce31389bb1c9e96b02b1c72d3e93a87",
+      "edits": [
+        {
+          "begin": 6136,
+          "old": " const menuState = await paper.evaluate(element => {\n",
+          "new": " // Opening the right sidebar menu puts its item under the old trigger\n // position. Compare an unhovered menu and a keyboard-only focus state.\n const viewport = page.viewportSize();\n await page.mouse.move(viewport.width / 2, viewport.height / 2);\n const readMenuState = () => paper.evaluate(element => {\n"
+        },
+        {
+          "begin": 6249,
+          "old": "  return {box:{x,y,width,height},text:element.textContent.trim()||null};\n",
+          "new": "  const item=element.querySelector('[role=\"menuitem\"]');\n  return {\n   box:{x,y,width,height},text:element.textContent.trim()||null,\n   hovered:element.matches(':hover'),\n   paperBackground:getComputedStyle(element).backgroundColor,\n   itemBackground:item ? getComputedStyle(item).backgroundColor : null,\n  };\n"
+        },
+        {
+          "begin": 6327,
+          "old": "",
+          "new": " const menuState = await readMenuState();\n if (menuState.hovered) throw new Error('Pointer obscures the default account menu state');\n"
+        },
+        {
+          "begin": 7665,
+          "old": "",
+          "new": "  const keyboardMenu = await readMenuState();\n  if (keyboardMenu.hovered) throw new Error('Pointer obscures the keyboard-open account menu state');\n"
+        },
+        {
+          "begin": 7993,
+          "old": "  keyboard = {status:'captured',focusFile,menuFile,focusReturned};\n",
+          "new": "  keyboard = {status:'captured',focusFile,menuFile,focusReturned,menu:keyboardMenu};\n"
+        }
+      ]
+    }
+  ]
+}

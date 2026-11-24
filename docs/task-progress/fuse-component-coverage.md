@@ -75,7 +75,7 @@ Keep the original PrimeCare brand and registered resources. Use matching common 
 | R01–R03 desktop sidebar | `lucide:panel-left` | Same glyph on both sides and in both fold states, with a 28 px visible outline | IN PROGRESS |
 | R04 mobile drawer | `lucide:panel-left` | Same glyph and outline on the existing drawer opener | IN PROGRESS |
 | R01–R05 language and account actions | Fuse flag image, account avatar/info/chevron | Registered local flag vectors plus the existing role/account handlers; no network avatar | IN PROGRESS |
-| R01–R05 account popover | MUI popover paper and layered CSS shadow | Native account menu preserves geometry and Escape dismissal. Native shadow falloff differs. | IN PROGRESS |
+| R01–R05 account popover | MUI popover paper, menu item hover and layered CSS shadow | Compare default-open frames with the reference pointer clear of the menu. Keep item hover as a separate state. Native shadow falloff differs. | IN PROGRESS |
 | R01–R05 account keyboard states | `UserMenu.tsx` trigger and MUI popover keyboard behavior | Native Tab, Enter, menu focus and Escape return covered in light and dark. Original keyboard captures require cloud evidence. | IN PROGRESS |
 | R04 drawer backdrop | MUI SwipeableDrawer backdrop | Measured light/dark scrim pixels agree. Backdrop tap closes the drawer and the registered navigation opens again. | IN PROGRESS |
 | R05 text size and fixture destination | `lucide:a-large-small`, `lucide:star` | Existing Lucide glyphs retained | IN PROGRESS |

@@ -134,10 +134,22 @@ async function captureAccountMenu(page, id) {
  await popover.waitFor({timeout:5000});
  const paper = page.locator('.MuiPopover-paper:visible');
  await paper.waitFor({timeout:5000});
- const menuState = await paper.evaluate(element => {
+ // Opening the right sidebar menu puts its item under the old trigger
+ // position. Compare an unhovered menu and a keyboard-only focus state.
+ const viewport = page.viewportSize();
+ await page.mouse.move(viewport.width / 2, viewport.height / 2);
+ const readMenuState = () => paper.evaluate(element => {
   const {x,y,width,height}=element.getBoundingClientRect();
-  return {box:{x,y,width,height},text:element.textContent.trim()||null};
+  const item=element.querySelector('[role="menuitem"]');
+  return {
+   box:{x,y,width,height},text:element.textContent.trim()||null,
+   hovered:element.matches(':hover'),
+   paperBackground:getComputedStyle(element).backgroundColor,
+   itemBackground:item ? getComputedStyle(item).backgroundColor : null,
+  };
  });
+ const menuState = await readMenuState();
+ if (menuState.hovered) throw new Error('Pointer obscures the default account menu state');
  const file=`fuse-shell-${id}-account-menu-open.png`;
  await page.screenshot({path:resolve(output,file),fullPage:false});
  await page.keyboard.press('Escape');
@@ -165,12 +177,14 @@ async function captureAccountMenu(page, id) {
   await page.screenshot({path:resolve(output,focusFile),fullPage:false});
   await page.keyboard.press('Enter');
   await paper.waitFor({timeout:5000});
+  const keyboardMenu = await readMenuState();
+  if (keyboardMenu.hovered) throw new Error('Pointer obscures the keyboard-open account menu state');
   const menuFile = `fuse-shell-${id}-account-keyboard-open.png`;
   await page.screenshot({path:resolve(output,menuFile),fullPage:false});
   await page.keyboard.press('Escape');
   await popover.waitFor({state:'hidden',timeout:5000});
   const focusReturned = await trigger.evaluate(element => element === document.activeElement);
-  keyboard = {status:'captured',focusFile,menuFile,focusReturned};
+  keyboard = {status:'captured',focusFile,menuFile,focusReturned,menu:keyboardMenu};
  } catch (error) {
   if (await popover.isVisible()) {
    await page.keyboard.press('Escape');

@@ -6,10 +6,14 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_neutral_account_capture(source,path):
+    return reverse_presentation_receipt(source,path,'neutral-account-capture-replay.json')
+
 def before_account_focus_outline(source,path):
     return reverse_presentation_receipt(source,path,'account-focus-outline-replay.json')
 
 def before_unobscured_account_capture(source,path):
+    source=before_neutral_account_capture(source,path)
     source=before_account_focus_outline(source,path)
     return reverse_presentation_receipt(source,path,'unobscured-account-capture-replay.json')
 
