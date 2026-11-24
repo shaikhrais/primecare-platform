@@ -102,6 +102,8 @@ abstract final class PrimeShellMetrics {
   static const accountMenuIconGap = 8.0;
   static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);
   static const toolbarAccountAvatarRadius = 16.0;
+  static const horizontalToolbarAccountAvatarRadius = 20.0;
+  static const horizontalToolbarAccountLabelSize = 12.0;
   static const sidebarAccountAvatarRadius = 20.0;
   static const sidebarAccountHeight = 56.0;
   static const foldedAccountHeight = 40.0;
@@ -164,18 +166,19 @@ abstract final class PrimeShellMetrics {
     required String family,
     required double scale,
     required bool dense,
+    bool horizontalToolbar = false,
   }) {
     final role = theme.textTheme.labelMedium?.copyWith(
       color: foreground,
       fontWeight: FontWeight.w600,
     );
-    // Keep the toolbar's intrinsic width until its spacing is reconciled.
-    return dense
+    final fontSize = (horizontalToolbar ? horizontalToolbarAccountLabelSize : 13) * scale;
+    return dense && !horizontalToolbar
         ? role
         : role?.copyWith(
             fontFamily: _accountFontFamily(family),
-            fontSize: 13 * scale,
-            letterSpacing: 13 * scale * -0.025,
+            fontSize: fontSize,
+            letterSpacing: fontSize * -0.025,
             height: 1,
           );
   }

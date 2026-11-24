@@ -353,7 +353,18 @@ void main() {
               PrimeShellMetrics.toolbarAccountHeight,
             );
             expect(tester.getRect(accountTrigger).right, 1248);
-            expect(tester.getSize(accountTrigger).width, closeTo(131.92, 0.01));
+            expect(tester.getSize(accountTrigger).width, closeTo(134.515625, 2));
+            expect(
+              tester.getSize(find.descendant(
+                of: accountTrigger,
+                matching: find.byType(CircleAvatar),
+              )),
+              const Size.square(40),
+            );
+            expect(
+              tester.widget<Text>(find.text('Admin')).style?.fontSize,
+              PrimeShellMetrics.horizontalToolbarAccountLabelSize,
+            );
             expect(
               tester.getSize(find.descendant(
                 of: accountTrigger,

@@ -479,7 +479,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final avatar = CircleAvatar(
       radius: sidebar
           ? PrimeShellMetrics.sidebarAccountAvatarRadius
-          : PrimeShellMetrics.toolbarAccountAvatarRadius,
+          : horizontalToolbar
+              ? PrimeShellMetrics.horizontalToolbarAccountAvatarRadius
+              : PrimeShellMetrics.toolbarAccountAvatarRadius,
       backgroundColor: PrimeShellMetrics.accountAvatarBackground(
         theme,
         surface: avatarSurface,
@@ -494,6 +496,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
         ),
       ),
     );
+    const horizontalAvatarExtent =
+        2 * PrimeShellMetrics.horizontalToolbarAccountAvatarRadius;
     final triggerRadius = sidebar
         ? PrimeShellMetrics.sidebarAccountRadius
         : horizontalToolbar
@@ -552,7 +556,17 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    avatar,
+                    if (horizontalToolbar)
+                      SizedBox(
+                        width: horizontalAvatarExtent,
+                        child: OverflowBox(
+                          minHeight: horizontalAvatarExtent,
+                          maxHeight: horizontalAvatarExtent,
+                          child: avatar,
+                        ),
+                      )
+                    else
+                      avatar,
                     if (!compact) ...[
                       const SizedBox(width: 6),
                       PrimeText(
@@ -563,6 +577,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           family: preferredFamily,
                           scale: preferredScale,
                           dense: true,
+                          horizontalToolbar: horizontalToolbar,
                         ),
                       ),
                       const SizedBox(width: 6),

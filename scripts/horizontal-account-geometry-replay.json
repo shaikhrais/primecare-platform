@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "baseCommit": "f333001c1644487ff1dfe05a40d932baf1c3a51b",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "07c9aa2d4e579a023547cf02906416e2964db7d53c007fa26a0d9ace6119fac9",
+      "afterSha256": "73509c65ce86329b28dff0871c64cc9acc5e3a55f271b8b6cb9cd4850b98febc",
+      "edits": [
+        {
+          "begin": 4531,
+          "old": "",
+          "new": "  static const horizontalToolbarAccountAvatarRadius = 20.0;\n  static const horizontalToolbarAccountLabelSize = 12.0;\n"
+        },
+        {
+          "begin": 6605,
+          "old": "",
+          "new": "    bool horizontalToolbar = false,\n"
+        },
+        {
+          "begin": 6735,
+          "old": "    // Keep the toolbar's intrinsic width until its spacing is reconciled.\n    return dense\n",
+          "new": "    final fontSize = (horizontalToolbar ? horizontalToolbarAccountLabelSize : 13) * scale;\n    return dense && !horizontalToolbar\n"
+        },
+        {
+          "begin": 6920,
+          "old": "            fontSize: 13 * scale,\n            letterSpacing: 13 * scale * -0.025,\n",
+          "new": "            fontSize: fontSize,\n            letterSpacing: fontSize * -0.025,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+      "afterSha256": "8e08daba592a7fce1fa53382a60cd62249f67d0913d7e40e6ceef2d23044869b",
+      "edits": [
+        {
+          "begin": 24963,
+          "old": "          : PrimeShellMetrics.toolbarAccountAvatarRadius,\n",
+          "new": "          : horizontalToolbar\n              ? PrimeShellMetrics.horizontalToolbarAccountAvatarRadius\n              : PrimeShellMetrics.toolbarAccountAvatarRadius,\n"
+        },
+        {
+          "begin": 25427,
+          "old": "",
+          "new": "    const horizontalAvatarExtent =\n        2 * PrimeShellMetrics.horizontalToolbarAccountAvatarRadius;\n"
+        },
+        {
+          "begin": 27742,
+          "old": "                    avatar,\n",
+          "new": "                    if (horizontalToolbar)\n                      SizedBox(\n                        width: horizontalAvatarExtent,\n                        child: OverflowBox(\n                          minHeight: horizontalAvatarExtent,\n                          maxHeight: horizontalAvatarExtent,\n                          child: avatar,\n                        ),\n                      )\n                    else\n                      avatar,\n"
+        },
+        {
+          "begin": 28225,
+          "old": "",
+          "new": "                          horizontalToolbar: horizontalToolbar,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "fb86f319c56ea60afe94a1ff39560f04872a252cd9d01c142e073b7806abdc9b",
+      "afterSha256": "ae58a8c3a9913b838e9f27a0c4f1119daa34598b7776a89f110771d0b5bb669b",
+      "edits": [
+        {
+          "begin": 14230,
+          "old": "            expect(tester.getSize(accountTrigger).width, closeTo(131.92, 0.01));\n",
+          "new": "            expect(tester.getSize(accountTrigger).width, closeTo(134.515625, 2));\n            expect(\n              tester.getSize(find.descendant(\n                of: accountTrigger,\n                matching: find.byType(CircleAvatar),\n              )),\n              const Size.square(40),\n            );\n            expect(\n              tester.widget<Text>(find.text('Admin')).style?.fontSize,\n              PrimeShellMetrics.horizontalToolbarAccountLabelSize,\n            );\n"
+        }
+      ]
+    }
+  ]
+}

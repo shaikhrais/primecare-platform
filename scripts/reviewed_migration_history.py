@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_horizontal_account_geometry(source, path):
+    return reverse_presentation_receipt(source, path, 'horizontal-account-geometry-replay.json')
+
 def before_right_sidebar_toggle(source, path):
+    source = before_horizontal_account_geometry(source, path)
     return reverse_presentation_receipt(source, path, 'right-sidebar-toggle-replay.json')
 
 def before_shell_chrome(source, path):
