@@ -818,3 +818,24 @@ screens. At x=280, y=360, the light drawer edge moved from RGB (123, 123, 124) t
 still differs. The 64 paired native frames in R01, R02, R03 and R05 retain
 their decoded pixels. Both shared UI and screen-style checks passed. R04
 remains IN PROGRESS after visual review.
+
+### Wide drawer account menu
+
+The 640 × 900 left-to-right drawer opens the registered account menu at
+the top outer corner of its trigger. In both visual fixtures the PrimeCare
+popup moved from x=374 to x=268 and the single Sign out row from 48 px to
+31.5 px. Fuse and PrimeCare both record x=268, y=832, width 128 px and
+height 31.5 px at this size. The 390 px popup still retains its 48 px row
+and recorded position. Native tests verify pointer and keyboard opening,
+Sign out focus, Escape dismissal and focus return.
+
+The shared populated fixture SHA-256 is
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+[Capture run 45440495193](https://github.com/shaikhrais/primecare-platform/actions/runs/45440495193)
+rendered source `5e90f2450d6089addb1f27fbd8b6cf1572ec23b9`, Fuse artifact
+`14943586550` and native artifact `14942674307`. Six menu screenshots
+changed across the 16 paired wide screenshots. The 82 other paired
+cases retain their native pixels and reference hashes. The wide
+comparison still shows account typography, shadows, and toolbar and
+footer controls behind the scrim. Other viewports and RTL remain open.
+All five views remain IN PROGRESS.
