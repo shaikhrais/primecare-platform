@@ -1,4 +1,4 @@
-name: PrimeCare exact-source package verification
+name: PrimeCare exact package repair candidate verification
 on:
   workflow_dispatch:
   push:
@@ -9,7 +9,9 @@ permissions:
   contents: read
 
 env:
-  PC_SHA: b2c31f6e9ced7158f6f2040990f67be52cd04fa6
+  PC_SHA: 8ccb417f0d03e04e191323a2f4b3bfddc81b59f4
+  PC_TREE: b312314e0a39ccc78f9f80390e1d63984c4e18f6
+  PC_PARENT: ab7f34225d82430e31ad6a1f8880a7dfe5151a95
   CI: 'true'
 
 jobs:
@@ -30,6 +32,8 @@ jobs:
         id: plan
         run: |
           test "$(git rev-parse HEAD)" = "$PC_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$PC_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$PC_PARENT"
           python -m pip install PyYAML==6.0.3
           python tools/package_master/catalog.py --check
           python - <<'PY'
@@ -56,7 +60,7 @@ jobs:
                   spec=yaml.safe_load((path/'pubspec.yaml').read_text())
                   flutter=any(isinstance(v,dict) and v.get('sdk')=='flutter'
                    for section in ('dependencies','dev_dependencies') for v in (spec.get(section) or {}).values())
-              plan.append({'id':key,'path':row['path'],'node':'package.json' in manifest or key=='shared',
+              plan.append({'id':key,'path':row['path'],'node':'package.json' in manifest or key in ('shared','flutter_core'),
                            'dart':dart or key=='factory_system','flutter':flutter,
                            'manifest':bool(manifest),'placeholder':not files,
                            'kind':row['kind'],'group':group,'trackedFileCount':len(files)})
@@ -124,7 +128,7 @@ jobs:
       - if: matrix.package.node
         name: Resolve locked npm dependencies without lifecycle scripts
         run: npm ci --ignore-scripts --no-audit --no-fund
-      - if: matrix.package.id == 'database'
+      - if: matrix.package.id == 'database' || matrix.package.id == 'domain'
         name: Cache the Prisma schema engine; no database connection
         env:
           DATABASE_URL: postgresql://fixture:fixture@127.0.0.1:1/not_a_database
@@ -135,6 +139,22 @@ jobs:
         run: |
           flutter config --no-analytics
           if [ "${{ matrix.package.flutter }}" = true ]; then flutter pub get; else dart pub get; fi
+      - if: matrix.package.id == 'flutter_core'
+        name: Generate Flutter contract oracles from checked-out web source
+        run: |
+          node scripts/advanced-theme-fixtures.mjs
+          node scripts/workspace-navigation-fixtures.mjs
+          node scripts/page-template-fixtures.mjs
+          node scripts/workspace-native-contract-fixtures.mjs
+      - if: matrix.package.id == 'primecare_ui'
+        name: Cache the package-verified SQLite binary before disabling network
+        working-directory: packages/primecare_ui
+        run: |
+          probe="$(mktemp --suffix=_test.dart test/primecare_ci_native_asset_probe.XXXXXX)"
+          trap 'rm -f "$probe"' EXIT
+          printf '%s\n' "import 'package:flutter_test/flutter_test.dart';" \
+            "void main() { test('Native assets initialized', () => expect(true, isTrue)); }" > "$probe"
+          flutter test --no-pub --exclude-tags=visual-capture "$probe"
       - if: matrix.package.id == 'primecare_kitchen_sink'
         name: Resolve the checked-in Flutter preview
         working-directory: examples/kitchen_sink_flutter
@@ -144,6 +164,51 @@ jobs:
       - if: matrix.package.id == 'primecare_kitchen_sink_web'
         name: Install the existing catalogue generator's parser
         run: python3 -m pip install PyYAML==6.0.3
+      - if: matrix.package.id == 'domain'
+        name: Prepare the loopback-only database fixture recipe
+        run: |
+          test -x /usr/lib/postgresql/16/bin/initdb
+          cat > "$RUNNER_TEMP/pc-domain-fixture.sh" <<'PC_DOMAIN_FIXTURE'
+          #!/usr/bin/env bash
+          # Run from the CI checkout root as the runner user, INSIDE the existing
+          # loopback-only namespace. Set PG_BIN to the runner's reviewed PostgreSQL bin
+          # directory (the Ubuntu 24.04 image's PostgreSQL 16 server by default).
+          set -euo pipefail
+          : "${RUNNER_TEMP:?}" "${PG_BIN:=/usr/lib/postgresql/16/bin}"
+          if [[ -v PRODUCTION_DATABASE_URL || -v GOVERNANCE_DATABASE_URL ]]; then
+            echo 'Production inputs are forbidden in the disposable domain test lane.' >&2
+            exit 1
+          fi
+          test -x "$PG_BIN/initdb"
+          test -x "$PG_BIN/pg_ctl"
+          test -x node_modules/.bin/prisma
+          test -x node_modules/.bin/vitest
+          export PRISMA_GENERATE_SKIP_AUTOINSTALL=true
+          export DATABASE_URL=postgresql://pc_domain_fixture@127.0.0.1:55432/primecare_domain_test
+          temp="$(mktemp -d "$RUNNER_TEMP/primecare-domain.XXXXXX")"
+          chmod 700 "$temp"
+          trap '"$PG_BIN/pg_ctl" -D "$temp/pgdata" -m fast -w stop >/dev/null 2>&1 || true; rm -rf -- "$temp"' EXIT
+          "$PG_BIN/initdb" -D "$temp/pgdata" -A trust -U pc_domain_fixture --no-locale >/dev/null
+          "$PG_BIN/pg_ctl" -D "$temp/pgdata" -l "$temp/postgres.log" -o "-h 127.0.0.1 -p 55432 -c unix_socket_directories=''" -w start ||
+            { cat "$temp/postgres.log"; exit 1; }
+          node_modules/.bin/prisma generate --schema packages/database/prisma/schema
+          node_modules/.bin/prisma db push --skip-generate --schema packages/database/prisma/schema
+          node - <<'JS'
+          const {PrismaClient} = require('./packages/database/generated/client/index.js');
+          (async () => {
+            const db = new PrismaClient();
+            try {
+              await db.tenant.create({data: {
+                id: 'tenant-toronto', name: 'Disposable ledger fixture', slug: 'fixture-toronto',
+                allowedVpnRanges: '127.0.0.1/32', corsAllowedOrigins: [],
+                corsAllowedHeaders: [], corsAllowedMethods: []
+              }});
+            } finally { await db.$disconnect(); }
+          })().catch(error => { console.error(error); process.exitCode = 1; });
+          JS
+          (cd packages/domain && ../../node_modules/.bin/vitest run)
+          PC_DOMAIN_FIXTURE
+          bash -n "$RUNNER_TEMP/pc-domain-fixture.sh"
       - name: Run checks in a network namespace with loopback only
         run: |
           cat > "$RUNNER_TEMP/pc-package-check.py" <<'PY'
@@ -189,7 +254,9 @@ jobs:
                   language='flutter' if info['flutter'] else 'dart'
                   sources=[name for name in ('lib','bin','test') if (path/name).is_dir()]
                   if sources: run('native-analysis','static',[language,'analyze',*(['--no-pub'] if info['flutter'] else []),*sources])
-                  if any(p.startswith('test/') and p.endswith('_test.dart') for p in tracked_rel):
+                  if key=='primecare_package_base':
+                      run('native-tests','test',['dart','test/registry_test.dart'])
+                  elif any(p.startswith('test/') and p.endswith('_test.dart') for p in tracked_rel):
                       args=[language,'test']+(['--no-pub','--exclude-tags=visual-capture'] if info['flutter'] else [])
                       run('native-tests','test',args)
               if info['group']=='services':
@@ -211,7 +278,9 @@ jobs:
                   if (path/'package.json').exists():
                       scripts=json.loads((path/'package.json').read_text()).get('scripts',{})
                       if 'typecheck' in scripts: run('npm-types','static',['npm','--ignore-scripts','run','typecheck'])
-                      if key in ('domain','primecare_package_base'): run('npm-tests','test',['npm','--ignore-scripts','test'])
+                      if key=='domain':
+                          run('npm-tests','test',['bash', os.path.join(os.environ['RUNNER_TEMP'], 'pc-domain-fixture.sh')],root)
+                      if key=='primecare_package_base': run('npm-tests','test',['npm','--ignore-scripts','test'])
                       if key=='infrastructure': run('npm-build','build',['npm','--ignore-scripts','run','build'])
                   files=[p for p in tracked_rel if p.endswith(('.mjs','.cjs','.js')) and not p.startswith('generated/')]
                   if files:
