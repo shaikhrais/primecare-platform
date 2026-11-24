@@ -70,6 +70,7 @@ abstract final class PrimeShellMetrics {
   static const drawerScrimColor = Color(0x80000000);
   static const sidebarToggleSize = 32.0;
   static const sidebarToggleOutlineSize = 28.0;
+  static const sidebarToggleLeadingWidth = 60.0;
   static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 14);
   static const toolbarAccountHeight = 36.0;
   static const toolbarAccountPadding = EdgeInsets.symmetric(horizontal: 4);
@@ -231,9 +232,18 @@ abstract final class PrimeShellMetrics {
 
   static BoxDecoration sidebarToggleDecoration(ThemeData theme) =>
       BoxDecoration(
-        border: Border.all(color: theme.colorScheme.outlineVariant),
+        border: Border.all(color: theme.dividerColor),
         borderRadius: navigationItemRadius,
       );
+
+  static Color toolbarSurface(
+    ThemeData theme,
+    Color configuredBackground, {
+    required bool horizontal,
+    required bool hasBackgroundOverride,
+  }) => horizontal && !hasBackgroundOverride
+      ? theme.colorScheme.surface
+      : configuredBackground;
   static const foldedHeaderExtent = 56.0;
   static const foldedNavigationTopGap = 4.0;
   // The rail includes its one-pixel divider. Preserve a square 32px target.

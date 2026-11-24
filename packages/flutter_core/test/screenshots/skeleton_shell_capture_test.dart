@@ -345,6 +345,10 @@ void main() {
             ));
             expect(appBar.clipBehavior, Clip.none);
             expect(
+              appBar.backgroundColor,
+              mode == 'light' ? Colors.white : const Color(0xff1a1d22),
+            );
+            expect(
               tester.getSize(accountTrigger).height,
               PrimeShellMetrics.toolbarAccountHeight,
             );
@@ -671,6 +675,22 @@ void main() {
             } finally {
               semantics.dispose();
             }
+            await container.read(themeSettingsProvider.notifier).updateSectionTheme(
+              'toolbar',
+              PersonalTheme(
+                name: 'Toolbar with a saved background',
+                preset: mode == 'dark' ? 'defaultDark' : 'default',
+                colors: const {'topbar': '#31465a'},
+              ),
+            );
+            await tester.pumpAndSettle();
+            expect(
+              tester.widget<AppBar>(find.descendant(
+                of: find.byKey(const Key('app-topbar')),
+                matching: find.byWidgetPredicate((widget) => widget is AppBar),
+              )).backgroundColor,
+              const Color(0xff31465a),
+            );
           }
         });
       }

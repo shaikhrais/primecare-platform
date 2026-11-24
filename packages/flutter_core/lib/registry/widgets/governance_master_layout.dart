@@ -91,12 +91,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final themeColors = theme.extension<GovernanceThemeColors>();
 
     // Dynamic top bar colors
-    final topbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;
-    final defaultTopbarTextColor = readableThemeForeground(topbarBg, theme.colorScheme.onSurface);
-    final defaultTopbarIconColor = readableThemeForeground(topbarBg, theme.primaryColor);
-
-    final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;
-    final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;
+    final configuredTopbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;
+    final toolbarSettings = settings.sectionThemes['toolbar'] ?? settings.theme;
 
     Widget buildHorizontalNav(ThemeData navbarTheme) {
       final colors = navbarTheme.extension<GovernanceThemeColors>();
@@ -291,6 +287,19 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   final theme = Theme.of(context);
                   final position = workspace.current.navigation;
                   final horizontal = position == 'top' || position == 'bottom';
+                  final topbarBg = PrimeShellMetrics.toolbarSurface(
+                    theme,
+                    configuredTopbarBg,
+                    horizontal: horizontal ||
+                        position == 'hidden' && settings.layoutStyle == LayoutStyle.horizontal,
+                    hasBackgroundOverride: toolbarSettings.colors.containsKey('topbar'),
+                  );
+                  final topbarTextColor = readableThemeForeground(
+                    topbarBg, themeColors?.topbarTextColor ?? theme.colorScheme.onSurface,
+                  );
+                  final topbarIconColor = readableThemeForeground(
+                    topbarBg, themeColors?.topbarIconColor ?? theme.primaryColor,
+                  );
                   final toolbar = PreferredSize(
                   preferredSize: Size.fromHeight(shellBarHeight),
                   child: Semantics(
@@ -303,6 +312,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         primary: false,
                         elevation: 0,
                         clipBehavior: horizontal && !isHandheld ? Clip.none : null,
+                        leadingWidth: !isHandheld && position == 'left'
+                            ? PrimeShellMetrics.sidebarToggleLeadingWidth
+                            : null,
                         leading: isHandheld
                             ? PrimeSidebarDrawerButton(foreground: topbarIconColor)
                             : position == 'left'
