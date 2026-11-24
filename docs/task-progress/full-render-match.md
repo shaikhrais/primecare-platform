@@ -757,3 +757,24 @@ R01–R05 remain IN PROGRESS. Active gaps include expanded and folded
 multi-destination states, the right popup shadow and toolbar, mobile drawer
 shadow and wider or RTL layouts, and horizontal toolbar actions. The two
 native right-edge theme launchers and demo implementation remain BLOCKED.
+
+### Horizontal account geometry and folded-tabbed menu hover
+
+The desktop horizontal account control follows the reference's 36 px button
+height, 40 px avatar, 12 px compact label and horizontal border inset at
+100% text scale. Its populated Admin fixture passes the 0.2 px width check
+against the measured Fuse trigger. Font and text scale remain configurable.
+The actual account menu still opens at the recorded anchor, and keyboard
+focus, Enter activation, Escape dismissal and focus return pass.
+
+The alternate folded-tabbed account menu now has pointer-hover captures in
+both light and dark. Tests open the existing account menu, hover the enabled
+Sign out row and dismiss it before the keyboard checks. This verifies the
+single-destination variant. Multi-destination states remain IN PROGRESS.
+
+[GitHub shell capture run 45407168166](https://github.com/shaikhrais/primecare-platform/actions/runs/45407168166)
+rendered source `ce96e1fe94afcb7051b1eac25562bc4b38610678`.
+Native artifact `14925332789` supplies the tracked captures. The corrected
+candidate accounts for the reference border inset after the initial narrower
+candidate failed the width check. R01–R05 remain IN PROGRESS. Missing
+native toolbar bindings require review. Demo implementation remains BLOCKED.
