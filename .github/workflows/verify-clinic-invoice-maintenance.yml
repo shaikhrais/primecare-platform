@@ -1,0 +1,104 @@
+name: Verify Clinic invoice maintenance
+on:
+  workflow_dispatch:
+    inputs:
+      expected_main:
+        description: Exact reviewed main commit (full SHA)
+        required: true
+        type: string
+      previous_live:
+        description: Independently verified Clinic live commit (full SHA)
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: clinic-invoice-maintenance-verify-${{ github.sha }}
+  cancel-in-progress: false
+env:
+  PROJECT: primecare-clinic
+  EXPECTED_MAIN: ${{ inputs.expected_main }}
+  PREVIOUS_LIVE: ${{ inputs.previous_live }}
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify exact source, runtime and prior live Clinic artifact
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$PREVIOUS_LIVE" =~ ^[0-9a-f]{40}$ ]]
+          test "$EXPECTED_MAIN" != "$PREVIOUS_LIVE"
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
+          python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
+          mkdir -p "$RUNNER_TEMP/clinic-evidence"
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --record "$RUNNER_TEMP/clinic-evidence/before.json"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - name: Run isolated invoice browser fixture
+        run: |
+          npm install --prefix "$RUNNER_TEMP/invoice" --ignore-scripts --no-audit --no-fund axe-core@4.10.3 esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 pg@8.16.3 bcryptjs@3.0.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/invoice/node_modules" node_modules
+          trap 'unlink node_modules' EXIT
+          node_modules/.bin/playwright install --with-deps chromium
+          node --test scripts/test-client-invoices-session-seed.mjs scripts/test-client-invoices.mjs scripts/test-client-invoices-view.mjs scripts/test-client-invoices-api.mjs scripts/test-typescript-strict-contracts.mjs
+          node scripts/test-client-invoices-browser.mjs
+      - name: Build prerequisites and release checks
+        run: |
+          npm ci --ignore-scripts
+          python -m pip install -r tools/governance-production/requirements.txt
+          python -m unittest tools.deployment.test_portal_artifact tools.deployment.test_typescript_release tools.deployment.test_dashboard_portal_contract
+      - name: Build web bundle from read-only production metadata
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/build-typescript-websites.mjs
+      - name: Check unchanged access contract and seal only Clinic
+        run: |
+          set -euo pipefail
+          proof="$RUNNER_TEMP/clinic-evidence"
+          bundle="websites/typescript/dist/$PROJECT"
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline "$proof/before.json"
+          python -m tools.deployment.dashboard_portal_contract "$bundle" "$PROJECT" "$GITHUB_SHA" "$proof/before.json"
+          python - "$bundle" "$proof" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          bundle, proof = map(Path, sys.argv[1:])
+          manifest = json.loads((bundle / "portal.json").read_text())
+          expected = (665, "client_profile", "/clinic/client-profile", "guest")
+          matches = [
+              row for row in manifest["screens"]
+              if (row["id"], row["code"], row["route"], row["roleName"].casefold()) == expected
+          ]
+          if len(matches) != 1:
+              raise SystemExit("Expected the single existing Clinic invoice host")
+          before = json.loads((proof / "before.json").read_text())["files"]
+          after = json.loads((bundle / "primecare-build.json").read_text())["files"]
+          changed = sorted(name for name in before.keys() | after.keys() if before.get(name) != after.get(name))
+          (proof / "asset-delta.json").write_text(json.dumps({"changed": changed}, indent=2) + "\n")
+          PY
+          python -m tools.deployment.portal_artifact seal "$bundle" "$PROJECT" "$GITHUB_SHA" "$proof/portal-receipt.json"
+          python -m tools.deployment.portal_artifact check "$bundle" "$PROJECT" "$GITHUB_SHA" "$proof/portal-receipt.json"
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clinic-invoice-maintenance-bundle
+          path: websites/typescript/dist/primecare-clinic
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clinic-invoice-maintenance-proof
+          path: ${{ runner.temp }}/clinic-evidence
+          if-no-files-found: error
+          retention-days: 7
