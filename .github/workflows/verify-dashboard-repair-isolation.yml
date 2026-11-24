@@ -1,0 +1,35 @@
+name: Verify dashboard repair release isolation
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-dashboard-repair-isolation.yml']
+permissions:
+  contents: read
+env:
+  REPAIR: b4c1ad7a89bb02bb9b8ffce06d527c9950bae51f
+  GUARD: 12c430625612f63080ac2be3ebea2580b30c1319
+  GUARD_PARENT: e86b351c745607cdea03aa2b5a313b7b73429388
+  REPAIR_TREE: d6269e6c13e559bb268a404ba341bceb8c164ce9
+jobs:
+  release-isolation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.REPAIR }}
+          fetch-depth: 4
+          persist-credentials: false
+      - name: Verify exact source and all release-scope guard cases
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$REPAIR"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$REPAIR_TREE"
+          test "$(git rev-parse HEAD^)" = "$GUARD"
+          test "$(git rev-parse HEAD^^)" = "$GUARD_PARENT"
+          python3 -m unittest tools.deployment.test_dashboard_publish_scope tools.deployment.test_dashboard_release_intent
+          test "$(python3 -m tools.deployment.dashboard_publish_scope push "$GUARD" "$REPAIR")" = 'allow_legacy_publish=false'
+          test "$(python3 -m tools.deployment.dashboard_publish_scope workflow_dispatch "$GUARD" "$REPAIR")" = 'allow_legacy_publish=true'
+          git checkout --detach "$GUARD"
+          test "$(python3 -m tools.deployment.dashboard_publish_scope push "$GUARD_PARENT" "$GUARD")" = 'allow_legacy_publish=false'
