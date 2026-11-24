@@ -353,7 +353,7 @@ void main() {
               PrimeShellMetrics.toolbarAccountHeight,
             );
             expect(tester.getRect(accountTrigger).right, 1248);
-            expect(tester.getSize(accountTrigger).width, closeTo(134.515625, 2));
+            expect(tester.getSize(accountTrigger).width, closeTo(134.515625, 0.2));
             expect(
               tester.getSize(find.descendant(
                 of: accountTrigger,

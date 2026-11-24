@@ -75,6 +75,9 @@ abstract final class PrimeShellMetrics {
   static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 14);
   static const toolbarAccountHeight = 36.0;
   static const toolbarAccountPadding = EdgeInsets.symmetric(horizontal: 4);
+  static const horizontalToolbarAccountPadding = EdgeInsets.symmetric(
+    horizontal: 5,
+  );
   static const toolbarAccountRadius = BorderRadius.all(Radius.circular(24));
   static const horizontalToolbarAccountRadius =
       BorderRadius.all(Radius.circular(8));

@@ -5,8 +5,13 @@
     {
       "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
       "beforeSha256": "07c9aa2d4e579a023547cf02906416e2964db7d53c007fa26a0d9ace6119fac9",
-      "afterSha256": "73509c65ce86329b28dff0871c64cc9acc5e3a55f271b8b6cb9cd4850b98febc",
+      "afterSha256": "e926443b8fd03ed210e846ec0177cfac0be54f55c8727a2b953a455036131aa8",
       "edits": [
+        {
+          "begin": 3090,
+          "old": "",
+          "new": "  static const horizontalToolbarAccountPadding = EdgeInsets.symmetric(\n    horizontal: 5,\n  );\n"
+        },
         {
           "begin": 4531,
           "old": "",
@@ -32,7 +37,7 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "beforeSha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
-      "afterSha256": "8e08daba592a7fce1fa53382a60cd62249f67d0913d7e40e6ceef2d23044869b",
+      "afterSha256": "b6661d286e5fc7872de1670a4e74711dd791c6effe0fddf99f8804b9398fda04",
       "edits": [
         {
           "begin": 24963,
@@ -43,6 +48,11 @@
           "begin": 25427,
           "old": "",
           "new": "    const horizontalAvatarExtent =\n        2 * PrimeShellMetrics.horizontalToolbarAccountAvatarRadius;\n"
+        },
+        {
+          "begin": 27568,
+          "old": "                padding: PrimeShellMetrics.toolbarAccountPadding,\n",
+          "new": "                padding: horizontalToolbar\n                    ? PrimeShellMetrics.horizontalToolbarAccountPadding\n                    : PrimeShellMetrics.toolbarAccountPadding,\n"
         },
         {
           "begin": 27742,
@@ -59,12 +69,24 @@
     {
       "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
       "beforeSha256": "fb86f319c56ea60afe94a1ff39560f04872a252cd9d01c142e073b7806abdc9b",
-      "afterSha256": "ae58a8c3a9913b838e9f27a0c4f1119daa34598b7776a89f110771d0b5bb669b",
+      "afterSha256": "e630f17fa607c512ddde64aced489eb0cc98a966b738efa500094a75dd50173e",
       "edits": [
         {
           "begin": 14230,
           "old": "            expect(tester.getSize(accountTrigger).width, closeTo(131.92, 0.01));\n",
-          "new": "            expect(tester.getSize(accountTrigger).width, closeTo(134.515625, 2));\n            expect(\n              tester.getSize(find.descendant(\n                of: accountTrigger,\n                matching: find.byType(CircleAvatar),\n              )),\n              const Size.square(40),\n            );\n            expect(\n              tester.widget<Text>(find.text('Admin')).style?.fontSize,\n              PrimeShellMetrics.horizontalToolbarAccountLabelSize,\n            );\n"
+          "new": "            expect(tester.getSize(accountTrigger).width, closeTo(134.515625, 0.2));\n            expect(\n              tester.getSize(find.descendant(\n                of: accountTrigger,\n                matching: find.byType(CircleAvatar),\n              )),\n              const Size.square(40),\n            );\n            expect(\n              tester.widget<Text>(find.text('Admin')).style?.fontSize,\n              PrimeShellMetrics.horizontalToolbarAccountLabelSize,\n            );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "cc9c7f3434d3c6afb3f6276d27402d3d3cc8045a034f44d177c4f970b4930d37",
+      "afterSha256": "31549a8349ce28c66ef8b6992b4f54b0c3c0b524f1c5c4ad152d5c43ee61f782",
+      "edits": [
+        {
+          "begin": 8657,
+          "old": "",
+          "new": "            final previousShadowMode = debugDisableShadows;\n            debugDisableShadows = false;\n            try {\n              await tester.tap(account);\n              await tester.pumpAndSettle();\n              await captureAccountMenuHover(\n                tester,\n                frame: proof,\n                golden:\n                    'sidebar-state-captures/folded-tabbed-$mode-account-menu-hover.png',\n              );\n            } finally {\n              debugDisableShadows = previousShadowMode;\n            }\n            await tester.sendKeyEvent(LogicalKeyboardKey.escape);\n            await tester.pumpAndSettle();\n            expect(findAccountPopupItem('Sign out'), findsNothing);\n"
         }
       ]
     }

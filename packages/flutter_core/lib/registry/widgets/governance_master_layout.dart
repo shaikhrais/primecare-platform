@@ -552,7 +552,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
             child: PrimeToolbarAccountFrame(
               radius: triggerRadius,
               child: Padding(
-                padding: PrimeShellMetrics.toolbarAccountPadding,
+                padding: horizontalToolbar
+                    ? PrimeShellMetrics.horizontalToolbarAccountPadding
+                    : PrimeShellMetrics.toolbarAccountPadding,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

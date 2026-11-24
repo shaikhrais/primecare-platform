@@ -216,6 +216,23 @@ void main() {
             );
             expect(account, findsOneWidget);
             expect(tester.getSize(account), const Size.square(40));
+            final previousShadowMode = debugDisableShadows;
+            debugDisableShadows = false;
+            try {
+              await tester.tap(account);
+              await tester.pumpAndSettle();
+              await captureAccountMenuHover(
+                tester,
+                frame: proof,
+                golden:
+                    'sidebar-state-captures/folded-tabbed-$mode-account-menu-hover.png',
+              );
+            } finally {
+              debugDisableShadows = previousShadowMode;
+            }
+            await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+            await tester.pumpAndSettle();
+            expect(findAccountPopupItem('Sign out'), findsNothing);
             await verifyAccountKeyboard(
               tester,
               trigger: account,
