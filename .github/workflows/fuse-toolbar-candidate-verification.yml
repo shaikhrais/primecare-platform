@@ -1,0 +1,116 @@
+name: Verify PrimeCare Flutter toolbar candidate
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/fuse-toolbar-candidate-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-flutter-toolbar-candidate
+  cancel-in-progress: false
+env:
+  CANDIDATE_SHA: dfd5141c730272c16b276d3e12bdfe21b72734a7
+  EXPECTED_PARENT: 093e74ddb36d58176384c6a34367d3a6ff1a7fea
+  EXPECTED_TREE: a8124c78d8eed13812ffe4d956bdfdb35cf4040a
+  FLUTTER_SUPPRESS_ANALYTICS: 'true'
+jobs:
+  flutter:
+    name: Toolbar, panels, responsive shell and visual fixtures
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          persist-credentials: false
+      - name: Assert exact reviewed source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$EXPECTED_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$EXPECTED_PARENT"
+          printf 'Fixture candidate: `%s`\n\nReviewed parent: `%s`\n\nNo production deployment.\n' "$CANDIDATE_SHA" "$EXPECTED_PARENT" >> "$GITHUB_STEP_SUMMARY"
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Check shared controls and screen-registration boundary
+        run: |
+          git fetch --no-tags --depth=1 origin a75adabc1efdedbc5ed387584cf5b51ad9e41cbc
+          python3 scripts/check-shared-ui-boundary.py
+          python3 scripts/check-screen-style-boundary.py --head "$CANDIDATE_SHA"
+      - name: Test seven actions, account isolation, panels and narrow overflow
+        working-directory: packages/flutter_core
+        env:
+          PRIMECARE_SEVEN_CAPTURE_DIR: ${{ github.workspace }}/artifacts/primecare-toolbar-captures
+          PRIMECARE_FUSE_CAPTURE_DIR: ${{ github.workspace }}/artifacts/primecare-configurator-captures
+        run: |
+          flutter pub get
+          flutter test --no-pub --update-goldens --reporter expanded \
+            test/workspace/shell_seven_toolbar_test.dart \
+            test/workspace/toolbar_tools_test.dart \
+            test/workspace/toolbar_text_scale_test.dart \
+            test/application_modules/shell_favourites_test.dart \
+            test/application_modules/application_shortcut_editor_test.dart \
+            test/application_modules/prime_application_shortcuts_screen_test.dart \
+            test/shell_utilities/toolbar_utility_actions_test.dart \
+            test/shell_utilities/shell_utilities_widget_test.dart \
+            test/screenshots/fuse_configurator_launcher_test.dart \
+            test/screenshots/sidebar_state_capture_test.dart \
+            test/screenshots/skeleton_shell_capture_test.dart \
+            test/theme_center_reference_test.dart
+      - uses: actions/upload-artifact@v4
+        with:
+          name: toolbar-and-theme-fixture-screenshots
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 14
+
+  web-dialog:
+    name: Web dialog dismissal regressions
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Verify exact source and test web dialog with isolated DOM fixtures
+        run: |
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$EXPECTED_TREE"
+          npm install --prefix "$RUNNER_TEMP/toolbar-test-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 linkedom@0.18.12
+          ln -s "$RUNNER_TEMP/toolbar-test-tools/node_modules" node_modules
+          node --test scripts/test-dashboard-dialog-backdrop.mjs
+
+  build:
+    name: Compile Governance Flutter web app (artifact only)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Compile the reviewed Flutter application
+        working-directory: apps/primecare_governance
+        run: |
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$EXPECTED_TREE"
+          flutter pub get
+          flutter build web --release --no-pub --no-tree-shake-icons \
+            --dart-define=API_BASE_URL=https://fixture.invalid \
+            --dart-define=APP_BASE_URL=https://fixture.invalid
+          test -s build/web/main.dart.js
+          printf 'Verification-only. Not eligible for deployment.\n' > build/web/verification-only.txt
+          sha256sum build/web/main.dart.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: governance-flutter-build-verification-only
+          path: apps/primecare_governance/build/web/
+          if-no-files-found: error
+          retention-days: 7
