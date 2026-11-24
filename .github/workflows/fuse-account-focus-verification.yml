@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 env:
-  CANDIDATE_SHA: e8d4af7e803be2548211ca1ad10d67f325f167cb
-  EXPECTED_PARENT: 272fa1c46a3ed3f5c1045dac8bd75f385565e28b
-  EXPECTED_TREE: 994a04faa1dadbb1f67822736ac027f5d971c479
+  CANDIDATE_SHA: 4090f67e452548ba03c91cc05d2ebee5175ce967
+  EXPECTED_PARENT: 2abb5b9f71f72b066962708cdbe4866b343c26a6
+  EXPECTED_TREE: e54ae786ab40fa9ead47337362536942866f6c84
   FLUTTER_SUPPRESS_ANALYTICS: 'true'
 jobs:
   native:
@@ -49,4 +49,43 @@ jobs:
             packages/flutter_core/test/screenshots/shell-captures
             packages/flutter_core/test/screenshots/sidebar-state-captures
           if-no-files-found: error
+          retention-days: 14
+  reference:
+    name: Render the licensed Fuse account hover states
+    needs: native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          persist-credentials: false
+      - name: Verify reference capture source
+        run: test "$(git rev-parse 'HEAD^{tree}')" = "$EXPECTED_TREE"
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-shell-account-focus-candidate
+          path: artifacts/native-fixture
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Extract supplied skeleton
+        run: python3 tools/fuse-reference-cloud/prepare.py "$RUNNER_TEMP/fuse-reference"
+      - name: Install original reference and capture dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/fuse-reference" --ignore-scripts --legacy-peer-deps --no-audit --no-fund
+          npm install --prefix "$RUNNER_TEMP/reference-capture" --ignore-scripts --no-audit --no-fund playwright@1.60.0
+          ln -s "$RUNNER_TEMP/reference-capture/node_modules" node_modules
+          node_modules/.bin/playwright install chromium
+      - name: Capture paired full-shell hover evidence
+        run: |
+          "$RUNNER_TEMP/fuse-reference/node_modules/.bin/vite" "$RUNNER_TEMP/fuse-reference" --config "$RUNNER_TEMP/fuse-reference/vite-reference.mts" > "$GITHUB_WORKSPACE/reference-vite.log" 2>&1 &
+          for attempt in $(seq 1 60); do curl -fsS http://127.0.0.1:4317/ > /dev/null && break || sleep 1; done
+          GITHUB_SHA="$CANDIDATE_SHA" FUSE_CAPTURE_SHARED_ONLY=1 node tools/fuse-reference-cloud/shell-capture.mjs artifacts/fuse-hover artifacts/native-fixture/shell-captures/navigation-fixture.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: original-fuse-account-hover-candidate
+          path: |
+            artifacts/fuse-hover
+            reference-vite.log
           retention-days: 14
