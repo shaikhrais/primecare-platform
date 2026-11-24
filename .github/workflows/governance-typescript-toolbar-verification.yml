@@ -1,0 +1,62 @@
+name: Verify Governance TypeScript toolbar candidate
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/governance-typescript-toolbar-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verify-governance-typescript-toolbar
+  cancel-in-progress: false
+env:
+  CANDIDATE_SHA: ffe0aae7c31c9f54e01fa1afbea0de372c4ce3dd
+  EXPECTED_PARENT: 7edd7280e1118e0f109a231e0612142a883ed34e
+  EXPECTED_TREE: ba5eb35828d087ae51693864717c33d311178c5f
+  GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+jobs:
+  verify-and-build:
+    name: Governance TypeScript tests and fixture build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          persist-credentials: false
+      - name: Assert exact reviewed source
+        run: |
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$EXPECTED_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$EXPECTED_PARENT"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install pinned dependencies and provision disposable metadata
+        run: |
+          npm ci --ignore-scripts
+          npm install --prefix "$RUNNER_TEMP/toolbar-dom-tools" --ignore-scripts --no-audit --no-fund linkedom@0.18.12 jsdom@26.1.0
+          test -e node_modules/linkedom || ln -s "$RUNNER_TEMP/toolbar-dom-tools/node_modules/linkedom" node_modules/linkedom
+          test -e node_modules/jsdom || ln -s "$RUNNER_TEMP/toolbar-dom-tools/node_modules/jsdom" node_modules/jsdom
+          pip install -r tools/governance-production/requirements.txt
+          git fetch --no-tags --depth=1 origin 4e6195c51e639e362b2884e4de435578960f0983
+          python3 tools/governance-production/prepare-ci-fixture.py
+      - name: Verify toolbar, permissions and workspace regressions
+        run: |
+          node --test scripts/test-workspace-navigation-search.mjs scripts/test-workspace-toolbar-language.mjs scripts/test-workspace-route-handoffs.mjs scripts/test-workspace-manager-boundaries.mjs scripts/test-typescript-screen-manager.mjs
+          npm exec -- playwright install --with-deps chromium
+          node scripts/test-workspace-navigation-browser.mjs
+          node scripts/test-workspace-fullscreen-browser.mjs
+      - name: Build Governance TypeScript output using isolated metadata
+        run: |
+          GITHUB_SHA="$CANDIDATE_SHA" API_GATEWAY_URL=https://fixture.invalid node scripts/build-typescript-websites.mjs
+          test -s websites/typescript/dist/primecare-governance/assets/app.js
+          cat websites/typescript/dist/primecare-governance/primecare-build.json
+          printf 'Isolated fixture build; not eligible for production deployment.\n' > websites/typescript/dist/primecare-governance/verification-only.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: governance-typescript-toolbar-fixture-build
+          path: websites/typescript/dist/primecare-governance/
+          if-no-files-found: error
+          retention-days: 7
