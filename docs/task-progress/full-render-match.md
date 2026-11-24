@@ -576,6 +576,6 @@ registered navigation fixture SHA-256 is
 `6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
 
 The folded multi-destination panel and horizontal account width and fills
-still need review. The two registered theme launcher controls still need
-production metadata verification before adoption. R01 through R05 remain
+still need review. The two theme launcher controls still need
+production registration and independent readback before adoption. R01 through R05 remain
 IN PROGRESS.
