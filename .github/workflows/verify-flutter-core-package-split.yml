@@ -1,0 +1,81 @@
+name: Verify PrimeCare Flutter core package split
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-flutter-core-package-split.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  PC_SHA: c2d120c604728d5dc75fad0764fac33c9a49ae50
+  PC_TREE: 3c9ae704f71a7473a0944c03c3e94b37863e8919
+  PC_PARENT: 5e9fffdec74173783f0714c47e995f80e796a8c4
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - name: Assert exact candidate and package ownership
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$PC_TREE"
+          test "$(git cat-file commit HEAD | awk 'NF==0{exit} $1=="parent"{print $2}')" = "$PC_PARENT"
+          python3 -m pip install PyYAML==6.0.3
+          python3 tools/package_master/catalog.py --check
+          node --test packages/primecare_package_base/test/registry.test.mjs
+          for package in primecare_auth primecare_app_runtime primecare_navigation primecare_api_client primecare_preferences; do
+            test -s "packages/$package/pubspec.yaml"
+            if git grep -n 'package:flutter_core/\|\.\./flutter_core' -- "packages/$package/lib" "packages/$package/pubspec.yaml"; then
+              echo "Unexpected legacy dependency in $package"
+              exit 1
+            fi
+          done
+  focused-packages:
+    needs: inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences]
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Analyze and test the package
+        working-directory: packages/${{ matrix.path }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          if grep -q 'sdk: flutter' pubspec.yaml; then
+            flutter pub get
+            flutter analyze --no-pub lib test
+            flutter test --no-pub
+          else
+            dart pub get
+            dart analyze lib test
+            dart test
+          fi
+  legacy-consumer:
+    needs: inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Verify legacy imports and auth regression suites
+        working-directory: packages/flutter_core
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          flutter pub get
+          flutter test --no-pub test/app_runtime_provider_ttl_compatibility_test.dart test/primecare_auth_compatibility_test.dart test/auth_interceptor_test.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_privileged_access_test.dart test/auth_route_guard_test.dart test/auth_session_test.dart test/auth_transport_test.dart
+      - name: Compile the shared Flutter preview consumer
+        working-directory: examples/kitchen_sink_flutter
+        run: |
+          flutter pub get
+          flutter build web --no-pub --release --no-tree-shake-icons
+          test -s build/web/main.dart.js
