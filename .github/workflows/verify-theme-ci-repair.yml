@@ -6,8 +6,8 @@ on:
 permissions:
   contents: read
 env:
-  PC_CANDIDATE: 19a31a89c30be434fecd0e2f14f4aee77214baeb
-  PC_TREE: a45f77119b3ee741c373da4211ffcacc9fda061a
+  PC_CANDIDATE: 5cd71bc1f7ae79769f592baf2fee29f3c0c30fc1
+  PC_TREE: c65d69563740deeaeeae9657ad7ebd739caccdd5
   PC_PARENT: ad1b7853f1478ec60cf79a7699fcffdcb69b5852
 jobs:
   catalogue:
