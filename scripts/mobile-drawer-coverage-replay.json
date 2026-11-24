@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "baseCommit": "790304532871983e56daa84f48011ee81f00e1aa",
+  "files": [
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "31549a8349ce28c66ef8b6992b4f54b0c3c0b524f1c5c4ad152d5c43ee61f782",
+      "afterSha256": "ca182a98c38d89b20e580795ada02216b319aa37a7fe1b5dc9975cea46c63af0",
+      "edits": [
+        {
+          "begin": 1492,
+          "old": "",
+          "new": "      'mobile-wide',\n"
+        },
+        {
+          "begin": 1683,
+          "old": "",
+          "new": "        final mobile = state == 'mobile' || state == 'mobile-wide';\n        final viewport = switch (state) {\n          'mobile' => const Size(390, 844),\n          'mobile-wide' => const Size(640, 900),\n          _ => const Size(1440, 1000),\n        };\n        final initialShadowMode = debugDisableShadows;\n"
+        },
+        {
+          "begin": 1697,
+          "old": "          tester.view.physicalSize = Size(\n            state == 'mobile' ? 390 : 1440,\n            state == 'mobile' ? 844 : 1000,\n          );\n",
+          "new": "          if (mobile) debugDisableShadows = false;\n          tester.view.physicalSize = viewport;\n"
+        },
+        {
+          "begin": 10216,
+          "old": "          if (state == 'mobile') {\n",
+          "new": "          if (mobile) {\n"
+        },
+        {
+          "begin": 11170,
+          "old": "            await tester.tapAt(const Offset(340, 500));\n",
+          "new": "            await tester.tapAt(Offset(viewport.width - 50, viewport.height / 2));\n"
+        },
+        {
+          "begin": 13828,
+          "old": "            'mobile' => 256,\n",
+          "new": "            'mobile' || 'mobile-wide' => 256,\n"
+        },
+        {
+          "begin": 14793,
+          "old": "            'mobile' => 256,\n",
+          "new": "            'mobile' || 'mobile-wide' => 256,\n"
+        },
+        {
+          "begin": 16231,
+          "old": "            state == 'mobile'\n",
+          "new": "            mobile\n"
+        },
+        {
+          "begin": 17445,
+          "old": "            state == 'mobile'\n",
+          "new": "            mobile\n"
+        },
+        {
+          "begin": 17868,
+          "old": "",
+          "new": "            'mobile-wide' => null,\n"
+        },
+        {
+          "begin": 17956,
+          "old": "          expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);\n",
+          "new": "          if (expectedAccountMenuOrigin != null) {\n            expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);\n          } else {\n            expect(accountMenuRect.top, viewport.height - 68);\n            expect(accountMenuRect.left, greaterThanOrEqualTo(0));\n            expect(accountMenuRect.right, lessThanOrEqualTo(viewport.width));\n          }\n"
+        },
+        {
+          "begin": 21884,
+          "old": "          if (state == 'mobile')\n",
+          "new": "          if (mobile)\n"
+        },
+        {
+          "begin": 24795,
+          "old": "              'drawerClosedOnActivation': state == 'mobile' ? true : null,\n",
+          "new": "              'drawerClosedOnActivation': mobile ? true : null,\n              if (mobile) 'drawerShadowCaptured': true,\n"
+        },
+        {
+          "begin": 25135,
+          "old": "",
+          "new": "          debugDisableShadows = initialShadowMode;\n"
+        }
+      ]
+    },
+    {
+      "path": "tools/fuse-reference-cloud/shell-capture.mjs",
+      "beforeSha256": "955d9aa8846587c0b35515fc99cbb8dd839fa298df13aa3b8c049ca91f74a0a2",
+      "afterSha256": "4db5dfff81e752bf15f89ea495dfea2334d295bfef3daee545fe05f5090610c8",
+      "edits": [
+        {
+          "begin": 1410,
+          "old": " for (const sidebarCase of ['selected','folded','right','drawer']) {\n  const [device,width,height] = sidebarCase === 'drawer' ? devices[2] : devices[0];\n",
+          "new": " for (const sidebarCase of ['selected','folded','right','drawer','drawer-wide']) {\n  const [device,width,height] = sidebarCase === 'drawer-wide'\n   ? ['mobile-wide',640,900]\n   : sidebarCase === 'drawer' ? devices[2] : devices[0];\n"
+        },
+        {
+          "begin": 4959,
+          "old": "   if (sidebarCase === 'drawer') {\n",
+          "new": "   if (sidebarCase === 'drawer' || sidebarCase === 'drawer-wide') {\n"
+        },
+        {
+          "begin": 5265,
+          "old": "    drawerClosed:sidebarCase === 'drawer' ? true : null,\n",
+          "new": "    drawerClosed:sidebarCase === 'drawer' || sidebarCase === 'drawer-wide' ? true : null,\n"
+        },
+        {
+          "begin": 11433,
+          "old": "   if (sidebarCase === 'drawer') {\n",
+          "new": "   let drawerShadow = null;\n   if (sidebarCase === 'drawer' || sidebarCase === 'drawer-wide') {\n"
+        },
+        {
+          "begin": 12657,
+          "old": "",
+          "new": "   if (sidebarCase === 'drawer' || sidebarCase === 'drawer-wide') {\n    drawerShadow = await page.locator('.MuiDrawer-paper').filter({\n     has: page.locator(`a[href$=\"${route}\"]`),\n    }).evaluate(element => getComputedStyle(element).boxShadow);\n   }\n"
+        },
+        {
+          "begin": 14466,
+          "old": "   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,accountMenu,interaction,errors,external,\n",
+          "new": "   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,accountMenu,interaction,drawerShadow,errors,external,\n"
+        }
+      ]
+    }
+  ]
+}

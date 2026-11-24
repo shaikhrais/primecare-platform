@@ -34,17 +34,23 @@ void main() {
       'folded',
       'right',
       'mobile',
+      'mobile-wide',
       'folded-tabbed',
     ]) {
       testWidgets('populated sidebar $state $mode selected hover focus', (
         tester,
       ) async {
         final semantics = tester.ensureSemantics();
+        final mobile = state == 'mobile' || state == 'mobile-wide';
+        final viewport = switch (state) {
+          'mobile' => const Size(390, 844),
+          'mobile-wide' => const Size(640, 900),
+          _ => const Size(1440, 1000),
+        };
+        final initialShadowMode = debugDisableShadows;
         try {
-          tester.view.physicalSize = Size(
-            state == 'mobile' ? 390 : 1440,
-            state == 'mobile' ? 844 : 1000,
-          );
+          if (mobile) debugDisableShadows = false;
+          tester.view.physicalSize = viewport;
           tester.view.devicePixelRatio = 1;
           addTearDown(tester.view.resetPhysicalSize);
           addTearDown(tester.view.resetDevicePixelRatio);
@@ -256,7 +262,7 @@ void main() {
             );
             return;
           }
-          if (state == 'mobile') {
+          if (mobile) {
             expect(find.byType(PrimeSidebarFoldButton), findsNothing);
             final trigger = find.byType(PrimeSidebarDrawerButton);
             expect(trigger, findsOneWidget);
@@ -280,7 +286,7 @@ void main() {
             final scaffold = tester.state<ScaffoldState>(
               find.byType(Scaffold).first,
             );
-            await tester.tapAt(const Offset(340, 500));
+            await tester.tapAt(Offset(viewport.width - 50, viewport.height / 2));
             await tester.pumpAndSettle();
             expect(scaffold.isDrawerOpen, isFalse);
             await tester.tap(trigger);
@@ -350,7 +356,7 @@ void main() {
           boxes['item'] = box(item);
           expect(tester.getSize(item), Size(switch (state) {
             'folded' => 32,
-            'mobile' => 256,
+            'mobile' || 'mobile-wide' => 256,
             _ => 255,
           }, 32));
           Future<void> capture(String name) async {
@@ -375,7 +381,7 @@ void main() {
           }
           expect(accountTriggerRect.width, switch (state) {
             'folded' => 40,
-            'mobile' => 256,
+            'mobile' || 'mobile-wide' => 256,
             _ => 255,
           });
           expect(
@@ -413,7 +419,7 @@ void main() {
           final signOutItem = findAccountPopupItem('Sign out');
           expect(
             tester.getSize(signOutItem).height,
-            state == 'mobile'
+            mobile
                 ? PrimeShellMetrics.accountMenuMobileItemHeight
                 : PrimeShellMetrics.accountMenuDesktopItemHeight,
           );
@@ -442,7 +448,7 @@ void main() {
           );
           expect(
             accountMenuRect.height,
-            state == 'mobile'
+            mobile
                 ? PrimeShellMetrics.accountMenuMobileItemHeight
                 : PrimeShellMetrics.accountMenuDesktopItemHeight,
           );
@@ -451,9 +457,16 @@ void main() {
             'folded' => const Offset(44, 952),
             'right' => const Offset(1296, 932),
             'mobile' => const Offset(246, 776),
+            'mobile-wide' => null,
             _ => throw StateError('Unhandled account menu state: $state'),
           };
-          expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);
+          if (expectedAccountMenuOrigin != null) {
+            expect(accountMenuRect.topLeft, expectedAccountMenuOrigin);
+          } else {
+            expect(accountMenuRect.top, viewport.height - 68);
+            expect(accountMenuRect.left, greaterThanOrEqualTo(0));
+            expect(accountMenuRect.right, lessThanOrEqualTo(viewport.width));
+          }
           boxes['accountTrigger'] = box(accountTrigger);
           boxes['accountMenu'] = box(accountMenuSurface);
           await expectLater(
@@ -557,7 +570,7 @@ void main() {
                 .queryParameters['enable-semantics'],
             'true',
           );
-          if (state == 'mobile')
+          if (mobile)
             expect(
               tester
                   .state<ScaffoldState>(
@@ -634,7 +647,8 @@ void main() {
               ],
               'accountMenuAuthorized': true,
               'accountMenuKeyboardActivationAndFocusReturn': true,
-              'drawerClosedOnActivation': state == 'mobile' ? true : null,
+              'drawerClosedOnActivation': mobile ? true : null,
+              if (mobile) 'drawerShadowCaptured': true,
               if (state == 'left' || state == 'right')
                 'toggleRestoredWidth': 312,
               'fixtureOnly': true,
@@ -643,6 +657,7 @@ void main() {
             }),
           );
         } finally {
+          debugDisableShadows = initialShadowMode;
           semantics.dispose();
         }
       });

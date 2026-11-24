@@ -21,8 +21,10 @@ for (const mode of ['light','dark']) {
  for (const layout of ['layout1','layout2','layout3']) {
   for (const [device,width,height] of devices) cases.push({layout,device,width,height,mode});
  }
- for (const sidebarCase of ['selected','folded','right','drawer']) {
-  const [device,width,height] = sidebarCase === 'drawer' ? devices[2] : devices[0];
+ for (const sidebarCase of ['selected','folded','right','drawer','drawer-wide']) {
+  const [device,width,height] = sidebarCase === 'drawer-wide'
+   ? ['mobile-wide',640,900]
+   : sidebarCase === 'drawer' ? devices[2] : devices[0];
   cases.push({layout:'layout1',device,width,height,mode,sidebarCase});
  }
 }
@@ -99,7 +101,7 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
      .waitFor({timeout:3000});
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(resolve)));
    }
-   if (sidebarCase === 'drawer') {
+   if (sidebarCase === 'drawer' || sidebarCase === 'drawer-wide') {
     const drawer = page.locator('.MuiDrawer-paper').filter({
      has: page.locator(`a[href$="${route}"]`),
     });
@@ -108,7 +110,7 @@ async function captureNavigationInteraction(page, id, sidebarCase, route) {
    states.activated = {
     status:'captured',
     destination:new URL(page.url()).pathname,
-    drawerClosed:sidebarCase === 'drawer' ? true : null,
+    drawerClosed:sidebarCase === 'drawer' || sidebarCase === 'drawer-wide' ? true : null,
     appearance:await appearance(),
     file:await screenshot('activated'),
    };
@@ -230,7 +232,8 @@ try{
    const path = sidebarCase ? route : '/';
    await page.goto(`http://127.0.0.1:4317${path}?${params}`,{waitUntil:'networkidle'});
    await page.locator('#fuse-layout').waitFor({timeout:15000});await page.evaluate(()=>document.fonts.ready);
-   if (sidebarCase === 'drawer') {
+   let drawerShadow = null;
+   if (sidebarCase === 'drawer' || sidebarCase === 'drawer-wide') {
     // Layout 1 mounts its existing mobile sidebar toggle as the leading toolbar button.
     await page.locator('#fuse-toolbar button').first().click({timeout:8000});
     const drawer = page.locator('.MuiDrawer-paper').filter({
@@ -247,6 +250,11 @@ try{
     await page.locator('#fuse-navbar-side-panel').waitFor({timeout:8000});
    }
    const boxes=await page.evaluate(()=>Object.fromEntries(['#fuse-layout','#fuse-main','#fuse-toolbar','#fuse-footer','#fuse-navbar','#fuse-navbar-side-panel','.MuiDrawer-paper'].map(selector=>{const el=document.querySelector(selector);if(!el)return[selector,null];const b=el.getBoundingClientRect();return[selector,{x:b.x,y:b.y,width:b.width,height:b.height}]})));
+   if (sidebarCase === 'drawer' || sidebarCase === 'drawer-wide') {
+    drawerShadow = await page.locator('.MuiDrawer-paper').filter({
+     has: page.locator(`a[href$="${route}"]`),
+    }).evaluate(element => getComputedStyle(element).boxShadow);
+   }
    if(!boxes['#fuse-layout']||!boxes['#fuse-main'])throw new Error('Original full shell absent');
    if (sidebarCase === 'right' && boxes['#fuse-main'].x !== 0) {
     throw new Error('Right sidebar case did not place main content at the left edge');
@@ -281,7 +289,7 @@ try{
         interaction.states.activated.appearance.selectedClass !== true)) {
     throw new Error('The horizontal reference did not render the selected destination after activation');
    }
-   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,accountMenu,interaction,errors,external,
+   results.push({id,layout,device,mode,width,height,sidebarCase:sidebarCase??null,status:'captured',boxes,accountMenu,interaction,drawerShadow,errors,external,
     dataSet:dataSet??'original-guest',fixtureSha256:shared?fixtureSha256:null,
     identity:shared?'same isolated role and presented navigation as native; no production session':'isolated guest reference; no production session',
     visualAcceptance:false});

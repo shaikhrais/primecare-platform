@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_mobile_drawer_coverage(source, path):
+    return reverse_presentation_receipt(source, path, 'mobile-drawer-coverage-replay.json')
+
 def before_account_menu_hover_surface(source, path):
+    source = before_mobile_drawer_coverage(source, path)
     return reverse_presentation_receipt(source, path, 'account-menu-hover-surface-replay.json')
 
 def before_horizontal_account_geometry(source, path):
