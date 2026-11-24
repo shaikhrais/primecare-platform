@@ -38,13 +38,19 @@
   },
   "dependencyAmendments": {
     "scripts/check-shared-ui-boundary.py": {
-      "updatedSha256": "736ef245ddf64cb9627cd918f37db89d2dd4f75d95e836d74bd11acae1bb3501",
+      "updatedSha256": "b1e663446a6f3caa045b4ded4e3c56e5c7d91ee70db1c73427696080f909f9b7",
       "edits": [
         {
           "begin": 4285,
           "end": 4285,
           "old": "",
           "new": "# A constructor can be stored or passed without being called at this location.\n# Keep this separate from calls so each expression has one diagnostic.\nCOLOR_TEAR_OFF = re.compile(r'\\bColor\\s*\\.\\s*(?:new|fromARGB|fromRGBO|from)\\b(?!\\s*\\()')\n"
+        },
+        {
+          "begin": 4504,
+          "end": 4504,
+          "old": "",
+          "new": "    # SDK Switch.thumbIcon requires the concrete Icon type; colors still come from ThemeData.\n    'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart': ('Radio','Switch','Icon'),\n"
         },
         {
           "begin": 7679,
