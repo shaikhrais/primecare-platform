@@ -603,3 +603,34 @@ RTL drawer states and scrim contents, and R05 toolbar surface, account width and
 a right-clipped outline. The right-edge Settings and color-scheme launchers
 still require production registration and independent readback. All five
 views remain IN PROGRESS.
+
+### Folded tile, drawer divider and horizontal focus edge
+
+R02's regular folded navigation tile now occupies 32×32 px at (8, 60).
+It previously lost one pixel of width to padding beside the divider. The
+folded tabbed rail keeps its separate layout. The same tile correction is
+visible after folding either expanded side. In R01 and R03 the expanded
+selected rows remain 255×32 px at (12, 64) and (1173, 64), respectively,
+as in the shared fixture's reference captures.
+
+R04's 280 px mobile drawer uses the full drawer interior, as the licensed
+NavbarStyle1 separates drawer paper from the divided desktop rail. The
+selected tile and account button are 256 px wide in the 390px fixture. Its
+existing menu remains at (246, 776) with size 128×48 px. R05's desktop
+horizontal toolbar allows the existing keyboard outline to paint past its
+inner edge. The 1px focus stroke now reaches x=1250 at y=96 in both themes
+without moving the account trigger or menu.
+
+Candidate `e8d4af7e803be2548211ca1ad10d67f325f167cb` passed all 28 shell
+cases in capture and replay. Run `45350504375`, artifact `14899887710`.
+The paired review uses Fuse artifact `14891323355` and shared fixture
+SHA-256 `6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+The archive has 28 updated pairs and four native-only fold-toggle images
+with their before frames. Those four still lack aligned Fuse toggle
+captures.
+
+All five views remain IN PROGRESS. Header and utility presentation,
+multi-destination folded panels, the right menu shadow and hover, wider
+and RTL drawer views, and R05's toolbar surface and account width remain
+open. The two edge launchers still require production registration and
+independent readback. Demo work remains BLOCKED.

@@ -339,6 +339,11 @@ void main() {
           if (compareNavbar) {
             final accountProof = find.byKey(const Key('shell-overlay-proof'));
             final accountTrigger = find.byKey(const Key('topbar-user-menu'));
+            final appBar = tester.widget<AppBar>(find.descendant(
+              of: find.byKey(const Key('app-topbar')),
+              matching: find.byWidgetPredicate((widget) => widget is AppBar),
+            ));
+            expect(appBar.clipBehavior, Clip.none);
             expect(
               tester.getSize(accountTrigger).height,
               PrimeShellMetrics.toolbarAccountHeight,

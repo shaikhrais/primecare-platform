@@ -302,6 +302,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         toolbarHeight: shellBarHeight,
                         primary: false,
                         elevation: 0,
+                        clipBehavior: horizontal && !isHandheld ? Clip.none : null,
                         leading: isHandheld
                             ? PrimeSidebarDrawerButton(foreground: topbarIconColor)
                             : position == 'left'
@@ -749,7 +750,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
           width: sidebarWidth,
           decoration: PrimeShellMetrics.sidebarDecoration(
             background: sidebarBg,
-            divider: sidebarDividerColor,
+            divider: isDrawer ? null : sidebarDividerColor,
             onTrailingSide: onTrailingSide,
             direction: settings.direction,
           ),

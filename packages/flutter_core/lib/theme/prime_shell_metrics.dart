@@ -214,9 +214,7 @@ abstract final class PrimeShellMetrics {
       final viewport = leadingDrawerViewportWidth;
       if (viewport == null) return const Offset(preferredOffset, 0);
       final triggerRight =
-          math.min(mobileDrawerWidth, viewport) -
-          sidebarAccountMargin.right -
-          dividerExtent;
+          math.min(mobileDrawerWidth, viewport) - sidebarAccountMargin.right;
       // Flutter aligns the popup to the shifted trigger's right edge on
       // narrow screens. Keep that edge inside the reference's 16px gutter.
       final edgeOffset = viewport - referenceEdgeInset - triggerRight;
@@ -233,7 +231,8 @@ abstract final class PrimeShellMetrics {
       );
   static const foldedHeaderExtent = 56.0;
   static const foldedNavigationTopGap = 4.0;
-  static const foldedRowPadding = EdgeInsets.fromLTRB(8, 0, 8, 4);
+  // The rail includes its one-pixel divider. Preserve a square 32px target.
+  static const foldedRowPadding = EdgeInsetsDirectional.fromSTEB(8, 0, 7, 4);
   static EdgeInsets sidebarRowContentPadding(bool folded) => folded
       ? EdgeInsets.zero
       : const EdgeInsets.symmetric(horizontal: sidebarGap);
@@ -299,10 +298,11 @@ abstract final class PrimeShellMetrics {
 
   static BoxDecoration sidebarDecoration({
     required Color background,
-    required Color divider,
+    required Color? divider,
     required bool onTrailingSide,
     required TextDirection direction,
   }) {
+    if (divider == null) return BoxDecoration(color: background);
     final border = BorderSide(color: divider);
     final borderOnRight = onTrailingSide == (direction == TextDirection.rtl);
     return BoxDecoration(

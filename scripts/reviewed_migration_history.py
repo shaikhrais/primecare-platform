@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_account_shell_edge(source, path):
+    return reverse_presentation_receipt(source, path, 'account-shell-edge-replay.json')
+
 def before_account_trigger_focus_style(source, path):
+    source = before_account_shell_edge(source, path)
     return reverse_presentation_receipt(source, path, 'account-trigger-focus-style-replay.json')
 
 def before_compact_shell_geometry(source,path):

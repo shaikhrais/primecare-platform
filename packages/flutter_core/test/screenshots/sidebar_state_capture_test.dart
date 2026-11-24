@@ -324,6 +324,11 @@ void main() {
 
           boxes['sidebar'] = box(sidebar);
           boxes['item'] = box(item);
+          expect(tester.getSize(item), Size(switch (state) {
+            'folded' => 32,
+            'mobile' => 256,
+            _ => 255,
+          }, 32));
           Future<void> capture(String name) async {
             await expectLater(
               find.byKey(const Key('sidebar-state-proof')),
@@ -344,7 +349,11 @@ void main() {
           } else {
             expect(tester.getSize(accountInfo), const Size.square(16));
           }
-          expect(accountTriggerRect.width, state == 'folded' ? 40 : 255);
+          expect(accountTriggerRect.width, switch (state) {
+            'folded' => 40,
+            'mobile' => 256,
+            _ => 255,
+          });
           expect(
             accountTriggerRect.height,
             state == 'folded'

@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "baseCommit": "272fa1c46a3ed3f5c1045dac8bd75f385565e28b",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "3fe6be10d4f74a17153a40c6cc00002d0c94271cb9a565da185cf241f253ce75",
+      "afterSha256": "afe19696eb0f08f8f1154e4e4d5084503e47f42da07d8adf09e3841b7db37ac3",
+      "edits": [
+        {
+          "begin": 15717,
+          "old": "",
+          "new": "                        clipBehavior: horizontal && !isHandheld ? Clip.none : null,\n"
+        },
+        {
+          "begin": 35586,
+          "old": "            divider: sidebarDividerColor,\n",
+          "new": "            divider: isDrawer ? null : sidebarDividerColor,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "8ec9c61b8955e0946e61148a17e4276d7506bfd9f561108de3dd6d3736891f0f",
+      "afterSha256": "a754046b03d1869e67b4f53f5b33a9499058c6906c3d66183682e06850a1bef0",
+      "edits": [
+        {
+          "begin": 8203,
+          "old": "          math.min(mobileDrawerWidth, viewport) -\n          sidebarAccountMargin.right -\n          dividerExtent;\n",
+          "new": "          math.min(mobileDrawerWidth, viewport) - sidebarAccountMargin.right;\n"
+        },
+        {
+          "begin": 8986,
+          "old": "  static const foldedRowPadding = EdgeInsets.fromLTRB(8, 0, 8, 4);\n",
+          "new": "  // The rail includes its one-pixel divider. Preserve a square 32px target.\n  static const foldedRowPadding = EdgeInsetsDirectional.fromSTEB(8, 0, 7, 4);\n"
+        },
+        {
+          "begin": 11411,
+          "old": "    required Color divider,\n",
+          "new": "    required Color? divider,\n"
+        },
+        {
+          "begin": 11518,
+          "old": "",
+          "new": "    if (divider == null) return BoxDecoration(color: background);\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "1083de07f8ee6025de0d5934cf36e1a69b53a194fb9a8c8806fe08bd58218376",
+      "afterSha256": "f0dda404fa0aec096d582534db4143332a085d856ec394145e3487651c6788e0",
+      "edits": [
+        {
+          "begin": 12720,
+          "old": "",
+          "new": "          expect(tester.getSize(item), Size(switch (state) {\n            'folded' => 32,\n            'mobile' => 256,\n            _ => 255,\n          }, 32));\n"
+        },
+        {
+          "begin": 13527,
+          "old": "          expect(accountTriggerRect.width, state == 'folded' ? 40 : 255);\n",
+          "new": "          expect(accountTriggerRect.width, switch (state) {\n            'folded' => 40,\n            'mobile' => 256,\n            _ => 255,\n          });\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "b407a6b3680b9cb4579fd02351e21ea7bc8e53a6b6dadbc31dde44192ca7f474",
+      "afterSha256": "55b5099a66f68a85cda6df37e4d9234204b9c0389cb073a4ec90a8d978386612",
+      "edits": [
+        {
+          "begin": 13612,
+          "old": "",
+          "new": "            final appBar = tester.widget<AppBar>(find.descendant(\n              of: find.byKey(const Key('app-topbar')),\n              matching: find.byWidgetPredicate((widget) => widget is AppBar),\n            ));\n            expect(appBar.clipBehavior, Clip.none);\n"
+        }
+      ]
+    }
+  ]
+}
