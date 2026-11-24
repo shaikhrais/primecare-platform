@@ -71,6 +71,7 @@ abstract final class PrimeShellMetrics {
   static const sidebarToggleSize = 32.0;
   static const sidebarToggleOutlineSize = 28.0;
   static const sidebarToggleLeadingWidth = 60.0;
+  static const sidebarToggleTrailingPaintOffset = 10.0;
   static const toolbarAccountMargin = EdgeInsets.symmetric(vertical: 14);
   static const toolbarAccountHeight = 36.0;
   static const toolbarAccountPadding = EdgeInsets.symmetric(horizontal: 4);

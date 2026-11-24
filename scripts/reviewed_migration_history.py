@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_right_sidebar_toggle(source, path):
+    return reverse_presentation_receipt(source, path, 'right-sidebar-toggle-replay.json')
+
 def before_shell_chrome(source, path):
+    source = before_right_sidebar_toggle(source, path)
     return reverse_presentation_receipt(source, path, 'shell-chrome-replay.json')
 
 def before_account_menu_shadow(source, path):

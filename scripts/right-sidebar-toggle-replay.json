@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "baseCommit": "45923c71df8119bfefebb398fd1637093255db2c",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/prime_shell_metrics.dart",
+      "beforeSha256": "4e1b810a38be46b128fcdae20493090add0311cadd9dccece5e162a139ae762f",
+      "afterSha256": "07c9aa2d4e579a023547cf02906416e2964db7d53c007fa26a0d9ace6119fac9",
+      "edits": [
+        {
+          "begin": 2840,
+          "old": "",
+          "new": "  static const sidebarToggleTrailingPaintOffset = 10.0;\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/workspace/portal_workspace.dart",
+      "beforeSha256": "c8fa5891c25439ddd5755a77e0a3b7a92ceb0ab542a9fad4b40c11719177d36b",
+      "afterSha256": "7e89f23bf6c04ff7de8b7aa371dd4d3fbda42eb72bc8203632b1e4e2ee71148a",
+      "edits": [
+        {
+          "begin": 12496,
+          "old": "",
+          "new": "    final direction = Directionality.of(context);\n    final trailing = controller.current.navigation == 'right';\n    final paintOffset = trailing\n        ? Offset(\n            direction == TextDirection.ltr\n                ? PrimeShellMetrics.sidebarToggleTrailingPaintOffset\n                : -PrimeShellMetrics.sidebarToggleTrailingPaintOffset,\n            0,\n          )\n        : Offset.zero;\n    final icon = PrimeIcon(\n      LucideIcons.panelLeft,\n      size: PrimeShellMetrics.sidebarIconExtent,\n      color: foreground,\n    );\n"
+        },
+        {
+          "begin": 12602,
+          "old": "",
+          "new": "        paintOffset: paintOffset,\n"
+        },
+        {
+          "begin": 12634,
+          "old": "          icon: PrimeIcon(\n            LucideIcons.panelLeft,\n            size: PrimeShellMetrics.sidebarIconExtent,\n            color: foreground,\n          ),\n",
+          "new": "          icon: trailing\n              ? Transform.translate(offset: paintOffset, child: icon)\n              : icon,\n"
+        },
+        {
+          "begin": 14014,
+          "old": "  const _SidebarToggleOutline({required this.child});\n",
+          "new": "  final Offset paintOffset;\n  const _SidebarToggleOutline({required this.child, this.paintOffset = Offset.zero});\n"
+        },
+        {
+          "begin": 14223,
+          "old": "          child: DecoratedBox(\n            decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),\n            child: const SizedBox.square(dimension: PrimeShellMetrics.sidebarToggleOutlineSize),\n",
+          "new": "          child: Transform.translate(\n            offset: paintOffset,\n            child: DecoratedBox(\n              decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),\n              child: const SizedBox.square(dimension: PrimeShellMetrics.sidebarToggleOutlineSize),\n            ),\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "16c166cd27fc7abfb084b736d25f662652ce07aab55ffaaa3b4bcb7bcfcd3d5a",
+      "afterSha256": "cc9c7f3434d3c6afb3f6276d27402d3d3cc8045a034f44d177c4f970b4930d37",
+      "edits": [
+        {
+          "begin": 11194,
+          "old": "",
+          "new": "            final toggle = find.byType(PrimeSidebarFoldButton);\n            final glyph = find.descendant(\n              of: toggle,\n              matching: find.byIcon(LucideIcons.panelLeft),\n            );\n            expect(tester.getCenter(glyph).dx, 1146);\n            expect(tester.getSize(toggle).width, 48);\n"
+        }
+      ]
+    }
+  ]
+}

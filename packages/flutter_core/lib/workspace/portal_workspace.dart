@@ -234,16 +234,30 @@ class PrimeSidebarFoldButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final folded = controller.current.navigationWidth ==
         PrimeShellMetrics.foldedNavigationMarker;
+    final direction = Directionality.of(context);
+    final trailing = controller.current.navigation == 'right';
+    final paintOffset = trailing
+        ? Offset(
+            direction == TextDirection.ltr
+                ? PrimeShellMetrics.sidebarToggleTrailingPaintOffset
+                : -PrimeShellMetrics.sidebarToggleTrailingPaintOffset,
+            0,
+          )
+        : Offset.zero;
+    final icon = PrimeIcon(
+      LucideIcons.panelLeft,
+      size: PrimeShellMetrics.sidebarIconExtent,
+      color: foreground,
+    );
     return Semantics(
       container: true,
       expanded: !folded,
       child: _SidebarToggleOutline(
+        paintOffset: paintOffset,
         child: PrimeIconButton(
-          icon: PrimeIcon(
-            LucideIcons.panelLeft,
-            size: PrimeShellMetrics.sidebarIconExtent,
-            color: foreground,
-          ),
+          icon: trailing
+              ? Transform.translate(offset: paintOffset, child: icon)
+              : icon,
           tooltip: themeCenterOption(context, 'color.sidebar'),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints.tightFor(
@@ -282,7 +296,8 @@ class PrimeSidebarDrawerButton extends StatelessWidget {
 
 class _SidebarToggleOutline extends StatelessWidget {
   final Widget child;
-  const _SidebarToggleOutline({required this.child});
+  final Offset paintOffset;
+  const _SidebarToggleOutline({required this.child, this.paintOffset = Offset.zero});
 
   @override
   Widget build(BuildContext context) => Center(
@@ -290,9 +305,12 @@ class _SidebarToggleOutline extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         IgnorePointer(
-          child: DecoratedBox(
-            decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),
-            child: const SizedBox.square(dimension: PrimeShellMetrics.sidebarToggleOutlineSize),
+          child: Transform.translate(
+            offset: paintOffset,
+            child: DecoratedBox(
+              decoration: PrimeShellMetrics.sidebarToggleDecoration(Theme.of(context)),
+              child: const SizedBox.square(dimension: PrimeShellMetrics.sidebarToggleOutlineSize),
+            ),
           ),
         ),
         child,

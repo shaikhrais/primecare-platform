@@ -279,6 +279,13 @@ void main() {
           }
           if (state == 'right') {
             expect(tester.getRect(sidebar).left, 1160);
+            final toggle = find.byType(PrimeSidebarFoldButton);
+            final glyph = find.descendant(
+              of: toggle,
+              matching: find.byIcon(LucideIcons.panelLeft),
+            );
+            expect(tester.getCenter(glyph).dx, 1146);
+            expect(tester.getSize(toggle).width, 48);
           }
 
           final item = find
