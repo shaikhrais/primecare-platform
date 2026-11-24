@@ -47,7 +47,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -162,7 +162,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5",
+          "sha256": "5b1d824ff263cfeaef9964475e66ef9b0935ed7fa86c3191346de64b3ff59c33",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -174,7 +174,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "present": true,
-          "sha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
+          "sha256": "0a56e2e83c2508ee911de5b69a24d815c3ec9ee313ae5a2cfee74387fc37323b",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "WorkspaceHistory",
@@ -233,7 +233,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -296,10 +296,11 @@
         {
           "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
           "present": true,
-          "sha256": "ad841fd2c95a6d5bf58bf897a75189c3399815e00b615ac75f581ed138df86bb",
-          "matchesOriginalProposalHash": true,
+          "sha256": "d70bc2729e1092ae6f55cf653f6ed1de24d6dba233b5595d1566e47c25b3719b",
+          "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "LayoutStyle",
+            "PersonalThemeSettingsSession",
             "ThemeSettingsNotifier",
             "ThemeSettingsState"
           ]
@@ -370,7 +371,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
           "present": true,
-          "sha256": "db422c5c4b94fa806a61846a020676bdab6a5d13cb047234fdb476215515a653",
+          "sha256": "461e47dbeb28d01a5368d79437bf5bea482e00e78229fe71d3db6f7d3fc5ea0e",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ThemeSettingsDrawer"
@@ -428,7 +429,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "present": true,
-          "sha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
+          "sha256": "0a56e2e83c2508ee911de5b69a24d815c3ec9ee313ae5a2cfee74387fc37323b",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "WorkspaceHistory",
@@ -529,10 +530,11 @@
         {
           "path": "packages/domain/src/primecare_appearance.ts",
           "present": true,
-          "sha256": "c97b747162187fa1c61f6f8d39ea4f36c69359eeb91e58a249a5b55b93cd94d0",
-          "matchesOriginalProposalHash": true,
+          "sha256": "b662830ce880ac3c6b8c1274872826438054d7f7038095b2204546825536639f",
+          "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "PrimeCareAppearance",
+            "PrimeColorRamp",
             "PrimePaletteOptions",
             "defaultPrimeCareProfile",
             "toPrimeCareAppearance"
@@ -561,7 +563,7 @@
         {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "present": true,
-          "sha256": "c326bf56e5720a17116d7d07ecbe488bd86468e3dd0df76b8b6e69944cb43d18",
+          "sha256": "680f3c36ce15fb5e2d68ea8c57bde5dafa100baf10a0576909e286bd00ec68a4",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "mountThemeCenter",
@@ -651,7 +653,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5",
+          "sha256": "5b1d824ff263cfeaef9964475e66ef9b0935ed7fa86c3191346de64b3ff59c33",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -682,7 +684,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5",
+          "sha256": "5b1d824ff263cfeaef9964475e66ef9b0935ed7fa86c3191346de64b3ff59c33",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -712,7 +714,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "present": true,
-          "sha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
+          "sha256": "0a56e2e83c2508ee911de5b69a24d815c3ec9ee313ae5a2cfee74387fc37323b",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "WorkspaceHistory",
@@ -761,7 +763,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5",
+          "sha256": "5b1d824ff263cfeaef9964475e66ef9b0935ed7fa86c3191346de64b3ff59c33",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -826,7 +828,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -853,10 +855,11 @@
         {
           "path": "packages/domain/src/primecare_appearance.ts",
           "present": true,
-          "sha256": "c97b747162187fa1c61f6f8d39ea4f36c69359eeb91e58a249a5b55b93cd94d0",
-          "matchesOriginalProposalHash": true,
+          "sha256": "b662830ce880ac3c6b8c1274872826438054d7f7038095b2204546825536639f",
+          "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "PrimeCareAppearance",
+            "PrimeColorRamp",
             "PrimePaletteOptions",
             "defaultPrimeCareProfile",
             "toPrimeCareAppearance"
@@ -885,7 +888,7 @@
         {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "present": true,
-          "sha256": "c326bf56e5720a17116d7d07ecbe488bd86468e3dd0df76b8b6e69944cb43d18",
+          "sha256": "680f3c36ce15fb5e2d68ea8c57bde5dafa100baf10a0576909e286bd00ec68a4",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "mountThemeCenter",
@@ -1042,7 +1045,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"

@@ -85,49 +85,59 @@
     {
       "path": "packages/primecare_ui/web/theme-center.ts",
       "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-      "currentSha256": "c326bf56e5720a17116d7d07ecbe488bd86468e3dd0df76b8b6e69944cb43d18",
-      "sourceCommit": "9284f11f95962364f559c9e7e5436275230cd18d",
+      "currentSha256": "680f3c36ce15fb5e2d68ea8c57bde5dafa100baf10a0576909e286bd00ec68a4",
+      "sourceCommit": "ad1b7853f1478ec60cf79a7699fcffdcb69b5852",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "PC-03 reviewed Theme Center lock/import revision ownership;4 local lifecycle tests and targeted TypeScript passed. Exact browser/native CI pending. No runtime activation or human approval."
+        "scope": "Exact main source snapshot for catalogue preflight; retains prior revision evidence. No production registration, runtime activation, or human approval."
       },
       "previousRevision": {
         "path": "packages/primecare_ui/web/theme-center.ts",
         "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-        "currentSha256": "aa790012fedad8d65edd4dc2afcd87b6f2cf5a069e61a4d71eaef9513d331bd9",
-        "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+        "currentSha256": "c326bf56e5720a17116d7d07ecbe488bd86468e3dd0df76b8b6e69944cb43d18",
+        "sourceCommit": "9284f11f95962364f559c9e7e5436275230cd18d",
         "verification": {
           "status": "source_revision_only_runtime_unverified",
-          "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+          "scope": "PC-03 reviewed Theme Center lock/import revision ownership;4 local lifecycle tests and targeted TypeScript passed. Exact browser/native CI pending. No runtime activation or human approval."
         },
         "previousRevision": {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-          "currentSha256": "f0ad32cc7a81d568d49117bc205f2226e1bea5f52f09a96fb2cef1d9e45e2e9a",
-          "sourceCommit": "6c69a6128810798b30fcfd7314737dd802f9a49f",
+          "currentSha256": "aa790012fedad8d65edd4dc2afcd87b6f2cf5a069e61a4d71eaef9513d331bd9",
+          "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
           "verification": {
-            "status": "isolated_tested",
-            "workspaceRun": 41939661252,
-            "workspaceJob": 126956898505,
-            "lifecycleRun": 41937613756,
-            "lifecycleJob": 126949958889,
-            "scope": "Isolated browser and database tests for Web Locks theme changes; no runtime activation or human approval. IndexedDB fallback requires its own test."
+            "status": "source_revision_only_runtime_unverified",
+            "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
           },
           "previousRevision": {
-            "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
-            "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
+            "path": "packages/primecare_ui/web/theme-center.ts",
+            "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
+            "currentSha256": "f0ad32cc7a81d568d49117bc205f2226e1bea5f52f09a96fb2cef1d9e45e2e9a",
+            "sourceCommit": "6c69a6128810798b30fcfd7314737dd802f9a49f",
             "verification": {
-              "run": 41472788148,
-              "browserJob": 125372855548,
-              "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
-            }
-          },
-          "intermediateRevision": {
-            "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
-            "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
-            "verification": {
-              "status": "unverified",
-              "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
+              "status": "isolated_tested",
+              "workspaceRun": 41939661252,
+              "workspaceJob": 126956898505,
+              "lifecycleRun": 41937613756,
+              "lifecycleJob": 126949958889,
+              "scope": "Isolated browser and database tests for Web Locks theme changes; no runtime activation or human approval. IndexedDB fallback requires its own test."
+            },
+            "previousRevision": {
+              "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+              "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
+              "verification": {
+                "run": 41472788148,
+                "browserJob": 125372855548,
+                "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
+              }
+            },
+            "intermediateRevision": {
+              "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
+              "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
+              "verification": {
+                "status": "unverified",
+                "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
+              }
             }
           }
         }
@@ -142,30 +152,50 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
       "originalSha256": "4a99aaa49c9bc78e6774e88cdb5c4c282b9d1868c7fad5716ba574c2a22f4c9f",
-      "currentSha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
-      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "currentSha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+      "sourceCommit": "ad1b7853f1478ec60cf79a7699fcffdcb69b5852",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        "scope": "Exact main source snapshot for catalogue preflight; retains prior revision evidence. No production registration, runtime activation, or human approval."
+      },
+      "previousRevision": {
+        "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+        "originalSha256": "4a99aaa49c9bc78e6774e88cdb5c4c282b9d1868c7fad5716ba574c2a22f4c9f",
+        "currentSha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+        "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+        "verification": {
+          "status": "source_revision_only_runtime_unverified",
+          "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        }
       }
     },
     {
       "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
       "originalSha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
-      "currentSha256": "db422c5c4b94fa806a61846a020676bdab6a5d13cb047234fdb476215515a653",
-      "sourceCommit": "ba846b798cf9ecfed8d17a32c0cf9dd4780bae5c",
+      "currentSha256": "461e47dbeb28d01a5368d79437bf5bea482e00e78229fe71d3db6f7d3fc5ea0e",
+      "sourceCommit": "ad1b7853f1478ec60cf79a7699fcffdcb69b5852",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        "scope": "Exact main source snapshot for catalogue preflight; retains prior revision evidence. No production registration, runtime activation, or human approval."
       },
       "previousRevision": {
         "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
         "originalSha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
-        "currentSha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
-        "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+        "currentSha256": "db422c5c4b94fa806a61846a020676bdab6a5d13cb047234fdb476215515a653",
+        "sourceCommit": "ba846b798cf9ecfed8d17a32c0cf9dd4780bae5c",
         "verification": {
           "status": "source_revision_only_runtime_unverified",
           "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        },
+        "previousRevision": {
+          "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+          "originalSha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
+          "currentSha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
+          "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+          "verification": {
+            "status": "source_revision_only_runtime_unverified",
+            "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+          }
         }
       }
     },
@@ -192,38 +222,48 @@
     {
       "path": "packages/primecare_ui/web/workspace-layout.ts",
       "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-      "currentSha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
-      "sourceCommit": "3cfccf41ff633c79d07247207c31335a24430a4c",
+      "currentSha256": "0a56e2e83c2508ee911de5b69a24d815c3ec9ee313ae5a2cfee74387fc37323b",
+      "sourceCommit": "ad1b7853f1478ec60cf79a7699fcffdcb69b5852",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "Captured workspace slots restore after failed initialization/cleanup and reentrant storage reads cannot claim another owner. Eight old-source ownership cases reproduced; 54 local ownership/layout checks pass. Browser/native CI pending; no production registration, runtime activation or human approval."
+        "scope": "Exact main source snapshot for catalogue preflight; retains prior revision evidence. No production registration, runtime activation, or human approval."
       },
       "previousRevision": {
         "path": "packages/primecare_ui/web/workspace-layout.ts",
         "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-        "currentSha256": "401deef7d35e47d6325a5fa4b5203cf6cd0b128276a182e0d0bf8119adf84038",
-        "sourceCommit": "e08460baca1dcf5094ab5dac2753cb78852ed71d",
+        "currentSha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
+        "sourceCommit": "3cfccf41ff633c79d07247207c31335a24430a4c",
         "verification": {
           "status": "source_revision_only_runtime_unverified",
-          "scope": "Owned slot/attribute/stage/root restoration continues after cleanup failure; 10 old-source failures reproduced across related shell adapters and 69 local shell checks passed. Actual browser/native CI pending; no production registration, runtime activation or human approval."
+          "scope": "Captured workspace slots restore after failed initialization/cleanup and reentrant storage reads cannot claim another owner. Eight old-source ownership cases reproduced; 54 local ownership/layout checks pass. Browser/native CI pending; no production registration, runtime activation or human approval."
         },
         "previousRevision": {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-          "currentSha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
-          "sourceCommit": "fc132899a015482f286ebdc69b9d2486cd917de4",
+          "currentSha256": "401deef7d35e47d6325a5fa4b5203cf6cd0b128276a182e0d0bf8119adf84038",
+          "sourceCommit": "e08460baca1dcf5094ab5dac2753cb78852ed71d",
           "verification": {
             "status": "source_revision_only_runtime_unverified",
-            "scope": "PC-02 retired undo/redo/save guards; 12 local slot cases passed. Browser/native execution pending; no runtime activation or human approval."
+            "scope": "Owned slot/attribute/stage/root restoration continues after cleanup failure; 10 old-source failures reproduced across related shell adapters and 69 local shell checks passed. Actual browser/native CI pending; no production registration, runtime activation or human approval."
           },
           "previousRevision": {
             "path": "packages/primecare_ui/web/workspace-layout.ts",
             "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-            "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
-            "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+            "currentSha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
+            "sourceCommit": "fc132899a015482f286ebdc69b9d2486cd917de4",
             "verification": {
               "status": "source_revision_only_runtime_unverified",
-              "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+              "scope": "PC-02 retired undo/redo/save guards; 12 local slot cases passed. Browser/native execution pending; no runtime activation or human approval."
+            },
+            "previousRevision": {
+              "path": "packages/primecare_ui/web/workspace-layout.ts",
+              "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
+              "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
+              "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+              "verification": {
+                "status": "source_revision_only_runtime_unverified",
+                "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+              }
             }
           }
         }
@@ -247,6 +287,26 @@
           "status": "source_revision_only_runtime_unverified",
           "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
         }
+      }
+    },
+    {
+      "path": "packages/domain/src/primecare_appearance.ts",
+      "originalSha256": "c97b747162187fa1c61f6f8d39ea4f36c69359eeb91e58a249a5b55b93cd94d0",
+      "currentSha256": "b662830ce880ac3c6b8c1274872826438054d7f7038095b2204546825536639f",
+      "sourceCommit": "ad1b7853f1478ec60cf79a7699fcffdcb69b5852",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Exact reviewed source snapshot for catalogue preflight. Original proposal hash is unchanged. No production registration, runtime activation, or human approval."
+      }
+    },
+    {
+      "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
+      "originalSha256": "ad841fd2c95a6d5bf58bf897a75189c3399815e00b615ac75f581ed138df86bb",
+      "currentSha256": "d70bc2729e1092ae6f55cf653f6ed1de24d6dba233b5595d1566e47c25b3719b",
+      "sourceCommit": "ad1b7853f1478ec60cf79a7699fcffdcb69b5852",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Exact reviewed source snapshot for catalogue preflight. Original proposal hash is unchanged. No production registration, runtime activation, or human approval."
       }
     }
   ]

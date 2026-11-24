@@ -14,7 +14,39 @@ test('malformed JSON and invalid UTF-8 never become successful data',async()=>{f
 test('HTTP denied, conflict and invalid responses retain typed failures',async()=>{for(const [status,code]of [[401,'denied'],[403,'denied'],[409,'conflict'],[400,'invalid'],[500,'error']]){const send=make(async()=>new Response('private error',{status}));await assert.rejects(()=>send(req,new AbortController().signal),e=>e.code===code&&e.status===status);}});
 test('invalid origins and header-breaking tokens reject construction',()=>{for(const origin of ['http://remote.test','https://u:p@fixture.test','https://fixture.test/path','https://fixture.test/?x=y'])assert.throws(()=>tenantTaskModuleTransport(origin,'captured'));for(const value of ['', 'bad\r\ntoken','bad token'])assert.throws(()=>tenantTaskModuleTransport('https://fixture.test',value));});
 
-test('session changes during asynchronous stream cleanup cannot publish',async()=>{const send=make(async()=>{const response=Response.json({old:true}),reader=response.body.getReader(),cancel=reader.cancel.bind(reader);reader.cancel=async()=>{await cancel();token='changed';};response.body.getReader=()=>reader;return response;});await assert.rejects(()=>send(req,new AbortController().signal),failure('denied'));});
+for(const method of ['GET','POST'])test(method+' rejects session changes at the stream cleanup handoff without replay',async()=>{
+ const request=method==='GET'?req:{method:'POST',filters:{dataset:'live'},body:{action:'edit',id:'task1',version:2},requestId:'00000000-0000-4000-8000-000000000001'};
+ let calls=0,cancellations=0;
+ const send=make(async()=>{
+  calls++;
+  const response=Response.json({old:true}),reader=response.body.getReader(),cancel=reader.cancel.bind(reader);
+  reader.cancel=async()=>{cancellations++;await cancel();token='changed';};
+  response.body.getReader=()=>reader;
+  return response;
+ });
+ await assert.rejects(()=>send(request,new AbortController().signal),failure('denied'));
+ assert.equal(calls,1);
+ assert.equal(cancellations,1);
+});
+
+test('a completed task response does not wait for detached cleanup',async()=>{
+ let finishCleanup;const cleanup=new Promise(resolve=>{finishCleanup=resolve;});
+ let calls=0,cancellations=0;
+ const send=make(async()=>{
+  calls++;
+  const response=Response.json({ok:true}),reader=response.body.getReader();
+  reader.cancel=()=>{cancellations++;return cleanup;};
+  response.body.getReader=()=>reader;
+  return response;
+ });
+ const pending=send(req,new AbortController().signal),unfinished=Symbol('unfinished');
+ try{
+  const response=await Promise.race([pending,new Promise(resolve=>setImmediate(()=>resolve(unfinished)))]);
+  assert.deepEqual(response,{ok:true});
+  assert.equal(calls,1);
+  assert.equal(cancellations,1);
+ }finally{finishCleanup();await pending;}
+});
 
 for(const method of ['GET','POST'])test('stalled '+method+' task reply cancels before another byte without replaying its receipt',async()=>{
  const caller=new AbortController();let source,cancelled=0,calls=0,captured,response;

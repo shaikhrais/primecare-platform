@@ -22,6 +22,9 @@ export async function guardedJson(response:Response,maxBytes:number,guard:()=>vo
   }else if(response.body){
    try{void response.body.cancel().catch(()=>{});}catch{}
   }
+  // A detached cancellation may synchronously schedule an ownership change.
+  // Let already-queued cleanup continuations run, without awaiting cancellation.
+  await Promise.resolve();
   guard();
  }
 }
