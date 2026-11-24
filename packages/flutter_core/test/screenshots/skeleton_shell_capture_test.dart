@@ -375,6 +375,10 @@ void main() {
             expect(signOutLabel.style?.fontSize, 13);
             expect(signOutLabel.style?.fontWeight, FontWeight.w400);
             expect(
+              signOutLabel.style?.color,
+              Theme.of(tester.element(find.text('Sign out'))).colorScheme.onSurface,
+            );
+            expect(
               tester
                   .getSize(
                     findAccountPopupItem('Sign out'),

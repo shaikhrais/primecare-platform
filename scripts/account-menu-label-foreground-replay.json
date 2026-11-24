@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "baseCommit": "3d160b4246d1b0e626aeb529d7db2c13a2d9c01d",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "5da46d3a16402fee087849479dc95b5f53f87c968298e222e1633d8b8f7e7025",
+      "afterSha256": "08f0576688a0f7ed07b9e168dc861db99fd75cbda3b983ce92a84a20a452b26d",
+      "edits": [
+        {
+          "begin": 30974,
+          "old": "                      textColor,\n",
+          "new": "                      theme.colorScheme.onSurface,\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/sidebar_state_capture_test.dart",
+      "beforeSha256": "2e73a195b6fc6dd3c4adb59b7f7c4508c9041be6ac3bd51c0cd051bf8c7fbdcb",
+      "afterSha256": "cd6f45dac21fbfa54ea004842e829259d5aa44ccb2a0c865207e80082336c498",
+      "edits": [
+        {
+          "begin": 14929,
+          "old": "",
+          "new": "          expect(\n            signOutLabel.style?.color,\n            Theme.of(tester.element(find.text('Sign out'))).colorScheme.onSurface,\n          );\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/test/screenshots/skeleton_shell_capture_test.dart",
+      "beforeSha256": "0f31770da2d0fc2e8e34b41f6e28993776c1e46c050c471c7492f012ebca0675",
+      "afterSha256": "8846b4524f23b3a5bf9020e1800eb81b51b1db1d304fff2e2b4f02ff6e7a2f16",
+      "edits": [
+        {
+          "begin": 15171,
+          "old": "",
+          "new": "              signOutLabel.style?.color,\n              Theme.of(tester.element(find.text('Sign out'))).colorScheme.onSurface,\n            );\n            expect(\n"
+        }
+      ]
+    }
+  ]
+}

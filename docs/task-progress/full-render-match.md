@@ -665,3 +665,31 @@ The archive adds ten hover pairs and refreshes 22 open-menu pairs. Each
 retains the exact source, case, hashes, full renders and difference images.
 All five active views remain IN PROGRESS. Right-edge launchers and demo work
 remain BLOCKED under their existing gates.
+
+### Sign out label foreground
+
+The shared account menu now renders Sign out using the existing primary
+popover surface foreground. The sidebar and toolbar keep their own muted
+trigger colors. The 13px regular label, the shared Lucide icon, the menu
+geometry and keyboard paths are unchanged.
+
+The five light hover pairs share the sampled ink RGB (31, 35, 43), and the
+five dark pairs share RGB (229, 231, 235). PrimeCare's sampled contrast
+between the strongest rendered text pixel and adjacent hover fill rises
+from 6.10 to 12.72 in light and 5.82 to 10.86 in dark. The dark hover fill
+still differs from Fuse at the sampled point. Pixel changes are confined
+to the text across 32 hover and open-menu captures, including both
+folded-tabbed keyboard-open states.
+
+Native candidate `d294c7555a9a9f688633d4bf620f6f27678b1591` passed all 28
+shell cases in capture and replay, run `45367818951`, artifact `14907028418`.
+The licensed Fuse hover capture is artifact `14903203997`, using the
+unchanged shared fixture SHA-256
+`6c912c0164b5864f5af61aa03fd8fc60875eb011aed372ac1af287bfc92a0bae`.
+The archive retains actual renders, exact case and hashes, side-by-side
+comparisons, overlays and pixel differences for all 32 refreshed pairs.
+
+R01–R05 remain IN PROGRESS. Header and utility control differences,
+alternate folded-tabbed hover and multi-destination evidence, popover
+shadows, and wider and RTL drawer cases are still open. The two
+right-edge theme controls and demo remain BLOCKED.

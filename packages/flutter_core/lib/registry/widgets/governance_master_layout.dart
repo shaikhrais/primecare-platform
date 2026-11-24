@@ -634,7 +634,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     ),
                     style: PrimeShellMetrics.accountSignOutTextStyle(
                       theme,
-                      textColor,
+                      theme.colorScheme.onSurface,
                       family: preferredFamily,
                       scale: preferredScale,
                     ),
