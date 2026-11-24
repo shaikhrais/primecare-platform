@@ -83,7 +83,7 @@ jobs:
             /tmp/class-dashboard.html
             /tmp/class-source-tables/
   production:
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'sync-production'))
+    if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && inputs.mode == 'sync-production'
     needs: verify
     runs-on: ubuntu-24.04
     environment: production
