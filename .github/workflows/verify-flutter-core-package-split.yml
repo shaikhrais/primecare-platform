@@ -1,4 +1,4 @@
-name: Verify Blueprint without Flutter core
+name: Verify separate shell and dashboard page packages
 on:
   push:
     branches: [main]
@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 env:
-  PC_SHA: df9afdffa074ded71bea3d3f56ef8930f122f82f
-  PC_TREE: 979c53632422919339dc321ca24ae19a077f99a0
-  PC_PARENT: 1856f49f88ee1141cc0c03c54d4dd2cb471e3ded
+  PC_SHA: ae4216fccae7fa33197d1e9206c6a6c1e535b5f8
+  PC_TREE: 8d183735ef4cedacf3e640125eb318fd43bf1104
+  PC_PARENT: df9afdffa074ded71bea3d3f56ef8930f122f82f
 jobs:
   inventory:
     runs-on: ubuntu-24.04
@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences, primecare_communications, primecare_clinical_education, primecare_flutter_host]
+        path: [primecare_auth, primecare_app_runtime, primecare_navigation, primecare_api_client, primecare_preferences, primecare_communications, primecare_clinical_education, primecare_flutter_host, primecare_shell, primecare_dashboard_pages]
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
@@ -190,3 +190,35 @@ jobs:
           name: communication-flutter-browser
           path: test-results/communication-flutter-browser
           retention-days: 90
+  ui-integration:
+    needs: inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ env.PC_SHA }}', persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Verify both new UI packages have no runtime dependency on Flutter core
+        run: |
+          test "$(git rev-parse HEAD)" = "$PC_SHA"
+          python3 -m pip install PyYAML==6.0.3
+          python3 - <<'PYTHON'
+          import yaml
+          from pathlib import Path
+          for package in ('primecare_shell', 'primecare_dashboard_pages'):
+              root=Path('packages')/package
+              pub=yaml.safe_load((root/'pubspec.yaml').read_text())
+              assert 'flutter_core' not in pub['dependencies']
+              assert not any('package:flutter_core/' in p.read_text() for p in (root/'lib').rglob('*.dart'))
+          PYTHON
+      - name: Verify existing dashboard page reads and permissions
+        working-directory: packages/flutter_core
+        run: |
+          flutter pub get
+          flutter test --no-pub test/dashboard_pages/
+      - name: Test actual tenant application with the new renderer
+        working-directory: packages/primecare_ui
+        run: |
+          flutter pub get
+          flutter test --no-pub test/tenant_application_screen_test.dart
