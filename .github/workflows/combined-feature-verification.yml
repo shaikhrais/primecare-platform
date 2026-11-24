@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
-      CANDIDATE_SHA: 548c9f1b4d47bbe10d8c9bea1ae3a772a8803f6c
-      EXPECTED_PARENT: 69b9c411258b473dd17bb944d93a612fcca708d0
-      EXPECTED_TREE: 9c3ea4a9d42954e147b8aa777155cc5939695ef2
+      CANDIDATE_SHA: b7d8984e4246464a08f1b5a8135a0fed2f83fabe
+      EXPECTED_PARENT: 7409582ad92c1f602d9fb4a8a5b7f737c96cd5e6
+      EXPECTED_TREE: dc0d4e4ff1f3f9b0e267216b2778f56dea157e4a
       GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
     steps:
       - uses: actions/checkout@v4
@@ -59,6 +59,7 @@ jobs:
           python3 scripts/check-feature-inventory.py
           python3 -m unittest discover -s scripts/tests -p test_feature_inventory.py
           python3 -m unittest discover -s scripts/tests -p test_governance_workspace_mappings.py
+          python3 scripts/check_governance_workspace_mappings.py
           python3 scripts/test-workflow-theme-replay.py
           python3 scripts/test-workflow-contract-plan.py
           python3 -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
@@ -66,6 +67,7 @@ jobs:
         run: |
           node --test \
             scripts/test-auth-recovery-lifecycle.mjs \
+            scripts/test-auth-session-tenant.mjs \
             scripts/test-psw-scheduling.mjs \
             scripts/test-ledger-account-isolation.mjs \
             scripts/test-ledger-reversal-atomicity.mjs \
