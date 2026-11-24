@@ -1,0 +1,224 @@
+name: Corporate maintenance Smart Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Verify exact Corporate build or publish its verified artifact
+        type: choice
+        options: [verify-only, publish]
+        default: verify-only
+      verified_run_id:
+        description: Successful verify-only run on this exact main commit (publish only)
+        type: string
+      confirm:
+        description: Type DEPLOY primecare-corporate to publish
+        type: string
+      expected_main:
+        description: Exact reviewed main commit (full SHA)
+        required: true
+        type: string
+      previous_live:
+        description: Independently verified Corporate live commit (full SHA)
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: ${{ inputs.mode == 'publish' && 'primecare-cloudflare-typescript-production' || format('corporate-maintenance-verify-{0}', github.sha) }}
+  cancel-in-progress: false
+env:
+  PROJECT: primecare-corporate
+  REVIEWED_JS_SHA256: 31dafa1f3b0c991a13ae5d4a96e7a03797c6930662c425f829a5ec537d7d55c5
+  EXPECTED_MAIN: ${{ inputs.expected_main }}
+  PREVIOUS_LIVE: ${{ inputs.previous_live }}
+jobs:
+  verify:
+    name: Verify exact Corporate maintenance bundle
+    if: inputs.mode == 'verify-only'
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false, fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify exact source, runtime and prior live Corporate artifact
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$PREVIOUS_LIVE" =~ ^[0-9a-f]{40}$ ]]
+          test "$PREVIOUS_LIVE" = 12ec8b021b249d5eea50fc8e81f2ef095612c4a3
+          test "$EXPECTED_MAIN" != "$PREVIOUS_LIVE"
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$(git rev-list --parents -n1 HEAD)" = "$EXPECTED_MAIN 283988ad5b0ae50cfc094590e0fb63165ca2e464"
+          test "$(git diff --name-only HEAD^ HEAD)" = '.github/workflows/smart-deploy-corporate-maintenance.yml'
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
+          python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
+          mkdir -p "$RUNNER_TEMP/corporate-evidence"
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --record "$RUNNER_TEMP/corporate-evidence/before.json"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - name: Verify Corporate navigation and shared UI regressions
+        run: |
+          npm install --prefix "$RUNNER_TEMP/corporate-ui" --ignore-scripts --no-audit --no-fund axe-core@4.10.3 esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 pg@8.16.3 bcryptjs@3.0.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/corporate-ui/node_modules" node_modules
+          trap 'unlink node_modules' EXIT
+          node_modules/.bin/playwright install --with-deps chromium
+          node --test scripts/test-dashboard-activation.mjs scripts/test-typescript-strict-contracts.mjs
+          node scripts/test-governed-master-navigation.mjs
+          node --test scripts/test-application-shortcut-host-lifecycle.mjs scripts/test-application-shortcut-editor.mjs scripts/test-application-shortcut-view.mjs scripts/test-shell-utilities-adapters.mjs scripts/test-shell-utilities-view-lifecycle.mjs scripts/test-work-modules-transport.mjs
+          for suite in application-shortcut-browser dashboard-widgets-model dashboard-widgets-lifecycle dashboard-widgets-browser shell-utilities-model shell-utilities-browser; do
+            node "scripts/test-$suite.mjs"
+          done
+      - name: Build prerequisites and release checks
+        run: |
+          npm ci --ignore-scripts
+          python -m pip install -r tools/governance-production/requirements.txt
+          python -m unittest tools.deployment.test_portal_artifact tools.deployment.test_typescript_release tools.deployment.test_dashboard_portal_contract
+      - name: Build web bundle from read-only production metadata
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/build-typescript-websites.mjs
+      - name: Check unchanged access contract and seal only Corporate
+        run: |
+          set -euo pipefail
+          proof="$RUNNER_TEMP/corporate-evidence"
+          bundle="websites/typescript/dist/$PROJECT"
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline "$proof/before.json"
+          python -m tools.deployment.dashboard_portal_contract "$bundle" "$PROJECT" "$GITHUB_SHA" "$proof/before.json"
+          python - "$bundle" "$proof" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          bundle, proof = map(Path, sys.argv[1:])
+          manifest = json.loads((bundle / "portal.json").read_text())
+          if manifest.get("appCode") != "co" or not manifest.get("screens"):
+              raise SystemExit("Missing Corporate portal or screen inventory")
+          before = json.loads((proof / "before.json").read_text())["files"]
+          after = json.loads((bundle / "primecare-build.json").read_text())["files"]
+          changed = sorted(name for name in before.keys() | after.keys() if before.get(name) != after.get(name))
+          if changed != ["assets/app.js", "portal.json"]:
+              raise SystemExit("Unexpected Corporate release asset changes")
+          (proof / "asset-delta.json").write_text(json.dumps({"changed": changed}, indent=2) + "\n")
+          PY
+          echo "$REVIEWED_JS_SHA256  $bundle/assets/app.js" | sha256sum --check --status
+          python -m tools.deployment.portal_artifact seal "$bundle" "$PROJECT" "$GITHUB_SHA" "$proof/portal-receipt.json"
+          python -m tools.deployment.portal_artifact check "$bundle" "$PROJECT" "$GITHUB_SHA" "$proof/portal-receipt.json"
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corporate-maintenance-bundle
+          path: websites/typescript/dist/primecare-corporate
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corporate-maintenance-proof
+          path: ${{ runner.temp }}/corporate-evidence
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    name: Promote exact verified Corporate bundle
+    if: inputs.mode == 'publish'
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    env:
+      VERIFIED_RUN: ${{ inputs.verified_run_id }}
+      CONFIRM: ${{ inputs.confirm }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false, fetch-depth: 2}
+      - name: Bind approval to verified source and successful run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$PREVIOUS_LIVE" =~ ^[0-9a-f]{40}$ && "$VERIFIED_RUN" =~ ^[1-9][0-9]*$ ]]
+          test "$CONFIRM" = 'DEPLOY primecare-corporate'
+          test "$VERIFIED_RUN" != "$GITHUB_RUN_ID"
+          test "$PREVIOUS_LIVE" = 12ec8b021b249d5eea50fc8e81f2ef095612c4a3
+          test "$EXPECTED_MAIN" != "$PREVIOUS_LIVE"
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$(git rev-list --parents -n1 HEAD)" = "$EXPECTED_MAIN 283988ad5b0ae50cfc094590e0fb63165ca2e464"
+          test "$(git diff --name-only HEAD^ HEAD)" = '.github/workflows/smart-deploy-corporate-maintenance.yml'
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN" |
+            jq -e --arg sha "$EXPECTED_MAIN" '
+              (.path | split("@")[0]) == ".github/workflows/smart-deploy-corporate-maintenance.yml" and
+              .event == "workflow_dispatch" and .head_branch == "main" and .head_sha == $sha and
+              .status == "completed" and .conclusion == "success"' > /dev/null
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN/jobs" | jq -e '
+            [.jobs[] | select(.name == "Verify exact Corporate maintenance bundle" and .conclusion == "success") |
+             [.steps[] | select(.conclusion == "success") | .name] |
+             select(index("Verify Corporate navigation and shared UI regressions") and
+                    index("Check unchanged access contract and seal only Corporate"))] | length == 1' > /dev/null
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: corporate-maintenance-bundle
+          path: release/bundle
+          run-id: ${{ inputs.verified_run_id }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: corporate-maintenance-proof
+          path: release/proof
+          run-id: ${{ inputs.verified_run_id }}
+          github-token: ${{ github.token }}
+      - name: Recheck sealed artifact and prior live access contract
+        run: |
+          set -euo pipefail
+          python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
+          python -m tools.deployment.portal_artifact check release/bundle "$PROJECT" "$GITHUB_SHA" release/proof/portal-receipt.json
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline release/proof/before.json
+          python -m tools.deployment.dashboard_portal_contract release/bundle "$PROJECT" "$GITHUB_SHA" release/proof/before.json
+          jq -e '.changed == ["assets/app.js", "portal.json"]' release/proof/asset-delta.json > /dev/null
+          echo "$REVIEWED_JS_SHA256  release/bundle/assets/app.js" | sha256sum --check --status
+      - name: Record prior production deployment and publish only Corporate
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@4.68.1 --version
+          test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline release/proof/before.json
+          curl --silent --show-error --fail --max-time 20 \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT" |
+            jq -e --arg project "$PROJECT" --arg prior "$PREVIOUS_LIVE" '
+              select(.success and .result.name == $project and .result.production_branch == "main") |
+              .result.canonical_deployment |
+              select(.environment == "production" and .latest_stage.status == "success" and
+                     .deployment_trigger.metadata.commit_hash == $prior and (.id | type == "string" and length > 0)) |
+              {id, commit: .deployment_trigger.metadata.commit_hash}' > release/proof/rollback-target.json
+          npx --yes wrangler@4.68.1 pages deploy release/bundle --project-name="$PROJECT" --branch=main --commit-hash="$GITHUB_SHA"
+      - name: Verify exact live Corporate deployment
+        run: |
+          set -euo pipefail
+          for attempt in {1..6}; do
+            if python -m tools.deployment.typescript_release live "$PROJECT" "$GITHUB_SHA" --baseline release/bundle/primecare-build.json --record release/proof/after.json; then
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: corporate-maintenance-publish-record
+          path: release/proof
+          if-no-files-found: ignore
+          retention-days: 30
