@@ -1,0 +1,35 @@
+name: Verify named Flutter leaf packages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_governance_validation/**'
+      - 'packages/primecare_governance_reports/**'
+      - 'packages/primecare_data_logistics/**'
+      - 'packages/primecare_feature_stub/**'
+      - 'packages/primecare_demo_telemetry/**'
+      - 'packages/primecare_responsive_screen/**'
+      - 'packages/primecare_action_feedback/**'
+      - '.github/workflows/native-leaf-packages.yml'
+permissions: {contents: read}
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+        package: [primecare_governance_validation, primecare_governance_reports, primecare_data_logistics, primecare_feature_stub, primecare_demo_telemetry, primecare_responsive_screen, primecare_action_feedback]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: packages/${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos
+      - run: flutter test --reporter expanded

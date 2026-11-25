@@ -1,0 +1,12 @@
+name: primecare_governance_reports
+description: Governance test report models and HTML report rendering.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

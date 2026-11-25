@@ -446,6 +446,17 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'governance/parity_engine.dart': ('primecare_governance_validation', '', (("package:primecare_models/src/models/api_metadata.dart", "../models/api_metadata.dart"), ("package:primecare_screen_models/models/screen_metadata.dart", "../models/screen_metadata.dart"),), False),
+    'governance/registry_scanner.dart': ('primecare_governance_validation', '', (("package:primecare_models/src/models/api_metadata.dart", "../models/api_metadata.dart"),), False),
+    'governance/governance_bridge.dart': ('primecare_governance_validation', '', (("package:primecare_models/src/models/api_metadata.dart", "../models/api_metadata.dart"),), False),
+    'testing/governance_models.dart': ('primecare_governance_reports', '', (), False),
+    'testing/governance_html_reporter.dart': ('primecare_governance_reports', '', (), False),
+    'src/application/services/data_logistics_hub.dart': ('primecare_data_logistics', '', (), False),
+    'stubs/common_feature_stub.dart': ('primecare_feature_stub', '', (), False),
+    'src/services/telemetry_service.dart': ('primecare_demo_telemetry', '', (), False),
+    'registry/widgets/responsive_screen_wrapper.dart': ('primecare_responsive_screen', '', (("package:primecare_layout/config/screen_breakpoints.dart", "../../config/screen_breakpoints.dart"), ("package:primecare_layout/config/adaptive_scaling_config.dart", "../../config/adaptive_scaling_config.dart"), ("package:primecare_preferences/providers/zoom_provider.dart", "../../providers/zoom_provider.dart"),), False),
+    'manifest/action_manifest.dart': ('primecare_action_feedback', '', (("package:primecare_theme/theme/prime_semantic_palette.dart", "package:flutter_core/theme/prime_semantic_palette.dart"),), False),
+    'theme/prime_palette_editor.dart': ('primecare_theme', '', (), False),
     'models/navigation_item.dart': ('primecare_screen_models', '', (), False),
     'models/screen_metadata.dart': ('primecare_screen_models', '', (("package:primecare_models/src/models/governance_types.dart", "governance_types.dart"), ("package:primecare_models/src/models/platform_geometry.dart", "platform_geometry.dart"),), False),
     'models/screen_features.dart': ('primecare_screen_models', '', (), False),

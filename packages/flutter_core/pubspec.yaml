@@ -5,6 +5,20 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_governance_validation:
+    path: ../primecare_governance_validation
+  primecare_governance_reports:
+    path: ../primecare_governance_reports
+  primecare_data_logistics:
+    path: ../primecare_data_logistics
+  primecare_feature_stub:
+    path: ../primecare_feature_stub
+  primecare_demo_telemetry:
+    path: ../primecare_demo_telemetry
+  primecare_responsive_screen:
+    path: ../primecare_responsive_screen
+  primecare_action_feedback:
+    path: ../primecare_action_feedback
   primecare_screen_models:
     path: ../primecare_screen_models
   primecare_controller_base:

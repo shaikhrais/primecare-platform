@@ -1,0 +1,1 @@
+export 'package:primecare_responsive_screen/primecare_responsive_screen.dart';

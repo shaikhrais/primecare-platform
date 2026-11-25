@@ -1,0 +1,16 @@
+name: primecare_action_feedback
+description: Existing pending action feedback presentation, not business execution.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_theme:
+    path: ../primecare_theme
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

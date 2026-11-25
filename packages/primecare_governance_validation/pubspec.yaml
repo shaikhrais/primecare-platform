@@ -1,0 +1,16 @@
+name: primecare_governance_validation
+description: Governance registration and parity validation helpers.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_models:
+    path: ../primecare_models
+  primecare_screen_models:
+    path: ../primecare_screen_models
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

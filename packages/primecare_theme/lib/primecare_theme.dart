@@ -16,3 +16,4 @@ export 'theme/prime_shell_metrics.dart';
 export 'theme/prime_theme_center_style.dart';
 export 'theme/prime_account_trigger_focus_frame.dart';
 export 'theme/prime_toolbar_account_frame.dart';
+export 'theme/prime_palette_editor.dart';
