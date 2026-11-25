@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_aura:
+    path: ../primecare_aura
   primecare_execution_gate:
     path: ../primecare_execution_gate
   primecare_screen_registry_data:

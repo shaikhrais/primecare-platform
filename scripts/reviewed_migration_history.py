@@ -446,6 +446,7 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'aura_command_service.dart': ('primecare_aura', '', (("package:primecare_models/primecare_models.dart", "package:flutter_core/flutter_core.dart"),), False),
     'src/resilience/execution_gate_service.dart': ('primecare_execution_gate', '', (), False),
     'src/resilience/connectivity_service.dart': ('primecare_network_status', '', (("package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_execution_gate/primecare_execution_gate.dart", "package:flutter_core/flutter_core.dart"),), False),
     'src/resilience/resilient_notifier_mixin.dart': ('primecare_resilience', '', (("package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/primecare_models.dart", "package:flutter_core/flutter_core.dart"),), False),

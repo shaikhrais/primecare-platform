@@ -34,6 +34,9 @@ class RuntimeContractBaselines(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             targets = {}
+            state_library = root / contracts.AURA_STATE_PATH
+            state_library.parent.mkdir(parents=True, exist_ok=True)
+            state_library.write_text(contracts.AURA_STATE_LIBRARY)
             for path, content in self.expected.items():
                 target = root / path
                 relocation = contracts.RUNTIME_RELOCATIONS.get(path)
@@ -45,16 +48,16 @@ class RuntimeContractBaselines(unittest.TestCase):
                         target.write_text(f"export 'package:{owner}/{relative}';\n")
                     target = root / f'packages/{owner}/lib/{relative}'
                 target.parent.mkdir(parents=True, exist_ok=True)
-                target.write_text(content)
+                target.write_text(contracts.materialized_source(path, content))
                 targets[path] = target
             with patch.object(contracts, 'ROOT', root):
                 contracts.check_files(self.expected)
                 for path, content in self.expected.items():
                     with self.subTest(path=path):
-                        targets[path].write_text(content + '// unreviewed drift\n')
+                        targets[path].write_text(contracts.materialized_source(path, content) + '// unreviewed drift\n')
                         with self.assertRaisesRegex(AssertionError, path):
                             contracts.check_files(self.expected)
-                        targets[path].write_text(content)
+                        targets[path].write_text(contracts.materialized_source(path, content))
                 for path, (owner, compatibility) in contracts.RUNTIME_RELOCATIONS.items():
                     with self.subTest(relocation=path):
                         old = root / path

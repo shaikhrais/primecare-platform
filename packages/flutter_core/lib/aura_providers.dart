@@ -1,13 +1,8 @@
 // Governance - Category: controller | Purpose: Layer: 01_INFRASTRUCTURE Track the current institutional context (e.g., active office or feature). This allows Aura t...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
-import 'src/controllers/base_value_notifier.dart';
-
-part 'src/controllers/aura_context_notifier.dart';
-part 'src/controllers/aura_active_visualization_notifier.dart';
-part 'src/controllers/aura_snooze_notifier.dart';
-part 'src/controllers/aura_query_notifier.dart';
-part 'src/controllers/aura_pulse_event_notifier.dart';
+import 'package:primecare_aura/aura_providers.dart';
+export 'package:primecare_aura/aura_providers.dart';
 
 
 

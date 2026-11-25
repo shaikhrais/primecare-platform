@@ -93,6 +93,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_api_errors",
       "primecare_application_shortcuts",
       "primecare_assets",
+      "primecare_aura",
       "primecare_auth_storage",
       "primecare_clinical_education",
       "primecare_communication_controllers",
@@ -269,6 +270,24 @@ export function createPrimeCarePackageCatalog() {
     "sourceDependencies": [
       "primecare_ui"
     ]
+  },
+  {
+    "id": "primecare_aura",
+    "path": "packages/primecare_aura",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_aura"
+    ],
+    "dependencies": [
+      "primecare_controller_base",
+      "primecare_models"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
   },
   {
     "id": "primecare_auth_storage",
@@ -879,6 +898,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_application_shortcuts",
       "primecare_assets",
       "primecare_assets_web",
+      "primecare_aura",
       "primecare_auth_storage",
       "primecare_clinical_education",
       "primecare_communication_controllers",

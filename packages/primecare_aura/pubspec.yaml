@@ -1,0 +1,17 @@
+name: primecare_aura
+description: Existing Aura command interpretation and scalar state contracts.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+  primecare_models:
+    path: ../primecare_models
+  primecare_controller_base:
+    path: ../primecare_controller_base
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

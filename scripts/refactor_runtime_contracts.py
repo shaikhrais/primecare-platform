@@ -113,16 +113,42 @@ def render():
 
 # Later package ownership changes are checked against the same pinned bytes.
 RUNTIME_RELOCATIONS = {
+    CORE + 'aura_command_service.dart': ('primecare_aura', True),
+    CORE + 'src/application/services/aura_command_service.dart': ('primecare_aura', False),
+    CORE + 'src/controllers/aura_context_notifier.dart': ('primecare_aura', False),
+    CORE + 'src/controllers/aura_active_visualization_notifier.dart': ('primecare_aura', False),
+    CORE + 'src/controllers/aura_snooze_notifier.dart': ('primecare_aura', False),
+    CORE + 'src/controllers/aura_query_notifier.dart': ('primecare_aura', False),
+    CORE + 'src/controllers/aura_pulse_event_notifier.dart': ('primecare_aura', False),
     CORE + 'src/controllers/base_value_notifier.dart': ('primecare_controller_base', True),
     CORE + 'src/resilience/execution_gate_service.dart': ('primecare_execution_gate', True),
     CORE + 'src/infrastructure/telemetry/execution_gate_service.dart': ('primecare_execution_gate', False),
 }
 
+AURA_OLD_BLOCK = "import 'src/controllers/base_value_notifier.dart';\n\npart 'src/controllers/aura_context_notifier.dart';\npart 'src/controllers/aura_active_visualization_notifier.dart';\npart 'src/controllers/aura_snooze_notifier.dart';\npart 'src/controllers/aura_query_notifier.dart';\npart 'src/controllers/aura_pulse_event_notifier.dart';\n"
+AURA_NEW_BLOCK = "import 'package:primecare_aura/aura_providers.dart';\nexport 'package:primecare_aura/aura_providers.dart';\n"
+AURA_STATE_LIBRARY = "import 'package:primecare_controller_base/primecare_controller_base.dart';\nimport 'package:primecare_models/primecare_models.dart';\n\npart 'src/controllers/aura_context_notifier.dart';\npart 'src/controllers/aura_active_visualization_notifier.dart';\npart 'src/controllers/aura_snooze_notifier.dart';\npart 'src/controllers/aura_query_notifier.dart';\npart 'src/controllers/aura_pulse_event_notifier.dart';\n"
+AURA_STATE_PATH = 'packages/primecare_aura/lib/aura_providers.dart'
+
+def materialized_source(path, content):
+    if path == CORE + 'aura_command_service.dart':
+        assert content.count("import 'package:flutter_core/flutter_core.dart';") == 1, path
+        return content.replace("import 'package:flutter_core/flutter_core.dart';", "import 'package:primecare_models/primecare_models.dart';", 1)
+    if path == CORE + 'aura_providers.dart':
+        assert content.count(AURA_OLD_BLOCK) == 1, path
+        return content.replace(AURA_OLD_BLOCK, AURA_NEW_BLOCK, 1)
+    return content
+
 def checked_source(path):
     target = ROOT / path
     relocation = RUNTIME_RELOCATIONS.get(path)
     if relocation is None:
-        return target.read_text()
+        content = target.read_text()
+        if path == CORE + 'aura_providers.dart':
+            assert (ROOT / AURA_STATE_PATH).read_text() == AURA_STATE_LIBRARY, path
+            assert content.count(AURA_NEW_BLOCK) == 1, path
+            content = content.replace(AURA_NEW_BLOCK, AURA_OLD_BLOCK, 1)
+        return content
     owner, compatibility = relocation
     relative = path[len(CORE):]
     canonical = ROOT / f'packages/{owner}/lib/{relative}'
@@ -131,7 +157,11 @@ def checked_source(path):
         assert target.read_text() == f"export 'package:{owner}/{relative}';\n", path
     else:
         assert not target.exists(), path
-    return canonical.read_text()
+    content = canonical.read_text()
+    if path == CORE + 'aura_command_service.dart':
+        assert content.count("import 'package:primecare_models/primecare_models.dart';") == 1, path
+        content = content.replace("import 'package:primecare_models/primecare_models.dart';", "import 'package:flutter_core/flutter_core.dart';", 1)
+    return content
 
 def check_files(files):
     for path, content in files.items():
