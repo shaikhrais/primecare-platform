@@ -11,6 +11,8 @@
     "@primecare/kitchen-sink-catalog": "1.0.0",
     "@primecare/package-base": "1.0.0",
     "@primecare/domain": "1.0.0",
-    "@primecare/pagination": "1.0.0"
+    "@primecare/pagination": "1.0.0",
+    "@primecare/dashboard": "1.0.0",
+    "@primecare/samples": "1.0.0"
   }
 }

@@ -619,6 +619,13 @@
       "target": "packages/primecare_kitchen_sink_catalog/src/index.ts",
       "language": "web",
       "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/dashboard.ts",
+      "target": "packages/primecare_dashboard/src/index.ts",
+      "language": "web",
+      "packageName": "primecare_dashboard",
+      "defaultExport": false
     }
   ]
 }

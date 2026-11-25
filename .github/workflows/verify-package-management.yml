@@ -6,6 +6,9 @@ on:
       - '.github/workflows/verify-package-management.yml'
       - 'packages/primecare_package_base/**'
       - 'packages/primecare_pagination/**'
+      - 'packages/primecare_demo/**'
+      - 'packages/primecare_samples/**'
+      - 'packages/primecare_dashboard/**'
       - 'packages/primecare_master/src/**'
   workflow_dispatch:
 permissions:
@@ -33,12 +36,12 @@ jobs:
           python -m unittest tools.package_master.test_catalog
           node tools/package_master/web_boundary.mjs
       - name: Test JavaScript package management
-        run: node --test packages/primecare_package_base/test/registry.test.mjs packages/primecare_pagination/test/pagination.test.mjs
+        run: node --test packages/primecare_package_base/test/registry.test.mjs packages/primecare_pagination/test/pagination.test.mjs packages/primecare_demo/test/demo.test.mjs packages/primecare_samples/test/samples.test.mjs
       - name: Verify public master entry point
         run: |
           node --input-type=module <<'JS'
           import assert from 'node:assert/strict';
-          import {PackageMaster,paginationState,movePagination} from '@primecare/master';
+          import {PackageMaster,paginationState,movePagination,demoTableRows,tableSample} from '@primecare/master';
           import {createPrimeCarePackageCatalog} from '@primecare/master/catalog';
           const graph = createPrimeCarePackageCatalog();
           assert.equal(new PackageMaster(graph).status().length, graph.order().length);
@@ -46,6 +49,8 @@ jobs:
           assert.ok(graph.impact(['primecare_pagination']).includes('primecare_master'));
           const page = paginationState({page:1,pageSize:10,totalItems:11});
           assert.equal(movePagination(page,'next').lastItem,11);
+          assert.equal(demoTableRows('Example','Ready').length,12);
+          assert.equal(tableSample({name:'Name',status:'Status',demo:'Example',success:'Ready'}).rows.length,12);
           JS
       - uses: dart-lang/setup-dart@v1
         with:

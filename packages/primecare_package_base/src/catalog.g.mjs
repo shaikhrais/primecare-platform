@@ -130,6 +130,43 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_dashboard",
+    "path": "packages/primecare_dashboard",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/dashboard"
+    ],
+    "dependencies": [
+      "domain",
+      "primecare_ui"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only",
+    "sourceDependencies": [
+      "domain",
+      "primecare_ui"
+    ]
+  },
+  {
+    "id": "primecare_demo",
+    "path": "packages/primecare_demo",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/demo"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_kitchen_sink",
     "path": "packages/primecare_kitchen_sink",
     "kind": "library",
@@ -178,9 +215,11 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "domain",
+      "primecare_dashboard",
       "primecare_kitchen_sink_catalog",
       "primecare_package_base",
       "primecare_pagination",
+      "primecare_samples",
       "primecare_ui"
     ],
     "developmentDependencies": [],
@@ -208,11 +247,14 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
+      "primecare_dashboard",
+      "primecare_demo",
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
       "primecare_package_base",
       "primecare_pagination",
+      "primecare_samples",
       "primecare_ui",
       "security",
       "shared"
@@ -225,6 +267,7 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
+      "primecare_dashboard",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
       "primecare_ui",
@@ -276,6 +319,23 @@ export function createPrimeCarePackageCatalog() {
       "@primecare/pagination"
     ],
     "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_samples",
+    "path": "packages/primecare_samples",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/samples"
+    ],
+    "dependencies": [
+      "primecare_demo"
+    ],
     "developmentDependencies": [],
     "hosting": "library-only"
   },

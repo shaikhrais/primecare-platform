@@ -43,6 +43,16 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     dependencies: ["database"],
   ),
   PackageDescriptor(
+    id: 'primecare_dashboard', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["domain", "primecare_ui"],
+  ),
+  PackageDescriptor(
+    id: 'primecare_demo', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: [],
+  ),
+  PackageDescriptor(
     id: 'primecare_kitchen_sink', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: ["flutter_core", "primecare_kitchen_sink_catalog", "primecare_ui_foundation"],
@@ -55,12 +65,12 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_kitchen_sink_web', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["domain", "primecare_kitchen_sink_catalog", "primecare_package_base", "primecare_pagination", "primecare_ui"],
+    dependencies: ["domain", "primecare_dashboard", "primecare_kitchen_sink_catalog", "primecare_package_base", "primecare_pagination", "primecare_samples", "primecare_ui"],
   ),
   PackageDescriptor(
     id: 'primecare_master', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_package_base", "primecare_pagination", "primecare_ui", "security", "shared"],
+    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_dashboard", "primecare_demo", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_package_base", "primecare_pagination", "primecare_samples", "primecare_ui", "security", "shared"],
   ),
   PackageDescriptor(
     id: 'primecare_models', kind: PackageKind.library,
@@ -76,6 +86,11 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     id: 'primecare_pagination', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: [],
+  ),
+  PackageDescriptor(
+    id: 'primecare_samples', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["primecare_demo"],
   ),
   PackageDescriptor(
     id: 'primecare_ui', kind: PackageKind.ui,

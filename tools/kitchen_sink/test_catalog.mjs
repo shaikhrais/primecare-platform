@@ -32,10 +32,13 @@ test('the master forwards the original factories without renaming or duplicating
     import {PrimeComponentFactory as C} from './packages/primecare_ui/web/component-catalogue';
     import {PrimeDataControls as D} from './packages/primecare_ui/web/data-controls';
     import {PrimeDashboardWidgets as W} from './packages/primecare_ui/web/dashboard-widgets';
-    export const identity=PrimeComponentFactory===C&&PrimeDataControls===D&&PrimeDashboardWidgets===W;
+    import {PrimeDashboardWidgets as DWidget,packDashboard} from './packages/primecare_master/web/dashboard';
+    export const identity=PrimeComponentFactory===C&&PrimeDataControls===D&&PrimeDashboardWidgets===W&&W===DWidget;
+    export const packed=packDashboard([{id:"metric",span:1,rows:1}],2);
     export {mountKitchenSink};`,resolveDir:root},bundle:true,write:false,platform:'node',format:'esm'});
   const module=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].contents).toString('base64'));
   assert.equal(module.identity,true);
+  assert.deepEqual(module.packed,[{id:"metric",span:1,rows:1,x:0,y:0}]);
   const body={};assert.throws(()=>module.mountKitchenSink(Object.assign(body,{ownerDocument:{body}})),/Scoped showcase root/);
   assert.throws(()=>module.mountKitchenSink({ownerDocument:{}},{locale:'invalid'}),/Unsupported kitchen sink locale/);
 });

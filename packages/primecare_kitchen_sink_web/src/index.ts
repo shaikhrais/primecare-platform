@@ -1,11 +1,12 @@
 import {originalAssetNames, originalAssetInfo, originalAssetElement} from '../../primecare_ui/web/original-asset-view';
 import {PrimeComponentFactory, type CatalogueLocale} from '../../primecare_ui/web/component-catalogue';
 import {PrimeDataControls} from '../../primecare_ui/web/data-controls';
-import {PrimeDashboardWidgets} from '../../primecare_ui/web/dashboard-widgets';
+import {PrimeDashboardWidgets} from '@primecare/dashboard';
 import {kitchenSinkCatalog, componentMetadata, dataMetadata} from '../../primecare_kitchen_sink_catalog/src/index';
 import packageCatalog from '../../primecare_package_base/catalog.json';
 import {createPrimeCarePackageCatalog} from '@primecare/package-base/catalog';
 import {paginationState, movePagination} from '@primecare/pagination';
+import {tableSample,chartSample} from '@primecare/samples';
 import {theme} from '../../domain/src/theme_config';
 export {PrimeComponentFactory, PrimeDataControls, PrimeDashboardWidgets};
 export {kitchenSinkCatalog} from '../../primecare_kitchen_sink_catalog/src/index';
@@ -78,10 +79,10 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
     const plain = (text = labels.success) => node('p',text);
     if (story.family === 'data-controls') {
       const kit = new PrimeDataControls(host, scope, locale); cleanup.push(() => kit.dispose());
-      if (story.id === 'table') host.append(kit.table(
-        [{key:'name',label:labels.input,width:180,visible:true,pinned:true},{key:'status',label:labels.status,width:140,visible:true,pinned:false}],
-        Array.from({length:12},(_,i)=>({id:'row-'+i,values:{name:`${words[locale].demo} ${i+1}`,status:labels.success}})),
-        {rowHeight:48,height:240,minWidth:100,maxWidth:500,actionWidth:160,pageSize:6}).element);
+      if (story.id === 'table') {
+        const sample=tableSample({name:labels.input,status:labels.status,demo:words[locale].demo,success:labels.success});
+        host.append(kit.table(sample.columns,sample.rows,sample.options).element);
+      }
       else if (story.id === 'autocomplete') host.append(kit.autocomplete(async () => [{value:'one',label:labels.optionOne},{value:'two',label:labels.optionTwo}], changed));
       else {const field=kit.field(story.id as 'date'|'time'|'number'|'mask', story.id==='number'?{min:0,max:100}:{},String(state.get(story.id)??''));field.input.addEventListener('input',()=>changed(field.input.value),{signal:events.signal});host.append(field.element);}
       host.append(output); return;
@@ -89,10 +90,10 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
     if (story.family === 'dashboard-widgets') {
       const kit = new PrimeDashboardWidgets(host,scope,locale); cleanup.push(() => kit.dispose());
       if (story.id === 'metric') host.append(kit.metric(labels.status,24,words[locale].demo,'-'+scope));
-      else host.append(kit.chart({kind:story.id as 'line'|'area'|'bar'|'donut',title:story.titles[locale],
-        categories:story.id==='donut'?Array.from({length:6},(_,i)=>`${words[locale].demo} ${i+1}`):[labels.optionOne,labels.optionTwo,labels.status],
-        series:story.id==='donut'?[{id:'demo',label:words[locale].demo,values:[12,18,9,14,7,11]}]:[[12,18,9],[9,7,15],[4,12,6],[18,4,14],[5,9,12],[8,14,3]].map((values,i)=>({id:'demo-'+i,label:`${words[locale].demo} ${i+1}`,values}))},
-        {width:420,height:220,stroke:2},'-'+scope));
+      else {
+        const sample=chartSample(story.id as 'line'|'area'|'bar'|'donut',{title:story.titles[locale],demo:words[locale].demo,optionOne:labels.optionOne,optionTwo:labels.optionTwo,status:labels.status});
+        host.append(kit.chart(sample.data,sample.options,'-'+scope));
+      }
       return;
     }
     const kit = new PrimeComponentFactory(host,scope,locale,registration); cleanup.push(() => kit.dispose());

@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-21 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
+24 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -44,10 +44,13 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `messaging` | Communication adapters | `database` |
 | `primecare_kitchen_sink` | New Flutter showcase using existing factories | `flutter_core`, `primecare_kitchen_sink_catalog`, `primecare_ui_foundation` |
 | `primecare_kitchen_sink_catalog` | New generated stories, labels and reference inventory | — |
-| `primecare_kitchen_sink_web` | New browser showcase using existing factories | `domain`, `primecare_kitchen_sink_catalog`, `primecare_package_base` |
-| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_package_base`, `primecare_pagination`, `security` |
+| `primecare_kitchen_sink_web` | New browser showcase using existing factories | `domain`, `primecare_dashboard`, `primecare_kitchen_sink_catalog`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui` |
+| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_dashboard`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared` |
 | `primecare_models` | Canonical Dart models | — |
 | `primecare_package_base` | Composition registry, dependency impact and composition status | — |
+| `primecare_dashboard` | Dashboard presentation facade forwarding canonical widgets and layout contracts | `domain`, `primecare_ui` |
+| `primecare_demo` | Source-owned synthetic demo row and chart fixtures | — |
+| `primecare_samples` | Reusable component sample configurations | `primecare_demo` |
 | `primecare_pagination` | Pure, immutable paging range and navigation state for Fuse-inspired controls | — |
 | `primecare_ui` | Shared public UI exports and canonical browser implementations | `flutter_core`, `primecare_models`, `primecare_ui_foundation` |
 | `primecare_ui_foundation` | Shared Flutter Material primitives | — |
@@ -102,3 +105,5 @@ Local browser execution requires a host that supports Chromium's Unix socket/pro
 ## Package management and independent controls
 
 Use `PackageCatalog.impact(changedIds)` for the declared reverse dependency closure in build order and `PackageMaster.status()` for local composition status. These are not deployment or runtime health evidence. The pagination package is available as `paginationState` and `movePagination` from `@primecare/master`. It accepts page, page size and an already-authorized total, clamps a stale page after the result count changes, and returns immutable view state. It does not fetch records. Existing portal controls are unchanged pending an independent integration and release review.
+
+The browser kitchen-sink now consumes the independent demo and samples packages through its declared lower-level dependencies. External hosts consume demos and samples via the master root, or dashboard presentation via @primecare/master/dashboard. The dashboard facade forwards the original implementation; it does not migrate live business dashboard ownership yet.
