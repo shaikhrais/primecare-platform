@@ -35,6 +35,8 @@ import '../registry/widgets/responsive_screen_wrapper.dart';
 import 'presentation_mode.dart';
 import 'screen_features.dart';
 export 'screen_features.dart';
+import 'package:primecare_screen_models/models/app_shell_boundary.dart';
+export 'package:primecare_screen_models/models/app_shell_boundary.dart';
 
 /// Interface for declaring screen governance requirements.
 abstract class ScreenGovernance {
@@ -161,19 +163,6 @@ abstract class GovernedConsumerState<T extends GovernedConsumerStatefulWidget>
 
   /// Override this instead of [build] to implement the screen UI.
   Widget buildScreen(BuildContext context);
-}
-
-/// A boundary marker used to enforce that screens are rendered within a master layout shell.
-class AppShellBoundary extends InheritedWidget {
-  const AppShellBoundary({super.key, required super.child});
-
-  static bool isActive(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<AppShellBoundary>() !=
-        null;
-  }
-
-  @override
-  bool updateShouldNotify(AppShellBoundary oldWidget) => false;
 }
 
 /// The unified, high-fidelity definition of a PrimeCare screen.

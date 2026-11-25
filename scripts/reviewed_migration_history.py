@@ -446,6 +446,7 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'models/screen_manager.dart': ('primecare_screen_models', '', (("app_shell_boundary.dart", "screen.dart"),), False),
     'manifest/aura_action_manifest.dart': ('primecare_action_feedback', '', (("package:primecare_theme/theme/prime_semantic_palette.dart", "package:flutter_core/theme/prime_semantic_palette.dart"), ("package:flutter/material.dart';\nimport 'package:lucide_icons_flutter/lucide_icons.dart';\nimport 'package:primecare_models/primecare_models.dart", "package:flutter_core/flutter_core.dart"),), False),
     'adapter_providers.dart': ('primecare_demo_dashboard', '', (), False),
     'src/registry/dynamic_adapter_resolver.dart': ('primecare_demo_dashboard', '', (("package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/primecare_models.dart", "package:flutter_core/flutter_core.dart"),), False),
@@ -826,6 +827,15 @@ def read_reviewed_source(path, root=ROOT):
     source = (root / path).read_text()
     prefix = 'packages/flutter_core/lib/'
     rel = path[len(prefix):] if path.startswith(prefix) else None
+    if rel == 'models/screen.dart':
+        boundary = (root / 'packages/primecare_screen_models/lib/models/app_shell_boundary.dart').read_text()
+        if hashlib.sha256(source.encode()).hexdigest() != '2f4ecc9a22baff3984d54a6879cefec4549b31a939d0c4eb554bdcdf9bbb6f77' or hashlib.sha256(boundary.encode()).hexdigest() != '918e470ad05f5f3cab6944817009c8cfa1072e1e6a748432b0014ffe1a24a063':
+            raise AssertionError('Reviewed screen boundary split drift: ' + path)
+        source = source.replace("import 'package:primecare_screen_models/models/app_shell_boundary.dart';\nexport 'package:primecare_screen_models/models/app_shell_boundary.dart';\n", '', 1)
+        source = source.replace('/// The unified, high-fidelity definition of a PrimeCare screen.', boundary.removeprefix("import 'package:flutter/material.dart';\n\n") + '/// The unified, high-fidelity definition of a PrimeCare screen.', 1)
+        if hashlib.sha256(source.encode()).hexdigest() != 'fbb7eeffc1d5076f10a0324d2e7e2a5e8cdcd970313985f503c338b4a320131d':
+            raise AssertionError('Reviewed screen boundary reconstruction failed: ' + path)
+        return source
     if rel not in _REVIEWED_RELOCATIONS:
         return source
     owner, comment, edits, terminal_newline = _REVIEWED_RELOCATIONS[rel]

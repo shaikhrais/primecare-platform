@@ -8,6 +8,7 @@ on:
       - packages/flutter_core/lib/flutter_core.dart
       - packages/flutter_core/lib/models/screen_features.dart
       - packages/flutter_core/lib/models/screen_manager.dart
+      - packages/primecare_screen_models/**
       - packages/flutter_core/lib/routes/governance_router.dart
       - packages/flutter_core/test/screen_manager_test.dart
       - tools/mvc_generator/generate_screen.dart
@@ -72,6 +73,12 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: python3 -m unittest discover -s scripts/tests -p 'test_mvc_screen_generator.py'
+      - run: flutter pub get
+        working-directory: packages/primecare_screen_models
+      - run: flutter analyze --no-fatal-infos lib/models/app_shell_boundary.dart lib/models/screen_manager.dart test/screen_manager_test.dart
+        working-directory: packages/primecare_screen_models
+      - run: flutter test test/screen_manager_test.dart
+        working-directory: packages/primecare_screen_models
       - run: flutter pub get
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/models/screen.dart lib/models/screen_features.dart test/screen_features_test.dart
