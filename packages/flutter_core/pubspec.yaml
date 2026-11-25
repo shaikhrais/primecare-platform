@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_dashboard_pages:
+    path: ../primecare_dashboard_pages
   primecare_logging:
     path: ../primecare_logging
   primecare_api_errors:

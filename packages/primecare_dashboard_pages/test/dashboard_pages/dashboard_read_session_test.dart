@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:flutter_core/dashboard_pages.dart';
-import 'package:flutter_core/preference_sync/preference_protocol.dart' show PreferenceScope;
+import 'package:primecare_dashboard_pages/primecare_dashboard_pages.dart';
+import 'package:primecare_preferences/preference_sync/preference_protocol.dart' show PreferenceScope;
 
 void main() {
   final fixture = jsonDecode(File('test/dashboard_pages/parity-fixtures.json').readAsStringSync()) as Map<String, dynamic>;

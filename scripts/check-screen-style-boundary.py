@@ -25,6 +25,7 @@ WEB_DISPATCHER = 'websites/typescript/src/managed-routes.ts'
 WEB_ENTRY = 'websites/typescript/src/main.ts'
 SPECIALISTS = {'/care': ('psw', 'renderPSW'), '/growth': ('growth', 'renderGrowth')}
 DASHBOARD_DART = ('packages/flutter_core/lib/dashboard_pages/',
+                  'packages/primecare_dashboard_pages/lib/dashboard_pages/',
                   'packages/flutter_core/lib/dashboard_widgets/',
                   'packages/flutter_core/lib/registry/widgets/')
 DASHBOARD_WEB = ('websites/typescript/src/', 'packages/shared/src/dashboard-pages/',

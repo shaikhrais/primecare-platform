@@ -446,6 +446,11 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'dashboard_pages/dashboard_read_session.dart': ('primecare_dashboard_pages', '', (("package:primecare_preferences/preference_sync/preference_protocol.dart", "../preference_sync/preference_protocol.dart"),), False),
+    'dashboard_pages/prime_dashboard_page.dart': ('primecare_dashboard_pages', '', (), False),
+    'dashboard_pages/dashboard_page_model.dart': ('primecare_dashboard_pages', '', (("package:primecare_preferences/preference_sync/preference_protocol.dart", "../preference_sync/preference_protocol.dart"),), False),
+    'dashboard_pages/prime_record_page.dart': ('primecare_dashboard_pages', '', (), False),
+    'dashboard_pages/record_page_model.dart': ('primecare_dashboard_pages', '', (("package:primecare_preferences/preference_sync/preference_protocol.dart", "../preference_sync/preference_protocol.dart"),), False),
     'providers/persistence_providers.dart': ('primecare_preferences', '', (), False),
     'providers/zoom_provider.dart': ('primecare_preferences', '', (), False),
     'registry/widgets/responsive_split_dashboard.dart': ('primecare_dashboard_native', '', (("package:primecare_layout/config/screen_breakpoints.dart", "../../config/screen_breakpoints.dart"), ("package:primecare_layout/registry/widgets/responsive_grid.dart", "responsive_grid.dart"), ("package:primecare_theme/theme/theme_contrast.dart", "../../theme/theme_contrast.dart"),), False),

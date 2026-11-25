@@ -1,0 +1,17 @@
+name: primecare_dashboard_pages
+description: Canonical Flutter dashboard and supporting read-only page models, session and renderers.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.6.0
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

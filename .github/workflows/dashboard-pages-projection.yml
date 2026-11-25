@@ -12,7 +12,7 @@ on:
       - scripts/test-dashboard-read-cancellation.mjs
       - packages/flutter_core/lib/dashboard_pages*
       - packages/flutter_core/lib/dashboard_pages/**
-      - packages/flutter_core/test/dashboard_pages/**
+      - packages/primecare_dashboard_pages/**
       - packages/primecare_ui/lib/dashboard_pages.dart
       - websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts
       - scripts/test-dashboard-pages-*.mjs
@@ -70,8 +70,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/dashboard_pages lib/dashboard_pages.dart test/dashboard_pages
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_dashboard_pages
+      - run: flutter analyze --no-fatal-infos lib/dashboard_pages lib/primecare_dashboard_pages.dart test/dashboard_pages
+        working-directory: packages/primecare_dashboard_pages
       - run: flutter test test/dashboard_pages --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_dashboard_pages

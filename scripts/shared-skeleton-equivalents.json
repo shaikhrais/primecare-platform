@@ -1031,7 +1031,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeDashboardPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1042,6 +1042,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1056,7 +1060,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeDashboardPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1067,6 +1071,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1081,7 +1089,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeDashboardPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1092,6 +1100,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1106,7 +1118,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeDashboardPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1117,6 +1129,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1131,7 +1147,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeSupportingPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1142,6 +1158,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1156,7 +1176,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeSupportingPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1167,6 +1187,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1181,7 +1205,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_record_page.dart",
       "api": "class PrimeRecordPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1192,6 +1216,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_record_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_record_page.dart"
         }
       ]
     },
@@ -1206,7 +1234,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_record_page.dart",
       "api": "class PrimeRecordPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1217,6 +1245,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_record_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_record_page.dart"
         }
       ]
     },
@@ -1231,7 +1263,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeSupportingPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1242,6 +1274,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1256,7 +1292,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeSupportingPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1267,6 +1303,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1281,7 +1321,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeSupportingPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1292,6 +1332,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },
@@ -1306,7 +1350,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "path": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
       "api": "class PrimeSupportingPage ",
       "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
       "exports": [
@@ -1317,6 +1361,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_pages.dart",
           "target": "dashboard_pages/prime_dashboard_page.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+          "target": "package:primecare_dashboard_pages/dashboard_pages/prime_dashboard_page.dart"
         }
       ]
     },

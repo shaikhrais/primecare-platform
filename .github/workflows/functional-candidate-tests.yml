@@ -175,8 +175,12 @@ jobs:
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: Native feature model and widget acceptance
-        run: flutter test test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/shell_utilities --reporter expanded
+        run: flutter test test/work_modules test/communication_modules test/application_modules test/shell_utilities --reporter expanded
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_dashboard_pages
+      - run: flutter test test/dashboard_pages --reporter expanded
+        working-directory: packages/primecare_dashboard_pages
       - run: flutter pub get
         working-directory: packages/primecare_preferences
       - run: flutter test test/preference_sync --reporter expanded

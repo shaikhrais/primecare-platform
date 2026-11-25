@@ -96,6 +96,7 @@
         "primecare_communications_transport",
         "primecare_component_factory",
         "primecare_dashboard_native",
+        "primecare_dashboard_pages",
         "primecare_data_controls",
         "primecare_help_reader",
         "primecare_layout",
@@ -342,6 +343,24 @@
       "hosting": "library-only"
     },
     {
+      "id": "primecare_dashboard_pages",
+      "path": "packages/primecare_dashboard_pages",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_dashboard_pages"
+      ],
+      "dependencies": [
+        "primecare_preferences",
+        "primecare_ui_foundation"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
       "id": "primecare_data_controls",
       "path": "packages/primecare_data_controls",
       "kind": "library",
@@ -556,6 +575,7 @@
         "primecare_component_factory",
         "primecare_component_factory_web",
         "primecare_dashboard",
+        "primecare_dashboard_pages",
         "primecare_data_controls",
         "primecare_data_controls_web",
         "primecare_demo",

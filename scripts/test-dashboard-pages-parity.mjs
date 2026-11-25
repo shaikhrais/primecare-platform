@@ -7,7 +7,7 @@ const raw={dataset:'live',synthetic:false,identity:{userId:scope.userId,role:sco
 raw.tasks=[{id:'task-1',title:'Task <literal>'}];raw.workflows=[{flow_id:'flow-1',title:'Workflow one'}];raw.events=[{action:'create',created_at:'2026-11-01T10:00:00Z'}];
 const optional=structuredClone(raw);optional.stats.plans=null;
 const fixture={scope,raw,unavailableAnalytics:projectDashboard('analytics',optional,scope),recordProjections:['activity','search'].map(kind=>projectRecordPage(kind,raw,scope)),projections:['project','analytics','finance','crypto'].map(f=>projectDashboard(f,raw,scope)),supportingPages:supportingPageKinds.map(kind=>({kind,status:supportingPageStatus(kind)}))};
-const path='packages/flutter_core/test/dashboard_pages/parity-fixtures.json';
+const path='packages/primecare_dashboard_pages/test/dashboard_pages/parity-fixtures.json';
 if(process.argv.includes('--write'))await writeFile(path,JSON.stringify(fixture,null,2)+'\n');else assert.deepEqual(JSON.parse(await readFile(path,'utf8')),fixture);
 for(const kind of ['invoice','pricing','authentication'])assert.equal(supportingPageStatus(kind),'unavailable');assert.throws(()=>supportingPageStatus('login-submit'));
 console.log('PASS dashboard/supporting-page shared fixtures and unavailable workflow gates');
