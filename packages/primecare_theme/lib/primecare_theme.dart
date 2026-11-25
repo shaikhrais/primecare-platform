@@ -12,3 +12,7 @@ export 'advanced_theme/advanced_theme_controller.dart';
 export 'advanced_theme/advanced_theme_import.dart';
 export 'advanced_theme/prime_advanced_theme_editor.dart';
 export 'theme/portal_section_theme.dart';
+export 'theme/prime_shell_metrics.dart';
+export 'theme/prime_theme_center_style.dart';
+export 'theme/prime_account_trigger_focus_frame.dart';
+export 'theme/prime_toolbar_account_frame.dart';

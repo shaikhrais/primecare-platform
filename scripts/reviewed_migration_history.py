@@ -446,6 +446,10 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'theme/prime_shell_metrics.dart': ('primecare_theme', '', (), False),
+    'theme/prime_theme_center_style.dart': ('primecare_theme', '', (), False),
+    'theme/prime_account_trigger_focus_frame.dart': ('primecare_theme', '', (), False),
+    'theme/prime_toolbar_account_frame.dart': ('primecare_theme', '', (), False),
     'advanced_theme/advanced_theme_controller.dart': ('primecare_theme', '', (), False),
     'advanced_theme/advanced_theme_import.dart': ('primecare_theme', '', (), False),
     'advanced_theme/prime_advanced_theme_editor.dart': ('primecare_theme', '', (("../theme/theme_color_codec.dart", "package:flutter_core/theme/theme_color_codec.dart"),), False),
