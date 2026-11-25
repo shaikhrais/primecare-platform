@@ -38,6 +38,8 @@ on:
       - 'packages/flutter_core/lib/models/platform_types.dart'
       - 'packages/flutter_core/lib/registry/platform_role.dart'
       - 'packages/flutter_core/lib/src/domain/governance/**'
+      - 'packages/primecare_platform_domain/**'
+      - 'packages/primecare_screen_intents/**'
       - 'scripts/refactor_shared_data_models.py'
       - 'docs/refactoring/shared-data-model-migration.*'
       - 'packages/flutter_core/lib/business_core.dart'
@@ -152,7 +154,10 @@ jobs:
         run: |
           python3 scripts/verify_platform_governance_parity.py --flutter flutter
           cd packages/flutter_core
-          flutter analyze lib/models/platform_types.dart lib/registry/platform_role.dart lib/models/domain_governance.dart lib/src/domain/governance lib/src/application/services/data_logistics_hub.dart
+          flutter analyze lib/models/platform_types.dart lib/registry/platform_role.dart lib/models/domain_governance.dart lib/src/application/services/data_logistics_hub.dart
+          cd ../primecare_platform_domain
+          flutter pub get
+          flutter analyze --no-fatal-infos lib
       - name: Verify screen metadata and navigation inheritance
         run: |
           python3 scripts/verify_screen_metadata_parity.py --flutter flutter

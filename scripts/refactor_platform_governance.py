@@ -5,6 +5,7 @@ import json
 import re
 import subprocess
 from pathlib import Path
+from reviewed_migration_history import read_reviewed_source
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = '73ed61dcf5f5b047cf97a0f5e705212ed6f9359d'
@@ -88,7 +89,14 @@ def main():
     files = render()
     manifest = {'sourceCommit': SOURCE, 'files': list(files), 'sharedEnums': 5, 'sharedParents': 4, 'governanceClassFiles': 6, 'completedWorkflows': 0}
     if args.check:
-        for path, content in files.items(): assert (ROOT / path).read_text() == content, 'Platform extraction changed: ' + path
+        for path, content in files.items():
+            if path.startswith('packages/flutter_core/lib/src/domain/governance/'):
+                assert not (ROOT / path).exists(), 'Legacy governance part reintroduced: ' + path
+                canonical = path.replace('packages/flutter_core/lib/', 'packages/primecare_platform_domain/lib/', 1)
+                actual = (ROOT / canonical).read_text()
+            else:
+                actual = read_reviewed_source(path, ROOT)
+            assert actual == content, 'Platform extraction changed: ' + path
         assert json.loads(MANIFEST.read_text()) == manifest
         print(json.dumps({key: manifest[key] for key in ['sharedEnums', 'sharedParents', 'governanceClassFiles', 'completedWorkflows']}))
     else:

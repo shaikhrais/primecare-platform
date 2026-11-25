@@ -446,6 +446,10 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'models/domain_governance.dart': ('primecare_platform_domain', '', (("package:primecare_screen_models/models/navigation_item.dart", "navigation_item.dart"), ("package:primecare_models/src/models/platform_role.dart", "../registry/platform_role.dart"), ("package:primecare_platform_registries/registry/platform_screen_registry.dart", "../registry/platform_screen_registry.dart"), ("package:primecare_route_catalog/routes/groups/common_routes.dart", "../routes/groups/common_routes.dart"), ("package:primecare_screen_intents/models/screen.dart", "screen.dart"),), False),
+    'registry/platform_application_registry.dart': ('primecare_platform_domain', '', (("package:primecare_models/src/models/platform_role.dart", "platform_role.dart"),), False),
+    'registry/platform_initializer.dart': ('primecare_platform_domain', '', (("../models/domain_governance.dart';\nimport 'platform_application_registry.dart", "../flutter_core.dart"),), False),
+    'providers/platform_providers.dart': ('primecare_platform_domain', '', (), False),
     'models/screen_manager.dart': ('primecare_screen_models', '', (("app_shell_boundary.dart", "screen.dart"),), False),
     'manifest/aura_action_manifest.dart': ('primecare_action_feedback', '', (("package:primecare_theme/theme/prime_semantic_palette.dart", "package:flutter_core/theme/prime_semantic_palette.dart"), ("package:flutter/material.dart';\nimport 'package:lucide_icons_flutter/lucide_icons.dart';\nimport 'package:primecare_models/primecare_models.dart", "package:flutter_core/flutter_core.dart"),), False),
     'adapter_providers.dart': ('primecare_demo_dashboard', '', (), False),
@@ -828,6 +832,30 @@ def read_reviewed_source(path, root=ROOT):
     prefix = 'packages/flutter_core/lib/'
     rel = path[len(prefix):] if path.startswith(prefix) else None
     if rel == 'models/screen.dart':
+        if source != "export 'package:primecare_screen_intents/models/screen.dart';\n":
+            raise AssertionError('Reviewed screen compatibility export drift: ' + path)
+        source = (root / 'packages/primecare_screen_intents/lib/models/screen.dart').read_text()
+        if source.count("export 'package:primecare_screen_models/models/screen_features.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("export 'package:primecare_screen_models/models/screen_features.dart';", "export 'screen_features.dart';", 1)
+        if source.count("import 'package:primecare_screen_models/models/screen_features.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("import 'package:primecare_screen_models/models/screen_features.dart';", "import 'screen_features.dart';", 1)
+        if source.count("import 'package:primecare_presentation_preview/models/presentation_mode.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("import 'package:primecare_presentation_preview/models/presentation_mode.dart';", "import 'presentation_mode.dart';", 1)
+        if source.count("import 'package:primecare_responsive_screen/registry/widgets/responsive_screen_wrapper.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("import 'package:primecare_responsive_screen/registry/widgets/responsive_screen_wrapper.dart';", "import '../registry/widgets/responsive_screen_wrapper.dart';", 1)
+        if source.count("import 'package:primecare_models/src/models/platform_types.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("import 'package:primecare_models/src/models/platform_types.dart';", "import 'platform_types.dart';", 1)
+        if source.count("import '../registry/intents/app_screen_intent.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("import '../registry/intents/app_screen_intent.dart';", "import 'package:flutter_core/flutter_core.dart';\nimport '../registry/intents/app_screen_intent.dart';", 1)
+        if source.count("import 'package:primecare_models/src/models/platform_role.dart';") != 1:
+            raise AssertionError('Reviewed screen import relocation drift: ' + path)
+        source = source.replace("import 'package:primecare_models/src/models/platform_role.dart';", "import '../registry/platform_role.dart';", 1)
         boundary = (root / 'packages/primecare_screen_models/lib/models/app_shell_boundary.dart').read_text()
         if hashlib.sha256(source.encode()).hexdigest() != '2f4ecc9a22baff3984d54a6879cefec4549b31a939d0c4eb554bdcdf9bbb6f77' or hashlib.sha256(boundary.encode()).hexdigest() != '918e470ad05f5f3cab6944817009c8cfa1072e1e6a748432b0014ffe1a24a063':
             raise AssertionError('Reviewed screen boundary split drift: ' + path)

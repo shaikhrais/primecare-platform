@@ -5,6 +5,19 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_presentation_preview:
+    path: ../primecare_presentation_preview
+  primecare_responsive_screen:
+    path: ../primecare_responsive_screen
+  primecare_screen_models:
+    path: ../primecare_screen_models
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  flutter_riverpod: ^3.3.1
+  easy_localization: ^3.0.8
+  lucide_icons_flutter: ^3.1.14+2
+  go_router: ^17.1.0
+  meta: any
   primecare_models:
     path: ../primecare_models
   flutter:

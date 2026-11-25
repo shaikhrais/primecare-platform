@@ -129,6 +129,7 @@
         "primecare_navigation",
         "primecare_network_status",
         "primecare_page_templates",
+        "primecare_platform_domain",
         "primecare_platform_registries",
         "primecare_preferences",
         "primecare_presentation_preview",
@@ -1051,6 +1052,7 @@
         "primecare_package_base",
         "primecare_page_templates",
         "primecare_pagination",
+        "primecare_platform_domain",
         "primecare_platform_registries",
         "primecare_preferences",
         "primecare_presentation_preview",
@@ -1214,6 +1216,27 @@
         "@primecare/pagination"
       ],
       "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_platform_domain",
+      "path": "packages/primecare_platform_domain",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_platform_domain"
+      ],
+      "dependencies": [
+        "primecare_models",
+        "primecare_platform_registries",
+        "primecare_route_catalog",
+        "primecare_screen_intents",
+        "primecare_screen_models"
+      ],
       "developmentDependencies": [],
       "hosting": "library-only"
     },
@@ -1409,7 +1432,11 @@
         "primecare_screen_intents"
       ],
       "dependencies": [
-        "primecare_models"
+        "primecare_models",
+        "primecare_presentation_preview",
+        "primecare_responsive_screen",
+        "primecare_screen_models",
+        "primecare_ui_foundation"
       ],
       "developmentDependencies": [],
       "hosting": "library-only"

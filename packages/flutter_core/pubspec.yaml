@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_platform_domain:
+    path: ../primecare_platform_domain
   primecare_platform_registries:
     path: ../primecare_platform_registries
   primecare_governance_registry:
