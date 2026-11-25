@@ -223,3 +223,18 @@ class SharedUiBoundaryTest(unittest.TestCase):
                 ('packages/primecare_ui/lib/src/components/card.dart', 'theme-color'),
             ])
 
+
+    def test_relocated_theme_definitions_allow_colors_not_controls_or_siblings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for filename in ['personal_theme.dart', 'theme_config_generated.dart', 'unapproved_feature.dart']:
+                path = root/'packages/primecare_theme/lib/theme'/filename
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('Color(1); Text(label);')
+            findings = boundary.scan(root)
+            self.assertEqual([(row[0].split('/')[-1], row[2]) for row in findings], [
+                ('personal_theme.dart', 'shared-control'),
+                ('theme_config_generated.dart', 'shared-control'),
+                ('unapproved_feature.dart', 'theme-color'),
+                ('unapproved_feature.dart', 'shared-control'),
+            ])

@@ -112,6 +112,12 @@ CONTROL_IMPLEMENTATIONS = {
         ('TextButton', 'ElevatedButton', 'OutlinedButton'),
 }
 THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_core/lib/theme/')
+# These two canonical theme definitions were relocated from the old theme
+# namespace. Only literal color definitions belong here; control checks remain on.
+THEME_COLOR_DEFINITION_FILES = {
+    'packages/primecare_theme/lib/theme/personal_theme.dart',
+    'packages/primecare_theme/lib/theme/theme_config_generated.dart',
+}
 
 
 def pdf_widget_aliases(source, code):
@@ -164,6 +170,8 @@ def scan(root):
             if relative.startswith(THEME_DEFINITION):
                 continue
             for line, rule, symbol in violations(path.read_text(encoding='utf-8'), not relative.startswith('packages/primecare_ui/lib/')):
+                if rule == 'theme-color' and relative in THEME_COLOR_DEFINITION_FILES:
+                    continue
                 # Only the exact relocated primitive may build its underlying
                 # Material constructor. Other controls and all colors still fail.
                 if rule == 'shared-control' and symbol in CONTROL_IMPLEMENTATIONS.get(relative, ()):
