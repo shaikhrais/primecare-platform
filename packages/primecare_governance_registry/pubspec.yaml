@@ -1,0 +1,16 @@
+name: primecare_governance_registry
+description: Canonical screen-intent registry and existing governance health audit.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  primecare_models:
+    path: ../primecare_models
+  primecare_screen_intents:
+    path: ../primecare_screen_intents
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

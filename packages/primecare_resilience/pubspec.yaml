@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_governance_registry:
+    path: ../primecare_governance_registry
   primecare_models:
     path: ../primecare_models
   flutter:

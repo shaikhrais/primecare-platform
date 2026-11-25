@@ -1,0 +1,1 @@
+export 'package:primecare_governance_registry/primecare_governance_registry.dart';

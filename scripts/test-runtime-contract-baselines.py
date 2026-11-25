@@ -34,9 +34,6 @@ class RuntimeContractBaselines(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             targets = {}
-            state_library = root / contracts.AURA_STATE_PATH
-            state_library.parent.mkdir(parents=True, exist_ok=True)
-            state_library.write_text(contracts.AURA_STATE_LIBRARY)
             for path, content in self.expected.items():
                 target = root / path
                 relocation = contracts.RUNTIME_RELOCATIONS.get(path)

@@ -5,6 +5,10 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_execution_gate:
+    path: ../primecare_execution_gate
+  primecare_governance_registry:
+    path: ../primecare_governance_registry
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.3.1

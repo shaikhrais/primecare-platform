@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_governance_registry:
+    path: ../primecare_governance_registry
   primecare_guarded_service:
     path: ../primecare_guarded_service
   primecare_demo_dashboard:

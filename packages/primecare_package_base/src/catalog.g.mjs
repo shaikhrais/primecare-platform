@@ -114,6 +114,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_execution_gate",
       "primecare_feature_stub",
       "primecare_form_schema",
+      "primecare_governance_registry",
       "primecare_governance_reports",
       "primecare_governance_validation",
       "primecare_guarded_service",
@@ -288,6 +289,8 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "primecare_controller_base",
+      "primecare_execution_gate",
+      "primecare_governance_registry",
       "primecare_models"
     ],
     "developmentDependencies": [],
@@ -616,6 +619,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_demo_scheduler"
     ],
     "dependencies": [
+      "primecare_aura",
       "primecare_data_logistics",
       "primecare_execution_gate",
       "primecare_models"
@@ -722,6 +726,24 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_governance_registry",
+    "path": "packages/primecare_governance_registry",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_governance_registry"
+    ],
+    "dependencies": [
+      "primecare_models",
+      "primecare_screen_intents"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_governance_reports",
     "path": "packages/primecare_governance_reports",
     "kind": "library",
@@ -804,6 +826,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_intelligence"
     ],
     "dependencies": [
+      "primecare_aura",
+      "primecare_data_logistics",
+      "primecare_demo_dashboard",
       "primecare_execution_gate",
       "primecare_guarded_service",
       "primecare_models"
@@ -1004,6 +1029,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_execution_gate",
       "primecare_feature_stub",
       "primecare_form_schema",
+      "primecare_governance_registry",
       "primecare_governance_reports",
       "primecare_governance_validation",
       "primecare_guarded_service",
@@ -1257,6 +1283,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_recovery_ui"
     ],
     "dependencies": [
+      "primecare_execution_gate",
+      "primecare_governance_registry",
+      "primecare_resilience",
       "primecare_theme",
       "primecare_ui_foundation"
     ],
@@ -1275,6 +1304,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_resilience"
     ],
     "dependencies": [
+      "primecare_governance_registry",
       "primecare_models"
     ],
     "developmentDependencies": [],
