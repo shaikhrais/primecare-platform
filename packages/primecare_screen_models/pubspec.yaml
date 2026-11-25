@@ -1,0 +1,14 @@
+name: primecare_screen_models
+description: Flutter navigation and screen presentation models.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_models:
+    path: ../primecare_models
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

@@ -5,6 +5,14 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_screen_models:
+    path: ../primecare_screen_models
+  primecare_controller_base:
+    path: ../primecare_controller_base
+  primecare_form_schema:
+    path: ../primecare_form_schema
+  primecare_local_cache:
+    path: ../primecare_local_cache
   primecare_runtime_config:
     path: ../primecare_runtime_config
   primecare_url_strategy:

@@ -99,11 +99,14 @@ export function createPrimeCarePackageCatalog() {
       "primecare_communication_modules",
       "primecare_communications_transport",
       "primecare_component_factory",
+      "primecare_controller_base",
       "primecare_dashboard_native",
       "primecare_dashboard_pages",
       "primecare_data_controls",
+      "primecare_form_schema",
       "primecare_help_reader",
       "primecare_layout",
+      "primecare_local_cache",
       "primecare_local_database",
       "primecare_localization",
       "primecare_logging",
@@ -116,6 +119,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_runtime_config",
+      "primecare_screen_models",
       "primecare_security_models",
       "primecare_session_watchdog",
       "primecare_shell_utilities",
@@ -374,6 +378,21 @@ export function createPrimeCarePackageCatalog() {
     ]
   },
   {
+    "id": "primecare_controller_base",
+    "path": "packages/primecare_controller_base",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_controller_base"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_dashboard",
     "path": "packages/primecare_dashboard",
     "kind": "library",
@@ -492,6 +511,23 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_form_schema",
+    "path": "packages/primecare_form_schema",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_form_schema"
+    ],
+    "dependencies": [
+      "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_help_reader",
     "path": "packages/primecare_help_reader",
     "kind": "library",
@@ -592,6 +628,23 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_local_cache",
+    "path": "packages/primecare_local_cache",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_local_cache"
+    ],
+    "dependencies": [
+      "primecare_preferences"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_local_database",
     "path": "packages/primecare_local_database",
     "kind": "library",
@@ -670,16 +723,19 @@ export function createPrimeCarePackageCatalog() {
       "primecare_communications_transport",
       "primecare_component_factory",
       "primecare_component_factory_web",
+      "primecare_controller_base",
       "primecare_dashboard",
       "primecare_dashboard_pages",
       "primecare_data_controls",
       "primecare_data_controls_web",
       "primecare_demo",
+      "primecare_form_schema",
       "primecare_help_reader",
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
       "primecare_layout",
+      "primecare_local_cache",
       "primecare_local_database",
       "primecare_localization",
       "primecare_logging",
@@ -695,6 +751,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_resilience",
       "primecare_runtime_config",
       "primecare_samples",
+      "primecare_screen_models",
       "primecare_security_models",
       "primecare_session_watchdog",
       "primecare_shell_utilities",
@@ -943,6 +1000,23 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "primecare_demo"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_screen_models",
+    "path": "packages/primecare_screen_models",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_screen_models"
+    ],
+    "dependencies": [
+      "primecare_models"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"

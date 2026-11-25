@@ -1,0 +1,13 @@
+name: primecare_controller_base
+description: Shared non-executable scaffold and scalar state controllers.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

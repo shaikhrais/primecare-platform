@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_runtime_config/**'
+      - 'packages/primecare_screen_models/**'
+      - 'packages/primecare_controller_base/**'
+      - 'packages/primecare_form_schema/**'
+      - 'packages/primecare_local_cache/**'
       - 'packages/primecare_url_strategy/**'
       - 'packages/primecare_api_errors/**'
       - '.github/workflows/native-runtime-config.yml'
@@ -15,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-latest]
-        package: [primecare_runtime_config, primecare_url_strategy, primecare_api_errors]
+        package: [primecare_runtime_config, primecare_url_strategy, primecare_api_errors, primecare_screen_models, primecare_controller_base, primecare_form_schema, primecare_local_cache]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     defaults:

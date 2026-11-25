@@ -1,0 +1,14 @@
+name: primecare_form_schema
+description: Canonical Flutter schema form renderer.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

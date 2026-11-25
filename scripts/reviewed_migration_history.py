@@ -446,6 +446,14 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'models/navigation_item.dart': ('primecare_screen_models', '', (), False),
+    'models/screen_metadata.dart': ('primecare_screen_models', '', (("package:primecare_models/src/models/governance_types.dart", "governance_types.dart"), ("package:primecare_models/src/models/platform_geometry.dart", "platform_geometry.dart"),), False),
+    'models/screen_features.dart': ('primecare_screen_models', '', (), False),
+    'src/controllers/base_scaffold_controller.dart': ('primecare_controller_base', '', (), False),
+    'src/controllers/base_value_notifier.dart': ('primecare_controller_base', '', (), False),
+    'engine/form_schema_engine.dart': ('primecare_form_schema', '', (), False),
+    'src/network/local_cache_service.dart': ('primecare_local_cache', '', (("package:primecare_preferences/providers/persistence_providers.dart", "../../providers/persistence_providers.dart"),), False),
+    'config/offline_fallback_state.dart': ('primecare_runtime_config', '', (), False),
     'theme/prime_shell_metrics.dart': ('primecare_theme', '', (), False),
     'theme/prime_theme_center_style.dart': ('primecare_theme', '', (), False),
     'theme/prime_account_trigger_focus_frame.dart': ('primecare_theme', '', (), False),
