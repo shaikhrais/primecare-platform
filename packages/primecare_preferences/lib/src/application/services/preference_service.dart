@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_models/primecare_models.dart';
 import 'package:primecare_execution_gate/primecare_execution_gate.dart';
-import '../../providers/persistence_providers.dart';
+import '../../../providers/persistence_providers.dart';
 
 /// Enterprise Preference Engine for Role-Based Personalization.
 /// Handles persistent state for Favorite Widgets, PIN visibility, and Workspace layouts.
