@@ -100,7 +100,9 @@
         "primecare_navigation",
         "primecare_page_templates",
         "primecare_preferences",
+        "primecare_profile",
         "primecare_shell_utilities",
+        "primecare_task_port",
         "primecare_theme",
         "primecare_ui_foundation",
         "primecare_work_contracts"
@@ -472,8 +474,10 @@
         "primecare_page_templates",
         "primecare_pagination",
         "primecare_preferences",
+        "primecare_profile",
         "primecare_samples",
         "primecare_shell_utilities",
+        "primecare_task_port",
         "primecare_theme",
         "primecare_ui",
         "primecare_work_contracts",
@@ -623,6 +627,24 @@
       "hosting": "library-only"
     },
     {
+      "id": "primecare_profile",
+      "path": "packages/primecare_profile",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_profile"
+      ],
+      "dependencies": [
+        "primecare_preferences",
+        "primecare_work_contracts"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
       "id": "primecare_samples",
       "path": "packages/primecare_samples",
       "kind": "library",
@@ -653,6 +675,24 @@
       "dependencies": [
         "primecare_preferences",
         "primecare_ui_foundation"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_task_port",
+      "path": "packages/primecare_task_port",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_task_port"
+      ],
+      "dependencies": [
+        "primecare_preferences",
+        "primecare_work_contracts"
       ],
       "developmentDependencies": [],
       "hosting": "library-only"

@@ -5,6 +5,10 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_profile:
+    path: ../primecare_profile
+  primecare_task_port:
+    path: ../primecare_task_port
   primecare_work_contracts:
     path: ../primecare_work_contracts
   primecare_application_shortcuts:

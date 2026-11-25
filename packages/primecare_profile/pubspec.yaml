@@ -1,0 +1,17 @@
+name: primecare_profile
+description: Native authenticated self-profile read projection.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.6.0
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_work_contracts:
+    path: ../primecare_work_contracts
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

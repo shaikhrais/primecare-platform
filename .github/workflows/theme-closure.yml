@@ -13,6 +13,8 @@ on:
       - packages/flutter_core/test/**
       - packages/flutter_core/lib/**
       - packages/primecare_work_contracts/**
+      - packages/primecare_task_port/**
+      - packages/primecare_profile/**
       - packages/primecare_application_shortcuts/**
       - packages/primecare_ui/web/**
       - packages/shared/src/**
@@ -200,3 +202,9 @@ jobs:
         working-directory: packages/primecare_application_shortcuts
       - run: flutter test test/application_modules --reporter expanded
         working-directory: packages/primecare_application_shortcuts
+      - run: flutter pub get
+        working-directory: packages/primecare_profile
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_profile
+      - run: flutter test test/application_modules --reporter expanded
+        working-directory: packages/primecare_profile

@@ -23,6 +23,7 @@ on:
       - 'packages/flutter_core/lib/application_modules.dart'
       - 'packages/flutter_core/lib/application_modules/**'
       - 'packages/primecare_work_contracts/**'
+      - 'packages/primecare_profile/**'
       - 'packages/primecare_application_shortcuts/**'
       - 'packages/flutter_core/test/application_modules/**'
       - 'scripts/application-modules-fixture.mjs'
@@ -134,3 +135,9 @@ jobs:
         working-directory: packages/primecare_application_shortcuts
       - run: flutter test test/application_modules --reporter expanded
         working-directory: packages/primecare_application_shortcuts
+      - run: flutter pub get
+        working-directory: packages/primecare_profile
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_profile
+      - run: flutter test test/application_modules --reporter expanded
+        working-directory: packages/primecare_profile

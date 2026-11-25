@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:flutter_core/application_modules.dart';
+import 'package:primecare_profile/primecare_profile.dart';
 
 class TrackedClient extends MockClient {
   bool closed = false;
