@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/business_core.dart';
 import 'package:primecare_ui/src/communications/communication_workspace.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
-import '../../flutter_core/test/fixtures/voice_contact_transport.dart';
+import '../../primecare_communication_controllers/test/fixtures/voice_contact_transport.dart';
 void main(){
  late VoiceContactTransport transport;late VoiceContactController model;
  setUp((){transport=VoiceContactTransport();model=VoiceContactController(hub:CommunicationHub(transport));});

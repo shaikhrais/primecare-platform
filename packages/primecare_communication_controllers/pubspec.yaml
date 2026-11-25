@@ -1,0 +1,15 @@
+name: primecare_communication_controllers
+description: Canonical communication workspace, command, mail, call and voice-contact controllers and media contracts.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.9.2
+  primecare_communications_transport:
+    path: ../primecare_communications_transport
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

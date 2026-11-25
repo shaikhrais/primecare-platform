@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/communications/communication_core.dart';
-import 'package:flutter_core/communications/communication_workspace_catalog.dart';
-import 'package:flutter_core/communications/communication_workspace_controller.dart';
+import 'package:primecare_communications_transport/communications/communication_core.dart';
+import 'package:primecare_communication_controllers/communications/communication_workspace_catalog.dart';
+import 'package:primecare_communication_controllers/communications/communication_workspace_controller.dart';
 import 'fixtures/communication_workspace_transport.dart';
 
 

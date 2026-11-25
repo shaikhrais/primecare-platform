@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/business_core.dart';
+import 'package:primecare_communication_controllers/primecare_communication_controllers.dart';
+import 'package:primecare_communications_transport/primecare_communications_transport.dart';
 import 'fixtures/communication_channels_transport.dart';
 import 'fixtures/communication_workspace_transport.dart';
 

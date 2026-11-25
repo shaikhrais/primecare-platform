@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:flutter_core/business_core.dart';
+import 'package:primecare_communication_controllers/primecare_communication_controllers.dart';
+import 'package:primecare_communications_transport/primecare_communications_transport.dart';
 final class VoiceContactTransport implements CommunicationTransport {
  final requests=<Map<String,Object?>>[];
  bool verified=false,allowed=true,sendUnknown=false,checkUnknown=false,approved=true;

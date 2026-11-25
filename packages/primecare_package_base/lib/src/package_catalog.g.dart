@@ -30,7 +30,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'flutter_core', kind: PackageKind.ui,
     contractVersion: 1,
-    dependencies: ["primecare_api_errors", "primecare_application_shortcuts", "primecare_assets", "primecare_communication_modules", "primecare_communications_transport", "primecare_component_factory", "primecare_dashboard_native", "primecare_dashboard_pages", "primecare_data_controls", "primecare_help_reader", "primecare_layout", "primecare_localization", "primecare_logging", "primecare_models", "primecare_navigation", "primecare_network_status", "primecare_page_templates", "primecare_preferences", "primecare_profile", "primecare_recovery_ui", "primecare_resilience", "primecare_shell_utilities", "primecare_task_port", "primecare_theme", "primecare_ui_foundation", "primecare_work_contracts", "primecare_work_modules"],
+    dependencies: ["primecare_api_errors", "primecare_application_shortcuts", "primecare_assets", "primecare_communication_controllers", "primecare_communication_modules", "primecare_communications_transport", "primecare_component_factory", "primecare_dashboard_native", "primecare_dashboard_pages", "primecare_data_controls", "primecare_help_reader", "primecare_layout", "primecare_localization", "primecare_logging", "primecare_models", "primecare_navigation", "primecare_network_status", "primecare_page_templates", "primecare_preferences", "primecare_profile", "primecare_recovery_ui", "primecare_resilience", "primecare_shell_utilities", "primecare_task_port", "primecare_theme", "primecare_ui_foundation", "primecare_work_contracts", "primecare_work_modules"],
   ),
   PackageDescriptor(
     id: 'infrastructure', kind: PackageKind.library,
@@ -61,6 +61,11 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     id: 'primecare_assets_web', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: ["primecare_ui"],
+  ),
+  PackageDescriptor(
+    id: 'primecare_communication_controllers', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["primecare_communications_transport"],
   ),
   PackageDescriptor(
     id: 'primecare_communication_modules', kind: PackageKind.library,
@@ -150,7 +155,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_master', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_api_errors", "primecare_application_shortcuts", "primecare_assets", "primecare_assets_web", "primecare_communication_modules", "primecare_communications_transport", "primecare_component_factory", "primecare_component_factory_web", "primecare_dashboard", "primecare_dashboard_pages", "primecare_data_controls", "primecare_data_controls_web", "primecare_demo", "primecare_help_reader", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_layout", "primecare_localization", "primecare_logging", "primecare_navigation", "primecare_navigation_web", "primecare_network_status", "primecare_package_base", "primecare_page_templates", "primecare_pagination", "primecare_preferences", "primecare_profile", "primecare_recovery_ui", "primecare_resilience", "primecare_samples", "primecare_shell_utilities", "primecare_task_port", "primecare_theme", "primecare_ui", "primecare_work_contracts", "primecare_work_modules", "security", "shared"],
+    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_api_errors", "primecare_application_shortcuts", "primecare_assets", "primecare_assets_web", "primecare_communication_controllers", "primecare_communication_modules", "primecare_communications_transport", "primecare_component_factory", "primecare_component_factory_web", "primecare_dashboard", "primecare_dashboard_pages", "primecare_data_controls", "primecare_data_controls_web", "primecare_demo", "primecare_help_reader", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_layout", "primecare_localization", "primecare_logging", "primecare_navigation", "primecare_navigation_web", "primecare_network_status", "primecare_package_base", "primecare_page_templates", "primecare_pagination", "primecare_preferences", "primecare_profile", "primecare_recovery_ui", "primecare_resilience", "primecare_samples", "primecare_shell_utilities", "primecare_task_port", "primecare_theme", "primecare_ui", "primecare_work_contracts", "primecare_work_modules", "security", "shared"],
   ),
   PackageDescriptor(
     id: 'primecare_models', kind: PackageKind.library,

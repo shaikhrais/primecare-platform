@@ -91,6 +91,8 @@ on:
       - 'scripts/fixtures/business-*'
       - 'packages/database/migrations/20261022_business_communications.sql'
       - 'packages/flutter_core/lib/communications/**'
+      - 'packages/primecare_communication_controllers/**'
+      - 'packages/primecare_communications_transport/**'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'
       - 'packages/flutter_core/lib/business_core.dart'
@@ -276,7 +278,12 @@ jobs:
         working-directory: packages/flutter_core
       - name: Real communication transport failures and existing caller regressions
         working-directory: packages/flutter_core
-        run: flutter test test/voice_contact_controller_test.dart test/communication_mail_controller_test.dart test/communication_call_controller_test.dart test/communication_workspace_controller_test.dart test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/auth_session_test.dart test/auth_mfa_test.dart test/provider_profile_test.dart
+        run: flutter test test/dio_communication_transport_test.dart test/communication_transport_failure_test.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/auth_session_test.dart test/auth_mfa_test.dart test/provider_profile_test.dart
+      - run: flutter pub get
+        working-directory: packages/primecare_communication_controllers
+      - name: Canonical communication controller lifecycle fixtures
+        run: flutter test --reporter expanded
+        working-directory: packages/primecare_communication_controllers
   flutter-workspace:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -332,7 +339,7 @@ jobs:
         run: |
           acceptance="$RUNNER_TEMP/communication-dart"
           mkdir -p "$acceptance/packages/flutter_core/lib/communications" "$acceptance/tools"
-          cp packages/flutter_core/lib/communications/communication_core.dart "$acceptance/packages/flutter_core/lib/communications/"
+          cp packages/primecare_communications_transport/lib/communications/communication_core.dart "$acceptance/packages/flutter_core/lib/communications/"
           cp tools/communication-client-check.dart "$acceptance/tools/"
           printf 'name: communication_core_acceptance\nenvironment:\n  sdk: ">=3.11.3 <4.0.0"\n' > "$acceptance/pubspec.yaml"
           cd "$acceptance"

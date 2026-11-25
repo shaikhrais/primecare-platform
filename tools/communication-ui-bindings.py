@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'tools/governance-production/communication-ui-registration.json'
 RECEIPT=ROOT/'docs/business/evidence/communication-ui-registration-20261022.json'
-TARGET=ROOT/'packages/flutter_core/lib/communications/communication_workspace_catalog.dart'
+TARGET=ROOT/'packages/primecare_communication_controllers/lib/communications/communication_workspace_catalog.dart'
 def dart(value):
  if isinstance(value,str):return json.dumps(value,ensure_ascii=False).replace('$','\\$')
  if isinstance(value,bool):return str(value).lower()

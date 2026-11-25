@@ -16,7 +16,7 @@ def render():
   lines.append(f" '{key}':CommunicationRouteBinding(path:'{op['path']}',method:'POST',includeAction:false), // API{d['apiIds'][op['key']]}")
  return '\n'.join([*lines,'});',''])
 if __name__=='__main__':
- p=ROOT/'packages/flutter_core/lib/communications/registered_voice_contact_bindings.dart';s=render()
+ p=ROOT/'packages/primecare_communications_transport/lib/communications/registered_voice_contact_bindings.dart';s=render()
  if sys.argv[1:]==['--generate']:p.write_text(s)
  elif sys.argv[1:] or not p.exists() or p.read_text()!=s:raise SystemExit('Native phone client routes differ from current production readback')
  print('Three registered native phone enrollment routes checked; no activation')

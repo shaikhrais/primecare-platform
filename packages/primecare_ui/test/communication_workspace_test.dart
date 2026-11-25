@@ -14,8 +14,8 @@ import 'package:primecare_ui/src/screens/staff/communication/communication_scree
 import 'package:primecare_ui/src/screens/common/patient_messages/patient_messages_screen.dart';
 import 'package:primecare_ui/src/screens/psw/messaging/messaging_screen.dart';
 import 'package:primecare_ui/src/screens/psw/psw_messages/psw_messages_screen.dart';
-import '../../flutter_core/test/fixtures/communication_workspace_transport.dart';
-import '../../flutter_core/test/fixtures/communication_channels_transport.dart' show MediaFixture;
+import '../../primecare_communication_controllers/test/fixtures/communication_workspace_transport.dart';
+import '../../primecare_communication_controllers/test/fixtures/communication_channels_transport.dart' show MediaFixture;
 
 class WorkspaceSessionFixture extends AuthNotifier {
  @override AuthState build()=>AuthState(isInitialized:true,isAuthenticated:true,userId:'alice',tenantId:'tenant-a',token:'synthetic-session-a');

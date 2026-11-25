@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/business_core.dart';
 import 'package:primecare_ui/src/communications/communication_workspace.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
-import '../../flutter_core/test/fixtures/communication_channels_transport.dart';
-import '../../flutter_core/test/fixtures/communication_workspace_transport.dart';
+import '../../primecare_communication_controllers/test/fixtures/communication_channels_transport.dart';
+import '../../primecare_communication_controllers/test/fixtures/communication_workspace_transport.dart';
 
 void main(){
  late ChannelsTransport transport;late CommunicationWorkspaceController messages;late CommunicationMailController mail;late CommunicationCallController calls;MediaFixture? media;var serial=0;

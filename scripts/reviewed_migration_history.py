@@ -446,6 +446,15 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'communications/communication_call_controller.dart': ('primecare_communication_controllers', '', (), False),
+    'communications/communication_command_controller.dart': ('primecare_communication_controllers', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"),), False),
+    'communications/communication_mail_controller.dart': ('primecare_communication_controllers', '', (), False),
+    'communications/communication_media.dart': ('primecare_communication_controllers', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"),), False),
+    'communications/communication_workspace_catalog.dart': ('primecare_communication_controllers', '', (), False),
+    'communications/communication_workspace_controller.dart': ('primecare_communication_controllers', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"),), False),
+    'communications/voice_contact_controller.dart': ('primecare_communication_controllers', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"),), False),
+    'communications/registered_communication_bindings.dart': ('primecare_communications_transport', '', (), False),
+    'communications/registered_voice_contact_bindings.dart': ('primecare_communications_transport', '', (), False),
     'dashboard_pages/dashboard_read_session.dart': ('primecare_dashboard_pages', '', (("package:primecare_preferences/preference_sync/preference_protocol.dart", "../preference_sync/preference_protocol.dart"),), False),
     'dashboard_pages/prime_dashboard_page.dart': ('primecare_dashboard_pages', '', (), False),
     'dashboard_pages/dashboard_page_model.dart': ('primecare_dashboard_pages', '', (("package:primecare_preferences/preference_sync/preference_protocol.dart", "../preference_sync/preference_protocol.dart"),), False),

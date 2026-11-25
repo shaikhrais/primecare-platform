@@ -92,6 +92,7 @@
         "primecare_api_errors",
         "primecare_application_shortcuts",
         "primecare_assets",
+        "primecare_communication_controllers",
         "primecare_communication_modules",
         "primecare_communications_transport",
         "primecare_component_factory",
@@ -224,6 +225,23 @@
       "sourceDependencies": [
         "primecare_ui"
       ]
+    },
+    {
+      "id": "primecare_communication_controllers",
+      "path": "packages/primecare_communication_controllers",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_communication_controllers"
+      ],
+      "dependencies": [
+        "primecare_communications_transport"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
     },
     {
       "id": "primecare_communication_modules",
@@ -570,6 +588,7 @@
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_assets_web",
+        "primecare_communication_controllers",
         "primecare_communication_modules",
         "primecare_communications_transport",
         "primecare_component_factory",

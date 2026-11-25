@@ -1,7 +1,7 @@
 // Isolated fixtures only; never imported by production code.
 import 'dart:async';
-import 'package:flutter_core/communications/communication_core.dart';
-import 'package:flutter_core/communications/communication_media.dart';
+import 'package:primecare_communications_transport/communications/communication_core.dart';
+import 'package:primecare_communication_controllers/communications/communication_media.dart';
 import 'communication_workspace_transport.dart';
 
 class ChannelsTransport extends FixtureTransport {

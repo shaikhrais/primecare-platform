@@ -39,7 +39,7 @@ for op in definition['operations']:
         lines.append(f"  '{key}': CommunicationRouteBinding(path: '{row['path']}', method: '{row['method']}'{suffix}), // API{row['id']}")
 if len(catalog['apis'])!=len(definition['operations']):raise RuntimeError('Unexpected registered communication operation')
 lines.append('});');expected='\n'.join(lines)+'\n'
-path=ROOT/'packages/flutter_core/lib/communications/registered_communication_bindings.dart'
+path=ROOT/'packages/primecare_communications_transport/lib/communications/registered_communication_bindings.dart'
 if sys.argv[1:]==['--write']:path.write_text(expected)
 elif sys.argv[1:]:raise SystemExit('Only --write or check mode is supported')
 elif path.read_text()!=expected:raise RuntimeError('Shared Dart routes differ from production read-back; regenerate explicitly')

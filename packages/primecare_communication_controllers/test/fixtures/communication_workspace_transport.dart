@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/communications/communication_core.dart';
+import 'package:primecare_communications_transport/communications/communication_core.dart';
 
 Map<String,Object?> clone(Map<String,Object?> value) => (jsonDecode(jsonEncode(value)) as Map).cast<String,Object?>();
 DioException denied(int? status) {
