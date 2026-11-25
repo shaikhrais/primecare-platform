@@ -20,7 +20,7 @@ for file in files:
  for expression in re.findall(r"PrimeOriginalAsset\(([^)]*)\)",text):
   keys=sorted(set(keys)|{k for k in re.findall(r"'([a-z0-9-]+)'",expression) if k in catalog['assets'] or k in catalog['aliases']})
  if keys:original.append({'path':file,'keys':keys})
-for p in ['packages/flutter_core/lib/navigation/prime_workspace_navigation.dart','packages/flutter_core/lib/data_controls/prime_data_controls.dart']:
+for p in ['packages/flutter_core/lib/navigation/prime_workspace_navigation.dart','packages/primecare_data_controls/lib/data_controls/prime_data_controls.dart']:
  if re.search(r'\bIcons\.',(root/p).read_text()):raise SystemExit('Unmigrated direct glyph in adopted file: '+p)
 for row in original:
  if any(k not in catalog['assets'] and k not in catalog['aliases'] for k in row['keys']):raise SystemExit('Missing original key')

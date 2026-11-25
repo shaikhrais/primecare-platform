@@ -636,16 +636,16 @@
     },
     {
       "gateway": "packages/primecare_master/web/data-controls.ts",
-      "target": "packages/primecare_data_controls/src/index.ts",
+      "target": "packages/primecare_data_controls_web/src/index.ts",
       "language": "web",
-      "packageName": "primecare_data_controls",
+      "packageName": "primecare_data_controls_web",
       "defaultExport": false
     },
     {
       "gateway": "packages/primecare_master/web/assets.ts",
-      "target": "packages/primecare_assets/src/index.ts",
+      "target": "packages/primecare_assets_web/src/index.ts",
       "language": "web",
-      "packageName": "primecare_assets",
+      "packageName": "primecare_assets_web",
       "defaultExport": false
     },
     {

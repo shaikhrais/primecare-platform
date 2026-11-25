@@ -1,5 +1,5 @@
 {
-  "name": "@primecare/data-controls",
+  "name": "@primecare/data-controls-web",
   "version": "1.0.0",
   "private": true,
   "type": "module",

@@ -15,7 +15,7 @@
     "@primecare/dashboard": "1.0.0",
     "@primecare/samples": "1.0.0",
     "@primecare/component-factory-web": "1.0.0",
-    "@primecare/data-controls": "1.0.0",
-    "@primecare/assets": "1.0.0"
+    "@primecare/data-controls-web": "1.0.0",
+    "@primecare/assets-web": "1.0.0"
   }
 }

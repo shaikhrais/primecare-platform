@@ -466,7 +466,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+      "path": "packages/primecare_data_controls/lib/data_controls/prime_data_controls.dart",
       "api": "class PrimeDataKit ",
       "entry": "packages/primecare_ui/lib/data_controls.dart",
       "exports": [
@@ -477,6 +477,10 @@
         {
           "path": "packages/flutter_core/lib/data_controls.dart",
           "target": "data_controls/prime_data_controls.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+          "target": "package:primecare_data_controls/data_controls/prime_data_controls.dart"
         }
       ]
     },

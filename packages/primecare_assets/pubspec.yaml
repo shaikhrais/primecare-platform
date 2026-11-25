@@ -1,9 +1,12 @@
 name: primecare_assets
-description: Scoped canonical PrimeCare assets facade.
+description: Canonical Flutter assets implementation and tests.
 version: 1.0.0
 publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
-  flutter_core:
-    path: ../flutter_core
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

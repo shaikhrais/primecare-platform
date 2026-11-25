@@ -20,6 +20,9 @@ on:
       - 'apps/primecare_business_development/lib/features/bdm/screens/regional_bdm_dashboard_screen.dart'
       - 'apps/primecare_business_development/test/regional_bdm_original_status_assets_test.dart'
       - 'packages/primecare_ui/catalogs/original-assets.registration.json'
+      - 'packages/primecare_assets/**'
+      - 'packages/primecare_assets_web/**'
+      - 'packages/primecare_data_controls/**'
       - 'packages/flutter_core/lib/original_assets*'
       - 'packages/flutter_core/lib/original_assets/**'
       - 'packages/flutter_core/lib/navigation/prime_workspace_navigation.dart'
@@ -77,10 +80,20 @@ jobs:
         with: {name: original-asset-navigation-oracle, path: packages/flutter_core/test/navigation/fixtures}
       - run: flutter pub get
         working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/original_assets lib/original_assets.dart lib/navigation/prime_workspace_navigation.dart lib/data_controls/prime_data_controls.dart test/original_assets
+      - run: flutter analyze --no-fatal-infos lib/navigation/prime_workspace_navigation.dart
         working-directory: packages/flutter_core
-      - run: flutter test test/original_assets test/navigation test/data_controls --reporter expanded
+      - run: flutter test test/navigation --reporter expanded
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_assets
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_assets
+      - run: flutter test test/original_assets --reporter expanded
+        working-directory: packages/primecare_assets
+      - run: flutter pub get
+        working-directory: packages/primecare_data_controls
+      - run: flutter test test/data_controls --reporter expanded
+        working-directory: packages/primecare_data_controls
       - run: flutter pub get
         working-directory: packages/primecare_ui
       - run: flutter test test/prime_status_test.dart --reporter expanded

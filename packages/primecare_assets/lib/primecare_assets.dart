@@ -1,1 +1,1 @@
-export 'package:flutter_core/original_assets.dart';
+export 'original_assets/prime_original_asset.dart';

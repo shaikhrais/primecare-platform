@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/original_assets.dart';
+import 'package:primecare_assets/primecare_assets.dart';
 
 void main() {
   Future<int> maximumAlpha(

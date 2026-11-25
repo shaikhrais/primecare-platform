@@ -1,9 +1,18 @@
 name: primecare_data_controls
-description: Scoped canonical PrimeCare data controls facade.
+description: Canonical Flutter data controls implementation and tests.
 version: 1.0.0
 publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
-  flutter_core:
-    path: ../flutter_core
+  flutter:
+    sdk: flutter
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  primecare_component_factory:
+    path: ../primecare_component_factory
+  primecare_assets:
+    path: ../primecare_assets
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

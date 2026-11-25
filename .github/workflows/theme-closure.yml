@@ -152,5 +152,17 @@ jobs:
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: All shared theme factory tests together
-        run: flutter test test/workspace test/navigation test/page test/advanced_theme test/preference_sync test/shell_utilities test/component_catalogue test/data_controls test/dashboard_widgets test/original_assets test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/help_reader --reporter expanded
+        run: flutter test test/workspace test/navigation test/page test/advanced_theme test/preference_sync test/shell_utilities test/dashboard_widgets test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/help_reader --reporter expanded
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_component_factory
+      - run: flutter test test/component_catalogue --reporter expanded
+        working-directory: packages/primecare_component_factory
+      - run: flutter pub get
+        working-directory: packages/primecare_assets
+      - run: flutter test test/original_assets --reporter expanded
+        working-directory: packages/primecare_assets
+      - run: flutter pub get
+        working-directory: packages/primecare_data_controls
+      - run: flutter test test/data_controls --reporter expanded
+        working-directory: packages/primecare_data_controls

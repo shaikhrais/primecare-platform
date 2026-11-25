@@ -9,6 +9,10 @@ on:
       - 'packages/shared/src/data-controls/**'
       - 'packages/primecare_ui/web/data-controls.ts'
       - 'packages/primecare_ui/catalogs/data-controls.registration.json'
+      - 'packages/primecare_data_controls/**'
+      - 'packages/primecare_data_controls_web/**'
+      - 'packages/primecare_component_factory/**'
+      - 'packages/primecare_assets/**'
       - 'packages/flutter_core/lib/data_controls*'
       - 'packages/flutter_core/lib/data_controls/**'
       - 'packages/flutter_core/test/data_controls/**'
@@ -56,8 +60,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/data_controls lib/data_controls.dart test/data_controls
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_data_controls
+      - run: flutter analyze --no-fatal-infos lib/data_controls lib/primecare_data_controls.dart test/data_controls
+        working-directory: packages/primecare_data_controls
       - run: flutter test test/data_controls --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_data_controls

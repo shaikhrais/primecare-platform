@@ -4,7 +4,7 @@ import {richRangeFixture} from './data-controls-rich-range-fixtures.mjs';
 const bundle=await build({entryPoints:['packages/domain/src/data_controls.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const api=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
 const block=(text='Hello world',bold=false)=>({text,bold,italic:false,kind:'paragraph'});
-const fixture=richRangeFixture(api),path='packages/flutter_core/test/data_controls/rich-range-fixtures.json';
+const fixture=richRangeFixture(api),path='packages/primecare_data_controls/test/data_controls/rich-range-fixtures.json';
 if(process.argv.includes('--write'))await writeFile(path,JSON.stringify(fixture,null,2)+'\n');
 else assert.deepEqual(JSON.parse(await readFile(path,'utf8')),fixture);
 

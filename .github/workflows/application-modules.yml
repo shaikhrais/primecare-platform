@@ -113,8 +113,12 @@ jobs:
       - name: Reproduce pinned old-source false success and restore repaired client
         run: python test/application_modules/verify_legacy_failure_control.py
         working-directory: packages/flutter_core
-      - run: flutter test test/work_modules test/communication_modules test/application_modules test/component_catalogue test/executive_read_transport_test.dart test/communication_transport_failure_test.dart test/auth_transport_test.dart --reporter expanded
+      - run: flutter test test/work_modules test/communication_modules test/application_modules test/executive_read_transport_test.dart test/communication_transport_failure_test.dart test/auth_transport_test.dart --reporter expanded
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_component_factory
+      - run: flutter test test/component_catalogue --reporter expanded
+        working-directory: packages/primecare_component_factory
 
       - run: flutter pub get
         working-directory: packages/primecare_ui

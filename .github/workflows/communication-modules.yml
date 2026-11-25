@@ -98,5 +98,9 @@ jobs:
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/work_modules lib/work_modules.dart lib/communication_modules.dart lib/communication_modules test/work_modules test/communication_modules
         working-directory: packages/flutter_core
-      - run: flutter test test/work_modules test/communication_modules test/component_catalogue --reporter expanded
+      - run: flutter test test/work_modules test/communication_modules --reporter expanded
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_component_factory
+      - run: flutter test test/component_catalogue --reporter expanded
+        working-directory: packages/primecare_component_factory

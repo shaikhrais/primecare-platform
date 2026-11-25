@@ -1,6 +1,6 @@
 import 'dart:convert';import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/data_controls.dart';
+import 'package:primecare_data_controls/primecare_data_controls.dart';
 
 void main(){
  test('web/Dart range and contiguous-edit fixtures retain exact spans and literal runs',(){

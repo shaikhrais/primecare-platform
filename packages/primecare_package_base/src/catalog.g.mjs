@@ -89,7 +89,9 @@ export function createPrimeCarePackageCatalog() {
       "flutter_core"
     ],
     "dependencies": [
+      "primecare_assets",
       "primecare_component_factory",
+      "primecare_data_controls",
       "primecare_models",
       "primecare_ui_foundation"
     ],
@@ -136,15 +138,27 @@ export function createPrimeCarePackageCatalog() {
     "kind": "library",
     "contractVersion": 1,
     "manifests": [
-      "package.json",
       "pubspec.yaml"
     ],
     "declaredNames": [
-      "@primecare/assets",
       "primecare_assets"
     ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_assets_web",
+    "path": "packages/primecare_assets_web",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/assets-web"
+    ],
     "dependencies": [
-      "flutter_core",
       "primecare_ui"
     ],
     "developmentDependencies": [],
@@ -221,15 +235,31 @@ export function createPrimeCarePackageCatalog() {
     "kind": "library",
     "contractVersion": 1,
     "manifests": [
-      "package.json",
       "pubspec.yaml"
     ],
     "declaredNames": [
-      "@primecare/data-controls",
       "primecare_data_controls"
     ],
     "dependencies": [
-      "flutter_core",
+      "primecare_assets",
+      "primecare_component_factory",
+      "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_data_controls_web",
+    "path": "packages/primecare_data_controls_web",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/data-controls-web"
+    ],
+    "dependencies": [
       "primecare_ui"
     ],
     "developmentDependencies": [],
@@ -306,10 +336,10 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "domain",
-      "primecare_assets",
+      "primecare_assets_web",
       "primecare_component_factory_web",
       "primecare_dashboard",
-      "primecare_data_controls",
+      "primecare_data_controls_web",
       "primecare_kitchen_sink_catalog",
       "primecare_package_base",
       "primecare_pagination",
@@ -338,10 +368,12 @@ export function createPrimeCarePackageCatalog() {
       "infrastructure",
       "messaging",
       "primecare_assets",
+      "primecare_assets_web",
       "primecare_component_factory",
       "primecare_component_factory_web",
       "primecare_dashboard",
       "primecare_data_controls",
+      "primecare_data_controls_web",
       "primecare_demo",
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
@@ -362,10 +394,10 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
-      "primecare_assets",
+      "primecare_assets_web",
       "primecare_component_factory_web",
       "primecare_dashboard",
-      "primecare_data_controls",
+      "primecare_data_controls_web",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
       "primecare_navigation",

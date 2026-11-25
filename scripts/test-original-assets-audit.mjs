@@ -16,7 +16,7 @@ with tempfile.TemporaryDirectory() as temp:
  'apps/portal/view.ts': '''originalAssetElement('calendar',opts); shellIcon("building"); primeCareIcon('phone'); shellIcon(name); originalAssetElement('not-registered',opts);''',
  'apps/portal/tests/view.ts': "shellIcon('phone')",
  'packages/flutter_core/lib/navigation/prime_workspace_navigation.dart': "PrimeOriginalAsset('phone')",
- 'packages/flutter_core/lib/data_controls/prime_data_controls.dart': '',
+ 'packages/primecare_data_controls/lib/data_controls/prime_data_controls.dart': '',
  'scripts/fixture.ts': "shellIcon('phone')"}
  for file,body in fixtures.items():
   p=root/file;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(body)
