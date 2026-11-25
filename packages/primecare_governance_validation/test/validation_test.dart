@@ -8,7 +8,7 @@ void main() {
     expect(PlatformParityEngine.checkScreenParity(screen, {}).isCompliant, isFalse);
     expect(RegistryScanner.findRogueEndpoints(['/fixture'], {}), ['/fixture']);
     expect(() => Governed.api('missing', 'fixture', registry: {}), throwsA(isA<GovernanceException>()));
-    const metadata = ApiMetadata(id: 'fixture', endpoint: '/fixture');
+    const metadata = ApiMetadata(id: 'fixture', endpoint: '/fixture', allowedRoles: []);
     expect(RegistryScanner.findOrphanedMetadata(['/fixture'], {'fixture': metadata}), isEmpty);
   });
 }

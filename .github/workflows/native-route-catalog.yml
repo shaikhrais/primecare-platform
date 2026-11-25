@@ -28,7 +28,16 @@ jobs:
         working-directory: packages/primecare_route_catalog
       - run: python3 scripts/tests/test_module_screen_registration_check.py
       - run: python3 scripts/check_module_screen_registrations.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/nav-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s /tmp/nav-tools/node_modules node_modules
+          node scripts/workspace-navigation-fixtures.mjs
+      - uses: actions/upload-artifact@v4
+        with: {name: route-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures/web.json}
   navigation:
+    needs: catalog
     strategy:
       fail-fast: false
       matrix: {os: [ubuntu-24.04, windows-latest]}
@@ -42,6 +51,8 @@ jobs:
         with: {persist-credentials: false}
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - uses: actions/download-artifact@v4
+        with: {name: route-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures}
       - run: flutter pub get
       - run: flutter analyze --no-fatal-infos
       - run: flutter test --reporter expanded
