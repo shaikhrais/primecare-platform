@@ -298,7 +298,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                     Positioned.fill(
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.all(24.0),
-                        child: bodyContent,
+                        child: Semantics(label: title, child: bodyContent),
                       ),
                     ),
 

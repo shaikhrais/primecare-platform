@@ -634,6 +634,11 @@ def _before_relocated_insets(source, path):
     return restored
 
 _THEME_OWNER_TOKEN_RECEIPTS = {
+    "models/presentation_mode.dart": {
+        "before": "409d6f39383e5e716bbb4e3b67be0aa01c2470ca58084dfb16e6b699da740de8",
+        "after": "2fb82391f51d1746ef905ef26d5558a20986ec1bdd8b97e99b352e2ec003b08c",
+        "edits": [["child: Semantics(label: title, child: bodyContent),", "child: bodyContent,", 1]],
+    },
     "theme/prime_shell_metrics.dart": {
         "before": "c1790ef30142c14f939f01a76200c78407d734b94aa8e42cd3fa8c9050784cf3",
         "after": "dbff2f200150a06373a3de2ffbe67d7d303ebee77f5216051b3d227d3967779a",
