@@ -8,9 +8,11 @@ void main() {
       final container = ProviderContainer(overrides: [
         connectivityProvider.overrideWith((ref) => Stream.value(online)),
       ]);
+      final subscription = container.listen(connectivityProvider, (_, _) {});
       try {
         expect(await container.read(connectivityProvider.future), online);
       } finally {
+        subscription.close();
         container.dispose();
       }
     }

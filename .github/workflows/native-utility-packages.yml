@@ -29,4 +29,8 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
       - run: flutter analyze --no-fatal-infos
-      - run: flutter test --reporter expanded
+      # Workspace contract fixtures are generated and tested separately by native-workspace-layout.yml.
+      - if: matrix.package == 'primecare_layout'
+        run: flutter test test/responsive_breakpoints_test.dart --reporter expanded
+      - if: matrix.package != 'primecare_layout'
+        run: flutter test --reporter expanded

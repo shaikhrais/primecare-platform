@@ -16,7 +16,7 @@ MANIFEST = json.loads((ROOT/'scripts/shared-scaffold-constructors-manifest.json'
 
 class SharedScaffoldMigrationTest(unittest.TestCase):
     def original_and_updated(self, path, original_sha, expected):
-        current = history.before_shared_text_fields((ROOT/path).read_text(), path)
+        current = history.before_shared_text_fields(history.read_reviewed_source(path, ROOT), path)
         if m.digest(current) == original_sha:
             original = current
             updated, count = m.migrate_source(path, original, original_sha, expected)
