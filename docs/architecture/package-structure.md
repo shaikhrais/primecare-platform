@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-46 source directories are recorded under `packages/`, including 43 manifest-bearing packages and three source-only directories. The table describes ownership, not production acceptance.
+47 source directories are recorded under `packages/`, including 44 manifest-bearing packages and three source-only directories. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -39,13 +39,13 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `database_client` | Dart database adapter | — |
 | `domain` | Business and presentation contracts | `database` |
 | `factory_system` | Existing factory definitions | — |
-| `flutter_core` | Legacy Flutter implementations and compatibility exports | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard_native`, `primecare_data_controls`, `primecare_help_reader`, `primecare_layout`, `primecare_models`, `primecare_navigation`, `primecare_page_templates`, `primecare_shell_utilities`, `primecare_ui_foundation`, `primecare_preferences`, `primecare_theme`, `primecare_work_contracts`, `primecare_application_shortcuts`, `primecare_task_port`, `primecare_profile`, `primecare_work_modules`, `primecare_communications_transport`, `primecare_communication_modules` |
+| `flutter_core` | Legacy Flutter implementations and compatibility exports | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard_native`, `primecare_data_controls`, `primecare_help_reader`, `primecare_layout`, `primecare_models`, `primecare_navigation`, `primecare_page_templates`, `primecare_shell_utilities`, `primecare_ui_foundation`, `primecare_preferences`, `primecare_theme`, `primecare_work_contracts`, `primecare_application_shortcuts`, `primecare_task_port`, `primecare_profile`, `primecare_work_modules`, `primecare_communications_transport`, `primecare_communication_modules`, `primecare_resilience` |
 | `infrastructure` | Infrastructure adapters | `database` |
 | `messaging` | Communication adapters | `database` |
 | `primecare_kitchen_sink` | Flutter showcase using existing factories | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard`, `primecare_data_controls`, `primecare_kitchen_sink_catalog`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_kitchen_sink_catalog` | New generated stories, labels and reference inventory | — |
 | `primecare_kitchen_sink_web` | Browser showcase using existing factories | `domain`, `primecare_assets_web`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls_web`, `primecare_kitchen_sink_catalog`, `primecare_package_base`, `primecare_pagination`, `primecare_samples` |
-| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_help_reader`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_layout`, `primecare_navigation`, `primecare_page_templates`, `primecare_shell_utilities`, `primecare_navigation_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared`, `primecare_preferences`, `primecare_theme`, `primecare_work_contracts`, `primecare_application_shortcuts`, `primecare_task_port`, `primecare_profile`, `primecare_work_modules`, `primecare_communications_transport`, `primecare_communication_modules` |
+| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_help_reader`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_layout`, `primecare_navigation`, `primecare_page_templates`, `primecare_shell_utilities`, `primecare_navigation_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared`, `primecare_preferences`, `primecare_theme`, `primecare_work_contracts`, `primecare_application_shortcuts`, `primecare_task_port`, `primecare_profile`, `primecare_work_modules`, `primecare_communications_transport`, `primecare_communication_modules`, `primecare_resilience` |
 | `primecare_theme` | Native theme models, presets, semantic colors and ThemeData composition | `primecare_layout`, `primecare_navigation`, `primecare_ui_foundation` |
 | `primecare_preferences` | Native preference protocol, cache and transport | `primecare_layout`, `primecare_theme` |
 | `primecare_models` | Canonical Dart models | — |
@@ -68,6 +68,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_work_modules` | Native shared work renderer for calendars, tasks, contacts, notes and boards | `primecare_component_factory`, `primecare_data_controls`, `primecare_preferences`, `primecare_ui_foundation`, `primecare_work_contracts` |
 | `primecare_communications_transport` | Canonical communication data contracts and Dio transport | — |
 | `primecare_communication_modules` | Registered business communication port and HTTP adapter | `primecare_communications_transport`, `primecare_preferences`, `primecare_work_contracts` |
+| `primecare_resilience` | Native restart, provider expiry, snapshot and bounded recovery management | — |
 | `primecare_shell_utilities` | Canonical native quick panel, favourites, registered actions and shell utility models | `primecare_preferences`, `primecare_ui_foundation` |
 | `primecare_page_templates` | Canonical native route-layout model and responsive page templates | `primecare_navigation`, `primecare_ui_foundation` |
 | `primecare_help_reader` | Canonical native Help reader client, controller and view | `primecare_component_factory`, `primecare_preferences`, `primecare_theme`, `primecare_ui_foundation` |
@@ -157,3 +158,5 @@ Native task transport and adapter are now owned by `primecare_task_port`; the se
 The shared work module renderer and its widget/session test are owned by `primecare_work_modules`; master exports the renderer and named task adapter from `work_modules.dart`. Fifteen source mappings follow the exact compatibility chain, with no new acceptance or route authority.
 
 Four communication implementations, one standalone test and its fixture are now owned by the named communication packages. Legacy generated bindings and integrated tests remain in place. No dispatch or provider authority has changed.
+
+Five resilience implementations now reside in `primecare_resilience`, with an independent test suite and scoped master entry. Higher-level orchestration and recovery presentation remain in their current owners. Existing recovery configuration and behavior are unchanged.

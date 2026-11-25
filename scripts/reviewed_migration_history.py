@@ -446,6 +446,11 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'src/resilience/restart_wrapper.dart': ('primecare_resilience', '', (), False),
+    'src/resilience/provider_ttl.dart': ('primecare_resilience', '', (), False),
+    'src/resilience/resilience_service.dart': ('primecare_resilience', '', (), False),
+    'src/resilience/system_recovery_manager.dart': ('primecare_resilience', '', (), False),
+    'config/resilience_config.dart': ('primecare_resilience', '', (), False),
     'communications/communication_core.dart': ('primecare_communications_transport', '', (), False),
     'communications/dio_communication_transport.dart': ('primecare_communications_transport', '', (), False),
     'communication_modules/registered_module_transport.dart': ('primecare_communication_modules', '', (("package:primecare_communications_transport/communications/dio_communication_transport.dart", "../communications/dio_communication_transport.dart"), ("package:primecare_preferences/preference_sync/preference_protocol.dart", "../preference_sync/preference_protocol.dart"), ("package:primecare_work_contracts/work_modules/work_module_model.dart", "../work_modules/work_module_model.dart"),), False),

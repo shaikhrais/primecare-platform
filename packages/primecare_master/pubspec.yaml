@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_resilience:
+    path: ../primecare_resilience
   primecare_communications_transport:
     path: ../primecare_communications_transport
   primecare_communication_modules:

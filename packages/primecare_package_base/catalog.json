@@ -103,6 +103,7 @@
         "primecare_page_templates",
         "primecare_preferences",
         "primecare_profile",
+        "primecare_resilience",
         "primecare_shell_utilities",
         "primecare_task_port",
         "primecare_theme",
@@ -514,6 +515,7 @@
         "primecare_pagination",
         "primecare_preferences",
         "primecare_profile",
+        "primecare_resilience",
         "primecare_samples",
         "primecare_shell_utilities",
         "primecare_task_port",
@@ -681,6 +683,21 @@
         "primecare_preferences",
         "primecare_work_contracts"
       ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_resilience",
+      "path": "packages/primecare_resilience",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_resilience"
+      ],
+      "dependencies": [],
       "developmentDependencies": [],
       "hosting": "library-only"
     },
