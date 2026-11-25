@@ -446,6 +446,7 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'registry/widgets/responsive_grid.dart': ('primecare_layout', '', (), False),
     'config/screen_breakpoints.dart': ('primecare_layout', '', (), False),
     'config/adaptive_scaling_config.dart': ('primecare_layout', '', (), False),
     'src/utils/prime_logger.dart': ('primecare_logging', '', (), False),
