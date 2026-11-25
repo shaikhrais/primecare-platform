@@ -1,0 +1,16 @@
+name: primecare_device_identity
+description: Existing platform device identity and fingerprint adapter.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_security_models:
+    path: ../primecare_security_models
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.5
+  device_info_plus: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

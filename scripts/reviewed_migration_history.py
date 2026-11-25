@@ -446,6 +446,13 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'registry/file_registry.dart': ('primecare_screen_registry_data', '', (), False),
+    'registry/screen_data_registry.dart': ('primecare_screen_registry_data', '', (), False),
+    'registry/intents/app_screen_intent.dart': ('primecare_screen_intents', '', (("package:primecare_models/src/models/platform_role.dart", "../platform_role.dart"), ("package:primecare_models/src/models/platform_types.dart", "../../models/platform_types.dart"),), False),
+    'registry/widgets/governance_skeleton.dart': ('primecare_screen_intents', '', (), False),
+    'providers/user_management_provider.dart': ('primecare_demo_user_management', '', (), False),
+    'src/services/device_manager.dart': ('primecare_device_identity', '', (("package:primecare_security_models/src/security/device_fingerprint.dart", "../security/device_fingerprint.dart"),), False),
+    'models/presentation_mode.dart': ('primecare_presentation_preview', '', (("package:primecare_theme/theme/prime_semantic_palette.dart", "../theme/prime_semantic_palette.dart"),), False),
     'routes/groups/admin_routes.dart': ('primecare_route_catalog', '', (), False),
     'routes/groups/business_development_routes.dart': ('primecare_route_catalog', '', (), False),
     'routes/groups/client_routes.dart': ('primecare_route_catalog', '', (), False),

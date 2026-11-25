@@ -1,0 +1,1 @@
+export 'package:primecare_screen_registry_data/primecare_screen_registry_data.dart';

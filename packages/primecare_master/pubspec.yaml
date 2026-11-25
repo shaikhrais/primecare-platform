@@ -5,6 +5,16 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_screen_registry_data:
+    path: ../primecare_screen_registry_data
+  primecare_screen_intents:
+    path: ../primecare_screen_intents
+  primecare_demo_user_management:
+    path: ../primecare_demo_user_management
+  primecare_device_identity:
+    path: ../primecare_device_identity
+  primecare_presentation_preview:
+    path: ../primecare_presentation_preview
   primecare_route_catalog:
     path: ../primecare_route_catalog
   primecare_governance_validation:
