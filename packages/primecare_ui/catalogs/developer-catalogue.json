@@ -47,7 +47,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -233,7 +233,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -828,7 +828,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -1045,7 +1045,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "3ab923109017c120400f8ae0752c1b0eca09fa016c14ca8f8d52e05ac69b0e5f",
+          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
