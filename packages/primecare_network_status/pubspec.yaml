@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_execution_gate:
+    path: ../primecare_execution_gate
   flutter:
     sdk: flutter
   connectivity_plus: ^6.1.4

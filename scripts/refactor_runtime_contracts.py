@@ -111,9 +111,31 @@ def render():
             ['git', 'show', AUTH_SOURCE + ':' + path], cwd=ROOT, text=True)
     return files
 
+# Later package ownership changes are checked against the same pinned bytes.
+RUNTIME_RELOCATIONS = {
+    CORE + 'src/controllers/base_value_notifier.dart': ('primecare_controller_base', True),
+    CORE + 'src/resilience/execution_gate_service.dart': ('primecare_execution_gate', True),
+    CORE + 'src/infrastructure/telemetry/execution_gate_service.dart': ('primecare_execution_gate', False),
+}
+
+def checked_source(path):
+    target = ROOT / path
+    relocation = RUNTIME_RELOCATIONS.get(path)
+    if relocation is None:
+        return target.read_text()
+    owner, compatibility = relocation
+    relative = path[len(CORE):]
+    canonical = ROOT / f'packages/{owner}/lib/{relative}'
+    assert canonical.is_file() and not canonical.is_symlink(), path
+    if compatibility:
+        assert target.read_text() == f"export 'package:{owner}/{relative}';\n", path
+    else:
+        assert not target.exists(), path
+    return canonical.read_text()
+
 def check_files(files):
     for path, content in files.items():
-        assert (ROOT / path).read_text() == content, path
+        assert checked_source(path) == content, path
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');args=parser.parse_args()

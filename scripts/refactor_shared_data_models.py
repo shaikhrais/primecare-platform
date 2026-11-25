@@ -4,6 +4,7 @@ import argparse
 import json
 import subprocess
 from pathlib import Path
+from reviewed_migration_history import read_reviewed_source
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = '04213b2d17199af8284062ef38edcd2b8c1df4fa'
@@ -39,7 +40,7 @@ def main():
     files = render()
     manifest = {'sourceCommit': SOURCE, 'files': list(files), 'removedLegacyParts': GENERATED, 'models': ['UserModel', 'ClinicalArticle'], 'completedWorkflows': 0}
     if args.check:
-        for path, content in files.items(): assert (ROOT / path).read_text() == content, 'Shared data model changed: ' + path
+        for path, content in files.items(): assert read_reviewed_source(path, ROOT) == content, 'Shared data model changed: ' + path
         for path in GENERATED: assert not (ROOT / path).exists(), 'Duplicate generated model: ' + path
         assert json.loads(MANIFEST.read_text()) == manifest
         print(json.dumps({'models': 2, 'sharedEntityParents': 1, 'publicImportsPreserved': True, 'completedWorkflows': 0}))

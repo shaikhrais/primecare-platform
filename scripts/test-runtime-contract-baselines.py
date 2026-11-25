@@ -33,18 +33,40 @@ class RuntimeContractBaselines(unittest.TestCase):
     def test_mutation_of_every_checked_file_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
+            targets = {}
             for path, content in self.expected.items():
                 target = root / path
+                relocation = contracts.RUNTIME_RELOCATIONS.get(path)
+                if relocation:
+                    owner, compatibility = relocation
+                    relative = path[len(contracts.CORE):]
+                    if compatibility:
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        target.write_text(f"export 'package:{owner}/{relative}';\n")
+                    target = root / f'packages/{owner}/lib/{relative}'
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_text(content)
+                targets[path] = target
             with patch.object(contracts, 'ROOT', root):
                 contracts.check_files(self.expected)
                 for path, content in self.expected.items():
                     with self.subTest(path=path):
-                        (root / path).write_text(content + '// unreviewed drift\n')
+                        targets[path].write_text(content + '// unreviewed drift\n')
                         with self.assertRaisesRegex(AssertionError, path):
                             contracts.check_files(self.expected)
-                        (root / path).write_text(content)
+                        targets[path].write_text(content)
+                for path, (owner, compatibility) in contracts.RUNTIME_RELOCATIONS.items():
+                    with self.subTest(relocation=path):
+                        old = root / path
+                        old.parent.mkdir(parents=True, exist_ok=True)
+                        original = old.read_text() if compatibility else None
+                        old.write_text('// invalid compatibility file\n')
+                        with self.assertRaisesRegex(AssertionError, path):
+                            contracts.check_files(self.expected)
+                        if compatibility:
+                            old.write_text(original)
+                        else:
+                            old.unlink()
 
     def test_historical_auth_rollback_is_rejected(self):
         for path in contracts.AUTH_FILES:

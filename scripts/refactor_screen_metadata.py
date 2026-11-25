@@ -5,6 +5,7 @@ import json
 import re
 import subprocess
 from pathlib import Path
+from reviewed_migration_history import read_reviewed_source
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = '6e11e02852785a3aa55430b978b193bae75147e5'
 SCREEN = 'packages/flutter_core/lib/models/screen_metadata.dart'
@@ -43,7 +44,7 @@ def main():
     files = render()
     manifest = {'sourceCommit': SOURCE, 'files': list(files), 'sharedContracts': 2, 'flutterAdapters': 2, 'completedWorkflows': 0}
     if args.check:
-        for path, content in files.items(): assert (ROOT / path).read_text() == content, path
+        for path, content in files.items(): assert read_reviewed_source(path, ROOT) == content, path
         assert json.loads(MANIFEST.read_text()) == manifest
         print(json.dumps(manifest))
     else:

@@ -108,6 +108,7 @@
         "primecare_demo_telemetry",
         "primecare_demo_user_management",
         "primecare_device_identity",
+        "primecare_execution_gate",
         "primecare_feature_stub",
         "primecare_form_schema",
         "primecare_governance_reports",
@@ -608,6 +609,23 @@
       "hosting": "library-only"
     },
     {
+      "id": "primecare_execution_gate",
+      "path": "packages/primecare_execution_gate",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_execution_gate"
+      ],
+      "dependencies": [
+        "primecare_models"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
       "id": "primecare_feature_stub",
       "path": "packages/primecare_feature_stub",
       "kind": "library",
@@ -879,6 +897,7 @@
         "primecare_demo_telemetry",
         "primecare_demo_user_management",
         "primecare_device_identity",
+        "primecare_execution_gate",
         "primecare_feature_stub",
         "primecare_form_schema",
         "primecare_governance_reports",
@@ -1007,7 +1026,9 @@
       "declaredNames": [
         "primecare_network_status"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "primecare_execution_gate"
+      ],
       "developmentDependencies": [],
       "hosting": "library-only"
     },
@@ -1144,7 +1165,9 @@
       "declaredNames": [
         "primecare_resilience"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "primecare_models"
+      ],
       "developmentDependencies": [],
       "hosting": "library-only"
     },

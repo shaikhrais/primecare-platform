@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_models:
+    path: ../primecare_models
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.3.1
