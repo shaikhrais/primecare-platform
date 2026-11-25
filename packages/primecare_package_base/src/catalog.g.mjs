@@ -207,6 +207,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
       "primecare_package_base",
+      "primecare_pagination",
       "security"
     ],
     "developmentDependencies": [],
@@ -239,6 +240,21 @@ export function createPrimeCarePackageCatalog() {
     "declaredNames": [
       "@primecare/package-base",
       "primecare_package_base"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_pagination",
+    "path": "packages/primecare_pagination",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/pagination"
     ],
     "dependencies": [],
     "developmentDependencies": [],

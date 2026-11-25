@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-20 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
+21 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -45,9 +45,10 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_kitchen_sink` | New Flutter showcase using existing factories | `flutter_core`, `primecare_kitchen_sink_catalog`, `primecare_ui_foundation` |
 | `primecare_kitchen_sink_catalog` | New generated stories, labels and reference inventory | — |
 | `primecare_kitchen_sink_web` | New browser showcase using existing factories | `domain`, `primecare_kitchen_sink_catalog`, `primecare_package_base` |
-| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_package_base`, `security` |
+| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_package_base`, `primecare_pagination`, `security` |
 | `primecare_models` | Canonical Dart models | — |
-| `primecare_package_base` | Composition registry and generated package graph | — |
+| `primecare_package_base` | Composition registry, dependency impact and composition status | — |
+| `primecare_pagination` | Pure, immutable paging range and navigation state for Fuse-inspired controls | — |
 | `primecare_ui` | Shared public UI exports and canonical browser implementations | `flutter_core`, `primecare_models`, `primecare_ui_foundation` |
 | `primecare_ui_foundation` | Shared Flutter Material primitives | — |
 | `security` | Security adapters | `database` |
@@ -97,3 +98,7 @@ The 72 reference entries retain their historical proposal dispositions and audit
 - CI: `.github/workflows/kitchen-sink-packages.yml` builds both previews and runs browser/widget checks. It has no deployment job or production secrets.
 
 Local browser execution requires a host that supports Chromium's Unix socket/process sandbox. A failed launch is not a failed application assertion. Browser verification runs on the prescribed GitHub Actions host when this workspace cannot launch it.
+
+## Package management and independent controls
+
+Use `PackageCatalog.impact(changedIds)` for the declared reverse dependency closure in build order and `PackageMaster.status()` for local composition status. These are not deployment or runtime health evidence. The pagination package is available as `paginationState` and `movePagination` from `@primecare/master`. It accepts page, page size and an already-authorized total, clamps a stale page after the result count changes, and returns immutable view state. It does not fetch records. Existing portal controls are unchanged pending an independent integration and release review.

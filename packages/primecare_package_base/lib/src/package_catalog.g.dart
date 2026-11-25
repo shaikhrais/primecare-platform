@@ -60,7 +60,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_master', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_package_base", "security"],
+    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_package_base", "primecare_pagination", "security"],
   ),
   PackageDescriptor(
     id: 'primecare_models', kind: PackageKind.library,
@@ -69,6 +69,11 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   ),
   PackageDescriptor(
     id: 'primecare_package_base', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: [],
+  ),
+  PackageDescriptor(
+    id: 'primecare_pagination', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: [],
   ),

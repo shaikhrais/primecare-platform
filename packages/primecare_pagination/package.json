@@ -1,0 +1,10 @@
+{
+  "name": "@primecare/pagination",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {"types": "./src/index.d.mts", "import": "./src/index.mjs"}
+  },
+  "scripts": {"test": "node --test test/pagination.test.mjs"}
+}

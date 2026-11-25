@@ -26,6 +26,7 @@
     "@primecare/package-base": "1.0.0",
     "@primecare/security": "1.0.0",
     "@primecare/kitchen-sink-catalog": "1.0.0",
-    "@primecare/kitchen-sink-web": "1.0.0"
+    "@primecare/kitchen-sink-web": "1.0.0",
+    "@primecare/pagination": "1.0.0"
   }
 }
