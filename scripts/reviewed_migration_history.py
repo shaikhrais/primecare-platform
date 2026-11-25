@@ -446,6 +446,13 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'config/data_source_mode.dart': ('primecare_runtime_config', '', (), False),
+    'config/feature_flags.dart': ('primecare_runtime_config', '', (), False),
+    'flags/feature_flags.dart': ('primecare_runtime_config', '', (), False),
+    'stubs/url_strategy.dart': ('primecare_url_strategy', '', (), False),
+    'stubs/url_strategy_stub.dart': ('primecare_url_strategy', '', (), False),
+    'stubs/url_strategy_web.dart': ('primecare_url_strategy', '', (), False),
+    'network/api_error.dart': ('primecare_api_errors', '', (), False),
     'src/security/device_fingerprint.dart': ('primecare_security_models', '', (), False),
     'src/security/security_event.dart': ('primecare_security_models', '', (), False),
     'src/security/secure_storage_manager.dart': ('primecare_auth_storage', '', (), False),

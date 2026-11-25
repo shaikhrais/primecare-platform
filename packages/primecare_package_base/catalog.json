@@ -115,12 +115,14 @@
         "primecare_profile",
         "primecare_recovery_ui",
         "primecare_resilience",
+        "primecare_runtime_config",
         "primecare_security_models",
         "primecare_session_watchdog",
         "primecare_shell_utilities",
         "primecare_task_port",
         "primecare_theme",
         "primecare_ui_foundation",
+        "primecare_url_strategy",
         "primecare_work_contracts",
         "primecare_work_modules"
       ],
@@ -691,6 +693,7 @@
         "primecare_profile",
         "primecare_recovery_ui",
         "primecare_resilience",
+        "primecare_runtime_config",
         "primecare_samples",
         "primecare_security_models",
         "primecare_session_watchdog",
@@ -698,6 +701,7 @@
         "primecare_task_port",
         "primecare_theme",
         "primecare_ui",
+        "primecare_url_strategy",
         "primecare_work_contracts",
         "primecare_work_modules",
         "security",
@@ -912,6 +916,21 @@
       "hosting": "library-only"
     },
     {
+      "id": "primecare_runtime_config",
+      "path": "packages/primecare_runtime_config",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_runtime_config"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
       "id": "primecare_samples",
       "path": "packages/primecare_samples",
       "kind": "library",
@@ -1044,6 +1063,21 @@
       ],
       "declaredNames": [
         "primecare_ui_foundation"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_url_strategy",
+      "path": "packages/primecare_url_strategy",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_url_strategy"
       ],
       "dependencies": [],
       "developmentDependencies": [],

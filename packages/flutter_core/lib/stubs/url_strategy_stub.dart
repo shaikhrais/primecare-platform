@@ -1,4 +1,1 @@
-// Cross-platform stub for configureUrlStrategy on native target builds.
-void configureUrlStrategy() {
-  // No-op on native platforms.
-}
+export 'package:primecare_url_strategy/stubs/url_strategy_stub.dart';

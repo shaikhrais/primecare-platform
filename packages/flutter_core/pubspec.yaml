@@ -5,6 +5,10 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_runtime_config:
+    path: ../primecare_runtime_config
+  primecare_url_strategy:
+    path: ../primecare_url_strategy
   primecare_security_models:
     path: ../primecare_security_models
   primecare_auth_storage:

@@ -1,3 +1,1 @@
-// Centralized export providing conditionally compiled URL strategy functions.
-export 'url_strategy_stub.dart'
-    if (dart.library.html) 'url_strategy_web.dart';
+export 'package:primecare_url_strategy/stubs/url_strategy.dart';
