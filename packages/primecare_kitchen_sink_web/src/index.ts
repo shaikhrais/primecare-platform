@@ -2,8 +2,10 @@ import {originalAssetNames, originalAssetInfo, originalAssetElement} from '../..
 import {PrimeComponentFactory, type CatalogueLocale} from '../../primecare_ui/web/component-catalogue';
 import {PrimeDataControls} from '../../primecare_ui/web/data-controls';
 import {PrimeDashboardWidgets} from '../../primecare_ui/web/dashboard-widgets';
-import {kitchenSinkCatalog, componentMetadata} from '../../primecare_kitchen_sink_catalog/src/index';
+import {kitchenSinkCatalog, componentMetadata, dataMetadata} from '../../primecare_kitchen_sink_catalog/src/index';
 import packageCatalog from '../../primecare_package_base/catalog.json';
+import {createPrimeCarePackageCatalog} from '@primecare/package-base/catalog';
+import {paginationState, movePagination} from '@primecare/pagination';
 import {theme} from '../../domain/src/theme_config';
 export {PrimeComponentFactory, PrimeDataControls, PrimeDashboardWidgets};
 export {kitchenSinkCatalog} from '../../primecare_kitchen_sink_catalog/src/index';
@@ -22,6 +24,8 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
   const instance = 'ks-' + ++sequence, doc = root.ownerDocument;
   const previous = {children:[...root.childNodes], marker:root.getAttribute('data-pc-kitchen-sink'), theme:root.getAttribute('data-theme'), style:root.getAttribute('style')};
   let locale = firstLocale, disposed = false, query = '', category = 'all';
+  let packagePage = 1, changedPackage = '';
+  const packageGraph = createPrimeCarePackageCatalog();
   let events = new AbortController();
   const cleanup: (() => void)[] = [], state = new Map<string, unknown>();
   const cards = new Map<string, HTMLElement>();
@@ -155,8 +159,36 @@ export function mountKitchenSink(root: HTMLElement, options: {locale?: KitchenSi
     }
     assets.append(assetGrid);root.append(assets);
     const packages=node('details',undefined,'ks-packages');packages.append(node('summary',w.packages));
-    const table=node('table'), head=node('tr');for(const label of [w.owner,w.dependencies,w.hosting])head.append(node('th',label));table.append(head);
-    for(const entry of packageCatalog.packages){const row=node('tr');for(const text of [entry.path,entry.dependencies.join(', ')||'—',entry.hosting])row.append(node('td',text));table.append(row);}packages.append(table);root.append(packages);
+    const controls=node('div',undefined,'ks-package-controls');
+    const dependencyLabel=node('label',w.dependencies), changed=node('select',undefined,'ks-package-impact');
+    const all=node('option',w.packages);all.value='';changed.append(all);
+    for(const entry of packageCatalog.packages){const option=node('option',entry.id);option.value=entry.id;changed.append(option);}
+    changed.value=changedPackage;dependencyLabel.append(changed);
+    const previous=node('button',dataMetadata.locales[locale].previous,'ks-package-previous');
+    const next=node('button',dataMetadata.locales[locale].next,'ks-package-next');
+    previous.type=next.type='button';
+    const range=node('output',undefined,'ks-package-range');range.setAttribute('aria-live','polite');
+    controls.append(dependencyLabel,previous,next,range);
+    const table=node('table'), thead=node('thead'), head=node('tr'), tbody=node('tbody');
+    for(const label of [w.owner,w.dependencies,w.hosting]){const th=node('th',label);th.scope='col';head.append(th);}
+    thead.append(head);table.append(thead,tbody);
+    const affected=()=>{const ids=changedPackage?new Set(packageGraph.impact([changedPackage])):null;return packageCatalog.packages.filter(entry=>!ids||ids.has(entry.id));};
+    const view=()=>paginationState({page:packagePage,pageSize:8,totalItems:affected().length});
+    function renderPackageRows(){
+      const rows=affected(), page=view();packagePage=page.page;
+      previous.disabled=!page.hasPrevious;next.disabled=!page.hasNext;
+      range.textContent=`${page.firstItem}–${page.lastItem} / ${page.totalItems}`;
+      tbody.replaceChildren();
+      for(const entry of rows.slice(page.firstItem? page.firstItem-1:0,page.lastItem)){
+        const row=node('tr',undefined,'ks-package-row-'+entry.id);
+        for(const text of [entry.path,entry.dependencies.join(', ')||'—',entry.hosting])row.append(node('td',text));
+        tbody.append(row);
+      }
+    }
+    changed.addEventListener('change',()=>{changedPackage=changed.value;packagePage=1;renderPackageRows();},{signal:events.signal});
+    previous.addEventListener('click',()=>{packagePage=movePagination(view(),'previous').page;renderPackageRows();},{signal:events.signal});
+    next.addEventListener('click',()=>{packagePage=movePagination(view(),'next').page;renderPackageRows();},{signal:events.signal});
+    packages.append(controls,table);root.append(packages);renderPackageRows();
     filter();
   }
   try { render(); } catch(error) { dispose(); throw error; }

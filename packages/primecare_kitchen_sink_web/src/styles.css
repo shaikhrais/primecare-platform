@@ -20,3 +20,8 @@
 [data-pc-kitchen-sink] [data-cy^=ks-asset-] {margin:0;padding:var(--spacing-md);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md);display:grid;justify-items:center;min-inline-size:0;background:var(--color-surface)}
 [data-pc-kitchen-sink] [data-cy^=ks-asset-] svg {max-inline-size:100%;color:var(--color-text)}
 [data-pc-kitchen-sink] [data-cy^=ks-asset-] figcaption {overflow-wrap:anywhere}
+
+[data-pc-kitchen-sink] [data-cy=ks-package-controls] {display:flex;flex-wrap:wrap;align-items:center;gap:var(--spacing-sm);padding-block:var(--spacing-sm);min-inline-size:0}
+[data-pc-kitchen-sink] [data-cy=ks-package-controls] label {display:flex;flex-wrap:wrap;gap:var(--spacing-sm);align-items:center;min-inline-size:0;max-inline-size:100%}
+[data-pc-kitchen-sink] [data-cy=ks-package-controls] :is(select,button) {font:inherit;min-block-size:var(--control-min-height);min-inline-size:0;max-inline-size:100%;background:var(--color-surface);color:var(--color-text);padding:var(--spacing-sm);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md)}
+[data-pc-kitchen-sink] [data-cy=ks-package-controls] button:disabled {opacity:.55}

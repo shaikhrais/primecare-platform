@@ -55,7 +55,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_kitchen_sink_web', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["domain", "primecare_kitchen_sink_catalog", "primecare_package_base"],
+    dependencies: ["domain", "primecare_kitchen_sink_catalog", "primecare_package_base", "primecare_pagination"],
   ),
   PackageDescriptor(
     id: 'primecare_master', kind: PackageKind.library,

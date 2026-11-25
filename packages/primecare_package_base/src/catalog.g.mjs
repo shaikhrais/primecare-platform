@@ -179,7 +179,8 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "domain",
       "primecare_kitchen_sink_catalog",
-      "primecare_package_base"
+      "primecare_package_base",
+      "primecare_pagination"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"
