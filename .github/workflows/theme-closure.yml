@@ -132,7 +132,7 @@ jobs:
           path: |
             packages/primecare_layout/test/workspace/fixtures/web.json
             packages/primecare_navigation/test/navigation/fixtures/web.json
-            packages/flutter_core/test/page/fixtures/web.json
+            packages/primecare_page_templates/test/page/fixtures/web.json
             packages/flutter_core/test/advanced_theme/fixtures/*.json
   native:
     needs: oracles
@@ -186,3 +186,7 @@ jobs:
         working-directory: packages/primecare_help_reader
       - run: flutter test test/help_reader --reporter expanded
         working-directory: packages/primecare_help_reader
+      - run: flutter pub get
+        working-directory: packages/primecare_page_templates
+      - run: flutter test test/page --reporter expanded
+        working-directory: packages/primecare_page_templates

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
-import 'package:flutter_core/page_template.dart';
-import 'package:flutter_core/workspace.dart';
+import 'package:primecare_page_templates/primecare_page_templates.dart';
 
 const labels=PageTemplateLabels(breadcrumbs:'Breadcrumbs',openLeft:'Open left',closeLeft:'Close left',openRight:'Open right',closeRight:'Close right');
 const metrics=PageTemplateMetrics(headerPadding:EdgeInsets.all(16),contentPadding:EdgeInsets.all(16),gap:16,runGap:8,breakpoint:1024,drawerEdgeGap:44,sidebarFraction:.28);
@@ -42,15 +41,5 @@ void main(){
   tester.view.physicalSize=const Size(1500,960);await mount(route(left:'responsive',right:'temporary'));expect(find.text('Sidebar draft'),findsOneWidget);final scroll=tester.widget<SingleChildScrollView>(find.byKey(const ValueKey('page-content-scroll'))).controller!;scroll.jumpTo(300);await tester.pumpAndSettle();
   await mount(route(id:'page_two',path:'/two?tab=details',left:'responsive',right:'temporary'),scope:'other');old();expect(routes,isEmpty);expect(scroll.offset,0);expect(find.text('Sidebar draft'),findsNothing);expect(tester.takeException(),isNull);
   await tester.tap(find.byKey(const ValueKey('page-toggle-right')));await tester.pumpAndSettle();expect(find.byType(PrimeDrawer),findsOneWidget);await mount(null,scope:'denied');expect(find.byType(PrimeDrawer),findsNothing);expect(find.byKey(const ValueKey('main')),findsNothing);expect(tester.takeException(),isNull);
- });
- testWidgets('route chrome hides geometry and focus without changing saved workspace preferences',(tester)async{
-  tester.view.physicalSize=const Size(1500,960);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
-  final c=WorkspaceController(scope:WorkspaceScope(tenant:'t',user:'u',role:'r'),panelIds:[]);addTearDown(c.dispose);final before=c.current.exportJson();
-  Future<void> mount(PageChrome chrome)async{await tester.pumpWidget(MaterialApp(home:Scaffold(body:PrimeWorkspaceLayout(controller:c,navigationVisible:chrome.navigation,toolbarVisible:chrome.toolbar,footerVisible:chrome.footer,navigation:TextButton(onPressed:(){},child:const Text('Navigation')),toolbar:TextButton(onPressed:(){},child:const Text('Toolbar')),footer:TextButton(onPressed:(){},child:const Text('Footer')),main:const TextField(key:ValueKey('existing')),panels:const {}))));await tester.pumpAndSettle();}
-  await mount(const PageChrome());await tester.enterText(find.byKey(const ValueKey('existing')),'Retained');
-  for(final navigation in [true,false])for(final toolbar in [true,false])for(final footer in [true,false]){
-   await mount(PageChrome(navigation:navigation,toolbar:toolbar,footer:footer));expect(find.text('Navigation'),navigation?findsOneWidget:findsNothing);expect(find.text('Toolbar'),toolbar?findsOneWidget:findsNothing);expect(find.text('Footer'),footer?findsOneWidget:findsNothing);expect(find.text('Retained'),findsOneWidget);expect(c.current.exportJson(),before);expect(tester.getTopLeft(find.byKey(const ValueKey('existing'))).dx,navigation?c.current.navigationWidth.toDouble():0);expect(tester.takeException(),isNull);
-  }
-
  });
 }

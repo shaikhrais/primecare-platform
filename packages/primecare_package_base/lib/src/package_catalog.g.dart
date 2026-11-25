@@ -30,7 +30,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'flutter_core', kind: PackageKind.ui,
     contractVersion: 1,
-    dependencies: ["primecare_assets", "primecare_component_factory", "primecare_dashboard_native", "primecare_data_controls", "primecare_help_reader", "primecare_layout", "primecare_models", "primecare_navigation", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
+    dependencies: ["primecare_assets", "primecare_component_factory", "primecare_dashboard_native", "primecare_data_controls", "primecare_help_reader", "primecare_layout", "primecare_models", "primecare_navigation", "primecare_page_templates", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'infrastructure', kind: PackageKind.library,
@@ -115,7 +115,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_master', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_assets", "primecare_assets_web", "primecare_component_factory", "primecare_component_factory_web", "primecare_dashboard", "primecare_data_controls", "primecare_data_controls_web", "primecare_demo", "primecare_help_reader", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_layout", "primecare_navigation", "primecare_navigation_web", "primecare_package_base", "primecare_pagination", "primecare_preferences", "primecare_samples", "primecare_theme", "primecare_ui", "security", "shared"],
+    dependencies: ["contracts", "database", "domain", "infrastructure", "messaging", "primecare_assets", "primecare_assets_web", "primecare_component_factory", "primecare_component_factory_web", "primecare_dashboard", "primecare_data_controls", "primecare_data_controls_web", "primecare_demo", "primecare_help_reader", "primecare_kitchen_sink", "primecare_kitchen_sink_catalog", "primecare_kitchen_sink_web", "primecare_layout", "primecare_navigation", "primecare_navigation_web", "primecare_package_base", "primecare_page_templates", "primecare_pagination", "primecare_preferences", "primecare_samples", "primecare_theme", "primecare_ui", "security", "shared"],
   ),
   PackageDescriptor(
     id: 'primecare_models', kind: PackageKind.library,
@@ -136,6 +136,11 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     id: 'primecare_package_base', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: [],
+  ),
+  PackageDescriptor(
+    id: 'primecare_page_templates', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["primecare_navigation", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_pagination', kind: PackageKind.library,

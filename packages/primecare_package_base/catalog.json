@@ -97,6 +97,7 @@
         "primecare_layout",
         "primecare_models",
         "primecare_navigation",
+        "primecare_page_templates",
         "primecare_preferences",
         "primecare_theme",
         "primecare_ui_foundation"
@@ -443,6 +444,7 @@
         "primecare_navigation",
         "primecare_navigation_web",
         "primecare_package_base",
+        "primecare_page_templates",
         "primecare_pagination",
         "primecare_preferences",
         "primecare_samples",
@@ -539,6 +541,24 @@
         "primecare_package_base"
       ],
       "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_page_templates",
+      "path": "packages/primecare_page_templates",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_page_templates"
+      ],
+      "dependencies": [
+        "primecare_navigation",
+        "primecare_ui_foundation"
+      ],
       "developmentDependencies": [],
       "hosting": "library-only"
     },

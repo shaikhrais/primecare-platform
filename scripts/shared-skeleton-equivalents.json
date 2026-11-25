@@ -211,7 +211,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+      "path": "packages/primecare_page_templates/lib/page/prime_page_template.dart",
       "api": "class PrimePageTemplate ",
       "entry": "packages/primecare_ui/lib/page_template.dart",
       "exports": [
@@ -222,6 +222,10 @@
         {
           "path": "packages/flutter_core/lib/page_template.dart",
           "target": "page/prime_page_template.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+          "target": "package:primecare_page_templates/page/prime_page_template.dart"
         }
       ]
     },
@@ -236,7 +240,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+      "path": "packages/primecare_page_templates/lib/page/prime_page_template.dart",
       "api": "class PrimePageTemplate ",
       "entry": "packages/primecare_ui/lib/page_template.dart",
       "exports": [
@@ -247,6 +251,10 @@
         {
           "path": "packages/flutter_core/lib/page_template.dart",
           "target": "page/prime_page_template.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+          "target": "package:primecare_page_templates/page/prime_page_template.dart"
         }
       ]
     },

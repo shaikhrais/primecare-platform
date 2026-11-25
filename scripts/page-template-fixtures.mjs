@@ -11,6 +11,6 @@ for(const template of ['simple','carded'])for(const scroll of ['normal','page','
   for(const grant of [authority,{...authority,ids:[]},{...authority,routes:authority.routes.filter(r=>r!=='/one')}]){const expected=api.buildPageRoutes(routes,grant);cases.push({routes,authority:grant,current,expected,resolved:api.resolvePageRoute(expected,current)?.id??null});}
  }
 }
-const dir='packages/flutter_core/test/page/fixtures';
+const dir='packages/primecare_page_templates/test/page/fixtures';
 if(process.argv.includes('--verify-native')){const out=JSON.parse(await readFile(process.argv.at(-1),'utf8'));assert.deepEqual(out,cases.map(c=>({routes:c.expected,resolved:c.resolved})));console.log(`${cases.length} native page cases match the web oracle.`);}
 else{await mkdir(dir,{recursive:true});await writeFile(dir+'/web.json',JSON.stringify(cases));console.log(`Generated ${cases.length} page route/layout cases.`);}

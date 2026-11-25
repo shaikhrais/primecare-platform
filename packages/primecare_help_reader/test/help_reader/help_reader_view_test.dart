@@ -55,14 +55,14 @@ void main() {
         commands.add(command);
         if (pending != null) await pending!.future;
         if (status != 200) return http.Response('PRIVATE diagnostics', status);
-        final article = {'id':'Guide:A.1','revision':1,'title':'Fixture title',
+        final article = <String,Object>{'id':'Guide:A.1','revision':1,'title':'Fixture title',
           'category':'general', if (command['action']=='read') 'body':'Plain <script>body</script>'
           else 'summary':'Fixture summary'};
         return http.Response(jsonEncode({'version':1,'action':command['action'],
           'locale':command['locale'],'scope':_scope.toJson(),
           if (command['action']=='read') 'article':article else ...{
             'offset':command['offset'],'limit':command['limit'],'total':noResults?0:2,
-            'items':noResults?[]:[article]}}),200,headers:{'content-type':'application/json'});
+            'items':noResults?<Map<String,Object>>[]:[article]}}),200,headers:{'content-type':'application/json'});
       }));
   });
   tearDown(() { controller.dispose(); });
