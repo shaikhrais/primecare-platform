@@ -9,3 +9,13 @@ dependencies:
     path: ../primecare_package_base
   primecare_kitchen_sink:
     path: ../primecare_kitchen_sink
+  primecare_component_factory:
+    path: ../primecare_component_factory
+  primecare_data_controls:
+    path: ../primecare_data_controls
+  primecare_assets:
+    path: ../primecare_assets
+  primecare_navigation:
+    path: ../primecare_navigation
+  primecare_dashboard:
+    path: ../primecare_dashboard

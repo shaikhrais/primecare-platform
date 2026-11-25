@@ -16,7 +16,11 @@
     "./kitchen-sink": "./web/kitchen-sink.ts",
     "./kitchen-sink.css": "./web/kitchen-sink.css",
     "./kitchen-sink-theme.css": "./web/kitchen-sink-theme.css",
-    "./dashboard": "./web/dashboard.ts"
+    "./dashboard": "./web/dashboard.ts",
+    "./components": "./web/components.ts",
+    "./data-controls": "./web/data-controls.ts",
+    "./assets": "./web/assets.ts",
+    "./navigation": "./web/navigation.ts"
   },
   "dependencies": {
     "@primecare/contracts": "1.0.0",
@@ -31,6 +35,10 @@
     "@primecare/pagination": "1.0.0",
     "@primecare/demo": "1.0.0",
     "@primecare/samples": "1.0.0",
-    "@primecare/dashboard": "1.0.0"
+    "@primecare/dashboard": "1.0.0",
+    "@primecare/component-factory": "1.0.0",
+    "@primecare/data-controls": "1.0.0",
+    "@primecare/assets": "1.0.0",
+    "@primecare/navigation": "1.0.0"
   }
 }

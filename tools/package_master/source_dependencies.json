@@ -1,23 +1,5 @@
 [
   {
-    "consumer": "primecare_kitchen_sink_web",
-    "provider": "primecare_ui",
-    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
-    "target": "packages/primecare_ui/web/original-asset-view.ts"
-  },
-  {
-    "consumer": "primecare_kitchen_sink_web",
-    "provider": "primecare_ui",
-    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
-    "target": "packages/primecare_ui/web/component-catalogue.ts"
-  },
-  {
-    "consumer": "primecare_kitchen_sink_web",
-    "provider": "primecare_ui",
-    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
-    "target": "packages/primecare_ui/web/data-controls.ts"
-  },
-  {
     "consumer": "primecare_dashboard",
     "provider": "primecare_ui",
     "source": "packages/primecare_dashboard/src/index.ts",
@@ -28,5 +10,29 @@
     "provider": "domain",
     "source": "packages/primecare_dashboard/src/index.ts",
     "target": "packages/domain/src/dashboard_widgets.ts"
+  },
+  {
+    "consumer": "primecare_component_factory",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_component_factory/src/index.ts",
+    "target": "packages/primecare_ui/web/component-catalogue.ts"
+  },
+  {
+    "consumer": "primecare_data_controls",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_data_controls/src/index.ts",
+    "target": "packages/primecare_ui/web/data-controls.ts"
+  },
+  {
+    "consumer": "primecare_assets",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_assets/src/index.ts",
+    "target": "packages/primecare_ui/web/original-asset-view.ts"
+  },
+  {
+    "consumer": "primecare_navigation",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_navigation/src/index.ts",
+    "target": "packages/primecare_ui/web/workspace-navigation.ts"
   }
 ]

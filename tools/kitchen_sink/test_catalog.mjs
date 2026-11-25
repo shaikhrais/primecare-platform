@@ -33,7 +33,13 @@ test('the master forwards the original factories without renaming or duplicating
     import {PrimeDataControls as D} from './packages/primecare_ui/web/data-controls';
     import {PrimeDashboardWidgets as W} from './packages/primecare_ui/web/dashboard-widgets';
     import {PrimeDashboardWidgets as DWidget,packDashboard} from './packages/primecare_master/web/dashboard';
-    export const identity=PrimeComponentFactory===C&&PrimeDataControls===D&&PrimeDashboardWidgets===W&&W===DWidget;
+    import {PrimeComponentFactory as Component} from './packages/primecare_master/web/components';
+    import {PrimeDataControls as Data} from './packages/primecare_master/web/data-controls';
+    import {originalAssetElement as Asset} from './packages/primecare_master/web/assets';
+    import {originalAssetElement as OriginalAsset} from './packages/primecare_ui/web/original-asset-view';
+    import {WorkspaceNavigationView as Nav} from './packages/primecare_master/web/navigation';
+    import {WorkspaceNavigationView as OriginalNav} from './packages/primecare_ui/web/workspace-navigation';
+    export const identity=PrimeComponentFactory===C&&PrimeDataControls===D&&PrimeDashboardWidgets===W&&W===DWidget&&C===Component&&D===Data&&Asset===OriginalAsset&&Nav===OriginalNav;
     export const packed=packDashboard([{id:"metric",span:1,rows:1}],2);
     export {mountKitchenSink};`,resolveDir:root},bundle:true,write:false,platform:'node',format:'esm'});
   const module=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].contents).toString('base64'));

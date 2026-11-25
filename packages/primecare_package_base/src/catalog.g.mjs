@@ -130,24 +130,96 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_assets",
+    "path": "packages/primecare_assets",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json",
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "@primecare/assets",
+      "primecare_assets"
+    ],
+    "dependencies": [
+      "flutter_core",
+      "primecare_ui"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only",
+    "sourceDependencies": [
+      "primecare_ui"
+    ]
+  },
+  {
+    "id": "primecare_component_factory",
+    "path": "packages/primecare_component_factory",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json",
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "@primecare/component-factory",
+      "primecare_component_factory"
+    ],
+    "dependencies": [
+      "flutter_core",
+      "primecare_ui"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only",
+    "sourceDependencies": [
+      "primecare_ui"
+    ]
+  },
+  {
     "id": "primecare_dashboard",
     "path": "packages/primecare_dashboard",
     "kind": "library",
     "contractVersion": 1,
     "manifests": [
-      "package.json"
+      "package.json",
+      "pubspec.yaml"
     ],
     "declaredNames": [
-      "@primecare/dashboard"
+      "@primecare/dashboard",
+      "primecare_dashboard"
     ],
     "dependencies": [
       "domain",
+      "flutter_core",
       "primecare_ui"
     ],
     "developmentDependencies": [],
     "hosting": "library-only",
     "sourceDependencies": [
       "domain",
+      "primecare_ui"
+    ]
+  },
+  {
+    "id": "primecare_data_controls",
+    "path": "packages/primecare_data_controls",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json",
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "@primecare/data-controls",
+      "primecare_data_controls"
+    ],
+    "dependencies": [
+      "flutter_core",
+      "primecare_ui"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only",
+    "sourceDependencies": [
       "primecare_ui"
     ]
   },
@@ -179,6 +251,10 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "flutter_core",
+      "primecare_assets",
+      "primecare_component_factory",
+      "primecare_dashboard",
+      "primecare_data_controls",
       "primecare_kitchen_sink_catalog",
       "primecare_ui_foundation"
     ],
@@ -215,18 +291,17 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "domain",
+      "primecare_assets",
+      "primecare_component_factory",
       "primecare_dashboard",
+      "primecare_data_controls",
       "primecare_kitchen_sink_catalog",
       "primecare_package_base",
       "primecare_pagination",
-      "primecare_samples",
-      "primecare_ui"
+      "primecare_samples"
     ],
     "developmentDependencies": [],
-    "hosting": "library-only",
-    "sourceDependencies": [
-      "primecare_ui"
-    ]
+    "hosting": "library-only"
   },
   {
     "id": "primecare_master",
@@ -247,11 +322,15 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
+      "primecare_assets",
+      "primecare_component_factory",
       "primecare_dashboard",
+      "primecare_data_controls",
       "primecare_demo",
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
+      "primecare_navigation",
       "primecare_package_base",
       "primecare_pagination",
       "primecare_samples",
@@ -267,9 +346,13 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
+      "primecare_assets",
+      "primecare_component_factory",
       "primecare_dashboard",
+      "primecare_data_controls",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
+      "primecare_navigation",
       "primecare_ui",
       "security",
       "shared"
@@ -289,6 +372,29 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [],
     "developmentDependencies": [],
     "hosting": "library-only"
+  },
+  {
+    "id": "primecare_navigation",
+    "path": "packages/primecare_navigation",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json",
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "@primecare/navigation",
+      "primecare_navigation"
+    ],
+    "dependencies": [
+      "flutter_core",
+      "primecare_ui"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only",
+    "sourceDependencies": [
+      "primecare_ui"
+    ]
   },
   {
     "id": "primecare_package_base",

@@ -1,6 +1,6 @@
-import {originalAssetNames, originalAssetInfo, originalAssetElement} from '../../primecare_ui/web/original-asset-view';
-import {PrimeComponentFactory, type CatalogueLocale} from '../../primecare_ui/web/component-catalogue';
-import {PrimeDataControls} from '../../primecare_ui/web/data-controls';
+import {originalAssetNames, originalAssetInfo, originalAssetElement} from '@primecare/assets';
+import {PrimeComponentFactory, type CatalogueLocale} from '@primecare/component-factory';
+import {PrimeDataControls} from '@primecare/data-controls';
 import {PrimeDashboardWidgets} from '@primecare/dashboard';
 import {kitchenSinkCatalog, componentMetadata, dataMetadata} from '../../primecare_kitchen_sink_catalog/src/index';
 import packageCatalog from '../../primecare_package_base/catalog.json';

@@ -1,0 +1,1 @@
+export 'package:primecare_component_factory/primecare_component_factory.dart';

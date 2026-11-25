@@ -1,0 +1,9 @@
+name: primecare_assets
+description: Scoped canonical PrimeCare assets facade.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter_core:
+    path: ../flutter_core

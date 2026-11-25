@@ -13,6 +13,9 @@
     "@primecare/domain": "1.0.0",
     "@primecare/pagination": "1.0.0",
     "@primecare/dashboard": "1.0.0",
-    "@primecare/samples": "1.0.0"
+    "@primecare/samples": "1.0.0",
+    "@primecare/component-factory": "1.0.0",
+    "@primecare/data-controls": "1.0.0",
+    "@primecare/assets": "1.0.0"
   }
 }

@@ -13,6 +13,14 @@ dependencies:
     path: ../primecare_ui_foundation
   primecare_kitchen_sink_catalog:
     path: ../primecare_kitchen_sink_catalog
+  primecare_component_factory:
+    path: ../primecare_component_factory
+  primecare_data_controls:
+    path: ../primecare_data_controls
+  primecare_assets:
+    path: ../primecare_assets
+  primecare_dashboard:
+    path: ../primecare_dashboard
 dev_dependencies:
   flutter_test:
     sdk: flutter

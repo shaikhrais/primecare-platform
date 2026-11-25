@@ -1,8 +1,8 @@
-import 'package:flutter_core/original_assets.dart';
+import 'package:primecare_assets/primecare_assets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_core/component_catalogue.dart';
-import 'package:flutter_core/data_controls.dart';
-import 'package:flutter_core/dashboard_widgets.dart';
+import 'package:primecare_component_factory/primecare_component_factory.dart';
+import 'package:primecare_data_controls/primecare_data_controls.dart';
+import 'package:primecare_dashboard/primecare_dashboard.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart';
 import 'package:primecare_kitchen_sink_catalog/primecare_kitchen_sink_catalog.dart';
 

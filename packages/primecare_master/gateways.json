@@ -626,6 +626,34 @@
       "language": "web",
       "packageName": "primecare_dashboard",
       "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/components.ts",
+      "target": "packages/primecare_component_factory/src/index.ts",
+      "language": "web",
+      "packageName": "primecare_component_factory",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/data-controls.ts",
+      "target": "packages/primecare_data_controls/src/index.ts",
+      "language": "web",
+      "packageName": "primecare_data_controls",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/assets.ts",
+      "target": "packages/primecare_assets/src/index.ts",
+      "language": "web",
+      "packageName": "primecare_assets",
+      "defaultExport": false
+    },
+    {
+      "gateway": "packages/primecare_master/web/navigation.ts",
+      "target": "packages/primecare_navigation/src/index.ts",
+      "language": "web",
+      "packageName": "primecare_navigation",
+      "defaultExport": false
     }
   ]
 }
