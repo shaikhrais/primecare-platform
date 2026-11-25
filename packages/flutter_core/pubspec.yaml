@@ -5,6 +5,10 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_communications_transport:
+    path: ../primecare_communications_transport
+  primecare_communication_modules:
+    path: ../primecare_communication_modules
   primecare_work_modules:
     path: ../primecare_work_modules
   primecare_profile:

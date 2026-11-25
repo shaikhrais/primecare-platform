@@ -1,0 +1,8 @@
+name: primecare_communications_transport
+description: Canonical communication client data contracts and Dio transport.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  dio: ^5.9.2

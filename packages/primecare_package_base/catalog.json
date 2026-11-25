@@ -91,6 +91,8 @@
       "dependencies": [
         "primecare_application_shortcuts",
         "primecare_assets",
+        "primecare_communication_modules",
+        "primecare_communications_transport",
         "primecare_component_factory",
         "primecare_dashboard_native",
         "primecare_data_controls",
@@ -200,6 +202,40 @@
       "sourceDependencies": [
         "primecare_ui"
       ]
+    },
+    {
+      "id": "primecare_communication_modules",
+      "path": "packages/primecare_communication_modules",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_communication_modules"
+      ],
+      "dependencies": [
+        "primecare_communications_transport",
+        "primecare_preferences",
+        "primecare_work_contracts"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_communications_transport",
+      "path": "packages/primecare_communications_transport",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_communications_transport"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
     },
     {
       "id": "primecare_component_factory",
@@ -458,6 +494,8 @@
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_assets_web",
+        "primecare_communication_modules",
+        "primecare_communications_transport",
         "primecare_component_factory",
         "primecare_component_factory_web",
         "primecare_dashboard",

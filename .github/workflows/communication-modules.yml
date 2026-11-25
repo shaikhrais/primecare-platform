@@ -14,6 +14,8 @@ on:
       - 'packages/primecare_ui/catalogs/communication-modules.registration.json'
       - 'packages/flutter_core/lib/work_modules/**'
       - 'packages/primecare_work_modules/**'
+      - 'packages/primecare_communications_transport/**'
+      - 'packages/primecare_communication_modules/**'
       - 'packages/flutter_core/lib/communication_modules.dart'
       - 'packages/flutter_core/lib/communication_modules/**'
       - 'packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart'
@@ -111,3 +113,9 @@ jobs:
         working-directory: packages/primecare_work_modules
       - run: flutter test test/work_modules --reporter expanded
         working-directory: packages/primecare_work_modules
+      - run: flutter pub get
+        working-directory: packages/primecare_communication_modules
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_communication_modules
+      - run: flutter test test/communication_modules --reporter expanded
+        working-directory: packages/primecare_communication_modules

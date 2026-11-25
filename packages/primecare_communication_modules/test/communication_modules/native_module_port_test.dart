@@ -1,7 +1,7 @@
 import 'dart:async';import 'dart:convert';import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';import 'package:http/http.dart' as http;
-import 'package:flutter_core/communications/dio_communication_transport.dart' show CommunicationRouteBinding;
-import 'package:flutter_core/communication_modules.dart';import 'package:flutter_core/preference_sync/preference_protocol.dart';
+import 'package:primecare_communications_transport/communications/dio_communication_transport.dart' show CommunicationRouteBinding;
+import 'package:primecare_communication_modules/primecare_communication_modules.dart';import 'package:primecare_preferences/preference_sync/preference_protocol.dart';
 class ModuleStub implements CommunicationTransport{
  final Future<Map<String,Object?>> Function(String,Map<String,Object?>) handler;ModuleStub(this.handler);
  @override Future<Map<String,Object?>> execute(String channel,Map<String,Object?> request)=>handler(channel,request);

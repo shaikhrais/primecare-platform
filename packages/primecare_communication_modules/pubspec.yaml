@@ -1,0 +1,19 @@
+name: primecare_communication_modules
+description: Canonical native registered business communication module port and HTTP adapter.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.6.0
+  primecare_communications_transport:
+    path: ../primecare_communications_transport
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_work_contracts:
+    path: ../primecare_work_contracts
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
