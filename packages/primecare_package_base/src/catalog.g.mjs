@@ -95,6 +95,8 @@ export function createPrimeCarePackageCatalog() {
       "primecare_layout",
       "primecare_models",
       "primecare_navigation",
+      "primecare_preferences",
+      "primecare_theme",
       "primecare_ui_foundation"
     ],
     "developmentDependencies": [],
@@ -400,7 +402,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_navigation_web",
       "primecare_package_base",
       "primecare_pagination",
+      "primecare_preferences",
       "primecare_samples",
+      "primecare_theme",
       "primecare_ui",
       "security",
       "shared"
@@ -512,6 +516,24 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_preferences",
+    "path": "packages/primecare_preferences",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_preferences"
+    ],
+    "dependencies": [
+      "primecare_layout",
+      "primecare_theme"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_samples",
     "path": "packages/primecare_samples",
     "kind": "library",
@@ -524,6 +546,24 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "primecare_demo"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_theme",
+    "path": "packages/primecare_theme",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_theme"
+    ],
+    "dependencies": [
+      "primecare_layout",
+      "primecare_navigation"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"

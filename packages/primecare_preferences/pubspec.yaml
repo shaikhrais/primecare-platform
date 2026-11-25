@@ -1,0 +1,18 @@
+name: primecare_preferences
+description: Canonical named Flutter implementation.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  primecare_layout:
+    path: ../primecare_layout
+  primecare_theme:
+    path: ../primecare_theme
+  http: ^1.6.0
+  shared_preferences: ^2.5.5
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

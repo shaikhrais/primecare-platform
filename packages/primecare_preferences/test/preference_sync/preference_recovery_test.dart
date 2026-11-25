@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/preference_sync/preference_sync_client.dart';
+import 'package:primecare_preferences/preference_sync/preference_sync_client.dart';
 class RecoveryCache implements PreferenceCache {
  final data=<String,String>{};bool denied=false;void Function(String,String)? onWrite;
  @override Future<String?> read(String key)async=>data[key];

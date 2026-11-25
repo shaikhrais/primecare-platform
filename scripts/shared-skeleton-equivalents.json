@@ -374,7 +374,7 @@
       ]
     },
     "native": {
-      "path": "packages/flutter_core/lib/preference_sync/preference_sync_client.dart",
+      "path": "packages/primecare_preferences/lib/preference_sync/preference_sync_client.dart",
       "api": "class PreferenceSyncClient ",
       "entry": "packages/primecare_ui/lib/preference_sync.dart",
       "exports": [
@@ -385,6 +385,10 @@
         {
           "path": "packages/flutter_core/lib/preference_sync.dart",
           "target": "preference_sync/preference_sync_client.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/preference_sync/preference_sync_client.dart",
+          "target": "package:primecare_preferences/preference_sync/preference_sync_client.dart"
         }
       ]
     },

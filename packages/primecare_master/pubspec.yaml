@@ -5,6 +5,10 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_theme:
+    path: ../primecare_theme
+  primecare_preferences:
+    path: ../primecare_preferences
   primecare_package_base:
     path: ../primecare_package_base
   primecare_kitchen_sink:

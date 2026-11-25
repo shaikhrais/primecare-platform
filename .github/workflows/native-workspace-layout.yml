@@ -15,7 +15,7 @@ on:
       - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
       - 'packages/flutter_core/lib/theme/prime_palette_editor.dart'
       - 'packages/flutter_core/lib/theme/theme_center_theme_data.dart'
-      - 'packages/flutter_core/lib/theme/theme_config_generated.dart'
+      - 'packages/primecare_theme/**'
       - 'packages/flutter_core/test/theme_palette_parity_test.dart'
       - 'packages/flutter_core/test/theme_center_reference_test.dart'
       - 'packages/flutter_core/test/theme_center_settings_file_test.dart'

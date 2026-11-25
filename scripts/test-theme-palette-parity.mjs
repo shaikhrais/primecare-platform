@@ -13,7 +13,7 @@ test('Every declared ZIP palette value survives in the central runtime catalog',
  assert.equal(Object.keys(catalog).length,39);
 });
 test('Every source color is emitted as an alpha-aware Dart token',async()=>{
- const dart=await readFile('packages/flutter_core/lib/theme/theme_config_generated.dart','utf8');
+ const dart=await readFile('packages/primecare_theme/lib/theme/theme_config_generated.dart','utf8');
  for(const palette of Object.values(reference.palettes))for(const [path,value] of leaves(palette)){
   if(typeof value==='string'&&/^(#|rgba?\()/.test(value))assert.ok(dart.includes("'"+path+"': Color("),path);
  }

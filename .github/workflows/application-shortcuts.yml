@@ -7,7 +7,8 @@ on:
       - 'packages/shared/src/application-modules/**'
       - 'packages/shared/src/preference-sync/**'
       - 'packages/flutter_core/lib/preference_sync/**'
-      - 'packages/flutter_core/test/preference_sync/**'
+      - 'packages/primecare_preferences/**'
+      - 'packages/primecare_theme/**'
       - 'packages/primecare_ui/catalogs/application-recovery.registration.json'
       - 'scripts/test-preference-recovery.mjs'
       - 'packages/flutter_core/lib/application_modules.dart'
@@ -73,7 +74,11 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
         working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/application_modules.dart lib/application_modules lib/preference_sync test/application_modules test/preference_sync
+      - run: flutter analyze --no-fatal-infos lib/application_modules.dart lib/application_modules lib/preference_sync test/application_modules
         working-directory: packages/flutter_core
-      - run: flutter test test/application_modules test/preference_sync
+      - run: flutter test test/application_modules
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_preferences
+      - run: flutter test test/preference_sync --reporter expanded
+        working-directory: packages/primecare_preferences

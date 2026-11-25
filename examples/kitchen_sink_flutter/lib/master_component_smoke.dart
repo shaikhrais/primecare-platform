@@ -4,6 +4,8 @@ import 'package:primecare_master/dashboard.dart' as dashboard;
 import 'package:primecare_master/data_controls.dart' as data;
 import 'package:primecare_master/navigation.dart' as navigation;
 import 'package:primecare_master/layout.dart' as layout;
+import 'package:primecare_master/theme.dart' as theme;
+import 'package:primecare_master/preferences.dart' as preferences;
 
 /// Compile-time verification through the public master package only.
 List<Type> get masterComponentTypes => [
@@ -13,4 +15,6 @@ List<Type> get masterComponentTypes => [
   data.PrimeDataKit,
   navigation.PrimeWorkspaceNavigation,
   layout.WorkspaceLayout,
+  theme.PersonalTheme,
+  preferences.PreferenceSyncClient,
 ];

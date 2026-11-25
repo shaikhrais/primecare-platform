@@ -1,7 +1,7 @@
 import 'dart:async';import 'dart:convert';import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;import 'package:http/testing.dart';
-import 'package:flutter_core/preference_sync.dart';
+import 'package:primecare_preferences/primecare_preferences.dart';
 class MemoryCache implements PreferenceCache {
  final values=<String,String>{};bool denied=false;
  @override Future<String?> read(String key)async=>values[key];
