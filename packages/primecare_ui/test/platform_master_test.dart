@@ -7,7 +7,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_controller.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';
 import 'package:primecare_ui/src/communications/communication_workspace.dart';
-import '../../flutter_core/test/fixtures/voice_contact_transport.dart';
+import '../../primecare_communication_controllers/test/fixtures/voice_contact_transport.dart';
 
 const base = PlatformMasterRepository.endpoint;
 AuthState session({String user = 'actor-a', String? tenant = 'control', String token = 'token-a', String role = 'code_admin'}) =>
