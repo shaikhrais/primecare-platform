@@ -60,6 +60,10 @@ jobs:
         working-directory: packages/primecare_navigation
       - run: flutter test test/navigation --reporter expanded
         working-directory: packages/primecare_navigation
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter test test/navigation/workspace_navigation_integration_test.dart --reporter expanded
+        working-directory: packages/flutter_core
       - uses: actions/upload-artifact@v4
         if: always()
         with:
