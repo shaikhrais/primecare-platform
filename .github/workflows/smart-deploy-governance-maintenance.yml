@@ -1,5 +1,8 @@
 name: Governance maintenance Smart Deploy
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/smart-deploy-governance-maintenance.yml']
   workflow_dispatch:
     inputs:
       mode:
@@ -30,12 +33,12 @@ concurrency:
 env:
   PROJECT: primecare-governance
   REVIEWED_JS_SHA256: 31dafa1f3b0c991a13ae5d4a96e7a03797c6930662c425f829a5ec537d7d55c5
-  EXPECTED_MAIN: ${{ inputs.expected_main }}
-  PREVIOUS_LIVE: ${{ inputs.previous_live }}
+  EXPECTED_MAIN: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
+  PREVIOUS_LIVE: ${{ github.event_name == 'push' && '12ec8b021b249d5eea50fc8e81f2ef095612c4a3' || inputs.previous_live }}
 jobs:
   verify:
     name: Verify exact Governance maintenance bundle
-    if: inputs.mode == 'verify-only'
+    if: (github.event_name == 'push' && github.event.before == 'dbd1f1da6074c96efc353ec05951c7124ed11d90') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'verify-only')
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 25
@@ -53,7 +56,7 @@ jobs:
           test "$GITHUB_REF" = refs/heads/main
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
-          test "$(git rev-list --parents -n1 HEAD)" = "$EXPECTED_MAIN 9713b13296253638df753d27e74efe9065884591"
+          test "$(git rev-list --parents -n1 HEAD)" = "$EXPECTED_MAIN dbd1f1da6074c96efc353ec05951c7124ed11d90"
           test "$(git diff --name-only HEAD^ HEAD)" = '.github/workflows/smart-deploy-governance-maintenance.yml'
           test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
           python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
@@ -126,7 +129,7 @@ jobs:
 
   publish:
     name: Promote exact verified Governance bundle
-    if: inputs.mode == 'publish'
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'publish'
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 15
@@ -149,13 +152,13 @@ jobs:
           test "$GITHUB_REF" = refs/heads/main
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
-          test "$(git rev-list --parents -n1 HEAD)" = "$EXPECTED_MAIN 9713b13296253638df753d27e74efe9065884591"
+          test "$(git rev-list --parents -n1 HEAD)" = "$EXPECTED_MAIN dbd1f1da6074c96efc353ec05951c7124ed11d90"
           test "$(git diff --name-only HEAD^ HEAD)" = '.github/workflows/smart-deploy-governance-maintenance.yml'
           test "$(git ls-remote --exit-code origin refs/heads/main | cut -f1)" = "$EXPECTED_MAIN"
           gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN" |
             jq -e --arg sha "$EXPECTED_MAIN" '
               (.path | split("@")[0]) == ".github/workflows/smart-deploy-governance-maintenance.yml" and
-              .event == "workflow_dispatch" and .head_branch == "main" and .head_sha == $sha and
+              (.event == "workflow_dispatch" or .event == "push") and .head_branch == "main" and .head_sha == $sha and
               .status == "completed" and .conclusion == "success"' > /dev/null
           gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN/jobs" | jq -e '
             [.jobs[] | select(.name == "Verify exact Governance maintenance bundle" and .conclusion == "success") |
