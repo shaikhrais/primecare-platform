@@ -89,6 +89,7 @@ export function createPrimeCarePackageCatalog() {
       "flutter_core"
     ],
     "dependencies": [
+      "primecare_application_shortcuts",
       "primecare_assets",
       "primecare_component_factory",
       "primecare_dashboard_native",
@@ -101,7 +102,8 @@ export function createPrimeCarePackageCatalog() {
       "primecare_preferences",
       "primecare_shell_utilities",
       "primecare_theme",
-      "primecare_ui_foundation"
+      "primecare_ui_foundation",
+      "primecare_work_contracts"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"
@@ -136,6 +138,27 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "database"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_application_shortcuts",
+    "path": "packages/primecare_application_shortcuts",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_application_shortcuts"
+    ],
+    "dependencies": [
+      "primecare_component_factory",
+      "primecare_preferences",
+      "primecare_shell_utilities",
+      "primecare_ui_foundation",
+      "primecare_work_contracts"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"
@@ -429,6 +452,7 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
+      "primecare_application_shortcuts",
       "primecare_assets",
       "primecare_assets_web",
       "primecare_component_factory",
@@ -452,6 +476,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_shell_utilities",
       "primecare_theme",
       "primecare_ui",
+      "primecare_work_contracts",
       "security",
       "shared"
     ],
@@ -682,6 +707,23 @@ export function createPrimeCarePackageCatalog() {
       "primecare_ui_foundation"
     ],
     "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_work_contracts",
+    "path": "packages/primecare_work_contracts",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_work_contracts"
+    ],
+    "dependencies": [
+      "primecare_preferences"
+    ],
     "developmentDependencies": [],
     "hosting": "library-only"
   },

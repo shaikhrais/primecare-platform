@@ -1,6 +1,6 @@
 import 'dart:async';import 'dart:convert';import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';import 'package:http/http.dart' as http;
-import 'package:flutter_core/application_modules.dart';
+import 'package:primecare_application_shortcuts/primecare_application_shortcuts.dart';
 class SettingsCache implements PreferenceCache{
  final data=<String,String>{};bool denied=false;
  @override Future<String?> read(String key)async=>data[key];

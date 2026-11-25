@@ -1,0 +1,11 @@
+name: primecare_work_contracts
+description: Canonical native work module records, commands, ports and session contracts.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  primecare_preferences:
+    path: ../primecare_preferences

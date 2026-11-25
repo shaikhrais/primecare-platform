@@ -1,0 +1,25 @@
+name: primecare_application_shortcuts
+description: Canonical native application shortcuts, settings editor and explicit recovery.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.6.0
+  primecare_component_factory:
+    path: ../primecare_component_factory
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_shell_utilities:
+    path: ../primecare_shell_utilities
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  primecare_work_contracts:
+    path: ../primecare_work_contracts
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

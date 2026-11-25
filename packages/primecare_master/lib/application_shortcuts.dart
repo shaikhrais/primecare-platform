@@ -1,0 +1,1 @@
+export 'package:primecare_application_shortcuts/primecare_application_shortcuts.dart';

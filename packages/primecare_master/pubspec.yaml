@@ -5,6 +5,10 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_work_contracts:
+    path: ../primecare_work_contracts
+  primecare_application_shortcuts:
+    path: ../primecare_application_shortcuts
   primecare_shell_utilities:
     path: ../primecare_shell_utilities
   primecare_page_templates:

@@ -12,6 +12,8 @@ on:
       - cloudflare/workers/src/**
       - packages/flutter_core/test/**
       - packages/flutter_core/lib/**
+      - packages/primecare_work_contracts/**
+      - packages/primecare_application_shortcuts/**
       - packages/primecare_ui/web/**
       - packages/shared/src/**
       - packages/domain/src/**
@@ -194,3 +196,7 @@ jobs:
         working-directory: packages/primecare_shell_utilities
       - run: flutter test test/shell_utilities --reporter expanded
         working-directory: packages/primecare_shell_utilities
+      - run: flutter pub get
+        working-directory: packages/primecare_application_shortcuts
+      - run: flutter test test/application_modules --reporter expanded
+        working-directory: packages/primecare_application_shortcuts

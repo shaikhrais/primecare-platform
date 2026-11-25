@@ -1,8 +1,8 @@
 import 'dart:convert';import 'dart:io';
 import 'package:flutter/material.dart';import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/application_modules.dart';
-import 'package:flutter_core/shell_utilities.dart' show ShellUtilityLabels;
-import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels;
+import 'package:primecare_application_shortcuts/primecare_application_shortcuts.dart';
+import 'package:primecare_shell_utilities/primecare_shell_utilities.dart' show ShellUtilityLabels;
+import 'package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels;
 class ShortcutCache implements PreferenceCache {
  final data=<String,String>{};bool denied=false;
  @override Future<String?> read(String key)async=>data[key];
