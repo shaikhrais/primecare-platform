@@ -1,0 +1,9 @@
+name: primecare_api_errors
+description: Safe API error presentation mapping.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

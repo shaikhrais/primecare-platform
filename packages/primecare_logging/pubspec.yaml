@@ -1,0 +1,12 @@
+name: primecare_logging
+description: Debug-only structured native logging.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

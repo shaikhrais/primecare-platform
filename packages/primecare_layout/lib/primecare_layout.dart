@@ -2,3 +2,5 @@ export 'workspace/workspace_layout.dart';
 export 'workspace/workspace_controller.dart';
 export 'workspace/workspace_preferences.dart';
 export 'workspace/workspace_files.dart';
+export 'config/screen_breakpoints.dart';
+export 'config/adaptive_scaling_config.dart';

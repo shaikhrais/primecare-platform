@@ -89,6 +89,7 @@ export function createPrimeCarePackageCatalog() {
       "flutter_core"
     ],
     "dependencies": [
+      "primecare_api_errors",
       "primecare_application_shortcuts",
       "primecare_assets",
       "primecare_communication_modules",
@@ -99,8 +100,10 @@ export function createPrimeCarePackageCatalog() {
       "primecare_help_reader",
       "primecare_layout",
       "primecare_localization",
+      "primecare_logging",
       "primecare_models",
       "primecare_navigation",
+      "primecare_network_status",
       "primecare_page_templates",
       "primecare_preferences",
       "primecare_profile",
@@ -147,6 +150,21 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "database"
     ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_api_errors",
+    "path": "packages/primecare_api_errors",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_api_errors"
+    ],
+    "dependencies": [],
     "developmentDependencies": [],
     "hosting": "library-only"
   },
@@ -494,6 +512,21 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_logging",
+    "path": "packages/primecare_logging",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_logging"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_master",
     "path": "packages/primecare_master",
     "kind": "library",
@@ -512,6 +545,7 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "infrastructure",
       "messaging",
+      "primecare_api_errors",
       "primecare_application_shortcuts",
       "primecare_assets",
       "primecare_assets_web",
@@ -529,8 +563,10 @@ export function createPrimeCarePackageCatalog() {
       "primecare_kitchen_sink_web",
       "primecare_layout",
       "primecare_localization",
+      "primecare_logging",
       "primecare_navigation",
       "primecare_navigation_web",
+      "primecare_network_status",
       "primecare_package_base",
       "primecare_page_templates",
       "primecare_pagination",
@@ -621,6 +657,21 @@ export function createPrimeCarePackageCatalog() {
     "sourceDependencies": [
       "primecare_ui"
     ]
+  },
+  {
+    "id": "primecare_network_status",
+    "path": "packages/primecare_network_status",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_network_status"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
   },
   {
     "id": "primecare_package_base",

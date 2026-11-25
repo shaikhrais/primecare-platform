@@ -5,6 +5,12 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_logging:
+    path: ../primecare_logging
+  primecare_api_errors:
+    path: ../primecare_api_errors
+  primecare_network_status:
+    path: ../primecare_network_status
   primecare_recovery_ui:
     path: ../primecare_recovery_ui
   primecare_localization:
