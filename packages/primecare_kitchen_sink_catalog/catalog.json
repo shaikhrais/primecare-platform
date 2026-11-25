@@ -1405,7 +1405,7 @@
     }
   ],
   "sources": {
-    "packages/primecare_ui/catalogs/developer-catalogue.json": "4c131ff6d0bed196e0e0e3edf5154c2d0137483ab97d5ff49e25be81a05c785e",
+    "packages/primecare_ui/catalogs/developer-catalogue.json": "0b21f0875654ed6d37c1299a22062f4c71c199cf60c1dddd2ea4c15480a8c02c",
     "scripts/shared-skeleton-equivalents.json": "9d19f242757b4e4b5cafc19786b63cb6ef95d9acac40d18e415d412199287ec2",
     "packages/primecare_ui/catalogs/component-catalogue.registration.json": "7236e7957a0407217254c1d0e1c1bb92b2d2ea45a6e8e78c731b1ea6e1354398",
     "packages/primecare_ui/catalogs/data-controls.registration.json": "db7d7796cafa7d47fbe3988fa1500e7c208ccaa76f88af31a8e28c2a00b0ee14",
