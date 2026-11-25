@@ -22,7 +22,7 @@ class SharedButtonFamiliesTest(unittest.TestCase):
         self.assertEqual(sum(r['calls'] for r in m.MANIFEST),75)
         self.assertEqual(sum(r['findings'] for r in m.MANIFEST),67)
         for row in m.MANIFEST:
-            current=history.before_control_extensions((ROOT/row['path']).read_text(),row['path']);original=old.reverse(current,row)
+            current=history.before_control_extensions(history.read_reviewed_source(row['path']),row['path']);original=old.reverse(current,row)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256'],row['path'])
             self.assertEqual(m.migrate(original),(current,row['calls']))
             self.assertEqual(m.migrate(current),(current,0))
@@ -35,7 +35,7 @@ class SharedButtonFamiliesTest(unittest.TestCase):
 
     def test_edited_sources_rejected(self):
         for row in m.MANIFEST:
-            original=old.reverse(history.before_control_extensions((ROOT/row['path']).read_text(),row['path']),row)
+            original=old.reverse(history.before_control_extensions(history.read_reviewed_source(row['path']),row['path']),row)
             for changed in [original+'\n',original+'\nclass PrimeTextButton {}\n']:
                 self.assertEqual(m.migrate(changed),(changed,0))
 

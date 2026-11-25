@@ -440,3 +440,49 @@ def before_control_extensions(source,path):
     source=before_shared_scaffolds(source,path)
     source=before_circular_progress(source,path)
     return reverse_manifest(source,path,'shared-control-extensions-manifest.json')
+
+# Reviewed physical relocations retain historical paths in immutable migration receipts.
+# Resolve only the exact compatibility shim to its canonical implementation, reversing
+# only the import spelling/terminal newline changed during that relocation. All
+# subsequent historical digest and round-trip assertions still run unchanged.
+_REVIEWED_RELOCATIONS = {
+    'component_catalogue/prime_component_catalogue.dart': (
+        'primecare_component_factory',
+        '// Temporary compatibility export; canonical implementation moved to primecare_component_factory.\n',
+        (), True),
+    'navigation/prime_workspace_navigation.dart': (
+        'primecare_navigation',
+        '// Temporary compatibility export; implementation moved to primecare_navigation.\n',
+        (("package:primecare_assets/primecare_assets.dart", "../original_assets.dart"),), False),
+    'data_controls/prime_data_controls.dart': (
+        'primecare_data_controls',
+        '// Temporary compatibility export; implementation moved to primecare_data_controls.\n',
+        (("package:primecare_assets/primecare_assets.dart", "../original_assets.dart"),
+         ("package:primecare_component_factory/primecare_component_factory.dart", "../component_catalogue/prime_component_catalogue.dart")), False),
+    'dashboard_widgets/prime_dashboard_widgets.dart': (
+        'primecare_dashboard_native', '',
+        (("package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart", "../component_catalogue/prime_component_catalogue.dart"),), False),
+}
+
+
+def read_reviewed_source(path, root=ROOT):
+    source = (root / path).read_text()
+    prefix = 'packages/flutter_core/lib/'
+    rel = path[len(prefix):] if path.startswith(prefix) else None
+    if rel not in _REVIEWED_RELOCATIONS:
+        return source
+    owner, comment, edits, terminal_newline = _REVIEWED_RELOCATIONS[rel]
+    expected = comment + f"export 'package:{owner}/{rel}';\n"
+    if source != expected:
+        raise AssertionError('Compatibility export drift: ' + path)
+    canonical = (root / f'packages/{owner}/lib/{rel}').read_text()
+    for new, previous in edits:
+        token = "import '" + new + "'"
+        if canonical.count(token) != 1:
+            raise AssertionError('Reviewed relocation import drift: ' + path)
+        canonical = canonical.replace(token, "import '" + previous + "'", 1)
+    if terminal_newline:
+        if not canonical.endswith('\n\n'):
+            raise AssertionError('Reviewed relocation newline drift: ' + path)
+        canonical = canonical[:-1]
+    return canonical

@@ -19,7 +19,7 @@ class SharedControlExtensionsTest(unittest.TestCase):
         self.assertEqual(len(m.MANIFEST),22)
         self.assertEqual(sum(r['calls'] for r in m.MANIFEST),50)
         for row in m.MANIFEST:
-            latest=(ROOT/row['path']).read_text()
+            latest=history.read_reviewed_source(row['path'])
             current=history.before_circular_progress(history.before_shared_scaffolds(history.before_shared_text_fields(latest,row['path']),row['path']),row['path'])
             original=history.before_control_extensions(latest,row['path'])
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256'])
@@ -31,7 +31,7 @@ class SharedControlExtensionsTest(unittest.TestCase):
 
     def test_source_revisions_rejected(self):
         for row in m.MANIFEST:
-            source=history.before_control_extensions((ROOT/row['path']).read_text(),row['path'])
+            source=history.before_control_extensions(history.read_reviewed_source(row['path']),row['path'])
             for changed in [source+'\n',source+'\nclass PrimeIconButton {}\n']:
                 self.assertEqual(m.migrate(changed),(changed,0))
 

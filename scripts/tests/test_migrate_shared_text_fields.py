@@ -8,7 +8,7 @@ MANIFEST=json.loads((ROOT/'scripts/shared-text-fields-manifest.json').read_text(
 
 class SharedTextFieldMigrationTest(unittest.TestCase):
  def pair(self,path,sha,count):
-  current=history.before_governance_palette((ROOT/path).read_text(),path)
+  current=history.before_governance_palette(history.read_reviewed_source(path),path)
   if m.digest(current)==sha:original=current;updated,actual=m.migrate_source(path,current,sha,count)
   else:original,actual=m.reverse_source(path,current,count);updated=current
   self.assertEqual(m.digest(original),sha);return original,updated,actual

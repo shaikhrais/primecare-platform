@@ -56,7 +56,7 @@ class CoreSharedPrimitivesTest(unittest.TestCase):
         self.assertEqual(sum(x['icons'] for x in m.MANIFEST), 51)
         fixture = (ROOT/'packages/flutter_core/test/shared_primitives_migration_compile_test.dart').read_text()
         for row in m.MANIFEST:
-            updated = before_later_button_migration((ROOT/row['path']).read_text(), row['path'])
+            updated = before_later_button_migration(history.read_reviewed_source(row['path']), row['path'])
             original = original_source(updated)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['sha256'], row['path'])
             self.assertEqual(m.migrate(original), (updated, row['text']+row['icons']))
@@ -71,7 +71,7 @@ class CoreSharedPrimitivesTest(unittest.TestCase):
 
     def test_changed_inputs_are_not_silently_migrated(self):
         row=m.MANIFEST[0]
-        source=original_source(before_later_button_migration((ROOT/row['path']).read_text(), row['path']))
+        source=original_source(before_later_button_migration(history.read_reviewed_source(row['path']), row['path']))
         for changed in [source+'\n', source.replace("package:flutter/material.dart", "package:other/material.dart"),
                         source+'\nclass PrimeText {}\n', source+'\nfinal Icon = other;\n']:
             self.assertEqual(m.migrate(changed), (changed, 0))
