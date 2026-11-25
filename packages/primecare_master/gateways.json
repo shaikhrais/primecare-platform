@@ -650,9 +650,9 @@
     },
     {
       "gateway": "packages/primecare_master/web/navigation.ts",
-      "target": "packages/primecare_navigation/src/index.ts",
+      "target": "packages/primecare_navigation_web/src/index.ts",
       "language": "web",
-      "packageName": "primecare_navigation",
+      "packageName": "primecare_navigation_web",
       "defaultExport": false
     }
   ]

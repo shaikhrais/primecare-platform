@@ -130,8 +130,8 @@ jobs:
         with:
           name: theme-shared-oracles
           path: |
-            packages/flutter_core/test/workspace/fixtures/web.json
-            packages/flutter_core/test/navigation/fixtures/web.json
+            packages/primecare_layout/test/workspace/fixtures/web.json
+            packages/primecare_navigation/test/navigation/fixtures/web.json
             packages/flutter_core/test/page/fixtures/web.json
             packages/flutter_core/test/advanced_theme/fixtures/*.json
   native:
@@ -148,11 +148,11 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: theme-shared-oracles
-          path: packages/flutter_core/test
+          path: packages
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: All shared theme factory tests together
-        run: flutter test test/workspace test/navigation test/page test/advanced_theme test/preference_sync test/shell_utilities test/dashboard_widgets test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/help_reader --reporter expanded
+        run: flutter test test/workspace test/page test/advanced_theme test/preference_sync test/shell_utilities test/dashboard_widgets test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/help_reader --reporter expanded
         working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: packages/primecare_component_factory
@@ -166,3 +166,11 @@ jobs:
         working-directory: packages/primecare_data_controls
       - run: flutter test test/data_controls --reporter expanded
         working-directory: packages/primecare_data_controls
+      - run: flutter pub get
+        working-directory: packages/primecare_layout
+      - run: flutter test test/workspace --reporter expanded
+        working-directory: packages/primecare_layout
+      - run: flutter pub get
+        working-directory: packages/primecare_navigation
+      - run: flutter test test/navigation --reporter expanded
+        working-directory: packages/primecare_navigation

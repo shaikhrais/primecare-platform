@@ -1,9 +1,18 @@
 name: primecare_navigation
-description: Scoped canonical PrimeCare navigation facade.
+description: Canonical Flutter workspace navigation model and renderer.
 version: 1.0.0
 publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
-  flutter_core:
-    path: ../flutter_core
+  flutter:
+    sdk: flutter
+  primecare_assets:
+    path: ../primecare_assets
+  primecare_layout:
+    path: ../primecare_layout
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

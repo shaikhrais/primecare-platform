@@ -1,0 +1,14 @@
+name: primecare_layout
+description: Canonical Flutter workspace layout, controller, preference and file models.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.5
+  file_selector: ^1.1.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

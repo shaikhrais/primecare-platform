@@ -15,7 +15,7 @@ with tempfile.TemporaryDirectory() as temp:
  fixtures={
  'apps/portal/view.ts': '''originalAssetElement('calendar',opts); shellIcon("building"); primeCareIcon('phone'); shellIcon(name); originalAssetElement('not-registered',opts);''',
  'apps/portal/tests/view.ts': "shellIcon('phone')",
- 'packages/flutter_core/lib/navigation/prime_workspace_navigation.dart': "PrimeOriginalAsset('phone')",
+ 'packages/primecare_navigation/lib/navigation/prime_workspace_navigation.dart': "PrimeOriginalAsset('phone')",
  'packages/primecare_data_controls/lib/data_controls/prime_data_controls.dart': '',
  'scripts/fixture.ts': "shellIcon('phone')"}
  for file,body in fixtures.items():
@@ -33,7 +33,7 @@ with tempfile.TemporaryDirectory() as temp:
  assert calls['not-registered']['canonical'] is None
  assert len(calls)==4
  assert len(rows[0]['sha256'])==64
- assert report['adoptedSharedNativeSources']==[{'path':'packages/flutter_core/lib/navigation/prime_workspace_navigation.dart','keys':['phone']}]
+ assert report['adoptedSharedNativeSources']==[{'path':'packages/primecare_navigation/lib/navigation/prime_workspace_navigation.dart','keys':['phone']}]
  assert report['allAppMigrationClaimed'] is False
  assert 'not runtime' in report['webInventoryMethod']
  print('WEB_AUDIT_REGRESSION_PASS')

@@ -30,9 +30,9 @@
     "target": "packages/primecare_ui/web/original-asset-view.ts"
   },
   {
-    "consumer": "primecare_navigation",
+    "consumer": "primecare_navigation_web",
     "provider": "primecare_ui",
-    "source": "packages/primecare_navigation/src/index.ts",
+    "source": "packages/primecare_navigation_web/src/index.ts",
     "target": "packages/primecare_ui/web/workspace-navigation.ts"
   }
 ]

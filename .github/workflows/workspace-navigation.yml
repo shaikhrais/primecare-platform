@@ -11,6 +11,9 @@ on:
       - 'scripts/test-workspace-layout-slots.mjs'
       - 'scripts/test-workspace-layout-lifecycle.mjs'
       - 'packages/primecare_ui/web/workspace-navigation*.ts'
+      - 'packages/primecare_navigation/**'
+      - 'packages/primecare_navigation_web/**'
+      - 'packages/primecare_layout/**'
       - 'packages/flutter_core/lib/navigation/**'
       - 'packages/flutter_core/lib/workspace_navigation.dart'
       - 'packages/primecare_ui/lib/workspace_navigation.dart'
@@ -37,7 +40,7 @@ jobs:
           node scripts/test-workspace-navigation-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/workspace-navigation.ts packages/primecare_ui/web/navigation.ts packages/primecare_ui/web/layout-manager.ts
       - uses: actions/upload-artifact@v4
-        with: {name: web-navigation-oracle, path: packages/flutter_core/test/navigation/fixtures/web.json}
+        with: {name: web-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures/web.json}
   native:
     needs: web
     strategy:
@@ -50,18 +53,18 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - uses: actions/download-artifact@v4
-        with: {name: web-navigation-oracle, path: packages/flutter_core/test/navigation/fixtures}
+        with: {name: web-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures}
       - run: flutter pub get
-        working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/navigation lib/workspace_navigation.dart test/navigation
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_navigation
+      - run: flutter analyze --no-fatal-infos lib/navigation lib/primecare_navigation.dart test/navigation
+        working-directory: packages/primecare_navigation
       - run: flutter test test/navigation --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_navigation
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: native-navigation-${{ matrix.os }}
-          path: packages/flutter_core/test/navigation/fixtures/native.json
+          path: packages/primecare_navigation/test/navigation/fixtures/native.json
   parity:
     needs: native
     runs-on: ubuntu-24.04

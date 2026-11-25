@@ -25,6 +25,7 @@ on:
       - 'packages/primecare_data_controls/**'
       - 'packages/flutter_core/lib/original_assets*'
       - 'packages/flutter_core/lib/original_assets/**'
+      - 'packages/primecare_navigation/**'
       - 'packages/flutter_core/lib/navigation/prime_workspace_navigation.dart'
       - 'packages/flutter_core/lib/data_controls/prime_data_controls.dart'
       - 'packages/flutter_core/test/original_assets/**'
@@ -64,7 +65,7 @@ jobs:
           python3 tools/governance-production/test-original-assets-registration.py
           python3 tools/governance-production/test-metadata-store.py
       - uses: actions/upload-artifact@v4
-        with: {name: original-asset-navigation-oracle, path: packages/flutter_core/test/navigation/fixtures/web.json}
+        with: {name: original-asset-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures/web.json}
   native:
     needs: web
     strategy:
@@ -77,13 +78,15 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - uses: actions/download-artifact@v4
-        with: {name: original-asset-navigation-oracle, path: packages/flutter_core/test/navigation/fixtures}
+        with: {name: original-asset-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures}
       - run: flutter pub get
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/navigation/prime_workspace_navigation.dart
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_navigation
       - run: flutter test test/navigation --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_navigation
       - run: flutter pub get
         working-directory: packages/primecare_assets
       - run: flutter analyze --no-fatal-infos lib test

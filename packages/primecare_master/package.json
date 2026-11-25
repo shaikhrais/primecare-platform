@@ -39,6 +39,6 @@
     "@primecare/component-factory-web": "1.0.0",
     "@primecare/data-controls-web": "1.0.0",
     "@primecare/assets-web": "1.0.0",
-    "@primecare/navigation": "1.0.0"
+    "@primecare/navigation-web": "1.0.0"
   }
 }

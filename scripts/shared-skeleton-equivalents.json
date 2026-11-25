@@ -286,7 +286,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+      "path": "packages/primecare_navigation/lib/navigation/prime_workspace_navigation.dart",
       "api": "class PrimeWorkspaceNavigation ",
       "entry": "packages/primecare_ui/lib/workspace_navigation.dart",
       "exports": [
@@ -297,6 +297,10 @@
         {
           "path": "packages/flutter_core/lib/workspace_navigation.dart",
           "target": "navigation/prime_workspace_navigation.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+          "target": "package:primecare_navigation/navigation/prime_workspace_navigation.dart"
         }
       ]
     },
@@ -311,7 +315,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+      "path": "packages/primecare_navigation/lib/navigation/prime_workspace_navigation.dart",
       "api": "class PrimeWorkspaceNavigation ",
       "entry": "packages/primecare_ui/lib/workspace_navigation.dart",
       "exports": [
@@ -322,6 +326,10 @@
         {
           "path": "packages/flutter_core/lib/workspace_navigation.dart",
           "target": "navigation/prime_workspace_navigation.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+          "target": "package:primecare_navigation/navigation/prime_workspace_navigation.dart"
         }
       ]
     },

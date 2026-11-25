@@ -17,7 +17,7 @@ for(const footer of ['static','sticky','hidden']){
  p.navigationWidth=[64,160,400][profiles.length%3];p.maxWidth=profiles.length%2?960:1920;
  profiles.push(validateWorkspaceLayout(p,ids));
 }
-const root='packages/flutter_core/test/workspace/fixtures';
+const root='packages/primecare_layout/test/workspace/fixtures';
 if(process.argv.includes('--verify-native')){
  const native=JSON.parse(await readFile(process.argv[process.argv.indexOf('--verify-native')+1]||root+'/native.json','utf8'));
  assert.equal(native.length,720);assert.deepEqual(native.map(p=>validateWorkspaceLayout(p,ids)),profiles);

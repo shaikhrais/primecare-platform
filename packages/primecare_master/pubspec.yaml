@@ -19,3 +19,5 @@ dependencies:
     path: ../primecare_navigation
   primecare_dashboard:
     path: ../primecare_dashboard
+  primecare_layout:
+    path: ../primecare_layout

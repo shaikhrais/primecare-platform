@@ -92,7 +92,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_assets",
       "primecare_component_factory",
       "primecare_data_controls",
+      "primecare_layout",
       "primecare_models",
+      "primecare_navigation",
       "primecare_ui_foundation"
     ],
     "developmentDependencies": [],
@@ -349,6 +351,21 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_layout",
+    "path": "packages/primecare_layout",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_layout"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_master",
     "path": "packages/primecare_master",
     "kind": "library",
@@ -378,7 +395,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
+      "primecare_layout",
       "primecare_navigation",
+      "primecare_navigation_web",
       "primecare_package_base",
       "primecare_pagination",
       "primecare_samples",
@@ -400,7 +419,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_data_controls_web",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
-      "primecare_navigation",
+      "primecare_navigation_web",
       "primecare_ui",
       "security",
       "shared"
@@ -427,15 +446,31 @@ export function createPrimeCarePackageCatalog() {
     "kind": "library",
     "contractVersion": 1,
     "manifests": [
-      "package.json",
       "pubspec.yaml"
     ],
     "declaredNames": [
-      "@primecare/navigation",
       "primecare_navigation"
     ],
     "dependencies": [
-      "flutter_core",
+      "primecare_assets",
+      "primecare_layout",
+      "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_navigation_web",
+    "path": "packages/primecare_navigation_web",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "package.json"
+    ],
+    "declaredNames": [
+      "@primecare/navigation-web"
+    ],
+    "dependencies": [
       "primecare_ui"
     ],
     "developmentDependencies": [],

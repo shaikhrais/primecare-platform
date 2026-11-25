@@ -5,6 +5,7 @@ on:
     paths:
       - 'packages/flutter_core/pubspec.yaml'
       - 'packages/primecare_models/pubspec.yaml'
+      - 'packages/primecare_layout/**'
       - 'packages/flutter_core/lib/workspace.dart'
       - 'packages/flutter_core/lib/workspace/**'
       - 'packages/flutter_core/lib/theme/theme_center_complete_panel.dart'
@@ -42,7 +43,7 @@ jobs:
           ln -s /tmp/workspace-contract-tools/node_modules node_modules
           node scripts/workspace-native-contract-fixtures.mjs
       - uses: actions/upload-artifact@v4
-        with: {name: web-workspace-oracle, path: packages/flutter_core/test/workspace/fixtures/web.json}
+        with: {name: web-workspace-oracle, path: packages/primecare_layout/test/workspace/fixtures/web.json}
   native-contract-and-widgets:
     needs: web-contract-oracle
     strategy:
@@ -56,7 +57,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - uses: actions/download-artifact@v4
-        with: {name: web-workspace-oracle, path: packages/flutter_core/test/workspace/fixtures}
+        with: {name: web-workspace-oracle, path: packages/primecare_layout/test/workspace/fixtures}
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: Analyze shared native workspace only
@@ -69,11 +70,17 @@ jobs:
       - name: Validate contract, persistence, actor isolation and real widget gestures
         working-directory: packages/flutter_core
         run: flutter test test/workspace test/theme_center_settings_file_test.dart test/theme_center_test.dart test/theme_center_reference_test.dart test/theme_palette_parity_test.dart test/theme_consumers_test.dart --reporter expanded
+      - run: flutter pub get
+        working-directory: packages/primecare_layout
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_layout
+      - run: flutter test test/workspace --reporter expanded
+        working-directory: packages/primecare_layout
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: native-workspace-roundtrip-${{ matrix.os }}
-          path: packages/flutter_core/test/workspace/fixtures/native.json
+          path: packages/primecare_layout/test/workspace/fixtures/native.json
           if-no-files-found: error
           retention-days: 30
       - name: Compile the actual optional renderer for Flutter web

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/workspace/workspace_layout.dart';
+import 'package:primecare_layout/workspace/workspace_layout.dart';
 
 void main() {
   test('720 web fixtures roundtrip through native with no lost settings', () {

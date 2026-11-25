@@ -12,7 +12,7 @@ export const authority={ids:['work','home','team','people','disabled','other','r
 const cases=[];for(const current of ['/app','/app/people','/app/people/123','/apple','/report#summary','/report#other','/disabled']){
  for(const ids of [authority.ids,authority.ids.filter(x=>x!=='people'),[]]){const grant={...authority,ids};const nodes=api.buildWorkspaceNavigation(items,grant);cases.push({items,authority:grant,current,expected:nodes,active:api.activeWorkspaceDestination(nodes,current)??null});}
 }
-const root='packages/flutter_core/test/navigation/fixtures';
+const root='packages/primecare_navigation/test/navigation/fixtures';
 if(process.argv.includes('--verify-native')){const out=JSON.parse(await readFile(process.argv.at(-1),'utf8'));assert.deepEqual(out,cases.map(c=>({nodes:c.expected,active:c.active})));console.log('21 native navigation cases match the web permission and active-route oracle.');}
 else{await mkdir(root,{recursive:true});await writeFile(root+'/web.json',JSON.stringify(cases));console.log('Generated 21 navigation authority and active-route fixtures.');}
 export {api};

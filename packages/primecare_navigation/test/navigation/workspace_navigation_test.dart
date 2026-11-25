@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
-import 'package:flutter_core/workspace.dart';
-import 'package:flutter_core/workspace_navigation.dart';
+import 'package:primecare_layout/primecare_layout.dart';
+import 'package:primecare_navigation/primecare_navigation.dart';
 
 List<Map<String,dynamic>> fixtures()=> (jsonDecode(File('test/navigation/fixtures/web.json').readAsStringSync()) as List<dynamic>).cast<Map<String,dynamic>>();
 WorkspaceNavigationModel model(Map<String,dynamic> c,{bool denied=false}){

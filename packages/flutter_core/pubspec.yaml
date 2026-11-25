@@ -5,6 +5,10 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_layout:
+    path: ../primecare_layout
+  primecare_navigation:
+    path: ../primecare_navigation
   primecare_assets:
     path: ../primecare_assets
   primecare_data_controls:

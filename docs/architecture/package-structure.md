@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-31 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
+33 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -39,13 +39,13 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `database_client` | Dart database adapter | — |
 | `domain` | Business and presentation contracts | `database` |
 | `factory_system` | Existing factory definitions | — |
-| `flutter_core` | Canonical Flutter implementations | `primecare_assets`, `primecare_component_factory`, `primecare_data_controls`, `primecare_models`, `primecare_ui_foundation` |
+| `flutter_core` | Canonical Flutter implementations | `primecare_assets`, `primecare_component_factory`, `primecare_data_controls`, `primecare_layout`, `primecare_models`, `primecare_navigation`, `primecare_ui_foundation` |
 | `infrastructure` | Infrastructure adapters | `database` |
 | `messaging` | Communication adapters | `database` |
 | `primecare_kitchen_sink` | Flutter showcase using existing factories | `flutter_core`, `primecare_assets`, `primecare_component_factory`, `primecare_dashboard`, `primecare_data_controls`, `primecare_kitchen_sink_catalog`, `primecare_ui_foundation` |
 | `primecare_kitchen_sink_catalog` | New generated stories, labels and reference inventory | — |
 | `primecare_kitchen_sink_web` | Browser showcase using existing factories | `domain`, `primecare_assets_web`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls_web`, `primecare_kitchen_sink_catalog`, `primecare_package_base`, `primecare_pagination`, `primecare_samples` |
-| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_navigation`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared` |
+| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_layout`, `primecare_navigation`, `primecare_navigation_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared` |
 | `primecare_models` | Canonical Dart models | — |
 | `primecare_package_base` | Composition registry, dependency impact and composition status | — |
 | `primecare_assets` | Canonical Flutter original asset rendering and generated asset data | — |
@@ -54,7 +54,9 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_component_factory_web` | Web component factory facade | `primecare_ui` |
 | `primecare_data_controls` | Canonical Flutter table, field, rich editor and upload controls | `primecare_assets`, `primecare_component_factory`, `primecare_ui_foundation` |
 | `primecare_data_controls_web` | Web data controls facade | `primecare_ui` |
-| `primecare_navigation` | Canonical workspace navigation facade | `flutter_core`, `primecare_ui` |
+| `primecare_navigation` | Canonical Flutter workspace navigation renderer and model | `primecare_assets`, `primecare_layout`, `primecare_ui_foundation` |
+| `primecare_navigation_web` | Web workspace navigation facade | `primecare_ui` |
+| `primecare_layout` | Native workspace layout models, controller, preferences and file adapter | — |
 | `primecare_dashboard` | Dashboard presentation facade forwarding canonical widgets and layout contracts | `domain`, `flutter_core`, `primecare_ui` |
 | `primecare_demo` | Source-owned synthetic demo row and chart fixtures | — |
 | `primecare_samples` | Reusable component sample configurations | `primecare_demo` |
@@ -120,3 +122,5 @@ The next cross-platform facade group uses existing canonical implementations: pr
 The native component factory implementation and its native tests are now owned by primecare_component_factory. The former flutter_core/component_catalogue source paths contain temporary export-only compatibility files. The web facade is separate to keep the dependency graph acyclic across platform implementations. No production publish is part of this transfer.
 
 Native original assets and data controls now own their implementations, model fixtures and tests. The original asset generator writes directly to the named owner. Old core paths remain temporary exports, and the web facades are separate to avoid mixed-language graph cycles.
+
+Workspace model ownership is independent of core; the old renderer and scroll header remain in core until legacy production navbar registration is separated into an explicit release. Navigation uses the new named layout/model and asset packages.
