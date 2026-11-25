@@ -1,0 +1,26 @@
+[
+  {
+    "consumer": "primecare_kitchen_sink_web",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
+    "target": "packages/primecare_ui/web/original-asset-view.ts"
+  },
+  {
+    "consumer": "primecare_kitchen_sink_web",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
+    "target": "packages/primecare_ui/web/component-catalogue.ts"
+  },
+  {
+    "consumer": "primecare_kitchen_sink_web",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
+    "target": "packages/primecare_ui/web/data-controls.ts"
+  },
+  {
+    "consumer": "primecare_kitchen_sink_web",
+    "provider": "primecare_ui",
+    "source": "packages/primecare_kitchen_sink_web/src/index.ts",
+    "target": "packages/primecare_ui/web/dashboard-widgets.ts"
+  }
+]

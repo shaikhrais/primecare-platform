@@ -30,6 +30,7 @@ jobs:
           python -m pip install PyYAML==6.0.3
           npm ci --ignore-scripts --no-audit --no-fund
           python tools/package_master/catalog.py --check
+          python -m unittest tools.package_master.test_catalog
           node tools/package_master/web_boundary.mjs
       - name: Test JavaScript package management
         run: node --test packages/primecare_package_base/test/registry.test.mjs packages/primecare_pagination/test/pagination.test.mjs

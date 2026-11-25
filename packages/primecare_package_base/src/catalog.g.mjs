@@ -180,10 +180,14 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "primecare_kitchen_sink_catalog",
       "primecare_package_base",
-      "primecare_pagination"
+      "primecare_pagination",
+      "primecare_ui"
     ],
     "developmentDependencies": [],
-    "hosting": "library-only"
+    "hosting": "library-only",
+    "sourceDependencies": [
+      "primecare_ui"
+    ]
   },
   {
     "id": "primecare_master",
@@ -209,10 +213,24 @@ export function createPrimeCarePackageCatalog() {
       "primecare_kitchen_sink_web",
       "primecare_package_base",
       "primecare_pagination",
-      "security"
+      "primecare_ui",
+      "security",
+      "shared"
     ],
     "developmentDependencies": [],
-    "hosting": "library-only"
+    "hosting": "library-only",
+    "sourceDependencies": [
+      "contracts",
+      "database",
+      "domain",
+      "infrastructure",
+      "messaging",
+      "primecare_kitchen_sink_catalog",
+      "primecare_kitchen_sink_web",
+      "primecare_ui",
+      "security",
+      "shared"
+    ]
   },
   {
     "id": "primecare_models",

@@ -30,6 +30,27 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(source['packages'][1]['dependencies'], ['new_core'])
         self.assertEqual(source['packages'][1]['kind'], 'service')
 
+    def test_reviewed_source_dependency_is_included_and_validated(self):
+        root = self.fixture()
+        self.manifest(root, 'packages', 'gallery', {'name': '@primecare/gallery'})
+        self.manifest(root, 'packages', 'controls', {'name': '@primecare/controls'})
+        source = root / 'packages/gallery/index.ts'
+        target = root / 'packages/controls/index.ts'
+        source.write_text("export * from '../controls/index';")
+        target.write_text('export const control = 1;')
+        ledger = root / 'tools/package_master/source_dependencies.json'
+        ledger.parent.mkdir(parents=True)
+        ledger.write_text(json.dumps([{
+            'consumer': 'gallery', 'provider': 'controls',
+            'source': 'packages/gallery/index.ts', 'target': 'packages/controls/index.ts',
+        }]))
+        gallery = next(x for x in build(root)['packages'] if x['id'] == 'gallery')
+        self.assertEqual(gallery['dependencies'], ['controls'])
+        self.assertEqual(gallery['sourceDependencies'], ['controls'])
+        source.write_text('export const gallery = 1;')
+        with self.assertRaisesRegex(ValueError, 'import missing'):
+            build(root)
+
     def test_missing_workspace_dependency_fails(self):
         root = self.fixture()
         self.manifest(root, 'packages', 'core', {

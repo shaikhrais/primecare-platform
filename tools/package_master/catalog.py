@@ -4,6 +4,8 @@ Requires PyYAML (also used by the existing reconstruction tooling).
 """
 import argparse
 import json
+import os
+import re
 from pathlib import Path
 
 import yaml
@@ -75,8 +77,56 @@ def build(root=ROOT):
                         raise ValueError(f"Unresolved workspace dependency: {entry['id']} -> {name}")
         entry['dependencies'] = sorted(set(entry['dependencies']))
         entry['developmentDependencies'] = sorted(set(entry['developmentDependencies']))
+    apply_source_dependencies(root, entries, locations)
     validate(entries)
     return {'schemaVersion': 1, 'authority': 'source-composition-only', 'packages': entries}
+
+
+def apply_source_dependencies(root, entries, locations):
+    # A reviewed ledger supplements manifest dependencies for source-only web gateways.
+    # This is build impact metadata, never a runtime service or permission declaration.
+    ledger = root / 'tools/package_master/source_dependencies.json'
+    rows = json.loads(ledger.read_text()) if ledger.exists() else []
+    gateways = root / 'packages/primecare_master/gateways.json'
+    if gateways.exists():
+        for gateway in json.loads(gateways.read_text())['gateways']:
+            rows.append({
+                'consumer': 'primecare_master',
+                'provider': Path(gateway['target']).parts[1],
+                'source': gateway['gateway'], 'target': gateway['target'],
+            })
+    by_id = {entry['id']: entry for entry in entries}
+    seen = set()
+    for row in rows:
+        consumer, provider = row['consumer'], row['provider']
+        if consumer == provider or consumer not in locations or provider not in locations:
+            raise ValueError('Invalid reviewed source dependency')
+        source, target = root / row['source'], root / row['target']
+        if not source.resolve().is_relative_to(locations[consumer]) or not target.resolve().is_relative_to(locations[provider]):
+            raise ValueError('Source dependency owner mismatch')
+        if not source.is_file() or not target.is_file():
+            raise ValueError('Missing reviewed source dependency evidence')
+        # Current reviewed edges are relative import/export literals. Match both
+        # explicit extensions and the extensionless TypeScript spelling.
+        relative = Path(os.path.relpath(target, source.parent)).as_posix()
+        if not relative.startswith('.'):
+            relative = './' + relative
+        variants = {relative}
+        if target.suffix in ('.ts', '.tsx'):
+            variants.add(relative[:-len(target.suffix)])
+        text = source.read_text()
+        if not any(re.search(r'(?P<quote>[\'"])' + re.escape(spec) + r'(?P=quote)', text) for spec in variants):
+            raise ValueError(f'Reviewed source dependency import missing: {row["source"]}')
+        key = (consumer, provider, row['source'], row['target'])
+        if key in seen:
+            raise ValueError('Duplicate reviewed source dependency')
+        seen.add(key)
+        entry = by_id[consumer]
+        entry.setdefault('sourceDependencies', []).append(provider)
+    for entry in entries:
+        if 'sourceDependencies' in entry:
+            entry['sourceDependencies'] = sorted(set(entry['sourceDependencies']))
+            entry['dependencies'] = sorted(set(entry['dependencies'] + entry['sourceDependencies']))
 
 
 def validate(entries):

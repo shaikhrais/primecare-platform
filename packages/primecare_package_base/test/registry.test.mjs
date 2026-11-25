@@ -121,3 +121,11 @@ test('composition status is immutable and never invokes adapters or exposes endp
   assert.equal(state('ui').state,'resolved');
   assert.equal(calls,1);
 });
+
+test('reviewed web source edges include actual gallery and master consumers', () => {
+  const graph = createPrimeCarePackageCatalog();
+  const impacted = graph.impact(['primecare_ui']);
+  assert.ok(impacted.includes('primecare_kitchen_sink_web'));
+  assert.ok(impacted.includes('primecare_master'));
+  assert.ok(graph.impact(['shared']).includes('primecare_master'));
+});
