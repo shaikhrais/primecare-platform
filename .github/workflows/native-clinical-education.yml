@@ -34,5 +34,5 @@ jobs:
         working-directory: packages/primecare_clinical_education
       - run: dart pub get
         working-directory: packages/primecare_local_database
-      - run: dart analyze --no-fatal-infos
+      - run: dart analyze
         working-directory: packages/primecare_local_database

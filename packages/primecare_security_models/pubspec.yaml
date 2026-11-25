@@ -1,0 +1,10 @@
+name: primecare_security_models
+description: Canonical device identity and security event data models.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  equatable: ^2.0.5
+dev_dependencies:
+  test: ^1.26.0

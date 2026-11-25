@@ -92,6 +92,7 @@
         "primecare_api_errors",
         "primecare_application_shortcuts",
         "primecare_assets",
+        "primecare_auth_storage",
         "primecare_clinical_education",
         "primecare_communication_controllers",
         "primecare_communication_media",
@@ -114,6 +115,8 @@
         "primecare_profile",
         "primecare_recovery_ui",
         "primecare_resilience",
+        "primecare_security_models",
+        "primecare_session_watchdog",
         "primecare_shell_utilities",
         "primecare_task_port",
         "primecare_theme",
@@ -228,6 +231,21 @@
       "sourceDependencies": [
         "primecare_ui"
       ]
+    },
+    {
+      "id": "primecare_auth_storage",
+      "path": "packages/primecare_auth_storage",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_auth_storage"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
     },
     {
       "id": "primecare_clinical_education",
@@ -642,6 +660,7 @@
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_assets_web",
+        "primecare_auth_storage",
         "primecare_clinical_education",
         "primecare_communication_controllers",
         "primecare_communication_media",
@@ -673,6 +692,8 @@
         "primecare_recovery_ui",
         "primecare_resilience",
         "primecare_samples",
+        "primecare_security_models",
+        "primecare_session_watchdog",
         "primecare_shell_utilities",
         "primecare_task_port",
         "primecare_theme",
@@ -903,6 +924,38 @@
       ],
       "dependencies": [
         "primecare_demo"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_security_models",
+      "path": "packages/primecare_security_models",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_security_models"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_session_watchdog",
+      "path": "packages/primecare_session_watchdog",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_session_watchdog"
+      ],
+      "dependencies": [
+        "primecare_logging"
       ],
       "developmentDependencies": [],
       "hosting": "library-only"

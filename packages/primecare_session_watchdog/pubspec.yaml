@@ -1,0 +1,16 @@
+name: primecare_session_watchdog
+description: Canonical Flutter session lifecycle and biometric watchdog.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+  local_auth: ^3.0.1
+  primecare_logging:
+    path: ../primecare_logging
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

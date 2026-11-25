@@ -1,9 +1,1 @@
-import 'package:web/web.dart' as web;
-
-String? getLocalStorageItem(String key) {
-  try {
-    return web.window.localStorage.getItem(key);
-  } catch (_) {
-    return null;
-  }
-}
+export 'package:primecare_auth_storage/src/utils/auth_storage_web.dart';

@@ -1,0 +1,14 @@
+name: primecare_auth_storage
+description: Canonical platform authentication storage adapters.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^10.2.0
+  web: ^1.1.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

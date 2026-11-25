@@ -5,6 +5,12 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_security_models:
+    path: ../primecare_security_models
+  primecare_auth_storage:
+    path: ../primecare_auth_storage
+  primecare_session_watchdog:
+    path: ../primecare_session_watchdog
   primecare_clinical_education:
     path: ../primecare_clinical_education
   primecare_local_database:
