@@ -90,7 +90,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_dashboard_native', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_component_factory", "primecare_preferences", "primecare_ui_foundation"],
+    dependencies: ["primecare_component_factory", "primecare_layout", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_data_controls', kind: PackageKind.library,

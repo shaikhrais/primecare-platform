@@ -333,7 +333,9 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "primecare_component_factory",
+      "primecare_layout",
       "primecare_preferences",
+      "primecare_theme",
       "primecare_ui_foundation"
     ],
     "developmentDependencies": [],

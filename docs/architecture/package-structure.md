@@ -60,7 +60,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_navigation_web` | Web workspace navigation facade | `primecare_ui` |
 | `primecare_layout` | Native workspace layout, responsive breakpoints/scaling, controller, preferences and file adapter | — |
 | `primecare_dashboard` | Cross-platform dashboard presentation facade | `domain`, `primecare_dashboard_native`, `primecare_ui` |
-| `primecare_dashboard_native` | Canonical native dashboard widgets, chart models and preference sessions | `primecare_component_factory`, `primecare_preferences`, `primecare_ui_foundation` |
+| `primecare_dashboard_native` | Canonical native dashboard widgets, chart models and preference sessions | `primecare_component_factory`, `primecare_layout`, `primecare_preferences`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_work_contracts` | Native work records, commands, ports and session contracts | `primecare_preferences` |
 | `primecare_application_shortcuts` | Native shortcut settings, picker and explicit recovery | `primecare_component_factory`, `primecare_preferences`, `primecare_shell_utilities`, `primecare_ui_foundation`, `primecare_work_contracts` |
 | `primecare_task_port` | Tenant task work adapter and HTTP transport | `primecare_preferences`, `primecare_work_contracts` |
