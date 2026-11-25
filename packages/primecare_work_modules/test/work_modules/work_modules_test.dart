@@ -6,9 +6,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/work_modules.dart';
-import 'package:flutter_core/preference_sync/preference_protocol.dart';
-import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart';
+import 'package:primecare_work_modules/primecare_work_modules.dart';
+import 'package:primecare_preferences/preference_sync/preference_protocol.dart';
+import 'package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart';
 final scope=PreferenceScope('tenant-fixture','actor-fixture','tenant_admin','live');
 Map<String,Object?> data(String module,{int version=1,String title='Original task'})=>{'scope':scope.toJson(),'module':module,'items':[{'id':'Task-A','version':version,'title':title,'body':'Task instructions','date':'2026-11-05','lane':'open','meta':'','actions':module=='contacts'?<Map<String,Object?>>[]:[{'id':'edit','label':'Edit task','fields':['title','body','date'],'target':''}]}],'lanes':[{'id':'open','label':'Open'}],'offset':0,'total':1,'partial':false};
 class Port implements WorkPort {final String module;int calls=0;bool lose=false,deny=false,loseRead=false;int readCalls=0;final keys=<String>[];Map<String,Object?> value;Port(this.module):value=data(module);@override Future<Object?> read(WorkQuery q)async=>value;@override Future<WorkReceipt> mutate(WorkCommand c,String key)async{calls++;keys.add(key);if(deny)throw const WorkFailure('denied',403);if(lose&&calls==1)throw Exception('lost response');value=data(module,version:c.version+1,title:c.fields['title']!);return WorkReceipt(c.itemId,c.version+1,c.action,{'title':c.fields['title']!});}@override Future<Object?> readItem(String id)async{readCalls++;if(loseRead&&readCalls==1)throw Exception('verification offline');return value;}@override void dispose(){}}

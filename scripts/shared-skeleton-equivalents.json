@@ -556,7 +556,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/work_modules.dart",
       "exports": [
@@ -567,6 +567,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -581,7 +585,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/work_modules.dart",
       "exports": [
@@ -592,6 +596,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -606,7 +614,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/work_modules.dart",
       "exports": [
@@ -617,6 +625,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -631,7 +643,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/work_modules.dart",
       "exports": [
@@ -642,6 +654,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -656,7 +672,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/work_modules.dart",
       "exports": [
@@ -667,6 +683,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -681,7 +701,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/communication_modules.dart",
       "exports": [
@@ -696,6 +716,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -710,7 +734,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/communication_modules.dart",
       "exports": [
@@ -725,6 +749,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -739,7 +767,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/communication_modules.dart",
       "exports": [
@@ -754,6 +782,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -768,7 +800,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/communication_modules.dart",
       "exports": [
@@ -783,6 +815,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -797,7 +833,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/application_modules.dart",
       "exports": [
@@ -812,6 +848,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -826,7 +866,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/application_modules.dart",
       "exports": [
@@ -841,6 +881,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -855,7 +899,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/application_modules.dart",
       "exports": [
@@ -870,6 +914,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -884,7 +932,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/application_modules.dart",
       "exports": [
@@ -899,6 +947,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -913,7 +965,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/application_modules.dart",
       "exports": [
@@ -928,6 +980,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },
@@ -942,7 +998,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "path": "packages/primecare_work_modules/lib/work_modules/prime_work_module.dart",
       "api": "class PrimeWorkModule ",
       "entry": "packages/primecare_ui/lib/application_modules.dart",
       "exports": [
@@ -957,6 +1013,10 @@
         {
           "path": "packages/flutter_core/lib/work_modules.dart",
           "target": "work_modules/prime_work_module.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+          "target": "package:primecare_work_modules/work_modules/prime_work_module.dart"
         }
       ]
     },

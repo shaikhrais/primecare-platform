@@ -18,6 +18,7 @@ on:
       - 'scripts/test-tenant-work-host-lifecycle.mjs'
       - 'packages/flutter_core/lib/work_modules*'
       - 'packages/flutter_core/lib/work_modules/**'
+      - 'packages/primecare_work_modules/**'
       - 'packages/primecare_task_port/**'
       - 'packages/flutter_core/test/work_modules/**'
       - 'scripts/test-work-modules*'
@@ -100,3 +101,9 @@ jobs:
         working-directory: packages/primecare_task_port
       - run: flutter analyze --no-fatal-infos lib
         working-directory: packages/primecare_task_port
+      - run: flutter pub get
+        working-directory: packages/primecare_work_modules
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_work_modules
+      - run: flutter test test/work_modules --reporter expanded
+        working-directory: packages/primecare_work_modules

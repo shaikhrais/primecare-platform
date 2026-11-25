@@ -19,6 +19,7 @@ on:
       - 'packages/primecare_ui/web/work-modules.ts'
       - 'packages/primecare_ui/catalogs/application-modules.registration.json'
       - 'packages/flutter_core/lib/work_modules/**'
+      - 'packages/primecare_work_modules/**'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'packages/flutter_core/lib/application_modules.dart'
       - 'packages/flutter_core/lib/application_modules/**'
@@ -141,3 +142,9 @@ jobs:
         working-directory: packages/primecare_profile
       - run: flutter test test/application_modules --reporter expanded
         working-directory: packages/primecare_profile
+      - run: flutter pub get
+        working-directory: packages/primecare_work_modules
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_work_modules
+      - run: flutter test test/work_modules --reporter expanded
+        working-directory: packages/primecare_work_modules

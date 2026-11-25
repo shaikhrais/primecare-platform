@@ -1,0 +1,27 @@
+name: primecare_work_modules
+description: Native shared work module renderer, calendar, tasks, contacts, notes and boards.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.20.2
+  primecare_component_factory:
+    path: ../primecare_component_factory
+  primecare_data_controls:
+    path: ../primecare_data_controls
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  primecare_work_contracts:
+    path: ../primecare_work_contracts
+dev_dependencies:
+  flutter_localizations:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
