@@ -1,0 +1,25 @@
+name: primecare_demo_dashboard
+description: Existing simulated dashboard metrics and reactive presentation providers.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_data_logistics:
+    path: ../primecare_data_logistics
+  primecare_execution_gate:
+    path: ../primecare_execution_gate
+  primecare_logging:
+    path: ../primecare_logging
+  primecare_models:
+    path: ../primecare_models
+  primecare_resilience:
+    path: ../primecare_resilience
+  primecare_route_catalog:
+    path: ../primecare_route_catalog
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

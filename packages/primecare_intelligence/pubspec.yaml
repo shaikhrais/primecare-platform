@@ -1,0 +1,18 @@
+name: primecare_intelligence
+description: Existing rule-based dashboard insight synthesis, not a live LLM service.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_execution_gate:
+    path: ../primecare_execution_gate
+  primecare_guarded_service:
+    path: ../primecare_guarded_service
+  primecare_models:
+    path: ../primecare_models
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

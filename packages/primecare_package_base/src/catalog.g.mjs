@@ -106,6 +106,8 @@ export function createPrimeCarePackageCatalog() {
       "primecare_dashboard_pages",
       "primecare_data_controls",
       "primecare_data_logistics",
+      "primecare_demo_dashboard",
+      "primecare_demo_scheduler",
       "primecare_demo_telemetry",
       "primecare_demo_user_management",
       "primecare_device_identity",
@@ -114,7 +116,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_form_schema",
       "primecare_governance_reports",
       "primecare_governance_validation",
+      "primecare_guarded_service",
       "primecare_help_reader",
+      "primecare_intelligence",
       "primecare_layout",
       "primecare_local_cache",
       "primecare_local_database",
@@ -579,6 +583,47 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_demo_dashboard",
+    "path": "packages/primecare_demo_dashboard",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_demo_dashboard"
+    ],
+    "dependencies": [
+      "primecare_data_logistics",
+      "primecare_execution_gate",
+      "primecare_logging",
+      "primecare_models",
+      "primecare_resilience",
+      "primecare_route_catalog"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_demo_scheduler",
+    "path": "packages/primecare_demo_scheduler",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_demo_scheduler"
+    ],
+    "dependencies": [
+      "primecare_data_logistics",
+      "primecare_execution_gate",
+      "primecare_models"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_demo_telemetry",
     "path": "packages/primecare_demo_telemetry",
     "kind": "library",
@@ -710,6 +755,24 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_guarded_service",
+    "path": "packages/primecare_guarded_service",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_guarded_service"
+    ],
+    "dependencies": [
+      "primecare_execution_gate",
+      "primecare_models"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_help_reader",
     "path": "packages/primecare_help_reader",
     "kind": "library",
@@ -725,6 +788,25 @@ export function createPrimeCarePackageCatalog() {
       "primecare_preferences",
       "primecare_theme",
       "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_intelligence",
+    "path": "packages/primecare_intelligence",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_intelligence"
+    ],
+    "dependencies": [
+      "primecare_execution_gate",
+      "primecare_guarded_service",
+      "primecare_models"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"
@@ -914,6 +996,8 @@ export function createPrimeCarePackageCatalog() {
       "primecare_data_controls_web",
       "primecare_data_logistics",
       "primecare_demo",
+      "primecare_demo_dashboard",
+      "primecare_demo_scheduler",
       "primecare_demo_telemetry",
       "primecare_demo_user_management",
       "primecare_device_identity",
@@ -922,7 +1006,9 @@ export function createPrimeCarePackageCatalog() {
       "primecare_form_schema",
       "primecare_governance_reports",
       "primecare_governance_validation",
+      "primecare_guarded_service",
       "primecare_help_reader",
+      "primecare_intelligence",
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
@@ -1114,7 +1200,10 @@ export function createPrimeCarePackageCatalog() {
       "primecare_preferences"
     ],
     "dependencies": [
+      "primecare_execution_gate",
+      "primecare_guarded_service",
       "primecare_layout",
+      "primecare_models",
       "primecare_theme"
     ],
     "developmentDependencies": [],

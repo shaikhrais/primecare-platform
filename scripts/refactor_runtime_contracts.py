@@ -113,6 +113,8 @@ def render():
 
 # Later package ownership changes are checked against the same pinned bytes.
 RUNTIME_RELOCATIONS = {
+    CORE + 'intelligence_service.dart': ('primecare_intelligence', True),
+    CORE + 'src/application/services/intelligence_service.dart': ('primecare_intelligence', False),
     CORE + 'aura_command_service.dart': ('primecare_aura', True),
     CORE + 'src/application/services/aura_command_service.dart': ('primecare_aura', False),
     CORE + 'src/controllers/aura_context_notifier.dart': ('primecare_aura', False),
@@ -130,7 +132,14 @@ AURA_NEW_BLOCK = "import 'package:primecare_aura/aura_providers.dart';\nexport '
 AURA_STATE_LIBRARY = "import 'package:primecare_controller_base/primecare_controller_base.dart';\nimport 'package:primecare_models/primecare_models.dart';\n\npart 'src/controllers/aura_context_notifier.dart';\npart 'src/controllers/aura_active_visualization_notifier.dart';\npart 'src/controllers/aura_snooze_notifier.dart';\npart 'src/controllers/aura_query_notifier.dart';\npart 'src/controllers/aura_pulse_event_notifier.dart';\n"
 AURA_STATE_PATH = 'packages/primecare_aura/lib/aura_providers.dart'
 
+INTELLIGENCE_IMPORTS = (("import 'package:primecare_models/primecare_models.dart';\nimport 'package:primecare_execution_gate/primecare_execution_gate.dart'", "import 'package:flutter_core/flutter_core.dart'"), ("import 'package:primecare_guarded_service/primecare_guarded_service.dart'", "import 'src/application/services/base_business_service.dart'"),)
+
 def materialized_source(path, content):
+    if path == CORE + 'intelligence_service.dart':
+        for new, old in INTELLIGENCE_IMPORTS:
+            assert content.count(old) == 1, path
+            content = content.replace(old, new, 1)
+        return content
     if path == CORE + 'aura_command_service.dart':
         assert content.count("import 'package:flutter_core/flutter_core.dart';") == 1, path
         return content.replace("import 'package:flutter_core/flutter_core.dart';", "import 'package:primecare_models/primecare_models.dart';", 1)
@@ -158,6 +167,10 @@ def checked_source(path):
     else:
         assert not target.exists(), path
     content = canonical.read_text()
+    if path == CORE + 'intelligence_service.dart':
+        for new, old in INTELLIGENCE_IMPORTS:
+            assert content.count(new) == 1, path
+            content = content.replace(new, old, 1)
     if path == CORE + 'aura_command_service.dart':
         assert content.count("import 'package:primecare_models/primecare_models.dart';") == 1, path
         content = content.replace("import 'package:primecare_models/primecare_models.dart';", "import 'package:flutter_core/flutter_core.dart';", 1)

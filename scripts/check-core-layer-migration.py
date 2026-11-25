@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Pinned equivalence of reorganized core code, excluding declared field/parent extraction."""
 from pathlib import Path
+from reviewed_migration_history import read_reviewed_source
 import re,json,hashlib,subprocess
 r=Path(__file__).resolve().parents[1];m=json.loads((r/'docs/architecture/core-layer-migration.json').read_text())
 def strip_imports(s):return re.sub(r'^import [^;]+;\s*','',s,flags=re.M)
@@ -16,7 +17,7 @@ def canonical(path):
   if shared[1]=='dashboard_models.dart':
    content=content.replace("import 'insight_impact.dart';", "import 'package:flutter_core/flutter_core.dart';")
   return content
- return current
+ return read_reviewed_source(path, r)
 for rec in m['files']:
  source=rec['source'];old=subprocess.check_output(['git','show',m['sourceCommit']+':'+source],cwd=r,text=True)
  assert hashlib.sha256(old.encode()).hexdigest()==rec['beforeSha256'],source+' pinned source differs'

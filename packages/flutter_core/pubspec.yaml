@@ -5,6 +5,14 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_guarded_service:
+    path: ../primecare_guarded_service
+  primecare_demo_dashboard:
+    path: ../primecare_demo_dashboard
+  primecare_demo_scheduler:
+    path: ../primecare_demo_scheduler
+  primecare_intelligence:
+    path: ../primecare_intelligence
   primecare_aura:
     path: ../primecare_aura
   primecare_execution_gate:
