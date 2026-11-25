@@ -448,7 +448,7 @@ def before_control_extensions(source,path):
 _REVIEWED_RELOCATIONS = {
     'advanced_theme/advanced_theme_controller.dart': ('primecare_theme', '', (), False),
     'advanced_theme/advanced_theme_import.dart': ('primecare_theme', '', (), False),
-    'advanced_theme/prime_advanced_theme_editor.dart': ('primecare_theme', '', (("..\/theme/theme_color_codec.dart", "package:flutter_core/theme/theme_color_codec.dart"),), False),
+    'advanced_theme/prime_advanced_theme_editor.dart': ('primecare_theme', '', (("../theme/theme_color_codec.dart", "package:flutter_core/theme/theme_color_codec.dart"),), False),
     'theme/portal_section_theme.dart': ('primecare_theme', '', (), False),
     'config/data_source_mode.dart': ('primecare_runtime_config', '', (), False),
     'config/feature_flags.dart': ('primecare_runtime_config', '', (), False),
