@@ -48,6 +48,28 @@ void main() {
     ),
   );
   final generated = createPrimeCarePackageCatalog();
+  final impactFixture = PackageCatalog([
+    PackageDescriptor(id: 'models', kind: PackageKind.library),
+    PackageDescriptor(id: 'ui', kind: PackageKind.ui, dependencies: ['models']),
+    PackageDescriptor(id: 'host', kind: PackageKind.library, dependencies: ['ui']),
+    PackageDescriptor(id: 'other', kind: PackageKind.library),
+  ]);
+  check(jsonEncode(impactFixture.impact(['models'])) ==
+      jsonEncode(['models', 'ui', 'host']), 'transitive build impact');
+  check(impactFixture.impact([]).isEmpty, 'empty impact');
+  rejects(() => impactFixture.impact(['missing']), 'unknown impact');
+  final statusHost = PackageMaster(impactFixture);
+  var calls = 0;
+  statusHost.register('ui', contractVersion: 1, local: () {
+    calls++;
+    return Object();
+  });
+  check(statusHost.status().firstWhere((row) => row['id'] == 'ui')['state'] ==
+      'registered' && calls == 0, 'status does not invoke provider');
+  statusHost.resolve<Object>('ui');
+  check(statusHost.status().firstWhere((row) => row['id'] == 'ui')['state'] ==
+      'resolved' && calls == 1, 'status observes resolved adapter');
+
   check(
     jsonEncode(parsed.order()) == jsonEncode(generated.order()),
     'generated master matches JSON',

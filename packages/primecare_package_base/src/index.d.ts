@@ -13,6 +13,7 @@ export interface RemoteBinding {
 export class PackageCatalog {
   constructor(entries: Iterable<PackageDescriptor>);
   get(id: string): Readonly<PackageDescriptor>;
+  impact(changedIds: Iterable<string>): readonly string[];
   order(): readonly string[];
 }
 export function remoteBinding(endpoint: string, contractVersion: number): RemoteBinding;
@@ -23,5 +24,10 @@ export class PackageMaster {
     local: () => T;
     remote?: (binding: RemoteBinding) => T;
   }): this;
+  status(): readonly Readonly<{
+    id: string; kind: PackageKind; contractVersion: number;
+    placement: 'local' | 'remote';
+    state: 'resolved' | 'unregistered' | 'adapter_missing' | 'registered';
+  }>[];
   resolve<T extends object>(id: string): T;
 }

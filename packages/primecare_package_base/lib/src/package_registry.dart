@@ -41,6 +41,19 @@ class PackageCatalog {
   }
   PackageDescriptor get(String id) =>
       _entries[id] ?? (throw StateError('Unknown package: $id'));
+  /// Changed packages and every declared transitive consumer, in build order.
+  List<String> impact(Iterable<String> changedIds) {
+    final affected = changedIds.toSet();
+    for (final id in affected) {
+      get(id);
+    }
+    final ordered = order();
+    for (final id in ordered) {
+      if (get(id).dependencies.any(affected.contains)) affected.add(id);
+    }
+    return List.unmodifiable(ordered.where(affected.contains));
+  }
+
   List<String> order() {
     final done = <String>{}, active = <String>{}, result = <String>[];
     void visit(String id) {
@@ -117,6 +130,24 @@ class PackageMaster {
     }
     _providers[id] = _Provider(local, remote);
   }
+
+  /// Composition status only; not a deployment or health check.
+  /// No adapter is invoked and remote endpoints are never returned.
+  List<Map<String, Object>> status() => List.unmodifiable(
+    catalog.order().map((id) => Map<String, Object>.unmodifiable({
+      'id': id,
+      'kind': catalog.get(id).kind.name,
+      'contractVersion': catalog.get(id).contractVersion,
+      'placement': _bindings.containsKey(id) ? 'remote' : 'local',
+      'state': _instances.containsKey(id)
+          ? 'resolved'
+          : !_providers.containsKey(id)
+          ? 'unregistered'
+          : _bindings.containsKey(id) && _providers[id]!.remote == null
+          ? 'adapter_missing'
+          : 'registered',
+    })),
+  );
 
   T resolve<T extends Object>(String id) {
     catalog.get(id);

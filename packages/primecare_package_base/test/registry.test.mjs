@@ -91,3 +91,33 @@ test('recursive factories and asynchronous factories fail explicitly', () => {
   host.register('client_api', {contractVersion: 1, local: async () => ({})});
   assert.throws(() => host.resolve('client_api'), /synchronous/);
 });
+
+test('impact includes changed packages and all transitive consumers exactly once', () => {
+  const graph = new PackageCatalog([...descriptors,
+    {id:'host',kind:'library',contractVersion:1,dependencies:['ui','client_api']},
+    {id:'other',kind:'library',contractVersion:1,dependencies:[]},
+  ]);
+  assert.deepEqual(graph.impact(['models','ui']), ['models','client_api','ui','host']);
+  assert.deepEqual(graph.impact(['ui']), ['ui','host']);
+  assert.deepEqual(graph.impact([]), []);
+  assert.throws(() => graph.impact(['missing']));
+  assert.ok(Object.isFrozen(graph.impact(['models'])));
+});
+
+test('composition status is immutable and never invokes adapters or exposes endpoints', () => {
+  let calls = 0;
+  const host = new PackageMaster(catalog(), {client_api: remoteBinding('https://example.test/service',1)});
+  const state = id => host.status().find(row => row.id === id);
+  assert.equal(state('client_api').state,'unregistered');
+  host.register('client_api',{contractVersion:1,local:()=>{calls++;return {};}});
+  host.register('ui',{contractVersion:1,local:()=>{calls++;return {};}});
+  assert.equal(state('client_api').state,'adapter_missing');
+  assert.equal(state('ui').state,'registered');
+  assert.equal(calls,0);
+  assert.equal(state('client_api').placement,'remote');
+  assert.ok(!JSON.stringify(host.status()).includes('example.test'));
+  assert.ok(Object.isFrozen(host.status()) && Object.isFrozen(state('ui')));
+  host.resolve('ui');
+  assert.equal(state('ui').state,'resolved');
+  assert.equal(calls,1);
+});

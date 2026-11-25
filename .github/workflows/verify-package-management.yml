@@ -1,0 +1,51 @@
+name: Verify PrimeCare package management
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-package-management.yml'
+      - 'packages/primecare_package_base/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package-management:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact source and catalog
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python -m pip install PyYAML==6.0.3
+          npm ci --ignore-scripts --no-audit --no-fund
+          python tools/package_master/catalog.py --check
+          node tools/package_master/web_boundary.mjs
+      - name: Test JavaScript package management
+        run: node --test packages/primecare_package_base/test/registry.test.mjs
+      - name: Verify public master entry point
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {PackageMaster} from './packages/primecare_master/src/index.mjs';
+          import {createPrimeCarePackageCatalog} from './packages/primecare_master/src/catalog.mjs';
+          const graph = createPrimeCarePackageCatalog();
+          assert.equal(new PackageMaster(graph).status().length, graph.order().length);
+          assert.ok(graph.impact(['primecare_package_base']).includes('primecare_master'));
+          JS
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.11.3'
+      - name: Test Dart package management
+        working-directory: packages/primecare_package_base
+        run: |
+          dart pub get
+          dart run test/registry_test.dart

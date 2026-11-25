@@ -25,6 +25,16 @@ export class PackageCatalog {
     if (!entry) throw new Error(`Unknown package: ${id}`);
     return entry;
   }
+  /** Return changed packages and every declared transitive consumer, in build order. */
+  impact(changedIds) {
+    const affected = new Set(changedIds);
+    for (const id of affected) this.get(id);
+    const order = this.order();
+    for (const id of order) {
+      if (this.get(id).dependencies.some(dep => affected.has(dep))) affected.add(id);
+    }
+    return Object.freeze(order.filter(id => affected.has(id)));
+  }
   order() {
     const done = new Set(), active = new Set(), result = [];
     const visit = id => {
@@ -73,6 +83,17 @@ export class PackageMaster {
     }
     this.#providers.set(id, Object.freeze({local, remote}));
     return this;
+  }
+  /** Composition status only; not a deployment or health check. No adapter is invoked. */
+  status() {
+    return Object.freeze(this.#catalog.order().map(id => Object.freeze({
+      id, kind: this.#catalog.get(id).kind,
+      contractVersion: this.#catalog.get(id).contractVersion,
+      placement: this.#bindings.has(id) ? 'remote' : 'local',
+      state: this.#instances.has(id) ? 'resolved' :
+        !this.#providers.has(id) ? 'unregistered' :
+        this.#bindings.has(id) && !this.#providers.get(id).remote ? 'adapter_missing' : 'registered',
+    })));
   }
   resolve(id) {
     this.#catalog.get(id);
