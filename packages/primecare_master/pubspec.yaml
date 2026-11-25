@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_governed_hierarchy:
+    path: ../primecare_governed_hierarchy
   primecare_platform_domain:
     path: ../primecare_platform_domain
   primecare_platform_registries:

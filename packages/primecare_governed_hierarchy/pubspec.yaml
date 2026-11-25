@@ -1,0 +1,19 @@
+name: primecare_governed_hierarchy
+description: Existing organization hierarchy and governed screen presentation contracts.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  primecare_aura:
+    path: ../primecare_aura
+  primecare_localization:
+    path: ../primecare_localization
+  primecare_screen_intents:
+    path: ../primecare_screen_intents
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

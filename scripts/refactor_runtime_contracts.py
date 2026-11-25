@@ -113,6 +113,8 @@ def render():
 
 # Later package ownership changes are checked against the same pinned bytes.
 RUNTIME_RELOCATIONS = {
+    CORE + 'aura_behavioral_telemetry.dart': ('primecare_aura', True),
+    CORE + 'src/application/services/aura_behavioral_telemetry.dart': ('primecare_aura', False),
     CORE + 'aura_providers.dart': ('primecare_aura', True),
     CORE + 'aura_pulse_service.dart': ('primecare_aura', True),
     CORE + 'src/application/services/aura_pulse_service.dart': ('primecare_aura', False),
@@ -131,6 +133,7 @@ RUNTIME_RELOCATIONS = {
 }
 
 AURA_RUNTIME_IMPORTS = {
+    CORE + 'aura_behavioral_telemetry.dart': (("import 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/primecare_models.dart';\nimport 'package:primecare_execution_gate/primecare_execution_gate.dart';\nimport 'package:primecare_platform_domain/primecare_platform_domain.dart'", "import 'package:flutter_core/flutter_core.dart'"),),
     CORE + 'aura_pulse_service.dart': (("import 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/primecare_models.dart';\nimport 'package:primecare_execution_gate/primecare_execution_gate.dart';\nimport 'package:primecare_governance_registry/primecare_governance_registry.dart'", "import 'package:flutter_core/flutter_core.dart'"),),
     CORE + 'aura_providers.dart': (("import 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/primecare_models.dart';\nimport 'package:primecare_execution_gate/primecare_execution_gate.dart';\nimport 'aura_command_service.dart';\nimport 'aura_pulse_service.dart'", "import 'package:flutter_core/flutter_core.dart'"), ("import 'package:primecare_controller_base/primecare_controller_base.dart'", "import 'src/controllers/base_value_notifier.dart'"),),
 }

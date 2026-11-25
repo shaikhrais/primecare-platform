@@ -117,6 +117,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_governance_registry",
       "primecare_governance_reports",
       "primecare_governance_validation",
+      "primecare_governed_hierarchy",
       "primecare_guarded_service",
       "primecare_help_reader",
       "primecare_intelligence",
@@ -294,7 +295,8 @@ export function createPrimeCarePackageCatalog() {
       "primecare_controller_base",
       "primecare_execution_gate",
       "primecare_governance_registry",
-      "primecare_models"
+      "primecare_models",
+      "primecare_platform_domain"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"
@@ -780,6 +782,25 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_governed_hierarchy",
+    "path": "packages/primecare_governed_hierarchy",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_governed_hierarchy"
+    ],
+    "dependencies": [
+      "primecare_aura",
+      "primecare_localization",
+      "primecare_screen_intents"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_guarded_service",
     "path": "packages/primecare_guarded_service",
     "kind": "library",
@@ -1035,6 +1056,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_governance_registry",
       "primecare_governance_reports",
       "primecare_governance_validation",
+      "primecare_governed_hierarchy",
       "primecare_guarded_service",
       "primecare_help_reader",
       "primecare_intelligence",
@@ -1436,6 +1458,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_presentation_preview",
       "primecare_responsive_screen",
       "primecare_screen_models",
+      "primecare_theme",
       "primecare_ui_foundation"
     ],
     "developmentDependencies": [],

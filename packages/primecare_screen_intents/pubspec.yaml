@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_theme:
+    path: ../primecare_theme
   primecare_presentation_preview:
     path: ../primecare_presentation_preview
   primecare_responsive_screen:
