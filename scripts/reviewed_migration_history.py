@@ -624,6 +624,187 @@ def _before_relocated_insets(source, path):
         raise AssertionError('Reviewed relocated insets source proof failed: ' + path)
     return restored
 
+_THEME_OWNER_TOKEN_RECEIPTS = {
+    "theme/prime_shell_metrics.dart": {
+        "before": "c1790ef30142c14f939f01a76200c78407d734b94aa8e42cd3fa8c9050784cf3",
+        "after": "dbff2f200150a06373a3de2ffbe67d7d303ebee77f5216051b3d227d3967779a",
+        "edits": [
+            [
+                "import 'theme_color_codec.dart';\n",
+                "",
+                1
+            ],
+            [
+                "PrimeReferenceColors.transparent",
+                "Colors.transparent",
+                1
+            ],
+            [
+                "PrimeReferenceColors.white",
+                "Colors.white",
+                4
+            ],
+            [
+                "PrimeReferenceColors.black",
+                "Colors.black",
+                2
+            ],
+            [
+                "PrimeReferenceColors.flagUsNavy",
+                "Color(0xff3c3b6e)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.flagUsRed",
+                "Color(0xffb22234)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.flagFrenchBlue",
+                "Color(0xff0055a4)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.flagFrenchRed",
+                "Color(0xffef4135)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.flagSpanishRed",
+                "Color(0xffaa151b)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.flagSpanishYellow",
+                "Color(0xfff1bf00)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.drawerScrim",
+                "Color(0x80000000)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.drawerShadowNear",
+                "Color(0x21000000)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.drawerShadowFar",
+                "Color(0x1C000000)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.accountMenuShadow",
+                "Color(0x66000000)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.accountMenuLightShadow",
+                "const Color(0x7A000000)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.accountLightOutline",
+                "const Color(0xffd1d5db)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.fromArgb(",
+                "Color.fromARGB(",
+                2
+            ]
+        ]
+    },
+    "theme/prime_theme_center_style.dart": {
+        "before": "7f007be81e7082671e4bcb4b6eb93fabd5209a11f43ad6a3f2e9e3a34a950522",
+        "after": "923aec8758f964879d9f24a42dc164e7a55b0724994d55c6c197284b6640936e",
+        "edits": [
+            [
+                "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeFilledButton, PrimeTextButton, PrimeOutlinedButton;\nimport 'theme_color_codec.dart';\n",
+                "",
+                1
+            ],
+            [
+                "PrimeReferenceColors.white",
+                "Colors.white",
+                2
+            ],
+            [
+                "PrimeReferenceColors.black",
+                "Colors.black",
+                2
+            ],
+            [
+                "PrimeFilledButton.styleFrom",
+                "FilledButton.styleFrom",
+                1
+            ],
+            [
+                "PrimeTextButton.styleFrom",
+                "TextButton.styleFrom",
+                1
+            ],
+            [
+                "PrimeOutlinedButton.styleFrom",
+                "OutlinedButton.styleFrom",
+                1
+            ]
+        ]
+    },
+    "theme/prime_palette_editor.dart": {
+        "before": "6a92512c1c309025b35f734ca655a9684cdb8bb83a8201708af1190b96a34d82",
+        "after": "0de536d7a81e027298b3ea4800815fc52fa55c83a7debd3a10717305f53f1d49",
+        "edits": [
+            [
+                "import 'theme_color_codec.dart';\n",
+                "",
+                1
+            ],
+            [
+                "themeHexColor(text)",
+                "Color(int.parse(text.substring(1),radix:16)|0xff000000)",
+                1
+            ],
+            [
+                "PrimeReferenceColors.white",
+                "Colors.white",
+                1
+            ],
+            [
+                "PrimeReferenceColors.fromArgb(",
+                "Color.fromARGB(",
+                1
+            ]
+        ]
+    },
+    "theme/theme_color_codec.dart": {
+        "before": "b6a1388965fdbcdea36afcad8d6d850dd98636e41b9f1478a5b9d04fa3b9dbc7",
+        "after": "782f8d49eae4ca90d0f0e99cc2c8a0621ff9ed5b41cb510d0f0bb50f041986db",
+        "edits": [
+            [
+                "\n// Shared fixed reference color tokens for shell and palette controls.\nabstract final class PrimeReferenceColors {\n  static const transparent = Colors.transparent;\n  static const white = Colors.white;\n  static const black = Colors.black;\n  static const flagUsNavy = Color(0xff3c3b6e);\n  static const flagUsRed = Color(0xffb22234);\n  static const flagFrenchBlue = Color(0xff0055a4);\n  static const flagFrenchRed = Color(0xffef4135);\n  static const flagSpanishRed = Color(0xffaa151b);\n  static const flagSpanishYellow = Color(0xfff1bf00);\n  static const drawerScrim = Color(0x80000000);\n  static const drawerShadowNear = Color(0x21000000);\n  static const drawerShadowFar = Color(0x1C000000);\n  static const accountMenuShadow = Color(0x66000000);\n  static const accountMenuLightShadow = Color(0x7A000000);\n  static const accountLightOutline = Color(0xffd1d5db);\n\n  static Color fromArgb(int alpha, int red, int green, int blue) =>\n      Color.fromARGB(alpha, red, green, blue);\n}\n",
+                "",
+                1
+            ]
+        ]
+    }
+}
+
+def _before_theme_owner_tokens(canonical, rel):
+    receipt = _THEME_OWNER_TOKEN_RECEIPTS.get(rel)
+    if receipt is None:
+        return canonical
+    if hashlib.sha256(canonical.encode()).hexdigest() != receipt['after']:
+        raise AssertionError('Reviewed theme token source drift: ' + rel)
+    for new, previous, count in reversed(receipt['edits']):
+        if canonical.count(new) != count:
+            raise AssertionError('Reviewed theme token substitution drift: ' + rel)
+        canonical = canonical.replace(new, previous)
+    if hashlib.sha256(canonical.encode()).hexdigest() != receipt['before']:
+        raise AssertionError('Reviewed theme token proof failed: ' + rel)
+    return canonical
+
 def read_reviewed_source(path, root=ROOT):
     source = (root / path).read_text()
     prefix = 'packages/flutter_core/lib/'
@@ -635,6 +816,7 @@ def read_reviewed_source(path, root=ROOT):
     if source != expected:
         raise AssertionError('Compatibility export drift: ' + path)
     canonical = (root / f'packages/{owner}/lib/{rel}').read_text()
+    canonical = _before_theme_owner_tokens(canonical, rel)
     canonical = _before_relocated_insets(canonical, rel)
     if rel == 'database/web_database.dart':
         if hashlib.sha256(canonical.encode()).hexdigest() != '98a2b5b0b74978b67bb43ca7ee5cdd35c4f979ac0c2fcaf8721d6d8f086e9097':

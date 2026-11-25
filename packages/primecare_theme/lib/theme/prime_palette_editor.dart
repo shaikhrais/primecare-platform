@@ -1,3 +1,4 @@
+import 'theme_color_codec.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart';
 import 'personal_theme.dart';
@@ -7,7 +8,7 @@ import 'theme_contrast.dart';
 import 'prime_theme_center_style.dart';
 
 String _hex(Color color)=>'#${color.toARGB32().toRadixString(16).padLeft(8,'0').substring(2)}';
-Color? _parse(String text)=>RegExp(r'^#[0-9a-fA-F]{6}$').hasMatch(text)?Color(int.parse(text.substring(1),radix:16)|0xff000000):null;
+Color? _parse(String text)=>RegExp(r'^#[0-9a-fA-F]{6}$').hasMatch(text)?themeHexColor(text):null;
 String _title(String name)=>name.replaceAllMapped(RegExp(r'([a-z])([A-Z])'),(m)=>'${m[1]} ${m[2]}').replaceAll('Palette','').trim();
 
 class PrimePaletteTile extends StatelessWidget {
@@ -24,7 +25,7 @@ class PrimePaletteMiniature extends StatelessWidget {
     if(schematic){
       final c=Theme.of(context).colorScheme;
       final base=Theme.of(context).scaffoldBackgroundColor;
-      final neutral=Color.lerp(base,Colors.white,c.brightness==Brightness.light ? .4 : .02)!;
+      final neutral=Color.lerp(base,PrimeReferenceColors.white,c.brightness==Brightness.light ? .4 : .02)!;
       final highlight=c.secondary.withValues(alpha:.3);
       Color fill(String region)=>section==region?highlight:neutral;
       Color line(String region)=>section==region?highlight:c.outline;
@@ -110,7 +111,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
             onChanged:(text)=>setLocal((){final next=_parse(text);valid=next!=null;if(next!=null)value=next;})),
           for(final component in ['Red','Green','Blue'])Row(children:[SizedBox(width:42,child:PrimeText(component)),Expanded(child:PrimeSlider(
             min:0,max:255,divisions:255,value:(component=='Red'?value.r:component=='Green'?value.g:value.b)*255,
-            onChanged:(v)=>setLocal((){value=Color.fromARGB(255,component=='Red'?v.round():(value.r*255).round(),component=='Green'?v.round():(value.g*255).round(),component=='Blue'?v.round():(value.b*255).round());hex.text=_hex(value);valid=true;})))]),
+            onChanged:(v)=>setLocal((){value=PrimeReferenceColors.fromArgb(255,component=='Red'?v.round():(value.r*255).round(),component=='Green'?v.round():(value.g*255).round(),component=='Blue'?v.round():(value.b*255).round());hex.text=_hex(value);valid=true;})))]),
         ])),actions:[PrimeTextButton(onPressed:()=>Navigator.pop(context),child:const PrimeText('Cancel')),
           PrimeFilledButton(onPressed:valid?()=>Navigator.pop(context,value):null,child:const PrimeText('Use color'))])));
       final result=await navigator.push(route);

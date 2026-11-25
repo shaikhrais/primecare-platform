@@ -1,3 +1,4 @@
+import 'theme_color_codec.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -7,14 +8,14 @@ import 'theme_contrast.dart';
 /// Reference src/styles/index.css overrides md to 60rem (960px).
 /// ToolbarLayout1/2 and FooterLayout1/2 use min-h-12 md:min-h-16.
 abstract final class PrimeShellMetrics {
-  static const transparentInteractionInk = Colors.transparent;
-  static const _flagWhite = Colors.white;
-  static const _flagUsNavy = Color(0xff3c3b6e);
-  static const _flagUsRed = Color(0xffb22234);
-  static const _flagFrenchBlue = Color(0xff0055a4);
-  static const _flagFrenchRed = Color(0xffef4135);
-  static const _flagSpanishRed = Color(0xffaa151b);
-  static const _flagSpanishYellow = Color(0xfff1bf00);
+  static const transparentInteractionInk = PrimeReferenceColors.transparent;
+  static const _flagWhite = PrimeReferenceColors.white;
+  static const _flagUsNavy = PrimeReferenceColors.flagUsNavy;
+  static const _flagUsRed = PrimeReferenceColors.flagUsRed;
+  static const _flagFrenchBlue = PrimeReferenceColors.flagFrenchBlue;
+  static const _flagFrenchRed = PrimeReferenceColors.flagFrenchRed;
+  static const _flagSpanishRed = PrimeReferenceColors.flagSpanishRed;
+  static const _flagSpanishYellow = PrimeReferenceColors.flagSpanishYellow;
   static Map<String, Color> languageFlagPalette(String language) =>
       switch (language) {
         'fr' => const {
@@ -67,17 +68,17 @@ abstract final class PrimeShellMetrics {
   static const foldedNavigationContentWidth = foldedNavigationWidth - 1;
   static const foldedTabbedDestinationExtent = 40.0;
   static const mobileDrawerWidth = 280.0;
-  static const drawerScrimColor = Color(0x80000000);
+  static const drawerScrimColor = PrimeReferenceColors.drawerScrim;
   static const mobileDrawerShadow = BoxDecoration(
     boxShadow: [
       BoxShadow(
-        color: Color(0x21000000),
+        color: PrimeReferenceColors.drawerShadowNear,
         offset: Offset(0, 12),
         blurRadius: 18,
         spreadRadius: -5,
       ),
       BoxShadow(
-        color: Color(0x1C000000),
+        color: PrimeReferenceColors.drawerShadowFar,
         offset: Offset(0, 5),
         blurRadius: 9,
         spreadRadius: -5,
@@ -123,11 +124,11 @@ abstract final class PrimeShellMetrics {
   }
   static const accountMenuPadding = EdgeInsets.zero;
   static const accountMenuElevation = 2.0;
-  static const accountMenuShadowColor = Color(0x66000000);
+  static const accountMenuShadowColor = PrimeReferenceColors.accountMenuShadow;
   static double accountMenuElevationFor(Brightness brightness) =>
       brightness == Brightness.light ? 1.0 : accountMenuElevation;
   static Color accountMenuShadowFor(Brightness brightness) =>
-      brightness == Brightness.light ? const Color(0x7A000000) : accountMenuShadowColor;
+      brightness == Brightness.light ? PrimeReferenceColors.accountMenuLightShadow : accountMenuShadowColor;
   static const accountMenuIconExtent = 16.0;
   static const accountMenuIconGap = 8.0;
   static const accountMenuItemPadding = EdgeInsets.symmetric(horizontal: 8);
@@ -150,7 +151,7 @@ abstract final class PrimeShellMetrics {
       return (inkChannel * opacity + paperChannel * (255 - opacity)) ~/ 255;
     }
 
-    return Color.fromARGB(255, composite(16), composite(8), composite(0));
+    return PrimeReferenceColors.fromArgb(255, composite(16), composite(8), composite(0));
   }
   static const toolbarAccountAvatarRadius = 16.0;
   static const horizontalToolbarAccountAvatarRadius = 20.0;
@@ -166,7 +167,7 @@ abstract final class PrimeShellMetrics {
     final color = (surface ?? theme.scaffoldBackgroundColor).toARGB32();
     int darkenedChannel(int shift) =>
         (((color >> shift) & 0xff) * 0.95).floor();
-    return Color.fromARGB(
+    return PrimeReferenceColors.fromArgb(
       (color >> 24) & 0xff,
       darkenedChannel(16),
       darkenedChannel(8),
@@ -343,13 +344,13 @@ abstract final class PrimeShellMetrics {
       if (states.contains(WidgetState.pressed) ||
           states.contains(WidgetState.focused)) {
         return brightness == Brightness.dark
-            ? Colors.white.withValues(alpha: 0.06)
-            : Colors.black.withValues(alpha: 0.05);
+            ? PrimeReferenceColors.white.withValues(alpha: 0.06)
+            : PrimeReferenceColors.black.withValues(alpha: 0.05);
       }
       if (states.contains(WidgetState.hovered)) {
         return brightness == Brightness.dark
-            ? Colors.white.withValues(alpha: 0.05)
-            : Colors.black.withValues(alpha: 0.04);
+            ? PrimeReferenceColors.white.withValues(alpha: 0.05)
+            : PrimeReferenceColors.black.withValues(alpha: 0.04);
       }
       return null;
     }),
@@ -407,8 +408,8 @@ abstract final class PrimeShellMetrics {
     side: keyboardFocused && !folded
         ? BorderSide(
             color: theme.brightness == Brightness.dark
-                ? Colors.white.withValues(alpha: 0.12)
-                : const Color(0xffd1d5db),
+                ? PrimeReferenceColors.white.withValues(alpha: 0.12)
+                : PrimeReferenceColors.accountLightOutline,
             width: sidebarFocusOutlineWidth,
           )
         : BorderSide.none,
