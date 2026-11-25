@@ -11,6 +11,7 @@ dependencies:
     path: ../primecare_layout
   primecare_theme:
     path: ../primecare_theme
+  flutter_riverpod: ^3.3.1
   http: ^1.6.0
   shared_preferences: ^2.5.5
 dev_dependencies:
