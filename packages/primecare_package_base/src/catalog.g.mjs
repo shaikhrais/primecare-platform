@@ -125,6 +125,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_responsive_screen",
+      "primecare_route_catalog",
       "primecare_runtime_config",
       "primecare_screen_models",
       "primecare_security_models",
@@ -861,6 +862,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_responsive_screen",
+      "primecare_route_catalog",
       "primecare_runtime_config",
       "primecare_samples",
       "primecare_screen_models",
@@ -1099,6 +1101,21 @@ export function createPrimeCarePackageCatalog() {
       "primecare_layout",
       "primecare_preferences"
     ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_route_catalog",
+    "path": "packages/primecare_route_catalog",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_route_catalog"
+    ],
+    "dependencies": [],
     "developmentDependencies": [],
     "hosting": "library-only"
   },

@@ -11,7 +11,7 @@ class ModuleRegistrationCheckTest(unittest.TestCase):
     def test_simple_interpolation_and_local_class_shadowing(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            groups = root / 'packages/flutter_core/lib/routes/groups'
+            groups = root / 'packages/primecare_route_catalog/lib/routes/groups'
             groups.mkdir(parents=True)
             (groups / 'example.dart').write_text("class Routes { static const String path = '/global'; }")
             catalog = root / 'packages/primecare_ui/lib/src/screens/module_screen_registrations.dart'
@@ -30,7 +30,7 @@ class Example {
     def test_missing_screen_and_dynamic_route_report_file_and_class(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            groups = root / 'packages/flutter_core/lib/routes/groups'
+            groups = root / 'packages/primecare_route_catalog/lib/routes/groups'
             groups.mkdir(parents=True)
             (groups / 'example.dart').write_text("class Routes { static const String missing = '/missing'; }")
             catalog = root / 'packages/primecare_ui/lib/src/screens/module_screen_registrations.dart'

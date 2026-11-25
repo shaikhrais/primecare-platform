@@ -446,6 +446,18 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'routes/groups/admin_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/business_development_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/client_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/clinical_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/common_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/corporate_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/franchise_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/marketing_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/office_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/regional_finance_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/groups/support_routes.dart': ('primecare_route_catalog', '', (), False),
+    'routes/safe_navigation.dart': ('primecare_navigation', '', (), False),
     'governance/parity_engine.dart': ('primecare_governance_validation', '', (("package:primecare_models/src/models/api_metadata.dart", "../models/api_metadata.dart"), ("package:primecare_screen_models/models/screen_metadata.dart", "../models/screen_metadata.dart"),), False),
     'governance/registry_scanner.dart': ('primecare_governance_validation', '', (("package:primecare_models/src/models/api_metadata.dart", "../models/api_metadata.dart"),), False),
     'governance/governance_bridge.dart': ('primecare_governance_validation', '', (("package:primecare_models/src/models/api_metadata.dart", "../models/api_metadata.dart"),), False),

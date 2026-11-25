@@ -30,7 +30,7 @@ def constants(source):
 
 def check(root=ROOT):
     definitions = {}
-    for file in sorted((root / 'packages/flutter_core/lib/routes/groups').glob('*.dart')):
+    for file in sorted((root / 'packages/primecare_route_catalog/lib/routes/groups').glob('*.dart')):
         for name, values in constants(file.read_text(encoding='utf-8')).items():
             if name in definitions:
                 raise ValueError(f'duplicate route constant class {name}: {file}')

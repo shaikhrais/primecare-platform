@@ -1,0 +1,8 @@
+name: primecare_route_catalog
+description: Canonical immutable application route constants.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dev_dependencies:
+  test: ^1.25.0

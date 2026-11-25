@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_route_catalog:
+    path: ../primecare_route_catalog
   primecare_governance_validation:
     path: ../primecare_governance_validation
   primecare_governance_reports:

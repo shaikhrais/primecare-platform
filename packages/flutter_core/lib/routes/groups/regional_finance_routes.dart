@@ -1,12 +1,1 @@
-// Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE
-// Layer: 01_INFRASTRUCTURE
-class RegionalFinanceRoutes {
-  const RegionalFinanceRoutes._();
-
-  static const String ontFinOverview =
-      '/offices/regional/ontario/finance/overview';
-  static const String ontFinApprovals =
-      '/offices/regional/ontario/finance/approvals';
-  static const String ontFinRoadmap =
-      '/offices/regional/ontario/finance/roadmap';
-}
+export 'package:primecare_route_catalog/routes/groups/regional_finance_routes.dart';
