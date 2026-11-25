@@ -1,0 +1,23 @@
+name: primecare_help_reader
+description: Canonical Flutter Help reader transport, controller and shared view.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.6.0
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_theme:
+    path: ../primecare_theme
+  primecare_component_factory:
+    path: ../primecare_component_factory
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

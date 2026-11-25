@@ -5,12 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
-import 'package:flutter_core/advanced_theme/advanced_theme_model.dart';
-import 'package:flutter_core/advanced_theme/advanced_theme_region.dart';
-import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart';
-import 'package:flutter_core/help_reader/help_reader_controller.dart';
-import 'package:flutter_core/help_reader/help_reader_view.dart';
-import 'package:flutter_core/preference_sync/preference_protocol.dart';
+import 'package:primecare_theme/advanced_theme/advanced_theme_model.dart';
+import 'package:primecare_theme/advanced_theme/advanced_theme_region.dart';
+import 'package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart';
+import 'package:primecare_help_reader/help_reader/help_reader_controller.dart';
+import 'package:primecare_help_reader/help_reader/help_reader_view.dart';
+import 'package:primecare_preferences/preference_sync/preference_protocol.dart';
 
 // Synthetic metadata and transport are fixtures, never production registrations.
 const _keys = ['start', 'search', 'locale', 'previous', 'next', 'back', 'retry',

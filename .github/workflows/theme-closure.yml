@@ -152,7 +152,7 @@ jobs:
       - run: flutter pub get
         working-directory: packages/flutter_core
       - name: All shared theme factory tests together
-        run: flutter test test/workspace test/navigation test/page test/advanced_theme test/shell_utilities test/work_modules test/communication_modules test/application_modules test/dashboard_pages test/help_reader --reporter expanded
+        run: flutter test test/workspace test/navigation test/page test/advanced_theme test/shell_utilities test/work_modules test/communication_modules test/application_modules test/dashboard_pages --reporter expanded
         working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: packages/primecare_preferences
@@ -182,3 +182,7 @@ jobs:
         working-directory: packages/primecare_dashboard_native
       - run: flutter test test/dashboard_widgets --reporter expanded
         working-directory: packages/primecare_dashboard_native
+      - run: flutter pub get
+        working-directory: packages/primecare_help_reader
+      - run: flutter test test/help_reader --reporter expanded
+        working-directory: packages/primecare_help_reader

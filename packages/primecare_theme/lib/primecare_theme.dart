@@ -6,3 +6,5 @@ export 'theme/app_theme.dart';
 export 'theme/theme_center_theme_data.dart';
 export 'theme/prime_semantic_palette.dart';
 export 'theme/theme_contrast.dart';
+export 'theme/theme_color_codec.dart';
+export 'advanced_theme/advanced_theme_region.dart';

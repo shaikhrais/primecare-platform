@@ -93,6 +93,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_component_factory",
       "primecare_dashboard_native",
       "primecare_data_controls",
+      "primecare_help_reader",
       "primecare_layout",
       "primecare_models",
       "primecare_navigation",
@@ -308,6 +309,26 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_help_reader",
+    "path": "packages/primecare_help_reader",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_help_reader"
+    ],
+    "dependencies": [
+      "primecare_component_factory",
+      "primecare_preferences",
+      "primecare_theme",
+      "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_kitchen_sink",
     "path": "packages/primecare_kitchen_sink",
     "kind": "library",
@@ -414,6 +435,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_data_controls",
       "primecare_data_controls_web",
       "primecare_demo",
+      "primecare_help_reader",
       "primecare_kitchen_sink",
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",

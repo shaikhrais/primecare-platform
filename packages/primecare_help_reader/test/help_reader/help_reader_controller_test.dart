@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_core/help_reader/help_reader_client.dart';
-import 'package:flutter_core/help_reader/help_reader_controller.dart';
-import 'package:flutter_core/preference_sync/preference_protocol.dart';
+import 'package:primecare_help_reader/help_reader/help_reader_client.dart';
+import 'package:primecare_help_reader/help_reader/help_reader_controller.dart';
+import 'package:primecare_preferences/preference_sync/preference_protocol.dart';
 
 final _scope = PreferenceScope('tenant-a', 'psw-a', 'psw', 'live');
 final _token = List.filled(43, 'a').join();

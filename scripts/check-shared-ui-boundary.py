@@ -115,6 +115,7 @@ THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_co
 # These two canonical theme definitions were relocated from the old theme
 # namespace. Only literal color definitions belong here; control checks remain on.
 THEME_COLOR_DEFINITION_FILES = {
+    'packages/primecare_theme/lib/theme/theme_color_codec.dart',
     'packages/primecare_theme/lib/theme/app_theme.dart',
     'packages/primecare_theme/lib/theme/theme_center_theme_data.dart',
     'packages/primecare_theme/lib/theme/prime_semantic_palette.dart',

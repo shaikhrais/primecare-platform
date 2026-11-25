@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_core/help_reader.dart';
-import 'package:flutter_core/preference_sync/preference_protocol.dart';
+import 'package:primecare_help_reader/primecare_help_reader.dart';
+import 'package:primecare_preferences/preference_sync/preference_protocol.dart';
 
 class _DeniedClient extends http.BaseClient {
   final void Function() retire;
