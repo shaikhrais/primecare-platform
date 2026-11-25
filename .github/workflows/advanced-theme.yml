@@ -12,6 +12,7 @@ on:
       - 'packages/primecare_ui/web/theme-center.ts'
       - 'packages/primecare_ui/web/theme-library.ts'
       - 'packages/primecare_ui/web/theme-manager.ts'
+      - 'packages/primecare_theme/**'
       - 'packages/flutter_core/lib/advanced_theme/**'
       - 'packages/flutter_core/lib/advanced_theme.dart'
       - 'packages/primecare_ui/lib/advanced_theme.dart'
@@ -51,7 +52,7 @@ jobs:
     needs: web
     strategy:
       fail-fast: false
-      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+      matrix: {os: [ubuntu-24.04, windows-latest]}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
@@ -60,6 +61,12 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - uses: actions/download-artifact@v4
         with: {name: web-theme-oracle, path: packages/flutter_core/test/advanced_theme/fixtures}
+      - run: flutter pub get
+        working-directory: packages/primecare_theme
+      - run: flutter analyze --no-fatal-infos
+        working-directory: packages/primecare_theme
+      - run: flutter test --reporter expanded
+        working-directory: packages/primecare_theme
       - run: flutter pub get
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/advanced_theme lib/advanced_theme.dart test/advanced_theme

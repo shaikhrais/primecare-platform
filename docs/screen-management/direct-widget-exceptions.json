@@ -2975,17 +2975,17 @@
     "base": "StatelessWidget"
   },
   {
-    "file": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+    "file": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
     "class": "PrimeDashboardPage",
     "base": "StatelessWidget"
   },
   {
-    "file": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+    "file": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_dashboard_page.dart",
     "class": "PrimeSupportingPage",
     "base": "StatelessWidget"
   },
   {
-    "file": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+    "file": "packages/primecare_dashboard_pages/lib/dashboard_pages/prime_record_page.dart",
     "class": "PrimeRecordPage",
     "base": "StatelessWidget"
   },

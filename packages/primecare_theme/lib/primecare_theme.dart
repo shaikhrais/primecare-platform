@@ -8,3 +8,7 @@ export 'theme/prime_semantic_palette.dart';
 export 'theme/theme_contrast.dart';
 export 'theme/theme_color_codec.dart';
 export 'advanced_theme/advanced_theme_region.dart';
+export 'advanced_theme/advanced_theme_controller.dart';
+export 'advanced_theme/advanced_theme_import.dart';
+export 'advanced_theme/prime_advanced_theme_editor.dart';
+export 'theme/portal_section_theme.dart';
