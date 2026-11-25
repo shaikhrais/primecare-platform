@@ -1,0 +1,41 @@
+name: Generate theme catalogue repair evidence (verify only)
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/generate-theme-catalogue-repair.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate source-only catalogue repair
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python scripts/build-theme-developer-catalogue.py
+          python tools/kitchen_sink/generate.py
+          git diff --stat
+          git diff -- packages/primecare_ui/catalogs/developer-catalogue.json | head -400
+          mkdir -p repair-evidence
+          git diff --binary -- packages/primecare_ui/catalogs/developer-catalogue.json docs/appearance/developer-catalogue.md packages/primecare_kitchen_sink_catalog > repair-evidence/catalogue.patch
+          printf '%s\n' "$GITHUB_SHA" > repair-evidence/source-commit.txt
+      - name: Verify generated catalogue and shared mapping
+        run: |
+          python scripts/build-theme-developer-catalogue.py --check
+          python tools/kitchen_sink/generate.py --check
+          python scripts/audit-shared-skeleton-equivalents.py --check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: theme-catalogue-repair-evidence
+          path: repair-evidence
+          if-no-files-found: error
+          retention-days: 7
