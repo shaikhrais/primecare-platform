@@ -7,7 +7,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'scripts'))
-from reviewed_migration_history import before_shared_app_bars
+from reviewed_migration_history import before_shared_app_bars, read_reviewed_source
 SPEC=importlib.util.spec_from_file_location('migration',ROOT/'scripts/migrate-shared-snack-bars.py')
 migration=importlib.util.module_from_spec(SPEC);SPEC.loader.exec_module(migration)
 
@@ -15,7 +15,7 @@ class SharedSnackBarMigrationTest(unittest.TestCase):
     def test_all_reviewed_sources_round_trip_exactly(self):
         total=0
         for path,(digest,calls,_) in migration.SPECS.items():
-            latest=(ROOT/path).read_text()
+            latest=read_reviewed_source(path, ROOT)
             current=before_shared_app_bars(latest,path)
             original,reversed_calls=migration.reverse_source(path,current)
             if not reversed_calls:
@@ -29,7 +29,7 @@ class SharedSnackBarMigrationTest(unittest.TestCase):
 
     def test_modified_or_unregistered_sources_are_unchanged(self):
         path=next(iter(migration.SPECS))
-        source=(ROOT/path).read_text()+'\n'
+        source=read_reviewed_source(path, ROOT)+'\n'
         self.assertEqual(migration.migrate_source(path,source),(source,0))
         self.assertEqual(migration.migrate_source('apps/other.dart','SnackBar(content: x);'),('SnackBar(content: x);',0))
 
