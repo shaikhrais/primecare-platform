@@ -6,11 +6,11 @@ import {chromium} from 'playwright';
 
 test('compiled Dart adapter loads the shared media asset and two Chromium peers exchange real audio',async()=>{
  const js=readFileSync(process.env.COMMUNICATION_DART_BROWSER_BUNDLE??'test-results/communication-dart-browser.js');
- const media=readFileSync('packages/flutter_core/assets/communications/audio-bridge.js');
+ const media=readFileSync('packages/primecare_communication_media/assets/communications/audio-bridge.js');
  const server=createServer((request,response)=>{
   response.setHeader('Content-Type',request.url.includes('.js')?'text/javascript':'text/html');
   if(request.url==='/fixture.js')return response.end(js);
-  if(request.url==='/assets/packages/flutter_core/assets/communications/audio-bridge.js')return response.end(media);
+  if(request.url==='/assets/packages/primecare_communication_media/assets/communications/audio-bridge.js')return response.end(media);
   response.end('<!doctype html><base href="/"><title>Compiled Dart media acceptance</title><script src="/fixture.js" defer></script>');
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;

@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_communication_media:
+    path: ../primecare_communication_media
   primecare_communication_controllers:
     path: ../primecare_communication_controllers
   primecare_dashboard_pages:

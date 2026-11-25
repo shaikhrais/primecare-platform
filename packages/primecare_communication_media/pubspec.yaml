@@ -1,0 +1,17 @@
+name: primecare_communication_media
+description: Canonical browser media adapter and its shared audio bundle.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.9.2
+  primecare_communication_controllers:
+    path: ../primecare_communication_controllers
+  primecare_communications_transport:
+    path: ../primecare_communications_transport
+flutter:
+  assets:
+    - assets/communications/audio-bridge.js

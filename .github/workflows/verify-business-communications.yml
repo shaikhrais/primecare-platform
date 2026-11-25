@@ -92,6 +92,7 @@ on:
       - 'packages/database/migrations/20261022_business_communications.sql'
       - 'packages/flutter_core/lib/communications/**'
       - 'packages/primecare_communication_controllers/**'
+      - 'packages/primecare_communication_media/**'
       - 'packages/primecare_communications_transport/**'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'
@@ -107,11 +108,9 @@ on:
       - 'tools/communication-media-bundle.mjs'
       - 'scripts/test-communication-flutter-browser.mjs'
       - 'scripts/test-communication-flutter-bridge.mjs'
-      - 'packages/flutter_core/assets/communications/**'
       - 'packages/flutter_core/pubspec.yaml'
       - 'packages/flutter_core/test/communication_mail_controller_test.dart'
       - 'packages/flutter_core/test/communication_call_controller_test.dart'
-      - 'packages/flutter_core/test/communication_browser_media_harness.dart'
       - 'packages/flutter_core/test/fixtures/communication_channels_transport.dart'
       - 'packages/primecare_ui/test/communication_channels_test.dart'
       - 'packages/flutter_core/test/communication_workspace_controller_test.dart'
@@ -308,7 +307,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_communication_media
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
@@ -316,7 +315,7 @@ jobs:
           ln -s "$RUNNER_TEMP/flutter-media-tools/node_modules" node_modules
           node tools/communication-media-bundle.mjs
           mkdir -p test-results
-          cd packages/flutter_core
+          cd packages/primecare_communication_media
           dart compile js test/communication_browser_media_harness.dart -o ../../test-results/communication-dart-browser.js
       - name: Compiled Dart bridge, shared session and real audio packets
         run: |

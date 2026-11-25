@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_communication_media:
+    path: ../primecare_communication_media
   primecare_communication_controllers:
     path: ../primecare_communication_controllers
   primecare_dashboard_pages:
@@ -117,7 +119,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/communications/audio-bridge.js
     - assets/translations/
     - assets/data/
     - assets/db/

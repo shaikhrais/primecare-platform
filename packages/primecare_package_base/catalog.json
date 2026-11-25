@@ -93,6 +93,7 @@
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_communication_controllers",
+        "primecare_communication_media",
         "primecare_communication_modules",
         "primecare_communications_transport",
         "primecare_component_factory",
@@ -238,6 +239,24 @@
         "primecare_communication_controllers"
       ],
       "dependencies": [
+        "primecare_communications_transport"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_communication_media",
+      "path": "packages/primecare_communication_media",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_communication_media"
+      ],
+      "dependencies": [
+        "primecare_communication_controllers",
         "primecare_communications_transport"
       ],
       "developmentDependencies": [],
@@ -589,6 +608,7 @@
         "primecare_assets",
         "primecare_assets_web",
         "primecare_communication_controllers",
+        "primecare_communication_media",
         "primecare_communication_modules",
         "primecare_communications_transport",
         "primecare_component_factory",

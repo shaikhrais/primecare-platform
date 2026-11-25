@@ -446,6 +446,9 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'communications/communication_browser_media_stub.dart': ('primecare_communication_media', '', (("package:primecare_communication_controllers/communications/communication_media.dart", "communication_media.dart"),), False),
+    'communications/communication_browser_media_web.dart': ('primecare_communication_media', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"), ("package:primecare_communication_controllers/communications/communication_media.dart", "communication_media.dart"),), False),
+    'communications/communication_browser_media.dart': ('primecare_communication_media', '', (), False),
     'communications/communication_call_controller.dart': ('primecare_communication_controllers', '', (), False),
     'communications/communication_command_controller.dart': ('primecare_communication_controllers', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"),), False),
     'communications/communication_mail_controller.dart': ('primecare_communication_controllers', '', (), False),
@@ -554,6 +557,12 @@ def read_reviewed_source(path, root=ROOT):
         raise AssertionError('Compatibility export drift: ' + path)
     canonical = (root / f'packages/{owner}/lib/{rel}').read_text()
     canonical = _before_relocated_insets(canonical, rel)
+    if rel == 'communications/communication_browser_media_web.dart':
+        if hashlib.sha256(canonical.encode()).hexdigest() != '8e905278d62a731d3c69cce4d0820e7c51e8109822dd78ffa8868dbccfccfd0f':
+            raise AssertionError('Reviewed relocated media asset drift: ' + path)
+        canonical = canonical.replace('assets/packages/primecare_communication_media/assets/communications/audio-bridge.js', 'assets/packages/flutter_core/assets/communications/audio-bridge.js', 1)
+        if hashlib.sha256(canonical.encode()).hexdigest() != 'eb34087ce1047a2544ef06856dfb4bc2d8efcce3811782cb3a3485bdeef81ae8':
+            raise AssertionError('Reviewed relocated media asset proof failed: ' + path)
     for new, previous in edits:
         token = "import '" + new + "'"
         if canonical.count(token) != 1:

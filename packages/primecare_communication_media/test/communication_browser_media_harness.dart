@@ -2,9 +2,9 @@
 import 'dart:convert';
 import 'dart:js_interop';
 import 'package:dio/dio.dart';
-import 'package:flutter_core/communications/communication_core.dart';
-import 'package:flutter_core/communications/communication_media.dart';
-import 'package:flutter_core/communications/communication_browser_media.dart';
+import 'package:primecare_communications_transport/communications/communication_core.dart';
+import 'package:primecare_communication_controllers/communications/communication_media.dart';
+import 'package:primecare_communication_media/communications/communication_browser_media.dart';
 @JS('globalThis.primecareFlutterAudio') external set _api(JSObject value);
 extension type _Harness._(JSObject _) implements JSObject {
  external factory _Harness({required JSFunction start,required JSFunction mute,required JSFunction close});
