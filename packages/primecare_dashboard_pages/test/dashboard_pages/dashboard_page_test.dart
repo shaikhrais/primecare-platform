@@ -39,6 +39,12 @@ void main() {
     final semantics=tester.ensureSemantics();
     try {
     await tester.pumpWidget(app(PrimeDashboardPage(projection:DashboardPageProjection.fromResponse('project',raw(),scope),labels:labels)));
+    final dashboardPadding = find.descendant(of: find.byType(PrimeDashboardPage),
+      matching: find.byWidgetPredicate((widget) => widget is Padding && widget.padding == const EdgeInsets.all(16)));
+    final metricPadding = find.descendant(of: find.byType(PrimeDashboardPage),
+      matching: find.byWidgetPredicate((widget) => widget is Padding && widget.padding == const EdgeInsets.symmetric(vertical: 8)));
+    expect(dashboardPadding, findsWidgets);
+    expect(metricPadding, findsNWidgets(5));
     expect(find.text('Task <overview>'),findsOneWidget);expect(find.text('LIVE'),findsOneWidget);
     expect(find.bySemanticsLabel('Open: 5'),findsOneWidget);expect(tester.takeException(),isNull);
     await tester.pumpWidget(app(PrimeDashboardPage(projection:DashboardPageProjection.fromResponse('finance',raw(),scope),labels:labels)));

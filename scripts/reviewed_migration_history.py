@@ -519,6 +519,29 @@ _REVIEWED_RELOCATIONS = {
 }
 
 
+
+# Exact reviewed appearance changes after package relocation. Replay restores
+# the original source only for an exact post-change hash; drift remains visible.
+_REVIEWED_RELOCATED_INSETS = {
+    'dashboard_pages/prime_dashboard_page.dart': ('28277c0a6197b4ca21f9f902ca8497d1442f29b0d7fc41fcd4c5f197d3050777', 'fe83061754554c649b3141859b44e2b2c83cfb3d63f5a547309e28b3e535c817'),
+    'dashboard_pages/prime_record_page.dart': ('9a9efd9dac43ca3f109839496bee2e3057d071365f9a888cccbebdfd303bf1c4', '62a309a8182b48a5428817d78689230c91a74cd62b2871f8a131baa2bd4a4396'),
+}
+
+def _before_relocated_insets(source, path):
+    receipt = _REVIEWED_RELOCATED_INSETS.get(path)
+    if receipt is None:
+        return source
+    before, after = receipt
+    if hashlib.sha256(source.encode()).hexdigest() != after:
+        raise AssertionError('Reviewed relocated insets drift: ' + path)
+    expected = "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeContentInsets;\n"
+    if not source.startswith(expected):
+        raise AssertionError('Reviewed relocated insets import drift: ' + path)
+    restored = source[len(expected):].replace('PrimeContentInsets.card', 'const EdgeInsets.all(16)').replace('PrimeContentInsets.row', 'const EdgeInsets.symmetric(vertical: 8)')
+    if hashlib.sha256(restored.encode()).hexdigest() != before:
+        raise AssertionError('Reviewed relocated insets source proof failed: ' + path)
+    return restored
+
 def read_reviewed_source(path, root=ROOT):
     source = (root / path).read_text()
     prefix = 'packages/flutter_core/lib/'
@@ -530,6 +553,7 @@ def read_reviewed_source(path, root=ROOT):
     if source != expected:
         raise AssertionError('Compatibility export drift: ' + path)
     canonical = (root / f'packages/{owner}/lib/{rel}').read_text()
+    canonical = _before_relocated_insets(canonical, rel)
     for new, previous in edits:
         token = "import '" + new + "'"
         if canonical.count(token) != 1:

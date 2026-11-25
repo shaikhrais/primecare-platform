@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeContentInsets;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
@@ -14,13 +15,13 @@ class PrimeDashboardPage extends StatelessWidget {
     return value;
   }
   @override Widget build(BuildContext context) => PrimeCard(child: Padding(
-    padding: const EdgeInsets.all(16),
+    padding: PrimeContentInsets.card,
     child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(container: true, header: true, child: PrimeText(text(projection.family), style: Theme.of(context).textTheme.titleLarge)),
       Semantics(container: true, liveRegion: true, child: PrimeText(text(projection.status == 'ready' ? (projection.synthetic ? 'demo' : 'live') : projection.status))),
       if (projection.status == 'ready') for (final metric in projection.metrics)
         Semantics(container: true, label: '${text(metric.key)}: ${metric.value ?? text('missing')}', excludeSemantics: true,
-          child: Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: PrimeText('${text(metric.key)}: ${metric.value ?? text('missing')}'))),
+          child: Padding(padding: PrimeContentInsets.row, child: PrimeText('${text(metric.key)}: ${metric.value ?? text('missing')}'))),
     ]),
   ));
 }
@@ -33,7 +34,7 @@ class PrimeSupportingPage extends StatelessWidget {
   @override Widget build(BuildContext context) {
     final status = supportingPageStatus(kind), title = labels[kind], message = labels[status];
     if (title == null || title.trim().isEmpty || message == null || message.trim().isEmpty) throw ArgumentError('missing_label');
-    return PrimeCard(child: Padding(padding: const EdgeInsets.all(16), child: Column(
+    return PrimeCard(child: Padding(padding: PrimeContentInsets.card, child: Column(
       mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Semantics(container: true, header: true, child: PrimeText(title, style: Theme.of(context).textTheme.titleLarge)),
         Semantics(container: true, liveRegion: true, child: PrimeText(message)),

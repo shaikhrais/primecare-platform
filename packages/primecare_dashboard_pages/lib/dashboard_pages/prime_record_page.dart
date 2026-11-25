@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeContentInsets;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class PrimeRecordPage extends StatelessWidget {
     return value;
   }
   @override Widget build(BuildContext context) => PrimeCard(child: Padding(
-    padding: const EdgeInsets.all(16), child: Column(
+    padding: PrimeContentInsets.card, child: Column(
       mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Semantics(container: true, header: true, child: PrimeText(text(projection.kind), style: Theme.of(context).textTheme.titleLarge)),
         Semantics(container: true, liveRegion: true, child: PrimeText(text(projection.status))),
@@ -21,7 +22,7 @@ class PrimeRecordPage extends StatelessWidget {
           PrimeText(text(projection.synthetic ? 'demo' : 'live')),
           PrimeText(text('bounded')),
           for (final row in projection.rows) Semantics(container: true, child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8), child: Column(
+            padding: PrimeContentInsets.row, child: Column(
               crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeText(row.title), PrimeText(row.detail)],
             ),
           )),
