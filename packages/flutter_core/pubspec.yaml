@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_dashboard_native:
+    path: ../primecare_dashboard_native
   primecare_theme:
     path: ../primecare_theme
   primecare_preferences:

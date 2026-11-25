@@ -507,7 +507,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart",
+      "path": "packages/primecare_dashboard_native/lib/dashboard_widgets/prime_dashboard_widgets.dart",
       "api": "class PrimeDashboardGrid ",
       "entry": "packages/primecare_ui/lib/dashboard_widgets.dart",
       "exports": [
@@ -518,6 +518,10 @@
         {
           "path": "packages/flutter_core/lib/dashboard_widgets.dart",
           "target": "dashboard_widgets/prime_dashboard_widgets.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart",
+          "target": "package:primecare_dashboard_native/dashboard_widgets/prime_dashboard_widgets.dart"
         }
       ]
     },

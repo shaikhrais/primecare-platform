@@ -5,5 +5,5 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
-  flutter_core:
-    path: ../flutter_core
+  primecare_dashboard_native:
+    path: ../primecare_dashboard_native

@@ -44,8 +44,8 @@ def generate(check=False):
                 'owner': 'packages/primecare_ui', 'webSource': f'packages/primecare_ui/web/{family}.ts',
                 'webSymbol': ('PrimeDataControls' if family == 'data-controls' else
                               'PrimeDashboardWidgets' if family == 'dashboard-widgets' else 'PrimeComponentFactory') + '.' + api,
-                'flutterSymbol': flutter_symbol, 'flutterOwner': 'packages/primecare_component_factory' if family == 'component-catalogue' else 'packages/primecare_data_controls' if family == 'data-controls' else 'packages/flutter_core',
-                'flutterSource': 'packages/primecare_component_factory/lib/primecare_component_factory.dart' if family == 'component-catalogue' else 'packages/primecare_data_controls/lib/primecare_data_controls.dart' if family == 'data-controls' else f'packages/flutter_core/lib/{family.replace("-", "_")}.dart',
+                'flutterSymbol': flutter_symbol, 'flutterOwner': 'packages/primecare_component_factory' if family == 'component-catalogue' else 'packages/primecare_data_controls' if family == 'data-controls' else 'packages/primecare_dashboard_native',
+                'flutterSource': 'packages/primecare_component_factory/lib/primecare_component_factory.dart' if family == 'component-catalogue' else 'packages/primecare_data_controls/lib/primecare_data_controls.dart' if family == 'data-controls' else 'packages/primecare_dashboard_native/lib/primecare_dashboard_native.dart',
                 'webPreview': True, 'flutterPreview': identity not in ['autocomplete', 'metric'],
                 'exampleKind': 'local-synthetic', 'productionAcceptance': 'not-inferred'})
     catalog = {'schemaVersion': 1, 'previewOnly': True, 'vendorSourceCopied': False,

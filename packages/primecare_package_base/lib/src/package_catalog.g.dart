@@ -30,7 +30,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'flutter_core', kind: PackageKind.ui,
     contractVersion: 1,
-    dependencies: ["primecare_assets", "primecare_component_factory", "primecare_data_controls", "primecare_layout", "primecare_models", "primecare_navigation", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
+    dependencies: ["primecare_assets", "primecare_component_factory", "primecare_dashboard_native", "primecare_data_controls", "primecare_layout", "primecare_models", "primecare_navigation", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'infrastructure', kind: PackageKind.library,
@@ -65,7 +65,12 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_dashboard', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["domain", "flutter_core", "primecare_ui"],
+    dependencies: ["domain", "primecare_dashboard_native", "primecare_ui"],
+  ),
+  PackageDescriptor(
+    id: 'primecare_dashboard_native', kind: PackageKind.library,
+    contractVersion: 1,
+    dependencies: ["primecare_component_factory", "primecare_preferences", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_data_controls', kind: PackageKind.library,

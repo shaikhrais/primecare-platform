@@ -91,6 +91,7 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "primecare_assets",
       "primecare_component_factory",
+      "primecare_dashboard_native",
       "primecare_data_controls",
       "primecare_layout",
       "primecare_models",
@@ -223,7 +224,7 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "domain",
-      "flutter_core",
+      "primecare_dashboard_native",
       "primecare_ui"
     ],
     "developmentDependencies": [],
@@ -232,6 +233,25 @@ export function createPrimeCarePackageCatalog() {
       "domain",
       "primecare_ui"
     ]
+  },
+  {
+    "id": "primecare_dashboard_native",
+    "path": "packages/primecare_dashboard_native",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_dashboard_native"
+    ],
+    "dependencies": [
+      "primecare_component_factory",
+      "primecare_preferences",
+      "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
   },
   {
     "id": "primecare_data_controls",

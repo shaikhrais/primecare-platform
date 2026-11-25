@@ -1,1 +1,1 @@
-export 'package:flutter_core/dashboard_widgets.dart';
+export 'package:primecare_dashboard_native/primecare_dashboard_native.dart';
