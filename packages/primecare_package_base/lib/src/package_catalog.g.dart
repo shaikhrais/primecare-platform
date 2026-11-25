@@ -90,7 +90,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_kitchen_sink', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["flutter_core", "primecare_assets", "primecare_component_factory", "primecare_dashboard", "primecare_data_controls", "primecare_kitchen_sink_catalog", "primecare_ui_foundation"],
+    dependencies: ["primecare_assets", "primecare_component_factory", "primecare_dashboard", "primecare_data_controls", "primecare_kitchen_sink_catalog", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_kitchen_sink_catalog', kind: PackageKind.library,
@@ -150,7 +150,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_theme', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_layout", "primecare_navigation"],
+    dependencies: ["primecare_layout", "primecare_navigation", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_ui', kind: PackageKind.ui,

@@ -42,11 +42,11 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `flutter_core` | Legacy Flutter implementations and compatibility exports | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard_native`, `primecare_data_controls`, `primecare_layout`, `primecare_models`, `primecare_navigation`, `primecare_ui_foundation`, `primecare_preferences`, `primecare_theme` |
 | `infrastructure` | Infrastructure adapters | `database` |
 | `messaging` | Communication adapters | `database` |
-| `primecare_kitchen_sink` | Flutter showcase using existing factories | `flutter_core`, `primecare_assets`, `primecare_component_factory`, `primecare_dashboard`, `primecare_data_controls`, `primecare_kitchen_sink_catalog`, `primecare_ui_foundation` |
+| `primecare_kitchen_sink` | Flutter showcase using existing factories | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard`, `primecare_data_controls`, `primecare_kitchen_sink_catalog`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_kitchen_sink_catalog` | New generated stories, labels and reference inventory | — |
 | `primecare_kitchen_sink_web` | Browser showcase using existing factories | `domain`, `primecare_assets_web`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls_web`, `primecare_kitchen_sink_catalog`, `primecare_package_base`, `primecare_pagination`, `primecare_samples` |
 | `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_layout`, `primecare_navigation`, `primecare_navigation_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared`, `primecare_preferences`, `primecare_theme` |
-| `primecare_theme` | Native personal theme, presets and advanced theme model | `primecare_layout`, `primecare_navigation` |
+| `primecare_theme` | Native theme models, presets, semantic colors and ThemeData composition | `primecare_layout`, `primecare_navigation`, `primecare_ui_foundation` |
 | `primecare_preferences` | Native preference protocol, cache and transport | `primecare_layout`, `primecare_theme` |
 | `primecare_models` | Canonical Dart models | — |
 | `primecare_package_base` | Composition registry, dependency impact and composition status | — |
@@ -131,3 +131,5 @@ Workspace model ownership is independent of core; the old renderer and scroll he
 Native theme model and preference protocol ownership now lives in the named packages. Legacy core paths temporarily export their canonical implementations for existing callers. Theme renderer and navbar registration paths are unchanged.
 
 Native chart and dashboard widget implementations, tests and fixture now belong to `primecare_dashboard_native`. The cross-platform dashboard facade keeps the existing master entry points while avoiding a native/web dependency cycle.
+
+The native theme builder, contrast helpers, semantic palette and application theme now belong to `primecare_theme`. The Flutter kitchen sink consumes the named owners directly and no longer declares Flutter Core.

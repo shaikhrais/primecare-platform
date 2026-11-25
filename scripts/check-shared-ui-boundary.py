@@ -115,6 +115,10 @@ THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_co
 # These two canonical theme definitions were relocated from the old theme
 # namespace. Only literal color definitions belong here; control checks remain on.
 THEME_COLOR_DEFINITION_FILES = {
+    'packages/primecare_theme/lib/theme/app_theme.dart',
+    'packages/primecare_theme/lib/theme/theme_center_theme_data.dart',
+    'packages/primecare_theme/lib/theme/prime_semantic_palette.dart',
+    'packages/primecare_theme/lib/theme/theme_contrast.dart',
     'packages/primecare_theme/lib/theme/personal_theme.dart',
     'packages/primecare_theme/lib/theme/theme_config_generated.dart',
 }
@@ -169,7 +173,13 @@ def scan(root):
                 continue
             if relative.startswith(THEME_DEFINITION):
                 continue
-            for line, rule, symbol in violations(path.read_text(encoding='utf-8'), not relative.startswith('packages/primecare_ui/lib/')):
+            source = path.read_text(encoding='utf-8')
+            # The canonical ThemeData builder uses FilledButton.styleFrom solely to
+            # construct a ButtonStyle, not a widget. Mask that exact existing call
+            # without allowing FilledButton constructors elsewhere in the file.
+            if relative == 'packages/primecare_theme/lib/theme/theme_center_theme_data.dart':
+                source = source.replace('FilledButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))', '            styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))')
+            for line, rule, symbol in violations(source, not relative.startswith('packages/primecare_ui/lib/')):
                 if rule == 'theme-color' and relative in THEME_COLOR_DEFINITION_FILES:
                     continue
                 # Only the exact relocated primitive may build its underlying

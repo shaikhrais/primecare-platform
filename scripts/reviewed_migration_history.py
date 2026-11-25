@@ -446,6 +446,10 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'theme/app_theme.dart': ('primecare_theme', '', (), False),
+    'theme/theme_center_theme_data.dart': ('primecare_theme', '', (), False),
+    'theme/prime_semantic_palette.dart': ('primecare_theme', '', (), False),
+    'theme/theme_contrast.dart': ('primecare_theme', '', (), False),
     'component_catalogue/prime_component_catalogue.dart': (
         'primecare_component_factory',
         '// Temporary compatibility export; canonical implementation moved to primecare_component_factory.\n',

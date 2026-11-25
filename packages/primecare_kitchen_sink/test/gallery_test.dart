@@ -1,4 +1,4 @@
-import 'package:flutter_core/original_assets.dart';
+import 'package:primecare_assets/primecare_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_kitchen_sink/primecare_kitchen_sink.dart';

@@ -11,7 +11,7 @@ from reviewed_migration_history import before_portal_layout, before_complete_the
 from reviewed_migration_history import before_account_menu_boundary_repair, before_mobile_account_edge, before_account_surface_style, before_account_typography, before_shell_overlay_style, before_account_keyboard, before_unobscured_account_capture, before_account_focus_outline
 from reviewed_migration_history import before_neutral_account_capture, before_folded_tabbed_account
 from reviewed_migration_history import before_account_menu_shadow, before_account_menu_label_foreground, before_account_menu_hover, before_account_shell_edge, before_account_trigger_focus_style, before_compact_shell_geometry
-from reviewed_migration_history import before_right_sidebar_toggle, before_shell_chrome
+from reviewed_migration_history import before_right_sidebar_toggle, before_shell_chrome, read_reviewed_source
 
 class AccountKeyboardReplayTest(unittest.TestCase):
     def test_shell_chrome_replays_only_exact_source(self):
@@ -19,7 +19,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']), 3)
         for row in receipt['files']:
             path = row['path']
-            current = before_right_sidebar_toggle((ROOT / path).read_text(), path)
+            current = before_right_sidebar_toggle(read_reviewed_source(path), path)
             self.assertEqual(hashlib.sha256(current.encode()).hexdigest(), row['afterSha256'])
             original = before_shell_chrome(current, path)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['beforeSha256'])
@@ -30,7 +30,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']), 4)
         for row in receipt['files']:
             path = row['path']
-            current = before_shell_chrome((ROOT / path).read_text(), path)
+            current = before_shell_chrome(read_reviewed_source(path), path)
             self.assertEqual(hashlib.sha256(current.encode()).hexdigest(), row['afterSha256'])
             original = before_account_menu_shadow(current, path)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['beforeSha256'])
@@ -41,7 +41,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']), 3)
         for row in receipt['files']:
             path = row['path']
-            current = before_account_menu_shadow((ROOT / path).read_text(), path)
+            current = before_account_menu_shadow(read_reviewed_source(path), path)
             self.assertEqual(hashlib.sha256(current.encode()).hexdigest(), row['afterSha256'])
             original = before_account_menu_label_foreground(current, path)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['beforeSha256'])
@@ -52,7 +52,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']), 7)
         for row in receipt['files']:
             path = row['path']
-            source = before_account_menu_label_foreground((ROOT / path).read_text(), path)
+            source = before_account_menu_label_foreground(read_reviewed_source(path), path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(), row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_account_menu_hover(source, path).encode()).hexdigest(), row['beforeSha256'])
             self.assertEqual(before_account_menu_hover(source + '\n', path), source + '\n')
@@ -62,7 +62,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']), 4)
         for row in receipt['files']:
             path = row['path']
-            source = before_account_menu_hover((ROOT / path).read_text(), path)
+            source = before_account_menu_hover(read_reviewed_source(path), path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(), row['afterSha256'])
             restored = before_account_shell_edge(source, path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(), row['beforeSha256'])
@@ -73,7 +73,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']), 6)
         for row in receipt['files']:
             path = row['path']
-            source = before_account_shell_edge((ROOT / path).read_text(), path)
+            source = before_account_shell_edge(read_reviewed_source(path), path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(), row['afterSha256'])
             restored = before_account_trigger_focus_style(source, path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(), row['beforeSha256'])
@@ -84,7 +84,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),5)
         for row in receipt['files']:
             path=row['path']
-            source=before_account_trigger_focus_style((ROOT/path).read_text(),path)
+            source=before_account_trigger_focus_style(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_compact_shell_geometry(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -95,7 +95,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
             path=row['path']
-            source=before_compact_shell_geometry((ROOT/path).read_text(),path)
+            source=before_compact_shell_geometry(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_folded_tabbed_account(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -106,7 +106,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),1)
         row=receipt['files'][0]
         path=row['path']
-        source=before_account_menu_hover((ROOT/path).read_text(),path)
+        source=before_account_menu_hover(read_reviewed_source(path),path)
         self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
         replayed=before_neutral_account_capture(source,path)
         self.assertEqual(hashlib.sha256(replayed.encode()).hexdigest(),row['beforeSha256'])
@@ -117,7 +117,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),2)
         for row in receipt['files']:
             path=row['path']
-            source=before_folded_tabbed_account((ROOT/path).read_text(),path)
+            source=before_folded_tabbed_account(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_focus_outline(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -128,7 +128,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),3)
         for row in receipt['files']:
             path=row['path']
-            source=before_unobscured_account_capture((ROOT/path).read_text(),path)
+            source=before_unobscured_account_capture(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_keyboard(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -139,7 +139,7 @@ class AccountKeyboardReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),1)
         row=receipt['files'][0]
         path=row['path']
-        source=before_neutral_account_capture((ROOT/path).read_text(),path)
+        source=before_neutral_account_capture(read_reviewed_source(path),path)
         self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
         replayed=before_unobscured_account_capture(source,path)
         self.assertEqual(hashlib.sha256(replayed.encode()).hexdigest(),row['beforeSha256'])
@@ -151,7 +151,7 @@ class ShellOverlayStyleReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),5)
         for row in receipt['files']:
             path=row['path']
-            source=before_account_keyboard((ROOT/path).read_text(),path)
+            source=before_account_keyboard(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_shell_overlay_style(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -163,7 +163,7 @@ class AccountTypographyReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
             path=row['path']
-            source=before_shell_overlay_style((ROOT/path).read_text(),path)
+            source=before_shell_overlay_style(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_typography(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -175,7 +175,7 @@ class AccountSurfaceStyleReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
             path=row['path']
-            source=before_account_typography((ROOT/path).read_text(),path)
+            source=before_account_typography(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_surface_style(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -187,7 +187,7 @@ class MobileAccountEdgeReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),3)
         for row in receipt['files']:
             path=row['path']
-            source=before_account_surface_style((ROOT/path).read_text(),path)
+            source=before_account_surface_style(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_mobile_account_edge(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -199,7 +199,7 @@ class AccountMenuBoundaryRepairReplayTest(unittest.TestCase):
         self.assertEqual(len(receipt['files']),1)
         for row in receipt['files']:
             path=row['path']
-            source=before_mobile_account_edge((ROOT/path).read_text(),path)
+            source=before_mobile_account_edge(read_reviewed_source(path),path)
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_menu_boundary_repair(source,path)
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -210,7 +210,7 @@ class AccountMenuGeometryReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/account-menu-geometry-replay.json').read_text())
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
-            source=before_account_menu_boundary_repair((ROOT/row['path']).read_text(),row['path'])
+            source=before_account_menu_boundary_repair(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_menu_geometry(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -221,7 +221,7 @@ class AccountMenuFuseStateReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/account-menu-fuse-state-replay.json').read_text())
         self.assertEqual(len(receipt['files']),5)
         for row in receipt['files']:
-            source=before_account_menu_geometry((ROOT/row['path']).read_text(),row['path'])
+            source=before_account_menu_geometry(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_menu_fuse_state(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -232,7 +232,7 @@ class AccountMenuStateCaptureReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/account-menu-state-capture-replay.json').read_text())
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
-            source=before_account_menu_fuse_state((ROOT/row['path']).read_text(),row['path'])
+            source=before_account_menu_fuse_state(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_account_menu_state_capture(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -243,7 +243,7 @@ class SidebarAccountStyleBoundaryReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/sidebar-account-style-boundary-replay.json').read_text())
         self.assertEqual(len(receipt['files']),2)
         for row in receipt['files']:
-            source=before_account_menu_state_capture((ROOT/row['path']).read_text(),row['path'])
+            source=before_account_menu_state_capture(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_sidebar_account_style_boundary(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -254,7 +254,7 @@ class SidebarAccountFooterReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/sidebar-account-footer-replay.json').read_text())
         self.assertEqual(len(receipt['files']),3)
         for row in receipt['files']:
-            source=before_sidebar_account_style_boundary((ROOT/row['path']).read_text(),row['path'])
+            source=before_sidebar_account_style_boundary(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_sidebar_account_footer(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -265,7 +265,7 @@ class ToolbarSharedTokensReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/toolbar-shared-tokens-replay.json').read_text())
         self.assertEqual(len(receipt['files']),2)
         for row in receipt['files']:
-            source=before_sidebar_account_footer((ROOT/row['path']).read_text(),row['path'])
+            source=before_sidebar_account_footer(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_toolbar_shared_tokens(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -276,7 +276,7 @@ class FullRenderToolbarActionsReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/full-render-toolbar-actions-replay.json').read_text())
         self.assertEqual(len(receipt['files']),4)
         for row in receipt['files']:
-            source=before_toolbar_shared_tokens((ROOT/row['path']).read_text(),row['path'])
+            source=before_toolbar_shared_tokens(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_full_render_toolbar_actions(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -287,7 +287,7 @@ class NavigationThemeBoundaryReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/navigation-theme-boundary-replay.json').read_text())
         self.assertEqual(len(receipt['files']),2)
         for row in receipt['files']:
-            current=(ROOT/row['path']).read_text()
+            current=read_reviewed_source(row['path'])
             source=before_full_render_toolbar_actions(current,row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_navigation_theme_boundary(current,row['path'])
@@ -299,7 +299,7 @@ class FullRenderNavigationFocusReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/full-render-navigation-focus-replay.json').read_text())
         self.assertEqual(len(receipt['files']),5)
         for row in receipt['files']:
-            source=before_navigation_theme_boundary((ROOT/row['path']).read_text(),row['path'])
+            source=before_navigation_theme_boundary(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_full_render_navigation_focus(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])
@@ -310,7 +310,7 @@ class PortalLayoutReplayTest(unittest.TestCase):
         receipt = json.loads((ROOT / 'scripts/portal-layout-replay.json').read_text())
         self.assertEqual(len(receipt['files']), 2)
         for row in receipt['files']:
-            current = before_complete_theme_settings((ROOT / row['path']).read_text(), row['path'])
+            current = before_complete_theme_settings(read_reviewed_source(row['path']), row['path'])
             self.assertEqual(hashlib.sha256(current.encode()).hexdigest(), row['afterSha256'])
             original = before_portal_layout(current, row['path'])
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['beforeSha256'])
@@ -323,7 +323,7 @@ class CompleteThemeReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/theme-complete-replay.json').read_text())
         self.assertEqual(len(receipt['files']),3)
         for row in receipt['files']:
-            source=before_user_settings_isolation((ROOT/row['path']).read_text(),row['path'])
+            source=before_user_settings_isolation(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             original=before_complete_theme_settings(source,row['path'])
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['beforeSha256'])
@@ -334,7 +334,7 @@ class UserSettingsIsolationReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/user-settings-isolation-replay.json').read_text())
         self.assertEqual(len(receipt['files']),2)
         for row in receipt['files']:
-            source=before_fuse_center_match((ROOT/row['path']).read_text(),row['path'])
+            source=before_fuse_center_match(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             before=before_user_settings_isolation(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
@@ -345,7 +345,7 @@ class FuseCenterMatchReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/fuse-center-match-replay.json').read_text())
         self.assertEqual(len(receipt['files']),3)
         for row in receipt['files']:
-            source=before_navbar_style((ROOT/row['path']).read_text(),row['path'])
+            source=before_navbar_style(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             before=before_fuse_center_match(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
@@ -358,7 +358,7 @@ class ThemePaletteMatchReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/theme-palette-match-replay.json').read_text())
         self.assertEqual(len(receipt['files']),1)
         for row in receipt['files']:
-            source=before_navbar_style((ROOT/row['path']).read_text(),row['path'])
+            source=before_navbar_style(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             before=before_theme_palette_match(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
@@ -369,7 +369,7 @@ class NavbarStyleReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/navbar-style-replay.json').read_text())
         self.assertEqual(len(receipt['files']),3)
         for row in receipt['files']:
-            source=before_shell_metrics((ROOT/row['path']).read_text(),row['path'])
+            source=before_shell_metrics(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             before=before_navbar_style(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
@@ -381,7 +381,7 @@ class SkeletonShellMetricsReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/skeleton-shell-metrics-replay.json').read_text())
         self.assertEqual(len(receipt['files']),1)
         for row in receipt['files']:
-            source=before_avatar_fallback((ROOT/row['path']).read_text(),row['path'])
+            source=before_avatar_fallback(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             before=before_shell_metrics(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
@@ -392,7 +392,7 @@ class AvatarFallbackReplayTest(unittest.TestCase):
     def test_exact_fallback_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/shell-avatar-fallback-replay.json').read_text())
         for row in receipt['files']:
-            source=before_shell_border_frame((ROOT/row['path']).read_text(),row['path'])
+            source=before_shell_border_frame(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_avatar_fallback(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_avatar_fallback(source+'\n',row['path']),source+'\n')
@@ -401,7 +401,7 @@ class ShellBorderFrameReplayTest(unittest.TestCase):
     def test_exact_border_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/shell-breakpoint-border-replay.json').read_text())
         for row in receipt['files']:
-            source=before_sidebar_default((ROOT/row['path']).read_text(),row['path'])
+            source=before_sidebar_default(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_shell_border_frame(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_shell_border_frame(source+'\n',row['path']),source+'\n')
@@ -410,7 +410,7 @@ class SidebarDefaultReplayTest(unittest.TestCase):
     def test_exact_default_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/shell-sidebar-default-replay.json').read_text())
         for row in receipt['files']:
-            source=before_sidebar_render((ROOT/row['path']).read_text(),row['path'])
+            source=before_sidebar_render(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_sidebar_default(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_sidebar_default(source+'\n',row['path']),source+'\n')
@@ -419,7 +419,7 @@ class SidebarRenderReplayTest(unittest.TestCase):
     def test_exact_sidebar_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/sidebar-full-render-replay.json').read_text())
         for row in receipt['files']:
-            source=before_sidebar_slogan((ROOT/row['path']).read_text(),row['path'])
+            source=before_sidebar_slogan(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_sidebar_render(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_sidebar_render(source+'\n',row['path']),source+'\n')
@@ -428,7 +428,7 @@ class SidebarSloganReplayTest(unittest.TestCase):
     def test_exact_slogan_delta_rejects_drift(self):
         receipt=json.loads((ROOT/'scripts/sidebar-slogan-replay.json').read_text())
         for row in receipt['files']:
-            source=before_sidebar_states((ROOT/row['path']).read_text(),row['path'])
+            source=before_sidebar_states(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_sidebar_slogan(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_sidebar_slogan(source+'\n',row['path']),source+'\n')
@@ -438,7 +438,7 @@ class SidebarStatesReplayTest(unittest.TestCase):
         receipt=json.loads((ROOT/'scripts/sidebar-states-replay.json').read_text())
         for row in receipt['files']:
             from reviewed_migration_history import before_shared_navigation_render
-            source=before_shared_navigation_render((ROOT/row['path']).read_text(),row['path'])
+            source=before_shared_navigation_render(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             self.assertEqual(hashlib.sha256(before_sidebar_states(source,row['path']).encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_sidebar_states(source+'\n',row['path']),source+'\n')
@@ -448,7 +448,7 @@ class SharedNavigationRenderReplayTest(unittest.TestCase):
         from reviewed_migration_history import before_shared_navigation_render
         receipt=json.loads((ROOT/'scripts/shared-navigation-render-replay.json').read_text())
         for row in receipt['files']:
-            source=before_full_render_navigation_focus((ROOT/row['path']).read_text(),row['path'])
+            source=before_full_render_navigation_focus(read_reviewed_source(row['path']),row['path'])
             self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
             restored=before_shared_navigation_render(source,row['path'])
             self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),row['beforeSha256'])

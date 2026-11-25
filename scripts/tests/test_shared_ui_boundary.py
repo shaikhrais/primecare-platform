@@ -238,3 +238,10 @@ class SharedUiBoundaryTest(unittest.TestCase):
                 ('unapproved_feature.dart', 'theme-color'),
                 ('unapproved_feature.dart', 'shared-control'),
             ])
+
+    def test_theme_style_factory_does_not_allow_widget_constructor(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory); path=root/'packages/primecare_theme/lib/theme/theme_center_theme_data.dart'
+            path.parent.mkdir(parents=True)
+            path.write_text('FilledButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))\nFilledButton(onPressed: callback, child: label);')
+            self.assertEqual([(row[1],row[2],row[3]) for row in boundary.scan(root)],[(2,'shared-control','FilledButton')])

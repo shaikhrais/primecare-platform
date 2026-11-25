@@ -319,12 +319,12 @@
         "primecare_kitchen_sink"
       ],
       "dependencies": [
-        "flutter_core",
         "primecare_assets",
         "primecare_component_factory",
         "primecare_dashboard",
         "primecare_data_controls",
         "primecare_kitchen_sink_catalog",
+        "primecare_theme",
         "primecare_ui_foundation"
       ],
       "developmentDependencies": [],
@@ -583,7 +583,8 @@
       ],
       "dependencies": [
         "primecare_layout",
-        "primecare_navigation"
+        "primecare_navigation",
+        "primecare_ui_foundation"
       ],
       "developmentDependencies": [],
       "hosting": "library-only"

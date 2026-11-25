@@ -7,8 +7,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_core:
-    path: ../flutter_core
+  primecare_theme:
+    path: ../primecare_theme
   primecare_ui_foundation:
     path: ../primecare_ui_foundation
   primecare_kitchen_sink_catalog:
