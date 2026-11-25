@@ -352,7 +352,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+      "path": "packages/primecare_theme/lib/advanced_theme/prime_advanced_theme_editor.dart",
       "api": "class PrimeAdvancedThemeEditor ",
       "entry": "packages/primecare_ui/lib/advanced_theme.dart",
       "exports": [
@@ -363,6 +363,10 @@
         {
           "path": "packages/flutter_core/lib/advanced_theme.dart",
           "target": "advanced_theme/prime_advanced_theme_editor.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+          "target": "package:primecare_theme/advanced_theme/prime_advanced_theme_editor.dart"
         }
       ]
     },
