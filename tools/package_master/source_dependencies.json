@@ -12,9 +12,9 @@
     "target": "packages/domain/src/dashboard_widgets.ts"
   },
   {
-    "consumer": "primecare_component_factory",
+    "consumer": "primecare_component_factory_web",
     "provider": "primecare_ui",
-    "source": "packages/primecare_component_factory/src/index.ts",
+    "source": "packages/primecare_component_factory_web/src/index.ts",
     "target": "packages/primecare_ui/web/component-catalogue.ts"
   },
   {

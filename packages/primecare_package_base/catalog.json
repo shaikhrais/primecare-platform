@@ -89,6 +89,7 @@
         "flutter_core"
       ],
       "dependencies": [
+        "primecare_component_factory",
         "primecare_models",
         "primecare_ui_foundation"
       ],
@@ -158,15 +159,29 @@
       "kind": "library",
       "contractVersion": 1,
       "manifests": [
-        "package.json",
         "pubspec.yaml"
       ],
       "declaredNames": [
-        "@primecare/component-factory",
         "primecare_component_factory"
       ],
       "dependencies": [
-        "flutter_core",
+        "primecare_ui_foundation"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_component_factory_web",
+      "path": "packages/primecare_component_factory_web",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "package.json"
+      ],
+      "declaredNames": [
+        "@primecare/component-factory-web"
+      ],
+      "dependencies": [
         "primecare_ui"
       ],
       "developmentDependencies": [],
@@ -292,7 +307,7 @@
       "dependencies": [
         "domain",
         "primecare_assets",
-        "primecare_component_factory",
+        "primecare_component_factory_web",
         "primecare_dashboard",
         "primecare_data_controls",
         "primecare_kitchen_sink_catalog",
@@ -324,6 +339,7 @@
         "messaging",
         "primecare_assets",
         "primecare_component_factory",
+        "primecare_component_factory_web",
         "primecare_dashboard",
         "primecare_data_controls",
         "primecare_demo",
@@ -347,7 +363,7 @@
         "infrastructure",
         "messaging",
         "primecare_assets",
-        "primecare_component_factory",
+        "primecare_component_factory_web",
         "primecare_dashboard",
         "primecare_data_controls",
         "primecare_kitchen_sink_catalog",

@@ -1,5 +1,5 @@
 {
-  "name": "@primecare/component-factory",
+  "name": "@primecare/component-factory-web",
   "version": "1.0.0",
   "private": true,
   "type": "module",

@@ -5,7 +5,7 @@ import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/component_catalogue.dart';
+import 'package:primecare_component_factory/primecare_component_factory.dart';
 
 void main() {
   final labels = CatalogueLabels.fromMetadata(
@@ -55,3 +55,4 @@ void main() {
     });
   }
 }
+

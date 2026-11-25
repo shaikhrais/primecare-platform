@@ -18,6 +18,8 @@ on:
       - 'scripts/test-help-reader-view.mjs'
       - 'scripts/test-help-reader-view-browser.mjs'
       - 'packages/primecare_ui/catalogs/component-catalogue.registration.json'
+      - 'packages/primecare_component_factory/**'
+      - 'packages/primecare_component_factory_web/**'
       - 'packages/flutter_core/lib/component_catalogue*'
       - 'packages/flutter_core/lib/component_catalogue/**'
       - 'packages/flutter_core/test/component_catalogue/**'
@@ -69,8 +71,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/component_catalogue lib/component_catalogue.dart test/component_catalogue
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_component_factory
+      - run: flutter analyze --no-fatal-infos lib/component_catalogue lib/primecare_component_factory.dart test/component_catalogue
+        working-directory: packages/primecare_component_factory
       - run: flutter test test/component_catalogue --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_component_factory

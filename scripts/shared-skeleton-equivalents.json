@@ -8,7 +8,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "class PrimeCountdown ",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -19,6 +19,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },
@@ -33,7 +37,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "class PrimeCatalogueModal ",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -44,6 +48,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },
@@ -58,7 +66,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "Widget preview(",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -69,6 +77,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },
@@ -83,7 +95,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "class PrimeCodePreview ",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -94,6 +106,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },
@@ -108,7 +124,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "Widget state(",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -119,6 +135,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },
@@ -133,7 +153,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "Widget state(",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -144,6 +164,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },
@@ -158,7 +182,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "path": "packages/primecare_component_factory/lib/component_catalogue/prime_component_catalogue.dart",
       "api": "class PrimeAsyncBoundary<",
       "entry": "packages/primecare_ui/lib/component_catalogue.dart",
       "exports": [
@@ -169,6 +193,10 @@
         {
           "path": "packages/flutter_core/lib/component_catalogue.dart",
           "target": "component_catalogue/prime_component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+          "target": "package:primecare_component_factory/component_catalogue/prime_component_catalogue.dart"
         }
       ]
     },

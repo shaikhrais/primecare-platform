@@ -629,9 +629,9 @@
     },
     {
       "gateway": "packages/primecare_master/web/components.ts",
-      "target": "packages/primecare_component_factory/src/index.ts",
+      "target": "packages/primecare_component_factory_web/src/index.ts",
       "language": "web",
-      "packageName": "primecare_component_factory",
+      "packageName": "primecare_component_factory_web",
       "defaultExport": false
     },
     {

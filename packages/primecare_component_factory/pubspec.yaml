@@ -1,9 +1,14 @@
 name: primecare_component_factory
-description: Scoped canonical PrimeCare component factory facade.
+description: Canonical Flutter component factory and catalogue models.
 version: 1.0.0
 publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
-  flutter_core:
-    path: ../flutter_core
+  flutter:
+    sdk: flutter
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

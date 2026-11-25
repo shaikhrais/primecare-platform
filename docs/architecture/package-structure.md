@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-28 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
+29 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -49,7 +49,8 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_models` | Canonical Dart models | — |
 | `primecare_package_base` | Composition registry, dependency impact and composition status | — |
 | `primecare_assets` | Original asset presentation facade | `flutter_core`, `primecare_ui` |
-| `primecare_component_factory` | Canonical component factory facade | `flutter_core`, `primecare_ui` |
+| `primecare_component_factory` | Canonical Flutter component factory, models and tests | `primecare_ui_foundation` |
+| `primecare_component_factory_web` | Web component factory facade | `primecare_ui` |
 | `primecare_data_controls` | Canonical data controls facade | `flutter_core`, `primecare_ui` |
 | `primecare_navigation` | Canonical workspace navigation facade | `flutter_core`, `primecare_ui` |
 | `primecare_dashboard` | Dashboard presentation facade forwarding canonical widgets and layout contracts | `domain`, `flutter_core`, `primecare_ui` |
@@ -113,3 +114,5 @@ Use `PackageCatalog.impact(changedIds)` for the declared reverse dependency clos
 The browser kitchen-sink now consumes the independent demo and samples packages through its declared lower-level dependencies. External hosts consume demos and samples via the master root, or dashboard presentation via @primecare/master/dashboard. The dashboard facade forwards the original implementation; it does not migrate live business dashboard ownership yet.
 
 The next cross-platform facade group uses existing canonical implementations: primecare_component_factory, primecare_data_controls, primecare_assets, and primecare_navigation. primecare_dashboard now also exposes its Dart implementation. External Dart and TypeScript hosts use the master scoped entries; private gallery imports its lower-level dependencies. This is an incremental facade migration, not deletion of flutter_core or primecare_ui.
+
+The native component factory implementation and its native tests are now owned by primecare_component_factory. The former flutter_core/component_catalogue source paths contain temporary export-only compatibility files. The web facade is separate to keep the dependency graph acyclic across platform implementations. No production publish is part of this transfer.
