@@ -1,9 +1,1 @@
-// Native implementation for Drift database (non-web platforms)
-import 'package:drift/native.dart' as ffi;
-import 'education_database.dart';
-
-Future<EducationDatabase> openNativeImpl() async {
-  // In‑memory SQLite for native platforms.
-  final executor = ffi.NativeDatabase.memory();
-  return EducationDatabase(executor);
-}
+export 'package:primecare_clinical_education/database/education_database_native.dart';

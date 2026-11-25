@@ -41,11 +41,11 @@ class SharedControlExtensionsTest(unittest.TestCase):
             root=Path(directory)
             self.assertFalse(m.verified_parts(root,row))
             part=row['parts'][0];target=root/part['path'];target.parent.mkdir(parents=True)
-            target.write_bytes((ROOT/part['path']).read_bytes())
+            target.write_bytes(m.reviewed_part_path(ROOT,part['path']).read_bytes())
             self.assertTrue(m.verified_parts(root,row))
             target.write_text(target.read_text()+'\n')
             self.assertFalse(m.verified_parts(root,row))
-            target.unlink();target.symlink_to(ROOT/part['path'])
+            target.unlink();target.symlink_to(m.reviewed_part_path(ROOT,part['path']))
             self.assertFalse(m.verified_parts(root,row))
 
     def test_native_compile_references_every_actual_library(self):

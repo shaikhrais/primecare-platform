@@ -5,6 +5,10 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_clinical_education:
+    path: ../primecare_clinical_education
+  primecare_local_database:
+    path: ../primecare_local_database
   primecare_communication_media:
     path: ../primecare_communication_media
   primecare_communication_controllers:

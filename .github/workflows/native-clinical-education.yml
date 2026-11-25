@@ -1,0 +1,38 @@
+name: Verify native clinical education and local database packages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_clinical_education/**'
+      - 'packages/primecare_local_database/**'
+      - '.github/workflows/native-clinical-education.yml'
+permissions: {contents: read}
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Verify exact educational asset identity
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD:packages/primecare_clinical_education/assets/db/precision_education.db)" = "05747ca2fa31fa3df99608319e8e0d763aa7aa45"
+          test "$(git rev-parse HEAD:packages/primecare_clinical_education/assets/db/precision_education.json)" = "6ab266f61c2a51c8d9e2cfefd99a45647d33488a"
+      - run: flutter pub get
+        working-directory: packages/primecare_clinical_education
+      - run: flutter analyze --no-fatal-infos lib test bin
+        working-directory: packages/primecare_clinical_education
+      - run: flutter test --reporter expanded
+        working-directory: packages/primecare_clinical_education
+      - run: dart pub get
+        working-directory: packages/primecare_local_database
+      - run: dart analyze --no-fatal-infos
+        working-directory: packages/primecare_local_database

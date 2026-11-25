@@ -446,6 +446,16 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'database/education_database.dart': ('primecare_clinical_education', '', (), False),
+    'database/education_database_native.dart': ('primecare_clinical_education', '', (), False),
+    'database/education_database_web.dart': ('primecare_clinical_education', '', (), False),
+    'providers/clinical_education_provider.dart': ('primecare_clinical_education', '', (("package:primecare_models/src/models/clinical_article.dart", "../models/clinical_article.dart"), ("../database/education_database.dart", "package:flutter_core/database/education_database.dart"),), False),
+    'widgets/clinical_article_detail_dialog.dart': ('primecare_clinical_education', '', (("package:primecare_models/src/models/clinical_article.dart", "../models/clinical_article.dart"),), False),
+    'widgets/clinical_term_highlighter.dart': ('primecare_clinical_education', '', (), False),
+    'database/native_database.dart': ('primecare_local_database', '', (), False),
+    'database/native_database_impl.dart': ('primecare_local_database', '', (), False),
+    'database/web_database.dart': ('primecare_local_database', '', (), False),
+    'database/database.dart': ('primecare_local_database', '', (), False),
     'communications/communication_browser_media_stub.dart': ('primecare_communication_media', '', (("package:primecare_communication_controllers/communications/communication_media.dart", "communication_media.dart"),), False),
     'communications/communication_browser_media_web.dart': ('primecare_communication_media', '', (("package:primecare_communications_transport/communications/communication_core.dart", "communication_core.dart"), ("package:primecare_communication_controllers/communications/communication_media.dart", "communication_media.dart"),), False),
     'communications/communication_browser_media.dart': ('primecare_communication_media', '', (), False),
@@ -557,6 +567,31 @@ def read_reviewed_source(path, root=ROOT):
         raise AssertionError('Compatibility export drift: ' + path)
     canonical = (root / f'packages/{owner}/lib/{rel}').read_text()
     canonical = _before_relocated_insets(canonical, rel)
+    if rel == 'database/web_database.dart':
+        if hashlib.sha256(canonical.encode()).hexdigest() != '98a2b5b0b74978b67bb43ca7ee5cdd35c4f979ac0c2fcaf8721d6d8f086e9097':
+            raise AssertionError('Reviewed relocated database documentation drift: ' + path)
+        canonical = canonical.replace('package:primecare_local_database/database/database.dart', 'package:flutter_core/database/database.dart', 1)
+        if hashlib.sha256(canonical.encode()).hexdigest() != '1662570cbf6b60592824273147d7228cb3b9e2a81d307a16c7141e69f4c0019e':
+            raise AssertionError('Reviewed relocated database documentation proof failed: ' + path)
+    if rel == 'database/education_database.dart':
+        if hashlib.sha256(canonical.encode()).hexdigest() != '80e4cb302e7c0c4988b411ff7d8c46d73ee4ae400a434fb85e3c71f1f92a5265':
+            raise AssertionError('Reviewed relocated education source drift: ' + path)
+        canonical = canonical.replace("import 'package:drift/drift.dart';\n", "import 'package:drift/drift.dart';\nimport 'package:flutter/foundation.dart' show kIsWeb;\n", 1)
+        if hashlib.sha256(canonical.encode()).hexdigest() != '3ea80b1b1ce3804ccfb3eb93b167e973e0aaf6c8cb71f3eacd4f57d209f0103b':
+            raise AssertionError('Reviewed relocated education source proof failed: ' + path)
+    if rel == 'database/education_database_web.dart':
+        if hashlib.sha256(canonical.encode()).hexdigest() != 'dd57031afc87a950da5393dcf5ef54cece41a27a059298941afa35b683d54916':
+            raise AssertionError('Reviewed relocated education source drift: ' + path)
+        canonical = canonical.replace("// Web implementation stub for Drift database (web platforms)\n", "// Web implementation stub for Drift database (web platforms)\nimport 'package:drift/drift.dart';\n", 1)
+        if hashlib.sha256(canonical.encode()).hexdigest() != 'add8e1abfcfef9ca0930b9735204216553ef30b19bc2f44c5c3a470878b1a481':
+            raise AssertionError('Reviewed relocated education source proof failed: ' + path)
+    if rel == 'providers/clinical_education_provider.dart':
+        if hashlib.sha256(canonical.encode()).hexdigest() != '8387e6902a654a273f29d7b2f352ecfed397017ff9ebd111fa16f19b9f231e62':
+            raise AssertionError('Reviewed relocated education source drift: ' + path)
+        canonical = canonical.replace("    final db = await database;\n", "    final db = await database;\n    final searchTerm = '%$query%';\n", 1)
+        canonical = canonical.replace("packages/primecare_clinical_education/assets/db/precision_education.json", "packages/flutter_core/assets/db/precision_education.json")
+        if hashlib.sha256(canonical.encode()).hexdigest() != '0fdc8f6fc17b6ddb258f7288c772d4a27932985da3ea4026a6cb9eecb3c0d51b':
+            raise AssertionError('Reviewed relocated education source proof failed: ' + path)
     if rel == 'communications/communication_browser_media_web.dart':
         if hashlib.sha256(canonical.encode()).hexdigest() != '8e905278d62a731d3c69cce4d0820e7c51e8109822dd78ffa8868dbccfccfd0f':
             raise AssertionError('Reviewed relocated media asset drift: ' + path)

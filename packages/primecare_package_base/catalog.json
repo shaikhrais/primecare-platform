@@ -92,6 +92,7 @@
         "primecare_api_errors",
         "primecare_application_shortcuts",
         "primecare_assets",
+        "primecare_clinical_education",
         "primecare_communication_controllers",
         "primecare_communication_media",
         "primecare_communication_modules",
@@ -102,6 +103,7 @@
         "primecare_data_controls",
         "primecare_help_reader",
         "primecare_layout",
+        "primecare_local_database",
         "primecare_localization",
         "primecare_logging",
         "primecare_models",
@@ -226,6 +228,24 @@
       "sourceDependencies": [
         "primecare_ui"
       ]
+    },
+    {
+      "id": "primecare_clinical_education",
+      "path": "packages/primecare_clinical_education",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_clinical_education"
+      ],
+      "dependencies": [
+        "primecare_models",
+        "primecare_ui_foundation"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
     },
     {
       "id": "primecare_communication_controllers",
@@ -552,6 +572,21 @@
       "hosting": "library-only"
     },
     {
+      "id": "primecare_local_database",
+      "path": "packages/primecare_local_database",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_local_database"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
       "id": "primecare_localization",
       "path": "packages/primecare_localization",
       "kind": "library",
@@ -607,6 +642,7 @@
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_assets_web",
+        "primecare_clinical_education",
         "primecare_communication_controllers",
         "primecare_communication_media",
         "primecare_communication_modules",
@@ -623,6 +659,7 @@
         "primecare_kitchen_sink_catalog",
         "primecare_kitchen_sink_web",
         "primecare_layout",
+        "primecare_local_database",
         "primecare_localization",
         "primecare_logging",
         "primecare_navigation",

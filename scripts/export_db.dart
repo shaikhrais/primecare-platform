@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:sqlite3/sqlite3.dart';
 
 void main() {
-  final dbPath = 'packages/flutter_core/assets/db/precision_education.db';
+  final dbPath = 'packages/primecare_clinical_education/assets/db/precision_education.db';
   print('Opening $dbPath');
   final db = sqlite3.open(dbPath);
 
@@ -22,8 +22,8 @@ void main() {
   }
 
   final jsonStr = jsonEncode(articles);
-  File('packages/flutter_core/assets/db/precision_education.json')
+  File('packages/primecare_clinical_education/assets/db/precision_education.json')
       .writeAsStringSync(jsonStr);
   print(
-      'Successfully exported to JSON (${File('packages/flutter_core/assets/db/precision_education.json').lengthSync()} bytes)',);
+      'Successfully exported to JSON (${File('packages/primecare_clinical_education/assets/db/precision_education.json').lengthSync()} bytes)',);
 }

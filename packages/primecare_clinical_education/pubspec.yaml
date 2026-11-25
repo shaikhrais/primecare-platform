@@ -1,0 +1,31 @@
+name: primecare_clinical_education
+description: Local educational article reference, database, provider and shared presentation.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  drift: ^2.31.0
+  flutter_riverpod: ^3.3.1
+  riverpod_annotation: any
+  primecare_models:
+    path: ../primecare_models
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  lucide_icons_flutter: ^3.1.14+2
+  flutter_widget_from_html: ^0.17.2
+  url_launcher: ^6.3.2
+  sqlite3: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: any
+  drift_dev: ^2.31.0
+  riverpod_generator: ^4.0.3
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/db/precision_education.db
+    - assets/db/precision_education.json

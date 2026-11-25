@@ -5,6 +5,10 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_clinical_education:
+    path: ../primecare_clinical_education
+  primecare_local_database:
+    path: ../primecare_local_database
   primecare_communication_media:
     path: ../primecare_communication_media
   primecare_communication_controllers:
@@ -121,8 +125,6 @@ flutter:
   assets:
     - assets/translations/
     - assets/data/
-    - assets/db/
-    - assets/db/precision_education.json
 
   fonts:
     - family: PrimeCareGeist

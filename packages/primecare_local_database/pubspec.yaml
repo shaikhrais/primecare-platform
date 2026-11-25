@@ -1,0 +1,8 @@
+name: primecare_local_database
+description: Legacy local-only Drift database adapters, not a production data client.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  drift: ^2.31.0

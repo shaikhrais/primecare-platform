@@ -1,0 +1,1 @@
+export 'package:primecare_clinical_education/primecare_clinical_education.dart';

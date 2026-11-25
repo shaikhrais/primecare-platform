@@ -21,9 +21,16 @@ def migrate(source):
     return source, row['calls']
 
 
+def reviewed_part_path(root, relative):
+    path = root / relative
+    if relative == 'packages/flutter_core/lib/widgets/clinical_term_highlighter.g.dart' and not path.exists() and not path.is_symlink():
+        return root / 'packages/primecare_clinical_education/lib/widgets/clinical_term_highlighter.g.dart'
+    return path
+
+
 def verified_parts(root,row):
     for part in row.get('parts',[]):
-        path=root/part['path']
+        path=reviewed_part_path(root,part['path'])
         if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root):
             return False
         if hashlib.sha256(path.read_bytes()).hexdigest()!=part['sha256']:
