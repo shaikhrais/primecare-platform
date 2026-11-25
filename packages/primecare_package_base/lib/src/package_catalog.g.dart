@@ -45,7 +45,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_action_feedback', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_theme", "primecare_ui_foundation"],
+    dependencies: ["primecare_models", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_api_errors', kind: PackageKind.library,

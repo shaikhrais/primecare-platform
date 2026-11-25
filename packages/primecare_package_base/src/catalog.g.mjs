@@ -200,6 +200,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_action_feedback"
     ],
     "dependencies": [
+      "primecare_models",
       "primecare_theme",
       "primecare_ui_foundation"
     ],

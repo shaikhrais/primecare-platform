@@ -83,7 +83,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_feature_stub` | Explicit unimplemented common feature placeholder state. | — |
 | `primecare_demo_telemetry` | Synthetic system health telemetry for demonstrations; not live metrics. | — |
 | `primecare_responsive_screen` | Responsive screen shell and zoom presentation adapter. | `primecare_layout`, `primecare_preferences` |
-| `primecare_action_feedback` | Existing pending action feedback presentation, not business execution. | `primecare_theme`, `primecare_ui_foundation` |
+| `primecare_action_feedback` | Existing pending action feedback presentation, not business execution. | `primecare_models`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_route_catalog` | Immutable route group constants, separate from route authorization. | — |
 | `primecare_screen_registry_data` | Static screen source and adapter reference data. | — |
 | `primecare_screen_intents` | Governed screen intent and readiness presentation contracts. | `primecare_models` |
