@@ -1,0 +1,17 @@
+name: primecare_localization
+description: Localization context and translation key validation.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  primecare_theme:
+    path: ../primecare_theme
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+  easy_localization: ^3.0.8
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

@@ -98,11 +98,13 @@ export function createPrimeCarePackageCatalog() {
       "primecare_data_controls",
       "primecare_help_reader",
       "primecare_layout",
+      "primecare_localization",
       "primecare_models",
       "primecare_navigation",
       "primecare_page_templates",
       "primecare_preferences",
       "primecare_profile",
+      "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_shell_utilities",
       "primecare_task_port",
@@ -474,6 +476,24 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_localization",
+    "path": "packages/primecare_localization",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_localization"
+    ],
+    "dependencies": [
+      "primecare_theme",
+      "primecare_ui_foundation"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_master",
     "path": "packages/primecare_master",
     "kind": "library",
@@ -508,6 +528,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_kitchen_sink_catalog",
       "primecare_kitchen_sink_web",
       "primecare_layout",
+      "primecare_localization",
       "primecare_navigation",
       "primecare_navigation_web",
       "primecare_package_base",
@@ -515,6 +536,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_pagination",
       "primecare_preferences",
       "primecare_profile",
+      "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_samples",
       "primecare_shell_utilities",
@@ -682,6 +704,24 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "primecare_preferences",
       "primecare_work_contracts"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_recovery_ui",
+    "path": "packages/primecare_recovery_ui",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_recovery_ui"
+    ],
+    "dependencies": [
+      "primecare_theme",
+      "primecare_ui_foundation"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"

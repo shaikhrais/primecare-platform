@@ -446,6 +446,8 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'src/resilience/system_recovery_mode.dart': ('primecare_recovery_ui', '', (("package:primecare_theme/theme/theme_contrast.dart", "package:flutter_core/theme/theme_contrast.dart"),), False),
+    'src/localization/localization_scaffold.dart': ('primecare_localization', '', (("package:primecare_theme/theme/prime_semantic_palette.dart", "package:flutter_core/theme/prime_semantic_palette.dart"),), False),
     'src/resilience/restart_wrapper.dart': ('primecare_resilience', '', (), False),
     'src/resilience/provider_ttl.dart': ('primecare_resilience', '', (), False),
     'src/resilience/resilience_service.dart': ('primecare_resilience', '', (), False),

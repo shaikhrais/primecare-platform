@@ -1,0 +1,32 @@
+name: Verify recovery UI and localization packages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_recovery_ui/**'
+      - 'packages/primecare_localization/**'
+      - 'packages/flutter_core/lib/src/resilience/system_recovery_mode.dart'
+      - 'packages/flutter_core/lib/src/localization/localization_scaffold.dart'
+      - '.github/workflows/recovery-localization-packages.yml'
+permissions: {contents: read}
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+        package: [primecare_recovery_ui, primecare_localization]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: packages/${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos lib test
+      - run: flutter test --reporter expanded

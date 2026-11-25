@@ -1,0 +1,16 @@
+name: primecare_recovery_ui
+description: Recovery presentation and offline retry controls.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  primecare_theme:
+    path: ../primecare_theme
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
