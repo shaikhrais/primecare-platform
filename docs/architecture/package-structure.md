@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-35 packages currently have source under `packages/`. The table describes ownership, not production acceptance.
+35 source directories are recorded under `packages/`, including 32 manifest-bearing packages and three source-only directories. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -66,9 +66,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_ui` | Shared public UI exports and canonical browser implementations | `flutter_core`, `primecare_models`, `primecare_ui_foundation` |
 | `primecare_ui_foundation` | Shared Flutter Material primitives | — |
 | `security` | Security adapters | `database` |
-| `server_core` | Dart service lifecycle and route foundations | `primecare_theme` | Native personal theme, presets and advanced theme model | `primecare_layout`, `primecare_navigation` |
-| `primecare_preferences` | Native preference protocol, cache and transport | `primecare_layout`, `primecare_theme` |
-| `primecare_models` |
+| `server_core` | Dart service lifecycle and route foundations | `primecare_models` |
 | `shared` | Shared browser/server contracts and state protocols | — |
 | `worker-api` | Existing worker source package | — |
 
