@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';import 'dart:async';import 'dart:convert';import 'dart:io';import 'package:flutter/material.dart';import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/shell_utilities.dart';import 'shell_utilities_controller_test.dart' as fixture;
+import 'package:primecare_shell_utilities/primecare_shell_utilities.dart';import 'shell_utilities_controller_test.dart' as fixture;
 final catalog=jsonDecode(File('../primecare_ui/catalogs/shell-utilities.registration.json').readAsStringSync()) as Map<String,dynamic>;
 final labels=ShellUtilityLabels(Map<String,String>.from((catalog['locales'] as Map)['en'] as Map),{for(final r in catalog['controls'] as List)(r as Map)['key'] as String:r['testId'] as String});
 Finder control(String key)=>find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier==labels.ids[key]);

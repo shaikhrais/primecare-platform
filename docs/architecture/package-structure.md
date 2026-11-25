@@ -30,7 +30,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 
 ## Source packages
 
-38 source directories are recorded under `packages/`, including 35 manifest-bearing packages and three source-only directories. The table describes ownership, not production acceptance.
+39 source directories are recorded under `packages/`, including 36 manifest-bearing packages and three source-only directories. The table describes ownership, not production acceptance.
 
 | Package | Responsibility | Declared package dependencies |
 |---|---|---|
@@ -39,13 +39,13 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `database_client` | Dart database adapter | — |
 | `domain` | Business and presentation contracts | `database` |
 | `factory_system` | Existing factory definitions | — |
-| `flutter_core` | Legacy Flutter implementations and compatibility exports | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard_native`, `primecare_data_controls`, `primecare_help_reader`, `primecare_layout`, `primecare_models`, `primecare_navigation`, `primecare_page_templates`, `primecare_ui_foundation`, `primecare_preferences`, `primecare_theme` |
+| `flutter_core` | Legacy Flutter implementations and compatibility exports | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard_native`, `primecare_data_controls`, `primecare_help_reader`, `primecare_layout`, `primecare_models`, `primecare_navigation`, `primecare_page_templates`, `primecare_shell_utilities`, `primecare_ui_foundation`, `primecare_preferences`, `primecare_theme` |
 | `infrastructure` | Infrastructure adapters | `database` |
 | `messaging` | Communication adapters | `database` |
 | `primecare_kitchen_sink` | Flutter showcase using existing factories | `primecare_assets`, `primecare_component_factory`, `primecare_dashboard`, `primecare_data_controls`, `primecare_kitchen_sink_catalog`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_kitchen_sink_catalog` | New generated stories, labels and reference inventory | — |
 | `primecare_kitchen_sink_web` | Browser showcase using existing factories | `domain`, `primecare_assets_web`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls_web`, `primecare_kitchen_sink_catalog`, `primecare_package_base`, `primecare_pagination`, `primecare_samples` |
-| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_help_reader`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_layout`, `primecare_navigation`, `primecare_page_templates`, `primecare_navigation_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared`, `primecare_preferences`, `primecare_theme` |
+| `primecare_master` | Sole public PrimeCare entry and compatibility gateways | `contracts`, `database`, `domain`, `infrastructure`, `messaging`, `primecare_assets`, `primecare_assets_web`, `primecare_component_factory`, `primecare_component_factory_web`, `primecare_dashboard`, `primecare_data_controls`, `primecare_help_reader`, `primecare_data_controls_web`, `primecare_demo`, `primecare_kitchen_sink`, `primecare_kitchen_sink_catalog`, `primecare_kitchen_sink_web`, `primecare_layout`, `primecare_navigation`, `primecare_page_templates`, `primecare_shell_utilities`, `primecare_navigation_web`, `primecare_package_base`, `primecare_pagination`, `primecare_samples`, `primecare_ui`, `security`, `shared`, `primecare_preferences`, `primecare_theme` |
 | `primecare_theme` | Native theme models, presets, semantic colors and ThemeData composition | `primecare_layout`, `primecare_navigation`, `primecare_ui_foundation` |
 | `primecare_preferences` | Native preference protocol, cache and transport | `primecare_layout`, `primecare_theme` |
 | `primecare_models` | Canonical Dart models | — |
@@ -61,6 +61,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_layout` | Native workspace layout models, controller, preferences and file adapter | — |
 | `primecare_dashboard` | Cross-platform dashboard presentation facade | `domain`, `primecare_dashboard_native`, `primecare_ui` |
 | `primecare_dashboard_native` | Canonical native dashboard widgets, chart models and preference sessions | `primecare_component_factory`, `primecare_preferences`, `primecare_ui_foundation` |
+| `primecare_shell_utilities` | Canonical native quick panel, favourites, registered actions and shell utility models | `primecare_preferences`, `primecare_ui_foundation` |
 | `primecare_page_templates` | Canonical native route-layout model and responsive page templates | `primecare_navigation`, `primecare_ui_foundation` |
 | `primecare_help_reader` | Canonical native Help reader client, controller and view | `primecare_component_factory`, `primecare_preferences`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_demo` | Source-owned synthetic demo row and chart fixtures | — |
@@ -139,3 +140,5 @@ The native theme builder, contrast helpers, semantic palette and application the
 The native Help reader is now owned by `primecare_help_reader`, accessed via `package:primecare_master/help_reader.dart`. Its three implementation files and three tests are physically relocated; advanced theme region and color codec are owned by `primecare_theme`. No screen, role or production registration changed.
 
 Page template models and renderer, three standalone tests now belong to `primecare_page_templates`; the 288-case web fixture generator writes directly to that owner; the remaining cross-package workspace test stays with the legacy renderer until it is separately migrated.
+
+Native shell utility model, controller, renderer and two test files are now owned by `primecare_shell_utilities`; the master provides the scoped `shell_utilities.dart` entry. Existing host and API authority remain unchanged.

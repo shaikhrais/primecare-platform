@@ -16,7 +16,8 @@ on:
       - 'packages/primecare_ui/catalogs/shell-utilities.registration.json'
       - 'packages/flutter_core/lib/shell_utilities*'
       - 'packages/flutter_core/lib/shell_utilities/**'
-      - 'packages/flutter_core/test/shell_utilities/**'
+      - 'packages/primecare_shell_utilities/**'
+      - 'packages/primecare_preferences/**'
       - 'packages/primecare_ui/lib/shell_utilities.dart'
       - 'scripts/test-shell-utilities*.mjs'
       - '.github/workflows/shell-utilities.yml'
@@ -57,8 +58,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/shell_utilities lib/shell_utilities.dart test/shell_utilities
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_shell_utilities
+      - run: flutter analyze --no-fatal-infos lib/shell_utilities lib/primecare_shell_utilities.dart test/shell_utilities
+        working-directory: packages/primecare_shell_utilities
       - run: flutter test test/shell_utilities --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_shell_utilities

@@ -411,7 +411,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "path": "packages/primecare_shell_utilities/lib/shell_utilities/prime_shell_utilities.dart",
       "api": "class PrimeShellUtilities ",
       "entry": "packages/primecare_ui/lib/shell_utilities.dart",
       "exports": [
@@ -422,6 +422,10 @@
         {
           "path": "packages/flutter_core/lib/shell_utilities.dart",
           "target": "shell_utilities/prime_shell_utilities.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+          "target": "package:primecare_shell_utilities/shell_utilities/prime_shell_utilities.dart"
         }
       ]
     },
@@ -436,7 +440,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "path": "packages/primecare_shell_utilities/lib/shell_utilities/prime_shell_utilities.dart",
       "api": "class PrimeShellUtilities ",
       "entry": "packages/primecare_ui/lib/shell_utilities.dart",
       "exports": [
@@ -447,6 +451,10 @@
         {
           "path": "packages/flutter_core/lib/shell_utilities.dart",
           "target": "shell_utilities/prime_shell_utilities.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+          "target": "package:primecare_shell_utilities/shell_utilities/prime_shell_utilities.dart"
         }
       ]
     },
@@ -461,7 +469,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "path": "packages/primecare_shell_utilities/lib/shell_utilities/prime_shell_utilities.dart",
       "api": "class ShellFullscreenPort ",
       "entry": "packages/primecare_ui/lib/shell_utilities.dart",
       "exports": [
@@ -472,6 +480,10 @@
         {
           "path": "packages/flutter_core/lib/shell_utilities.dart",
           "target": "shell_utilities/prime_shell_utilities.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+          "target": "package:primecare_shell_utilities/shell_utilities/prime_shell_utilities.dart"
         }
       ]
     },

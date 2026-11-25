@@ -1,5 +1,5 @@
 import 'dart:async';import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/shell_utilities/shell_utilities_controller.dart';import 'package:flutter_core/preference_sync.dart';
+import 'package:primecare_shell_utilities/shell_utilities/shell_utilities_controller.dart';import 'package:primecare_preferences/primecare_preferences.dart';
 class Cache implements PreferenceCache {final values=<String,String>{};@override Future<String?> read(String k)async=>values[k];@override Future<void> write(String k,String v)async{values[k]=v;}@override Future<void> remove(String k)async{values.remove(k);}}
 final scope=PreferenceScope('t','u','psw','live');
 Map<String,Object?> item({bool read=false,String id='record1'})=>{'id':id,'title':'Notice','detail':'Authorized content','read':read,'status':'delivered'};

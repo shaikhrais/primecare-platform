@@ -446,6 +446,9 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'shell_utilities/prime_shell_utilities.dart': ('primecare_shell_utilities', '', (), False),
+    'shell_utilities/shell_utilities_model.dart': ('primecare_shell_utilities', '', (), False),
+    'shell_utilities/shell_utilities_controller.dart': ('primecare_shell_utilities', '', (("package:primecare_preferences/preference_sync/preference_sync_client.dart", "../preference_sync/preference_sync_client.dart"),), False),
     'page/prime_page_template.dart': ('primecare_page_templates', '', (), False),
     'page/page_template_model.dart': ('primecare_page_templates', '', (("package:primecare_navigation/navigation/workspace_navigation_model.dart", "../navigation/workspace_navigation_model.dart"),), False),
     'theme/theme_color_codec.dart': ('primecare_theme', '', (), False),

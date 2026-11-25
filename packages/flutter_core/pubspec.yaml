@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_shell_utilities:
+    path: ../primecare_shell_utilities
   primecare_page_templates:
     path: ../primecare_page_templates
   primecare_help_reader:
