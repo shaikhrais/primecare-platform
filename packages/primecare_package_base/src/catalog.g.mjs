@@ -111,6 +111,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_demo_telemetry",
       "primecare_demo_user_management",
       "primecare_device_identity",
+      "primecare_device_security",
       "primecare_execution_gate",
       "primecare_feature_stub",
       "primecare_form_schema",
@@ -682,6 +683,26 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_device_security",
+    "path": "packages/primecare_device_security",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_device_security"
+    ],
+    "dependencies": [
+      "primecare_auth_storage",
+      "primecare_logging",
+      "primecare_security_models",
+      "primecare_session_watchdog"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_execution_gate",
     "path": "packages/primecare_execution_gate",
     "kind": "library",
@@ -1050,6 +1071,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_demo_telemetry",
       "primecare_demo_user_management",
       "primecare_device_identity",
+      "primecare_device_security",
       "primecare_execution_gate",
       "primecare_feature_stub",
       "primecare_form_schema",

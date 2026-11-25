@@ -1,0 +1,27 @@
+name: Verify named device security package
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/primecare_device_security/**
+      - .github/workflows/verify-device-security.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/primecare_device_security
+      - run: flutter analyze --no-fatal-infos lib test
+        working-directory: packages/primecare_device_security
+      - run: flutter test
+        working-directory: packages/primecare_device_security
