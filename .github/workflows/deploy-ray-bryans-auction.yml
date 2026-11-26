@@ -62,13 +62,15 @@ jobs:
         run: |
           import urllib.request,time
           url='https://ray-bryans-auction.pages.dev'
+          def read(path):
+            return subprocess.check_output(['curl','--fail','--silent','--show-error','--max-time','25',url+path])
           for attempt in range(12):
             try:
-              with urllib.request.urlopen(url,timeout=30) as r: html=r.read().decode()
+              html=read('/').decode()
               assert 'My experience, at a glance.' in html and 'sample-email' in html
               for name in ['Bryans_Auction_Visual_Summary.pdf','Bryans_Auction_Website_Audit_2026-11-26.pdf']:
-                with urllib.request.urlopen(url+'/reports/'+name,timeout=30) as pdf: assert pdf.read(5)==b'%PDF-'
-              with urllib.request.urlopen(url+'/review.html',timeout=30) as review: assert b'const findings=' in review.read()
+                assert read('/reports/'+name)==pathlib.Path('sample/reports',name).read_bytes()
+              assert b'const findings=' in read('/review.html')
               break
             except Exception:
               if attempt==11:raise
