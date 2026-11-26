@@ -1,0 +1,1 @@
+export 'package:primecare_screenshot_inventory/primecare_screenshot_inventory.dart';

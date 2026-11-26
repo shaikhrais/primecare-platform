@@ -144,6 +144,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_screen_intents",
       "primecare_screen_models",
       "primecare_screen_registry_data",
+      "primecare_screenshot_inventory",
       "primecare_security_models",
       "primecare_session_watchdog",
       "primecare_shell_utilities",
@@ -1110,6 +1111,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_screen_intents",
       "primecare_screen_models",
       "primecare_screen_registry_data",
+      "primecare_screenshot_inventory",
       "primecare_security_models",
       "primecare_session_watchdog",
       "primecare_shell_utilities",
@@ -1513,6 +1515,21 @@ export function createPrimeCarePackageCatalog() {
     ],
     "declaredNames": [
       "primecare_screen_registry_data"
+    ],
+    "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_screenshot_inventory",
+    "path": "packages/primecare_screenshot_inventory",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_screenshot_inventory"
     ],
     "dependencies": [],
     "developmentDependencies": [],

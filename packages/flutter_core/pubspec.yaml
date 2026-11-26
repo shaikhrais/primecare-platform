@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_screenshot_inventory:
+    path: ../primecare_screenshot_inventory
   primecare_device_security:
     path: ../primecare_device_security
   primecare_governed_hierarchy:

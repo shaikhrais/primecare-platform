@@ -1,0 +1,24 @@
+name: Verify local screenshot inventory package
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_screenshot_inventory/**'
+      - '.github/workflows/native-screenshot-inventory.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  fixture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: packages/primecare_screenshot_inventory
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: dart-lang/setup-dart@v1
+        with: {sdk: '3.11.3'}
+      - run: dart pub get
+      - run: dart analyze lib test
+      - run: dart test
