@@ -849,9 +849,36 @@ def _before_theme_owner_tokens(canonical, rel):
         raise AssertionError('Reviewed theme token proof failed: ' + rel)
     return canonical
 
-# These receipts retain the original path and content identity. Only the four
-# exact post-rename inputs used by the portal replay suite are recognized here.
+# These receipts retain the original path and content identity. Only exact
+# post-rename inputs used by the portal replay suite are recognized here.
 _RUNTIME_RENAME_RECEIPTS = {
+    'lib/registry/widgets/theme_center_panel.dart': (
+        'ee0f220ae87232a23f54212886a4ae0c032f3448b2199f82bbe256f5fd90404a',
+        'ee0f220ae87232a23f54212886a4ae0c032f3448b2199f82bbe256f5fd90404a', 0),
+    'lib/registry/widgets/theme_settings_drawer.dart': (
+        'e938380ed2526f4c07bdcda85dbc2883577279c802359adc209ac3edc789fa01',
+        'e938380ed2526f4c07bdcda85dbc2883577279c802359adc209ac3edc789fa01', 0),
+    'lib/theme/prime_account_trigger_focus_frame.dart': (
+        '08b30400c8fc0b8fe848d08a1f5255257b8246f0d1e6e1320befd9558fec198e',
+        '08b30400c8fc0b8fe848d08a1f5255257b8246f0d1e6e1320befd9558fec198e', 0),
+    'lib/theme/prime_toolbar_account_frame.dart': (
+        'ab880b0915a1d0754f8069a40a3a3ef3cb14f7c5fc40f8169bd3eedcf7e5e2e8',
+        'ab880b0915a1d0754f8069a40a3a3ef3cb14f7c5fc40f8169bd3eedcf7e5e2e8', 0),
+    'lib/theme/theme_settings_provider.dart': (
+        'd0189abb5e7067183dfad0d31fc80cb62d87b6e813c8c1816e61f618fc2196e0',
+        'e2a948aae7bbe1d847561cf0fa37874065f772c737ddc3c53097d5f201847be5', 0),
+    'lib/workspace/portal_workspace.dart': (
+        '628d224d9bbc65715f4a4bc0b96ebe15d4c803a13abd16093304b9e5296870c9',
+        '628d224d9bbc65715f4a4bc0b96ebe15d4c803a13abd16093304b9e5296870c9', 0),
+    'lib/workspace/prime_workspace_layout.dart': (
+        'f3b1814e40804e26738d009c46f9e488feba9026cb92b73069da6a6097e57a15',
+        'f3b1814e40804e26738d009c46f9e488feba9026cb92b73069da6a6097e57a15', 0),
+    'test/screenshots/account_keyboard_check.dart': (
+        '44a6349ce76eb8e4c82df0c21ae8a73d3996a36523104269ac90b3ce5b431bac',
+        'feec3e97b2d737a2fb99ca73ecb91bc021f3f7af796c9ec22dc406f6873c96ea', 2),
+    'test/screenshots/skeleton_shell_capture_test.dart': (
+        'e630f17fa607c512ddde64aced489eb0cc98a966b738efa500094a75dd50173e',
+        '9daee8f421bf74e3c7eda771bab5f089661e330240556990dfb7677a7e720463', 10),
     'lib/registry/widgets/governance_master_layout.dart': (
         'f2aeed90912f4a48cb4f2481f7bd6b04128df13a39caf0532a62ef4e8d3177fa',
         '5bfc3503608e3e01a8540b6c595cf81b8f4d29d8385d2dd72135f0ebb2cd5d4a', 1),
@@ -893,6 +920,11 @@ def _read_runtime_rename_source(path, root):
         if source.count(anchor) != 1:
             raise AssertionError('Reviewed redundant import removal drift: ' + path)
         source = source.replace(anchor, anchor + "import 'package:primecare_models/src/models/auth_state.dart';\n", 1)
+    if suffix == 'lib/theme/theme_settings_provider.dart':
+        anchor = "export 'package:primecare_theme_preferences/theme/theme_settings_provider.dart';\n"
+        if source.count(anchor) != 1:
+            raise AssertionError('Reviewed redundant theme import removal drift: ' + path)
+        source = source.replace(anchor, anchor + "import 'package:primecare_theme/theme/theme_settings_state.dart';\n", 1)
     if hashlib.sha256(source.encode('utf-8')).hexdigest() != before:
         raise AssertionError('Original runtime source fingerprint mismatch: ' + path)
     return source
