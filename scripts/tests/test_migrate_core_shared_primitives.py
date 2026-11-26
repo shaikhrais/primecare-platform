@@ -54,7 +54,7 @@ class CoreSharedPrimitivesTest(unittest.TestCase):
     def test_all_actual_sources_exact_roundtrip_and_idempotence(self):
         self.assertEqual(sum(x['text'] for x in m.MANIFEST), 401)
         self.assertEqual(sum(x['icons'] for x in m.MANIFEST), 51)
-        fixture = (ROOT/'packages/flutter_core/test/shared_primitives_migration_compile_test.dart').read_text()
+        fixture = (ROOT/'packages/primecare_runtime/test/shared_primitives_migration_compile_test.dart').read_text()
         for row in m.MANIFEST:
             updated = before_later_button_migration(history.read_reviewed_source(row['path']), row['path'])
             original = original_source(updated)

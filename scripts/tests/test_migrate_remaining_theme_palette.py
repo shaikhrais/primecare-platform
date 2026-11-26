@@ -15,7 +15,7 @@ class RemainingThemePaletteTest(unittest.TestCase):
  def test_dynamic_const_scopes_and_native_compile_inventory(self):
   inventory=json.loads((ROOT/'scripts/remaining-theme-compile-inventory.json').read_text());self.assertEqual(len(inventory),43)
   for row in inventory:
-   native=(ROOT/row['fixture']).read_text();self.assertIn(row['path'].split('/lib/')[1],native);self.assertIn(row['name'],native)
+   native=(ROOT/row['fixture'].replace('packages/flutter_core/', 'packages/primecare_runtime/', 1)).read_text();self.assertIn(row['path'].split('/lib/')[1],native);self.assertIn(row['name'],native)
   for row in m.MANIFEST:
    code=t.boundary.executable_code(before_remaining_material_controls(read_reviewed_source(row['path']),row['path']));frames=t.frames(code);self.assertTrue(frames,row['path']);byopen={f[0]:f for f in frames}
    for m0 in t.CONST_CALL.finditer(code):

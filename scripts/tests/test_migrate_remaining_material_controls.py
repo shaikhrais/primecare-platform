@@ -35,7 +35,7 @@ class RemainingMaterialControlsTest(unittest.TestCase):
  def test_native_inventory_includes_all_26_actual_consumer_libraries(self):
   rows=json.loads((ROOT/'scripts/remaining-material-controls-compile-inventory.json').read_text());self.assertEqual(len(rows),26)
   for row in rows:
-   native=(ROOT/row['fixture']).read_text();self.assertIn(row['path'].split('/lib/')[1],native);self.assertIn(row['name'],native)
+   native=(ROOT/row['fixture'].replace('packages/flutter_core/', 'packages/primecare_runtime/', 1)).read_text();self.assertIn(row['path'].split('/lib/')[1],native);self.assertIn(row['name'],native)
  def test_public_adapter_names_do_not_collide_with_shared_ui_declarations(self):
   names={row.get('shared_name','Prime'+row['name']) for row in json.loads((ROOT/'scripts/shared-material-controls-api-3.41.5.json').read_text())}
   for path in (ROOT/'packages/primecare_ui/lib').rglob('*.dart'):
