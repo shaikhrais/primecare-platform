@@ -65,7 +65,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_application_shortcuts', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_component_factory", "primecare_platform_registries", "primecare_portal_state", "primecare_preferences", "primecare_shell_utilities", "primecare_ui_foundation", "primecare_work_contracts"],
+    dependencies: ["primecare_aura", "primecare_component_factory", "primecare_platform_registries", "primecare_portal_state", "primecare_preferences", "primecare_shell_utilities", "primecare_theme", "primecare_ui_foundation", "primecare_work_contracts"],
   ),
   PackageDescriptor(
     id: 'primecare_assets', kind: PackageKind.library,

@@ -22,6 +22,12 @@ dependencies:
     path: ../primecare_platform_registries
   primecare_portal_state:
     path: ../primecare_portal_state
+  primecare_aura:
+    path: ../primecare_aura
+  primecare_theme:
+    path: ../primecare_theme
+  go_router: ^17.1.0
+  flutter_riverpod: ^3.3.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -6,3 +6,4 @@ export 'application_modules/prime_application_shortcuts.dart';
 export 'security/shortcuts/shortcut_model.dart';
 export 'security/shortcuts/shortcut_registry.dart';
 export 'security/shortcuts/shortcut_permission_engine.dart';
+export 'security/shortcuts/quick_access_manager.dart';

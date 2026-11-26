@@ -446,6 +446,7 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'security/shortcuts/quick_access_manager.dart': ('primecare_application_shortcuts', '', (("package:primecare_theme/theme/prime_semantic_palette.dart", "package:flutter_core/theme/prime_semantic_palette.dart"), ("package:primecare_portal_state/models/governance_role.dart", "../../models/governance_role.dart"), ("package:primecare_aura/aura_behavioral_telemetry.dart", "../../aura_behavioral_telemetry.dart"), ("ShortcutPermissionEngineBase.evaluate", "ShortcutPermissionEngine.evaluate"), ("GovernanceRoleBase currentUserRole", "GovernanceRole currentUserRole"), ("GovernanceRoleBase userRole", "GovernanceRole userRole")), False),
     'security/shortcuts/shortcut_registry.dart': ('primecare_application_shortcuts', '', (), False),
     'application_modules/application_workflow_paths.dart': ('primecare_work_contracts', '', (), False),
     'theme/theme_center_settings_file.dart': ('primecare_theme', '', (("theme_settings_state.dart", "theme_settings_provider.dart"),), False),
