@@ -852,6 +852,9 @@ def _before_theme_owner_tokens(canonical, rel):
 # These receipts retain the original path and content identity. Only exact
 # post-rename inputs used by the portal replay suite are recognized here.
 _RUNTIME_RENAME_RECEIPTS = {
+    'lib/advanced_theme/prime_advanced_theme_editor.dart': ('fbb54f68f664b2612066162ac3f679f38b676233520be39a645d344b6bb5e9dc', 'fbb54f68f664b2612066162ac3f679f38b676233520be39a645d344b6bb5e9dc', 0),
+    'lib/advanced_theme/advanced_theme_region.dart': ('79018a3941ddd41ba538640f1de2ee5ba866779d6d1e80a5b522d4591d1356d5', '79018a3941ddd41ba538640f1de2ee5ba866779d6d1e80a5b522d4591d1356d5', 0),
+    'lib/models/presentation_mode.dart': ('0ee5cb1359a75a49c2c6b2912895bc4ff629a062ff22b4b999ede413a44f271d', '0ee5cb1359a75a49c2c6b2912895bc4ff629a062ff22b4b999ede413a44f271d', 0),
     'lib/registry/widgets/theme_center_panel.dart': (
         'ee0f220ae87232a23f54212886a4ae0c032f3448b2199f82bbe256f5fd90404a',
         'ee0f220ae87232a23f54212886a4ae0c032f3448b2199f82bbe256f5fd90404a', 0),

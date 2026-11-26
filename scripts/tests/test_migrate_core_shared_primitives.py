@@ -80,10 +80,10 @@ class CoreSharedPrimitivesTest(unittest.TestCase):
         foundation=(ROOT/'packages/primecare_ui_foundation/pubspec.yaml').read_text()
         dependencies=re.search(r'^dependencies:\n(.*?)(?=^\S)', foundation, re.M|re.S)[1]
         self.assertEqual(re.findall(r'^  (\w+):', dependencies, re.M), ['flutter'])
-        for package in ['primecare_ui','flutter_core']:
+        for package in ['primecare_ui','primecare_runtime']:
             spec=(ROOT/f'packages/{package}/pubspec.yaml').read_text()
             self.assertIn('  primecare_ui_foundation:\n    path: ../primecare_ui_foundation\n', spec)
-        core=(ROOT/'packages/flutter_core/pubspec.yaml').read_text()
+        core=(ROOT/'packages/primecare_runtime/pubspec.yaml').read_text()
         self.assertNotRegex(core, r'(?m)^  primecare_ui:')
         for filename,name in [('prime_text','PrimeText'),('prime_icon','PrimeIcon')]:
             wrapper=(ROOT/f'packages/primecare_ui/lib/src/components/{filename}.dart').read_text()
