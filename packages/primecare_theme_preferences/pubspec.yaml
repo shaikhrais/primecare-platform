@@ -18,6 +18,8 @@ dependencies:
     path: ../primecare_layout
   primecare_ui_foundation:
     path: ../primecare_ui_foundation
+  intl: ^0.20.2
+  lucide_icons_flutter: ^3.1.14+2
 dev_dependencies:
   flutter_test:
     sdk: flutter
