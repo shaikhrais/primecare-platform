@@ -7,8 +7,6 @@ environment:
 dependencies:
   primecare_app_runtime:
     path: ../primecare_app_runtime
-  primecare_screenshot_inventory:
-    path: ../primecare_screenshot_inventory
   primecare_device_security:
     path: ../primecare_device_security
   primecare_governed_hierarchy:

@@ -145,7 +145,6 @@ export function createPrimeCarePackageCatalog() {
       "primecare_screen_intents",
       "primecare_screen_models",
       "primecare_screen_registry_data",
-      "primecare_screenshot_inventory",
       "primecare_security_models",
       "primecare_session_watchdog",
       "primecare_shell_utilities",
