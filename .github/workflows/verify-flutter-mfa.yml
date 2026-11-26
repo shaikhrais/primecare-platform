@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/verify-flutter-mfa.yml
-      - packages/flutter_core/**
+      - packages/primecare_runtime/**
       - packages/primecare_ui/**
       - packages/primecare_models/**
       - packages/shared/src/auth-mfa.json
@@ -26,7 +26,7 @@ jobs:
           python scripts/generate-flutter-mfa-catalog.py
           git diff --exit-code -- packages/primecare_ui/lib/src/features/auth/mfa_catalog.g.dart
       - name: Core MFA session boundary and previous session regressions
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
         run: |
           flutter pub get
           flutter analyze --no-fatal-infos lib/auth_service.dart lib/src/application/controllers/auth_notifier.dart test/auth_mfa_test.dart

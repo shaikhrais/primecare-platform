@@ -1,7 +1,7 @@
 name: Cross-platform responsive layouts
 on:
   pull_request:
-    paths: ['packages/primecare_ui/**', 'packages/flutter_core/**', 'packages/primecare_models/**', 'apps/primecare_governance/test/**', '.github/workflows/platform-layout-tests.yml']
+    paths: ['packages/primecare_ui/**', 'packages/primecare_runtime/**', 'packages/primecare_models/**', 'apps/primecare_governance/test/**', '.github/workflows/platform-layout-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read

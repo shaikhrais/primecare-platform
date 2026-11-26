@@ -13,13 +13,13 @@ on:
       - 'packages/primecare_data_controls_web/**'
       - 'packages/primecare_component_factory/**'
       - 'packages/primecare_assets/**'
-      - 'packages/flutter_core/lib/data_controls*'
-      - 'packages/flutter_core/lib/data_controls/**'
-      - 'packages/flutter_core/test/data_controls/**'
+      - 'packages/primecare_runtime/lib/data_controls*'
+      - 'packages/primecare_runtime/lib/data_controls/**'
+      - 'packages/primecare_runtime/test/data_controls/**'
       - 'packages/primecare_ui/lib/data_controls.dart'
       - 'scripts/*data-controls*.mjs'
       - 'scripts/test-upload-removal.mjs'
-      - 'packages/flutter_core/lib/component_catalogue/**'
+      - 'packages/primecare_runtime/lib/component_catalogue/**'
       - '.github/workflows/data-controls.yml'
   workflow_dispatch:
 permissions: {contents: read}

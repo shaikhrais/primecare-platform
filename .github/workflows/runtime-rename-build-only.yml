@@ -1,4 +1,4 @@
-name: Materialize verified runtime rename source
+name: Materialize verified runtime source files
 on:
   push:
     branches: ['build/primecare-runtime-rename-1126']
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Record exact reviewed tree on isolated branch only
+      - name: Record source changes only, preserve authorized workflows
         shell: bash
         run: |
           set -euo pipefail
@@ -26,11 +26,11 @@ jobs:
           python -m pip install PyYAML==6.0.3
           python "$RUNNER_TEMP/recreate.py"
           test "$(git write-tree)" = cb9ad8d901c58b289b64d1eaddf929f6053eec5d
+          git checkout "$GITHUB_SHA" -- .github/workflows tools/runtime-rename-build/recreate.py
+          git diff --cached --exit-code "$GITHUB_SHA" -- .github/workflows
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit-tree cb9ad8d901c58b289b64d1eaddf929f6053eec5d -p "$GITHUB_SHA" -m "Materialize exact verified PrimeCare runtime rename source" > "$RUNNER_TEMP/commit.txt"
-          candidate="$(cat "$RUNNER_TEMP/commit.txt")"
-          test "$(git rev-parse "$candidate^{tree}")" = cb9ad8d901c58b289b64d1eaddf929f6053eec5d
+          candidate="$(git commit-tree "$(git write-tree)" -p "$GITHUB_SHA" -m "Materialize verified runtime source files")"
           test "$(git ls-remote origin refs/heads/build/primecare-runtime-rename-1126 | cut -f1)" = "$GITHUB_SHA"
           git push origin "$candidate:refs/heads/build/primecare-runtime-rename-1126"
           test "$(git ls-remote origin refs/heads/build/primecare-runtime-rename-1126 | cut -f1)" = "$candidate"

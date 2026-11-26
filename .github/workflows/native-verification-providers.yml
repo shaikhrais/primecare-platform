@@ -4,8 +4,8 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_verification/**'
-      - 'packages/flutter_core/lib/verification_providers.dart'
-      - 'packages/flutter_core/lib/src/application/services/verification_service.dart'
+      - 'packages/primecare_runtime/lib/verification_providers.dart'
+      - 'packages/primecare_runtime/lib/src/application/services/verification_service.dart'
       - '.github/workflows/native-verification-providers.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -24,7 +24,7 @@ jobs:
         run: flutter analyze --no-fatal-infos lib test
       - working-directory: packages/primecare_verification
         run: flutter test --reporter expanded
-      - working-directory: packages/flutter_core
+      - working-directory: packages/primecare_runtime
         run: flutter pub get
-      - working-directory: packages/flutter_core
+      - working-directory: packages/primecare_runtime
         run: flutter analyze --no-fatal-infos lib/verification_providers.dart lib/src/application/services/verification_service.dart

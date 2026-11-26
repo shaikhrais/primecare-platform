@@ -17,7 +17,7 @@ on:
     paths:
       - 'packages/primecare_ui/lib/**'
       - 'packages/primecare_ui/test/admin_reports_test.dart'
-      - 'packages/flutter_core/lib/**'
+      - 'packages/primecare_runtime/lib/**'
       - 'packages/primecare_models/lib/**'
       - 'apps/**'
       - '.github/workflows/build_ios.yml'

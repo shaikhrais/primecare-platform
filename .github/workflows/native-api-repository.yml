@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_api_repository/**'
-      - 'packages/flutter_core/lib/src/infrastructure/repositories/base_api_repository.dart'
+      - 'packages/primecare_runtime/lib/src/infrastructure/repositories/base_api_repository.dart'
       - '.github/workflows/native-api-repository.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -23,7 +23,7 @@ jobs:
         run: dart analyze
       - working-directory: packages/primecare_api_repository
         run: dart test
-      - working-directory: packages/flutter_core
+      - working-directory: packages/primecare_runtime
         run: flutter pub get
-      - working-directory: packages/flutter_core
+      - working-directory: packages/primecare_runtime
         run: flutter analyze --no-fatal-infos lib/src/infrastructure/repositories/base_api_repository.dart

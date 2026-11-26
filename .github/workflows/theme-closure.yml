@@ -10,8 +10,8 @@ on:
     branches: [main]
     paths:
       - cloudflare/workers/src/**
-      - packages/flutter_core/test/**
-      - packages/flutter_core/lib/**
+      - packages/primecare_runtime/test/**
+      - packages/primecare_runtime/lib/**
       - packages/primecare_work_contracts/**
       - packages/primecare_work_modules/**
       - packages/primecare_communications_transport/**
@@ -140,7 +140,7 @@ jobs:
             packages/primecare_layout/test/workspace/fixtures/web.json
             packages/primecare_navigation/test/navigation/fixtures/web.json
             packages/primecare_page_templates/test/page/fixtures/web.json
-            packages/flutter_core/test/advanced_theme/fixtures/*.json
+            packages/primecare_runtime/test/advanced_theme/fixtures/*.json
   native:
     needs: oracles
     strategy:
@@ -157,10 +157,10 @@ jobs:
           name: theme-shared-oracles
           path: packages
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - name: All shared theme factory tests together
         run: flutter test test/workspace test/navigation test/page test/advanced_theme test/work_modules test/communication_modules test/application_modules --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: packages/primecare_dashboard_pages
       - run: flutter test test/dashboard_pages --reporter expanded

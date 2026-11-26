@@ -6,16 +6,16 @@ on:
       - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/shared/src/application-modules/**'
       - 'packages/shared/src/preference-sync/**'
-      - 'packages/flutter_core/lib/preference_sync/**'
+      - 'packages/primecare_runtime/lib/preference_sync/**'
       - 'packages/primecare_preferences/**'
       - 'packages/primecare_theme/**'
       - 'packages/primecare_ui/catalogs/application-recovery.registration.json'
       - 'scripts/test-preference-recovery.mjs'
-      - 'packages/flutter_core/lib/application_modules.dart'
-      - 'packages/flutter_core/lib/application_modules/**'
+      - 'packages/primecare_runtime/lib/application_modules.dart'
+      - 'packages/primecare_runtime/lib/application_modules/**'
       - 'packages/primecare_work_contracts/**'
       - 'packages/primecare_application_shortcuts/**'
-      - 'packages/flutter_core/test/application_modules/**'
+      - 'packages/primecare_runtime/test/application_modules/**'
       - 'packages/primecare_ui/web/application-shortcuts.ts'
       - 'packages/primecare_ui/web/application-modules.ts'
       - 'packages/primecare_ui/catalogs/application-shortcuts.destinations.json'
@@ -75,11 +75,11 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter analyze --no-fatal-infos lib/application_modules.dart lib/application_modules lib/preference_sync test/application_modules
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter test test/application_modules
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: packages/primecare_preferences
       - run: flutter test test/preference_sync --reporter expanded
