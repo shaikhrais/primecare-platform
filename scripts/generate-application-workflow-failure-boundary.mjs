@@ -18,7 +18,9 @@ const output='// Generated from recorded production discovery '+input.runId+'; d
  'const _applicationWorkflowExactPaths = {\n'+literal.map(path=>"  '"+path+"',\n").join('')+'};\n'+
  'final _applicationWorkflowPatterns = <RegExp>[\n'+templates.map(path=>"  RegExp(r'^"+path.split('{id}').map(escape).join('[^/]+')+"$'),\n").join('')+'];\n\n'+
  "bool isApplicationWorkflowPath(String path) {\n  final uri = Uri.tryParse(path);\n  if (uri == null) return false;\n  // Normalize relative/absolute forms without I/O or adding route authority.\n  final route = Uri.parse('https://api.invalid/').resolveUri(uri)\n      .normalizePath().path.replaceFirst(RegExp(r'/+$'), '');\n  return _applicationWorkflowExactPaths.contains(route) ||\n      _applicationWorkflowPatterns.any((pattern) => pattern.hasMatch(route));\n}\n";
-const target=new URL('../packages/flutter_core/lib/application_modules/application_workflow_paths.dart',import.meta.url);
-if(process.argv.includes('--check')){if(await readFile(target,'utf8')!==output)throw Error('Failure-boundary source differs from recorded input');}
-else await writeFile(target,output);
+const target=new URL('../packages/primecare_work_contracts/lib/application_modules/application_workflow_paths.dart',import.meta.url);
+const legacy=new URL('../packages/flutter_core/lib/application_modules/application_workflow_paths.dart',import.meta.url);
+const compatibility="export 'package:primecare_work_contracts/application_modules/application_workflow_paths.dart';\n";
+if(process.argv.includes('--check')){if(await readFile(target,'utf8')!==output || await readFile(legacy,'utf8')!==compatibility)throw Error('Failure-boundary source differs from recorded input');}
+else {await writeFile(target,output);await writeFile(legacy,compatibility);}
 console.log(JSON.stringify({declarations:ids.size,paths:paths.size,noActivation:true}));
