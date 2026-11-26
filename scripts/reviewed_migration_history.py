@@ -936,6 +936,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('PSW relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'src/services/psw_service.dart':
+        shim, edits = ["// Host supplies the original authenticated API transport.\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_psw/src/services/psw_service.dart';\nimport '../network/api_client.dart';\n\nclass PswService extends PswServiceBase {\n  PswService(ApiClient api) : super((path) async => (await api.get(path)).data);\n}\n\nfinal pswServiceProvider = Provider<PswService>((ref) {\n  final api = ref.watch(apiClientProvider);\n  return PswService(api);\n});\n",[["import 'package:flutter_core/flutter_core.dart';","import 'package:primecare_models/src/models/psw_models.dart';\nimport 'package:primecare_models/src/models/result.dart';",1],["class PswService {\n  final ApiClient _api;\n\n  PswService(this._api);","class PswServiceBase {\n  final Future<dynamic> Function(String path) _read;\n\n  PswServiceBase(this._read);",1],["final response = await _api.get(","final data = await _read(",3],["PswDashboardData.fromJson(response.data as Map<String, dynamic>)","PswDashboardData.fromJson(data as Map<String, dynamic>)",1],["return (response.data as List)","return (data as List)",2],["\nfinal pswServiceProvider = Provider<PswService>((ref) {\n  final api = ref.watch(apiClientProvider);\n  return PswService(api);\n});\n","\n// Host composition provides the original authenticated API provider.\n",1]]]
+        if source != shim:
+            raise AssertionError('PSW service composition drift: ' + path)
+        source = (root / 'packages/primecare_psw/lib/src/services/psw_service.dart').read_text()
+        for previous, current, count in reversed(edits):
+            if source.count(current) != count:
+                raise AssertionError('PSW service relocation drift: ' + path)
+            source = source.replace(current, previous)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

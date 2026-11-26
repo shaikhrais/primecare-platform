@@ -16,3 +16,6 @@ dependencies:
     path: ../primecare_network_status
   primecare_resilience:
     path: ../primecare_resilience
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

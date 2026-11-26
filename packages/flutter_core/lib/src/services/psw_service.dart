@@ -1,37 +1,10 @@
-// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Placeholder for other PSW screens
-// Layer: 01_INFRASTRUCTURE
-import 'package:flutter_core/flutter_core.dart';
+// Host supplies the original authenticated API transport.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_psw/src/services/psw_service.dart';
+import '../network/api_client.dart';
 
-class PswService {
-  final ApiClient _api;
-
-  PswService(this._api);
-
-  Future<Result<PswDashboardData>> getDashboardData() async {
-    return Result.guardFuture<PswDashboardData>(() async {
-      final response = await _api.get('/psw/dashboard');
-      return PswDashboardData.fromJson(response.data as Map<String, dynamic>);
-    });
-  }
-
-  // Placeholder for other PSW screens
-  Future<Result<List<PswClient>>> getClients() async {
-    return Result.guardFuture<List<PswClient>>(() async {
-      final response = await _api.get('/psw/clients');
-      return (response.data as List)
-          .map((c) => PswClient.fromJson(c as Map<String, dynamic>))
-          .toList();
-    });
-  }
-
-  Future<Result<List<PswTask>>> getTasks() async {
-    return Result.guardFuture<List<PswTask>>(() async {
-      final response = await _api.get('/psw/tasks');
-      return (response.data as List)
-          .map((t) => PswTask.fromJson(t as Map<String, dynamic>))
-          .toList();
-    });
-  }
+class PswService extends PswServiceBase {
+  PswService(ApiClient api) : super((path) async => (await api.get(path)).data);
 }
 
 final pswServiceProvider = Provider<PswService>((ref) {
