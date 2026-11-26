@@ -60,6 +60,8 @@ class SharedButtonFamiliesTest(unittest.TestCase):
     def test_actual_compile_imports_cover_every_consumer(self):
         for row in m.MANIFEST:
             package=Path(row['path']).parts[:2]
+            if package == ('packages', 'flutter_core'):
+                package = ('packages', 'primecare_runtime')
             directory=ROOT.joinpath(*package,'test')
             imports='\n'.join(p.read_text() for p in directory.glob('*compile_test.dart'))
             self.assertIn(row['path'].split('/lib/')[1],imports,row['path'])
