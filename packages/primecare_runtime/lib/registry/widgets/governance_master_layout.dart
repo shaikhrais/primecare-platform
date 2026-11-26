@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon, PrimeText, PrimeIconButton, PrimeTextField;
 import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:primecare_models/src/models/auth_state.dart';
 import 'package:primecare_portal_shell/governance_master_layout.dart';
 import 'package:primecare_portal_state/models/governance_role.dart';
 import '../platform_role.dart';

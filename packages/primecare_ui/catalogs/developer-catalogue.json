@@ -49,7 +49,7 @@
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "resolvedPath": "packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "5ad331526ac3c76509360a5ef19d8db213ae93e505ca4b1bcea4a3d9b6a019c1",
+          "sha256": "5bfc3503608e3e01a8540b6c595cf81b8f4d29d8385d2dd72135f0ebb2cd5d4a",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -240,7 +240,7 @@
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "resolvedPath": "packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "5ad331526ac3c76509360a5ef19d8db213ae93e505ca4b1bcea4a3d9b6a019c1",
+          "sha256": "5bfc3503608e3e01a8540b6c595cf81b8f4d29d8385d2dd72135f0ebb2cd5d4a",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -304,7 +304,7 @@
           "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
           "resolvedPath": "packages/primecare_runtime/lib/theme/theme_settings_provider.dart",
           "present": true,
-          "sha256": "d0189abb5e7067183dfad0d31fc80cb62d87b6e813c8c1816e61f618fc2196e0",
+          "sha256": "e2a948aae7bbe1d847561cf0fa37874065f772c737ddc3c53097d5f201847be5",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ThemeSettingsNotifier"
@@ -846,7 +846,7 @@
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "resolvedPath": "packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "5ad331526ac3c76509360a5ef19d8db213ae93e505ca4b1bcea4a3d9b6a019c1",
+          "sha256": "5bfc3503608e3e01a8540b6c595cf81b8f4d29d8385d2dd72135f0ebb2cd5d4a",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -1067,7 +1067,7 @@
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "resolvedPath": "packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "5ad331526ac3c76509360a5ef19d8db213ae93e505ca4b1bcea4a3d9b6a019c1",
+          "sha256": "5bfc3503608e3e01a8540b6c595cf81b8f4d29d8385d2dd72135f0ebb2cd5d4a",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
