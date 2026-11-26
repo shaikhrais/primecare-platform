@@ -40,6 +40,10 @@ assert runtime < publish and flutter_steps[publish]['if'] == "steps.runtime.outp
 for job, dependency in [('prepare_portals','contract'),('release_tests','prepare_portals'),('migration','release_tests'),('apis','migration'),('websites','apis'),('smoke','websites')]:
     assert jobs[job]['needs'] == dependency, f'{job} must wait for {dependency}'
 assert jobs['migration']['environment'] == 'production'
+manual_only = "github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.confirm == 'RELEASE_CURRENT_MAIN' && inputs.expected_sha == github.sha"
+assert jobs['migration']['if'] == manual_only + " && needs.release_tests.outputs.allow_legacy_publish == 'true'"
+for name in ('apis', 'websites', 'smoke'):
+    assert jobs[name]['if'] == manual_only, f'{name}: production release requires explicit current-main approval'
 commands = '\n'.join(step.get('run','') for job in jobs.values() for step in job.get('steps',[]))
 assert 'ON_ERROR_STOP=1' in commands
 assert commands.count('-f packages/database/migrations/20261013_screen_text.sql') == 1
