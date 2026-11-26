@@ -986,6 +986,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Verification service relocation drift: ' + path)
             source = source.replace(current, previous)
         return source
+    if rel == 'providers/portal_providers.dart':
+        shim, edits = ["// Host retains its authenticated role binding.\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_screen_models/models/navigation_item.dart';\nimport 'package:primecare_portal_state/portal_providers.dart';\nimport '../auth_service.dart';\nexport 'package:primecare_portal_state/portal_providers.dart' hide buildNavigationMenu, buildPortalConfig;\n\nfinal navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {\n  final authState = ref.watch(authProvider);\n  return buildNavigationMenu(ref, authState.role ?? 'PSW');\n});\n\nfinal portalConfigProvider = Provider<PortalConfig>((ref) {\n  final authState = ref.watch(authProvider);\n  return buildPortalConfig(authState.role ?? 'PSW');\n});\n",[["import 'package:flutter_core/flutter_core.dart';","import 'package:flutter/material.dart';\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_layout/config/screen_breakpoints.dart';\nimport 'package:primecare_layout/config/adaptive_scaling_config.dart';\nimport 'package:primecare_screen_models/models/navigation_item.dart';\nimport 'package:primecare_platform_registries/config/navigation_registry.dart';\nimport 'package:primecare_execution_gate/src/resilience/execution_gate_service.dart';"],["final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {\n  final authState = ref.watch(authProvider);\n  final role = authState.role ?? 'PSW';","List<PrimeCareNavigationItem> buildNavigationMenu(Ref ref, String role) {"],["  return menu;\n});","  return menu;\n}"],["final portalConfigProvider = Provider<PortalConfig>((ref) {\n  final authState = ref.watch(authProvider);\n  final role = authState.role ?? 'PSW';","PortalConfig buildPortalConfig(String role) {"],["    isPlain: true,\n  );\n});","    isPlain: true,\n  );\n}"]]]
+        if source != shim:
+            raise AssertionError('Portal state composition drift: ' + path)
+        source = (root / 'packages/primecare_portal_state/lib/portal_providers.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Portal state relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

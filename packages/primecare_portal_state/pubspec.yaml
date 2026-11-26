@@ -1,0 +1,21 @@
+name: primecare_portal_state
+description: Portal navigation presentation and responsive layout state.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+  primecare_execution_gate:
+    path: ../primecare_execution_gate
+  primecare_layout:
+    path: ../primecare_layout
+  primecare_platform_registries:
+    path: ../primecare_platform_registries
+  primecare_screen_models:
+    path: ../primecare_screen_models
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
