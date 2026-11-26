@@ -47,7 +47,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
+          "sha256": "f2aeed90912f4a48cb4f2481f7bd6b04128df13a39caf0532a62ef4e8d3177fa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -233,7 +233,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
+          "sha256": "f2aeed90912f4a48cb4f2481f7bd6b04128df13a39caf0532a62ef4e8d3177fa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -296,13 +296,10 @@
         {
           "path": "packages/flutter_core/lib/theme/theme_settings_provider.dart",
           "present": true,
-          "sha256": "d70bc2729e1092ae6f55cf653f6ed1de24d6dba233b5595d1566e47c25b3719b",
+          "sha256": "d0189abb5e7067183dfad0d31fc80cb62d87b6e813c8c1816e61f618fc2196e0",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
-            "LayoutStyle",
-            "PersonalThemeSettingsSession",
-            "ThemeSettingsNotifier",
-            "ThemeSettingsState"
+            "ThemeSettingsNotifier"
           ]
         }
       ],
@@ -371,7 +368,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
           "present": true,
-          "sha256": "461e47dbeb28d01a5368d79437bf5bea482e00e78229fe71d3db6f7d3fc5ea0e",
+          "sha256": "e938380ed2526f4c07bdcda85dbc2883577279c802359adc209ac3edc789fa01",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ThemeSettingsDrawer"
@@ -400,11 +397,9 @@
         {
           "path": "packages/flutter_core/lib/security/shortcuts/shortcut_registry.dart",
           "present": true,
-          "sha256": "ea45eebda149de7fcb486c3346b55feffb7cab5f41523d6cf0e656987787fa26",
-          "matchesOriginalProposalHash": true,
-          "declaredSymbols": [
-            "PrimeCareShortcutRegistry"
-          ]
+          "sha256": "26ec2755dc7159b6cb353262b49462e610ef5f7c4a66ef6fbb92891ddd4f68e4",
+          "matchesOriginalProposalHash": false,
+          "declaredSymbols": []
         }
       ],
       "usage": "shell-utilities-usage.md",
@@ -828,7 +823,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
+          "sha256": "f2aeed90912f4a48cb4f2481f7bd6b04128df13a39caf0532a62ef4e8d3177fa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
@@ -1045,7 +1040,7 @@
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
           "present": true,
-          "sha256": "2e9b8c0ef48db7214f5e0180612b0aa5009b45631971ae9163a2403ee54169aa",
+          "sha256": "f2aeed90912f4a48cb4f2481f7bd6b04128df13a39caf0532a62ef4e8d3177fa",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "GovernanceMasterLayout"
