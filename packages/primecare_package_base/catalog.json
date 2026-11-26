@@ -1028,6 +1028,9 @@
         "primecare_localization"
       ],
       "dependencies": [
+        "primecare_models",
+        "primecare_platform_domain",
+        "primecare_preferences",
         "primecare_theme",
         "primecare_ui_foundation"
       ],

@@ -108,7 +108,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_auth_storage` | Canonical platform authentication storage adapters. | — |
 | `primecare_session_watchdog` | Canonical Flutter session lifecycle and biometric watchdog. | `primecare_logging` |
 | `primecare_recovery_ui` | Recovery presentation and offline retry controls | `primecare_theme`, `primecare_ui_foundation`, `primecare_execution_gate`, `primecare_governance_registry`, `primecare_resilience` |
-| `primecare_localization` | Localization context and translation key validation | `primecare_theme`, `primecare_ui_foundation` |
+| `primecare_localization` | Localization context and translation key validation | `primecare_models`, `primecare_platform_domain`, `primecare_preferences`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_logging` | Debug-only structured native logging | — |
 | `primecare_api_errors` | Safe API error presentation mapping | — |
 | `primecare_network_status` | Reactive native device connectivity status | `primecare_execution_gate` |

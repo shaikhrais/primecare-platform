@@ -270,7 +270,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_localization', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_theme", "primecare_ui_foundation"],
+    dependencies: ["primecare_models", "primecare_platform_domain", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_logging', kind: PackageKind.library,
