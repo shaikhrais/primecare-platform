@@ -1,0 +1,23 @@
+name: primecare_app_runtime
+description: Canonical Flutter app bootstrap and locale rebuild runtime.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+  shared_preferences: ^2.5.5
+  easy_localization: ^3.0.8
+  primecare_device_identity:
+    path: ../primecare_device_identity
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_recovery_ui:
+    path: ../primecare_recovery_ui
+  primecare_resilience:
+    path: ../primecare_resilience
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

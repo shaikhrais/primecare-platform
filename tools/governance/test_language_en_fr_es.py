@@ -128,7 +128,7 @@ def main():
     print("Verified: 0 missing translations found across all active locales (en, fr, es).")
 
     # 4. Verify Flutter Configuration
-    runner_path = os.path.join(PROJECT_ROOT, "packages", "flutter_core", "lib", "src", "resilience", "primecare_app_runner.dart")
+    runner_path = os.path.join(PROJECT_ROOT, "packages", "primecare_app_runtime", "lib", "primecare_app_runtime.dart")
     with open(runner_path, "r", encoding="utf-8") as f:
         runner_content = f.read()
     

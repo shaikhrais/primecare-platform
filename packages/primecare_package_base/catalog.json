@@ -91,6 +91,7 @@
       "dependencies": [
         "primecare_action_feedback",
         "primecare_api_errors",
+        "primecare_app_runtime",
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_aura",
@@ -223,6 +224,26 @@
         "primecare_api_errors"
       ],
       "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_app_runtime",
+      "path": "packages/primecare_app_runtime",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_app_runtime"
+      ],
+      "dependencies": [
+        "primecare_device_identity",
+        "primecare_preferences",
+        "primecare_recovery_ui",
+        "primecare_resilience"
+      ],
       "developmentDependencies": [],
       "hosting": "library-only"
     },
@@ -1050,6 +1071,7 @@
         "messaging",
         "primecare_action_feedback",
         "primecare_api_errors",
+        "primecare_app_runtime",
         "primecare_application_shortcuts",
         "primecare_assets",
         "primecare_assets_web",
