@@ -5,6 +5,9 @@ on:
     paths:
       - 'packages/primecare_theme/lib/theme/theme_center_options*'
       - 'packages/primecare_theme/test/theme_center_options_test.dart'
+      - 'packages/primecare_theme/test/theme_center_settings_file_test.dart'
+      - 'packages/primecare_theme/lib/theme/theme_settings_state.dart'
+      - 'packages/primecare_theme/lib/theme/theme_center_settings_file.dart'
       - 'scripts/register-theme-center-options.py'
       - 'scripts/tests/test_theme_option_catalog_check.py'
       - '.github/workflows/native-theme-options-package.yml'
@@ -26,4 +29,4 @@ jobs:
       - working-directory: packages/primecare_theme
         run: flutter pub get
       - working-directory: packages/primecare_theme
-        run: flutter test test/theme_center_options_test.dart --reporter expanded
+        run: flutter test test/theme_center_options_test.dart test/theme_center_settings_file_test.dart --reporter expanded

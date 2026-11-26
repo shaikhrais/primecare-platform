@@ -446,6 +446,7 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'theme/theme_center_settings_file.dart': ('primecare_theme', '', (("theme_settings_state.dart", "theme_settings_provider.dart"),), False),
     'theme/navbar_style_text_generated.dart': ('primecare_theme', '', (), False),
     'theme/theme_center_text_generated.dart': ('primecare_theme', '', (), False),
     'workspace/portal_workspace.dart': ('primecare_theme', '', (), False),
@@ -882,6 +883,17 @@ def read_reviewed_source(path, root=ROOT):
         if hashlib.sha256(source.encode()).hexdigest() != 'fbb7eeffc1d5076f10a0324d2e7e2a5e8cdcd970313985f503c338b4a320131d':
             raise AssertionError('Reviewed screen boundary reconstruction failed: ' + path)
         return source
+    if rel == 'theme/theme_settings_provider.dart':
+        boundary = "import 'package:primecare_theme/theme/theme_settings_state.dart';\nexport 'package:primecare_theme/theme/theme_settings_state.dart';\n"
+        canonical = (root / 'packages/primecare_theme/lib/theme/theme_settings_state.dart').read_text()
+        prefix = "import 'package:flutter/material.dart';\nimport 'personal_theme.dart';\n\n"
+        enum_line = "enum LayoutStyle { verticalLeft, verticalRight, horizontal, collapsed }\n"
+        if source.count(boundary) != 1 or not canonical.startswith(prefix + enum_line + '\n'):
+            raise AssertionError('Theme state relocation drift: ' + path)
+        body = canonical.removeprefix(prefix + enum_line + '\n')
+        if not body.startswith('class ThemeSettingsState {') or source.count('bool hasThemeAccount') != 1 or source.count('class ThemeSettingsNotifier') != 1:
+            raise AssertionError('Theme state split drift: ' + path)
+        return source.replace(boundary, '', 1).replace('bool hasThemeAccount', enum_line + 'bool hasThemeAccount', 1).replace('class ThemeSettingsNotifier', body + 'class ThemeSettingsNotifier', 1)
     if rel not in _REVIEWED_RELOCATIONS:
         return source
     owner, comment, edits, terminal_newline = _REVIEWED_RELOCATIONS[rel]
