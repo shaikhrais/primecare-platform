@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_verification:
+    path: ../primecare_verification
   primecare_reporting:
     path: ../primecare_reporting
   primecare_psw:

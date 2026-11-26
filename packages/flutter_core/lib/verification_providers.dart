@@ -1,23 +1,13 @@
-// Governance - Category: controller | Purpose: Layer: 01_INFRASTRUCTURE
-// Layer: 01_INFRASTRUCTURE
-
+// Host composition retains the original authenticated verification service.
 import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_verification/verification_providers.dart';
 
-final verificationServiceProvider = Provider<VerificationService>((ref) {
-  final apiClient = ref.watch(apiClientProvider);
-  final telemetry = ref.watch<ExecutionGateService>(executionGateProvider);
-  return VerificationService(apiClient, telemetry);
-});
+final verificationServiceProvider =
+  createVerificationServiceProvider<VerificationService, ApiClient>(
+    (ref) => ref.watch(apiClientProvider), VerificationService.new);
 
-final architecturePurposeProvider =
-    FutureProvider<Result<Map<String, dynamic>>>((ref) async {
-      final service = ref.watch(verificationServiceProvider);
-      return await service.getArchitecturePurposeReport();
-    });
+final architecturePurposeProvider = createVerificationReportProvider(
+  verificationServiceProvider, (service) => service.getArchitecturePurposeReport());
 
-final databaseReportProvider = FutureProvider<Result<Map<String, dynamic>>>((
-  ref,
-) async {
-  final service = ref.watch(verificationServiceProvider);
-  return await service.getDatabaseReport();
-});
+final databaseReportProvider = createVerificationReportProvider(
+  verificationServiceProvider, (service) => service.getDatabaseReport());

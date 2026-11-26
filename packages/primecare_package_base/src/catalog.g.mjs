@@ -155,6 +155,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_theme_preferences",
       "primecare_ui_foundation",
       "primecare_url_strategy",
+      "primecare_verification",
       "primecare_work_contracts",
       "primecare_work_modules"
     ],
@@ -1151,6 +1152,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_theme_preferences",
       "primecare_ui",
       "primecare_url_strategy",
+      "primecare_verification",
       "primecare_work_contracts",
       "primecare_work_modules",
       "security",
@@ -1760,6 +1762,24 @@ export function createPrimeCarePackageCatalog() {
       "primecare_url_strategy"
     ],
     "dependencies": [],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_verification",
+    "path": "packages/primecare_verification",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_verification"
+    ],
+    "dependencies": [
+      "primecare_execution_gate",
+      "primecare_models"
+    ],
     "developmentDependencies": [],
     "hosting": "library-only"
   },
