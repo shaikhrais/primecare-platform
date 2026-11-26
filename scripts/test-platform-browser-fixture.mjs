@@ -51,9 +51,9 @@ function peripheral(t,path='/platform/administration',locale='en'){
  const element=()=>({ownerDocument:doc,style:styles(),dataset:{},attrs:new Map(),children:[],isConnected:true,
   getAttribute(k){return this.attrs.get(k)??null;},setAttribute(k,v){this.attrs.set(k,String(v));},removeAttribute(k){this.attrs.delete(k);},
   querySelector(){return null;},querySelectorAll(){return [];},contains(el){return el===this;},scrollTo(){},
-  replaceChildren(...children){this.children=children;},classList:{add(){},remove(){}}});
- doc.documentElement=element();doc.documentElement.lang=locale;doc.body=element();doc.createElement=element;
- const root=element();root.parentElement=doc.body;doc.querySelector=s=>s==='#app'?root:null;doc.getElementById=id=>id==='app'?root:null;
+  replaceChildren(...children){this.children=children;},append(...children){this.children.push(...children);},classList:{add(){},remove(){}}});
+ doc.documentElement=element();doc.documentElement.lang=locale;doc.body=element();doc.head=element();doc.createElement=element;
+ const root=element();root.parentElement=doc.body;doc.querySelector=s=>s==='#app'?root:s==='style[data-pc-space-manager]'?doc.head.children.find(child=>Object.hasOwn(child.dataset,'pcSpaceManager'))??null:null;doc.getElementById=id=>id==='app'?root:null;
  const address=new URL('https://fixture.invalid'+path+'?enable-semantics=true'),assigned=[];
  const location={pathname:address.pathname,href:address.href,origin:address.origin,hash:'',search:address.search,assign:p=>assigned.push(p)};
  let responsive='1';
