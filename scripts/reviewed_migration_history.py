@@ -852,6 +852,22 @@ def _before_theme_owner_tokens(canonical, rel):
 # These receipts retain the original path and content identity. Only exact
 # post-rename inputs used by the portal replay suite are recognized here.
 _RUNTIME_RENAME_RECEIPTS = {
+    'lib/component_catalogue/prime_component_catalogue.dart': ('d7578b65df1cc7ccbadc5358bb86fc01da8cb2149d4470338cc2f2382e476c22', 'd7578b65df1cc7ccbadc5358bb86fc01da8cb2149d4470338cc2f2382e476c22', 0),
+    'lib/dashboard_pages/prime_dashboard_page.dart': ('f1bf548edd6452b8fe6a2a5a6534fe994d50d13796badb1bd04d2a821e3625bf', 'f1bf548edd6452b8fe6a2a5a6534fe994d50d13796badb1bd04d2a821e3625bf', 0),
+    'lib/dashboard_pages/prime_record_page.dart': ('d342936b97039b768a6922c5eb71e8163fdd4daab3f13d1a9cd731a2c1511cac', 'd342936b97039b768a6922c5eb71e8163fdd4daab3f13d1a9cd731a2c1511cac', 0),
+    'lib/dashboard_widgets/prime_dashboard_widgets.dart': ('a0959952cd624d38aaeaedc52bda9164ab94f1af74dd3a881bedb826483edfe2', 'a0959952cd624d38aaeaedc52bda9164ab94f1af74dd3a881bedb826483edfe2', 0),
+    'lib/data_controls/prime_data_controls.dart': ('96435436498aa098bf01dfc9862e8bc273c79c42819f097bdb8f9318e30fa81b', '96435436498aa098bf01dfc9862e8bc273c79c42819f097bdb8f9318e30fa81b', 0),
+    'lib/engine/form_schema_engine.dart': ('d5f4c81b039232c16735183e3ef35b93915651d61ebb01fe954957fd729aeb54', 'd5f4c81b039232c16735183e3ef35b93915651d61ebb01fe954957fd729aeb54', 0),
+    'lib/navigation/prime_workspace_navigation.dart': ('7d42d28dba65ee79c16d3efb5d23537ee2c6046144f3bdfccfe18ec35ba4cc16', '7d42d28dba65ee79c16d3efb5d23537ee2c6046144f3bdfccfe18ec35ba4cc16', 0),
+    'lib/page/prime_page_template.dart': ('918223991fe76400d402af9f35f11192b602049c477629debbee9224a3da4874', '918223991fe76400d402af9f35f11192b602049c477629debbee9224a3da4874', 0),
+    'lib/registry/widgets/responsive_split_dashboard.dart': ('ab9d1b2db8424f0420ecdc6d3feea454a47a7ff36c10611d94ae3696a4140007', 'ab9d1b2db8424f0420ecdc6d3feea454a47a7ff36c10611d94ae3696a4140007', 0),
+    'lib/shell_utilities/prime_shell_utilities.dart': ('e8948699172a726d7b9091e11f1d9d1db46730a640e31706a236e33029bc8ad2', 'e8948699172a726d7b9091e11f1d9d1db46730a640e31706a236e33029bc8ad2', 0),
+    'lib/src/localization/localization_scaffold.dart': ('1b1fb4f396d4d4fbc039af020647c7b21de29502572af741e2a387af83e2da21', '1b1fb4f396d4d4fbc039af020647c7b21de29502572af741e2a387af83e2da21', 0),
+    'lib/src/resilience/app_error_boundary.dart': ('4d629c1762cae6b1d6876ab1c817e35f1731c4efd61195db0ccfb9ed4d8ad8fd', '4d629c1762cae6b1d6876ab1c817e35f1731c4efd61195db0ccfb9ed4d8ad8fd', 0),
+    'lib/widgets/clinical_article_detail_dialog.dart': ('352bd809ce09e9be10ebbe801e1957b88ed04eb871d95eaf30318c8328b5623b', '352bd809ce09e9be10ebbe801e1957b88ed04eb871d95eaf30318c8328b5623b', 0),
+    'lib/widgets/clinical_term_highlighter.dart': ('59cddfc0b98ed48d928d63414a384fa242645393351995149e8dcd1acf2c3fa1', '59cddfc0b98ed48d928d63414a384fa242645393351995149e8dcd1acf2c3fa1', 0),
+    'lib/work_modules/prime_work_module.dart': ('4dfe85e8ecb157fb89f57d6cbd2922502215cb1ba1dcc58b6b0acd13a3499580', '4dfe85e8ecb157fb89f57d6cbd2922502215cb1ba1dcc58b6b0acd13a3499580', 0),
+    'lib/manifest/action_manifest.dart': ('8251085073f1632f043837d639acfc000ccfe4056cbd503b3189edc908f8c9fc', '8251085073f1632f043837d639acfc000ccfe4056cbd503b3189edc908f8c9fc', 0),
     'lib/advanced_theme/prime_advanced_theme_editor.dart': ('fbb54f68f664b2612066162ac3f679f38b676233520be39a645d344b6bb5e9dc', 'fbb54f68f664b2612066162ac3f679f38b676233520be39a645d344b6bb5e9dc', 0),
     'lib/advanced_theme/advanced_theme_region.dart': ('79018a3941ddd41ba538640f1de2ee5ba866779d6d1e80a5b522d4591d1356d5', '79018a3941ddd41ba538640f1de2ee5ba866779d6d1e80a5b522d4591d1356d5', 0),
     'lib/models/presentation_mode.dart': ('0ee5cb1359a75a49c2c6b2912895bc4ff629a062ff22b4b999ede413a44f271d', '0ee5cb1359a75a49c2c6b2912895bc4ff629a062ff22b4b999ede413a44f271d', 0),
