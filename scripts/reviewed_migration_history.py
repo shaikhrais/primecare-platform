@@ -976,6 +976,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Report service relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'src/application/services/verification_service.dart':
+        shim, edits = ["// Host retains the existing authenticated repository and endpoint configuration.\nimport 'package:flutter_core/flutter_core.dart';\nimport 'package:primecare_verification/verification_service.dart';\nimport 'base_business_service.dart';\n\nclass VerificationService extends BaseBusinessService with VerificationServiceImplementation {\n  VerificationService(super.client, super.telemetry);\n  @override\n  String verificationEndpoint(String key) => ApiConfig.endpoints[key]!;\n  @override\n  Future<({int? statusCode, dynamic data})> readVerificationReport(String endpoint) async {\n    final response = await repository.get(endpoint);\n    return (statusCode: response.statusCode, data: response.data);\n  }\n}\n",[["import 'base_business_service.dart';\n// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Hardened Verification Service for PrimeCare Infrastructure audits. Handles architectural pur...\n// Layer: 01_INFRASTRUCTURE\nimport 'package:flutter_core/flutter_core.dart';\n\n/// Hardened Verification Service for PrimeCare Infrastructure audits.\n/// Handles architectural purpose reports and database integrity metrics.\nclass VerificationService extends BaseBusinessService {\n  VerificationService(super.client, super.telemetry);\n\n","// Governance - Category: service | Purpose: infrastructure verification reports.\nimport 'package:primecare_models/src/models/result.dart';\nimport 'package:primecare_execution_gate/src/resilience/execution_gate_service.dart';\nimport 'package:primecare_guarded_service/primecare_guarded_service.dart';\n\nmixin VerificationServiceImplementation on BaseGuardedService {\n  String verificationEndpoint(String key);\n  Future<({int? statusCode, dynamic data})> readVerificationReport(String endpoint);\n\n",1],["ApiConfig.endpoints['verificationPurposeReport']!","verificationEndpoint('verificationPurposeReport')",1],["ApiConfig.endpoints['verificationDatabaseReport']!","verificationEndpoint('verificationDatabaseReport')",1],["await repository.get(endpoint)","await readVerificationReport(endpoint)",2]]]
+        if source != shim:
+            raise AssertionError('Verification service composition drift: ' + path)
+        source = (root / 'packages/primecare_verification/lib/verification_service.dart').read_text()
+        for previous, current, count in reversed(edits):
+            if source.count(current) != count:
+                raise AssertionError('Verification service relocation drift: ' + path)
+            source = source.replace(current, previous)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

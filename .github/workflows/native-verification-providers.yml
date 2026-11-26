@@ -5,6 +5,7 @@ on:
     paths:
       - 'packages/primecare_verification/**'
       - 'packages/flutter_core/lib/verification_providers.dart'
+      - 'packages/flutter_core/lib/src/application/services/verification_service.dart'
       - '.github/workflows/native-verification-providers.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -26,4 +27,4 @@ jobs:
       - working-directory: packages/flutter_core
         run: flutter pub get
       - working-directory: packages/flutter_core
-        run: flutter analyze --no-fatal-infos lib/verification_providers.dart
+        run: flutter analyze --no-fatal-infos lib/verification_providers.dart lib/src/application/services/verification_service.dart

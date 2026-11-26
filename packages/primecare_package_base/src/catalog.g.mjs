@@ -1799,6 +1799,7 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "primecare_execution_gate",
+      "primecare_guarded_service",
       "primecare_models"
     ],
     "developmentDependencies": [],

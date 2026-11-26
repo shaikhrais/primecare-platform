@@ -12,6 +12,8 @@ dependencies:
     path: ../primecare_execution_gate
   primecare_models:
     path: ../primecare_models
+  primecare_guarded_service:
+    path: ../primecare_guarded_service
 dev_dependencies:
   flutter_test:
     sdk: flutter

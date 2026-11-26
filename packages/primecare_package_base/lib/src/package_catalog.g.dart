@@ -455,7 +455,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_verification', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_execution_gate", "primecare_models"],
+    dependencies: ["primecare_execution_gate", "primecare_guarded_service", "primecare_models"],
   ),
   PackageDescriptor(
     id: 'primecare_work_contracts', kind: PackageKind.library,
