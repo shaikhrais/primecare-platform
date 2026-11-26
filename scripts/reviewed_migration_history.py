@@ -1032,6 +1032,16 @@ def read_reviewed_source(path, root=ROOT):
         if source != shim or (root / 'packages/primecare_portal_state/lib/models/governance_role.dart').read_text() != implementation:
             raise AssertionError('Governance role composition drift: ' + path)
         return original
+    if rel == 'security/shortcuts/shortcut_permission_engine.dart':
+        shim, edits = ["// The existing public entry retains the host role type and delegates unchanged rules.\nimport 'shortcut_model.dart';\nimport '../../models/governance_role.dart';\nimport 'package:primecare_application_shortcuts/security/shortcuts/shortcut_permission_engine.dart';\n\nclass ShortcutPermissionEngine {\n  static bool evaluate({\n    required ShortcutRule rule,\n    required GovernanceRole userRole,\n    required String currentOffice,\n  }) => ShortcutPermissionEngineBase.evaluate(rule: rule, userRole: userRole, currentOffice: currentOffice);\n}\n",[["import '../../models/governance_role.dart';","import 'package:primecare_portal_state/models/governance_role.dart';",1],["import '../../registry/platform_screen_registry.dart';","import 'package:primecare_platform_registries/registry/platform_screen_registry.dart';",1],["class ShortcutPermissionEngine {","class ShortcutPermissionEngineBase {",1],["GovernanceRole userRole","GovernanceRoleBase userRole",2]]]
+        if source != shim:
+            raise AssertionError('Shortcut permission composition drift: ' + path)
+        source = (root / 'packages/primecare_application_shortcuts/lib/security/shortcuts/shortcut_permission_engine.dart').read_text()
+        for previous, current, count in reversed(edits):
+            if source.count(current) != count:
+                raise AssertionError('Shortcut permission relocation drift: ' + path)
+            source = source.replace(current, previous)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

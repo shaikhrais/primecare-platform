@@ -281,6 +281,8 @@ export function createPrimeCarePackageCatalog() {
     ],
     "dependencies": [
       "primecare_component_factory",
+      "primecare_platform_registries",
+      "primecare_portal_state",
       "primecare_preferences",
       "primecare_shell_utilities",
       "primecare_ui_foundation",

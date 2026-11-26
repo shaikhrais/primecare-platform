@@ -64,7 +64,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_dashboard_native` | Canonical native dashboard widgets, chart models and preference sessions | `primecare_component_factory`, `primecare_layout`, `primecare_preferences`, `primecare_theme`, `primecare_ui_foundation` |
 | `primecare_dashboard_pages` | Canonical read-only dashboard and supporting page rendering, models and sessions | `primecare_preferences`, `primecare_ui_foundation` |
 | `primecare_work_contracts` | Native work records, commands, ports and session contracts | `primecare_preferences` |
-| `primecare_application_shortcuts` | Native shortcut settings, picker and explicit recovery | `primecare_component_factory`, `primecare_preferences`, `primecare_shell_utilities`, `primecare_ui_foundation`, `primecare_work_contracts` |
+| `primecare_application_shortcuts` | Native shortcut settings, picker and explicit recovery | `primecare_component_factory`, `primecare_platform_registries`, `primecare_portal_state`, `primecare_preferences`, `primecare_shell_utilities`, `primecare_ui_foundation`, `primecare_work_contracts` |
 | `primecare_task_port` | Tenant task work adapter and HTTP transport | `primecare_preferences`, `primecare_work_contracts` |
 | `primecare_profile` | Authenticated self-profile read projection | `primecare_preferences`, `primecare_work_contracts` |
 | `primecare_psw` | PSW dashboard data orchestration and fallback lifecycle. | `primecare_execution_gate`, `primecare_models`, `primecare_network_status`, `primecare_resilience` |
