@@ -137,6 +137,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_preferences",
       "primecare_presentation_preview",
       "primecare_profile",
+      "primecare_psw",
       "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_responsive_screen",
@@ -1129,6 +1130,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_preferences",
       "primecare_presentation_preview",
       "primecare_profile",
+      "primecare_psw",
       "primecare_recovery_ui",
       "primecare_resilience",
       "primecare_responsive_screen",
@@ -1386,6 +1388,26 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "primecare_preferences",
       "primecare_work_contracts"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_psw",
+    "path": "packages/primecare_psw",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_psw"
+    ],
+    "dependencies": [
+      "primecare_execution_gate",
+      "primecare_models",
+      "primecare_network_status",
+      "primecare_resilience"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"

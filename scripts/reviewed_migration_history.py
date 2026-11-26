@@ -926,6 +926,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Dashboard controller relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'src/providers/psw_providers.dart':
+        shim, edits = ["// Existing provider identity and authenticated service binding.\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/src/models/psw_models.dart';\nimport 'package:primecare_models/src/models/result.dart';\nimport 'package:primecare_psw/src/providers/psw_providers.dart';\nimport '../services/psw_service.dart';\n\nfinal pswDashboardProvider = FutureProvider.autoDispose<Result<PswDashboardData>>((ref) =>\n  loadPswDashboard(ref, (ref) => ref.watch(pswServiceProvider).getDashboardData));\n",[["import 'package:flutter_core/flutter_core.dart';","import 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/src/models/psw_models.dart';\nimport 'package:primecare_models/src/models/result.dart';\nimport 'package:primecare_resilience/src/resilience/provider_ttl.dart';\nimport 'package:primecare_resilience/src/resilience/resilience_service.dart';\nimport 'package:primecare_execution_gate/src/resilience/execution_gate_service.dart';\nimport 'package:primecare_network_status/src/resilience/connectivity_service.dart';"],["final pswDashboardProvider = FutureProvider.autoDispose<Result<PswDashboardData>>((\n  ref,\n) async {","Future<Result<PswDashboardData>> loadPswDashboard(\n  Ref ref,\n  Future<Result<PswDashboardData>> Function() Function(Ref) watchLoader,\n) async {"],["final service = ref.watch(pswServiceProvider);","final load = watchLoader(ref);"],["await service.getDashboardData()","await load()"],["});\n\nFuture<Result<PswDashboardData>> _handlePswFallback","}\n\nFuture<Result<PswDashboardData>> _handlePswFallback"]]]
+        if source != shim:
+            raise AssertionError('PSW composition drift: ' + path)
+        source = (root / 'packages/primecare_psw/lib/src/providers/psw_providers.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('PSW relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

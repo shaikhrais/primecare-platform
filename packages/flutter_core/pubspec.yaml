@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_psw:
+    path: ../primecare_psw
   primecare_theme_preferences:
     path: ../primecare_theme_preferences
   primecare_app_runtime:
