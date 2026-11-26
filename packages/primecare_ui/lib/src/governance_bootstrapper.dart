@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/registry/widgets/responsive_screen_wrapper.dart';
+import 'package:primecare_runtime/registry/widgets/responsive_screen_wrapper.dart';
 import 'governance/screen_health_panel.dart';
 
 /// A service that bootstraps the platform governance engine and ensures

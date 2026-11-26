@@ -2,7 +2,7 @@ import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Issue Table platform logic.
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import '../../core/services/platform_env_service.dart';
 import '../services/registry_patch_engine.dart';
 

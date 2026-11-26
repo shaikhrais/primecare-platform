@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_governance/core/governance/screen_registry.dart';
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';
 import 'package:path/path.dart' as p;

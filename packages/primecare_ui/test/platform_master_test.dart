@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/platform/platform_master_repository.dart';
+import 'package:primecare_runtime/platform/platform_master_repository.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_controller.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';

@@ -6,7 +6,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 void main() {
   test('Audit Form Provider Parity', () async {

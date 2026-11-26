@@ -61,7 +61,7 @@ def end_of_call(source, start):
 
 def scan(root):
     rows = []
-    for base in ('apps', 'packages/primecare_ui', 'packages/flutter_core'):
+    for base in ('apps', 'packages/primecare_ui', 'packages/primecare_runtime'):
         for path in (root / base).glob('**/lib/**/*.dart'):
             source = path.read_text(encoding='utf-8')
             for match in START.finditer(source):

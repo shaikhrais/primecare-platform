@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart' show StateNotifierProvider;
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart' show ownNotificationsRepositoryProvider;
+import 'package:primecare_runtime/primecare_runtime.dart' show ownNotificationsRepositoryProvider;
 
 // --- MVC State Model ---
 class PswNotificationsScreenState extends BaseWorkspaceState<PswNotificationsScreenState> {

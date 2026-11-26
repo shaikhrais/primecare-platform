@@ -1,4 +1,4 @@
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 // Domain Registries
 

@@ -3,7 +3,7 @@ import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_profile_screen_controller.dart';
 import 'patient_unavailable_text.dart';

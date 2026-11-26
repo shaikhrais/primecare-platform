@@ -3,13 +3,13 @@ import 'package:primecare_ui/primecare_ui.dart'
     hide
         QualityAssuranceDashboardScreen,
         TrainingCoordinatorDashboardScreen;
-import 'package:flutter_core/theme/theme_config_generated.dart';
+import 'package:primecare_runtime/theme/theme_config_generated.dart';
 import '../../features/support/screens/help_desk_dashboard_screen.dart';
 import '../../features/support/screens/escalation_dashboard_screen.dart';
 import '../../features/support/screens/it_administrator_dashboard_screen.dart';
 import '../../features/support/screens/quality_assurance_dashboard_screen.dart';
 import '../../features/support/screens/training_coordinator_dashboard_screen.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class SupportRoutes {
   static const String helpDeskDashboard = '/offices/support/roles/customer_support/dashboard';

@@ -1,6 +1,6 @@
 // Governance - Category: test | Purpose: 1. Setup paths 2. Initialize engines 3. Perform sweep 4. Output results
 import 'dart:io';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';
 import 'package:primecare_governance/governance/services/registry_hydration_service.dart';
 

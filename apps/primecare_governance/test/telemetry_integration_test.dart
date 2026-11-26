@@ -7,7 +7,7 @@ import 'package:primecare_governance/governance/services/governance_history_serv
 import 'package:primecare_governance/governance/services/history_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'dart:async';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_governance/governance/models/governance_report.dart';
 import 'package:primecare_governance/governance/services/network_parity_service.dart';
 

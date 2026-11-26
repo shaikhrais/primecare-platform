@@ -1,1 +1,1 @@
-export 'package:flutter_core/preference_sync.dart';
+export 'package:primecare_runtime/preference_sync.dart';

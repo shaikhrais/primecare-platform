@@ -1,8 +1,8 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Domain Chart platform logic.
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import '../models/governance_report.dart';
 
 class GovernanceDomainChart extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class GovernanceFilterBar extends StatelessWidget {
   final AuditSeverity? selectedSeverity;

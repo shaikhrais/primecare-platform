@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/controllers.dart';
+import 'package:primecare_runtime/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ApplicantTrackingScreenState

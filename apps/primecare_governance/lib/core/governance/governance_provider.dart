@@ -6,7 +6,7 @@ import 'package:primecare_ui/primecare_ui.dart' as ui;
 import 'governance_api_service.dart';
 import 'ticket_registry.dart';
 import 'screen_registry.dart' as local;
-import 'package:flutter_core/flutter_core.dart' as meta;
+import 'package:primecare_runtime/primecare_runtime.dart' as meta;
 import 'screen_governance_service.dart';
 import '../../governance/models/governance_report.dart';
 import '../../governance/services/screen_governance_reporter.dart';

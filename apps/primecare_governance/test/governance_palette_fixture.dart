@@ -1,5 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_governance/governance/models/governance_report.dart';
 
 class GovernanceSeverityFixture extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart' show ApiClient, apiClientProvider;
+import 'package:primecare_runtime/primecare_runtime.dart' show ApiClient, apiClientProvider;
 import 'package:primecare_models/primecare_models.dart' hide TargetPlatform;
 import 'package:primecare_ui/src/features/reports/admin_report_service.dart';
 import 'package:primecare_ui/src/features/reports/admin_reports_panel.dart';

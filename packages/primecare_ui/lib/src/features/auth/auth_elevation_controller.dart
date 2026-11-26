@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/src/application/controllers/privileged_access_service.dart';
+import 'package:primecare_runtime/src/application/controllers/privileged_access_service.dart';
 
 class ElevationViewState {
   final bool canUse,working,failed,ended;

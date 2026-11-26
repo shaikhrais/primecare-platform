@@ -1,1 +1,1 @@
-export 'package:flutter_core/application_modules.dart';
+export 'package:primecare_runtime/application_modules.dart';

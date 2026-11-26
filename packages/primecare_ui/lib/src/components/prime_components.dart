@@ -2,7 +2,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:primecare_ui/primecare_ui.dart';
 import '../localization/shared_control_text.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 
 /// [Component] - Standardized Card for PrimeCare Platform.
 class PrimeCareCard extends StatelessWidget {

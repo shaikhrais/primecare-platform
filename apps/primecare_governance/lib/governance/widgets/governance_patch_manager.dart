@@ -1,12 +1,12 @@
-import 'package:flutter_core/theme/theme_contrast.dart';
-import 'package:flutter_core/theme/prime_semantic_palette.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Patch Manager platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeSnackBar;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:flutter/services.dart';
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import '../services/governance_patch_service.dart';
 
 class GovernancePatchManager extends StatelessWidget {

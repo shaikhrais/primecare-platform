@@ -1,4 +1,4 @@
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the Centralized Theme & Branding Settings workspace interface.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';

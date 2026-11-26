@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_core/models/screen_manager.dart';
-import 'package:flutter_core/src/network/api_client.dart';
+import 'package:primecare_runtime/models/screen_manager.dart';
+import 'package:primecare_runtime/src/network/api_client.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';

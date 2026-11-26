@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_ui/src/screens/clinical/clinical_director_dashboard_screen.dart';
 import 'auth_design_test.dart' show localized;
 import 'package:primecare_ui/primecare_ui.dart' show GovMetricCard;

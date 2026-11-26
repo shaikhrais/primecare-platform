@@ -252,7 +252,7 @@ import '../features/generated_screens/premium_feature_250.dart';
 import '../features/generated_screens/premium_feature_251.dart';
 
 
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import '../screens/common/shared_screen_stubs.dart';
 import '../screens/psw/psw_messages/psw_messages_screen.dart';
 import '../screens/psw/psw_visit_notes/psw_visit_notes_screen.dart';

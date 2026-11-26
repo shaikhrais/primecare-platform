@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/theme/personal_theme.dart';
-import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
-import 'package:flutter_core/theme/theme_center_theme_data.dart';
+import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:primecare_runtime/theme/theme_center_catalog_generated.dart';
+import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 import 'auth_design_test.dart' show localized;
 import 'package:primecare_ui/src/features/auth/shared_account/consent/sections/consent_consent_content_section.dart' as view0;

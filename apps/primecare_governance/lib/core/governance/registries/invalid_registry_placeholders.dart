@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 /// Exact legacy non-screen records with no title, route, roles or renderer.
 /// Retiring these executable declarations does not verify or delete their data.

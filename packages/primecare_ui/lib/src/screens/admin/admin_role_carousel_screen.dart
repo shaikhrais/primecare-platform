@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/src/localization/live_screen_text.dart';
+import 'package:primecare_runtime/src/localization/live_screen_text.dart';
 
 import '../../localization/admin_role_carousel_catalog.dart';
 import '../../localization/admin_registered_inventory_text.dart';

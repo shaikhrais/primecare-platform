@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_corporate/features/generated_screens/cfo_accounts_payable_screen.dart';
 import 'package:primecare_corporate/features/generated_screens/cfo_accounts_receivable_screen.dart';
 import 'package:primecare_corporate/features/generated_screens/cfo_financial_overview_screen.dart';

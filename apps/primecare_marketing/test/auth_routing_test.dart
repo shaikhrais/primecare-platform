@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/models/screen_manager.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:primecare_runtime/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_marketing/core/routing/app_router.dart';
