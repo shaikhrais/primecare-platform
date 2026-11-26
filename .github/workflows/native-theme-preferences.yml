@@ -1,0 +1,28 @@
+name: Verify named theme preferences and account isolation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_theme_preferences/**'
+      - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
+      - 'packages/flutter_core/lib/theme/theme_library_provider.dart'
+      - '.github/workflows/native-theme-preferences.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - working-directory: packages/primecare_theme_preferences
+        run: flutter pub get
+      - working-directory: packages/primecare_theme_preferences
+        run: flutter analyze --no-fatal-infos lib
+      - working-directory: packages/flutter_core
+        run: flutter pub get
+      - working-directory: packages/flutter_core
+        run: flutter test test/theme_center_test.dart test/theme_center_settings_file_test.dart test/navbar_style_test.dart --reporter expanded

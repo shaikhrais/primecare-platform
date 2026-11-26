@@ -1,0 +1,19 @@
+name: primecare_theme_preferences
+description: Account-scoped Fuse theme preference and library implementation.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.1
+  primecare_models:
+    path: ../primecare_models
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_theme:
+    path: ../primecare_theme
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
