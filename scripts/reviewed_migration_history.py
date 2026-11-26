@@ -849,8 +849,57 @@ def _before_theme_owner_tokens(canonical, rel):
         raise AssertionError('Reviewed theme token proof failed: ' + rel)
     return canonical
 
+# These receipts retain the original path and content identity. Only the four
+# exact post-rename inputs used by the portal replay suite are recognized here.
+_RUNTIME_RENAME_RECEIPTS = {
+    'lib/registry/widgets/governance_master_layout.dart': (
+        'f2aeed90912f4a48cb4f2481f7bd6b04128df13a39caf0532a62ef4e8d3177fa',
+        '5bfc3503608e3e01a8540b6c595cf81b8f4d29d8385d2dd72135f0ebb2cd5d4a', 1),
+    'lib/theme/prime_shell_metrics.dart': (
+        'ed2863f41109df756bd1541b268f7ccc845df8c51e772298a718bde5cc784294',
+        'ed2863f41109df756bd1541b268f7ccc845df8c51e772298a718bde5cc784294', 0),
+    'test/screenshots/sidebar_state_capture_test.dart': (
+        '7146fb33bec7d16d0b64345e82efb5f2da8192e5588f7b060984df0f96328656',
+        '872cde866c586ce470562956ddd84c19cdb10c41803da4e65f0d26ded910a24d', 9),
+    'lib/theme/theme_center_theme_data.dart': (
+        '3f2ab30b74f7ecf788b7af8782224df3be594aeddfa59334c4cb28675c599f37',
+        '3f2ab30b74f7ecf788b7af8782224df3be594aeddfa59334c4cb28675c599f37', 0),
+}
+
+
+def _read_runtime_rename_source(path, root):
+    legacy = root / path
+    prefix = 'packages/flutter_core/'
+    if not path.startswith(prefix) or path[len(prefix):] not in _RUNTIME_RENAME_RECEIPTS:
+        return legacy.read_text()
+    suffix = path[len(prefix):]
+    relocated = root / 'packages/primecare_runtime' / suffix
+    if legacy.is_file():
+        if relocated.exists():
+            raise AssertionError('Ambiguous runtime source relocation: ' + path)
+        return legacy.read_text()
+    before, after, imports = _RUNTIME_RENAME_RECEIPTS[suffix]
+    if relocated.is_symlink() or not relocated.is_file() or not relocated.resolve().is_relative_to(root.resolve()):
+        raise AssertionError('Missing relocated reviewed source: ' + path)
+    raw = relocated.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != after:
+        raise AssertionError('Relocated reviewed source drift: ' + path)
+    source = raw.decode('utf-8')
+    if source.count('package:primecare_runtime/') != imports:
+        raise AssertionError('Runtime import relocation drift: ' + path)
+    source = source.replace('package:primecare_runtime/', 'package:flutter_core/')
+    if suffix == 'lib/registry/widgets/governance_master_layout.dart':
+        anchor = "import 'package:lucide_icons_flutter/lucide_icons.dart';\n"
+        if source.count(anchor) != 1:
+            raise AssertionError('Reviewed redundant import removal drift: ' + path)
+        source = source.replace(anchor, anchor + "import 'package:primecare_models/src/models/auth_state.dart';\n", 1)
+    if hashlib.sha256(source.encode('utf-8')).hexdigest() != before:
+        raise AssertionError('Original runtime source fingerprint mismatch: ' + path)
+    return source
+
+
 def read_reviewed_source(path, root=ROOT):
-    source = (root / path).read_text()
+    source = _read_runtime_rename_source(path, root)
     prefix = 'packages/flutter_core/lib/'
     rel = path[len(prefix):] if path.startswith(prefix) else None
     if rel == 'models/screen.dart':
