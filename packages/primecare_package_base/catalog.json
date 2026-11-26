@@ -91,6 +91,7 @@
       "dependencies": [
         "primecare_action_feedback",
         "primecare_api_errors",
+        "primecare_api_repository",
         "primecare_app_runtime",
         "primecare_application_shortcuts",
         "primecare_assets",
@@ -227,6 +228,21 @@
       ],
       "declaredNames": [
         "primecare_api_errors"
+      ],
+      "dependencies": [],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_api_repository",
+      "path": "packages/primecare_api_repository",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_api_repository"
       ],
       "dependencies": [],
       "developmentDependencies": [],
@@ -1097,6 +1113,7 @@
         "messaging",
         "primecare_action_feedback",
         "primecare_api_errors",
+        "primecare_api_repository",
         "primecare_app_runtime",
         "primecare_application_shortcuts",
         "primecare_assets",

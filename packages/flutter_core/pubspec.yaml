@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_api_repository:
+    path: ../primecare_api_repository
   primecare_portal_state:
     path: ../primecare_portal_state
   primecare_dynamic_pages:
