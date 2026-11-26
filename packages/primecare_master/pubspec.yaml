@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_reporting:
+    path: ../primecare_reporting
   primecare_psw:
     path: ../primecare_psw
   primecare_theme_preferences:

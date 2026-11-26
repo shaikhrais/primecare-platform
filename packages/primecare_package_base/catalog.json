@@ -139,6 +139,7 @@
         "primecare_profile",
         "primecare_psw",
         "primecare_recovery_ui",
+        "primecare_reporting",
         "primecare_resilience",
         "primecare_responsive_screen",
         "primecare_route_catalog",
@@ -1132,6 +1133,7 @@
         "primecare_profile",
         "primecare_psw",
         "primecare_recovery_ui",
+        "primecare_reporting",
         "primecare_resilience",
         "primecare_responsive_screen",
         "primecare_route_catalog",
@@ -1429,6 +1431,25 @@
         "primecare_resilience",
         "primecare_theme",
         "primecare_ui_foundation"
+      ],
+      "developmentDependencies": [],
+      "hosting": "library-only"
+    },
+    {
+      "id": "primecare_reporting",
+      "path": "packages/primecare_reporting",
+      "kind": "library",
+      "contractVersion": 1,
+      "manifests": [
+        "pubspec.yaml"
+      ],
+      "declaredNames": [
+        "primecare_reporting"
+      ],
+      "dependencies": [
+        "primecare_data_logistics",
+        "primecare_execution_gate",
+        "primecare_models"
       ],
       "developmentDependencies": [],
       "hosting": "library-only"

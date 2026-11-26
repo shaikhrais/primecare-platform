@@ -1,0 +1,27 @@
+name: Verify named reporting orchestration
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_reporting/**'
+      - 'packages/flutter_core/lib/report_providers.dart'
+      - '.github/workflows/native-reporting.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - working-directory: packages/primecare_reporting
+        run: flutter pub get
+      - working-directory: packages/primecare_reporting
+        run: flutter analyze --no-fatal-infos lib
+      - working-directory: packages/flutter_core
+        run: flutter pub get
+      - working-directory: packages/flutter_core
+        run: flutter analyze --no-fatal-infos lib/report_providers.dart
