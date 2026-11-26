@@ -1472,6 +1472,7 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "primecare_execution_gate",
       "primecare_governance_registry",
+      "primecare_governed_hierarchy",
       "primecare_resilience",
       "primecare_theme",
       "primecare_ui_foundation"

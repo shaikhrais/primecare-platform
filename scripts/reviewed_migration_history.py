@@ -996,6 +996,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Portal state relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'routes/auth_error_view.dart':
+        shim, edits = ["/*\nPRIME:SCREEN=auth_error\nPRIME:DESIGN=DESIGN_APPROVED\nPRIME:HTML=HTML_RESPONSIVE_DONE\nPRIME:COMP=COMP_REUSABLE\nPRIME:LOGIC=LOGIC_WORKING\nPRIME:API=API_CONNECTED\nPRIME:DB=DB_NONE\nPRIME:VALIDATION=VALIDATION_NONE\nPRIME:QA=QA_NOT_STARTED\nPRIME:FINAL=FINAL_NOT_READY\nPRIME:PROGRESS=100\nPRIME:BLOCKER=\nPRIME:NEXT_ACTION=\n*/\nimport 'package:flutter/material.dart';\nimport 'package:go_router/go_router.dart';\nimport 'package:primecare_recovery_ui/routes/auth_error_view.dart';\nimport 'clinic_login_bridge.dart';\n\nclass AuthErrorView extends AuthErrorViewBase {\n  const AuthErrorView({super.key,super.returnUrl});\n  @override\n  void retrySignIn(BuildContext context) {\n    final safeReturnUrl = validateClinicReturnUrl(returnUrl) ?? '/dashboard';\n    context.go('/login?returnUrl=${Uri.encodeQueryComponent(safeReturnUrl)}');\n  }\n}\n",[["import 'package:flutter_core/theme/prime_semantic_palette.dart';\n/*\nPRIME:SCREEN=auth_error\nPRIME:DESIGN=DESIGN_APPROVED\nPRIME:HTML=HTML_RESPONSIVE_DONE\nPRIME:COMP=COMP_REUSABLE\nPRIME:LOGIC=LOGIC_WORKING\nPRIME:API=API_CONNECTED\nPRIME:DB=DB_NONE\nPRIME:VALIDATION=VALIDATION_NONE\nPRIME:QA=QA_NOT_STARTED\nPRIME:FINAL=FINAL_NOT_READY\nPRIME:PROGRESS=100\nPRIME:BLOCKER=\nPRIME:NEXT_ACTION=\n*/\n","import 'package:primecare_theme/theme/prime_semantic_palette.dart';\n"],["import 'package:go_router/go_router.dart';\nimport 'package:flutter_core/flutter_core.dart';","import 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_governed_hierarchy/src/domain/platform_hierarchy.dart';"],["class AuthErrorView extends GovernedScreen {\n  final String? returnUrl;\n\n  const AuthErrorView({super.key, this.returnUrl});","abstract class AuthErrorViewBase extends GovernedScreen {\n  final String? returnUrl;\n\n  const AuthErrorViewBase({super.key, this.returnUrl});\n  void retrySignIn(BuildContext context);"],["onPressed: () {\n                  final safeReturnUrl = validateClinicReturnUrl(returnUrl) ?? '/dashboard';\n                  context.go('/login?returnUrl=${Uri.encodeQueryComponent(safeReturnUrl)}');\n                },","onPressed: () => retrySignIn(context),"]]]
+        if source != shim:
+            raise AssertionError('Auth error presentation composition drift: ' + path)
+        source = (root / 'packages/primecare_recovery_ui/lib/routes/auth_error_view.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Auth error presentation relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

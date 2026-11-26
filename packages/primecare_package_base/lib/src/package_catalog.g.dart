@@ -360,7 +360,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_recovery_ui', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_execution_gate", "primecare_governance_registry", "primecare_resilience", "primecare_theme", "primecare_ui_foundation"],
+    dependencies: ["primecare_execution_gate", "primecare_governance_registry", "primecare_governed_hierarchy", "primecare_resilience", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_reporting', kind: PackageKind.library,

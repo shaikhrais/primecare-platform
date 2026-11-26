@@ -18,6 +18,8 @@ dependencies:
     path: ../primecare_theme
   primecare_ui_foundation:
     path: ../primecare_ui_foundation
+  primecare_governed_hierarchy:
+    path: ../primecare_governed_hierarchy
 dev_dependencies:
   flutter_test:
     sdk: flutter
