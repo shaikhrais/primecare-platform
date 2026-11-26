@@ -1017,6 +1017,16 @@ def read_reviewed_source(path, root=ROOT):
         if source != shim or (root / 'packages/primecare_api_repository/lib/base_api_repository.dart').read_text() != implementation:
             raise AssertionError('API repository composition drift: ' + path)
         return original
+    if rel == 'src/localization/live_screen_text.dart':
+        shim, edits = ["// Host retains the existing configured public text service URL.\nimport 'package:http/http.dart' as http;\nimport 'package:primecare_localization/src/localization/live_screen_text.dart';\nimport '../network/api_client.dart' show ApiConfig;\nexport 'package:primecare_localization/src/localization/live_screen_text.dart' show liveScreenText;\n\nclass LiveScreenTextStore extends LiveScreenTextStoreBase {\n  LiveScreenTextStore({http.Client? client, String? baseUrl})\n      : super(client: client, baseUrl: baseUrl ?? ApiConfig.baseUrl);\n}\n\nclass LiveScreenTextScope extends LiveScreenTextScopeBase<LiveScreenTextStore> {\n  const LiveScreenTextScope({super.key,required super.child,super.store});\n  @override LiveScreenTextStore createStore() => LiveScreenTextStore();\n}\n",[["class LiveScreenTextStore extends ChangeNotifier","class LiveScreenTextStoreBase extends ChangeNotifier"],["LiveScreenTextStore({http.Client? client, String? baseUrl})\n      : client = client ?? http.Client(), baseUrl = baseUrl ?? ApiConfig.baseUrl;","LiveScreenTextStoreBase({http.Client? client, required this.baseUrl})\n      : client = client ?? http.Client();"],["class LiveScreenTextScope extends StatefulWidget {\n  final Widget child;\n  final LiveScreenTextStore? store;\n  const LiveScreenTextScope({super.key, required this.child, this.store});\n  @override State<LiveScreenTextScope> createState() => _LiveScreenTextScopeState();\n}\nclass _LiveScreenTextScopeState extends State<LiveScreenTextScope> {\n  late final LiveScreenTextStore store = widget.store ?? LiveScreenTextStore();","abstract class LiveScreenTextScopeBase<S extends LiveScreenTextStoreBase> extends StatefulWidget {\n  final Widget child;\n  final S? store;\n  const LiveScreenTextScopeBase({super.key, required this.child, this.store});\n  S createStore();\n  @override State<LiveScreenTextScopeBase<S>> createState() => _LiveScreenTextScopeState<S>();\n}\nclass _LiveScreenTextScopeState<S extends LiveScreenTextStoreBase> extends State<LiveScreenTextScopeBase<S>> {\n  late final S store = widget.store ?? widget.createStore();"],["InheritedNotifier<LiveScreenTextStore>","InheritedNotifier<LiveScreenTextStoreBase>"]]]
+        if source != shim:
+            raise AssertionError('Live text composition drift: ' + path)
+        source = (root / 'packages/primecare_localization/lib/src/localization/live_screen_text.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Live text relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source.replace("import 'package:shared_preferences/shared_preferences.dart';\n", "import 'package:shared_preferences/shared_preferences.dart';\nimport '../network/api_client.dart' show ApiConfig;\n\n", 1)
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

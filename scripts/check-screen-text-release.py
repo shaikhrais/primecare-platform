@@ -9,6 +9,7 @@ assert workflow['permissions'] == {'contents': 'read', 'actions': 'read'}
 assert workflow['on']['push']['branches'] == ['main']
 assert '.github/workflows/release-screen-text.yml' not in workflow['on']['push']['paths'], 'Installing the release workflow must not deploy an older feature'
 assert 'packages/flutter_core/lib/src/localization/live_screen_text.dart' in workflow['on']['push']['paths']
+assert 'packages/primecare_localization/lib/src/localization/live_screen_text.dart' in workflow['on']['push']['paths']
 assert 'websites/typescript/src/**' in workflow['on']['push']['paths'], 'Every portal source change must use the ordered release'
 jobs = workflow['jobs']
 assert jobs['release_tests']['if'] == "(github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'"
