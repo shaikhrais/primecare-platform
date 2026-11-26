@@ -915,6 +915,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Theme Center relocation drift: ' + path)
             source = source.replace(current, previous)
         return source
+    if rel == 'src/controllers/base_dashboard_controller.dart':
+        shim, edits = ["// Host supplies the original authenticated API client.\nimport 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_controller_base/src/controllers/base_dashboard_controller.dart';\nimport '../network/api_client.dart';\nexport 'package:primecare_controller_base/src/controllers/base_dashboard_controller.dart' show DashboardState, DashboardLoadResult, DashboardLoader;\n\nabstract class BaseDashboardController<S extends DashboardState<S>>\n    extends BaseDashboardControllerBase<S> {\n  BaseDashboardController(\n    Ref ref, {\n    required S initialState,\n    required String endpoint,\n    DashboardLoader? loader,\n  }) : super(ref, initialState: initialState, endpoint: endpoint,\n           loader: loader ?? (() async {\n             final response = await ref.read(apiClientProvider).get(endpoint);\n             return DashboardLoadResult(\n               isSuccess: response.isSuccess,\n               data: response.data,\n               error: response.error,\n             );\n           }));\n}\n",[["import 'package:flutter_riverpod/legacy.dart';\nimport '../network/api_client.dart';\n","import 'package:flutter_riverpod/legacy.dart';\n"],["abstract class BaseDashboardController<","abstract class BaseDashboardControllerBase<"],["  BaseDashboardController(\n    this.ref, {\n    required S initialState,\n    required this.endpoint,\n    DashboardLoader? loader,\n  }) : _loader =\n           loader ??\n           (() async {\n             final response = await ref.read(apiClientProvider).get(endpoint);\n             return DashboardLoadResult(\n               isSuccess: response.isSuccess,\n               data: response.data,\n               error: response.error,\n             );\n           }),\n       super(initialState) {\n    unawaited(loadDashboardData());\n  }\n\n","  BaseDashboardControllerBase(\n    this.ref, {\n    required S initialState,\n    required this.endpoint,\n    required DashboardLoader loader,\n  }) : _loader = loader,\n       super(initialState) {\n    unawaited(loadDashboardData());\n  }\n\n"]]]
+        if source != shim:
+            raise AssertionError('Dashboard controller composition drift: ' + path)
+        source = (root / 'packages/primecare_controller_base/lib/src/controllers/base_dashboard_controller.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Dashboard controller relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

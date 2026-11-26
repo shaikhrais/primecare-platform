@@ -1,0 +1,28 @@
+name: Verify named dashboard controller lifecycle
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_controller_base/**'
+      - 'packages/flutter_core/lib/src/controllers/base_dashboard_controller.dart'
+      - 'packages/flutter_core/test/base_controllers_test.dart'
+      - '.github/workflows/native-dashboard-controller.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - working-directory: packages/primecare_controller_base
+        run: flutter pub get
+      - working-directory: packages/primecare_controller_base
+        run: flutter analyze --no-fatal-infos lib
+      - working-directory: packages/flutter_core
+        run: flutter pub get
+      - working-directory: packages/flutter_core
+        run: flutter test test/base_controllers_test.dart --reporter expanded
