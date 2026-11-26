@@ -956,6 +956,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Report provider relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'dynamic_page_providers.dart':
+        shim, edits = ["// Host retains the existing authenticated API client and endpoint configuration.\nimport 'package:flutter_core/flutter_core.dart';\nimport 'package:primecare_dynamic_pages/dynamic_page_providers.dart';\n\nfinal dynamicPageProvider =\n  FutureProvider.family<Result<List<dynamic>>, String>((ref, endpointKey) {\n    final apiClient = ref.watch(apiClientProvider);\n    return loadDynamicPage(ref, endpointKey,\n      (key) => ApiConfig.endpoints[key],\n      (path) async => (await apiClient.get(path)).data);\n  });\n",[["import 'package:flutter_core/flutter_core.dart';","import 'package:flutter_riverpod/flutter_riverpod.dart';\nimport 'package:primecare_models/src/models/result.dart';\nimport 'package:primecare_execution_gate/src/resilience/execution_gate_service.dart';"],["final dynamicPageProvider =\n    FutureProvider.family<Result<List<dynamic>>, String>((\n      ref,\n      endpointKey,\n    ) async {\n      final apiClient = ref.watch(apiClientProvider);","Future<Result<List<dynamic>>> loadDynamicPage(\n      Ref ref,\n      String endpointKey,\n      String? Function(String endpointKey) resolveEndpoint,\n      Future<dynamic> Function(String path) read,\n    ) async {"],["ApiConfig.endpoints[endpointKey]","resolveEndpoint(endpointKey)"],["final response = await apiClient.get(path);\n          final json = response.data;","final json = await read(path);"],["      );\n    });\n","      );\n    }\n"]]]
+        if source != shim:
+            raise AssertionError('Dynamic page composition drift: ' + path)
+        source = (root / 'packages/primecare_dynamic_pages/lib/dynamic_page_providers.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Dynamic page relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

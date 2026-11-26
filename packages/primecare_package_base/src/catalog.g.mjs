@@ -113,6 +113,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_demo_user_management",
       "primecare_device_identity",
       "primecare_device_security",
+      "primecare_dynamic_pages",
       "primecare_execution_gate",
       "primecare_feature_stub",
       "primecare_form_schema",
@@ -728,6 +729,24 @@ export function createPrimeCarePackageCatalog() {
     "hosting": "library-only"
   },
   {
+    "id": "primecare_dynamic_pages",
+    "path": "packages/primecare_dynamic_pages",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_dynamic_pages"
+    ],
+    "dependencies": [
+      "primecare_execution_gate",
+      "primecare_models"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
     "id": "primecare_execution_gate",
     "path": "packages/primecare_execution_gate",
     "kind": "library",
@@ -1103,6 +1122,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_demo_user_management",
       "primecare_device_identity",
       "primecare_device_security",
+      "primecare_dynamic_pages",
       "primecare_execution_gate",
       "primecare_feature_stub",
       "primecare_form_schema",
