@@ -1,0 +1,48 @@
+name: PrimeCare runtime rename build only
+on:
+  push:
+    branches: ['build/primecare-runtime-rename-1126']
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [primecare_business_development, primecare_client, primecare_clinic, primecare_corporate, primecare_enterprise_blueprint, primecare_franchise, primecare_governance, primecare_marketing, primecare_support]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: build-tools
+      - uses: actions/checkout@v4
+        with:
+          ref: a3052ff0350f6ef75a6b338dc66e320e34fc83c9
+          persist-credentials: false
+          path: candidate
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct exact saved rename source tree
+        working-directory: candidate
+        run: |
+          python -m pip install PyYAML==6.0.3
+          python ../build-tools/tools/runtime-rename-build/recreate.py
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Compile web application
+        working-directory: candidate/apps/${{ matrix.app }}
+        run: |
+          flutter pub get
+          flutter build web --no-pub --release --no-tree-shake-icons
+          test -s build/web/main.dart.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-rename-${{ matrix.app }}
+          path: candidate/apps/${{ matrix.app }}/build/web
+          retention-days: 7
