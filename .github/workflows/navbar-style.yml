@@ -12,7 +12,17 @@ on:
       - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
       - 'packages/flutter_core/lib/workspace/prime_workspace_layout.dart'
       - 'packages/flutter_core/lib/workspace/navbar_scroll_header.dart'
+      - 'packages/primecare_layout/lib/workspace/navbar_scroll_header.dart'
+      - 'packages/primecare_layout/lib/workspace/prime_workspace_layout.dart'
+      - 'packages/primecare_layout/test/workspace_widget_test.dart'
       - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
+  workflow_dispatch:
+    inputs:
+      register_production:
+        description: 'Explicitly register tested navbar metadata in production'
+        type: boolean
+        required: true
+        default: false
 permissions: {contents: read}
 concurrency:
   group: native-navbar-style-registration
@@ -60,7 +70,13 @@ jobs:
             echo "Registration phase only: no native implementation claim."
             echo "implemented=false" >> "$GITHUB_OUTPUT"
           fi
+      - name: Verify named layout package with the original workspace fixture
+        working-directory: packages/primecare_layout
+        run: |
+          flutter pub get
+          flutter test test/workspace_widget_test.dart --reporter expanded
   production:
+    if: github.event_name == 'workflow_dispatch' && inputs.register_production == true
     needs: [rehearsal, native]
     runs-on: ubuntu-24.04
     environment: production

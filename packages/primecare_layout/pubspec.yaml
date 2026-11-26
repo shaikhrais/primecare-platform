@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
   flutter:
     sdk: flutter
   shared_preferences: ^2.5.5

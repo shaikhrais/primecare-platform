@@ -11,6 +11,7 @@ on:
       - 'packages/primecare_navigation/**'
       - 'packages/flutter_core/lib/page_template.dart'
       - 'packages/flutter_core/lib/workspace/prime_workspace_layout.dart'
+      - 'packages/primecare_layout/lib/workspace/prime_workspace_layout.dart'
       - 'packages/primecare_ui/lib/page_template.dart'
       - 'packages/flutter_core/test/page/**'
       - 'scripts/*page-template*.mjs'

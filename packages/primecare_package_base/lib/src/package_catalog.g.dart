@@ -250,7 +250,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_layout', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: [],
+    dependencies: ["primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_local_cache', kind: PackageKind.library,

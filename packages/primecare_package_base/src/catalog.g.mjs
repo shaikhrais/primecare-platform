@@ -958,7 +958,9 @@ export function createPrimeCarePackageCatalog() {
     "declaredNames": [
       "primecare_layout"
     ],
-    "dependencies": [],
+    "dependencies": [
+      "primecare_ui_foundation"
+    ],
     "developmentDependencies": [],
     "hosting": "library-only"
   },

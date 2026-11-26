@@ -5,3 +5,5 @@ export 'workspace/workspace_files.dart';
 export 'config/screen_breakpoints.dart';
 export 'config/adaptive_scaling_config.dart';
 export 'registry/widgets/responsive_grid.dart';
+export 'workspace/navbar_scroll_header.dart';
+export 'workspace/prime_workspace_layout.dart';
