@@ -152,6 +152,7 @@ jobs:
           path: apps/primecare_clinic/build/web
           retention-days: 30
   release:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: [foundation, flutter]
     runs-on: ubuntu-latest
     environment: production

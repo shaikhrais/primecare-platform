@@ -1,0 +1,94 @@
+name: Verify committed PrimeCare runtime rename
+on:
+  push:
+    branches: [main, 'build/primecare-runtime-rename-1126']
+    paths: ['.github/workflows/runtime-rename-main-verification.yml', 'packages/primecare_runtime/**', 'packages/primecare_ui/**', 'apps/**']
+permissions:
+  contents: read
+jobs:
+  catalog-and-boundary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact checked-out source and catalog
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python -m pip install PyYAML==6.0.3
+          python tools/package_master/catalog.py --check
+          python -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - path: packages/primecare_runtime
+            tests: test/base_controllers_test.dart test/business_core_test.dart test/runtime_contract_imports_test.dart test/screen_features_test.dart test/screen_manager_test.dart test/theme_center_test.dart test/theme_color_codec_test.dart test/shared_primitives_migration_compile_test.dart
+          - path: packages/primecare_ui
+            tests: test/theme_consumers_test.dart test/shared_primitive_identity_test.dart test/base_primecare_app_test.dart test/prime_content_grid_test.dart test/prime_page_scaffold_test.dart
+          - path: apps/primecare_business_development
+            tests: test/widget_test.dart
+          - path: apps/primecare_client
+            tests: test/widget_test.dart
+          - path: apps/primecare_clinic
+            tests: test/shared_app_bar_compile_test.dart
+          - path: apps/primecare_corporate
+            tests: test/managed_workspace_navigation_test.dart test/shared_text_migration_compile_test.dart
+          - path: apps/primecare_enterprise_blueprint
+            tests: test/widget_test.dart
+          - path: apps/primecare_franchise
+            tests: test/widget_test.dart
+          - path: apps/primecare_governance
+            tests: test/platform_discovery_viewer_test.dart test/screen_registry_parity_test.dart
+          - path: apps/primecare_marketing
+            tests: test/widget_test.dart
+          - path: apps/primecare_support
+            tests: test/widget_test.dart
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Run selected package and widget regressions
+        working-directory: ${{ matrix.path }}
+        run: |
+          flutter pub get
+          flutter test --no-pub ${{ matrix.tests }}
+  compile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [primecare_business_development, primecare_client, primecare_clinic, primecare_corporate, primecare_enterprise_blueprint, primecare_franchise, primecare_governance, primecare_marketing, primecare_support]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Compile web application
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          flutter pub get
+          flutter build web --no-pub --release --no-tree-shake-icons
+          test -s build/web/main.dart.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-rename-${{ matrix.app }}
+          path: apps/${{ matrix.app }}/build/web
+          retention-days: 7

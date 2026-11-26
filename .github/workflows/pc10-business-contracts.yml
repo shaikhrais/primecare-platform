@@ -12,6 +12,7 @@ on:
       - 'tools/auth-verification/native-application-live.dart'
       - 'tools/auth-verification/test-live-pc10-native.py'
       - '.github/workflows/pc10-business-contracts.yml'
+  workflow_dispatch:
 permissions: {contents: read}
 concurrency:
   group: primecare-pc10-native-host-registration
@@ -39,6 +40,7 @@ jobs:
           cd packages/primecare_ui
           flutter analyze --no-fatal-infos test/owned_native_live_test.dart
   register-and-read:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-24.04
     environment: production
