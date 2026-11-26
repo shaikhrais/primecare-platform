@@ -68,7 +68,7 @@ The new Dart master manifest is a Flutter developer profile. This does not compl
 | `primecare_task_port` | Tenant task work adapter and HTTP transport | `primecare_preferences`, `primecare_work_contracts` |
 | `primecare_profile` | Authenticated self-profile read projection | `primecare_preferences`, `primecare_work_contracts` |
 | `primecare_psw` | PSW dashboard data orchestration and fallback lifecycle. | `primecare_execution_gate`, `primecare_models`, `primecare_network_status`, `primecare_resilience` |
-| `primecare_reporting` | Report data orchestration and financial forecast presentation. | `primecare_data_logistics`, `primecare_execution_gate`, `primecare_models` |
+| `primecare_reporting` | Report data orchestration and financial forecast presentation. | `primecare_data_logistics`, `primecare_execution_gate`, `primecare_guarded_service`, `primecare_models` |
 | `primecare_verification` | Verification report provider lifecycle. | `primecare_execution_gate`, `primecare_models` |
 | `primecare_dynamic_pages` | Native dynamic page data projection. | `primecare_execution_gate`, `primecare_models` |
 | `primecare_work_modules` | Native shared work renderer for calendars, tasks, contacts, notes and boards | `primecare_component_factory`, `primecare_data_controls`, `primecare_preferences`, `primecare_ui_foundation`, `primecare_work_contracts` |

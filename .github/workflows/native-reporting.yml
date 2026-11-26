@@ -5,6 +5,7 @@ on:
     paths:
       - 'packages/primecare_reporting/**'
       - 'packages/flutter_core/lib/report_providers.dart'
+      - 'packages/flutter_core/lib/src/application/services/report_service.dart'
       - '.github/workflows/native-reporting.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -24,4 +25,4 @@ jobs:
       - working-directory: packages/flutter_core
         run: flutter pub get
       - working-directory: packages/flutter_core
-        run: flutter analyze --no-fatal-infos lib/report_providers.dart
+        run: flutter analyze --no-fatal-infos lib/report_providers.dart lib/src/application/services/report_service.dart

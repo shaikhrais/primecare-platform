@@ -966,6 +966,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Dynamic page relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'src/application/services/report_service.dart':
+        shim, edits = ["// Existing business service and authenticated repository are retained.\nimport 'package:primecare_reporting/report_service.dart';\nimport 'base_business_service.dart';\n\nclass ReportService extends BaseBusinessService with ReportServiceImplementation {\n  ReportService(super.client, super.telemetry);\n  @override\n  Future<({int? statusCode, dynamic data})> readReport(String endpoint) async {\n    final response = await repository.get(endpoint);\n    return (statusCode: response.statusCode, data: response.data);\n  }\n}\n",[["import 'package:flutter_core/flutter_core.dart'\n    hide ReportData, ReportRow, ReportColumn;\nimport 'base_business_service.dart';\nimport '../../domain/models/report_models.dart';\n\nclass ReportService extends BaseBusinessService {\n  ReportService(super.client, super.telemetry);\n\n","import 'package:primecare_models/src/models/report_models.dart';\nimport 'package:primecare_models/src/models/result.dart';\nimport 'package:primecare_execution_gate/src/resilience/execution_gate_service.dart';\nimport 'package:primecare_guarded_service/primecare_guarded_service.dart';\n\nmixin ReportServiceImplementation on BaseGuardedService {\n  Future<({int? statusCode, dynamic data})> readReport(String endpoint);\n\n"],["await repository.get(endpoint)","await readReport(endpoint)"]]]
+        if source != shim:
+            raise AssertionError('Report service composition drift: ' + path)
+        source = (root / 'packages/primecare_reporting/lib/report_service.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Report service relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:
