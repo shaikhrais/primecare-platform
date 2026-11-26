@@ -895,6 +895,16 @@ def read_reviewed_source(path, root=ROOT):
                 raise AssertionError('Theme panel relocation drift: ' + path)
             source = source.replace(current, previous, 1)
         return source
+    if rel == 'registry/widgets/theme_settings_drawer.dart':
+        shim, edits = ["// Legacy composition supplies the existing Theme Center widget.\nimport 'package:flutter/material.dart';\nimport 'package:primecare_theme_preferences/theme/theme_settings_drawer.dart';\nimport '../../theme/prime_theme_center.dart';\n\nclass ThemeSettingsDrawer extends ThemeSettingsDrawerBase {\n  const ThemeSettingsDrawer({super.key,required super.tenantDefaultPreset});\n  @override Widget buildThemeCenter(String tenantDefaultPreset) => PrimeThemeCenter(tenantDefaultPreset:tenantDefaultPreset);\n}\n",[["class ThemeSettingsDrawer extends StatelessWidget {\n  final String tenantDefaultPreset;\n  const ThemeSettingsDrawer({super.key,required this.tenantDefaultPreset});","abstract class ThemeSettingsDrawerBase extends StatelessWidget {\n  final String tenantDefaultPreset;\n  const ThemeSettingsDrawerBase({super.key,required this.tenantDefaultPreset});\n  Widget buildThemeCenter(String tenantDefaultPreset);"],["PrimeThemeCenter(tenantDefaultPreset:tenantDefaultPreset)","buildThemeCenter(tenantDefaultPreset)"]]]
+        if source != shim:
+            raise AssertionError('Theme drawer composition drift: ' + path)
+        source = (root / 'packages/primecare_theme_preferences/lib/theme/theme_settings_drawer.dart').read_text()
+        for previous, current in reversed(edits):
+            if source.count(current) != 1:
+                raise AssertionError('Theme drawer relocation drift: ' + path)
+            source = source.replace(current, previous, 1)
+        return source.replace("import 'package:flutter/material.dart';\n", "import 'package:flutter/material.dart';\nimport '../../theme/prime_theme_center.dart';\n", 1)
     if rel in theme_binding_relocations:
         shim, edits = theme_binding_relocations[rel]
         if source != shim:

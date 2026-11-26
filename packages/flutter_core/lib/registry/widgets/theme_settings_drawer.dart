@@ -1,9 +1,9 @@
+// Legacy composition supplies the existing Theme Center widget.
 import 'package:flutter/material.dart';
+import 'package:primecare_theme_preferences/theme/theme_settings_drawer.dart';
 import '../../theme/prime_theme_center.dart';
 
-/// Every portal uses the shared visual Theme Settings configurator.
-class ThemeSettingsDrawer extends StatelessWidget {
-  final String tenantDefaultPreset;
-  const ThemeSettingsDrawer({super.key,required this.tenantDefaultPreset});
-  @override Widget build(BuildContext context)=>PrimeThemeCenter(tenantDefaultPreset:tenantDefaultPreset);
+class ThemeSettingsDrawer extends ThemeSettingsDrawerBase {
+  const ThemeSettingsDrawer({super.key,required super.tenantDefaultPreset});
+  @override Widget buildThemeCenter(String tenantDefaultPreset) => PrimeThemeCenter(tenantDefaultPreset:tenantDefaultPreset);
 }
