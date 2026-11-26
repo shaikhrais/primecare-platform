@@ -8,6 +8,7 @@ on:
       - '.github/workflows/navbar-style.yml'
       - 'packages/flutter_core/test/navbar_style_test.dart'
       - 'packages/flutter_core/lib/theme/navbar_style_text_generated.dart'
+      - 'packages/primecare_theme/lib/theme/navbar_style_text_generated.dart'
       - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
       - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
       - 'packages/flutter_core/lib/workspace/prime_workspace_layout.dart'

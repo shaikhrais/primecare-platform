@@ -446,6 +446,8 @@ def before_control_extensions(source,path):
 # only the import spelling/terminal newline changed during that relocation. All
 # subsequent historical digest and round-trip assertions still run unchanged.
 _REVIEWED_RELOCATIONS = {
+    'theme/navbar_style_text_generated.dart': ('primecare_theme', '', (), False),
+    'theme/theme_center_text_generated.dart': ('primecare_theme', '', (), False),
     'workspace/portal_workspace.dart': ('primecare_theme', '', (), False),
     'workspace/navbar_scroll_header.dart': ('primecare_layout', '', (), False),
     'workspace/prime_workspace_layout.dart': ('primecare_layout', '', (), False),

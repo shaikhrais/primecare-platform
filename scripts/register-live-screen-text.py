@@ -110,7 +110,7 @@ if __name__ == '__main__':
                     lines.append('    '+json.dumps(key)+': '+encoded+',')
                 lines.append('  },')
             generated='\n'.join(lines+['};'])+'\n'
-            dart=ROOT/'packages/flutter_core/lib/theme/theme_center_text_generated.dart'
+            dart=ROOT/'packages/primecare_theme/lib/theme/theme_center_text_generated.dart'
             auth_dart=ROOT/'packages/primecare_ui/lib/src/localization/auth_screen_text_generated.dart'
             auth_generated=dart_catalogs(output)
             auth_json=ROOT/'packages/primecare_ui/lib/src/localization/screens/auth.json'

@@ -20,3 +20,5 @@ export 'theme/prime_palette_editor.dart';
 export 'theme/theme_center_options.dart';
 export 'theme/theme_center_options_generated.dart';
 export 'workspace/portal_workspace.dart';
+export 'theme/navbar_style_text_generated.dart';
+export 'theme/theme_center_text_generated.dart';
