@@ -852,6 +852,9 @@ def _before_theme_owner_tokens(canonical, rel):
 # These receipts retain the original path and content identity. Only exact
 # post-rename inputs used by the portal replay suite are recognized here.
 _RUNTIME_RENAME_RECEIPTS = {
+    'lib/manifest/aura_action_manifest.dart': ('faf009d2c8d557f8dad00bc80e4af87fe8e7174bf9b1e6a885acaa3107465b12', 'faf009d2c8d557f8dad00bc80e4af87fe8e7174bf9b1e6a885acaa3107465b12', 0),
+    'lib/models/screen.dart': ('2941156cb805329e01656651e55561a970226f581c21563b80e734b7f5cde1c5', '2941156cb805329e01656651e55561a970226f581c21563b80e734b7f5cde1c5', 0),
+    'lib/src/resilience/system_recovery_mode.dart': ('f863b5b7da80d1ce783e035f65593d915cdddbb4e8462511832a126df617cc0f', 'f863b5b7da80d1ce783e035f65593d915cdddbb4e8462511832a126df617cc0f', 0),
     'lib/component_catalogue/prime_component_catalogue.dart': ('d7578b65df1cc7ccbadc5358bb86fc01da8cb2149d4470338cc2f2382e476c22', 'd7578b65df1cc7ccbadc5358bb86fc01da8cb2149d4470338cc2f2382e476c22', 0),
     'lib/dashboard_pages/prime_dashboard_page.dart': ('f1bf548edd6452b8fe6a2a5a6534fe994d50d13796badb1bd04d2a821e3625bf', 'f1bf548edd6452b8fe6a2a5a6534fe994d50d13796badb1bd04d2a821e3625bf', 0),
     'lib/dashboard_pages/prime_record_page.dart': ('d342936b97039b768a6922c5eb71e8163fdd4daab3f13d1a9cd731a2c1511cac', 'd342936b97039b768a6922c5eb71e8163fdd4daab3f13d1a9cd731a2c1511cac', 0),
