@@ -40,7 +40,7 @@ jobs:
           python3 scripts/check-shared-ui-boundary.py
           python3 scripts/check-screen-style-boundary.py --head "$CANDIDATE_SHA"
       - name: Test seven actions, account isolation, panels and narrow overflow
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         env:
           PRIMECARE_SEVEN_CAPTURE_DIR: ${{ github.workspace }}/artifacts/primecare-toolbar-captures
           PRIMECARE_FUSE_CAPTURE_DIR: ${{ github.workspace }}/artifacts/primecare-configurator-captures

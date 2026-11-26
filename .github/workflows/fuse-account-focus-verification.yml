@@ -35,18 +35,18 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - name: Render and replay the native shell fixtures
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: |
           flutter pub get
           flutter test --no-pub --update-goldens --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart
           flutter test --no-pub --reporter expanded test/screenshots/sidebar_state_capture_test.dart test/screenshots/skeleton_shell_capture_test.dart
       - name: Save exact evidence identity
-        run: printf '%s\n' "$CANDIDATE_SHA" > packages/primecare_runtime/test/screenshots/shell-captures/candidate-sha.txt
+        run: printf '%s\n' "$CANDIDATE_SHA" > packages/flutter_core/test/screenshots/shell-captures/candidate-sha.txt
       - uses: actions/upload-artifact@v4
         with:
           name: native-shell-account-focus-candidate
           path: |
-            packages/primecare_runtime/test/screenshots/shell-captures
-            packages/primecare_runtime/test/screenshots/sidebar-state-captures
+            packages/flutter_core/test/screenshots/shell-captures
+            packages/flutter_core/test/screenshots/sidebar-state-captures
           if-no-files-found: error
           retention-days: 14

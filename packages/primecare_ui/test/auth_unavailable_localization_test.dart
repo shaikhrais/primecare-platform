@@ -27,7 +27,7 @@ void main() {
       'primecare_corporate', 'primecare_enterprise_blueprint', 'primecare_franchise',
       'primecare_governance', 'primecare_marketing', 'primecare_support'];
     final roots = [for (final app in apps) '../../apps/$app/assets/translations',
-      '../flutter_core/assets/translations', '../flutter_core/lib/src/localization'];
+      '../primecare_runtime/assets/translations', '../primecare_runtime/lib/src/localization'];
     for (final root in roots) {
       for (final language in messages.keys) {
         final data = jsonDecode(File('$root/$language.json').readAsStringSync()) as Map<String, dynamic>;
