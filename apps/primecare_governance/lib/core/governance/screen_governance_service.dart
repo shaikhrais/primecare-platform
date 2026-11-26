@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// [ScreenGovernanceService] - Orchestrates cross-registry analytics and validation.
 class ScreenGovernanceService {

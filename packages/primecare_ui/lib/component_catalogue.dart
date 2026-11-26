@@ -1,1 +1,1 @@
-export 'package:primecare_runtime/component_catalogue.dart';
+export 'package:flutter_core/component_catalogue.dart';

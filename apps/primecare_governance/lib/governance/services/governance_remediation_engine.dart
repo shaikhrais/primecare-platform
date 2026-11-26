@@ -2,7 +2,7 @@
 import 'ast_patch_engine.dart';
 import 'registry_integrity_service.dart';
 import 'cross_subsystem_auditor.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/governance_provider.dart';
 
 class RemediationResult {

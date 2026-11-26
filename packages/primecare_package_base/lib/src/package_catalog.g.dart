@@ -28,6 +28,11 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     dependencies: [],
   ),
   PackageDescriptor(
+    id: 'flutter_core', kind: PackageKind.ui,
+    contractVersion: 1,
+    dependencies: ["primecare_action_feedback", "primecare_api_errors", "primecare_api_repository", "primecare_app_runtime", "primecare_application_shortcuts", "primecare_assets", "primecare_aura", "primecare_auth_storage", "primecare_clinical_education", "primecare_communication_controllers", "primecare_communication_media", "primecare_communication_modules", "primecare_communications_transport", "primecare_component_factory", "primecare_controller_base", "primecare_dashboard_native", "primecare_dashboard_pages", "primecare_data_controls", "primecare_data_logistics", "primecare_demo_dashboard", "primecare_demo_scheduler", "primecare_demo_telemetry", "primecare_demo_user_management", "primecare_device_identity", "primecare_device_security", "primecare_dynamic_pages", "primecare_execution_gate", "primecare_feature_stub", "primecare_form_schema", "primecare_governance_registry", "primecare_governance_reports", "primecare_governance_validation", "primecare_governed_hierarchy", "primecare_guarded_service", "primecare_help_reader", "primecare_intelligence", "primecare_layout", "primecare_local_cache", "primecare_local_database", "primecare_localization", "primecare_logging", "primecare_models", "primecare_navigation", "primecare_network_status", "primecare_page_templates", "primecare_platform_domain", "primecare_platform_registries", "primecare_portal_shell", "primecare_portal_state", "primecare_preferences", "primecare_presentation_preview", "primecare_profile", "primecare_psw", "primecare_recovery_ui", "primecare_reporting", "primecare_resilience", "primecare_responsive_screen", "primecare_route_catalog", "primecare_runtime_config", "primecare_screen_intents", "primecare_screen_models", "primecare_screen_registry_data", "primecare_security_models", "primecare_session_watchdog", "primecare_shell_utilities", "primecare_task_port", "primecare_theme", "primecare_theme_preferences", "primecare_ui_foundation", "primecare_url_strategy", "primecare_verification", "primecare_work_contracts", "primecare_work_modules"],
+  ),
+  PackageDescriptor(
     id: 'infrastructure', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: ["database"],
@@ -388,11 +393,6 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
     dependencies: [],
   ),
   PackageDescriptor(
-    id: 'primecare_runtime', kind: PackageKind.ui,
-    contractVersion: 1,
-    dependencies: ["primecare_action_feedback", "primecare_api_errors", "primecare_api_repository", "primecare_app_runtime", "primecare_application_shortcuts", "primecare_assets", "primecare_aura", "primecare_auth_storage", "primecare_clinical_education", "primecare_communication_controllers", "primecare_communication_media", "primecare_communication_modules", "primecare_communications_transport", "primecare_component_factory", "primecare_controller_base", "primecare_dashboard_native", "primecare_dashboard_pages", "primecare_data_controls", "primecare_data_logistics", "primecare_demo_dashboard", "primecare_demo_scheduler", "primecare_demo_telemetry", "primecare_demo_user_management", "primecare_device_identity", "primecare_device_security", "primecare_dynamic_pages", "primecare_execution_gate", "primecare_feature_stub", "primecare_form_schema", "primecare_governance_registry", "primecare_governance_reports", "primecare_governance_validation", "primecare_governed_hierarchy", "primecare_guarded_service", "primecare_help_reader", "primecare_intelligence", "primecare_layout", "primecare_local_cache", "primecare_local_database", "primecare_localization", "primecare_logging", "primecare_models", "primecare_navigation", "primecare_network_status", "primecare_page_templates", "primecare_platform_domain", "primecare_platform_registries", "primecare_portal_shell", "primecare_portal_state", "primecare_preferences", "primecare_presentation_preview", "primecare_profile", "primecare_psw", "primecare_recovery_ui", "primecare_reporting", "primecare_resilience", "primecare_responsive_screen", "primecare_route_catalog", "primecare_runtime_config", "primecare_screen_intents", "primecare_screen_models", "primecare_screen_registry_data", "primecare_security_models", "primecare_session_watchdog", "primecare_shell_utilities", "primecare_task_port", "primecare_theme", "primecare_theme_preferences", "primecare_ui_foundation", "primecare_url_strategy", "primecare_verification", "primecare_work_contracts", "primecare_work_modules"],
-  ),
-  PackageDescriptor(
     id: 'primecare_runtime_config', kind: PackageKind.library,
     contractVersion: 1,
     dependencies: [],
@@ -455,7 +455,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_ui', kind: PackageKind.ui,
     contractVersion: 1,
-    dependencies: ["primecare_models", "primecare_runtime", "primecare_ui_foundation"],
+    dependencies: ["flutter_core", "primecare_models", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_ui_foundation', kind: PackageKind.ui,

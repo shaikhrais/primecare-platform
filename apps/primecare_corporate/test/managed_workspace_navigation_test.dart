@@ -11,8 +11,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
-import 'package:primecare_runtime/models/screen_manager.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
 import 'package:primecare_corporate/core/routing/app_router.dart';

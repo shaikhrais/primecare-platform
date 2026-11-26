@@ -5,8 +5,8 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_resilience/**'
-      - 'packages/primecare_runtime/lib/src/resilience/**'
-      - 'packages/primecare_runtime/lib/config/resilience_config.dart'
+      - 'packages/flutter_core/lib/src/resilience/**'
+      - 'packages/flutter_core/lib/config/resilience_config.dart'
       - '.github/workflows/resilience-package.yml'
 permissions: {contents: read}
 jobs:

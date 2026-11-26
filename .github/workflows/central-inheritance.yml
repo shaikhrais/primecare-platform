@@ -8,55 +8,55 @@ on:
       - 'packages/primecare_ui/test/base_workspace_controller_test.dart'
       - 'apps/*/lib/main.dart'
       - 'scripts/check-app-shell-inheritance.py'
-      - 'packages/primecare_runtime/lib/models/clinical_article*'
-      - 'packages/primecare_runtime/lib/providers/user_management_provider.dart'
-      - 'packages/primecare_runtime/test/shared_data_model_imports_test.dart'
+      - 'packages/flutter_core/lib/models/clinical_article*'
+      - 'packages/flutter_core/lib/providers/user_management_provider.dart'
+      - 'packages/flutter_core/test/shared_data_model_imports_test.dart'
       - 'packages/primecare_models/**'
       - 'scripts/refactor_runtime_contracts.py'
       - 'scripts/test-runtime-contract-baselines.py'
-      - 'packages/primecare_runtime/test/auth_mfa_test.dart'
-      - 'packages/primecare_runtime/test/auth_mfa_management_test.dart'
+      - 'packages/flutter_core/test/auth_mfa_test.dart'
+      - 'packages/flutter_core/test/auth_mfa_management_test.dart'
       - 'scripts/verify_runtime_contract_parity.py'
       - 'scripts/verify_runtime_flutter_parity.py'
       - 'docs/refactoring/runtime-contract-migration.*'
-      - 'packages/primecare_runtime/lib/auth_service.dart'
-      - 'packages/primecare_runtime/lib/aura*.dart'
-      - 'packages/primecare_runtime/lib/intelligence_service.dart'
-      - 'packages/primecare_runtime/lib/src/resilience/result.dart'
-      - 'packages/primecare_runtime/lib/src/resilience/execution_gate_service.dart'
-      - 'packages/primecare_runtime/lib/src/application/controllers/**'
-      - 'packages/primecare_runtime/test/runtime_contract_imports_test.dart'
+      - 'packages/flutter_core/lib/auth_service.dart'
+      - 'packages/flutter_core/lib/aura*.dart'
+      - 'packages/flutter_core/lib/intelligence_service.dart'
+      - 'packages/flutter_core/lib/src/resilience/result.dart'
+      - 'packages/flutter_core/lib/src/resilience/execution_gate_service.dart'
+      - 'packages/flutter_core/lib/src/application/controllers/**'
+      - 'packages/flutter_core/test/runtime_contract_imports_test.dart'
       - 'scripts/refactor_screen_metadata.py'
       - 'scripts/verify_screen_metadata_parity.py'
       - 'docs/refactoring/screen-metadata-migration.*'
-      - 'packages/primecare_runtime/lib/models/screen_metadata.dart'
-      - 'packages/primecare_runtime/lib/models/navigation_item.dart'
+      - 'packages/flutter_core/lib/models/screen_metadata.dart'
+      - 'packages/flutter_core/lib/models/navigation_item.dart'
       - 'scripts/refactor_platform_governance.py'
       - 'scripts/verify_platform_governance_parity.py'
       - 'docs/refactoring/platform-governance-migration.*'
-      - 'packages/primecare_runtime/lib/models/domain_governance.dart'
-      - 'packages/primecare_runtime/lib/models/platform_types.dart'
-      - 'packages/primecare_runtime/lib/registry/platform_role.dart'
-      - 'packages/primecare_runtime/lib/src/domain/governance/**'
+      - 'packages/flutter_core/lib/models/domain_governance.dart'
+      - 'packages/flutter_core/lib/models/platform_types.dart'
+      - 'packages/flutter_core/lib/registry/platform_role.dart'
+      - 'packages/flutter_core/lib/src/domain/governance/**'
       - 'packages/primecare_platform_domain/**'
       - 'packages/primecare_screen_intents/**'
       - 'scripts/refactor_shared_data_models.py'
       - 'docs/refactoring/shared-data-model-migration.*'
-      - 'packages/primecare_runtime/lib/business_core.dart'
-      - 'packages/primecare_runtime/lib/*_service.dart'
-      - 'packages/primecare_runtime/lib/models/domain_response.dart'
-      - 'packages/primecare_runtime/lib/network/permission_service.dart'
-      - 'packages/primecare_runtime/lib/src/application/**'
-      - 'packages/primecare_runtime/lib/src/domain/models/**'
-      - 'packages/primecare_runtime/lib/src/infrastructure/**'
-      - 'packages/primecare_runtime/lib/src/security/policies/**'
-      - 'packages/primecare_runtime/lib/src/models/**'
-      - 'packages/primecare_runtime/lib/src/repositories/**'
-      - 'packages/primecare_runtime/test/business_core_test.dart'
+      - 'packages/flutter_core/lib/business_core.dart'
+      - 'packages/flutter_core/lib/*_service.dart'
+      - 'packages/flutter_core/lib/models/domain_response.dart'
+      - 'packages/flutter_core/lib/network/permission_service.dart'
+      - 'packages/flutter_core/lib/src/application/**'
+      - 'packages/flutter_core/lib/src/domain/models/**'
+      - 'packages/flutter_core/lib/src/infrastructure/**'
+      - 'packages/flutter_core/lib/src/security/policies/**'
+      - 'packages/flutter_core/lib/src/models/**'
+      - 'packages/flutter_core/lib/src/repositories/**'
+      - 'packages/flutter_core/test/business_core_test.dart'
       - 'scripts/check-core-layer-migration.py'
-      - 'packages/primecare_runtime/lib/controllers.dart'
-      - 'packages/primecare_runtime/lib/src/controllers/**'
-      - 'packages/primecare_runtime/test/base_controllers_test.dart'
+      - 'packages/flutter_core/lib/controllers.dart'
+      - 'packages/flutter_core/lib/src/controllers/**'
+      - 'packages/flutter_core/test/base_controllers_test.dart'
       - 'packages/primecare_ui/lib/**/*_screen_controller.dart'
       - 'apps/**/lib/**/*_screen_controller.dart'
       - 'packages/server_core/**'
@@ -148,12 +148,12 @@ jobs:
           dart analyze lib test
           dart test
       - name: Resolve shared Flutter dependencies
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: flutter pub get
       - name: Verify platform roles and governance extraction
         run: |
           python3 scripts/verify_platform_governance_parity.py --flutter flutter
-          cd packages/primecare_runtime
+          cd packages/flutter_core
           flutter analyze lib/models/platform_types.dart lib/registry/platform_role.dart lib/models/domain_governance.dart lib/src/application/services/data_logistics_hub.dart
           cd ../primecare_platform_domain
           flutter pub get
@@ -161,13 +161,13 @@ jobs:
       - name: Verify screen metadata and navigation inheritance
         run: |
           python3 scripts/verify_screen_metadata_parity.py --flutter flutter
-          cd packages/primecare_runtime
+          cd packages/flutter_core
           flutter analyze lib/models/screen_metadata.dart lib/models/navigation_item.dart
       - name: Verify runtime contracts and Flutter service extraction
         run: |
           python3 scripts/verify_runtime_contract_parity.py
           python3 scripts/verify_runtime_flutter_parity.py
-          cd packages/primecare_runtime
+          cd packages/flutter_core
           flutter test test/runtime_contract_imports_test.dart test/auth_session_test.dart test/auth_mfa_test.dart test/auth_mfa_management_test.dart test/auth_route_guard_test.dart test/auth_transport_test.dart test/telemetry_sync_test.dart
           flutter analyze lib/auth_service.dart lib/aura_providers.dart lib/aura_command_service.dart lib/aura_pulse_service.dart lib/aura_behavioral_telemetry.dart lib/intelligence_service.dart lib/src/application/controllers lib/src/application/services/aura_behavioral_telemetry.dart lib/src/controllers/base_value_notifier.dart lib/src/resilience/result.dart lib/src/resilience/execution_gate_service.dart 
       - name: Verify relocated intelligence implementation
@@ -191,7 +191,7 @@ jobs:
       - name: Compile every migrated controller and test shared lifecycle
         run: |
           python3 scripts/generate-controller-compile-test.py
-          cd packages/primecare_runtime
+          cd packages/flutter_core
           flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart test/shared_data_model_imports_test.dart
           flutter analyze lib/controllers.dart lib/src/controllers test/base_controllers_test.dart
       - name: Verify shared Dart host
@@ -235,7 +235,7 @@ jobs:
           flutter analyze lib/src/application test/base_primecare_app_test.dart test/base_workspace_controller_test.dart
           flutter test test/base_primecare_app_test.dart test/base_workspace_controller_test.dart
       - name: Verify business, repository, model and permission parents
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: |
           flutter analyze lib/business_core.dart lib/src/application lib/src/domain/models lib/src/infrastructure lib/src/security/policies lib/network/permission_service.dart test/business_core_test.dart
           flutter test test/business_core_test.dart test/provider_profile_test.dart test/own_notifications_repository_test.dart test/business_development_transport_test.dart

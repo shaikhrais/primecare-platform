@@ -20,8 +20,8 @@ dependencies:
   easy_localization: ^3.0.8
   lucide_icons_flutter: ^3.1.14+2
   fl_chart: ^1.2.0
-  primecare_runtime:
-    path: ../../packages/primecare_runtime
+  flutter_core:
+    path: ../../packages/flutter_core
   primecare_ui:
     path: ../../packages/primecare_ui
 dev_dependencies:

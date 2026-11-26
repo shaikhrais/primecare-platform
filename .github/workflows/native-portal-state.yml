@@ -4,8 +4,8 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_portal_state/**'
-      - 'packages/primecare_runtime/lib/providers/portal_providers.dart'
-      - 'packages/primecare_runtime/lib/models/governance_role.dart'
+      - 'packages/flutter_core/lib/providers/portal_providers.dart'
+      - 'packages/flutter_core/lib/models/governance_role.dart'
       - '.github/workflows/native-portal-state.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -24,7 +24,7 @@ jobs:
         run: flutter analyze --no-fatal-infos lib test
       - working-directory: packages/primecare_portal_state
         run: flutter test --reporter expanded
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter pub get
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter analyze --no-fatal-infos lib/providers/portal_providers.dart lib/models/governance_role.dart

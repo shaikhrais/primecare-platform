@@ -1,6 +1,6 @@
 // Governance - Category: test | Purpose: Controller layer orchestrating business logic and state management for the corresponding module.
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 void main() {
   group('ClinicalReferenceDrawerController', () {

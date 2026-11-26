@@ -10,8 +10,8 @@ on:
       - packages/primecare_ui/web/record-pages.ts
       - scripts/test-dashboard-record-pages.mjs
       - scripts/test-dashboard-read-cancellation.mjs
-      - packages/primecare_runtime/lib/dashboard_pages*
-      - packages/primecare_runtime/lib/dashboard_pages/**
+      - packages/flutter_core/lib/dashboard_pages*
+      - packages/flutter_core/lib/dashboard_pages/**
       - packages/primecare_dashboard_pages/**
       - packages/primecare_ui/lib/dashboard_pages.dart
       - websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts

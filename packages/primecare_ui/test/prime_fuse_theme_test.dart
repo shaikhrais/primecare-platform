@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/theme/personal_theme.dart';
-import 'package:primecare_runtime/theme/theme_config_generated.dart';
+import 'package:flutter_core/theme/personal_theme.dart';
+import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';

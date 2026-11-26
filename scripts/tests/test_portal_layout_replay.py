@@ -13,29 +13,6 @@ from reviewed_migration_history import before_neutral_account_capture, before_fo
 from reviewed_migration_history import before_account_menu_shadow, before_account_menu_label_foreground, before_account_menu_hover, before_account_shell_edge, before_account_trigger_focus_style, before_compact_shell_geometry
 from reviewed_migration_history import before_right_sidebar_toggle, before_shell_chrome, read_reviewed_source
 
-class RuntimeRenameReceiptTest(unittest.TestCase):
-    def test_renamed_sources_retain_exact_historical_bytes_and_reject_drift(self):
-        from tempfile import TemporaryDirectory
-        from reviewed_migration_history import _read_runtime_rename_source, _RUNTIME_RENAME_RECEIPTS
-        # Pinned historical checkout workflows still run against their original paths.
-        if not (ROOT / 'packages/primecare_runtime').is_dir():
-            self.assertTrue((ROOT / 'packages/flutter_core').is_dir())
-            return
-        for suffix, (before, after, _) in _RUNTIME_RENAME_RECEIPTS.items():
-            path = 'packages/flutter_core/' + suffix
-            actual = ROOT / 'packages/primecare_runtime' / suffix
-            with self.subTest(path=path):
-                self.assertEqual(hashlib.sha256(actual.read_bytes()).hexdigest(), after)
-                self.assertEqual(hashlib.sha256(_read_runtime_rename_source(path, ROOT).encode()).hexdigest(), before)
-                with TemporaryDirectory() as temp:
-                    root = Path(temp)
-                    target = root / 'packages/primecare_runtime' / suffix
-                    target.parent.mkdir(parents=True)
-                    target.write_bytes(actual.read_bytes() + b'\\n')
-                    with self.assertRaisesRegex(AssertionError, 'Relocated reviewed source drift'):
-                        _read_runtime_rename_source(path, root)
-
-
 class AccountKeyboardReplayTest(unittest.TestCase):
     def test_shell_chrome_replays_only_exact_source(self):
         receipt = json.loads((ROOT / 'scripts/shell-chrome-replay.json').read_text())

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/governance/services/cross_subsystem_auditor.dart';
 import 'support/repository_root.dart';
 

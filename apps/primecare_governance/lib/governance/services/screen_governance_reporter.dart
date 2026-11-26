@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';
 
 import 'registry_integrity_service.dart';

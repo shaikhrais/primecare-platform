@@ -1,2 +1,2 @@
 /// Shared native workspace engine and production portal controls.
-export 'package:primecare_runtime/workspace.dart';
+export 'package:flutter_core/workspace.dart';

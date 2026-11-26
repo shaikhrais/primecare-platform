@@ -4,7 +4,7 @@ on:
     paths:
       - 'packages/primecare_ui/**'
       - 'packages/primecare_models/**'
-      - 'packages/primecare_runtime/**'
+      - 'packages/flutter_core/**'
       - 'scripts/*report*'
       - '.github/workflows/report-platforms.yml'
   workflow_dispatch:

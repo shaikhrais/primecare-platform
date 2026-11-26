@@ -4,8 +4,8 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_controller_base/**'
-      - 'packages/primecare_runtime/lib/src/controllers/base_dashboard_controller.dart'
-      - 'packages/primecare_runtime/test/base_controllers_test.dart'
+      - 'packages/flutter_core/lib/src/controllers/base_dashboard_controller.dart'
+      - 'packages/flutter_core/test/base_controllers_test.dart'
       - '.github/workflows/native-dashboard-controller.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -22,7 +22,7 @@ jobs:
         run: flutter pub get
       - working-directory: packages/primecare_controller_base
         run: flutter analyze --no-fatal-infos lib
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter pub get
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter test test/base_controllers_test.dart --reporter expanded

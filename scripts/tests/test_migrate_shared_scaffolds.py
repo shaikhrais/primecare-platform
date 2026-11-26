@@ -67,7 +67,7 @@ class SharedScaffoldMigrationTest(unittest.TestCase):
         self.assertEqual(m.required_import('apps/demo/lib/a.dart', "import 'package:flutter/material.dart';\n"), m.APP_IMPORT)
 
     def test_all_consumers_are_already_in_native_compile_fixtures(self):
-        core = (ROOT/'packages/primecare_runtime/test/shared_primitives_migration_compile_test.dart').read_text()
+        core = (ROOT/'packages/flutter_core/test/shared_primitives_migration_compile_test.dart').read_text()
         clinic = (ROOT/'apps/primecare_clinic/test/shared_text_migration_compile_test.dart').read_text()
         clinic += (ROOT/'apps/primecare_clinic/test/shared_control_extensions_compile_test.dart').read_text()
         governance = (ROOT/'apps/primecare_governance/test/shared_text_migration_compile_test.dart').read_text()

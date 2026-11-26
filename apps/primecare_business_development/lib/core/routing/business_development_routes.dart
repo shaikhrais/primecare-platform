@@ -6,7 +6,7 @@ import 'package:primecare_ui/primecare_ui.dart' hide
     TerritoryExpansionManagerDashboardScreen,
     GeneralManagerDashboardScreen,
     RegionalBdmDashboardScreen;
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../../features/business_development/presentation/widgets/widgets.dart';
 
 class BusinessDevelopmentTenant extends PlatformTenant {

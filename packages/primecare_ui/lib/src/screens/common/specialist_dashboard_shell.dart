@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../components/prime_status.dart';

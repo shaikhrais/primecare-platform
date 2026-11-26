@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_dynamic_pages/**'
-      - 'packages/primecare_runtime/lib/dynamic_page_providers.dart'
+      - 'packages/flutter_core/lib/dynamic_page_providers.dart'
       - '.github/workflows/native-dynamic-pages.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -21,7 +21,7 @@ jobs:
         run: flutter pub get
       - working-directory: packages/primecare_dynamic_pages
         run: flutter analyze --no-fatal-infos lib
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter pub get
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter analyze --no-fatal-infos lib/dynamic_page_providers.dart

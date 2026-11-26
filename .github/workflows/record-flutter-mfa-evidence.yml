@@ -24,7 +24,7 @@ jobs:
             const run=context.payload.workflow_run;
             if(run.path!=='.github/workflows/verify-live-flutter-mfa.yml'||run.head_branch!=='main'||run.conclusion!=='success')throw Error('Exact live Flutter producer required');
             const diff=(await github.rest.repos.compareCommits({...context.repo,base:run.head_sha,head:context.sha})).data;
-            if(!['identical','ahead'].includes(diff.status)||diff.files.some(f=>['packages/flutter_core/','packages/primecare_runtime/','packages/primecare_ui/','packages/primecare_models/','apps/primecare_clinic/','cloudflare/workers/'].some(p=>f.filename.startsWith(p))||f.filename==='tools/auth-verification/test-live-flutter-mfa.py'))throw Error('Runtime or verification source changed after proof');
+            if(!['identical','ahead'].includes(diff.status)||diff.files.some(f=>['packages/flutter_core/','packages/primecare_ui/','packages/primecare_models/','apps/primecare_clinic/','cloudflare/workers/'].some(p=>f.filename.startsWith(p))||f.filename==='tools/auth-verification/test-live-flutter-mfa.py'))throw Error('Runtime or verification source changed after proof');
       - uses: actions/download-artifact@v4
         with:
           run-id: ${{ github.event.workflow_run.id }}

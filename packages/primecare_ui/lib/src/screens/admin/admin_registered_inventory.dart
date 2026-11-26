@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_runtime/primecare_runtime.dart' show authProvider;
-import 'package:primecare_runtime/src/network/api_client.dart';
+import 'package:flutter_core/flutter_core.dart' show authProvider;
+import 'package:flutter_core/src/network/api_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

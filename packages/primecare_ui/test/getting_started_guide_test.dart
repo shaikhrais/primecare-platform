@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';
 import 'package:primecare_ui/src/features/training/getting_started_guide.dart';
 import 'package:primecare_ui/src/features/training/getting_started_catalog.g.dart';

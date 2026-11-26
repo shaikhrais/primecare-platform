@@ -63,7 +63,7 @@ jobs:
 
   publish:
     needs: [review, data_acceptance, security_acceptance, pilot_scope]
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
+    if: needs.pilot_scope.outputs.allow_legacy_publish == 'true'
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 15

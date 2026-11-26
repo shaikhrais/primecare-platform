@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/localization/admin_role_carousel_catalog.dart';
 import 'package:primecare_ui/src/localization/admin_role_carousel_text.dart';
 import 'package:primecare_ui/src/screens/admin/admin_role_carousel_screen.dart';
-import 'package:primecare_runtime/src/network/api_client.dart';
+import 'package:flutter_core/src/network/api_client.dart';
 import 'package:primecare_ui/src/localization/admin_registered_inventory_text.dart';
 import 'package:primecare_ui/src/screens/admin/admin_screenshot_gallery_screen.dart';
 import 'admin_reality_filter_localization_test.dart' show RealityFixtureAuth;

@@ -1,11 +1,11 @@
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
-import 'package:primecare_runtime/theme/theme_settings_provider.dart';
-import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
-import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
+import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/theme/theme_center_theme_data.dart';
+import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_runtime/primecare_runtime.dart'
+import 'package:flutter_core/flutter_core.dart'
     show AppErrorBoundary, executionGateProvider, AppShellBoundary, ScreenFeatureConfig, ScreenFeatureScope;
 import 'package:go_router/go_router.dart';
 import '../theme/prime_theme.dart';

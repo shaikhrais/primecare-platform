@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/business_core.dart';
+import 'package:flutter_core/business_core.dart';
 import 'package:primecare_ui/src/communications/communication_workspace.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import '../../primecare_communication_controllers/test/fixtures/communication_channels_transport.dart';

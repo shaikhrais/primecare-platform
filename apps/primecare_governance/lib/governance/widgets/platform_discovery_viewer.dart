@@ -1,7 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeListTile;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'platform_discovery_viewer_controller.dart';
 
 class PlatformDiscoveryViewer extends ConsumerWidget {

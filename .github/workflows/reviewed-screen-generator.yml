@@ -8,7 +8,7 @@ on:
       - .github/workflows/reviewed-screen-generator.yml
       - packages/primecare_models/**
       - packages/primecare_ui/**
-      - packages/primecare_runtime/**
+      - packages/flutter_core/**
   push:
     branches: [main, codex/screen-management]
     paths:

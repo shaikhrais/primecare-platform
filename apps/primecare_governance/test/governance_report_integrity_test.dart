@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/governance/services/screen_governance_reporter.dart';
 import 'package:primecare_governance/governance/services/test_quality_audit_service.dart';
 

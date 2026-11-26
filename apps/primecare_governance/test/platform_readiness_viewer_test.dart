@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/governance/widgets/platform_readiness_viewer.dart';
 import 'package:primecare_governance/governance/widgets/platform_readiness_viewer_controller.dart';

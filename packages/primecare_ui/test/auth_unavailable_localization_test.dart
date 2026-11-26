@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/src/features/auth/mfa_controller.dart';
 import 'package:primecare_ui/src/features/auth/mfa_catalog.g.dart';
@@ -27,7 +27,7 @@ void main() {
       'primecare_corporate', 'primecare_enterprise_blueprint', 'primecare_franchise',
       'primecare_governance', 'primecare_marketing', 'primecare_support'];
     final roots = [for (final app in apps) '../../apps/$app/assets/translations',
-      '../primecare_runtime/assets/translations', '../primecare_runtime/lib/src/localization'];
+      '../flutter_core/assets/translations', '../flutter_core/lib/src/localization'];
     for (final root in roots) {
       for (final language in messages.keys) {
         final data = jsonDecode(File('$root/$language.json').readAsStringSync()) as Map<String, dynamic>;

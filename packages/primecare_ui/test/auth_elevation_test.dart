@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/src/application/controllers/privileged_access_service.dart';
+import 'package:flutter_core/src/application/controllers/privileged_access_service.dart';
 import 'package:primecare_ui/src/features/auth/auth_elevation_controller.dart';
 import 'package:primecare_ui/src/features/auth/auth_elevation_form.dart';
 import 'package:primecare_ui/src/features/auth/tenant_support_form.dart';

@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'dart:math';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_models/primecare_models.dart';

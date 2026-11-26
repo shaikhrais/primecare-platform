@@ -1,1 +1,1 @@
-export 'package:primecare_runtime/page_template.dart';
+export 'package:flutter_core/page_template.dart';

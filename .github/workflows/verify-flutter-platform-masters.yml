@@ -4,11 +4,11 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/verify-flutter-platform-masters.yml'
-      - 'packages/primecare_runtime/lib/platform/**'
-      - 'packages/primecare_runtime/lib/src/network/api_client.dart'
-      - 'packages/primecare_runtime/lib/src/security/security_interceptor.dart'
-      - 'packages/primecare_runtime/test/platform_master_transport_test.dart'
-      - 'packages/primecare_runtime/test/business_development_transport_test.dart'
+      - 'packages/flutter_core/lib/platform/**'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/lib/src/security/security_interceptor.dart'
+      - 'packages/flutter_core/test/platform_master_transport_test.dart'
+      - 'packages/flutter_core/test/business_development_transport_test.dart'
       - 'packages/primecare_ui/lib/src/features/platform/**'
       - 'packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart'
       - 'packages/primecare_ui/lib/src/features/auth/auth_experience.dart'
@@ -31,7 +31,7 @@ jobs:
         run: |
           python scripts/generate-platform-master-catalog.py
           git diff --exit-code -- packages/primecare_ui/lib/src/features/platform/platform_master_catalog.g.dart
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: |
           flutter pub get
           flutter analyze --no-fatal-infos lib/platform/platform_master_repository.dart test/platform_master_transport_test.dart

@@ -16,11 +16,11 @@ on:
       - 'packages/shared/src/tenant-dashboard/view.mjs'
       - 'scripts/test-tenant-work-module-host.mjs'
       - 'scripts/test-tenant-work-host-lifecycle.mjs'
-      - 'packages/primecare_runtime/lib/work_modules*'
-      - 'packages/primecare_runtime/lib/work_modules/**'
+      - 'packages/flutter_core/lib/work_modules*'
+      - 'packages/flutter_core/lib/work_modules/**'
       - 'packages/primecare_work_modules/**'
       - 'packages/primecare_task_port/**'
-      - 'packages/primecare_runtime/test/work_modules/**'
+      - 'packages/flutter_core/test/work_modules/**'
       - 'scripts/test-work-modules*'
       - 'scripts/work-modules-native-fixtures.mjs'
       - '.github/workflows/work-modules.yml'
@@ -92,11 +92,11 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/work_modules lib/work_modules.dart test/work_modules
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - run: flutter test test/work_modules --reporter expanded
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: packages/primecare_task_port
       - run: flutter analyze --no-fatal-infos lib

@@ -8,8 +8,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
-import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
 

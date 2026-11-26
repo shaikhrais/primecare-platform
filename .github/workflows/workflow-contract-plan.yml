@@ -75,8 +75,8 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - run: flutter test test/unimplemented_workflow_contracts_test.dart
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - run: flutter analyze lib/src/generated/unimplemented_workflow_contracts.dart test/unimplemented_workflow_contracts_test.dart
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core

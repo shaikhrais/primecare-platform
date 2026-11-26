@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: Scans the registry for structural and logical inconsistencies. 1. ID Mismatch Check
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class RegistryIntegrityService {
   /// Scans the registry for structural and logical inconsistencies.

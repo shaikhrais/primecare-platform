@@ -14,7 +14,7 @@ class PresentationPaletteTest(unittest.TestCase):
   # Context was added only to helper calls; role/screen dispatch conditions stay identical.
   self.assertEqual(re.findall(r'normalizedType.contains\([^)]*\)',original),re.findall(r'normalizedType.contains\([^)]*\)',current))
  def test_actual_native_helper_fixtures_and_const_scopes(self):
-  source=read_reviewed_source(m.MANIFEST[0]['path'],ROOT);fixture=(ROOT/'packages/primecare_runtime/test/fixtures/presentation_palette_fixture.dart').read_text()
+  source=read_reviewed_source(m.MANIFEST[0]['path'],ROOT);fixture=(ROOT/'packages/flutter_core/test/fixtures/presentation_palette_fixture.dart').read_text()
   rows=json.loads((ROOT/'scripts/presentation-palette-fixture-methods.json').read_text())
   self.assertEqual(len(rows),23)
   for row in rows:

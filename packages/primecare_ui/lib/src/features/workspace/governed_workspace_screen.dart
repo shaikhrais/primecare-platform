@@ -1,5 +1,5 @@
 import '../training/admin_training_launcher.dart';
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import '../reports/admin_reports_panel.dart';

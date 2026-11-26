@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart'
+import 'package:flutter_core/flutter_core.dart'
     show EasyLocalization, ProviderScope, authProvider;
 import 'package:primecare_ui/src/features/auth/auth_experience.dart';
 import 'package:shared_preferences/shared_preferences.dart';

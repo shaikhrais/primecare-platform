@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:primecare_runtime/primecare_runtime.dart' show ApiClient;
+import 'package:flutter_core/flutter_core.dart' show ApiClient;
 import 'package:primecare_models/primecare_models.dart';
 
 class AdminReportCatalog {

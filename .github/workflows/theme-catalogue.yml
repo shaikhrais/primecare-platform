@@ -10,7 +10,7 @@ on:
       - scripts/audit-shared-skeleton-equivalents.py
       - docs/appearance/shared-skeleton-equivalents.md
       - packages/primecare_ui/web/component-catalogue.ts
-      - packages/primecare_runtime/lib/component_catalogue/prime_component_catalogue.dart
+      - packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart
       - scripts/check-theme-release.py
       - scripts/audit-theme-batches.py
       - packages/primecare_ui/catalogs/developer-catalogue.json

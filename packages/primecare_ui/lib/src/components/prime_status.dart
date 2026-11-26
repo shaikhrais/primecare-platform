@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/prime_theme.dart';
-import 'package:primecare_runtime/theme/theme_contrast.dart';
-import 'package:primecare_runtime/original_assets.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:flutter_core/original_assets.dart';
 import 'prime_text.dart';
 
 /// Semantic status roles resolved from the inherited product theme.

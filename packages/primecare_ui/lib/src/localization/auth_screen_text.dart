@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'auth_screen_text_generated.dart';
 
 String authScreenText(BuildContext context, String key, {bool recovery = false}) {

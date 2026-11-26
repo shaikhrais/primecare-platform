@@ -50,7 +50,7 @@ class SharedControlExtensionsTest(unittest.TestCase):
 
     def test_native_compile_references_every_actual_library(self):
         for row in m.MANIFEST:
-            package=Path(row['path'].replace('packages/flutter_core/', 'packages/primecare_runtime/', 1)).parts[:2]
+            package=Path(row['path']).parts[:2]
             directory=ROOT.joinpath(*package,'test')
             fixture=(directory/'shared_control_extensions_compile_test.dart').read_text()
             self.assertIn(row['path'].split('/lib/')[1],fixture)

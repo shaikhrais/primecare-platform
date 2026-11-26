@@ -6,17 +6,17 @@ on:
       - 'tools/governance-production/navbar*'
       - 'tools/governance-production/test-navbar-style-registration.py'
       - '.github/workflows/navbar-style.yml'
-      - 'packages/primecare_runtime/test/navbar_style_test.dart'
-      - 'packages/primecare_runtime/lib/theme/navbar_style_text_generated.dart'
+      - 'packages/flutter_core/test/navbar_style_test.dart'
+      - 'packages/flutter_core/lib/theme/navbar_style_text_generated.dart'
       - 'packages/primecare_theme/lib/theme/navbar_style_text_generated.dart'
-      - 'packages/primecare_runtime/lib/theme/theme_settings_provider.dart'
-      - 'packages/primecare_runtime/lib/theme/prime_theme_center.dart'
-      - 'packages/primecare_runtime/lib/workspace/prime_workspace_layout.dart'
-      - 'packages/primecare_runtime/lib/workspace/navbar_scroll_header.dart'
+      - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
+      - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
+      - 'packages/flutter_core/lib/workspace/prime_workspace_layout.dart'
+      - 'packages/flutter_core/lib/workspace/navbar_scroll_header.dart'
       - 'packages/primecare_layout/lib/workspace/navbar_scroll_header.dart'
       - 'packages/primecare_layout/lib/workspace/prime_workspace_layout.dart'
       - 'packages/primecare_layout/test/workspace_widget_test.dart'
-      - 'packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart'
+      - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
       - 'packages/primecare_portal_shell/**'
   workflow_dispatch:
     inputs:
@@ -62,7 +62,7 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - id: native
         name: Verify implemented behavior or retain registration-only status
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: |
           if test -f test/navbar_style_test.dart; then
             flutter pub get

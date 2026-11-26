@@ -4,8 +4,8 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_psw/**'
-      - 'packages/primecare_runtime/lib/src/providers/psw_providers.dart'
-      - 'packages/primecare_runtime/lib/src/services/psw_service.dart'
+      - 'packages/flutter_core/lib/src/providers/psw_providers.dart'
+      - 'packages/flutter_core/lib/src/services/psw_service.dart'
       - '.github/workflows/native-psw.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -24,7 +24,7 @@ jobs:
         run: flutter analyze --no-fatal-infos lib test
       - working-directory: packages/primecare_psw
         run: flutter test --reporter expanded
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter pub get
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter analyze --no-fatal-infos lib/src/providers/psw_providers.dart lib/src/services/psw_service.dart

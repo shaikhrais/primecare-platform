@@ -3,25 +3,25 @@ on:
   push:
     branches: [main]
     paths:
-      - 'packages/primecare_runtime/pubspec.yaml'
+      - 'packages/flutter_core/pubspec.yaml'
       - 'packages/primecare_models/pubspec.yaml'
       - 'packages/primecare_layout/**'
-      - 'packages/primecare_runtime/lib/workspace.dart'
-      - 'packages/primecare_runtime/lib/workspace/**'
-      - 'packages/primecare_runtime/lib/theme/theme_center_complete_panel.dart'
-      - 'packages/primecare_runtime/lib/theme/theme_center_settings_file.dart'
-      - 'packages/primecare_runtime/lib/theme/theme_settings_provider.dart'
-      - 'packages/primecare_runtime/lib/theme/portal_section_theme.dart'
-      - 'packages/primecare_runtime/lib/theme/prime_theme_center.dart'
-      - 'packages/primecare_runtime/lib/theme/prime_palette_editor.dart'
-      - 'packages/primecare_runtime/lib/theme/theme_center_theme_data.dart'
+      - 'packages/flutter_core/lib/workspace.dart'
+      - 'packages/flutter_core/lib/workspace/**'
+      - 'packages/flutter_core/lib/theme/theme_center_complete_panel.dart'
+      - 'packages/flutter_core/lib/theme/theme_center_settings_file.dart'
+      - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
+      - 'packages/flutter_core/lib/theme/portal_section_theme.dart'
+      - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
+      - 'packages/flutter_core/lib/theme/prime_palette_editor.dart'
+      - 'packages/flutter_core/lib/theme/theme_center_theme_data.dart'
       - 'packages/primecare_theme/**'
-      - 'packages/primecare_runtime/test/theme_palette_parity_test.dart'
-      - 'packages/primecare_runtime/test/theme_center_reference_test.dart'
-      - 'packages/primecare_runtime/test/theme_center_settings_file_test.dart'
-      - 'packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart'
-      - 'packages/primecare_runtime/lib/registry/widgets/theme_settings_drawer.dart'
-      - 'packages/primecare_runtime/test/workspace/**'
+      - 'packages/flutter_core/test/theme_palette_parity_test.dart'
+      - 'packages/flutter_core/test/theme_center_reference_test.dart'
+      - 'packages/flutter_core/test/theme_center_settings_file_test.dart'
+      - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
+      - 'packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart'
+      - 'packages/flutter_core/test/workspace/**'
       - 'packages/primecare_ui/lib/workspace.dart'
       - 'scripts/workspace-native-contract-fixtures.mjs'
       - 'scripts/prepare-workspace-smoke.py'
@@ -59,16 +59,16 @@ jobs:
       - uses: actions/download-artifact@v4
         with: {name: web-workspace-oracle, path: packages/primecare_layout/test/workspace/fixtures}
       - run: flutter pub get
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - name: Analyze shared native workspace only
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: flutter analyze --no-fatal-infos lib/workspace.dart lib/workspace lib/theme/theme_center_complete_panel.dart lib/theme/theme_center_settings_file.dart lib/theme/theme_settings_provider.dart lib/theme/portal_section_theme.dart lib/theme/prime_theme_center.dart lib/theme/prime_palette_editor.dart test/workspace test/theme_center_settings_file_test.dart lib/theme/theme_center_theme_data.dart test/theme_palette_parity_test.dart
       - name: Analyze production master shell integration
         if: matrix.os == 'ubuntu-24.04'
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: flutter analyze --no-fatal-infos lib/registry/widgets/governance_master_layout.dart lib/registry/widgets/theme_settings_drawer.dart
       - name: Validate contract, persistence, actor isolation and real widget gestures
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
         run: flutter test test/workspace test/theme_center_settings_file_test.dart test/theme_center_test.dart test/theme_center_reference_test.dart test/theme_palette_parity_test.dart test/theme_consumers_test.dart --reporter expanded
       - run: flutter pub get
         working-directory: packages/primecare_layout

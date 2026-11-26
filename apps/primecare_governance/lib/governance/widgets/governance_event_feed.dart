@@ -1,5 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 // Governance - Category: view | Purpose: [GovernanceEventFeed] - A high-fidelity real-time telemetry feed showing architectural and security events as they ha...
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

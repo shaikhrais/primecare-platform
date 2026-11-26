@@ -1,7 +1,7 @@
 // Governance - Category: test | Purpose: Aggregate all screens for audit 1. Audit Registered Intents
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/src/governance_bootstrapper.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/core/governance/screen_registry.dart'
     as metadata_registry;
 

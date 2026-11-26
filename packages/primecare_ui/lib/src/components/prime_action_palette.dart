@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/prime_theme.dart';
-import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 
 /// Existing semantic theme roles paired with readable surface and action text.
 enum PrimeActionTone { primary, success, warning, error, muted, secondary }

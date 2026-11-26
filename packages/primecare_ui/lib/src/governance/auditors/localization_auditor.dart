@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the Localization Auditor platform logic.
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../automated_audit_engine.dart';
 
 class LocalizationAuditor {

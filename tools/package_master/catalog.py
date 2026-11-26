@@ -41,7 +41,7 @@ def build(root=ROOT):
                 'id': identity,
                 'path': directory.relative_to(root).as_posix(),
                 'kind': ('service' if group == 'services' else
-                         'ui' if identity.startswith('primecare_ui') or identity == 'primecare_runtime' else
+                         'ui' if identity.startswith('primecare_ui') or identity == 'flutter_core' else
                          'library' if documents else 'source'),
                 'contractVersion': 1,
                 'manifests': sorted(documents),

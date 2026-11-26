@@ -4,9 +4,9 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_theme_preferences/**'
-      - 'packages/primecare_runtime/lib/theme/theme_center_complete_panel.dart'
-      - 'packages/primecare_runtime/lib/theme/theme_settings_provider.dart'
-      - 'packages/primecare_runtime/lib/theme/theme_library_provider.dart'
+      - 'packages/flutter_core/lib/theme/theme_center_complete_panel.dart'
+      - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
+      - 'packages/flutter_core/lib/theme/theme_library_provider.dart'
       - '.github/workflows/native-theme-preferences.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
       - working-directory: packages/primecare_theme_preferences
         run: flutter analyze --no-fatal-infos lib
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter pub get
-      - working-directory: packages/primecare_runtime
+      - working-directory: packages/flutter_core
         run: flutter test test/theme_center_test.dart test/theme_center_settings_file_test.dart test/navbar_style_test.dart --reporter expanded

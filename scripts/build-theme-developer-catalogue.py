@@ -15,19 +15,12 @@ for feature in contract['features']:
     batch = batches[feature['batch']]
     sources = []
     for evidence in feature['sourceEvidence']:
-        proposal_path = evidence['path']
-        # Keep the original evidence identity; report the renamed source separately.
-        resolved_path = proposal_path
-        if proposal_path.startswith('packages/flutter_core/'):
-            renamed_path = proposal_path.replace('packages/flutter_core/', 'packages/primecare_runtime/', 1)
-            if not (ROOT/proposal_path).is_file() and (ROOT/renamed_path).is_file():
-                resolved_path = renamed_path
-        path = ROOT/resolved_path
+        path = ROOT/evidence['path']
         exists = path.is_file()
         text = path.read_text() if exists else ''
         symbols = sorted(set(re.findall(r'\bexport\s+(?:abstract\s+)?(?:class|function|const|type|interface|enum)\s+(\w+)', text))) if path.suffix != '.dart' else sorted(set(re.findall(r'\b(?:class|enum|mixin)\s+([A-Z]\w*)', text)))
         digest = hashlib.sha256(path.read_bytes()).hexdigest() if exists else None
-        sources.append({'path': proposal_path, 'resolvedPath': resolved_path, 'present': exists, 'sha256': digest,
+        sources.append({'path': evidence['path'], 'present': exists, 'sha256': digest,
                         'matchesOriginalProposalHash': digest == evidence.get('sha256'), 'declaredSymbols': symbols})
     missing = not sources or any(not row['present'] for row in sources)
     remaining = batch.get('remainingScope') or [b['detail'] for b in batch.get('blockers', [])] or [batch.get('nextAction') or 'Batch acceptance remains open']
@@ -42,9 +35,9 @@ for path in sorted((ROOT/'apps').glob('*/pubspec.yaml')):
     consumers = []
     for dart in sorted(path.parent.rglob('*.dart')):
         if any(x in dart.parts for x in ['build','.dart_tool','ephemeral']): continue
-        if re.search(r"(?:import|export)\s+['\"]package:(?:primecare_ui|primecare_runtime)/", dart.read_text(errors='replace')):
+        if re.search(r"(?:import|export)\s+['\"]package:(?:primecare_ui|flutter_core)/", dart.read_text(errors='replace')):
             consumers.append(str(dart.relative_to(ROOT)))
-    apps.append({'app':name,'dependencyDeclared':bool(re.search(r'^\s+(?:primecare_ui|primecare_runtime):',path.read_text(),re.M)),
+    apps.append({'app':name,'dependencyDeclared':bool(re.search(r'^\s+(?:primecare_ui|flutter_core):',path.read_text(),re.M)),
                  'sharedImportFiles':consumers,'runtimeAdoptionVerified':False})
 web = json.loads((ROOT/'websites/typescript/projects.json').read_text())
 reference_rows=[]

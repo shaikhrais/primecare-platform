@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Trend Chart platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;

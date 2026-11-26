@@ -14,10 +14,10 @@ on:
       - 'packages/primecare_navigation/**'
       - 'packages/primecare_navigation_web/**'
       - 'packages/primecare_layout/**'
-      - 'packages/primecare_runtime/lib/navigation/**'
-      - 'packages/primecare_runtime/lib/workspace_navigation.dart'
+      - 'packages/flutter_core/lib/navigation/**'
+      - 'packages/flutter_core/lib/workspace_navigation.dart'
       - 'packages/primecare_ui/lib/workspace_navigation.dart'
-      - 'packages/primecare_runtime/test/navigation/**'
+      - 'packages/flutter_core/test/navigation/**'
       - 'scripts/*workspace-navigation*.mjs'
       - '.github/workflows/workspace-navigation.yml'
   workflow_dispatch:
@@ -61,9 +61,9 @@ jobs:
       - run: flutter test test/navigation --reporter expanded
         working-directory: packages/primecare_navigation
       - run: flutter pub get
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - run: flutter test test/navigation/workspace_navigation_integration_test.dart --reporter expanded
-        working-directory: packages/primecare_runtime
+        working-directory: packages/flutter_core
       - uses: actions/upload-artifact@v4
         if: always()
         with:

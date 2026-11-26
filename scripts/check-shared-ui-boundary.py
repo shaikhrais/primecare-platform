@@ -111,7 +111,7 @@ CONTROL_IMPLEMENTATIONS = {
     'packages/primecare_ui_foundation/lib/src/prime_material_buttons.dart':
         ('TextButton', 'ElevatedButton', 'OutlinedButton'),
 }
-THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/primecare_runtime/lib/theme/')
+THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_core/lib/theme/')
 # These two canonical theme definitions were relocated from the old theme
 # namespace. Only literal color definitions belong here; control checks remain on.
 THEME_COLOR_DEFINITION_FILES = {

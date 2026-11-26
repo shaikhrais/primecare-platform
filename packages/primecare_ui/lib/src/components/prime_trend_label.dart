@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 import '../theme/prime_theme.dart';
 
 /// Compact trend label for a ten-percent success/warning tint on the page surface.

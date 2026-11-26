@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_runtime/theme/personal_theme.dart';
-import 'package:primecare_runtime/theme/theme_center_theme_data.dart' show PrimePaletteTokens;
-import 'package:primecare_runtime/theme/app_theme.dart' show GovernanceThemeColors;
+import 'package:flutter_core/theme/personal_theme.dart';
+import 'package:flutter_core/theme/theme_center_theme_data.dart' show PrimePaletteTokens;
+import 'package:flutter_core/theme/app_theme.dart' show GovernanceThemeColors;
 import 'prime_theme.dart';
 
 PrimeThemeData resolvePersonalPrimeTheme(PrimeThemeData base,ThemeData theme,PersonalTheme personal) {

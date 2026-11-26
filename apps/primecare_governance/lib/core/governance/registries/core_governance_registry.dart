@@ -1,6 +1,6 @@
 // Governance - Category: service | Purpose: Generated Registry - Do Not Edit Manually
 // Generated Registry - Do Not Edit Manually
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'invalid_registry_placeholders.dart';
 
 class CoreGovernanceRegistry {

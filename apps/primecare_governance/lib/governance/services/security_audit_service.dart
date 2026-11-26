@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: 1. Role Verification
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class SecurityAuditService {
   static List<PlatformAuditIssue> scan(ScreenMetadata s) {

@@ -1,6 +1,6 @@
 // Governance - Category: controller | Purpose: Represents a single chat message inside the platform.
 import 'dart:async';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Represents a single chat message inside the platform.
 class PlatformMessage {

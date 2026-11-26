@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'repository_root.dart';

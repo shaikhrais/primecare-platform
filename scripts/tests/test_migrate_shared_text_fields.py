@@ -30,7 +30,7 @@ class SharedTextFieldMigrationTest(unittest.TestCase):
   source="TextField(key:key,controller:c,focusNode:f,decoration:d,keyboardType:k,maxLines:1,maxLength:2,enabled:true,autofocus:false,obscureText:true,onChanged:a,onSubmitted:s)"
   updated,count=m.replace_text_fields(source,1);self.assertEqual(count,1);self.assertTrue(updated.startswith('PrimeTextField('))
  def test_all_consumers_are_compile_referenced(self):
-  core=(ROOT/'packages/primecare_runtime/test/shared_primitives_migration_compile_test.dart').read_text();governance=(ROOT/'apps/primecare_governance/test/shared_text_migration_compile_test.dart').read_text()+(ROOT/'apps/primecare_governance/test/shared_control_extensions_compile_test.dart').read_text()
+  core=(ROOT/'packages/flutter_core/test/shared_primitives_migration_compile_test.dart').read_text();governance=(ROOT/'apps/primecare_governance/test/shared_text_migration_compile_test.dart').read_text()+(ROOT/'apps/primecare_governance/test/shared_control_extensions_compile_test.dart').read_text()
   for path in MANIFEST:self.assertIn(Path(path).name,core if path.startswith('packages/flutter_core/') else governance,path)
 
 if __name__=='__main__':unittest.main()

@@ -136,8 +136,8 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
-import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 
 final {provider_name} = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {{
   final api = ref.read(apiClientProvider);

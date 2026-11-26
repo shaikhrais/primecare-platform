@@ -35,7 +35,7 @@ class SharedCircularProgressTest(unittest.TestCase):
 
     def test_native_compile_fixture_references_actual_sources(self):
         for row in m.MANIFEST:
-            package=Path(row['path'].replace('packages/flutter_core/', 'packages/primecare_runtime/', 1)).parts[:2];fixture=ROOT.joinpath(*package,'test/shared_circular_progress_compile_test.dart')
+            package=Path(row['path']).parts[:2];fixture=ROOT.joinpath(*package,'test/shared_circular_progress_compile_test.dart')
             self.assertIn(row['path'].split('/lib/')[1],fixture.read_text())
 
 

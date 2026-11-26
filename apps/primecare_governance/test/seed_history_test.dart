@@ -1,6 +1,6 @@
 // Governance - Category: test | Purpose: Core implementation file for the Seed History Test platform logic.
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/core/database/governance_database.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';

@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: Check for 4K readiness (designSize >= 3840 width) We only warn for now if it's below 4K, as some legacy screens might...
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../automated_audit_engine.dart';
 
 class LayoutAuditor {

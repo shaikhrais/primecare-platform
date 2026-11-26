@@ -1,7 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeListTile;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'governance_kpi_grid.dart';
 import 'platform_readiness_viewer_controller.dart';
 

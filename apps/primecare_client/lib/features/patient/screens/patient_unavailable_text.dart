@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 
 const _messages = <String, Map<String, String>>{
   'en': {'dashboard': 'The patient dashboard is not available yet.', 'profile': 'The patient profile is not available yet.'},

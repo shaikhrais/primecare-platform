@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: Repersents a single item in an audit result.
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'auditors/localization_auditor.dart';
 import 'auditors/layout_auditor.dart';
 import 'auditors/security_auditor.dart';

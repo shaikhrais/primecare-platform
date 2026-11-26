@@ -1,14 +1,14 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
-import 'package:primecare_runtime/src/network/api_client.dart';
+import 'package:flutter_core/src/network/api_client.dart';
 import 'governance_route_access.dart';
 import 'native_application_access.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute;
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
-import 'package:primecare_runtime/models/screen_manager.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';

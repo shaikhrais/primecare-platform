@@ -24,7 +24,7 @@ for i,r in enumerate(records):
     f'    await container.read({provider}.notifier).performAction();',
     f'    expect(container.read({provider}).error, isA<UnsupportedError>());']
 lines += ['  });','}']
-p=ROOT/'packages/primecare_runtime/test/controller_migration_compile_test.dart'
+p=ROOT/'packages/flutter_core/test/controller_migration_compile_test.dart'
 if p.exists() and "every migrated provider retains its public identity" not in p.read_text():raise ValueError('Refusing to replace unrelated test')
 p.write_text('\n'.join(lines)+'\n')
 print('Generated controller compile harness:',len(records))

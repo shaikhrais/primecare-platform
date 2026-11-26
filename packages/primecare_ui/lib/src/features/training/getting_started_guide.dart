@@ -1,7 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import '../platform/platform_master_screen.dart';
 import 'getting_started_catalog.g.dart';
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 
 const _guideText = <String, Map<String, String>>{
   'en': {'title': 'Beginner guide', 'back': 'Back', 'next': 'Next step', 'step': 'Step {current} of {total}', 'try': 'Try this', 'image_label': 'Example PrimeCare screen using synthetic data', 'image_unavailable': 'Example screenshot is unavailable. Use the instructions above.', 'image_notice': 'Example screenshots use synthetic data. Available menus depend on your role and permissions.', 'dashboard': 'Open dashboard', 'detail': 'Detailed training and self-assessment'},

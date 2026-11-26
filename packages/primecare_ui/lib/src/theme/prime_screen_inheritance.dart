@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_runtime/models/screen_features.dart';
+import 'package:flutter_core/models/screen_features.dart';
 import 'prime_theme.dart';
 
 /// A scoped view of the active PrimeCare and Material themes, screen policy,

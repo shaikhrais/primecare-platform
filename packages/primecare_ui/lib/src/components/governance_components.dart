@@ -1,6 +1,6 @@
 // Governance - Category: view | Purpose: [Component] - GovDashboardHero A premium header card with a gradient, role title, and security status.
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 import '../localization/shared_control_text.dart';
 
 /// [Component] - GovDashboardHero

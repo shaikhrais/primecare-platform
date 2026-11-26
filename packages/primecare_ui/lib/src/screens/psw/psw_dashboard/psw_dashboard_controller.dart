@@ -1,7 +1,7 @@
 import 'package:primecare_models/primecare_models.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/primecare_runtime.dart' as core;
+import 'package:flutter_core/flutter_core.dart' as core;
 
 // --- MVC State Model ---
 class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState> {

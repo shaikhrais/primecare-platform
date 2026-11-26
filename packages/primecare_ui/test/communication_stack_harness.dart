@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_runtime/auth_service.dart';
-import 'package:primecare_runtime/communications/communication_browser_media.dart';
+import 'package:flutter_core/auth_service.dart';
+import 'package:flutter_core/communications/communication_browser_media.dart';
 import 'package:primecare_ui/src/communications/communication_workspace.dart';
 import 'package:primecare_ui/src/features/auth/auth_experience.dart';
 import 'package:primecare_ui/src/screens/staff/communication/communication_screen.dart';

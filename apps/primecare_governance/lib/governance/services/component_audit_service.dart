@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the Component Audit Service platform logic.
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class ComponentAuditService {
   static List<PlatformAuditIssue> scan(ScreenMetadata s) {

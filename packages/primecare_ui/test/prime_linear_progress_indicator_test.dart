@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/theme/personal_theme.dart';
-import 'package:primecare_runtime/theme/theme_center_catalog_generated.dart';
-import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
+import 'package:flutter_core/theme/personal_theme.dart';
+import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
+import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_linear_progress_indicator.dart';
 
 void main() {

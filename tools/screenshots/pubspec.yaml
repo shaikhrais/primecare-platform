@@ -3,6 +3,6 @@ environment:
   sdk: ^3.11.3
 
 dependencies:
-  primecare_runtime:
-    path: ../../packages/primecare_runtime
+  flutter_core:
+    path: ../../packages/flutter_core
 

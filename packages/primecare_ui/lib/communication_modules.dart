@@ -1,1 +1,1 @@
-export 'package:primecare_runtime/communication_modules.dart';
+export 'package:flutter_core/communication_modules.dart';

@@ -1,7 +1,7 @@
 // Governance - Category: service | Purpose: [ApiGovernanceRegistry] - Central registry for all platform API endpoints. Defines the architectural intent and compl...
-import 'package:primecare_runtime/models/platform_geometry.dart';
-import 'package:primecare_runtime/models/api_metadata.dart';
-import 'package:primecare_runtime/models/governance_types.dart';
+import 'package:flutter_core/models/platform_geometry.dart';
+import 'package:flutter_core/models/api_metadata.dart';
+import 'package:flutter_core/models/governance_types.dart';
 
 /// [ApiGovernanceRegistry] - Central registry for all platform API endpoints.
 /// Defines the architectural intent and compliance standards for the backend.

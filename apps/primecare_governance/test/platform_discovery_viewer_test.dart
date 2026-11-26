@@ -1,5 +1,5 @@
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeListTile;
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/governance/widgets/platform_discovery_viewer.dart';
 import 'package:primecare_governance/governance/widgets/platform_discovery_viewer_controller.dart';

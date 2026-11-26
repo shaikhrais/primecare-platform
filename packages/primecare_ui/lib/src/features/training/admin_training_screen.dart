@@ -1,4 +1,4 @@
-import 'package:primecare_runtime/src/localization/live_screen_text.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../reports/report_pdf_exporter.dart';
 import 'admin_training_progress.dart';

@@ -16,7 +16,7 @@ PRIME:NEXT_ACTION=Bind the registered API794 reader after access registration
 */
 // Governance - Category: view | Purpose: UI Screen component rendering the PswHelpSupportScreen workspace interface.
 import 'package:flutter/material.dart';
-import 'package:primecare_runtime/primecare_runtime.dart' show authProvider;
+import 'package:flutter_core/flutter_core.dart' show authProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:primecare_runtime/platform/platform_master_repository.dart';
+import 'package:flutter_core/platform/platform_master_repository.dart';
 import 'package:primecare_models/primecare_models.dart';
 import '../../application/base_workspace_controller.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_clinic/features/psw/screens/psw_notifications_screen.dart';
 
 class FakeOwnNotifications implements OwnNotificationsRepository {

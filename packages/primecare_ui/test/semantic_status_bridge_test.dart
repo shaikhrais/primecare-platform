@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 
 void main() {
  test('shared UI exposes its actual status roles to core without changing material override identity', () {

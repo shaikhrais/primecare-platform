@@ -17,7 +17,7 @@ DECLARATION = re.compile(r'\bclass\s+(\w+)\s+extends\s+(\w+)\b')
 
 def scan(root):
     results = []
-    for base in ('apps', 'packages/primecare_ui', 'packages/primecare_runtime', 'packages/primecare_dashboard_pages'):
+    for base in ('apps', 'packages/primecare_ui', 'packages/flutter_core', 'packages/primecare_dashboard_pages'):
         for path in (root / base).glob('**/lib/**/*.dart'):
             relative = path.relative_to(root).as_posix()
             for name, parent in DECLARATION.findall(path.read_text(encoding='utf-8')):
