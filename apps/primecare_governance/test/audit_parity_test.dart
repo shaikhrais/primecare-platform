@@ -18,7 +18,7 @@ void main() {
     );
     final providerPath = p.join(
       projectRoot,
-      'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart',
+      'packages/primecare_demo_dashboard/lib/src/registry/dynamic_adapter_resolver.dart',
     );
 
     PrimeLogger.info('Auditing Form Provider Parity...');
