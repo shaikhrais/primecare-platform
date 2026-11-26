@@ -1,0 +1,27 @@
+name: Verify role diagnostic relocation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_models/lib/diagnostics/**'
+      - 'packages/primecare_models/bin/check_enum.dart'
+      - 'packages/primecare_models/test/check_enum_test.dart'
+      - 'packages/flutter_core/lib/check_enum.dart'
+      - '.github/workflows/native-role-diagnostic.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  fixture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: packages/primecare_models
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: dart-lang/setup-dart@v1
+        with: {sdk: '3.11.3'}
+      - run: dart pub get
+      - run: dart analyze lib/diagnostics bin/check_enum.dart test/check_enum_test.dart
+      - run: dart test test/check_enum_test.dart

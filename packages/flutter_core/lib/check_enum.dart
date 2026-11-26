@@ -1,8 +1,4 @@
-import 'package:flutter_core/registry/platform_role.dart';
+// Compatibility entry for the role-list diagnostic.
+import 'package:primecare_models/diagnostics/check_enum.dart' as diagnostic;
 
-void main() {
-  print("PlatformRole values:");
-  for (var r in PlatformRole.values) {
-    print("  ${r} -> name: ${r.name}, nameSnake: ${r.nameSnake}");
-  }
-}
+void main() => diagnostic.main();
