@@ -58,7 +58,7 @@ def sync_db_to_screens():
     print(f"[DB Sync] Exported screen status manifest to {manifest_path}")
 
     # 2. Generate Dart Screen Status Registry
-    dart_path = os.path.join(project_root, 'packages', 'flutter_core', 'lib', 'registry', 'db_screen_status_registry.dart')
+    dart_path = os.path.join(project_root, 'packages', 'primecare_screen_registry_data', 'lib', 'registry', 'db_screen_status_registry.dart')
     os.makedirs(os.path.dirname(dart_path), exist_ok=True)
 
     dart_lines = [
