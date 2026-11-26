@@ -340,7 +340,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_portal_state', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_execution_gate", "primecare_layout", "primecare_platform_registries", "primecare_screen_models"],
+    dependencies: ["primecare_execution_gate", "primecare_layout", "primecare_models", "primecare_platform_registries", "primecare_screen_models"],
   ),
   PackageDescriptor(
     id: 'primecare_preferences', kind: PackageKind.library,

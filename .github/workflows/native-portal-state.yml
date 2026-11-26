@@ -5,6 +5,7 @@ on:
     paths:
       - 'packages/primecare_portal_state/**'
       - 'packages/flutter_core/lib/providers/portal_providers.dart'
+      - 'packages/flutter_core/lib/models/governance_role.dart'
       - '.github/workflows/native-portal-state.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -26,4 +27,4 @@ jobs:
       - working-directory: packages/flutter_core
         run: flutter pub get
       - working-directory: packages/flutter_core
-        run: flutter analyze --no-fatal-infos lib/providers/portal_providers.dart
+        run: flutter analyze --no-fatal-infos lib/providers/portal_providers.dart lib/models/governance_role.dart

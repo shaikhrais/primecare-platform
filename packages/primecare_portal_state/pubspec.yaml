@@ -16,6 +16,8 @@ dependencies:
     path: ../primecare_platform_registries
   primecare_screen_models:
     path: ../primecare_screen_models
+  primecare_models:
+    path: ../primecare_models
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1392,6 +1392,7 @@ export function createPrimeCarePackageCatalog() {
     "dependencies": [
       "primecare_execution_gate",
       "primecare_layout",
+      "primecare_models",
       "primecare_platform_registries",
       "primecare_screen_models"
     ],
