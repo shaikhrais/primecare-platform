@@ -6,7 +6,7 @@ import sqlite3
 import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET = ROOT / 'packages/flutter_core/lib/theme/theme_center_options_generated.dart'
+TARGET = ROOT / 'packages/primecare_theme/lib/theme/theme_center_options_generated.dart'
 # Values are registered in governance before runtime export. No UI identifiers change.
 VALUES = {
     'font.system': ('System', 'Système', 'Sistema'),

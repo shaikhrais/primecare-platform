@@ -15,9 +15,9 @@ class PinnedOptionCheckTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
-        for path in ['tools/governance-production/production-pin.json','tools/governance-production/theme-option-resources.json','tools/governance-production/theme_option_catalog.py','packages/flutter_core/lib/theme/theme_center_options_generated.dart']:
+        for path in ['tools/governance-production/production-pin.json','tools/governance-production/theme-option-resources.json','tools/governance-production/theme_option_catalog.py','packages/primecare_theme/lib/theme/theme_center_options_generated.dart']:
             target=self.root/path;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/path,target)
-        self.target=self.root/'packages/flutter_core/lib/theme/theme_center_options_generated.dart'
+        self.target=self.root/'packages/primecare_theme/lib/theme/theme_center_options_generated.dart'
         for key,value in [('ROOT',self.root),('TARGET',self.target)]:
             p=patch.object(check,key,value);p.start();self.addCleanup(p.stop)
     def test_check_works_without_database_and_preserves_files(self):

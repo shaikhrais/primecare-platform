@@ -6,6 +6,7 @@ on:
       - 'tools/fuse-audit/dashboard_metadata.py'
       - 'tools/fuse-audit/test_dashboard_metadata.py'
       - 'packages/flutter_core/lib/theme/theme_center_options_generated.dart'
+      - 'packages/primecare_theme/lib/theme/theme_center_options_generated.dart'
       - '.github/workflows/fuse-dashboard-readiness.yml'
   workflow_dispatch:
 permissions:

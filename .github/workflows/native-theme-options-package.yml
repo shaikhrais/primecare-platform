@@ -1,0 +1,29 @@
+name: Verify relocated Fuse theme options
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_theme/lib/theme/theme_center_options*'
+      - 'packages/primecare_theme/test/theme_center_options_test.dart'
+      - 'scripts/register-theme-center-options.py'
+      - 'scripts/tests/test_theme_option_catalog_check.py'
+      - '.github/workflows/native-theme-options-package.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 scripts/register-theme-center-options.py --check
+      - run: python3 -m unittest discover -s scripts/tests -p test_theme_option_catalog_check.py -v
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - working-directory: packages/primecare_theme
+        run: flutter pub get
+      - working-directory: packages/primecare_theme
+        run: flutter test test/theme_center_options_test.dart --reporter expanded
