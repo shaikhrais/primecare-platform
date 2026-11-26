@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_models/src/models/result.dart';
 import 'package:primecare_execution_gate/primecare_execution_gate.dart';
 
+export 'base_business_service.dart';
+
 abstract class BaseGuardedService {
   final ExecutionGateService telemetry;
   BaseGuardedService(this.telemetry);
