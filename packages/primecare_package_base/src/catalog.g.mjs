@@ -136,6 +136,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_page_templates",
       "primecare_platform_domain",
       "primecare_platform_registries",
+      "primecare_portal_shell",
       "primecare_portal_state",
       "primecare_preferences",
       "primecare_presentation_preview",
@@ -1171,6 +1172,7 @@ export function createPrimeCarePackageCatalog() {
       "primecare_pagination",
       "primecare_platform_domain",
       "primecare_platform_registries",
+      "primecare_portal_shell",
       "primecare_portal_state",
       "primecare_preferences",
       "primecare_presentation_preview",
@@ -1378,6 +1380,34 @@ export function createPrimeCarePackageCatalog() {
       "primecare_models",
       "primecare_route_catalog",
       "primecare_screen_models"
+    ],
+    "developmentDependencies": [],
+    "hosting": "library-only"
+  },
+  {
+    "id": "primecare_portal_shell",
+    "path": "packages/primecare_portal_shell",
+    "kind": "library",
+    "contractVersion": 1,
+    "manifests": [
+      "pubspec.yaml"
+    ],
+    "declaredNames": [
+      "primecare_portal_shell"
+    ],
+    "dependencies": [
+      "primecare_application_shortcuts",
+      "primecare_assets",
+      "primecare_aura",
+      "primecare_layout",
+      "primecare_models",
+      "primecare_platform_domain",
+      "primecare_portal_state",
+      "primecare_preferences",
+      "primecare_screen_intents",
+      "primecare_theme",
+      "primecare_theme_preferences",
+      "primecare_ui_foundation"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"

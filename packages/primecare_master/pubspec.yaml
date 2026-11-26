@@ -5,6 +5,8 @@ publish_to: none
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_portal_shell:
+    path: ../primecare_portal_shell
   primecare_api_repository:
     path: ../primecare_api_repository
   primecare_portal_state:

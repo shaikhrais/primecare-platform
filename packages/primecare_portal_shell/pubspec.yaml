@@ -1,0 +1,37 @@
+name: primecare_portal_shell
+description: Shared Fuse portal presentation, with explicit authenticated host composition.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.11.3
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^17.1.0
+  easy_localization: ^3.0.8
+  lucide_icons_flutter: ^3.1.14+2
+  flutter_riverpod: ^3.3.1
+  primecare_application_shortcuts:
+    path: ../primecare_application_shortcuts
+  primecare_assets:
+    path: ../primecare_assets
+  primecare_aura:
+    path: ../primecare_aura
+  primecare_layout:
+    path: ../primecare_layout
+  primecare_models:
+    path: ../primecare_models
+  primecare_platform_domain:
+    path: ../primecare_platform_domain
+  primecare_portal_state:
+    path: ../primecare_portal_state
+  primecare_preferences:
+    path: ../primecare_preferences
+  primecare_screen_intents:
+    path: ../primecare_screen_intents
+  primecare_theme:
+    path: ../primecare_theme
+  primecare_theme_preferences:
+    path: ../primecare_theme_preferences
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
