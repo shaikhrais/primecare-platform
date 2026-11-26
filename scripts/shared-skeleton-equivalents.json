@@ -269,7 +269,7 @@
       "exports": []
     },
     "native": {
-      "path": "packages/primecare_runtime/lib/workspace/prime_workspace_layout.dart",
+      "path": "packages/primecare_layout/lib/workspace/prime_workspace_layout.dart",
       "api": "class PrimeWorkspaceLayout ",
       "entry": "packages/primecare_ui/lib/workspace.dart",
       "exports": [
@@ -280,6 +280,10 @@
         {
           "path": "packages/primecare_runtime/lib/workspace.dart",
           "target": "workspace/prime_workspace_layout.dart"
+        },
+        {
+          "path": "packages/primecare_runtime/lib/workspace/prime_workspace_layout.dart",
+          "target": "package:primecare_layout/workspace/prime_workspace_layout.dart"
         }
       ]
     },
