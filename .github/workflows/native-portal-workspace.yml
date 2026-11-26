@@ -1,0 +1,24 @@
+name: Verify named portal workspace
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/primecare_theme/lib/workspace/**'
+      - 'packages/primecare_theme/test/portal_workspace_test.dart'
+      - '.github/workflows/native-portal-workspace.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  widget:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: packages/primecare_theme
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+      - run: flutter test test/portal_workspace_test.dart --reporter expanded

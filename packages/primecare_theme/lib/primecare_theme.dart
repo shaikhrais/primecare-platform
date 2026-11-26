@@ -19,3 +19,4 @@ export 'theme/prime_toolbar_account_frame.dart';
 export 'theme/prime_palette_editor.dart';
 export 'theme/theme_center_options.dart';
 export 'theme/theme_center_options_generated.dart';
+export 'workspace/portal_workspace.dart';
