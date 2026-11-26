@@ -3,3 +3,4 @@ export 'package:primecare_preferences/preference_sync/preference_sync_client.dar
 export 'application_modules/application_settings_port.dart';
 export 'application_modules/application_shortcut_editor.dart';
 export 'application_modules/prime_application_shortcuts.dart';
+export 'security/shortcuts/shortcut_model.dart';
