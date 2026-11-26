@@ -1,5 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeDropdownButton;
-import 'package:flutter_core/theme/prime_semantic_palette.dart';
+import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeCard;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;

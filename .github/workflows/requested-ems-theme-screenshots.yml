@@ -2,7 +2,7 @@ name: Render requested EMS and Dart Theme Center screenshots
 on:
   push:
     branches: [main]
-    paths: ['packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/lib/theme/prime_theme_center_style.dart', 'packages/flutter_core/lib/theme/prime_palette_editor.dart', 'packages/flutter_core/lib/theme/theme_settings_provider.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'tools/screen-preview/capture-requested-ems.mjs', '.github/workflows/requested-ems-theme-screenshots.yml']
+    paths: ['packages/primecare_runtime/lib/theme/prime_theme_center.dart', 'packages/primecare_runtime/lib/theme/prime_theme_center_style.dart', 'packages/primecare_runtime/lib/theme/prime_palette_editor.dart', 'packages/primecare_runtime/lib/theme/theme_settings_provider.dart', 'packages/primecare_runtime/test/screenshots/theme_center_capture_test.dart', 'tools/screen-preview/capture-requested-ems.mjs', '.github/workflows/requested-ems-theme-screenshots.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
@@ -15,14 +15,14 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - name: Verify the measured shared configurator and real palette editing
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
         run: |
           flutter analyze --no-fatal-infos lib/theme/prime_theme_center.dart lib/theme/prime_theme_center_style.dart lib/theme/prime_palette_editor.dart
           flutter test test/theme_center_reference_test.dart test/theme_palette_parity_test.dart --reporter expanded
       - name: Render actual shared Dart Theme Center panels
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
         run: flutter test --update-goldens test/screenshots/theme_center_capture_test.dart --reporter expanded
       - name: Verify compact foundation control interaction
         working-directory: packages/primecare_ui_foundation
@@ -45,7 +45,7 @@ jobs:
         with:
           name: requested-ems-theme-screenshots
           path: |
-            packages/flutter_core/test/screenshots/captures
-            packages/flutter_core/test/screenshots/failures
+            packages/primecare_runtime/test/screenshots/captures
+            packages/primecare_runtime/test/screenshots/failures
             test-results/requested-screenshots
           retention-days: 30

@@ -6,10 +6,10 @@ import 'package:primecare_ui/src/features/auth/shared_account/success_profile/se
 import 'package:primecare_ui/src/features/auth/shared_account/success_profile/sections/success_profile_header_section.dart';
 import 'package:primecare_ui/src/features/auth/shared_account/success_profile/sections/success_profile_details_form_section.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
-import 'package:flutter_core/theme/personal_theme.dart';
-import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
-import 'package:flutter_core/theme/theme_center_theme_data.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:primecare_runtime/theme/theme_center_catalog_generated.dart';
+import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 import 'auth_design_test.dart' show localized;
 
 class ProfilePaletteAuth extends AuthNotifier {

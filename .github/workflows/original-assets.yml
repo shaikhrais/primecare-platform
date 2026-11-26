@@ -23,12 +23,12 @@ on:
       - 'packages/primecare_assets/**'
       - 'packages/primecare_assets_web/**'
       - 'packages/primecare_data_controls/**'
-      - 'packages/flutter_core/lib/original_assets*'
-      - 'packages/flutter_core/lib/original_assets/**'
+      - 'packages/primecare_runtime/lib/original_assets*'
+      - 'packages/primecare_runtime/lib/original_assets/**'
       - 'packages/primecare_navigation/**'
-      - 'packages/flutter_core/lib/navigation/prime_workspace_navigation.dart'
-      - 'packages/flutter_core/lib/data_controls/prime_data_controls.dart'
-      - 'packages/flutter_core/test/original_assets/**'
+      - 'packages/primecare_runtime/lib/navigation/prime_workspace_navigation.dart'
+      - 'packages/primecare_runtime/lib/data_controls/prime_data_controls.dart'
+      - 'packages/primecare_runtime/test/original_assets/**'
       - 'scripts/build-original-assets.py'
       - 'scripts/test-original-asset*'
       - '.github/workflows/original-assets.yml'
@@ -80,17 +80,17 @@ jobs:
       - uses: actions/download-artifact@v4
         with: {name: original-asset-navigation-oracle, path: packages/primecare_navigation/test/navigation/fixtures}
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter analyze --no-fatal-infos lib/navigation/prime_workspace_navigation.dart
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: packages/primecare_navigation
       - run: flutter test test/navigation --reporter expanded
         working-directory: packages/primecare_navigation
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter test test/navigation/workspace_navigation_integration_test.dart --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: packages/primecare_assets
       - run: flutter analyze --no-fatal-infos lib test

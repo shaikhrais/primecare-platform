@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/src/localization/live_screen_text.dart';
+import 'package:primecare_runtime/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/src/features/auth/password_recovery_form.dart';
 import 'package:primecare_ui/src/localization/auth_screen_text_generated.dart';
 import 'auth_design_test.dart' show localized;

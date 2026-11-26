@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/src/features/auth/mfa_controller.dart';
 import 'package:primecare_ui/src/features/auth/mfa_catalog.g.dart';

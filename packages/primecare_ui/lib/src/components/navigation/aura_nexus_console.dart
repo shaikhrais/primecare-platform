@@ -1,6 +1,6 @@
 // Governance - Category: view | Purpose: The omnipresent platform command center drawer, offering glassmorphic real-time controls, compliance auto-patchers, a...
 import 'dart:ui';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// The omnipresent platform command center drawer, offering glassmorphic real-time controls,

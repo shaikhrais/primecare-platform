@@ -3,10 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 import 'package:primecare_ui/src/screens/clinical/clinical_director_dashboard_screen.dart';
-import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
-import 'package:flutter_core/theme/theme_center_theme_data.dart';
-import 'package:flutter_core/theme/personal_theme.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_center_catalog_generated.dart';
+import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
+import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 import 'auth_design_test.dart' show localized;
 
 void main() {

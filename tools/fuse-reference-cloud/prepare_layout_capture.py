@@ -4,7 +4,7 @@ Only generated runner/scratch files change; no runtime or registration is added.
 from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parents[2]
-source=(ROOT/'packages/flutter_core/test/screenshots/theme_center_capture_test.dart').read_text()
+source=(ROOT/'packages/primecare_runtime/test/screenshots/theme_center_capture_test.dart').read_text()
 replacements={
  "  for(final view in": "  for(final family in ['1','2','3']){\n  for(final view in",
  'layoutStyle:LayoutStyle.verticalLeft,presetName:': "layoutStyle:family=='1'?LayoutStyle.verticalLeft:LayoutStyle.horizontal,presetName:",

@@ -25,7 +25,7 @@ def flatten(value, prefix=''):
 def audit_catalogs():
     results = []
     paths = list((ROOT / 'apps').rglob('en.json'))
-    paths += list((ROOT / 'packages/flutter_core').rglob('en.json'))
+    paths += list((ROOT / 'packages/primecare_runtime').rglob('en.json'))
     paths += list((ROOT / 'packages/primecare_ui/lib').rglob('en.json'))
     for path in sorted(paths):
         if any(part in ('build', '.dart_tool', 'node_modules') for part in path.relative_to(ROOT).parts):
@@ -56,7 +56,7 @@ def audit_catalogs():
 
 def audit():
     candidates = []
-    for directory in ('apps', 'packages/primecare_ui/lib', 'packages/flutter_core/lib'):
+    for directory in ('apps', 'packages/primecare_ui/lib', 'packages/primecare_runtime/lib'):
         for path in (ROOT / directory).rglob('*.dart'):
             if any(part in ('test', 'build', '.dart_tool') for part in path.relative_to(ROOT).parts):
                 continue

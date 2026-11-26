@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/theme/personal_theme.dart';
-import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
-import 'package:flutter_core/theme/theme_center_theme_data.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:primecare_runtime/theme/theme_center_catalog_generated.dart';
+import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 import 'fixtures/premium_audit_panel_fixture.dart';
 

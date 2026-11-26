@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_core/src/localization/live_screen_text.dart';
+import 'package:primecare_runtime/src/localization/live_screen_text.dart';
 
 /// Shared control text follows the app locale and supports live text overrides.
 const _sharedControlText = <String, Map<String, String>>{

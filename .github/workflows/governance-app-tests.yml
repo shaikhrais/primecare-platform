@@ -1,7 +1,7 @@
 name: Governance application tests
 on:
   pull_request:
-    paths: ['apps/primecare_governance/**', 'packages/flutter_core/**', 'packages/primecare_ui/**', 'packages/primecare_models/**', '.agents/governance/blueprints.yaml', '.github/workflows/governance-app-tests.yml']
+    paths: ['apps/primecare_governance/**', 'packages/primecare_runtime/**', 'packages/primecare_ui/**', 'packages/primecare_models/**', '.agents/governance/blueprints.yaml', '.github/workflows/governance-app-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read

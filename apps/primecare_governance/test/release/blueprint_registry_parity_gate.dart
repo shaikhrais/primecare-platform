@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../support/repository_root.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:yaml/yaml.dart';
 import 'package:primecare_governance/governance/services/blueprint_component_evidence.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart';

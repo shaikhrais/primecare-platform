@@ -1,11 +1,11 @@
 import 'dart:async' show unawaited;
-import 'package:flutter_core/application_modules.dart';
-import 'package:flutter_core/work_modules.dart';
-import 'package:flutter_core/dashboard_pages.dart';
-import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels,CatalogueLabelInstances;
-import 'package:flutter_core/preference_sync/preference_adapters.dart';
-import 'package:flutter_core/shell_utilities.dart' show ShellUtilityLabels;
-import 'package:flutter_core/src/network/api_client.dart' show ApiConfig;
+import 'package:primecare_runtime/application_modules.dart';
+import 'package:primecare_runtime/work_modules.dart';
+import 'package:primecare_runtime/dashboard_pages.dart';
+import 'package:primecare_runtime/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels,CatalogueLabelInstances;
+import 'package:primecare_runtime/preference_sync/preference_adapters.dart';
+import 'package:primecare_runtime/shell_utilities.dart' show ShellUtilityLabels;
+import 'package:primecare_runtime/src/network/api_client.dart' show ApiConfig;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';

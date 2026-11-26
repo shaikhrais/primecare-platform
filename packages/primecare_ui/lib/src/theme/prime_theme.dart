@@ -1,10 +1,10 @@
-import 'package:flutter_core/theme/prime_semantic_palette.dart';
-import 'package:flutter_core/theme/personal_theme.dart';
+import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
+import 'package:primecare_runtime/theme/personal_theme.dart';
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
-import 'package:flutter_core/theme/app_theme.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
-import 'package:flutter_core/theme/theme_config_generated.dart';
+import 'package:primecare_runtime/theme/app_theme.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_config_generated.dart';
 import '../governance_bootstrapper.dart';
 
 /// Static utility class for PrimeCare colors used across the platform.

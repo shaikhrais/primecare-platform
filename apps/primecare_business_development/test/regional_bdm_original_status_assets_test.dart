@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/original_assets.dart';
+import 'package:primecare_runtime/original_assets.dart';
 import 'package:primecare_ui/primecare_ui.dart'
     show DashboardLoadingWidget, PrimeColors, PrimeStatusIcon, PrimeStatusTone,
         PrimeTheme, PrimeThemeData;

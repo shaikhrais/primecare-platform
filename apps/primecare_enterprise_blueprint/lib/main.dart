@@ -1,13 +1,13 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeFloatingActionButton;
-import 'package:flutter_core/theme/theme_config_generated.dart';
+import 'package:primecare_runtime/theme/theme_config_generated.dart';
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
 import 'package:primecare_ui/primecare_ui.dart' show PrimeAppBar;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
-import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/theme/theme_center_theme_data.dart';
-import 'package:flutter_core/registry/widgets/theme_settings_drawer.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:primecare_runtime/theme/theme_center_theme_data.dart';
+import 'package:primecare_runtime/registry/widgets/theme_settings_drawer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() {

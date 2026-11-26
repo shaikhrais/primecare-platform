@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_app_runtime/**'
-      - 'packages/flutter_core/lib/src/resilience/primecare_app_runner.dart'
+      - 'packages/primecare_runtime/lib/src/resilience/primecare_app_runner.dart'
       - '.github/workflows/native-app-runtime-package.yml'
   workflow_dispatch:
 permissions: {contents: read}

@@ -1,7 +1,7 @@
 // Governance - Category: service | Purpose: Add factory-specific exports here as needed
 library primecare_ui;
 
-export 'package:flutter_core/flutter_core.dart';
+export 'package:primecare_runtime/primecare_runtime.dart';
 export 'src/screens/screen_manager_catalog.dart';
 
 // Add factory-specific exports here as needed

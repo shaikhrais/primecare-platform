@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_portal_shell/**'
-      - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
+      - 'packages/primecare_runtime/lib/registry/widgets/governance_master_layout.dart'
       - '.github/workflows/native-portal-shell.yml'
   workflow_dispatch:
 permissions: {contents: read}
@@ -21,7 +21,7 @@ jobs:
         run: flutter pub get
       - working-directory: packages/primecare_portal_shell
         run: flutter analyze --no-fatal-infos lib
-      - working-directory: packages/flutter_core
+      - working-directory: packages/primecare_runtime
         run: flutter pub get
-      - working-directory: packages/flutter_core
+      - working-directory: packages/primecare_runtime
         run: flutter test test/navbar_style_test.dart test/theme_center_test.dart --reporter expanded

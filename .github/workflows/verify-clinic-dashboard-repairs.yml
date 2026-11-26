@@ -38,7 +38,7 @@ jobs:
           channel: stable
           cache: true
       - name: Test protected dashboard reads
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
         run: flutter test test/executive_read_transport_test.dart test/base_controllers_test.dart
       - name: Test the specialist unavailable screens
         working-directory: packages/primecare_ui

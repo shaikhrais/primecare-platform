@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 /// [Layout] - The master shell for all PrimeCare Dashboards.
 /// Inherits from [GovernanceMasterLayout] to enforce platform-wide structural consistency,

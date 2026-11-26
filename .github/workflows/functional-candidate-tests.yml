@@ -173,10 +173,10 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - name: Native feature model and widget acceptance
         run: flutter test test/work_modules test/communication_modules test/application_modules test/shell_utilities --reporter expanded
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: packages/primecare_dashboard_pages
       - run: flutter test test/dashboard_pages --reporter expanded

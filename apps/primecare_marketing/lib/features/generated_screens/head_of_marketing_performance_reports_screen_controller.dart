@@ -1,6 +1,6 @@
 // Governance - Category: controller | Purpose: Non-executable scaffold for HeadOfMarketingPerformanceReportsScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/controllers.dart';
+import 'package:primecare_runtime/controllers.dart';
 
 final headOfMarketingPerformanceReportsScreenControllerProvider =
     NotifierProvider<

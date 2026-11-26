@@ -1,1 +1,1 @@
-export 'package:flutter_core/shell_utilities.dart';
+export 'package:primecare_runtime/shell_utilities.dart';

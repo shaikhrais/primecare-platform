@@ -1,5 +1,5 @@
-import 'package:flutter_core/dashboard_pages.dart' show validateDashboardResponseScope;
-import 'package:flutter_core/preference_sync.dart' show PreferenceScope;
+import 'package:primecare_runtime/dashboard_pages.dart' show validateDashboardResponseScope;
+import 'package:primecare_runtime/preference_sync.dart' show PreferenceScope;
 
 /// Existing screen2534/API16578 capability, never a grant inferred from a route.
 Future<bool> authorizeNativeApplicationRoute({required String? userId,

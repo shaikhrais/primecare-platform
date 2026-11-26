@@ -1,5 +1,5 @@
 // Governance - Category: middleware | Purpose: Core implementation file for the Governance Application platform logic.
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class GovernanceApplication extends PlatformApplication {
   @override

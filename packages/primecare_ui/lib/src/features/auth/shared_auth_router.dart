@@ -1,6 +1,6 @@
 // Shared in-app authentication routing for every governed PrimeCare app.
-import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/models/screen_manager.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
+import 'package:primecare_runtime/models/screen_manager.dart';
 import '../../screens/screen_manager_catalog.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';

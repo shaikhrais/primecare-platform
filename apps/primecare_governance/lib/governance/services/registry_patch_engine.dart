@@ -1,6 +1,6 @@
 // Governance - Category: service | Purpose: Attempts to automatically apply a fix to the registry file. This is a high-risk operation and should ideally be done ...
 import 'dart:io';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class RegistryPatchEngine {
   static const String registryPath = 'lib/core/governance/screen_registry.dart';

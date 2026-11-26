@@ -1,4 +1,4 @@
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import '../../core/governance/governance_provider.dart';
 import '../models/governance_report.dart';
 import '../services/production_readiness_service.dart';

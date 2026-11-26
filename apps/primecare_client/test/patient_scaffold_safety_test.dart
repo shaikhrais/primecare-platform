@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_client/features/patient/screens/patient_dashboard_screen.dart';
 import 'package:primecare_client/features/patient/screens/patient_profile_screen.dart';
 

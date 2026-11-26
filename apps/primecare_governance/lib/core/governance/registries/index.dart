@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the Index platform logic.
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'core_governance_registry.dart';
 
 class Registry {

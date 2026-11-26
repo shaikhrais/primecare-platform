@@ -1,5 +1,5 @@
 import 'getting_started_guide.dart';
-import 'package:flutter_core/src/localization/live_screen_text.dart';
+import 'package:primecare_runtime/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'admin_training_screen.dart';
 import 'localization/admin_training_catalog_generated.dart';

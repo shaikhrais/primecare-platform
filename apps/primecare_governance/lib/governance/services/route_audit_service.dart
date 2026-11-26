@@ -1,5 +1,5 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class RouteAuditService {
   static List<PlatformAuditIssue> scan(ScreenMetadata s) {

@@ -5,12 +5,12 @@ on:
       - 'packages/domain/src/services/TrainingService.ts'
       - 'packages/domain/src/utils/Result.ts'
       - 'scripts/test-training-failure-boundary.mjs'
-      - 'packages/flutter_core/lib/src/network/api_client.dart'
-      - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
-      - 'packages/flutter_core/lib/flutter_core.dart'
-      - 'packages/flutter_core/test/business_development_transport_test.dart'
-      - 'packages/flutter_core/test/executive_read_transport_test.dart'
-      - 'packages/flutter_core/test/own_notifications_repository_test.dart'
+      - 'packages/primecare_runtime/lib/src/network/api_client.dart'
+      - 'packages/primecare_runtime/lib/src/repositories/own_notifications_repository.dart'
+      - 'packages/primecare_runtime/lib/primecare_runtime.dart'
+      - 'packages/primecare_runtime/test/business_development_transport_test.dart'
+      - 'packages/primecare_runtime/test/executive_read_transport_test.dart'
+      - 'packages/primecare_runtime/test/own_notifications_repository_test.dart'
       - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
       - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
       - 'packages/primecare_ui/lib/src/components/governance_components.dart'
@@ -23,12 +23,12 @@ on:
       - 'packages/domain/src/services/TrainingService.ts'
       - 'packages/domain/src/utils/Result.ts'
       - 'scripts/test-training-failure-boundary.mjs'
-      - 'packages/flutter_core/lib/src/network/api_client.dart'
-      - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
-      - 'packages/flutter_core/lib/flutter_core.dart'
-      - 'packages/flutter_core/test/business_development_transport_test.dart'
-      - 'packages/flutter_core/test/executive_read_transport_test.dart'
-      - 'packages/flutter_core/test/own_notifications_repository_test.dart'
+      - 'packages/primecare_runtime/lib/src/network/api_client.dart'
+      - 'packages/primecare_runtime/lib/src/repositories/own_notifications_repository.dart'
+      - 'packages/primecare_runtime/lib/primecare_runtime.dart'
+      - 'packages/primecare_runtime/test/business_development_transport_test.dart'
+      - 'packages/primecare_runtime/test/executive_read_transport_test.dart'
+      - 'packages/primecare_runtime/test/own_notifications_repository_test.dart'
       - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
       - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
       - 'packages/primecare_ui/lib/src/components/governance_components.dart'
@@ -56,11 +56,11 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter test test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart test/executive_read_transport_test.dart
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter analyze lib/src/network/api_client.dart lib/src/repositories/own_notifications_repository.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/executive_read_transport_test.dart
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: apps/primecare_clinic
       - run: flutter test test/psw_notifications_controller_test.dart

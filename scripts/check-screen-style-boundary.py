@@ -24,10 +24,10 @@ WORKER = 'cloudflare/workers/src/workspace-registry.json'
 WEB_DISPATCHER = 'websites/typescript/src/managed-routes.ts'
 WEB_ENTRY = 'websites/typescript/src/main.ts'
 SPECIALISTS = {'/care': ('psw', 'renderPSW'), '/growth': ('growth', 'renderGrowth')}
-DASHBOARD_DART = ('packages/flutter_core/lib/dashboard_pages/',
+DASHBOARD_DART = ('packages/primecare_runtime/lib/dashboard_pages/',
                   'packages/primecare_dashboard_pages/lib/dashboard_pages/',
-                  'packages/flutter_core/lib/dashboard_widgets/',
-                  'packages/flutter_core/lib/registry/widgets/')
+                  'packages/primecare_runtime/lib/dashboard_widgets/',
+                  'packages/primecare_runtime/lib/registry/widgets/')
 DASHBOARD_WEB = ('websites/typescript/src/', 'packages/shared/src/dashboard-pages/',
                  'packages/shared/src/dashboard-widgets/', 'packages/shared/src/tenant-dashboard/')
 

@@ -1,10 +1,10 @@
-import 'package:flutter_core/theme/theme_settings_provider.dart';
-import 'package:flutter_core/registry/widgets/responsive_screen_wrapper.dart';
-import 'package:flutter_core/theme/personal_theme.dart';
-import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:primecare_runtime/theme/theme_settings_provider.dart';
+import 'package:primecare_runtime/registry/widgets/responsive_screen_wrapper.dart';
+import 'package:primecare_runtime/theme/personal_theme.dart';
+import 'package:primecare_runtime/theme/theme_contrast.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart' show AppShellBoundary;
+import 'package:primecare_runtime/primecare_runtime.dart' show AppShellBoundary;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';

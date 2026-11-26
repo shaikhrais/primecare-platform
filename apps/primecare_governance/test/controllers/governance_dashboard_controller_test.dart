@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/governance/controllers/governance_dashboard_controller.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
 import 'package:primecare_governance/governance/models/governance_report.dart';
 

@@ -1,7 +1,7 @@
 // Governance - Category: adapter | Purpose: Generated type-safe API client wrappers connected to the central API Registry.
 // THIS FILE IS GENERATED. DO NOT EDIT DIRECTLY.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class GeneratedApiClient {
   final Ref ref;

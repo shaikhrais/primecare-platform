@@ -1,10 +1,10 @@
-import 'package:flutter_core/theme/prime_semantic_palette.dart';
+import 'package:primecare_runtime/theme/prime_semantic_palette.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Compliance Checklist platform logic.
 // unnecessary import removed
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import '../models/governance_report.dart';
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 class GovernanceComplianceChecklist extends StatelessWidget {
   final GovernanceReport report;

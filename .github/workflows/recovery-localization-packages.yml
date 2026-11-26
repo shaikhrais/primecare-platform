@@ -6,8 +6,8 @@ on:
     paths:
       - 'packages/primecare_recovery_ui/**'
       - 'packages/primecare_localization/**'
-      - 'packages/flutter_core/lib/src/resilience/system_recovery_mode.dart'
-      - 'packages/flutter_core/lib/src/localization/localization_scaffold.dart'
+      - 'packages/primecare_runtime/lib/src/resilience/system_recovery_mode.dart'
+      - 'packages/primecare_runtime/lib/src/localization/localization_scaffold.dart'
       - '.github/workflows/recovery-localization-packages.yml'
 permissions: {contents: read}
 jobs:

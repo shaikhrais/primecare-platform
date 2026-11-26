@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 import 'package:primecare_governance/governance/services/production_readiness_service.dart';
 import 'package:primecare_governance/governance/services/security_audit_service.dart';
 

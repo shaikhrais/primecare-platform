@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_core/models/screen.dart' show AppShellBoundary;
-import 'package:flutter_core/models/screen_manager.dart';
+import 'package:primecare_runtime/models/screen.dart' show AppShellBoundary;
+import 'package:primecare_runtime/models/screen_manager.dart';
 import '../features/auth/generated_managed_routes.g.dart';
 import '../features/platform/platform_master_catalog.g.dart';
 import '../features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute;

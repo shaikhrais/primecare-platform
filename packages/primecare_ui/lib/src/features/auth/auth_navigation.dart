@@ -1,4 +1,4 @@
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_runtime/primecare_runtime.dart';
 
 /// Preserve the validated app destination and requested accessibility semantics
 /// across the existing public auth pages.

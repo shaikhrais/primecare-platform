@@ -2,9 +2,9 @@ name: Live screen text editor and refresh
 on:
   push:
     branches: [main]
-    paths: ['packages/primecare_localization/lib/src/localization/live_screen_text.dart', 'packages/flutter_core/lib/src/localization/live_screen_text.dart', '.github/workflows/live-screen-text.yml']
+    paths: ['packages/primecare_localization/lib/src/localization/live_screen_text.dart', 'packages/primecare_runtime/lib/src/localization/live_screen_text.dart', '.github/workflows/live-screen-text.yml']
   pull_request:
-    paths: ['cloudflare/workers/src/screen-text*', 'cloudflare/workers/src/business-modules.ts', 'cloudflare/workers/src/governance-api.ts', 'packages/database/migrations/*screen_text*', 'websites/typescript/src/**', 'packages/flutter_core/lib/src/localization/**', 'packages/primecare_localization/lib/src/localization/live_screen_text.dart', 'packages/flutter_core/lib/theme/theme_center_text_generated.dart', 'packages/primecare_theme/lib/theme/theme_center_text_generated.dart', 'packages/flutter_core/lib/registry/widgets/theme_center_panel.dart', 'packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/localization/screens/**', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/lib/src/features/workspace/**', 'packages/primecare_ui/lib/src/features/reports/**', 'packages/primecare_ui/lib/src/features/auth/**', 'packages/primecare_ui/lib/src/features/training/**', 'packages/primecare_ui/test/admin_training_test.dart', 'scripts/register-admin-training.py', 'packages/primecare_ui/lib/src/localization/auth_screen_text*', 'packages/primecare_ui/test/auth_live_screen_text_test.dart', 'scripts/*screen-text*', 'packages/flutter_core/test/live_screen_text_test.dart', '.github/workflows/live-screen-text.yml']
+    paths: ['cloudflare/workers/src/screen-text*', 'cloudflare/workers/src/business-modules.ts', 'cloudflare/workers/src/governance-api.ts', 'packages/database/migrations/*screen_text*', 'websites/typescript/src/**', 'packages/primecare_runtime/lib/src/localization/**', 'packages/primecare_localization/lib/src/localization/live_screen_text.dart', 'packages/primecare_runtime/lib/theme/theme_center_text_generated.dart', 'packages/primecare_theme/lib/theme/theme_center_text_generated.dart', 'packages/primecare_runtime/lib/registry/widgets/theme_center_panel.dart', 'packages/primecare_runtime/lib/registry/widgets/theme_settings_drawer.dart', 'packages/primecare_ui/lib/src/application/base_primecare_app.dart', 'packages/primecare_ui/lib/src/localization/screens/**', 'packages/primecare_ui/lib/src/screens/admin/**', 'packages/primecare_ui/lib/src/features/workspace/**', 'packages/primecare_ui/lib/src/features/reports/**', 'packages/primecare_ui/lib/src/features/auth/**', 'packages/primecare_ui/lib/src/features/training/**', 'packages/primecare_ui/test/admin_training_test.dart', 'scripts/register-admin-training.py', 'packages/primecare_ui/lib/src/localization/auth_screen_text*', 'packages/primecare_ui/test/auth_live_screen_text_test.dart', 'scripts/*screen-text*', 'packages/primecare_runtime/test/live_screen_text_test.dart', '.github/workflows/live-screen-text.yml']
 permissions:
   contents: read
 concurrency:
@@ -54,11 +54,11 @@ jobs:
       - run: flutter analyze --no-fatal-infos lib/src/localization/live_screen_text.dart
         working-directory: packages/primecare_localization
       - run: flutter pub get
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter analyze lib/src/localization/live_screen_text.dart lib/registry/widgets/theme_center_panel.dart lib/registry/widgets/theme_settings_drawer.dart
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter test test/live_screen_text_test.dart test/theme_center_test.dart
-        working-directory: packages/flutter_core
+        working-directory: packages/primecare_runtime
       - run: flutter pub get
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/features/training

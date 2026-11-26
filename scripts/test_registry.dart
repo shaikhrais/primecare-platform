@@ -1,6 +1,6 @@
-import 'package:flutter_core/registry/platform_role.dart';
-import 'package:flutter_core/registry/platform_screen_registry.dart';
-import 'package:flutter_core/models/governance_role.dart';
+import 'package:primecare_runtime/registry/platform_role.dart';
+import 'package:primecare_runtime/registry/platform_screen_registry.dart';
+import 'package:primecare_runtime/models/governance_role.dart';
 import 'package:flutter/material.dart';
 
 void main() {
