@@ -37,7 +37,7 @@ def load_route_constants():
     return constants
 
 def parse_sidebar_menus():
-    nav_file = os.path.join(PROJECT_ROOT, "packages", "flutter_core", "lib", "config", "navigation_registry.dart")
+    nav_file = os.path.join(PROJECT_ROOT, "packages", "primecare_platform_registries", "lib", "config", "navigation_registry.dart")
     if not os.path.exists(nav_file):
         return {}
     

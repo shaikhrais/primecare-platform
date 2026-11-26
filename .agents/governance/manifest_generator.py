@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import governance_db
 
 def generate():
-    registry_path = 'packages/flutter_core/lib/config/navigation_registry.dart'
+    registry_path = 'packages/primecare_platform_registries/lib/config/navigation_registry.dart'
     if not os.path.exists(registry_path):
         print(f"Error: {registry_path} does not exist")
         sys.exit(1)
@@ -170,12 +170,12 @@ def generate():
     rep.append('// Source: .agents/governance/governance.db (role_screen_permissions table)')
     rep.append('')
     rep.append("import 'package:lucide_icons/lucide_icons.dart';")
-    rep.append("import '../models/navigation_item.dart';")
-    rep.append("import '../routes/groups/corporate_routes.dart';")
-    rep.append("import '../routes/groups/franchise_routes.dart';")
-    rep.append("import '../routes/groups/clinical_routes.dart';")
-    rep.append("import '../routes/groups/client_routes.dart';")
-    rep.append("import '../routes/groups/common_routes.dart';")
+    rep.append("import 'package:primecare_screen_models/models/navigation_item.dart';")
+    rep.append("import 'package:primecare_route_catalog/routes/groups/corporate_routes.dart';")
+    rep.append("import 'package:primecare_route_catalog/routes/groups/franchise_routes.dart';")
+    rep.append("import 'package:primecare_route_catalog/routes/groups/clinical_routes.dart';")
+    rep.append("import 'package:primecare_route_catalog/routes/groups/client_routes.dart';")
+    rep.append("import 'package:primecare_route_catalog/routes/groups/common_routes.dart';")
     rep.append('')
     rep.append('class NavigationRegistry {')
     rep.append('  static final Map<String, List<PrimeCareNavigationItem>> _roleMenus = {')

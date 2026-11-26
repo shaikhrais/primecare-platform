@@ -1,7 +1,7 @@
 import 'dart:io';
 
 void main() {
-  final file = File('packages/flutter_core/lib/config/navigation_registry.dart');
+  final file = File('packages/primecare_platform_registries/lib/config/navigation_registry.dart');
   final lines = file.readAsLinesSync();
   
   var markdown = '| Role | Total Items | Items | Routes |\n';

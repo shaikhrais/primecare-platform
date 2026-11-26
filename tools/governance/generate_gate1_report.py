@@ -54,7 +54,7 @@ def main():
 
     # 4. Check sidebar links
     # Load navigation_registry.dart content to check maps
-    nav_file = os.path.join(PROJECT_ROOT, "packages", "flutter_core", "lib", "config", "navigation_registry.dart")
+    nav_file = os.path.join(PROJECT_ROOT, "packages", "primecare_platform_registries", "lib", "config", "navigation_registry.dart")
     nav_content = ""
     if os.path.exists(nav_file):
         with open(nav_file, "r", encoding="utf-8") as f:

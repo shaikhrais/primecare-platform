@@ -54,7 +54,7 @@ def run_phase_0_backup(conn):
         backup_log.append(f"Backed up route groups to {dest}")
 
     # Backup navigation registry
-    nav_src = os.path.join(PROJECT_ROOT, "packages", "flutter_core", "lib", "config", "navigation_registry.dart")
+    nav_src = os.path.join(PROJECT_ROOT, "packages", "primecare_platform_registries", "lib", "config", "navigation_registry.dart")
     if os.path.exists(nav_src):
         dest = os.path.join(BACKUP_DIR, "navigation_registry.dart")
         shutil.copy(nav_src, dest)
