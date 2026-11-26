@@ -420,7 +420,7 @@ PackageCatalog createPrimeCarePackageCatalog() => PackageCatalog([
   PackageDescriptor(
     id: 'primecare_theme_preferences', kind: PackageKind.library,
     contractVersion: 1,
-    dependencies: ["primecare_models", "primecare_preferences", "primecare_theme"],
+    dependencies: ["primecare_layout", "primecare_models", "primecare_preferences", "primecare_theme", "primecare_ui_foundation"],
   ),
   PackageDescriptor(
     id: 'primecare_ui', kind: PackageKind.ui,

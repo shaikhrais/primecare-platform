@@ -14,6 +14,10 @@ dependencies:
     path: ../primecare_preferences
   primecare_theme:
     path: ../primecare_theme
+  primecare_layout:
+    path: ../primecare_layout
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
 dev_dependencies:
   flutter_test:
     sdk: flutter

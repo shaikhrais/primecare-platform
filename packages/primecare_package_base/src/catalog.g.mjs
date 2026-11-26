@@ -1662,9 +1662,11 @@ export function createPrimeCarePackageCatalog() {
       "primecare_theme_preferences"
     ],
     "dependencies": [
+      "primecare_layout",
       "primecare_models",
       "primecare_preferences",
-      "primecare_theme"
+      "primecare_theme",
+      "primecare_ui_foundation"
     ],
     "developmentDependencies": [],
     "hosting": "library-only"
