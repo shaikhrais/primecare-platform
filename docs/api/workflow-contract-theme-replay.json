@@ -38,7 +38,7 @@
   },
   "dependencyAmendments": {
     "scripts/check-shared-ui-boundary.py": {
-      "updatedSha256": "b1e663446a6f3caa045b4ded4e3c56e5c7d91ee70db1c73427696080f909f9b7",
+      "updatedSha256": "b7b0e44c037045c9e9ef735358e6995a9c4976267df31b336fe343137324ffc2",
       "edits": [
         {
           "begin": 4285,
@@ -47,16 +47,52 @@
           "new": "# A constructor can be stored or passed without being called at this location.\n# Keep this separate from calls so each expression has one diagnostic.\nCOLOR_TEAR_OFF = re.compile(r'\\bColor\\s*\\.\\s*(?:new|fromARGB|fromRGBO|from)\\b(?!\\s*\\()')\n"
         },
         {
-          "begin": 4504,
-          "end": 4504,
+          "begin": 4503,
+          "end": 4503,
           "old": "",
-          "new": "    # SDK Switch.thumbIcon requires the concrete Icon type; colors still come from ThemeData.\n    'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart': ('Radio','Switch','Icon'),\n"
+          "new": "\n    # SDK Switch.thumbIcon requires the concrete Icon type; colors still come from ThemeData.\n    'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart': ('Radio','Switch','Icon'),"
+        },
+        {
+          "begin": 5978,
+          "end": 5978,
+          "old": "",
+          "new": "\n# These two canonical theme definitions were relocated from the old theme\n# namespace. Only literal color definitions belong here; control checks remain on.\nTHEME_COLOR_DEFINITION_FILES = {\n    'packages/primecare_theme/lib/theme/theme_color_codec.dart',\n    'packages/primecare_theme/lib/theme/app_theme.dart',\n    'packages/primecare_theme/lib/theme/theme_center_theme_data.dart',\n    'packages/primecare_theme/lib/theme/prime_semantic_palette.dart',\n    'packages/primecare_theme/lib/theme/theme_contrast.dart',\n    'packages/primecare_theme/lib/theme/personal_theme.dart',\n    'packages/primecare_theme/lib/theme/theme_config_generated.dart',\n}"
         },
         {
           "begin": 7679,
           "end": 7679,
           "old": "",
           "new": "indings += [(m.start(), 'theme-color', m[0]) for m in COLOR_TEAR_OFF.finditer(code)]\n    f"
+        },
+        {
+          "begin": 8398,
+          "end": 8398,
+          "old": "",
+          "new": "source = path.read_text(encoding='utf-8')\n            # The canonical ThemeData builder uses FilledButton.styleFrom solely to\n            # construct a ButtonStyle, not a widget. Mask that exact existing call\n            # without allowing FilledButton constructors elsewhere in the file.\n            if relative == 'packages/primecare_theme/lib/theme/theme_center_theme_data.dart':\n                source = source.replace('FilledButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))', '            styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))')\n            "
+        },
+        {
+          "begin": 8435,
+          "end": 8440,
+          "old": "path.",
+          "new": "sou"
+        },
+        {
+          "begin": 8441,
+          "end": 8441,
+          "old": "",
+          "new": "c"
+        },
+        {
+          "begin": 8442,
+          "end": 8467,
+          "old": "ad_text(encoding='utf-8')",
+          "new": ""
+        },
+        {
+          "begin": 8524,
+          "end": 8524,
+          "old": "",
+          "new": "\n                if rule == 'theme-color' and relative in THEME_COLOR_DEFINITION_FILES:\n                    continue"
         },
         {
           "begin": 9405,

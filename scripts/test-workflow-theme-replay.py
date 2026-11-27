@@ -26,6 +26,19 @@ class ReplayTests(unittest.TestCase):
         self.assertEqual(self.hashes, hashes)
         self.assertEqual(len(self.replay.recipes), 189)
 
+    def test_relocated_dashboard_requires_exact_shim_and_destination(self):
+        filename = 'packages/flutter_core/lib/registry/widgets/responsive_split_dashboard.dart'
+        target = 'packages/primecare_dashboard_native/lib/registry/widgets/responsive_split_dashboard.dart'
+        shim = (ROOT/filename).read_bytes()
+        with self.assertRaisesRegex(ValueError, 'exceeds exact reviewed'):
+            self.replay.verify(filename, shim+b'// extra\n')
+        original = m.local_file
+        with patch.object(m, 'local_file', side_effect=lambda root, path: (
+                type('ModifiedSource', (), {'read_bytes': lambda self: (ROOT/target).read_bytes()+b'// extra\n'})()
+                if path == target else original(root, path))):
+            with self.assertRaisesRegex(ValueError, 'exceeds exact reviewed'):
+                self.replay.verify(filename, shim)
+
     def test_extra_code_route_and_label_drift_cannot_use_a_theme_receipt(self):
         variants = [self.content+b'\nvoid unreviewed() {}\n',
             self.content.replace(b'/v1/premium/user', b'/v1/premium/unreviewed', 1),

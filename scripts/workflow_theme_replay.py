@@ -141,5 +141,20 @@ class WorkflowThemeReplay:
             source, count = migrate(filename, source) if method == 'migrate_source' else migrate(source)
             if count != expected:
                 raise ValueError('Reviewed theme replay operation count changed: ' + filename + ' / ' + name)
+        if filename == 'packages/flutter_core/lib/registry/widgets/responsive_split_dashboard.dart':
+            target = 'packages/primecare_dashboard_native/lib/registry/widgets/responsive_split_dashboard.dart'
+            shim = b"export 'package:primecare_dashboard_native/registry/widgets/responsive_split_dashboard.dart';\n"
+            if content == shim:
+                for original, relocated in (
+                    ("import '../../config/screen_breakpoints.dart';", "import 'package:primecare_layout/config/screen_breakpoints.dart';"),
+                    ("import 'responsive_grid.dart';", "import 'package:primecare_layout/registry/widgets/responsive_grid.dart';"),
+                    ("import '../../theme/theme_contrast.dart';", "import 'package:primecare_theme/theme/theme_contrast.dart';"),
+                ):
+                    if source.count(original) != 1:
+                        raise ValueError('Unexpected relocated dashboard import: ' + original)
+                    source = source.replace(original, relocated, 1)
+                if source.encode('utf-8') != local_file(self.root, target).read_bytes():
+                    raise ValueError('Source exceeds exact reviewed theme replay: ' + target)
+                return
         if source.encode('utf-8') != content:
             raise ValueError('Source exceeds exact reviewed theme replay: ' + filename)
