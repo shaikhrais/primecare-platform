@@ -4,7 +4,6 @@ import 'package:primecare_models/src/models/auth_state.dart';
 import 'package:primecare_theme_preferences/theme/theme_settings_provider.dart';
 import '../auth_service.dart' show authProvider;
 export 'package:primecare_theme_preferences/theme/theme_settings_provider.dart';
-import 'package:primecare_theme/theme/theme_settings_state.dart';
 
 class ThemeSettingsNotifier extends ThemeSettingsNotifierBase {
   @override AuthState watchThemeAccount() => ref.watch(authProvider);
